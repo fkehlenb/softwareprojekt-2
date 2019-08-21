@@ -1,0 +1,12 @@
+#==========Gitignore==========
+
+#===Ignore deploy files===
+target\
+
+#===Ignore IntelliJ files===
+out\
+target\
+
+#===Ignore compile files===
+*.class
+*.synctex.gz
