@@ -1,0 +1,16 @@
+image: maven:3.6.1-jdk-11
+
+stages:
+  - Build
+
+build-01:
+  tags:
+    - docker
+  stage: Build
+  script:
+    - "mvn -f pom.xml package"
+  artifacts:
+    name: "$CI_JOB_NAME-$CI_COMMIT_REF_NAME"
+    when: on_success
+    paths:
+      - "target/*.jar"
