@@ -6,6 +6,8 @@ target\
 #===Ignore IntelliJ files===
 out\
 target\
+**\target\*
+**\out\*
 
 #===Ignore compile files===
 *.class
