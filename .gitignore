@@ -1,11 +1,11 @@
 #==========Gitignore==========
 
 #===Ignore deploy files===
-target\
+
+target
 
 #===Ignore IntelliJ files===
 out\
-target\
 **\target\*
 **\out\*
 
