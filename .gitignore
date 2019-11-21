@@ -3,6 +3,7 @@
 #===Ignore deploy files===
 
 target
+.idea
 
 #===Ignore IntelliJ files===
 out\
