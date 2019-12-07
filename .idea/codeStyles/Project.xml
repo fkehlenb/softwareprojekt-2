@@ -1,0 +1,18 @@
+<component name="ProjectCodeStyleConfiguration">
+  <code_scheme name="Project" version="173">
+    <ScalaCodeStyleSettings>
+      <option name="alwaysUsedImports">
+        <array>
+          <option value="de.dfki.cps.DiagramServer._" />
+          <option value="org.scalatra._" />
+          <option value="org.scalatra.servlet.servlet" />
+          <option value="org.specs._" />
+          <option value="scala.util.parsing.combinator.Parsers" />
+          <option value="scalate.ScalateSupport" />
+          <option value="specific.sysml.parser.SysMLParsers" />
+          <option value="xml.node" />
+        </array>
+      </option>
+    </ScalaCodeStyleSettings>
+  </code_scheme>
+</component>
