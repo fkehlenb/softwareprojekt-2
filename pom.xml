@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId> de.unibremen.swp2 </groupId>
-    <artifactId> Softwareprojekt2 </artifactId>
+    <groupId>de.unibremen.swp2</groupId>
+    <artifactId>Softwareprojekt2</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>AbgabeService</name>
@@ -14,6 +14,13 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <repositories>
+        <repository>
+            <id>prime-repo</id>
+            <name>Prime Repo</name>
+            <url>http://repository.primefaces.org</url>
+        </repository>
+    </repositories>
 
     <!-- Dependencies -->
     <dependencies>
@@ -67,8 +74,22 @@
         <dependency>
             <groupId>net.bootsfaces</groupId>
             <artifactId>bootsfaces</artifactId>
-            <version>1.4.1</version>
+            <version>1.4.2</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.primefaces.themes</groupId>
+            <artifactId>all-themes</artifactId>
+            <version>1.0.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.primefaces.themes</groupId>
+            <artifactId>default</artifactId>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
         <dependency>
