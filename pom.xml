@@ -89,7 +89,8 @@
         </dependency>
         <dependency>
             <groupId>org.primefaces.themes</groupId>
-            <artifactId>default</artifactId>
+            <artifactId>cupertino</artifactId>
+            <version>1.0.10</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
         <dependency>
