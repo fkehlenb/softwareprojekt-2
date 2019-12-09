@@ -1,8 +1,9 @@
 image: maven:3.6.1-jdk-11
 
 stages:
-  - deploy
   - build
+  - deploy
+
 
 
 compile_pdf:
