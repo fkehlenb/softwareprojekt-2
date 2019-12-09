@@ -8,7 +8,7 @@ stages:
 compile_pdf:
   stage: build
   image: timnn/texlive  # use a Docker image for LaTeX from https://hub.docker.com/
-  script: pdflatex doc/Architekturbeschreibung.pdf   # build the pdf just as you would on your computer
+  script: pdflatex doc/Architekturbeschreibung.tex   # build the pdf just as you would on your computer
   artifacts:
     paths:
       - doc/Architekturbeschreibung.pdf  # instruct GitLab to keep the main.pdf file
@@ -23,6 +23,7 @@ pages:
       - public  # instruct GitLab to keep the public folder
   only:
     - master  # deploy the pdf only for commits made to the master branch
+    - doc
 
 
 build-01:
