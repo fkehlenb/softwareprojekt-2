@@ -128,3 +128,10 @@ public class UserValidationService {
 #+end_src
 
 Extract Local Var:
+
+
+https://hibernate.org/validator/
+
+http://logback.qos.ch/
+
+https://eclipse-ee4j.github.io/jersey/
