@@ -808,6 +808,12 @@ die Entstehung anhand der Strategien erläutert werden.
 \section{Datensicht}
 \label{sec:datensicht}
 
+{ \em Zunächst existiert die Klasse Probe, welche die ID, die Legierung als (???), die Art der Behandlung und die Materialeigenschaften beinhaltet. Eine bestimmte Probe kann ausschließlich einem Träger zugeordnet werden. 
+Die Klasse Träger besteht wieder aus einer ID, dem aktuellen Standort als  Standort und dem Typ als Trägerart. Ein Träger kann beliebig viele Proben beinhalten. Ein bestimmter Träger kann genau einer Experimentiertstation (ES) zugeordnet sein. Eine Experimentiertstation besteht aus einem Namen als String und dem Ort, an dem die ES zu finden ist als Standort. Einer bestimmten ES können beliebig viele Träger zugeordnet sein, während ihr immer nur einTechnologe zugeordnet sein wird. Die ES ist immer nur einem bestimmten Prozessschritt (PS) zugeordnet. Ein Prozessschritt beinhaltet den Namen als String, die Prozessparameter (PP) als Prozessparameter, der Probenzustand, die Dauer und die Zustände und (???). Ein Prozessschritt ist einer bestimmten Prozesskette zugeordnet. Die Prozesskette (PK) beinhaltet den Namen als String. Sie beherbergt beliebig viele Prozessschritte und beliebig viele Prozesskettenaufträge. Der  Prozesskettenauftrag (PKAuftrag) kann nur einer Prozesskette zugeordnet sein und hat einen KettenInstanzwert (KIW) zugeordnet. \\
+Der Ketteninstanzwert ist einem PKAuftrag zugeordnet und beinhaltet beliebig viele Schnittinstanzwerte (SIW). Die Schnittinstanzwerte beinhalten einen Wert, welcher über KIW, PKAuftrag und die PK einem Prozessschritt zugeschrieben werden. Ein SIW kann einem KIW zugeordnet sein. 
+Dies wird so gehandhabt, da man im Nachhinein, nachdem eine Prozesskette instanziiert wurde, die Werte noch einfach ändern können soll. 
+}
+
 {\it Hier wird das der Anwendung zugrundeliegende Datenmodell
   beschrieben. Hierzu werden neben einem erläuternden Text auch ein
   oder mehrere {UML}-Klassendiagramme verwendet. Das hier beschriebene
