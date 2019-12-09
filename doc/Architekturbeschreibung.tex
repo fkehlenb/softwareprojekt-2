@@ -62,6 +62,9 @@
   \\Architekturbeschreibung}
   \fancyhead[LE,RO]{Seite \thepage\\\slshape \leftmark\\\slshape \rightmark}
 
+%Unicode Minuszeichen deklarieren, um es nicht überall austauschen zu müssen
+\DeclareUnicodeCharacter{2212}{-}
+
 %
 % Und jetzt geht das Dokument los....
 %
@@ -162,27 +165,7 @@ Version & Datum & Änderungen \\
 
 
 \subsection{Definitionen, Akronyme und Abkürzungen}
-\begin{table}[]
-    \centering
-    \begin{tabular}{|p{15cm}|}
-    \hline
-          \textbf{Problem 5:} Upload/Download Prozessketten- und Prozessschrittparameter \\ \hline
-          Das Software kann neue Prozessketten und Prozessschrittparameter aus JSON-Dateien hochladen, und bestehende als JSON-Dateien exportieren.
-          \\ \hline
-          \textbf{Einflussfaktoren: } \\
-          T 1.5: Persistent \\
-          P 1.1.1: Upload\\
-          P 1.1.2: Download\\
-          XXX : Datenbank
-          \hline
-          \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} XXX
-          \\ \hline
-    \end{tabular}
 
-    \caption{Caption}
-    \label{tab:my_label}
-\end{table}
 
 \subsection{Referenzen}
 
@@ -234,6 +217,8 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
   Verwendet eine eindeutige Nummerierung der Faktoren, um sie auf den
   Problemkarten einfach referenzieren zu können.  }
   %%%%%%%%%%%%%%%%%%
+\begin{table}[]
+\centering
 \begin{tabular}{|p{1cm}|p{3cm}|p{5cm}|p{1cm}|p{5cm}|}
 \hline
 \begin{tabular}[c]{@{}l@{}}Abge-\\ leitet\\aus\end{tabular} & Einflussfaktor                                                                        & \begin{tabular}[c]{@{}l@{}}Flexibilität und \\ Veränderlichkeit\end{tabular}                                                              & \begin{tabular}[c]{@{}l@{}}++/\\\\ −−\end{tabular} & Auswirkungen                                                                                                                                                                                                                              \\ \hline
@@ -249,6 +234,10 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
                                                           & \begin{tabular}[c]{@{}l@{}}Nicht alle \\ Entwickler \\ haben die gleiche \\ Programmier-\\erfahrung \\ und auch nicht \\ mit den gleichen \\ Technologien. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Hohe \\ Veränderlichkeit \\durch Ausführen des\\ Projekts und \\Recherche. \end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Implementierung \\ kann Mangel enthalten. \\\end{tabular} \\ \hline
 
 \end{tabular}
+\end{table}
+
+\begin{table}[]
+\centering
 \begin{tabular}{|p{1cm}|p{3cm}|p{5cm}|p{1cm}|p{5cm}|}
 \hline
 \begin{tabular}[c]{@{}l@{}}Abge-\\ leitet\\aus\end{tabular} & Einflussfaktor                                                                        & \begin{tabular}[c]{@{}l@{}}Flexibilität und \\ Veränderlichkeit\end{tabular}                                                              & \begin{tabular}[c]{@{}l@{}}++/\\\\ −−\end{tabular} & Auswirkungen                                                                                                                                                                                                                              \\ \hline
@@ -272,6 +261,10 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
 \multicolumn{5}{|l|}{T1.6: Build System}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Maven\\ muss als\\ Build-System \\verwendet werden.\end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine Flexibilität, da\\   Vorgaben bestehen. /\\   Keine Veränderbarkeit, da\\  Vorgaben bestehen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Das Projekt muss\\ maven-build\\ fähig sein.\\\end{tabular} \\ \hline
 \end{tabular}
+\end{table}
+
+\begin{table}[]
+\centering
 \begin{tabular}{|p{1cm}|p{3cm}|p{5cm}|p{1cm}|p{5cm}|}
 \hline
 \begin{tabular}[c]{@{}l@{}}Abge-\\ leitet\\aus\end{tabular} & Einflussfaktor                                                                        & \begin{tabular}[c]{@{}l@{}}Flexibilität und \\ Veränderlichkeit\end{tabular}                                                              & \begin{tabular}[c]{@{}l@{}}++/\\\\ −−\end{tabular} & Auswirkungen                                                                                                                                                                                                                              \\ \hline
@@ -290,6 +283,10 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
 \multicolumn{5}{|l|}{P1.2: Protokollierung}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Die Übergänge \\in den \\Prozessketten\\ müssen\\ protokolliert\\ werden.\\ \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss \\vorsehen, dass für jede \\Prozesskette ein \\Protokoll gespeichert wird, \\das automatisch nach jedem\\ Prozessschritt mit \\Nachbedingungen u.ä.\\ (Was??) ergänzt wird.\end{tabular} \\ \hline
 \end{tabular}
+\end{table}
+
+\begin{table}[]
+\centering
 \begin{tabular}{|p{1cm}|p{3cm}|p{5cm}|p{1cm}|p{5cm}|}
 \hline
 \begin{tabular}[c]{@{}l@{}}Abge-\\ leitet\\aus\end{tabular} & Einflussfaktor                                                                        & \begin{tabular}[c]{@{}l@{}}Flexibilität und \\ Veränderlichkeit\end{tabular}                                                              & \begin{tabular}[c]{@{}l@{}}++/\\\\ −−\end{tabular} & Auswirkungen                                                                                                                                                                                                                              \\ \hline
@@ -305,6 +302,10 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
  \multicolumn{5}{|l|}{P1.4.2: Kaputte Stationen}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Experimentier-\\stationen \\sollen als kaputt\\ gemeldet werden\\ können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Anwendung \\muss mit kaputten\\Stationen umgehen\\ können: Diese \\sollte nicht mehr\\ eingeplant werden.\\ Ebenfalls sollten \\Experimentierstationen \\für Benutzer als kaputt \\anzeigbar sein.\end{tabular} \\ \hline
 \end{tabular}
+\end{table}
+
+\begin{table}[]
+\centering
 \begin{tabular}{|p{1cm}|p{3cm}|p{5cm}|p{1cm}|p{5cm}|}
 \hline
 \begin{tabular}[c]{@{}l@{}}Abge-\\ leitet\\aus\end{tabular} & Einflussfaktor                                                                        & \begin{tabular}[c]{@{}l@{}}Flexibilität und \\ Veränderlichkeit\end{tabular}                                                              & \begin{tabular}[c]{@{}l@{}}++/\\\\ −−\end{tabular} & Auswirkungen                                                                                                                                                                                                                              \\ \hline
@@ -319,6 +320,10 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
 \multicolumn{5}{|l|}{P1.7.2: Automatisches Zuordnen}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Alternativ sollen\\ Aufträgen \\automatisch\\ Proben/Trägern \\zugeordnet \\werden. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da vom Chinese Menu,\\ ist diese Anforderung\\ optional.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Anwendung\\ muss die Parameter \\der Prozessschritte\\ einer Prozesskette \\auswerten können, und \\daraus schließen, welche \\Proben/Träger\\ gebraucht werden. \end{tabular} \\ \hline
 \end{tabular}
+\end{table}
+
+\begin{table}[]
+\centering
 \begin{tabular}{|p{1cm}|p{3cm}|p{5cm}|p{1cm}|p{5cm}|}
 \hline
 \begin{tabular}[c]{@{}l@{}}Abge-\\ leitet\\aus\end{tabular} & Einflussfaktor                                                                        & \begin{tabular}[c]{@{}l@{}}Flexibilität und \\ Veränderlichkeit\end{tabular}                                                              & \begin{tabular}[c]{@{}l@{}}++/\\\\ −−\end{tabular} & Auswirkungen                                                                                                                                                                                                                              \\ \hline                                                       \multicolumn{5}{|l|}{P1.7.3: Prioritäten}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
@@ -332,6 +337,10 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
 \multicolumn{5}{|l|}{P1.10: Kaputte Proben}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Proben sollen\\als kaputt\\gemeldet\\werden können.\\ \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss \\vorsehen, dass eine Probe\\unterschiedliche Zustände hat\\(kaputt/nicht kaputt)\\und dass der Übergang\\vom Nutzer hervorgerufen \\wird.\\ \end{tabular} \\ \hline
 \end{tabular}
+\end{table}
+
+\begin{table}[]
+\centering
 \begin{tabular}{|p{1cm}|p{3cm}|p{5cm}|p{1cm}|p{5cm}|}
 \hline
 \begin{tabular}[c]{@{}l@{}}Abge-\\ leitet\\aus\end{tabular} & Einflussfaktor                                                                        & \begin{tabular}[c]{@{}l@{}}Flexibilität und \\ Veränderlichkeit\end{tabular}                                                              & \begin{tabular}[c]{@{}l@{}}++/\\\\ −−\end{tabular} & Auswirkungen                                                                                                                                                                                                                              \\ \hline
@@ -346,6 +355,10 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
 \multicolumn{5}{|l|}{P2.2:Anzeige}                                                                         \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Je nach Rechten\\des Benutzers\\sollen Prozess-\\schritte, -ketten,\\Stationen,\\ Proben,\\Benutzer,\\ Aufträge,\\dynamische\\ Abläufe\\und/oder\\Transportaufträge\\angezeigt werden. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss\\eine Vielzahl an\\Informationen aus der\\Datenbank auslesen und\\anzeigen können, mit dem\\Hinblick darauf, dass es sich\\teilweise um sehr große\\Mengen handelt (Proben).\end{tabular} \\ \hline
 \end{tabular}
+\end{table}
+
+\begin{table}[]
+\centering
 \begin{tabular}{|p{1cm}|p{3cm}|p{5cm}|p{1cm}|p{5cm}|}
 \hline
 \begin{tabular}[c]{@{}l@{}}Abge-\\ leitet\\aus\end{tabular} & Einflussfaktor                                                                        & \begin{tabular}[c]{@{}l@{}}Flexibilität und \\ Veränderlichkeit\end{tabular}                                                              & \begin{tabular}[c]{@{}l@{}}++/\\\\ −−\end{tabular} & Auswirkungen                                                                                                                                                                                                                              \\ \hline
@@ -353,7 +366,8 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
                                                           & \begin{tabular}[c]{@{}l@{}}Es soll\\unterschiedliche \\Rollen mit\\unterschiedlichen\\Rechten und\\angezeigten\\Informationen\\ geben.\\Jeder User\\soll mindestens\\eine Rolle haben. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss\\zwischen diesen Rollen\\unterscheiden können und \\sichergehen, dass bestimmte\\Funktionen und\\ Informationen nur zur \\Verfügung stehen wenn der \\Benutzer die Rechte dafür \\hat.\end{tabular} \\ \hline
  \multicolumn{5}{|l|}{P3.2: Authentifizierung}                                                                         \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Benutzer sollten\\sich in das\\System einloggen\\müssen, um\\relevante\\Informationen\\angezeigt zu\\bekommen. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss\\eine Login Seite\\vorsehen; ein Zugriff auf\\die Anwendung ohne sich\\einzuloggen soll nicht\\möglich sein.\end{tabular} \\ \hline
-\end{tabular}\\
+\end{tabular}
+\end{table}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Probleme und Strategien} \label{sec:strategien}
@@ -397,10 +411,10 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 1:} User Rollen \\ \hline
-          Unterschiedliche Users können unterschiedliche Daten des Software sehen, jede User hat unterschiedlichen Möglichkeiten mit der Datum zu bearbeiten. \\ \hline
+          \textbf{Problem 1:} Userrollen \\ \hline
+          Es soll unterschiedliche Rollen geben, die unterschiedliche Rechte/Fähigkeiten haben; jeder User kann mehrere Rollen übernehmen. \\ \hline
           \textbf{Einflussfaktoren: } \\
-          T 1.5: Persistent \\
+          T 1.5: Persistenz \\
           T 1.7: Multiple Users\\
           O 1.1: Time-To-Market \\
           \hline
@@ -418,13 +432,13 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \begin{tabular}{|p{15cm}|}
     \hline
           \textbf{Problem 2:} Datensicherheit \\ \hline
-          Jeder User darf nur die Informationen sehen, die ihm nach seiner Rolle/seinen Rollen zustehen. Unauthorisierten Personen sollen keine Informationen angezeigt werden sollen. Auch die Bearbeitung von Informationen ist nur Rollen mit den entsprechenden Privilegien erlaubt. \\ \hline
+          Jeder User darf nur die Informationen sehen, die ihm nach seiner Rolle/seinen Rollen zustehen. Unauthorisierten Personen sollen keine Informationen angezeigt werden. Auch die Bearbeitung von Informationen ist nur Rollen mit den entsprechenden Privilegien erlaubt. \\ \hline
           \textbf{Einflussfaktoren: } \\
-          T 1.5: Persistent \\
+          T 1.5: Persistenz \\
           T 1.7: Multiple Users\\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Macht eine Authentifizierung System, damit jeder User Zugriff auf Ihre und nur auf Ihre eigenen Daten haben.\\
+          \textbf{Strategie 1:} Das System wird mit einer Authentifizierung versehen: Jeder muss eingeloggt sein, um die Anwendung nutzen zu können. In der Implementierung muss dafür gesorgt werden, dass es keine Benutzer ohne mindestens eine Rolle gibt. \\
           \\ \hline
     \end{tabular}
 
@@ -437,15 +451,14 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \begin{tabular}{|p{15cm}|}
     \hline
           \textbf{Problem 3:} Nebenläufige Benutzung  \\ \hline
-          Die Anwendung kann von mehreren Usern gleichzeitig benutzt werden. Dabei müssen die Daten in der Datenbank richtig angezeigt/verändert werden, und die Datensicherheit darf nicht komprimiert werden.
-          \\ \hline
+          Die Anwendung kann von mehreren Usern gleichzeitig benutzt werden. Dabei müssen die Daten in der Datenbank richtig angezeigt/verändert werden, und die Datensicherheit darf nicht komprimiert werden. \\ \hline
           \textbf{Einflussfaktoren: } \\
           T 1.5: Persistent \\
           T 1.7: Multiple Users\\
-          XXX : Datenbank
+          XXX : Datenbank \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Sicher Transaktionen auf der Daten Bank\\
+          \textbf{Strategie 1:} Wir verwenden eine transaktionssichere Datenbank. \\
           \\ \hline
     \end{tabular}
 
@@ -463,10 +476,10 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
           \textbf{Einflussfaktoren: } \\
           T 1.5: Persistent \\
           T 1.7: Multiple Users\\
-          XXX : Datenbank
+          XXX : Datenbank \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Der Admin des Software kann neues Mitglieder hinzufüngen und auch existierende Mitglieder entfernen
+          \textbf{Strategie 1:} Der Admin der Software kann neue Mitglieder hinzufügen und auch existierende Mitglieder entfernen.
           \\ \hline
     \end{tabular}
 
@@ -479,13 +492,13 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \begin{tabular}{|p{15cm}|}
     \hline
           \textbf{Problem 5:} Upload/Download Prozessketten- und Prozessschrittparameter \\ \hline
-          Das Software kann neue Prozessketten und Prozessschrittparameter aus JSON-Dateien hochladen, und bestehende als JSON-Dateien exportieren.
+          Die Software kann neue Prozessketten und Prozessschrittparameter aus JSON-Dateien hochladen, und bestehende als JSON-Dateien exportieren.
           \\ \hline
           \textbf{Einflussfaktoren: } \\
           T 1.5: Persistent \\
           P 1.1.1: Upload\\
           P 1.1.2: Download\\
-          XXX : Datenbank
+          XXX : Datenbank \\
           \hline
           \textbf{Strategien} \\ \hline
           \textbf{Strategie 1:} XXX
@@ -502,13 +515,13 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \hline
           \textbf{Problem 6:} Protokollierung der Prozessketten
           \\ \hline
-          Die Abarbeitung einer Prozesskette soll Protokolliert werden (wann welche Zustandsübergänge stattfanden).
+          Die Abarbeitung einer Prozesskette soll protokolliert werden (wann welche Zustandsübergänge stattfanden).
           \\ \hline
           \textbf{Einflussfaktoren: } \\
           T 1.5: Persistent \\
           P 1.2: Protokollierung\\
-          P 1.4:
-          p 1.4.1
+          P 1.4:\\
+          p 1.4.1\\
           \hline
           \textbf{Strategien} \\ \hline
           \textbf{Strategie 1:} XXX
@@ -610,14 +623,14 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \hline
           \textbf{Problem 11:} Verlust/Schaden an Proben
           \\ \hline
-          Proben können im Laufe der Bearbeitung einer Prozesskette kaputt oder verloren gehen. Diese können dann nicht weiter benutzt werden, was zu Problemen im weiteren Verlauf führen könnte. Deswegen muss im System anderen Usern klar gemacht werden sollen, dass Proben nicht mehr zur Verfügung stehen.
+          Proben können im Laufe der Bearbeitung einer Prozesskette kaputt oder verloren gehen. Diese können dann nicht weiter benutzt werden, was zu Problemen im weiteren Verlauf führen könnte.
           \\ \hline
           \textbf{Einflussfaktoren: } \\
           P1.10: Kaputte Proben\\
           P1.10.1: Verlorene Proben \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Proben können als kaputt gemeldet werden können.
+          \textbf{Strategie 1:} Proben können als kaputt gemeldet werden. Dadurch werden sie sowohl als solche dargestellt, und können weder manuell noch automatisch irgendwelchen Prozessen zugeordnet werden.
           \\ \hline
     \end{tabular}
     \caption{Caption}
@@ -649,7 +662,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \hline
           \textbf{Problem 13:} Vorgaben von Technologien
           \\ \hline
-          Die Vorgaben, welche Technologien bei der Implementierung verwendet werden sollen/dürfen, sind relativ streng. Das bedeutet, dass manche Entwickler eventuell noch nicht mit diesen Technologien vertraut sind, und sich erst einarbeiten müssen.
+          Die Vorgaben, welche Technologien bei der Implementierung verwendet werden sollen/dürfen, sind relativ streng.
           \\ \hline
           \textbf{Einflussfaktoren: } \\
           T 1.1: Programmiersprache \\
@@ -660,7 +673,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
           T1.6: Build System \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:}
+          \textbf{Strategie 1:} Alle Entwickler müssen sich die Zeit nehmen, sich in diese Technologien anzueignen. Ebenfalls sollte die Gruppe sich untereinander unterstützen; hilfreich wäre zum Beispiel eine Sammlung an Problemen, auf die Entwickler gestoßen sind, und wie sie diese gelöst haben, um eventuell anderen Gruppenmitgliedern die Recherche zu erleichtern.
           \\ \hline
     \end{tabular}
     \caption{Caption}
@@ -679,7 +692,8 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
           P1.7.2: Automatisches Zuordnen \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Diese Anforderung ist optional, das heißt zur Not kann man ihn einfach weglassen.
+          \textbf{Strategie 1:} Diese Anforderung ist optional, das heißt zur Not kann man ihn einfach weglassen. \\
+	  \textbf{Strategie 2:} Die Eigenschaften/Anforderungen von Proben/Aufträgen sollten nicht einfach nur String-Felder sein, da diese miteinander vergleichen schwierig ist (unterschiedliche Formulierungen etc). Stattdessen sollten Eigenschaften/Anforderungen vordefiniert sein (vom Prozesskettenadministrator?) und gespeichert werden, welche Eigenschaften zu welchen Anforderungen passen. \\
           \\ \hline
     \end{tabular}
     \caption{Caption}
@@ -713,42 +727,6 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \label{tab:my_label}
 \end{table}
 %%%%%%%%%%%%%%%%%%
-
-
-
-
-%{\it Aus einer Menge von Faktoren ergeben sich Probleme, die nun in
-%  Form von Problemkarten beschrieben werden. Diese resultieren
-%  z.\,B. aus
-%  \begin{itemize}
-%  \item Grenzen oder Einschränkungen durch Faktoren
-%  \item der Notwendigkeit, die Auswirkung eines Faktors zu begrenzen
-%  \item der Schwierigkeit, einen Produktfaktor zu erfüllen, oder
-%  \item der Notwendigkeit einer allgemeinen Lösung zu globalen
-%    Anforderungen.
-%  \end{itemize}
-%  Dazu entwickelt Ihr Strategien, um mit den identifizierten Problemen
-%  umzugehen.
-%  Achtet auch hier darauf, dass die Probleme und Strategien wirklich
-%  die Architektur betreffen und nicht etwa das Projektmanagement. Die
-%  Strategien stellen im Prinzip die Designentscheidungen dar. Sie
-%  sollten also die Erklärung für den konkreten Aufbau der
-%  verschiedenen Sichten liefern.}
-
-
-%\textit{Beschreibt möglichst mehrere Alternativen und gebt
-%  an, für welche Ihr Euch letztlich aus welchem Grunde entschieden
-%  habt. Natürlich müssen die genannten Strategien in den folgenden
-%  Sichten auch tatsächlich umgesetzt werden!}
-
-%\textit{Ein sehr häufiger Fehler ist es, dass SWP-Gruppen
-%  arbeitsteilig vorgehen: die eine Gruppe schreibt das Kapitel zur
-%  Analyse von Faktoren und zu den Strategien, die andere Gruppe
-%  beschreibt die diversen Sichten, ohne dass diese beiden Gruppen sich
-%  abstimmen. Natürlich besteht aber ein Zusammenhang zwischen den
-%  Faktoren, Strategien und Sichten. Dieser muss erkennbar sein, indem
-%  sich die verschiedenen Kapitel eindeutig aufeinander beziehen.}
-
 
 
 \section{Konzeptionelle Sicht}
