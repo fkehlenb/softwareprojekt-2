@@ -1,12 +1,36 @@
 image: maven:3.6.1-jdk-11
 
 stages:
-  - Build
+  - build
+  - deploy
+
+
+
+compile_pdf:
+  stage: build
+  image: timnn/texlive  # use a Docker image for LaTeX from https://hub.docker.com/
+  script: pdflatex doc/Architekturbeschreibung.tex   # build the pdf just as you would on your computer
+  artifacts:
+    paths:
+      - doc/Architekturbeschreibung.pdf  # instruct GitLab to keep the main.pdf file
+
+pages:
+  stage: deploy
+  script:
+    - mkdir public  # create a folder called public
+    - cp doc/Architekturbeschreibung.pdf public/Architekturbeschreibung.pdf  # copy the pdf file into the public folder
+  artifacts:
+    paths:
+      - public  # instruct GitLab to keep the public folder
+  only:
+    - master  # deploy the pdf only for commits made to the master branch
+    - doc
+
 
 build-01:
   tags:
     - docker
-  stage: Build
+  stage: build
   script:
     - "mvn -f pom.xml package"
   artifacts:
