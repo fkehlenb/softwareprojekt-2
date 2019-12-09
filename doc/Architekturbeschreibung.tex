@@ -146,12 +146,28 @@ Version & Datum & Änderungen \\
 \hline
 0.1 & TT.MM.JJJJ & Dokumentvorlage als initiale Fassung kopiert \\
 0.2 & 04.12.2019 & Faktortabelle \\
+0.3 & 04.12.2019 & Problem Karten \\
 \ldots
 \end{tabular}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Einführung}
+\section{Einführung} 
+
+Um des Rahmen der Fach Software Projekt von der Universität Bremen zu erfühllen, entwickeln wir (Data Colorado) eine Web Aplikation, die Prosezz in eine Produktion  kette verwalten kann. Die Kunde dieses Software ist Farbige Zustände.
+
+Das software muss bei der Verwaltung eine Prozess Kette helfen. man kann unterschiedliche Prozesse auf eine zustanden stellen. außerdem kann man durch diese Kette der Zuständ der Prube überwachen. in dem Prozess einer Pruebe reargieren Unterschiedlichen Nutzer zum Bespielt, Prozessketteadministrator, der das Prozesskette umbaut und Trasnpoter, der ein Probe durch unterschiedlichen Stationen trasporter kann.
+
+Das Software muss unterschidliche Anforderung Erfullen, diese unterschiedliche Anfoprderung wurde von der Kunde erstellt, als Haupt funtionalitäten haben wir:
+\begin{itemize}
+  \item Admin kann Nutzer und Stationen einfüngen und entfernen.
+  \item PK Administrator instanziert eine Prozess Kette.
+  \item Logistiker beschäftige sich auf der Resssourcen in der Lage für jede Prozess Kette und start den Prozess.
+  \item  Trasporter befördet die Proben zu den benötigten Stationen.
+ \item Technologer führen die Prozessschitten der Prozesskette durch, sie werten die Erbgenisse aus und laden sie hoch in die Datenbank.
+
+\end{itemize}
+
 
 \subsection{Zweck}
 
@@ -178,44 +194,45 @@ Version & Datum & Änderungen \\
 {\it Hier werden Einflussfaktoren aufgezählt und bewertet sowie Strategien
 zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Einflussfaktoren}
 
 
-\label{sec:einflussfaktoren}
-{\it Hier sind Einflussfaktoren gefragt, die sich auf die Architektur
-  beziehen. Es sind ausschließlich architekturrelevante
-  Einflussfaktoren, und nicht z.\,B.\ solche, die lediglich einen
-  Einfluss auf das Projektmanagement haben. Fragt Euch also bei jedem
-  Faktor: Beeinflusst er wirklich die Architektur? Macht einen
-  einfachen Test: Wie würde die Architektur aussehen, wenn ihr den
-  Einflussfaktor E berücksichtigt? Wie würde sie aussehen, wenn Ihr E nicht
-  berücksichtigt? Kommt in beiden Fällen dieselbe Architektur heraus,
-  dann kann der Einflussfaktor nicht architekturrelevant sein.
+%\label{sec:einflussfaktoren}
+%{\it Hier sind Einflussfaktoren gefragt, die sich auf die Architektur
+ % beziehen. Es sind ausschließlich architekturrelevante
+ % Einflussfaktoren, und nicht z.\,B.\ solche, die lediglich einen
+ % Einfluss auf das Projektmanagement haben. Fragt Euch also bei jedem
+ % Faktor: Beeinflusst er wirklich die Architektur? Macht einen
+ % einfachen Test: Wie würde die Architektur aussehen, wenn ihr den
+ % Einflussfaktor E berücksichtigt? Wie würde sie aussehen, wenn Ihr E nicht
+ % berücksichtigt? Kommt in beiden Fällen dieselbe Architektur heraus,
+ % dann kann der Einflussfaktor nicht architekturrelevant sein.
 
-  Es geht hier um Einflussfaktoren, die
-  \begin{enumerate}
-  \item sich über die Zeit ändern,
-  \item viele Komponenten betreffen,
-  \item schwer zu erfüllen sind oder
-  \item mit denen man wenig Erfahrung hat.
-  \end{enumerate}
-  Die Flexibilität und Veränderlichkeit müssen ebenfalls charakterisiert werden.
-  \begin{enumerate}
-  \item Flexibilität: Könnt Ihr den Faktor zum jetzigen Zeitpunkt beeinflussen?
-  \item Veränderlichkeit: ändert der Faktor sich später durch äußere Einflüsse?
-\end{enumerate}
+  %Es geht hier um Einflussfaktoren, die
+  %\begin{enumerate}
+  %\item sich über die Zeit ändern,
+  %\item viele Komponenten betreffen,
+  %\item schwer zu erfüllen sind oder
+  %\item mit denen man wenig Erfahrung hat.
+  %\end{enumerate}
+  %Die Flexibilität und Veränderlichkeit müssen ebenfalls charakterisiert werden.
+  %\begin{enumerate}
+  %\item Flexibilität: Könnt Ihr den Faktor zum jetzigen Zeitpunkt beeinflussen?
+  %\item Veränderlichkeit: ändert der Faktor sich später durch äußere Einflüsse?
+%\end{enumerate}
 
-  Unter Auswirkungen sollte dann beschrieben werden, {\em wie} der
-  Faktor {\em was} beeinflusst. Das können sein:
-  \begin{itemize}
-  \item andere Faktoren
-  \item Komponenten
-  \item Operationsmodi
-  \item Designentscheidungen (Strategien)
-  \end{itemize}
+  %Unter Auswirkungen sollte dann beschrieben werden, {\em wie} der
+  %Faktor {\em was} beeinflusst. Das können sein:
+  %\begin{itemize}
+  %\item andere Faktoren
+  %\item Komponenten
+  %\item Operationsmodi
+  %\item Designentscheidungen (Strategien)
+  %\end{itemize}
 
-  Verwendet eine eindeutige Nummerierung der Faktoren, um sie auf den
-  Problemkarten einfach referenzieren zu können.  }
+  %Verwendet eine eindeutige Nummerierung der Faktoren, um sie auf den
+  %Problemkarten einfach referenzieren zu können.  }
   %%%%%%%%%%%%%%%%%%
 \begin{table}[]
 \centering
