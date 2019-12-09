@@ -12,6 +12,8 @@
 \usepackage{moreverb}
 % Graphiken als jpg, png etc. einbinden können
 \usepackage{graphicx}
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
 \usepackage{stmaryrd}
 % Floats Objekte mit [H] festsetzen
 \usepackage{float}
@@ -188,6 +190,34 @@ Architektur-Review freigegeben.
 
 \subsection{Definitionen, Akronyme und Abkürzungen}
 
+Glossar:
+\begin{longtable}[c]{|p{7cm}|p{8cm}|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Begriff}}                          & \multicolumn{1}{c|}{\textbf{Erklärung}}                                                                                                                                                                                                               \\ \hline
+\endhead
+%
+\multicolumn{2}{|l|}{{\ul \textbf{Das System Selbst}}}                                                                                                                                                                                                                                                                  \\ \hline
+Probe                                                           & Ein einzelnder Werkstoff                                                                                                                                                                                                                              \\ \hline
+Werkstoff                                                       & Mikrolkugeln die sich durch Härte, hohe-/Belastbarkeit, Temperaturbeständigkeit und Abriebsfestigkeit auszeichnen                                                                                                                                     \\ \hline
+Träger                                                          & Transportmittel für Proben. Arten: Einzelträger, eingebettete Träger und Glasträger. Proben werden immer in Trägern Transportiert                                                                                                                     \\ \hline
+Experimentierstation \textbf{(ES)}             & Physikalischer Standort an dem Technologen Messungen durchführen.                                                                                                                                                                                     \\ \hline
+Technologe                                                      & Ein Angestellter im SFB, er forscht und bedient die Experimentierstationen, und wertet diese im Anschluss aus und legt die Probeneigenschaften fest.                                                                                                  \\ \hline
+Prozesskette \textbf{(PK)}                       & Besteht aus vielen Prozessschritten die hintereinander ohne verzweigung ablaufen. Sobald ein Autrag erfolgt, wird eine Prozesskette gestartet.                                                                                                        \\ \hline
+Prozesskettenauftrag \textbf{(PK-Auftrag)}     & Enthält die Prozessparameter für jeden Schritt einer Prozesskette. Der Prozesskettenadministrator legt die Prozessparameter fest. Der Logistiker legt die Proben und Träger fest.                                                                     \\ \hline
+Prozessschritt \textbf{(PS)}                     & In einem Prozessschritt werden Werkstoffeigenschaften beeinflußt und-/oder verändert. Er enthält Prozessparameter welche beschreiben wie die Eigenschaften beeinflußt werden. Ein Prozessschritt kann Vorbedingungen haben und eine geschätzte Dauer. \\ \hline
+Material- / Werkstoffeigenschaften                              & Jeder Werkstoff besitzt Eingenschaften. (Umformbarkeit / Verformbarkeit / ...)                                                                                                                                                                        \\ \hline
+Prozessparameter \textbf{(PP)}                   & Sind Qualitativ oder Quantitativ. Qualitativ beschreibt ob etwas so sit oder nicht. Quantitative Parameter enthalten einen Namen, ein Wert und eine Einheit.                                                                                          \\ \hline
+Logistiker                                                      & Verwaltet das Archiv und alle Proben und Träger. Für die Ausführung einer Prozesskette bestimmt er welche Proben benutzt werden, falls dies nicht möglich ist, meldet er es dem Prozesskettenadministrator.                                           \\ \hline
+Prozesskettenadministrator\textbf{ (PK-Admin)} & Verwaltet Prozessketten und deren Prozessschritte nach bestimmten Vorlagen. Verwaltet auch die Vorlagen. Ordnet Prozessschritten Experimentierstationen zu. Überprüft dann auf Korrektheit.                                                           \\ \hline
+Transporter                                                     & Transportiert Träger mit ihren Proben zwischen Experimentierstationen. Bei Probenverlust meldet er diese.                                                                                                                                             \\ \hline
+Transportauftrag \textbf{(T-Auftrag)}          & Enthält Start- und Ziel Experimentierstationen, wird vom Transporter ausgeführt.                                                                                                                                                                      \\ \hline
+System Administrator \textbf{(Sys-Admin)}      & Verwaltet Nutzer und Experimentierstationen. Konfiguriert globale Einstellungen und ist für Backup zuständig.                                                                                                                                         \\ \hline
+Prozessketteninstanz Werte \textbf{(PIW)}      & Enthält für jeden Prozessschritt der Proezsskette alle Prozessparameter. Der Prozesskettenadmin benutzt die PIWs um Prozessketteninstanzen zu planen.                                                                                                 \\ \hline
+Standort                                                        & Träger und Proben können entweder an einer Experimentierstation, im Archiv oder als verloren gemeldet sein.                                                                                                                                           \\ \hline
+Transportauftragzustand \textbf{(TA-Zustand)}  & Ein Transportauftrag befindet sich im Zustand wartend oder er wurde schon geliefert.                                                                                                                                                                  \\ \hline
+Prozessschrittzustand \textbf{(PS-Zustand)}    & Ein Prozessschrittzustand hat entweder den Zustand angenommen, in-bearbeitung oder abgegeben.                                                                                                                                                         \\ \hline
+Upload in Datenbank                                             & Ein Technologe muss nach dem Ausführen eines Prozessschrittes die Prozessparameter in die Datenbank (DAVIS) hochladen.                                                                                                                                \\ \hline
+\end{longtable}
 
 \subsection{Referenzen}
 
