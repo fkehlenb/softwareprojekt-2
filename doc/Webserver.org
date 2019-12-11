@@ -178,3 +178,6 @@ Benutzt Spring
 * simple crud with primfaces
 
 * nice looking jsf apps with primefaces
+
+
+* Simpe databse Connection with schemaspy
