@@ -1,0 +1,26 @@
+Ein Begriffslexikon anlegen und entwickeln
+Von der Aufgabe ausgehen, nicht von ihrer Lösung
+Daten suchen, nicht Programmabl¨ aufe beschreiben
+Abstraktionsebene nicht in einer Darstellung wechseln
+Die Spezifikation nach Aspekten organisieren
+Ein Mengengerüst bilden
+Den Kunden (Benutzer) einbeziehen
+Geeignete Sprachen und Werkzeuge verwenden
+Die Spezifikation so früh wie möglich prüfen und dem
+Konfigurationsmanagement unterstellen
+Die Spezifikation intensiv verwenden
+
+* Modell
+Ein Modell liefert ein eine Ansicht eines Systemes
+1. Einn Modell versammelt eine hierarchisch strukturierte Menge von Elementen.
+2. Die Menge von Elementen beschreibt auf einer abstrakten Ebene das System zu einem
+   bestimmten Zweck, es zeigt nur eine Sicht auf das System.
+3. Das Modell beschreibt das System aus dieser Sicht vollständig.
+
+* Kommentar
+Rechteckt mit geknickter Ecke
+Kann mir >1 Modellelemten Verbunden werden
+
+
+w
+

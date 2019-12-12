@@ -135,3 +135,49 @@ https://hibernate.org/validator/
 http://logback.qos.ch/
 
 https://eclipse-ee4j.github.io/jersey/
+
+
+* Java EE Cheatsheet Server
+Usese Junit, beans
+persitence with jta with data Source Wildfly, JAXRSConfiguration
+
+* Avoid Repeating AttributesInJPAEntry
+Use H2 but has springframwork
+
+* Bootstrap Jakarta EE 8
+User provider uses json
+
+* demo CRUD APPLICATIOn
+uses lombok and javax.persistence
+The Book Controller has a ncie Syntax for CRUD and is nice to implent
+API STuff?
+The initializer uses the book repository which extends the jpaRepositry to save
+Book Repuest
+the Service uses spring boot framework beans
+
+* Java Magazin looks ok, but lacks features
+
+* jsf simple login with java ee security
+has typ for runing with jboss :)
+
+Has a login form build with primfaces
+If loged in it sends the user to the site app/index.html
+provides LogoutBacking and LoginBacking
+CustomerInMemoryIdentification machted Strings to Return a array for admin or
+user
+
+* Lazy loading with hibernate
+Dieses kleine Programm erlaubt es uns erste eine Datei zu laden, welche
+wenn sei gebraucht wird
+Benutzt Spring
+
+* Rest CLient for restful communication
+
+* rest easy file uploading
+
+* simple crud with primfaces
+
+* nice looking jsf apps with primefaces
+
+
+* Simpe databse Connection with schemaspy
