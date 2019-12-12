@@ -140,6 +140,13 @@ bedingungen der Use­Cases
 - Die alternativen Abläufe
 - Die Vor- und Nachbedingungen
 
+
+** Use-Case-Diagramme
+Als erstes erstellen wir ein Kontextdiagram, das als Komponenten Diagramm
+erstellt wird
+'Abb.4.2.png'
+
+* Beschrieben der Funktionalitäten
 ** Aktivitätsdiagramme
 In den Use Cases macht man sich über mogliche Abäufe gedanken, mit Aktivitätsdiagrammen
 legt man diese genauer fest.
@@ -147,7 +154,7 @@ Modeliert werden Aktionen, welche vom System alleine, von einem Akteur oder beid
 werden. Um dies abzubilden greift man endweder auf Aktivitätsbereiche zurück oder man schreibt
 Akteure in Klammern über deren Aktionsnamen
 
-*** Include und Ecxlude
+*** Include und Exclude
 *** Verwenden von Kommentaren
 Erstellen Sie zu jeder Aktion eine kurze
 Beschreibung mit dem wichtigsten Inhalt ­ unabhängig davon, ob Sie diese Aktion durch
@@ -164,8 +171,8 @@ Use-Cases nicht nur mit Aktivitätsdiagrammen sondern auch mit Zustandsautomaten
 2. Kombination der enstanden Zustandsautomaten
 'Abb.4.8.png'
 
-** Das Begrifssmodell
-Bei rein texuell und aplhabetisch Glossar geht der Zusammenhang verloren
+** Das Begriffsmodell
+Bei rein textuell und aplhabetisch Glossar geht der Zusammenhang verloren
 Es bietet sich das Klassendiagramm an
 - Klassen mit Attributen
 - Assoziation & Aggregation
@@ -194,11 +201,11 @@ Die Persistierung wird zur Unterscheidung als Sterotyp gekennzeichnet
 *** Enge Kopplung
 Das zusammenstellen der Nachricht hängt von externen Faktoren ab
 Falls es zu einem Timeout kommt Problem sonst OK 
-Abb.4.12
+'Abb.4.12.png'
 *** Lose Kopplung
 Hier wird als Sterotyp <<Internes Ereignis>> gesetzt, im Schnitstellen Prozess und nicht im
 fachlichem Ablauf wird die Fehlerbehandlung durchgeführt
-Abb4.13
+'Abb4.13.png'
 
 ** Interaktion in Dialogen
 Falls:
