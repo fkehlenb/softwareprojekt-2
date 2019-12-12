@@ -12,6 +12,8 @@
 \usepackage{moreverb}
 % Graphiken als jpg, png etc. einbinden können
 \usepackage{graphicx}
+\usepackage[normalem]{ulem}
+\useunder{\uline}{\ul}{}
 \usepackage{stmaryrd}
 % Floats Objekte mit [H] festsetzen
 \usepackage{float}
@@ -33,6 +35,7 @@
             citecolor=blue, urlcolor=blue, hyperfigures=true,
             pdftex=true]{hyperref}
 \usepackage{bookmark}
+\usepackage{pdfpages}
 
 \hyphenation{Arbeits-paket}
 
@@ -146,12 +149,30 @@ Version & Datum & Änderungen \\
 \hline
 0.1 & TT.MM.JJJJ & Dokumentvorlage als initiale Fassung kopiert \\
 0.2 & 04.12.2019 & Faktortabelle \\
+0.3 & 04.12.2019 & Problem Karten \\
 \ldots
 \end{tabular}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Einführung}
+\section{Einführung} 
+
+Um des Rahmen das Fach Software Projekt von der Universität Bremen zu erfühllen, entwickeln wir (Data Colorado) eine Web Aplikation, die Prozess in eine Produktion  kette verwalten kann. Die Kunde dieses Software ist Farbige Zustände.
+
+Das software muss bei der Verwaltung eine Prozess Kette helfen. die Nutzer können unterschiedliche Prozessschitten auf eine Zustanden stellen, diese Prozessschritten können hochgeladen und untergeladen sein werden. außerdem kann man auf eine Kette der Zuständ den Pruben überwachen. durch ein Prozesskette von Prueben interaktuiren unterschiedlichen Nutzer, wie zum Bespiel, Prozessketteadministrator, der das Prozesskette umbaut und Trasnporter, der ein Probe durch unterschiedlichen Stationen transportieren kann. Das Software hat ins gesamt fünf Benutzer, jede hat ihre eizige Eingeschafften:
+
+\begin{itemize}
+  \item Admin kann Nutzer und Stationen einfüngen und entfernen.
+  \item ProzessKetteadministrator instanziert eine Prozess Kette.
+  \item Logistiker beschäftige sich auf der Resssourcen in der Lage für jede Prozess Kette und start den Prozess.
+  \item  Trasporter befördet die Proben zu den benötigten Stationen.
+ \item Technologer führen die Prozessschitten der Prozesskette durch, sie werten die Erbgenisse aus und laden sie hoch in die Datenbank.
+\end{itemize}
+
+Diese software muss die benötigen Funktionalitäten inhalt. Außerdem insofern neue Funtionalitäten gebraucht sind, das software erweitern diese Funtionalität soll.
+
+Diese Architekturbeschreibung ist für die Entsprechende Prüfer an der Universität Bremen als auch für die Kunde geschriben.  Das Struktur und Schnittstelle und Entwicklenprozess sind auseinandergesetzt und hier detaliert dargestellt, um von der Entsprechende Leser evaluiert zu werden.
+
 
 \subsection{Zweck}
 
@@ -162,15 +183,88 @@ Version & Datum & Änderungen \\
 
 \subsection{Status}
 
+{\em Dieses Dokument beschreibt den ersten Entwurf. Es wurde noch nicht durch ein
+Architektur-Review freigegeben.
+}
+
 
 
 \subsection{Definitionen, Akronyme und Abkürzungen}
 
+\begin{longtable}[c]{|p{7cm}|p{8cm}|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Begriff}}                          & \multicolumn{1}{c|}{\textbf{Erklärung}}                                                                                                                                                                                                               \\ \hline
+\endhead
+%
+\multicolumn{2}{|l|}{{\ul \textbf{Das System Selbst}}}                                                                                                                                                                                                                                                                  \\ \hline
+Probe                                                           & Ein einzelnder Werkstoff                                                                                                                                                                                                                              \\ \hline
+Werkstoff                                                       & Mikrolkugeln die sich durch Härte, hohe-/Belastbarkeit, Temperaturbeständigkeit und Abriebsfestigkeit auszeichnen                                                                                                                                     \\ \hline
+Träger                                                          & Transportmittel für Proben. Arten: Einzelträger, eingebettete Träger und Glasträger. Proben werden immer in Trägern Transportiert                                                                                                                     \\ \hline
+Experimentierstation \textbf{(ES)}             & Physikalischer Standort an dem Technologen Messungen durchführen.                                                                                                                                                                                     \\ \hline
+Technologe                                                      & Ein Angestellter im SFB, er forscht und bedient die Experimentierstationen, und wertet diese im Anschluss aus und legt die Probeneigenschaften fest.                                                                                                  \\ \hline
+Prozesskette \textbf{(PK)}                       & Besteht aus vielen Prozessschritten die hintereinander ohne verzweigung ablaufen. Sobald ein Autrag erfolgt, wird eine Prozesskette gestartet.                                                                                                        \\ \hline
+Prozesskettenauftrag \textbf{(PK-Auftrag)}     & Enthält die Prozessparameter für jeden Schritt einer Prozesskette. Der Prozesskettenadministrator legt die Prozessparameter fest. Der Logistiker legt die Proben und Träger fest.                                                                     \\ \hline
+Prozessschritt \textbf{(PS)}                     & In einem Prozessschritt werden Werkstoffeigenschaften beeinflußt und-/oder verändert. Er enthält Prozessparameter welche beschreiben wie die Eigenschaften beeinflußt werden. Ein Prozessschritt kann Vorbedingungen haben und eine geschätzte Dauer. \\ \hline
+Material- / Werkstoffeigenschaften                              & Jeder Werkstoff besitzt Eingenschaften. (Umformbarkeit / Verformbarkeit / ...)                                                                                                                                                                        \\ \hline
+Prozessparameter \textbf{(PP)}                   & Sind Qualitativ oder Quantitativ. Qualitativ beschreibt ob etwas so sit oder nicht. Quantitative Parameter enthalten einen Namen, ein Wert und eine Einheit.                                                                                          \\ \hline
+Logistiker                                                      & Verwaltet das Archiv und alle Proben und Träger. Für die Ausführung einer Prozesskette bestimmt er welche Proben benutzt werden, falls dies nicht möglich ist, meldet er es dem Prozesskettenadministrator.                                           \\ \hline
+Prozesskettenadministrator\textbf{ (PK-Admin)} & Verwaltet Prozessketten und deren Prozessschritte nach bestimmten Vorlagen. Verwaltet auch die Vorlagen. Ordnet Prozessschritten Experimentierstationen zu. Überprüft dann auf Korrektheit.                                                           \\ \hline
+Transporter                                                     & Transportiert Träger mit ihren Proben zwischen Experimentierstationen. Bei Probenverlust meldet er diese.                                                                                                                                             \\ \hline
+Transportauftrag \textbf{(T-Auftrag)}          & Enthält Start- und Ziel Experimentierstationen, wird vom Transporter ausgeführt.                                                                                                                                                                      \\ \hline
+System Administrator \textbf{(Sys-Admin)}      & Verwaltet Nutzer und Experimentierstationen. Konfiguriert globale Einstellungen und ist für Backup zuständig.                                                                                                                                         \\ \hline
+Prozessketteninstanz Werte \textbf{(PIW)}      & Enthält für jeden Prozessschritt der Proezsskette alle Prozessparameter. Der Prozesskettenadmin benutzt die PIWs um Prozessketteninstanzen zu planen.                                                                                                 \\ \hline
+Standort                                                        & Träger und Proben können entweder an einer Experimentierstation, im Archiv oder als verloren gemeldet sein.                                                                                                                                           \\ \hline
+Transportauftragzustand \textbf{(TA-Zustand)}  & Ein Transportauftrag befindet sich im Zustand wartend oder er wurde schon geliefert.                                                                                                                                                                  \\ \hline
+Prozessschrittzustand \textbf{(PS-Zustand)}    & Ein Prozessschrittzustand hat entweder den Zustand angenommen, in-bearbeitung oder abgegeben.                                                                                                                                                         \\ \hline
+Upload in Datenbank                                             & Ein Technologe muss nach dem Ausführen eines Prozessschrittes die Prozessparameter in die Datenbank (DAVIS) hochladen.                                                                                                                                \\ \hline
+\end{longtable}
 
+\begin{longtable}[c]{|p{7cm}|p{8cm}|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Begriff}} & \multicolumn{1}{c|}{\textbf{Erklärung}}                                                                                                                                                                                 \\ \hline
+\endhead
+%
+\multicolumn{2}{|l|}{{\ul \textbf{Technische Ausdrücke}}}                                                                                                                                                                                                        \\ \hline
+Anwendungsfälle                        & Hilfsmittel um Anforderungen unseres Software-Projektes zu erfassen. Sie beschreiben also, was unser System tun soll. Hierzu nutzen wir Akteuere und Use-Cases.                                                         \\ \hline
+H2                                     & Eine SQL Java Datenbank die auch die JDBC API unterstützt.                                                                                                                                                              \\ \hline
+Apache Maven                           & Ist ein automatisches Build-tool für Java Projekte. Es beschreibt wie Software gebaut wird und was ihre Dependencies sind.                                                                                              \\ \hline
+DAO                                    & Objekte die abstrakte Interfaces zu Datenbanken oder anderen Persistenzmechanismen bieten. Kurzgesagt, werden sie verwendet um Daten aus einer Datenbank zu verwalten (Data Access Object).                             \\ \hline
+Java                                   & Eine objektorientierte Programmiersprache, welche klassenbasiert, objekte-orientiert ist. Läuft universell auf fast allen Platformen die eine JVM haben, von PCs zu Handys usw...                                       \\ \hline
+JavaEE (JakartaEE)                     & Ist eine Menge an Spezifikationen für Java SE welche Enterprise Features und Webservices sowie Distributed Computation spezifiziert.                                                                                    \\ \hline
+Hibernate Validator                    & Ist eine Java Bean Validation referenz Implementation.                                                                                                                                                                  \\ \hline
+Lombok                                 & Ist eine Java Bibliothek welche zur automatisierten Code-Erstellung verwendet weden kann (um nicht so viel Code schreiben zu müssen) z.B. automatische Erstellung von Gettern und Settern, Equals, Hashcode und String. \\ \hline
+JUnit                                  & Ist eine Unit Testing Framework für Java, zur Überprüfung von bekannten Fehlern in den implementierten Funktionen und Klassen.                                                                                          \\ \hline
+Wildfly                                & Ist ein Application Server, der die JavaEE Spezifikation implementiert.                                                                                                                                                 \\ \hline
+Mockito                                & Ist ein Mocking Framework für JUnit, zum weiteren Testen der Implementierten Funktionen. Es ermöglicht die Erstellung von Test Double Objekte für automatische Unit Tests.                                              \\ \hline
+Scrypt                                 & Eine Passwort basierte Schlüsselableitungsfunktion die nicht umkehrbar ist.                                                                                                                                             \\ \hline
+Bootsfaces                             & Ist eine JSF Framework welche Bootstrap und JQuery benutzt um responsive Front-Ends zu entwickeln.                                                                                                                      \\ \hline
+Primefaces                             & Ist eine Menge an UI Komponenten für JSF. Es bietet Templates und Themes an.                                                                                                                                            \\ \hline
+JSF                                    & Steht für Java Server Faces. Ist eine Spezifikation zur Entwicklung von graphischen Oberflächen in Java.                                                                                                                \\ \hline
+GUI                                    & Eine Form eines Benutzer Interfaces, die dem Benutzer erlaubt durch elektronische Geräte graphisch mit der Software zu enteragieren (Graphical User Interface).                                                         \\ \hline
+Klassendiagramm                        & Ist ein Typ von statischen Struktur Diagrammen, welche Klassen, Attribute, Operationen und Relationen des Systems als Diagramm darstellen.                                                                              \\ \hline
+Komponentendiagramm                    & Beschreiben wie Komponenten durch ihre Schnittstellen verbunden sind. Sie werden benutzt um die Struktur komplexer Systeme darzustellen.                                                                                \\ \hline
+Model-View-Controller (MVC)            & Ein Architekturmuster welches für User Interfaces benutzt wird um Programmlogik in 3 Elemente zu unterteilen: Model, View und Controller.                                                                               \\ \hline
+Object-Relation-Mapping (ORM)          & ===TODO====                                                                                                                                                                                                             \\ \hline
+Packetdiagramm                         & Zeigt die Abhängigkeiten der Packete des Models.                                                                                                                                                                        \\ \hline
+Sequenzdiagramme                       & Zeigt die Struktur unseres Models und stellt den Austausch von nachricten zwischen Objekten dar. Dabei wird eine Lebenslinie benutzt.                                                                                   \\ \hline
+Problemkarten                          & Beschreiben Probleme und passende Strategien.                                                                                                                                                                           \\ \hline
+SQL                                    & Ist eine domän spezifische Sprache die in der Softwareentwicklung benutzt wird und Daten in relationalen Datenbanken verwaltet.                                                                                         \\ \hline
+\end{longtable}
 \subsection{Referenzen}
 
 \subsection{Übersicht über das Dokument}
 
+{ \em In Kapitel 2 werden die Einflussfaktoren und Probleme und Strategien, die zum Lösen der Probleme entworfen wurden, dargestellt. 
+
+In den Kapiteln 3, 4 und 6 werden die verschiedenen Sichten von Hofmeister gezeigt. Die Codesicht wird in diesem Projekt nicht behandelt. 
+Im Nachfolgenden Kapitel 3 wird die Konzeptionelle Sicht unserer Software beschrieben. In Kapitel 4 wird die Modulsicht und In Kapitel 6 wird die Ausführungssicht gezeigt. Kapitel 5 ist eine nähere Beschreibung der Architektursicht und wird durchn ein Modell in der Datensicht dargestellt. 
+
+Im Kapitel 7 werden einige Anwendungsfälle dargestellt. im abschließenden Kapitel 8 wird auf die mögliche zukünftige Entwicklung der Software bei neu eingehenden Wünschen der Kunden eingegangen.
+
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Globale Analyse}
 \label{sec:globale_analyse}
@@ -178,44 +272,45 @@ Version & Datum & Änderungen \\
 {\it Hier werden Einflussfaktoren aufgezählt und bewertet sowie Strategien
 zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Einflussfaktoren}
 
 
-\label{sec:einflussfaktoren}
-{\it Hier sind Einflussfaktoren gefragt, die sich auf die Architektur
-  beziehen. Es sind ausschließlich architekturrelevante
-  Einflussfaktoren, und nicht z.\,B.\ solche, die lediglich einen
-  Einfluss auf das Projektmanagement haben. Fragt Euch also bei jedem
-  Faktor: Beeinflusst er wirklich die Architektur? Macht einen
-  einfachen Test: Wie würde die Architektur aussehen, wenn ihr den
-  Einflussfaktor E berücksichtigt? Wie würde sie aussehen, wenn Ihr E nicht
-  berücksichtigt? Kommt in beiden Fällen dieselbe Architektur heraus,
-  dann kann der Einflussfaktor nicht architekturrelevant sein.
+%\label{sec:einflussfaktoren}
+%{\it Hier sind Einflussfaktoren gefragt, die sich auf die Architektur
+ % beziehen. Es sind ausschließlich architekturrelevante
+ % Einflussfaktoren, und nicht z.\,B.\ solche, die lediglich einen
+ % Einfluss auf das Projektmanagement haben. Fragt Euch also bei jedem
+ % Faktor: Beeinflusst er wirklich die Architektur? Macht einen
+ % einfachen Test: Wie würde die Architektur aussehen, wenn ihr den
+ % Einflussfaktor E berücksichtigt? Wie würde sie aussehen, wenn Ihr E nicht
+ % berücksichtigt? Kommt in beiden Fällen dieselbe Architektur heraus,
+ % dann kann der Einflussfaktor nicht architekturrelevant sein.
 
-  Es geht hier um Einflussfaktoren, die
-  \begin{enumerate}
-  \item sich über die Zeit ändern,
-  \item viele Komponenten betreffen,
-  \item schwer zu erfüllen sind oder
-  \item mit denen man wenig Erfahrung hat.
-  \end{enumerate}
-  Die Flexibilität und Veränderlichkeit müssen ebenfalls charakterisiert werden.
-  \begin{enumerate}
-  \item Flexibilität: Könnt Ihr den Faktor zum jetzigen Zeitpunkt beeinflussen?
-  \item Veränderlichkeit: ändert der Faktor sich später durch äußere Einflüsse?
-\end{enumerate}
+  %Es geht hier um Einflussfaktoren, die
+  %\begin{enumerate}
+  %\item sich über die Zeit ändern,
+  %\item viele Komponenten betreffen,
+  %\item schwer zu erfüllen sind oder
+  %\item mit denen man wenig Erfahrung hat.
+  %\end{enumerate}
+  %Die Flexibilität und Veränderlichkeit müssen ebenfalls charakterisiert werden.
+  %\begin{enumerate}
+  %\item Flexibilität: Könnt Ihr den Faktor zum jetzigen Zeitpunkt beeinflussen?
+  %\item Veränderlichkeit: ändert der Faktor sich später durch äußere Einflüsse?
+%\end{enumerate}
 
-  Unter Auswirkungen sollte dann beschrieben werden, {\em wie} der
-  Faktor {\em was} beeinflusst. Das können sein:
-  \begin{itemize}
-  \item andere Faktoren
-  \item Komponenten
-  \item Operationsmodi
-  \item Designentscheidungen (Strategien)
-  \end{itemize}
+  %Unter Auswirkungen sollte dann beschrieben werden, {\em wie} der
+  %Faktor {\em was} beeinflusst. Das können sein:
+  %\begin{itemize}
+  %\item andere Faktoren
+  %\item Komponenten
+  %\item Operationsmodi
+  %\item Designentscheidungen (Strategien)
+  %\end{itemize}
 
-  Verwendet eine eindeutige Nummerierung der Faktoren, um sie auf den
-  Problemkarten einfach referenzieren zu können.  }
+  %Verwendet eine eindeutige Nummerierung der Faktoren, um sie auf den
+  %Problemkarten einfach referenzieren zu können.  }
   %%%%%%%%%%%%%%%%%%
 \begin{table}[]
 \centering
@@ -789,6 +884,12 @@ die Entstehung anhand der Strategien erläutert werden.
 \section{Datensicht}
 \label{sec:datensicht}
 
+{  Zunächst existiert die Klasse Probe, welche die ID, die Legierung als (???), die Art der Behandlung und die Materialeigenschaften beinhaltet. Eine bestimmte Probe kann ausschließlich einem Träger zugeordnet werden. 
+Die Klasse Träger besteht wieder aus einer ID, dem aktuellen Standort als  Standort und dem Typ als Trägerart. Ein Träger kann beliebig viele Proben beinhalten. Ein bestimmter Träger kann genau einer Experimentiertstation (ES) zugeordnet sein. Eine Experimentiertstation besteht aus einem Namen als String und dem Ort, an dem die ES zu finden ist als Standort. Einer bestimmten ES können beliebig viele Träger zugeordnet sein, während ihr immer nur einTechnologe zugeordnet sein wird. Die ES ist immer nur einem bestimmten Prozessschritt (PS) zugeordnet. Ein Prozessschritt beinhaltet den Namen als String, die Prozessparameter (PP) als Prozessparameter, der Probenzustand, die Dauer und die Zustände und (???). Ein Prozessschritt ist einer bestimmten Prozesskette zugeordnet. Die Prozesskette (PK) beinhaltet den Namen als String. Sie beherbergt beliebig viele Prozessschritte und beliebig viele Prozesskettenaufträge. Der  Prozesskettenauftrag (PKAuftrag) kann nur einer Prozesskette zugeordnet sein und hat einen KettenInstanzwert (KIW) zugeordnet. \\
+Der Ketteninstanzwert ist einem PKAuftrag zugeordnet und beinhaltet beliebig viele Schnittinstanzwerte (SIW). Die Schnittinstanzwerte beinhalten einen Wert, welcher über KIW, PKAuftrag und die PK einem Prozessschritt zugeschrieben werden. Ein SIW kann einem KIW zugeordnet sein. 
+Dies wird so gehandhabt, da man im Nachhinein, nachdem eine Prozesskette instanziiert wurde, die Werte noch einfach ändern können soll. 
+}
+
 {\it Hier wird das der Anwendung zugrundeliegende Datenmodell
   beschrieben. Hierzu werden neben einem erläuternden Text auch ein
   oder mehrere {UML}-Klassendiagramme verwendet. Das hier beschriebene
@@ -799,6 +900,24 @@ die Entstehung anhand der Strategien erläutert werden.
 \section{Ausführungssicht}
 
 \label{sec:ausfuehrung}
+
+{ Im folgenden Schritt werden wir die Ausführungssicht erläutern. Es wird aufgezeigt, welche verschiedenen Geräte benötigt werden, welche Prozesse auf den Geräten jeweils laufen und welche Module dort enthalten sind.
+}
+
+
+%%\includepdf[]{06Ausfuehrungssicht.pdf}
+\includegraphics[scale=0.5]{UML/06Ausfuehrungssicht.pdf}
+
+
+{ Die Ausführungssicht von unserer Software (SWP2) ist in der obrigen Abbildung 6.1 modelliert. 
+
+Beliebig viele Benutzer können via TCP/IP auf den SFB-Server zugreifen. Dies geschieht über eine Webapplikation, die im Internetbrowser eines PCs oder eines mobilen Endgerät läuft. 
+
+Es gibt einen Anwendungsserver, welchen wir SFB-Server genannt haben, auf dem eine Instanz von Wildfly läuft. Auf dieser Wildflyinstanz wird der SWP2-Server mit allen dazugehörigen modulen ausgeführt. 
+
+Der SFB-Server stellt eine Verbindung über TCP/IP eine Verbindung zu dem einzigen Datenbankserver her. Auf dem Server läfut eine Instanz der Datenbanksoftware (........INSERT NAME...........).
+
+}
 
 {\it
 Die Ausführungssicht beschreibt das Laufzeitverhalten. Hier
