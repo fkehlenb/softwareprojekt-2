@@ -135,3 +135,9 @@ https://hibernate.org/validator/
 http://logback.qos.ch/
 
 https://eclipse-ee4j.github.io/jersey/
+
+
+Montag 8 Stunden
+Dienstag 1 Stunde
+Mittwoch 19-23 Uhr
+Donnerstag 12:00 19:00
