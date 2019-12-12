@@ -157,20 +157,19 @@ Version & Datum & Änderungen \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Einführung} 
 
-Diese Architektur Beschreibung wurde im Rahmen von von Software Projekt 2 im Wintersemester 2019/2020 geschrieben.  Das Projekt wurde im Rahmen des SFB 1232 Farbige Zustände erstellt. Die SFB-intitative "Farbige Zustände" erarbeitet sich eine neuartige experimentelle Methode der Werkstoffentwicklung.
+Diese Architektur Beschreibung wurde im Rahmen von Software Projekt 2 im Wintersemester 2019/2020 geschrieben.  Das Projekt wurde im Rahmen des SFB 1232 Farbige Zustände erstellt. Die SFB-intitative "Farbige Zustände" erarbeitet sich eine neuartige experimentelle Methode der Werkstoffentwicklung.
 
-Die Aufgabe unserer Software ist es einerseits der SFB-Initiative zu ermöglichen effizient und ohne einer Verzögerung durch einen Administrativen Mehraufwand Prozessketten für die untersuchten metallischen Konstruktionswerkstoffe zu finden. Andererseits ermöglichen wir es den Forschern der SFB-Initative den Überblick über laufende Prozessketten und deren Prozessschritte zu behalten. Konkret bedeutet dies, dass wir es den Logistik-beauftragen ermöglichen mit unserer Software Proben und deren Träger zu verwalten. Den Technologen der SFB-Initiative ermöglichen wir es den Überblick über dessen Experimentierstationen zu haben, dies bedeutet, er ist immer über die laufenden Prozessschritte informiert.
-Der Prozesskettenadministrator ... TODO Fix below
+Die Aufgabe unserer Software ist es einerseits der SFB-Initiative zu ermöglichen effizient und ohne Verzögerung durch einen Administrativen Mehraufwand für die untersuchten metallischen Konstruktionswerkstoffe Prozessketten zu finden. Andererseits ermöglichen wir es den Forschern der SFB-Initative einen Überblick über laufende Prozessketten und deren Prozessschritte zu behalten. Konkret bedeutet dies, dass wir es den Logistik-beauftragten ermöglichen mit unserer Software Proben und deren Träger zu verwalten. Den Technologen der SFB-Initiative ermöglichen wir einen Überblick über ihre Experimentierstationen zu behalten, dies bedeutet wiederum, das sie immer über die laufenden Prozessschritte informiert sind.
+Der Prozesskettenadministrator kann Prozessketten erstellen und starten, diese Prozessketten können Vor- und Nachbedingungen haben. Sobald eine Prozesskette gestartet wurde kann sich ein Technologe diese als Auftrag annehmen. Wenn der Technologe wiederum Sachen von einem Ort zu einem anderen transportieren möchte, gibt er dem Transporter über das System Bescheid, damit dieser diesen Auftrag bei sich im System annehmen kann, und ihn anschließend ausführen kann. Sollte der Transporter auf seinem Weg Proben verlieren, so gibt er diese im System ein.
+Sollte die Prozesskette gerade erst gestartet worden sein, so wird dem Logistiker Bescheid gegeben. Dieser überprüft wiederum, ob die Proben mit den gefragten Eingenschaften sich im Lager befindet. Sollte dieses nicht der Fall sein, so gibt er dem System Bescheid, und die Prozesskette wird abgebrochen. Außerdem ist er am Ende der Prozesskette dafür zuständig die Proben im Lager zu lagern.    
 
-
-Das software muss bei der Verwaltung eine Prozess Kette helfen. die Nutzer können unterschiedliche Prozessschitten auf eine Zustanden stellen, diese Prozessschritten können hochgeladen und untergeladen sein werden. außerdem kann man auf eine Kette der Zuständ den Pruben überwachen. durch ein Prozesskette von Prueben interaktuiren unterschiedlichen Nutzer, wie zum Bespiel, Prozessketteadministrator, der das Prozesskette umbaut und Trasnporter, der ein Probe durch unterschiedlichen Stationen transportieren kann. Das Software hat ins gesamt fünf Benutzer, jede hat ihre eizige Eingeschafften:
-
+Das System enthält also \underline{5 Arten von Benutzern:}
 \begin{itemize}
-  \item Admin kann Nutzer und Stationen einfüngen und entfernen.
-  \item ProzessKetteadministrator instanziert eine Prozess Kette.
-  \item Logistiker beschäftige sich auf der Resssourcen in der Lage für jede Prozess Kette und start den Prozess.
-  \item  Trasporter befördet die Proben zu den benötigten Stationen.
- \item Technologer führen die Prozessschitten der Prozesskette durch, sie werten die Erbgenisse aus und laden sie hoch in die Datenbank.
+  \item System Administrator: Verwaltet die Nutzer des Systems.
+  \item Prozessketten Administrator: Ist für die Erstellung und Verwaltung von Prozessketten zuständig.
+  \item Logistiker: Ist für das Lager zuständig.
+  \item Transporter: Transportiert Proben von A nach B.
+  \item Technologe: Ist für die Ausführung von Experimenten zuständig. Außerdem wertet er die Ergebnisse der Experimente aus und protokolliert diese. Kann mehreren Experimentierstationen zugewiesen sein. 
 \end{itemize}
 
 Diese software muss die benötigen Funktionalitäten inhalt. Außerdem insofern neue Funtionalitäten gebraucht sind, das software erweitern diese Funtionalität soll.
