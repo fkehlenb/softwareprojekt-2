@@ -75,4 +75,31 @@ t -> tApp: Aufruf vorhandener Vorlagen
 #+END_SRC
 
 #+RESULTS:
-[[file:pkErstellen.png]]
+
+
+
+* Konzeptionelle Sicht
+#+BEGIN_SRC plantuml :file konzeptionelleSicht.png
+database "H2 Datenbank" as db
+package "Server Wildfly" as server{
+[Persistenz] as per
+[Geschäftslogik] as gl
+[Controller] as cont
+[Presentationsicht] as pres
+[REST API] as rest
+[User Interface] as ui
+}
+db == per: SQL
+per - gl: JPA
+gl -- cont: Applies
+cont -- pres: Views & Request
+
+per -- rest: JPA
+rest -- restClient: HTTPs Request/Response
+
+pres -- ui: Request
+ui == Client: HTTPs Request/Response
+#+END_SRC
+
+#+RESULTS:
+[[file:konzeptionelleSicht.png]]
