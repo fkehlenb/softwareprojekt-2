@@ -35,7 +35,7 @@
             citecolor=blue, urlcolor=blue, hyperfigures=true,
             pdftex=true]{hyperref}
 \usepackage{bookmark}
-\usepackage{pdfpages}
+\usepackage{rotating}
 
 \hyphenation{Arbeits-paket}
 
@@ -157,31 +157,30 @@ Version & Datum & Änderungen \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Einführung} 
 
-Diese Architektur Beschreibung wurde im Rahmen von Software Projekt 2 im Wintersemester 2019/2020 geschrieben.  Das Projekt wurde im Rahmen des SFB 1232 Farbige Zustände erstellt. Die SFB-intitative "Farbige Zustände" erarbeitet sich eine neuartige experimentelle Methode der Werkstoffentwicklung.
+Diese Architektur Beschreibung wurde im Rahmen von von Software Projekt 2 im Wintersemester 2019/2020 geschrieben.  Das Projekt wurde im Rahmen des SFB 1232 Farbige Zustände erstellt. Die SFB-intitative "Farbige Zustände" erarbeitet sich eine neuartige experimentelle Methode der Werkstoffentwicklung.
 
-Die Aufgabe unserer Software ist es einerseits der SFB-Initiative zu ermöglichen effizient und ohne Verzögerung durch einen Administrativen Mehraufwand für die untersuchten metallischen Konstruktionswerkstoffe Prozessketten zu finden. Andererseits ermöglichen wir es den Forschern der SFB-Initative einen Überblick über laufende Prozessketten und deren Prozessschritte zu behalten. Konkret bedeutet dies, dass wir es den Logistik-beauftragten ermöglichen mit unserer Software Proben und deren Träger zu verwalten. Den Technologen der SFB-Initiative ermöglichen wir einen Überblick über ihre Experimentierstationen zu behalten, dies bedeutet wiederum, das sie immer über die laufenden Prozessschritte informiert sind.
-Der Prozesskettenadministrator kann Prozessketten erstellen und starten, diese Prozessketten können Vor- und Nachbedingungen haben. Sobald eine Prozesskette gestartet wurde kann sich ein Technologe diese als Auftrag annehmen. Wenn der Technologe wiederum Sachen von einem Ort zu einem anderen transportieren möchte, gibt er dem Transporter über das System Bescheid, damit dieser diesen Auftrag bei sich im System annehmen kann, und ihn anschließend ausführen kann. Sollte der Transporter auf seinem Weg Proben verlieren, so gibt er diese im System ein.
-Sollte die Prozesskette gerade erst gestartet worden sein, so wird dem Logistiker Bescheid gegeben. Dieser überprüft wiederum, ob die Proben mit den gefragten Eingenschaften sich im Lager befindet. Sollte dieses nicht der Fall sein, so gibt er dem System Bescheid, und die Prozesskette wird abgebrochen. Außerdem ist er am Ende der Prozesskette dafür zuständig die Proben im Lager zu lagern.    
+Die Aufgabe unserer Software ist es einerseits der SFB-Initiative zu ermöglichen effizient und ohne einer Verzögerung durch einen Administrativen Mehraufwand Prozessketten für die untersuchten metallischen Konstruktionswerkstoffe zu finden. Andererseits ermöglichen wir es den Forschern der SFB-Initative den Überblick über laufende Prozessketten und deren Prozessschritte zu behalten. Konkret bedeutet dies, dass wir es den Logistik-beauftragen ermöglichen mit unserer Software Proben und deren Träger zu verwalten. Den Technologen der SFB-Initiative ermöglichen wir es den Überblick über dessen Experimentierstationen zu haben, dies bedeutet, er ist immer über die laufenden Prozessschritte informiert.
+Der Prozesskettenadministrator ... TODO Fix below
 
-Das System enthält also \underline{5 Arten von Benutzern:}
+
+Das software muss bei der Verwaltung eine Prozess Kette helfen. die Nutzer können unterschiedliche Prozessschitten auf eine Zustanden stellen, diese Prozessschritten können hochgeladen und untergeladen sein werden. außerdem kann man auf eine Kette der Zuständ den Pruben überwachen. durch ein Prozesskette von Prueben interaktuiren unterschiedlichen Nutzer, wie zum Bespiel, Prozessketteadministrator, der das Prozesskette umbaut und Trasnporter, der ein Probe durch unterschiedlichen Stationen transportieren kann. Das Software hat ins gesamt fünf Benutzer, jede hat ihre eizige Eingeschafften:
+
 \begin{itemize}
-  \item System Administrator: Verwaltet die Nutzer des Systems.
-  \item Prozessketten Administrator: Ist für die Erstellung und Verwaltung von Prozessketten zuständig.
-  \item Logistiker: Ist für das Lager zuständig.
-  \item Transporter: Transportiert Proben von A nach B.
-  \item Technologe: Ist für die Ausführung von Experimenten zuständig. Außerdem wertet er die Ergebnisse der Experimente aus und protokolliert diese. Kann mehreren Experimentierstationen zugewiesen sein. 
+  \item Admin kann Nutzer und Stationen einfüngen und entfernen.
+  \item ProzessKetteadministrator instanziert eine Prozess Kette.
+  \item Logistiker beschäftige sich auf der Resssourcen in der Lage für jede Prozess Kette und start den Prozess.
+  \item  Trasporter befördet die Proben zu den benötigten Stationen.
+ \item Technologer führen die Prozessschitten der Prozesskette durch, sie werten die Erbgenisse aus und laden sie hoch in die Datenbank.
 \end{itemize}
 
-%TODO%
 Diese software muss die benötigen Funktionalitäten inhalt. Außerdem insofern neue Funtionalitäten gebraucht sind, das software erweitern diese Funtionalität soll.
-%%%%%
 
-Leser dieser Architekturbeschreibung sind somit nicht nur die Mitarbeiter des SFBs, sondern auch der Endkunde. Um also dem Leser ein klares Verständnis zur Funktionalität der Software zu geben, werden wir im folgenden erst einmal den Zweck ser Architekturbeschreibung erläutern, und dann Ausdrücke erklären welche für einen regulären Leser undeutlich sein können.
+Diese Architekturbeschreibung ist für die Entsprechende Prüfer an der Universität Bremen als auch für die Kunde geschriben.  Das Struktur und Schnittstelle und Entwicklenprozess sind auseinandergesetzt und hier detaliert dargestellt, um von der Entsprechende Leser evaluiert zu werden.
 
-%TODO%
+
 \subsection{Zweck}
 
-  {\em Diese Architektur Beschreibung hat als Zweck die Ermittlung der Eigenschaften und Struktur der Software von Produktion und Logistik. Welche eine Verwaltung der Kette von Prozessen bearbeiten soll. damit die Benutzer oder Kunden als Basis für die Testen nutzen kann.
+  {\em Diese Architektur Beschreibung  hat als Zweck, die Ermittlung der Eingeschärften und Struktur des Software von Produktion und Logistik. Welche eine Verwaltung der Kette von Prozessen bearbeiten soll. damit die Benutzer oder Kunden als Basis für die Testen nutzen kann.
 
   Diese Dokument beschreibt die Hauptpunkten der Parameter und Begrenzungen des Software, sowie die Parameter und die Zeit ablauft der Prozess, um diese Software Entwickeln und testest wurde.
   }
@@ -191,7 +190,6 @@ Leser dieser Architekturbeschreibung sind somit nicht nur die Mitarbeiter des SF
 {\em Dieses Dokument beschreibt den ersten Entwurf. Es wurde noch nicht durch ein
 Architektur-Review freigegeben.
 }
-%%%%%
 
 
 
@@ -318,25 +316,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
   %Verwendet eine eindeutige Nummerierung der Faktoren, um sie auf den
   %Problemkarten einfach referenzieren zu können.  }
   %%%%%%%%%%%%%%%%%%
-  
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Probleme und Strategien} \label{sec:strategien}
-
-{ \em Aus einer Menge von Faktoren ergeben sich Probleme, die nun in
-  Form von Problemkarten beschrieben werden. Diese ergaben sich z.\,B.\
-  aus
-  \begin{itemize}
-    \item Grenzen oder Einschränkungen durch Faktoren
-    \item der Notwendigkeit, die Auswirkung eines Faktors zu begrenzen
-    \item der Schwierigkeit, einen Produktfaktor zu erfüllen, oder
-    \item der Notwendigkeit einer allgemeinen Lösung zu globalen
-      Anforderungen.
-  \end{itemize}
-  Um mit diesen Problemen umzugehen, haben wir Strategien entwickelt, welche 
-  auch aufgelistet sind.\\
-}
-\begin{table}[h!]
+\begin{table}[]
 \centering
 \begin{tabular}{|p{1cm}|p{3cm}|p{5cm}|p{1cm}|p{5cm}|}
 \hline
@@ -355,7 +335,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
 \end{tabular}
 \end{table}
 
-\begin{table}[h!]
+\begin{table}[]
 \centering
 \begin{tabular}{|p{1cm}|p{3cm}|p{5cm}|p{1cm}|p{5cm}|}
 \hline
@@ -382,7 +362,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
 \end{tabular}
 \end{table}
 
-\begin{table}[h!]
+\begin{table}[]
 \centering
 \begin{tabular}{|p{1cm}|p{3cm}|p{5cm}|p{1cm}|p{5cm}|}
 \hline
@@ -404,7 +384,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
 \end{tabular}
 \end{table}
 
-\begin{table}[h!]
+\begin{table}[]
 \centering
 \begin{tabular}{|p{1cm}|p{3cm}|p{5cm}|p{1cm}|p{5cm}|}
 \hline
@@ -423,7 +403,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
 \end{tabular}
 \end{table}
 
-\begin{table}[h!]
+\begin{table}[]
 \centering
 \begin{tabular}{|p{1cm}|p{3cm}|p{5cm}|p{1cm}|p{5cm}|}
 \hline
@@ -441,7 +421,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
 \end{tabular}
 \end{table}
 
-\begin{table}[h!]
+\begin{table}[]
 \centering
 \begin{tabular}{|p{1cm}|p{3cm}|p{5cm}|p{1cm}|p{5cm}|}
 \hline
@@ -458,7 +438,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
 \end{tabular}
 \end{table}
 
-\begin{table}[h!]
+\begin{table}[]
 \centering
 \begin{tabular}{|p{1cm}|p{3cm}|p{5cm}|p{1cm}|p{5cm}|}
 \hline
@@ -476,7 +456,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
 \end{tabular}
 \end{table}
 
-\begin{table}[hh!]
+\begin{table}[]
 \centering
 \begin{tabular}{|p{1cm}|p{3cm}|p{5cm}|p{1cm}|p{5cm}|}
 \hline
@@ -486,9 +466,47 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
  \multicolumn{5}{|l|}{P3.2: Authentifizierung}                                                                         \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Benutzer sollten\\sich in das\\System einloggen\\müssen, um\\relevante\\Informationen\\angezeigt zu\\bekommen. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss\\eine Login Seite\\vorsehen; ein Zugriff auf\\die Anwendung ohne sich\\einzuloggen soll nicht\\möglich sein.\end{tabular} \\ \hline
 \end{tabular}
-\end{table} 
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{table}[hh!]
+\subsection{Probleme und Strategien} \label{sec:strategien}
+
+{ \em Aus einer Menge von Faktoren ergeben sich Probleme, die nun in
+  Form von Problemkarten beschrieben werden. Diese resultieren z.\,B.\
+  aus
+  \begin{itemize}
+    \item Grenzen oder Einschränkungen durch Faktoren
+    \item der Notwendigkeit, die Auswirkung eines Faktors zu begrenzen
+    \item der Schwierigkeit, einen Produktfaktor zu erfüllen, oder
+    \item der Notwendigkeit einer allgemeinen Lösung zu globalen
+      Anforderungen.
+  \end{itemize}
+  Dazu entwickelt Ihr Strategien, um mit den identifizierten Problemen
+  umzugehen.
+
+  Achtet auch hier darauf, dass die Probleme und Strategien wirklich
+  die Architektur betreffen und nicht etwa das Projektmanagement. Die
+  Strategien stellen im Prinzip die Designentscheidungen dar. Sie
+  sollten also die Erklärung für den konkreten Aufbau der
+  verschiedenen Sichten liefern.
+
+  Beschreibt möglichst mehrere Alternativen und gebt an, für welche
+  Ihr Euch letztlich aus welchem Grunde entschieden habt. Natürlich
+  müssen die genannten Strategien in den folgenden Sichten auch
+  tatsächlich umgesetzt werden!
+
+  Ein sehr häufiger Fehler ist es, dass SWP-Gruppen arbeitsteilig
+  vorgehen: die eine Teilgruppe schreibt das Kapitel zur Analyse von
+  Faktoren und zu den Strategien, die andere Teilruppe beschreibt die
+  diversen Sichten, ohne dass diese beiden Teilgruppen sich abstimmen.
+  Da der Zweck der Faktoren und Strategien ist, die
+  Designentscheidungen für den Entwurf zu erarbeiten, besteht
+  natürlich ein Zusammenhang zwischen den Faktoren, Strategien und
+  Sichten. Dieser muss erkennbar sein, indem sich die verschiedenen
+  Kapitel eindeutig aufeinander beziehen.
+}
+
+\begin{table}[]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
@@ -508,7 +526,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \label{tab:my_label}
 \end{table}
 
-\begin{table}[hh!]
+\begin{table}[]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
@@ -527,7 +545,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \label{tab:my_label}
 \end{table}
 
-\begin{table}[hh!]
+\begin{table}[]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
@@ -547,7 +565,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \label{tab:my_label}
 \end{table}
 
-\begin{table}[hh!]
+\begin{table}[]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
@@ -568,7 +586,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \label{tab:my_label}
 \end{table}
 
-\begin{table}[hh!]
+\begin{table}[]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
@@ -590,7 +608,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \label{tab:my_label}
 \end{table}
 
-\begin{table}[hh!]
+\begin{table}[]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
@@ -613,7 +631,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \label{tab:my_label}
 \end{table}
 
-\begin{table}[hh!]
+\begin{table}[]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
@@ -634,7 +652,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \label{tab:my_label}
 \end{table}
 
-\begin{table}[hh!]
+\begin{table}[]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
@@ -657,7 +675,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \label{tab:my_label}
 \end{table}
 
-\begin{table}[hh!]
+\begin{table}[]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
@@ -679,7 +697,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \label{tab:my_label}
 \end{table}
 
-\begin{table}[hh!]
+\begin{table}[]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
@@ -698,7 +716,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \label{tab:my_label}
 \end{table}
 
-\begin{table}[hh!]
+\begin{table}[]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
@@ -718,7 +736,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \label{tab:my_label}
 \end{table}
 
-\begin{table}[hh!]
+\begin{table}[]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
@@ -737,7 +755,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \label{tab:my_label}
 \end{table}
 
-\begin{table}[hh!]
+\begin{table}[]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
@@ -761,7 +779,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \label{tab:my_label}
 \end{table}
 
-\begin{table}[hh!]
+\begin{table}[]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
@@ -781,7 +799,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \label{tab:my_label}
 \end{table}
 
-\begin{table}[hh!]
+\begin{table}[]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
@@ -808,7 +826,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \label{tab:my_label}
 \end{table}
 %%%%%%%%%%%%%%%%%%
-\pagebreak
+
 
 \section{Konzeptionelle Sicht}
 \label{sec:konzeptionell}
@@ -867,16 +885,14 @@ Zweifel sollte er explizit erklärt werden. Auch für diese Sicht muss
 die Entstehung anhand der Strategien erläutert werden.
 }
 
+
+
+
 \section{Datensicht}
 \label{sec:datensicht}
 
-<<<<<<< HEAD
-{  Zunächst existiert die Klasse Probe, welche die ID, die Legierung als (???), die Art der Behandlung und die Materialeigenschaften beinhaltet. Eine bestimmte Probe kann ausschließlich einem Träger zugeordnet werden. 
-Die Klasse Träger besteht wieder aus einer ID, dem aktuellen Standort als  Standort und dem Typ als Trägerart. Ein Träger kann beliebig viele Proben beinhalten. Ein bestimmter Träger kann genau einer Experimentiertstation (ES) zugeordnet sein. Eine Experimentiertstation besteht aus einem Namen als String und dem Ort, an dem die ES zu finden ist als Standort. Einer bestimmten ES können beliebig viele Träger zugeordnet sein, während ihr immer nur einTechnologe zugeordnet sein wird. Die ES ist immer nur einem bestimmten Prozessschritt (PS) zugeordnet. Ein Prozessschritt beinhaltet den Namen als String, die Prozessparameter (PP) als Prozessparameter, der Probenzustand, die Dauer und die Zustände und (???). Ein Prozessschritt ist einer bestimmten Prozesskette zugeordnet. Die Prozesskette (PK) beinhaltet den Namen als String. Sie beherbergt beliebig viele Prozessschritte und beliebig viele Prozesskettenaufträge. Der  Prozesskettenauftrag (PKAuftrag) kann nur einer Prozesskette zugeordnet sein und hat einen KettenInstanzwert (KIW) zugeordnet. \\
-=======
 { \em Zunächst existiert die Klasse Probe, welche die ID, die Legierung als (???), die Art der Behandlung und die Materialeigenschaften beinhaltet. Eine bestimmte Probe kann ausschließlich einem Träger zugeordnet werden. 
 Die Klasse Träger besteht wieder aus einer ID, dem aktuellen Standort als  Standort und dem Typ als Trägerart. Ein Träger kann beliebig viele Proben beinhalten. Ein bestimmter Träger kann genau einer Experimentierstation (ES) zugeordnet sein. Eine Experimentierstation besteht aus einem Namen als String und dem Ort, an dem die ES zu finden ist als Standort. Einer bestimmten ES können beliebig viele Träger zugeordnet sein, während ihr immer nur ein  Technologe zugeordnet sein wird. Die ES ist immer nur einem bestimmten Prozessschritt (PS) zugeordnet. Ein Prozessschritt beinhaltet den Namen als String, die Prozessparameter (PP) als Prozessparameter, der Probenzustand, die Dauer und die Zustände und (???). Ein Prozessschritt ist einer bestimmten Prozesskette zugeordnet. Die Prozesskette (PK) beinhaltet den Namen als String. Sie beherbergt beliebig viele Prozessschritte und beliebig viele Prozesskettenaufträge. Der  Prozesskettenauftrag (PKAuftrag) kann nur einer Prozesskette zugeordnet sein und hat einen KettenInstanzwert (KIW) zugeordnet. \\
->>>>>>> a09986be888184c6d596c54865074afe0c373555
 Der Ketteninstanzwert ist einem PKAuftrag zugeordnet und beinhaltet beliebig viele Schnittinstanzwerte (SIW). Die Schnittinstanzwerte beinhalten einen Wert, welcher über KIW, PKAuftrag und die PK einem Prozessschritt zugeschrieben werden. Ein SIW kann einem KIW zugeordnet sein. 
 Dies wird so gehandhabt, da man im Nachhinein, nachdem eine Prozesskette instanziiert wurde, die Werte noch einfach ändern können soll. 
 }
@@ -887,28 +903,17 @@ Dies wird so gehandhabt, da man im Nachhinein, nachdem eine Prozesskette instanz
   Datenmodell wird u.\,a. jenes der Anforderungsspezifikation enthalten,
   allerdings mit implementierungsspezifischen Änderungen und
   Erweiterungen. Siehe die gesonderten Hinweise.}
+   
+ \begin{sidewaysfigure}
+  \caption{Caption for my figure}
+  \centering
+  
+  \includegraphics[width=0.75\textwidth]{UML/Model.pdf}
+ \end{sidewaysfigure}
 
 \section{Ausführungssicht}
 
 \label{sec:ausfuehrung}
-
-{ Im folgenden Schritt werden wir die Ausführungssicht erläutern. Es wird aufgezeigt, welche verschiedenen Geräte benötigt werden, welche Prozesse auf den Geräten jeweils laufen und welche Module dort enthalten sind.
-}
-
-
-%%\includepdf[]{06Ausfuehrungssicht.pdf}
-\includegraphics[scale=0.5]{UML/06Ausfuehrungssicht.pdf}
-
-
-{ Die Ausführungssicht von unserer Software (SWP2) ist in der obrigen Abbildung 6.1 modelliert. 
-
-Beliebig viele Benutzer können via TCP/IP auf den SFB-Server zugreifen. Dies geschieht über eine Webapplikation, die im Internetbrowser eines PCs oder eines mobilen Endgerät läuft. 
-
-Es gibt einen Anwendungsserver, welchen wir SFB-Server genannt haben, auf dem eine Instanz von Wildfly läuft. Auf dieser Wildflyinstanz wird der SWP2-Server mit allen dazugehörigen modulen ausgeführt. 
-
-Der SFB-Server stellt eine Verbindung über TCP/IP eine Verbindung zu dem einzigen Datenbankserver her. Auf dem Server läfut eine Instanz der Datenbanksoftware (........INSERT NAME...........).
-
-}
 
 {\it
 Die Ausführungssicht beschreibt das Laufzeitverhalten. Hier
