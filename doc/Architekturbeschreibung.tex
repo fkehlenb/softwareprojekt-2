@@ -109,12 +109,16 @@
   \sf
   \begin{tabular}{lr}
   Liam Hurwitz & hurwitz@tzi.de \\
-  Aaron Rudkowski & rudkowsk@uni-bremen.de \\
-  \end{tabular}
+  Kevin Santiago Rodriguez Rey & hurwitz@tzi.de \\
+  Fabian Kehlenberg & rudkows@tzi.de \\
+  Aaron Rudkowski & rudkows@tzi.de \\
+  Samuel nejati Masouleh & rudkows@tzi.de \\
+  Leonard Haddad & s\textunderscore xsipo6@tzi.de \\  
+\end{tabular}
   \\ ~
   \vspace{2cm}
   \\
-  \it Abgabe: 22. Dezember 2019 --- Version 1.0\\ ~
+  \it Abgabe: 23. Dezember 2019 --- Version 1.0\\ ~
   \end{center}
   \end{minipage}
 
@@ -157,48 +161,42 @@ Version & Datum & Änderungen \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Einführung}
 
-Diese Architektur Beschreibung wurde im Rahmen von von Software Projekt 2 im Wintersemester 2019/2020 geschrieben.  Das Projekt wurde im Rahmen des SFB 1232 Farbige Zustände erstellt. Die SFB-intitative "Farbige Zustände" erarbeitet sich eine neuartige experimentelle Methode der Werkstoffentwicklung.
+Diese Architektur Beschreibung wurde im Rahmen von von Software Projekt 2 im Wintersemester 2019/2020 geschrieben. Das Projekt wurde im Rahmen des SFB 1232 Farbige Zustände erstellt. Die SFB-intitative "Farbige Zustände" erarbeitet sich eine neuartige experimentelle Methode der Werkstoffentwicklung.
 
-Die Aufgabe unserer Software ist es einerseits der SFB-Initiative zu ermöglichen effizient und ohne einer Verzögerung durch einen Administrativen Mehraufwand Prozessketten für die untersuchten metallischen Konstruktionswerkstoffe zu finden. Andererseits ermöglichen wir es den Forschern der SFB-Initative den Überblick über laufende Prozessketten und deren Prozessschritte zu behalten. Konkret bedeutet dies, dass wir es den Logistik-beauftragen ermöglichen mit unserer Software Proben und deren Träger zu verwalten. Den Technologen der SFB-Initiative ermöglichen wir es den Überblick über dessen Experimentierstationen zu haben, dies bedeutet, er ist immer über die laufenden Prozessschritte informiert.
-Der Prozesskettenadministrator ... TODO Fix below
-
-
-Diese Architektur Beschreibung wurde im Rahmen von von Software Projekt 2 im Wintersemester 2019/2020 geschrieben.  Das Projekt wurde im Rahmen des SFB 1232 Farbige Zustände erstellt. Die SFB-intitative "Farbige Zustände" erarbeitet sich eine neuartige experimentelle Methode der Werkstoffentwicklung.
-
-Die Aufgabe unserer Software ist es einerseits der SFB-Initiative zu ermöglichen effizient und ohne Verzögerung durch einen Administrativen Mehraufwand Prozessketten für die untersuchten metallischen Konstruktionswerkstoffe zu finden. Andererseits ermöglichen wir es den Forschern der SFB-Initative über viele laufende Prozessketten und deren Prozessschritte den Überblick zu behalten. Konkret bedeutet dies, dass wir es den Logistik-beauftragen ermöglichen aus unserer Software Proben und
-
-
-Das software muss bei der Verwaltung eine Prozess Kette helfen. die Nutzer können unterschiedliche Prozessschitten auf eine Zustanden stellen, diese Prozessschritten können hochgeladen und untergeladen sein werden. außerdem kann man auf eine Kette der Zuständ den Pruben überwachen. durch ein Prozesskette von Prueben interaktuiren unterschiedlichen Nutzer, wie zum Bespiel, Prozessketteadministrator, der das Prozesskette umbaut und Trasnporter, der ein Probe durch unterschiedlichen Stationen transportieren kann. Das Software hat ins gesamt fünf Benutzer, jede hat ihre eizige Eingeschafften:
-
+Es handelt sich hierbei um eine Webapplikation, welche den Mitarbeitern der SFB-Initiative ermöglichen soll, effizient und ohne Verzögerung durch einen Administrativen Mehraufwand Prozessketten für die untersuchten metallischen Konstruktionswerkstoffe zu finden. 
+Außerdem ermöglichen wir es den Forschern der SFB-Initative den Überblick über laufende Prozessketten und deren Prozessschritte zu behalten. 
+Konkret bedeutet dies, dass wir es den Logistik-beauftragen mit Hilfe unserer Software ermöglichen, Proben und deren Träger zu verwalten. Den Technologen der SFB-Initiative ermöglichen wir es den Überblick über ihre Experimentierstationen zu behalten; sie werden immer über die laufenden Prozessschritte informiert sein.
+Dem Prozesskettenadministrator möchten wir es ermöglichen, Prozessketten zu erstellen und verwalten, welche auf digitalem Wege an die Technologen weitergegeben werden als auszuführende Aufträge, welche diese wiederum annehmen und durchführen können.
+Außerdem möchten wir den Mitarbeitern im Lager ermöglichen, eine klare Übersicht über die im Lager sich befindende Proben zu behalten.
+Außerdem möchten wir dem Transporter der Proben, welcher diese von A nach B transportieren muss, ermöglichen, diese Transporte einfach protokolliert durchführen zu können, mit einfachem Probeverlusts-Protokoll. 
+Zu guter Letzt soll es noch dem System-Administrator möglich sein, die Benutzer des Systems zu verwalten und ihnen ihre Rollen im SFB einzuteilen.
+ 
+Diese Webapplikation soll also, in Stichpunkten, die folgenden Funktionen ermöglichen:
 \begin{itemize}
-  \item Admin kann Nutzer und Stationen einfüngen und entfernen.
-  \item ProzessKetteadministrator instanziert eine Prozess Kette.
-  \item Logistiker beschäftige sich auf der Resssourcen in der Lage für jede Prozess Kette und start den Prozess.
-  \item  Trasporter befördet die Proben zu den benötigten Stationen.
- \item Technologer führen die Prozessschitten der Prozesskette durch, sie werten die Erbgenisse aus und laden sie hoch in die Datenbank.
+  \item Die Erstellung und Verwaltung von Prozessketten durch einen Prozessketten-Administrator.
+  \item Eine protokollierte, (digital semi-automatische-) beobachtete Durchführung von Experimenten auf die Werkstoff-Proben. 
+  \item Ein protokollierter Transport der Proben in ihren Trägern von A nach B, mit Verlusts-Protokoll.
+  \item Eine einfache Übersicht über die im Lager befindende Proben zu haben.
+  \item Nutzer der Webapplikation einfach verwalten und ihren Rollen im SFB einteilen zu können.
+  \item Das System sollte zudem auch noch lauffähig auf mobilen Geräten sein, und möchte noch auf Englisch verfügbar sein.
 \end{itemize}
 
-Diese software muss die benötigen Funktionalitäten inhalt. Außerdem insofern neue Funtionalitäten gebraucht sind, das software erweitern diese Funtionalität soll.
-
-Diese Architekturbeschreibung ist für die Entsprechende Prüfer an der Universität Bremen als auch für die Kunde geschriben.  Das Struktur und Schnittstelle und Entwicklenprozess sind auseinandergesetzt und hier detaliert dargestellt, um von der Entsprechende Leser evaluiert zu werden.
-
+Leser dieser Architekturbeschreibung sind hiermit also nicht nur die Mitarbeiter der SFB-Initiative, sondern gegeben falls auch der Endkunde, welcher die Benutzer des Systems verwalten kann.
 
 \subsection{Zweck}
 
-  {\em Diese Architektur Beschreibung  hat als Zweck, die Ermittlung der Eingeschärften und Struktur des Software von Produktion und Logistik. Welche eine Verwaltung der Kette von Prozessen bearbeiten soll. damit die Benutzer oder Kunden als Basis für die Testen nutzen kann.
-
-  Diese Dokument beschreibt die Hauptpunkten der Parameter und Begrenzungen des Software, sowie die Parameter und die Zeit ablauft der Prozess, um diese Software Entwickeln und testest wurde.
-  }
+  {\em Diese Architekturbeschreibung beschreibt die Architektur von Farbiges SFB, eine digitale Software welche die Erstellung, Verwaltung und Durchführung von Prozessketten ermöglicht, mit wessen Hilfe neue Werkstoffeigenschaften gefunden werden sollen für den industriellen Gebrauch. Es beschreibt wie das System von Farbiges SFB  implementiert werden soll, und wie seine Struktur aussehen wird. 
+Dieses Dokument soll allen die die Software bedienen und bearbeiten werden dabei helfen die Struktur und Funktionsweise von Farbiges SFB zu verstehen. Es soll sowohl den Entwicklern eine Übersicht über die Funktionsweise der Software geben, welche diese schließlich implementieren werden, als auch den Testern zur Vorbereitung  ihrer Tests. Es soll außerdem dem Systemadministratoren eine Übersicht der Software geben, da diese das System anschließend verwalten müssen, und diese vielleicht die Software weiterentwickeln möchten. 
+}
 
 \subsection{Status}
 
-{\em Dieses Dokument beschreibt den ersten Entwurf. Es wurde noch nicht durch ein
-Architektur-Review freigegeben.
-}
+{\em Diese Architektur beschreibt den ersten Entwurf dieser Software. Es wurde auch noch nicht freigegeben durch ein Architektur Review, und ist somit die allererste Version.  }
 
 
 
 \subsection{Definitionen, Akronyme und Abkürzungen}
+In diesem Kapitel werden Akronyme und andere Ausdrücke definiert, welche im Laufe des Dokuments verwendet werden.
 
 \begin{longtable}[c]{|p{7cm}|p{8cm}|}
 \hline
@@ -260,22 +258,30 @@ Problemkarten                          & Beschreiben Probleme und passende Strat
 SQL                                    & Ist eine domän spezifische Sprache die in der Softwareentwicklung benutzt wird und Daten in relationalen Datenbanken verwaltet.                                                                                         \\ \hline
 \end{longtable}
 \subsection{Referenzen}
-
+\begin{itemize}
+  \item Architekturbeschreibung von RainersRaiders im Rahmen von Softwareprojekt 2 - 2016
+  \item Kickoff Folien
+\end{itemize}
 \subsection{Übersicht über das Dokument}
 
-{ \em In Kapitel 2 werden die Einflussfaktoren und Probleme und Strategien, die zum Lösen der Probleme entworfen wurden, dargestellt.
-
-In den Kapiteln 3, 4 und 6 werden die verschiedenen Sichten von Hofmeister gezeigt. Die Codesicht wird in diesem Projekt nicht behandelt.
-Im Nachfolgenden Kapitel 3 wird die Konzeptionelle Sicht unserer Software beschrieben. In Kapitel 4 wird die Modulsicht und In Kapitel 6 wird die Ausführungssicht gezeigt. Kapitel 5 ist eine nähere Beschreibung der Architektursicht und wird durchn ein Modell in der Datensicht dargestellt.
-
-Im Kapitel 7 werden einige Anwendungsfälle dargestellt. im abschließenden Kapitel 8 wird auf die mögliche zukünftige Entwicklung der Software bei neu eingehenden Wünschen der Kunden eingegangen.
+{ \em Im Kapitel 2 werden wir zunächst verschiedene Anwendungsfälle unserer Software beschreiben, welche wir als Ausgangspunkt für unsere Architekturstruktur verwenden werden. In Kapitel 3 werden die Einflussfaktoren und Probleme und Strategien, die zum Lösen der Probleme entworfen wurden, dargestellt.
+In den Kapiteln 4, 5 und 7 werden die verschiedenen Sichten von Hofmeister gezeigt. Die Codesicht wird in diesem Projekt nicht behandelt.
+Im Nachfolgenden Kapitel 4 wird die Konzeptionelle Sicht unserer Software beschrieben. In Kapitel 5 wird die Modulsicht und In Kapitel 7 wird die Ausführungssicht gezeigt. Kapitel 6 ist eine nähere Beschreibung der Architektursicht und wird durch ein Modell in der Datensicht dargestellt.
+Im Kapitel 8 werden einige Anwendungsfälle dargestellt. im abschließenden Kapitel 9 wird auf die mögliche zukünftige Entwicklung der Software bei neu eingehenden Wünschen der Kunden eingegangen.
 
 }
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{Anwendungsfälle}
+\subsection{Benutzer Verwalten}
+\subsection{Prozessketten Verwalten}
+\subsection{Prozesskettenschritt Ausführen}
+\subsection{Proben Transport}
+\subsection{Lager Verwaltung}
 \section{Globale Analyse}
+
 \label{sec:globale_analyse}
 
 {\it Hier werden Einflussfaktoren aufgezählt und bewertet sowie Strategien
@@ -418,9 +424,9 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
 \multicolumn{5}{|l|}{P1.6: Prozessketten}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Prozessketten\\ sollen erstellt,\\ gelöscht, und\\ bearbeitet\\ werden können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Mangel an den\\ Mindestanforderungen,\\ Architektur wird\\ möglicherweise vom \\Kunden nicht akzeptiert.\end{tabular} \\ \hline
 \multicolumn{5}{|l|}{P1.7: Aufträge}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
-                                                          & \begin{tabular}[c]{@{}l@{}}Aufträge sollen\\ erstellt, \\freigegeben, \\gestoppt,\\ gelöscht,\\ priorisiert, und \\bearbeitet\\ werden können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Mangel an den\\ Mindestanforderungen,\\ Architektur wird\\ möglicherweise vom \\Kunden nicht akzeptiert.\end{tabular} \\ \hline
+                                                          & \begin{tabular}[c]{@{}l@{}}Aufträge sollen\\ erstellt, \\freigegeben, \\gestoppt,\\ gelöscht,\\ priorisiert, und \\bearbeitet\\ werden können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss eine Seite vorsehen, .\end{tabular} \\ \hline
 \multicolumn{5}{|l|}{P1.7.1: Zuordnen zu Aufträgen}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
-                                                          & \begin{tabular}[c]{@{}l@{}}Aufträge sollen\\ Proben/Trägern \\zugeordnet \\werden können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Mangel an den\\ Mindestanforderungen,\\ Architektur wird\\ möglicherweise vom \\Kunden nicht akzeptiert.\end{tabular} \\ \hline
+                                                          & \begin{tabular}[c]{@{}l@{}}Aufträgen sollen\\ Proben/Trägern \\zugeordnet \\werden können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}} Die Architektur muss \\vorsehen, dass Proben und \\Träger irgendwie Aufträgen \\zugeordnet werden können. \\Zugeordnete Proben/Träger\\ dürfen dann nicht mehr \\anderen Aufträgen \\zugeordnet werden; was von \\der Anwendung überprüft \\werden muss.\end{tabular} \\ \hline
 \multicolumn{5}{|l|}{P1.7.2: Automatisches Zuordnen}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Alternativ sollen\\ Aufträgen \\automatisch\\ Proben/Trägern \\zugeordnet \\werden. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da vom Chinese Menu,\\ ist diese Anforderung\\ optional.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Anwendung\\ muss die Parameter \\der Prozessschritte\\ einer Prozesskette \\auswerten können, und \\daraus schließen, welche \\Proben/Träger\\ gebraucht werden. \end{tabular} \\ \hline
 \end{tabular}
@@ -437,7 +443,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
 \multicolumn{5}{|l|}{P1.8: Träger}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Träger sollen\\erstellt und\\gelöscht\\werden können.\\ \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss \\eine Möglichkeit haben,\\Träger zu löschen\\(über einen Knopf oä)\\und neue Träger\\zu erstellen. \end{tabular} \\ \hline
 \multicolumn{5}{|l|}{P1.9: Dynamische Zustandsautomaten}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
-                                                          & \begin{tabular}[c]{@{}l@{}}Zustandsautomaten\\(linear, keine\\Verzweigungen)\\für die \\Prozessschritte\\sollen angelegt,\\gelöscht\\und bearbeitet\\werden können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Architektur entspricht\\nicht den Anforderungen. \end{tabular} \\ \hline
+                                                          & \begin{tabular}[c]{@{}l@{}}Zustandsautomaten\\(linear, keine\\Verzweigungen)\\für die \\Prozessschritte\\sollen angelegt,\\gelöscht\\und bearbeitet\\werden können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}} Es muss eine\\ Ansicht geben, in\\ der diese Automaten \\erstellt werden/eine\\ Übersicht über\\ existierende möglich ist. \end{tabular} \\ \hline
 \multicolumn{5}{|l|}{P1.10: Kaputte Proben}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Proben sollen\\als kaputt\\gemeldet\\werden können.\\ \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss \\vorsehen, dass eine Probe\\unterschiedliche Zustände hat\\(kaputt/nicht kaputt)\\und dass der Übergang\\vom Nutzer hervorgerufen \\wird.\\ \end{tabular} \\ \hline
 \end{tabular}
@@ -450,8 +456,10 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
 \begin{tabular}[c]{@{}l@{}}Abge-\\ leitet\\aus\end{tabular} & Einflussfaktor                                                                        & \begin{tabular}[c]{@{}l@{}}Flexibilität und \\ Veränderlichkeit\end{tabular}                                                              & \begin{tabular}[c]{@{}l@{}}++/\\\\ −−\end{tabular} & Auswirkungen                                                                                                                                                                                                                              \\ \hline
 \multicolumn{5}{|l|}{P1.10.1: Verlorene Proben}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Proben\\ sollen als \\verloren gemeldet\\ werden können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss \\mit verlorenen Proben\\umgehen können: Es\\muss möglich sein,\\zu sehen, wenn eine\\Probe verloren gegangen\\ist, diese darf nicht weiter\\verplant werden. \end{tabular} \\ \hline
-\multicolumn{5}{|l|}{P1.10.2; Lagerübersicht}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
+\multicolumn{5}{|l|}{P1.10.2: Lagerübersicht}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Die im Lager\\liegenden Proben\\sollen angezeigt\\werden können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da es vom Chinese \\Menu ist aber\\ Flexibilität gegeben:\\ muss nicht\\ unbedingt gemacht werden.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Es muss irgendwie\\erkennbar sein, welche\\Proben im Lager sind,\\und welche nicht.\\Weitergehend muss es \\einfach sein,alle im Lager\\ liegenden zu finden und\\aufzulisten. \end{tabular} \\ \hline
+\multicolumn{5}{|l|}{P1.10.3: Proben-id-Nummern}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
+                                                        P1.10.2  & \begin{tabular}[c]{@{}l@{}}Die Proben-\\kügelchen sollen\\ alle eigene\\id-Nummern \\bekommen. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Flexibilität: nicht hoch,\\ da eine Entscheidung\\ bezüglich der Speicherung \\der Proben gemacht\\ werden muss. \\(Allerdings auch andere \\Optionen theoretisch\\ möglich). \\Veränderlichkeit: nach \\Beginn der Implementierung\\ sehr gering, da großer\\ Einfluss auf viele\\ Programmteile. \end{tabular} & \begin{tabular}[c]{@{}l@{}}-/--\end{tabular} & \begin{tabular}[c]{@{}l@{}}Es ensteht eine\\ hohe Menge an Einträgen\\ in der Datenbank, mit\\ der ohne Performance-\\probleme umgegangen\\ werden muss. \end{tabular} \\ \hline
 \multicolumn{5}{|l|}{P1.10.4:Proben Kommentar}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Zu Proben\\sollen\\ Kommentare\\erstellt werden\\können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Es muss eine \\Fläche für\\Kommentareingabe\\und Darstellung\\geben. \end{tabular} \\ \hline
 \multicolumn{5}{|l|}{P2.1:Mehrsprachig}                                                                         \\ \hline
@@ -502,7 +510,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
 
   Ein sehr häufiger Fehler ist es, dass SWP-Gruppen arbeitsteilig
   vorgehen: die eine Teilgruppe schreibt das Kapitel zur Analyse von
-  Faktoren und zu den Strategien, die andere Teilruppe beschreibt die
+  Faktoren und zu den Strategien, die andere Teilgruppe beschreibt die
   diversen Sichten, ohne dass diese beiden Teilgruppen sich abstimmen.
   Da der Zweck der Faktoren und Strategien ist, die
   Designentscheidungen für den Entwurf zu erarbeiten, besteht
@@ -511,25 +519,35 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
   Kapitel eindeutig aufeinander beziehen.
 }
 
+
+Im Folgenden werden einige Probleme, die sich aus den herausgearbeiteten Einflussfaktoren ergeben, thematisiert. Dazu werden die Probleme zunächst mitsamt der Einflussfaktoren, aus denen sie sich ergeben, vorgestellt, und anschließend unterschiedliche Strategien, um mit ihnen umzugehen, vorgestellt. \\ 
+Diese Strategien werden daraufhin bewertet und es wird eine für jedes Problem ausgewählt. Diese Auswahl wird begründet. \\ 
+Folgende Strategien zur Lösung von Problemen wurden ausgewählt: \\
+...
+
+
 \begin{table}[]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
           \textbf{Problem 1:} Userrollen \\ \hline
-          Es soll unterschiedliche Rollen geben, die unterschiedliche Rechte/Fähigkeiten haben; jeder User kann mehrere Rollen übernehmen. \\ \hline
+          Es soll unterschiedliche Rollen geben, die unterschiedliche Rechte/Fähigkeiten haben; jeder User kann mehrere Rollen (muss mindestens eine) übernehmen. \\ \hline
           \textbf{Einflussfaktoren: } \\
           T 1.5: Persistenz \\
           T 1.7: Multiple Users\\
           O 1.1: Time-To-Market \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} \\
-        Implementieren an der Klasse User ein Liste mit der Daten Typ Enum, diese Liste die Rollen der jede User halten wird und durch diese List wird abgeleitet unterschiedlichen Teilen an der Interface, infolge von welche Rollen der User hat.\\ \hline
+          \textbf{Strategie 1:} Jeder Mitarbeiter kriegt für jede der Rollen, die er erfüllt, einen eigenen Account. \\
+          \textbf{Strategie 2: (augewählt)} Die Rollen werden als Aufzählungstyp realisiert, der in einer m:m Beziehung zu der Userklasse steht. Dadurch kann für jeden User gespeichert werden, welche Rollen er/sie innehat. Die Sicherheit bezüglich der unterschiedlichen Fähigkeiten/Rechte der Rollen wird über die JavaEE-Security-Spezifikation realisiert (siehe Strategie 1 für Problem 2)\\
+          Machen sichtbar unterschiedlichen Schnittstellen des Software in Bezug von der Rollen jedes User. \\ \hline
     \end{tabular}
 
     \caption{Caption}
     \label{tab:my_label}
 \end{table}
+
+Hier haben wir uns für die zweite Strategie entschieden, weil diese eine elegantere Lösung bietet, und benutzerfreundlicher ist. Des Weiteren erleichtert uns die bereits implementierte Java-Spezifikation die Arbeit. \\
 
 \begin{table}[]
     \centering
@@ -542,8 +560,8 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
           T 1.7: Multiple Users\\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Das system wird das Java Class PasswordAuthentication nutzen, durch wen die User sich anmelden können. \\
-           \textbf{Strategie 2:} Wir werden eine selbe Klasse implementieren, um die User an der Software sich anmelden kann. \\
+          \textbf{Strategie 1:(augewählt)} Da JavaEE eine Vorgabe ist, nutzen wir die davon zur Datensicherheit zur Verfügung gestellte Spezifikation JavaEE security.\\
+          \textbf{Strategie 2:} Wir implementieren selber ein System. \\
           \\ \hline
     \end{tabular}
 
@@ -555,16 +573,15 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 3:} Nebenläufige Benutzung  \\ \hline
+          \textbf{Problem 3:} Nebenläufige Benutzung !!Irgendwie bs weil H2 vorgegeben!!  \\ \hline
           Die Anwendung kann von mehreren Usern gleichzeitig benutzt werden. Dabei müssen die Daten in der Datenbank richtig angezeigt/verändert werden, und die Datensicherheit darf nicht komprimiert werden. \\ \hline
           \textbf{Einflussfaktoren: } \\
           T 1.5: Persistent \\
           T 1.7: Multiple Users\\
-          XXX : Datenbank \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1 Einsatz ein Transaktionssicherheit  Datenbank:} Nutzung eine Datenbank, die Transaktion Sicherheit . Infolgedessen kann man inkonsistente  Transaktionen vermeiden, wenn multiple User an der Software gleichzeitig arbeiten. \\
-          \textbf{Strategie 2 Warnungen zur Users:} Informieren zu der User, dass andere Users  arbeiten an der selbe Datei, damit der User  Nebenläufigkeit Probleme vermeiden kann. \\
+          \textbf{Strategie 1:(augewählt)} Wir verwenden die transaktionssichere Datenbank H2. \\
+          \textbf{Strategie 2:} Wenn es Probleme mit der Nebenläufigkeit geben könnte, werden den aktiven Benutzern Warnungen angezeigt, damit sie sich selbstorganisiert darum kümmern können. \\
           \\ \hline
     \end{tabular}
 
@@ -582,10 +599,11 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
           \textbf{Einflussfaktoren: } \\
           T 1.5: Persistent \\
           T 1.7: Multiple Users\\
+
           XXX : Datenbank \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Jede User  wird ein Variabel Aktiv haben, an der Fall dass ein User nicht mehr an der Firma arbeitet wird. Diese Instanz wird deaktiviert werden. aber an der Data Base wird die Daten noch existieren, damit ein weiteres Kontrolle  auf die Aufgabe der deaktivieren User zu haben. 
+          \textbf{Strategie 1:} Der Admin der Software kann neue Mitglieder hinzufügen und auch existierende Mitglieder entfernen.
           \\ \hline
     \end{tabular}
 
@@ -607,10 +625,9 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
           XXX : Datenbank \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Nutzung der Java API und JSON Datei zu bearbeiten, weil diese API eine weise in JSON bearbeiten, generieren und Query anbietet .
+          \textbf{Strategie 1:} XXX
           \\ \hline
     \end{tabular}
-
 
     \caption{Caption}
     \label{tab:my_label}
@@ -620,9 +637,101 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 6:} Stationenbearbeitung
+          \textbf{Problem 6:} Protokollierung der Prozessketten
           \\ \hline
-          Der Administrator soll neue Stationen hinzufügen können. Die Software muss die Fähigkeit haben neue Stationen zu übernehmen und zu nutzen. Außerdem soll der Zustand jeder Station sichtbar und Bearbeitbar sein.
+          Die Abarbeitung einer Prozesskette soll protokolliert werden (wann welche Zustandsübergänge stattfanden).
+          \\ \hline
+          \textbf{Einflussfaktoren: } \\
+          T 1.5: Persistent \\
+          P 1.2: Protokollierung\\
+          P 1.4:\\
+          p 1.4.1\\
+
+          \hline
+          \textbf{Strategien} \\ \hline
+          \textbf{Strategie 1:(augewählt)} Der Administrator der Software kann neue Mitglieder hinzufügen und auch existierende Mitglieder entfernen. \\
+	  \textbf{Strategie 2:} Wir entscheiden uns für eine feste Anzahl an Benutzern (in Rücksprache mit dem Kunden); die Benutzerprofile werden vererbt, wenn Mitarbeiter gehen/neu anfangen. \\
+          \\ \hline
+    \end{tabular}
+
+    \caption{Caption}
+    \label{tab:my_label}
+\end{table}
+
+
+%\begin{table}[]
+%    \centering
+%    \begin{tabular}{|p{15cm}|}
+%    \hline
+%          \textbf{Problem 7:} Stationenbearbeitung
+%          \\ \hline
+%          Der Administrator soll neue Stationen hinzufügen können. Die Software muss die Fähigkeit haben neue Stationen zu übernehmen und zu nutzen. Außerdem soll der Zustand jeder Station sichtbar und bearbeitbar sein.
+%          \\ \hline
+%          \textbf{Einflussfaktoren: } \\
+%          T 1.5: Persistent \\
+%          P 1.4: Experimentierstationen \\
+%          P 1.4: Kaputte Stationen\\
+%          \hline
+%          \textbf{Strategien} \\ \hline
+%          \textbf{Strategie 1:} Die 
+%          \\ \hline
+%    \end{tabular}
+%    \caption{Caption}
+%    \label{tab:my_label}
+%\end{table}
+
+%\begin{table}[]
+ %   \centering
+%    \begin{tabular}{|p{15cm}|}
+%    \hline
+%          \textbf{Problem 8:} Überwachung der Zustände
+%          \\ \hline
+%          Wenn ein Logistiker einen Prozess gestartet hat, sollte der Prozess gestoppt, wieder gestartet und priorisiert werden können von dem Prozessketteadministrator.
+%          \\ \hline
+%          \textbf{Einflussfaktoren: } \\
+ %         T 1.5: Persistent \\
+ %         P 1.7: Aufträge\\
+ %         P 1.7.1: Kaputte Stationen\\
+%          P 1.7.2: Automatisches Zuorden\\
+%          P 1.9: Automatisches Zuorden\\
+%          \hline
+%          \textbf{Strategien} \\ \hline
+%          \textbf{Strategie 1:} Zustandautma
+%          \\ \hline
+%    \end{tabular}
+%    \caption{Caption}
+%    \label{tab:my_label}
+%\end{table}
+
+%\begin{table}[]
+   % \centering
+ %  \begin{tabular}{|p{15cm}|}
+%    \hline
+%          \textbf{Problem 9:} Prozessbearbeitung und Überwachung
+%          \\ \hline
+%          Der Prozesskettenadministrator kann einen Prozess mit unterschiedlichen Prozessschritten bauen. Dieser Prozess soll veränderbar sein und umtauschbar, um den Bedürfnissen der Benutzer gerecht zu werden.
+%          \\ \hline
+%          \textbf{Einflussfaktoren: } \\
+%          T 1.5: Persistent \\
+%          P 1.4: Experimentierstationen verwalten\\
+%          P 1.6: Prozessketten\\
+%          \hline
+%          \textbf{Strategien} \\ \hline
+%          \textbf{Strategie 1:} Eigenschaften der Stationen herausfinden, damit der entsprechende Nutzer ein Station einfach hinzufügen können.
+%          \\ \hline
+%    \end{tabular}
+
+%    \caption{Caption}
+%    \label{tab:my_label}
+%\end{table}
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{|p{15cm}|}
+    \hline
+          \textbf{Problem 7:} Stationenbearbeitung
+          \\ \hline
+          Der Administrator soll neue Stationen hinzufügen können. Die Software muss die Fähigkeit haben neue Stationen zu übernehmen und zu nutzen. Außerdem soll der Zustand jeder Station sichtbar und bearbeitbar sein.
           \\ \hline
           \textbf{Einflussfaktoren: } \\
           T 1.5: Persistent \\
@@ -630,9 +739,23 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
           P 1.4: Kaputte Stationen\\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Administrator kann Instanzen von Stationen erzeugen und an der Datenbank zu erzeugen.
-          
+          \textbf{Strategie 1:} Eingeschaften der Stationen herausfinden, damit der entsprechende Nutzer eine Station einfach hinzufügen kann.
           \\ \hline
+    \end{tabular}
+    \caption{Caption}
+    \label{tab:my_label}
+\end{table}
+
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{|p{15cm}|}
+    \hline
+          \textbf{Problem 10:} Laden von Informationen
+          \\ \hline
+
+          Der Logistiker möchte einen Überblick über alle Proben, die im Lager liegen. Da die Probenkügelchen alle einzeln gespeichert werden, und es somit eine sehr große Menge an Proben ist, könnte das Laden aller Proben auf einmal zu Performanceproblemen führen.
+
     \end{tabular}
     \caption{Caption}
     \label{tab:my_label}
@@ -642,43 +765,20 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 7:} Überwachung der Zustände
-          \\ \hline
-          Wenn ein Logistiker einen Prozess gestartet hat, sollte der Prozess gestoppt, wieder gestartet und priorisiert.
-          \\ \hline
-          \textbf{Einflussfaktoren: } \\
-          T 1.5: Persistent \\
-          P 1.7: Aufträge (XXX)\\
-          P 1.7.1: Kaputte Stationen\\
-          P 1.7.2: Automatisches Zuorden\\
-          P 1.9: Automatisches Zuorden\\
-          \hline
-          \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Prozess muss eine Variablen von zustand zu haben, welche der Logistiker und Prozesskette-admin verändere kann. Jede Prozesskette hat eine klasse für die Prozessauftrag, welche der Logistiker bestätigen wird, um die Prozess zu starten.
-          \\ \hline
-    \end{tabular}
-    \caption{Caption}
-    \label{tab:my_label}
-\end{table}
-
-\begin{table}[]
-    \centering
-    \begin{tabular}{|p{15cm}|}
-    \hline
-          \textbf{Problem 8:} Prozessbearbeitung und Überwachung
+          \textbf{Problem 9:} Prozessbearbeitung und Überwachung
           \\ \hline
           Der Prozesskettenadministrator kann einen Prozess mit unterschiedlichen Prozessschritten bauen. Dieser Prozess soll veränderbar sein und umtauschbar, um den Bedürfnissen der Benutzer gerecht zu werden.
+
           \\ \hline
           \textbf{Einflussfaktoren: } \\
-          T 1.5: Persistent \\
-          P 1.4: Experimentierstationen (XXX)\\
-          P 1.6: Prozessketten\\
+          P1.10.2: Lagerübersicht \\
+	 P1.10.3: Proben-id-Nummern \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} die Klasse  Prozesskette bestehe aus Prozessschritte. Diese Prozessschritten können in eine beliebige Reihen folge gestellt zu werden.
+          \textbf{Strategie 1:} Es wird immer nur ein kleiner Ausschnitt aus der Datenbank geladen. \\
+         \textbf{Strategie 2:} Es werden Repräsentanten von Probenkügelchenmenge ausgewählt und angezeigt, dazu noch eine Gesamtanzahl der gleichartigen Kügelchen. \\
           \\ \hline
     \end{tabular}
-
     \caption{Caption}
     \label{tab:my_label}
 \end{table}
@@ -687,15 +787,16 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 9:} Laden Informationen
+          \textbf{Problem 10:} Probenverwaltung
           \\ \hline
-          Der Logistiker möchte einen Überblick über alle Proben, die im Lager liegen. Da die Probenkügelchen alle einzeln gespeichert werden, und es somit eine sehr große Menge an Proben ist, könnte das Laden aller Proben auf einmal zu Performanceproblemen führen.
+         In der Anwendungsumgebung gibt es eine hohe Anzahl an Proben, die alle in der Datenbank gespeichert werden sollen. Dadurch, dass es so viele sind (von Materialien der gleichen Sorte gibt es viele kleine Kügelchen), stellt sich die Frage, ob es sinnvoll ist, jede einzelne dieser Kügelchen identifizieren zu können.
           \\ \hline
           \textbf{Einflussfaktoren: } \\
           P1.10.2: Lagerübersicht \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Logistiker hat ein Direkt zugriff auf der Datenbank, um zu sehen. Wie viele Proben die Datenbank hat.
+          \textbf{Strategie 1:} Jedes Kügelchen bekommt eine eigene ID, um sie in der Datenbank speichern und für Aufträge korrekt verwalten kann.\\
+         \textbf{Strategie 2:} Gleichartige Proben bekommen eine ID, und Attribute wie Anzahl der Kügelchen. \\
           \\ \hline
     \end{tabular}
     \caption{Caption}
@@ -706,7 +807,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 10:} Verlust/Schaden an Proben
+          \textbf{Problem 11:} Verlust/Schaden an Proben
           \\ \hline
           Proben können im Laufe der Bearbeitung einer Prozesskette kaputt oder verloren gehen. Diese können dann nicht weiter benutzt werden, was zu Problemen im weiteren Verlauf führen könnte.
           \\ \hline
@@ -715,7 +816,8 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
           P1.10.1: Verlorene Proben \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Proben können als kaputt gemeldet werden, dass ich durch ein Variabel die jede Probe Inhalt. jede Transporter kann diese Variablen verändert.
+          \textbf{Strategie 1:} Proben können als kaputt gemeldet werden. Dadurch werden sie sowohl als solche dargestellt, und können weder manuell noch automatisch irgendwelchen Prozessen zugeordnet werden. \\
+          \textbf{Strategie 2:} Für einzelne Proben werden solche Ereignisse ignoriert, mit der Hoffnung, dass es nicht häufig vorkommt. Zur Not soll ein Prozess gestoppt werden können, damit einem neuen Prozess neue Proben zugeordnet werden können. \\
           \\ \hline
     \end{tabular}
     \caption{Caption}
@@ -726,7 +828,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 11:} Ambitionierter Zeitplan
+          \textbf{Problem 12:} Ambitionierter Zeitplan
           \\ \hline
           Die Auslieferung der Anwendung muss am 08.03.2020 erfolgen. Dadurch könnten die Entwickler unter Zeitdruck geraten und eventuell nicht alle Anforderungen erfüllen.
           \\ \hline
@@ -734,7 +836,9 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
           O1.1: Time-To-Market\\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Einteilung Anforderungen: Es gibt grundliegende Anforderungen, die umbedingt erfüllt werden müssen, und andere Forderungen, die schön wären, aber nicht notwendig sind. Aus letzteren können die Entwickler, wenn Zeit über ist, weitere zur Implementierung aussuchen.
+          \textbf{Strategie 1:} Priorisierung Anforderungen: Bestimmte, notwendigere Anforderungen, sollen über andere priorisiert werden. Die höherpriorisierten werden zuerst abgearbeitet. \\
+          \textbf{Strategie 2:} Einige Anforderungen sind für ein Bestehen nicht notwendig und können weggelassen werden.\\
+          \textbf{Strategie 3:} Die Gruppe muss strukturiert und mit möglichst fair verteilten Aufgaben arbeiten, um die Fähigkeiten aller möglichst effizient nutzen zu können. \\
           \\ \hline
     \end{tabular}
     \caption{Caption}
@@ -745,9 +849,9 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 12:} Vorgaben von Technologien
+          \textbf{Problem 13:} Vorgaben von Technologien !KEIN EINFLUSS AUF ARCHITEKTUR!
           \\ \hline
-          Die Vorgaben, welche Technologien bei der Implementierung verwendet werden sollen/dürfen, sind relativ streng.
+          Die Vorgaben, welche Technologien bei der Implementierung verwendet werden sollen/dürfen, sind relativ streng. Dadurch können wir als Gruppe nicht Technologien verwenden, die wir vielleicht schon kennen; das kann sich wiederum auf die Qualität und Zeit der Implementierung auswirken.
           \\ \hline
           \textbf{Einflussfaktoren: } \\
           T 1.1: Programmiersprache \\
@@ -769,15 +873,16 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 13:} Probenzuordnung zu Träger
+          \textbf{Problem 14:} Probenzuordnung zu Aufträgen
           \\ \hline
-          Jede Probe braucht ein Container, womit unterschiedliche Proben gleichzeitig transportieren sein können.
+          Proben sollen ohne Einfluss des Benutzers Aufträgen passend zugeordnet werden. Das bedeutet, dass das System die Eigenschaften von Proben kennen und den Anforderungen von Aufträgen passend zuordnen soll.
           \\ \hline
           \textbf{Einflussfaktoren: } \\
           P1.7.2: Automatisches Zuordnen \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:}  eine Klasse zu erzeugen, die aus Probe bestehe. diese klasse Träger gehört zu eine Station und können auch gelagert werden. durch diese klasse die Logistiker können.
+          \textbf{Strategie 1:} Diese Anforderung gehört nicht zu den Grundanforderungen, das heißt zur Not kann man sie einfach weglassen. \\
+	  \textbf{Strategie 2:} Die Eigenschaften/Anforderungen von Proben/Aufträgen sollten nicht einfach nur String-Felder sein, da diese miteinander vergleichen schwierig ist (unterschiedliche Formulierungen etc). Stattdessen sollten Eigenschaften/Anforderungen vordefiniert sein (vom Prozesskettenadministrator) und gespeichert werden, welche Eigenschaften zu welchen Anforderungen passen. \\
           \\ \hline
     \end{tabular}
     \caption{Caption}
@@ -788,7 +893,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 14:} Kompetenz der Entwickler
+          \textbf{Problem 15:} Kompetenz der Entwickler
           \\ \hline
           Die unterschiedlichen Entwickler haben unterschiedlich (weitreichende) Kenntnisse der Technologien; das führt dazu, dass die Implementierung eventuell länger dauert/fehlerbehaftet ist. Aneignen dieser Informationen ist vor allem wegen dem Ambitionierten Zeitplan stressig.
           \\ \hline
@@ -804,7 +909,8 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
           T1.6: Build System\\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Die Implementierung wird bestmöglich nach Können der Entwickler aufgeteilt; die Entwickler bemühen sich frühzeitig darum, sich weiteres Wissen anzueignen. Ebenfalls unterstützen sich alle Gruppenmitglieder gegenseitig.
+         \textbf{Strategie 1:} Die Entwickler könnten nur in Kleingruppen programmieren. Dadurch sitzen immer eine Menge unterschiedlicher Menschen mit eventuell unterschiedlichen Fähigkeiten an einem Programmstück. \\
+          \textbf{Strategie 2:} Die Implementierung wird bestmöglich nach dem Können der Entwickler aufgeteilt, indem die Anwendung modularisiert wird. Dadurch kann jeder Entwickler an seinem eigenen Modul arbeiten, und sich auf einen kleineren Bereich konzentrieren. Die Entwickler bemühen sich frühzeitig darum, sich weiteres Wissen anzueignen. Ebenfalls unterstützen sich alle Gruppenmitglieder gegenseitig.\\
           \\ \hline
     \end{tabular}
     \caption{Caption}
@@ -825,6 +931,17 @@ konzeptionelle Sicht wird mit {UML}-Komponentendiagrammen visualisiert.}
 
 \section{Modulsicht}
 \label{sec:modulsicht}
+
+\subsection{Pakete}
+
+\subsubsection{Model}
+
+\subsubsection{Controller}
+
+\subsubsection{Persistence}
+
+\subsection{Module}
+
 
 {\it
 Diese Sicht beschreibt den statischen Aufbau des Systems mit Hilfe von
@@ -876,10 +993,13 @@ die Entstehung anhand der Strategien erläutert werden.
 \section{Datensicht}
 \label{sec:datensicht}
 
-
 { \em Zunächst existiert die Klasse Probe, welche die ID, die Legierung als (???), die Art der Behandlung und die Materialeigenschaften beinhaltet. Eine bestimmte Probe kann ausschließlich einem Träger zugeordnet werden. 
 Die Klasse Träger besteht wieder aus einer ID, dem aktuellen Standort als  Standort und dem Typ als Trägerart. Ein Träger kann beliebig viele Proben beinhalten. Ein bestimmter Träger kann genau einer Experimentierstation (ES) zugeordnet sein. Eine Experimentierstation besteht aus einem Namen als String und dem Ort, an dem die ES zu finden ist als Standort. Einer bestimmten ES können beliebig viele Träger zugeordnet sein, während ihr immer nur ein  Technologe zugeordnet sein wird. Die ES ist immer nur einem bestimmten Prozessschritt (PS) zugeordnet. Ein Prozessschritt beinhaltet den Namen als String, die Prozessparameter (PP) als Prozessparameter, der Probenzustand, die Dauer und die Zustände und (???). Ein Prozessschritt ist einer bestimmten Prozesskette zugeordnet. Die Prozesskette (PK) beinhaltet den Namen als String. Sie beherbergt beliebig viele Prozessschritte und beliebig viele Prozesskettenaufträge. Der  Prozesskettenauftrag (PKAuftrag) kann nur einer Prozesskette zugeordnet sein und hat einen KettenInstanzwert (KIW) zugeordnet. \\
- docEinleitung
+
+{  Zunächst existiert die Klasse Probe, welche die ID, die Legierung als (???), die Art der Behandlung und die Materialeigenschaften beinhaltet. Eine bestimmte Probe kann ausschließlich einem Träger zugeordnet werden.
+Die Klasse Träger besteht wieder aus einer ID, dem aktuellen Standort als  Standort und dem Typ als Trägerart. Ein Träger kann beliebig viele Proben beinhalten. Ein bestimmter Träger kann genau einer Experimentiertstation (ES) zugeordnet sein. Eine Experimentiertstation besteht aus einem Namen als String und dem Ort, an dem die ES zu finden ist als Standort. Einer bestimmten ES können beliebig viele Träger zugeordnet sein, während ihr immer nur einTechnologe zugeordnet sein wird. Die ES ist immer nur einem bestimmten Prozessschritt (PS) zugeordnet. Ein Prozessschritt beinhaltet den Namen als String, die Prozessparameter (PP) als Prozessparameter, der Probenzustand, die Dauer und die Zustände und (???). Ein Prozessschritt ist einer bestimmten Prozesskette zugeordnet. Die Prozesskette (PK) beinhaltet den Namen als String. Sie beherbergt beliebig viele Prozessschritte und beliebig viele Prozesskettenaufträge. Der  Prozesskettenauftrag (PKAuftrag) kann nur einer Prozesskette zugeordnet sein und hat einen KettenInstanzwert (KIW) zugeordnet. \\
+
+
 Der Ketteninstanzwert ist einem PKAuftrag zugeordnet und beinhaltet beliebig viele Schnittinstanzwerte (SIW). Die Schnittinstanzwerte beinhalten einen Wert, welcher über KIW, PKAuftrag und die PK einem Prozessschritt zugeschrieben werden. Ein SIW kann einem KIW zugeordnet sein. 
 Dies wird so gehandhabt, da man im Nachhinein, nachdem eine Prozesskette instanziiert wurde, die Werte noch einfach ändern können soll.
 }
@@ -892,10 +1012,12 @@ Dies wird so gehandhabt, da man im Nachhinein, nachdem eine Prozesskette instanz
   Erweiterungen. Siehe die gesonderten Hinweise.}
    
  \begin{sidewaysfigure}
-  \caption{Caption for my figure}
+  \caption{Datenmodell für DataColorado}
   \centering
   
-  
+
+  \includegraphics[width=0.75\textwidth]{UML/datenModel}
+
  \end{sidewaysfigure}
 
 \section{Ausführungssicht}
@@ -921,7 +1043,6 @@ Der SFB-Server stellt eine Verbindung über TCP/IP eine Verbindung zu dem einzig
 
 }
 
-docEinleitung
 {\it
 Die Ausführungssicht beschreibt das Laufzeitverhalten. Hier
 werden die Laufzeitelemente aufgeführt und beschrieben, welche Module
@@ -936,6 +1057,14 @@ Prozessen auf welchen Rechnern ausgeführt werden.}
 \section[Zusammenhänge zwischen Anwendungsfällen und Architektur]{Zusammenhänge zwischen Anwendungsfällen und Architektur\sectionmark{Zusammenhänge AF u. Architektur}}
 \sectionmark{Zusammenhänge AF u. Architektur}
 \label{sec:anwendungsfaelle}
+
+\subsection{Nutzer Verwalten}
+\subsection{Prozessketten Verwalten}
+\subsection{Proben Transport}
+\subsection{Prozessschritt Ausführen}
+\subsection{Lager Verwaltung}
+
+
 
 {\it In diesem Abschnitt sollen Sequenzdiagramme mit Beschreibung(!)
   für zwei bis drei von Euch ausgewählte
