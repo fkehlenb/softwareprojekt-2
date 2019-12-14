@@ -769,16 +769,15 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 13:} Probenzuordnung zu Aufträgen
+          \textbf{Problem 13:} Probenzuordnung zu Träger
           \\ \hline
-          Proben sollen ohne Einfluss des Benutzers Aufträgen passend zugeordnet werden. Das bedeutet, dass das System die Eigenschaften von Proben kennen und den Anforderungen von Aufträgen passend zuordnen soll.
+          Jede Probe braucht ein Container, womit unterschiedliche Proben gleichzeitig transportieren sein können.
           \\ \hline
           \textbf{Einflussfaktoren: } \\
           P1.7.2: Automatisches Zuordnen \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Diese Anforderung ist optional, das heißt zur Not kann man ihn einfach weglassen. \\
-	  \textbf{Strategie 2:} Die Eigenschaften/Anforderungen von Proben/Aufträgen sollten nicht einfach nur String-Felder sein, da diese miteinander vergleichen schwierig ist (unterschiedliche Formulierungen etc). Stattdessen sollten Eigenschaften/Anforderungen vordefiniert sein (vom Prozesskettenadministrator?) und gespeichert werden, welche Eigenschaften zu welchen Anforderungen passen. \\
+          \textbf{Strategie 1:}  eine Klasse zu erzeugen, die aus Probe bestehe. diese klasse Träger gehört zu eine Station und können auch gelagert werden. durch diese klasse die Logistiker können.
           \\ \hline
     \end{tabular}
     \caption{Caption}
