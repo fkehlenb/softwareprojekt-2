@@ -563,7 +563,8 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
           XXX : Datenbank \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Nutzung eine Database, die Transaktion Sicherheit ,  infolgedessen kann man inkonsistente  Transaktionen wenn multiple User an der Software gleichzeitig arbeiten \\
+          \textbf{Strategie 1 Einsatz ein Transaktionssicherheit  Datenbank:} Nutzung eine Datenbank, die Transaktion Sicherheit . Infolgedessen kann man inkonsistente  Transaktionen vermeiden, wenn multiple User an der Software gleichzeitig arbeiten. \\
+          \textbf{Strategie 2 Warnungen zur Users:} Informieren zu der User, dass andere Users  arbeiten an der selbe Datei, damit der User  Nebenläufigkeit Probleme vermeiden kann. \\
           \\ \hline
     \end{tabular}
 
@@ -897,13 +898,10 @@ die Entstehung anhand der Strategien erläutert werden.
 \section{Datensicht}
 \label{sec:datensicht}
 
-<<<<<<< HEAD
-{  Zunächst existiert die Klasse Probe, welche die ID, die Legierung als (???), die Art der Behandlung und die Materialeigenschaften beinhaltet. Eine bestimmte Probe kann ausschließlich einem Träger zugeordnet werden.
-Die Klasse Träger besteht wieder aus einer ID, dem aktuellen Standort als  Standort und dem Typ als Trägerart. Ein Träger kann beliebig viele Proben beinhalten. Ein bestimmter Träger kann genau einer Experimentiertstation (ES) zugeordnet sein. Eine Experimentiertstation besteht aus einem Namen als String und dem Ort, an dem die ES zu finden ist als Standort. Einer bestimmten ES können beliebig viele Träger zugeordnet sein, während ihr immer nur einTechnologe zugeordnet sein wird. Die ES ist immer nur einem bestimmten Prozessschritt (PS) zugeordnet. Ein Prozessschritt beinhaltet den Namen als String, die Prozessparameter (PP) als Prozessparameter, der Probenzustand, die Dauer und die Zustände und (???). Ein Prozessschritt ist einer bestimmten Prozesskette zugeordnet. Die Prozesskette (PK) beinhaltet den Namen als String. Sie beherbergt beliebig viele Prozessschritte und beliebig viele Prozesskettenaufträge. Der  Prozesskettenauftrag (PKAuftrag) kann nur einer Prozesskette zugeordnet sein und hat einen KettenInstanzwert (KIW) zugeordnet. \\
-=======
+
 { \em Zunächst existiert die Klasse Probe, welche die ID, die Legierung als (???), die Art der Behandlung und die Materialeigenschaften beinhaltet. Eine bestimmte Probe kann ausschließlich einem Träger zugeordnet werden. 
 Die Klasse Träger besteht wieder aus einer ID, dem aktuellen Standort als  Standort und dem Typ als Trägerart. Ein Träger kann beliebig viele Proben beinhalten. Ein bestimmter Träger kann genau einer Experimentierstation (ES) zugeordnet sein. Eine Experimentierstation besteht aus einem Namen als String und dem Ort, an dem die ES zu finden ist als Standort. Einer bestimmten ES können beliebig viele Träger zugeordnet sein, während ihr immer nur ein  Technologe zugeordnet sein wird. Die ES ist immer nur einem bestimmten Prozessschritt (PS) zugeordnet. Ein Prozessschritt beinhaltet den Namen als String, die Prozessparameter (PP) als Prozessparameter, der Probenzustand, die Dauer und die Zustände und (???). Ein Prozessschritt ist einer bestimmten Prozesskette zugeordnet. Die Prozesskette (PK) beinhaltet den Namen als String. Sie beherbergt beliebig viele Prozessschritte und beliebig viele Prozesskettenaufträge. Der  Prozesskettenauftrag (PKAuftrag) kann nur einer Prozesskette zugeordnet sein und hat einen KettenInstanzwert (KIW) zugeordnet. \\
->>>>>>> docEinleitung
+ docEinleitung
 Der Ketteninstanzwert ist einem PKAuftrag zugeordnet und beinhaltet beliebig viele Schnittinstanzwerte (SIW). Die Schnittinstanzwerte beinhalten einen Wert, welcher über KIW, PKAuftrag und die PK einem Prozessschritt zugeschrieben werden. Ein SIW kann einem KIW zugeordnet sein. 
 Dies wird so gehandhabt, da man im Nachhinein, nachdem eine Prozesskette instanziiert wurde, die Werte noch einfach ändern können soll.
 }
@@ -926,7 +924,7 @@ Dies wird so gehandhabt, da man im Nachhinein, nachdem eine Prozesskette instanz
 
 \label{sec:ausfuehrung}
 
-<<<<<<< HEAD
+
 { Im folgenden Schritt werden wir die Ausführungssicht erläutern. Es wird aufgezeigt, welche verschiedenen Geräte benötigt werden, welche Prozesse auf den Geräten jeweils laufen und welche Module dort enthalten sind.
 }
 
@@ -945,8 +943,7 @@ Der SFB-Server stellt eine Verbindung über TCP/IP eine Verbindung zu dem einzig
 
 }
 
-=======
->>>>>>> docEinleitung
+docEinleitung
 {\it
 Die Ausführungssicht beschreibt das Laufzeitverhalten. Hier
 werden die Laufzeitelemente aufgeführt und beschrieben, welche Module
