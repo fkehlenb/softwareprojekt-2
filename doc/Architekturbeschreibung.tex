@@ -430,9 +430,9 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
 \centering
 \begin{tabular}{|p{1cm}|p{3cm}|p{5cm}|p{1cm}|p{5cm}|}
 \hline
-\begin{tabular}[c]{@{}l@{}}Abge-\\ leitet\\aus\end{tabular} & Einflussfaktor                                                                        & \begin{tabular}[c]{@{}l@{}}Flexibilität und \\ Veränderlichkeit\end{tabular}                                                              & \begin{tabular}[c]{@{}l@{}}++/\\\\ −−\end{tabular} & Auswirkungen                                                                                                                                                                                                                              \\ \hline                                                       \multicolumn{5}{|l|}{P1.7.3: Prioritäten}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
-                                                          & \begin{tabular}[c]{@{}l@{}}Für Aufträge\\soll eine Priorität \\errechnet werden. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Anwendung\\ muss die Parameter \\der Prozessschritte\\ einer Prozesskette \\auswerten können, und \\daraus schließen, welche \\Proben/Träger\\ gebraucht werden. \end{tabular} \\ \hline
-\multicolumn{5}{|l|}{P1.7.4: Zustand Auftrag}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
+\begin{tabular}[c]{@{}l@{}}Abge-\\ leitet\\aus\end{tabular} & Einflussfaktor                                                                        & \begin{tabular}[c]{@{}l@{}}Flexibilität und \\ Veränderlichkeit\end{tabular}                                                              & \begin{tabular}[c]{@{}l@{}}++/\\\\ −−\end{tabular} & Auswirkungen                                                                                                                                                                                                                              \\ \hline                                                      % \multicolumn{5}{|l|}{P1.7.3: Prioritäten}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
+%                                                          & \begin{tabular}[c]{@{}l@{}}Für Aufträge\\soll eine Priorität \\errechnet werden. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Anwendung\\ muss die Parameter \\der Prozessschritte\\ einer Prozesskette \\auswerten können, und \\daraus schließen, welche \\Proben/Träger\\ gebraucht werden. \end{tabular} \\ \hline
+\multicolumn{5}{|l|}{P1.7.4: Zustand Prozessschritt}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Der Zustand\\ eines Prozess-\\schrittes \\(Auftrag im\\Kontext Techno-\\loge) soll\\manuell aktuali-\\siert werden. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss \\vorsehen, dass von außen \\eine Auwahl des\\Zustandes möglich ist. \end{tabular} \\ \hline
 \multicolumn{5}{|l|}{P1.8: Träger}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Träger sollen\\erstellt und\\gelöscht\\werden können.\\ \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss \\eine Möglichkeit haben,\\Träger zu löschen\\(über einen Knopf oä)\\und neue Träger\\zu erstellen. \end{tabular} \\ \hline
@@ -666,11 +666,11 @@ Hier haben wir uns für die erste Strategie entschieden, weil die Benutzung eine
     \hline
           \textbf{Problem 7:} Stationenbearbeitung
           \\ \hline
-          Der Administrator soll neue Stationen hinzufügen können. Die Software muss die Fähigkeit haben neue Stationen zu übernehmen und zu nutzen. Außerdem soll der Zustand jeder Station sichtbar und bearbeitbar sein.
+          Der Administrator soll neue Stationen hinzufügen können.  Die Software muss die Fähigkeit haben neue Stationen zu übernehmen und zu nutzen.
           \\ \hline
           \textbf{Einflussfaktoren: } \\
-          T 1.5: Persistent \\
-          P 1.4: Experimentierstationen (XXX)\\
+          T 1.5: Persistenz \\
+          P 1.4: Experimentierstationen\\
           P 1.4: Kaputte Stationen\\
           \hline
           \textbf{Strategien} \\ \hline
@@ -687,17 +687,37 @@ Hier haben wir uns für die erste Strategie entschieden, weil die Benutzung eine
     \hline
           \textbf{Problem 8:} Überwachung der Zustände
           \\ \hline
-          Wenn ein Logistiker einen Prozess gestartet hat, sollte der Prozess gestoppt, wieder gestartet und priorisiert werden können von dem Prozesskettenadministrator.
+          Wenn ein Logistiker einen Prozess gestartet hat, sollte der Prozess gestoppt werden können, woraufhin die Proben sofort in das Lager gebracht werden und keine weiteren Schritte durchgeführt werden dürfen. Dementsprechend muss vom Prozesskettenadministrator in die laufende Kette eingegriffen werden dürfen.
           \\ \hline
           \textbf{Einflussfaktoren: } \\
-          T 1.5: Persistent \\
-          P 1.7: Aufträge (XXX)\\
+          T 1.5: Persistenz \\
+          P 1.7: Aufträge \\
           P 1.7.1: Kaputte Stationen\\
-          P 1.7.2: Automatisches Zuorden\\
-          P 1.9: Automatisches Zuorden\\
+          P 1.7.2: Automatisches Zuordnen\\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Zustandautma
+          \textbf{Strategie 1:} Zustandsau
+          \\ \hline
+    \end{tabular}
+    \caption{Caption}
+    \label{tab:my_label}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{15cm}|}
+    \hline
+          \textbf{Problem 8:} Priorisierung von Prozessketten
+          \\ \hline
+          Laufende Prozessketten sollen priorisiert werden können, was zur Folge hat, dass sie, wann immer mehrere Prozessketten auf die gleichen Aktionen warten, schneller drankommen. 
+          \\ \hline
+          \textbf{Einflussfaktoren: } \\
+          T 1.5: Persistenz \\
+          P 1.7: Aufträge \\
+          \hline
+          \textbf{Strategien} \\ \hline
+          \textbf{Strategie 1:} Die Prioritäten der Prozessketten werden den Usern angezeigt, damit sie selber sehen, welche sie als erstes bearbeiten sollten. \\
+          \textbf{Strategie 2:} Es werden automatisch die Prozesskettenprioritäten analysiert und sortiert angezeigt. \\
           \\ \hline
     \end{tabular}
     \caption{Caption}
@@ -713,7 +733,7 @@ Hier haben wir uns für die erste Strategie entschieden, weil die Benutzung eine
           Der Prozesskettenadministrator kann einen Prozess mit unterschiedlichen Prozessschritten bauen. Dieser Prozess soll veränderbar sein und umtauschbar, um den Bedürfnissen der Benutzer gerecht zu werden.
           \\ \hline
           \textbf{Einflussfaktoren: } \\
-          T 1.5: Persistent \\
+          T 1.5: Persistenz \\
           P 1.4: Experimentierstationen \\
           P 1.6: Prozessketten\\
           \hline
