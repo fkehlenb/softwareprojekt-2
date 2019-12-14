@@ -294,6 +294,9 @@ package Datenmodel {
   rb "0..*" --o ps
 
   t "1" -down- "0..*" JSONObject
+
+  pkAdmin "0..n" -- "1" Auftrag
+  pkV "1" --o Auftrag
 }
 #+END_SRC
 
