@@ -445,8 +445,10 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
 \begin{tabular}[c]{@{}l@{}}Abge-\\ leitet\\aus\end{tabular} & Einflussfaktor                                                                        & \begin{tabular}[c]{@{}l@{}}Flexibilität und \\ Veränderlichkeit\end{tabular}                                                              & \begin{tabular}[c]{@{}l@{}}++/\\\\ −−\end{tabular} & Auswirkungen                                                                                                                                                                                                                              \\ \hline
 \multicolumn{5}{|l|}{P1.10.1: Verlorene Proben}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Proben\\ sollen als \\verloren gemeldet\\ werden können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss \\mit verlorenen Proben\\umgehen können: Es\\muss möglich sein,\\zu sehen, wenn eine\\Probe verloren gegangen\\ist, diese darf nicht weiter\\verplant werden. \end{tabular} \\ \hline
-\multicolumn{5}{|l|}{P1.10.2; Lagerübersicht}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
+\multicolumn{5}{|l|}{P1.10.2: Lagerübersicht}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Die im Lager\\liegenden Proben\\sollen angezeigt\\werden können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da es vom Chinese \\Menu ist aber\\ Flexibilität gegeben:\\ muss nicht\\ unbedingt gemacht werden.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Es muss irgendwie\\erkennbar sein, welche\\Proben im Lager sind,\\und welche nicht.\\Weitergehend muss es \\einfach sein,alle im Lager\\ liegenden zu finden und\\aufzulisten. \end{tabular} \\ \hline
+\multicolumn{5}{|l|}{P1.10.3: Proben-id-Nummern}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
+                                                        P1.10.2  & \begin{tabular}[c]{@{}l@{}}Die Proben-\\kügelchen sollen\\ alle eigene\\id-Nummern \\bekommen. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Flexibilität: nicht hoch,\\ da eine Entscheidung\\ bezüglich der Speicherung \\der Proben gemacht\\ werden muss. \\(Allerdings auch andere \\Optionen theoretisch\\ möglich). \\Veränderlichkeit: nach \\Beginn der Implementierung\\ sehr gering, da großer\\ Einfluss auf viele\\ Programmteile. \end{tabular} & \begin{tabular}[c]{@{}l@{}}-/--\end{tabular} & \begin{tabular}[c]{@{}l@{}}Es ensteht eine\\ hohe Menge an Einträgen\\ in der Datenbank, mit\\ der ohne Performance-\\probleme umgegangen\\ werden muss. \end{tabular} \\ \hline
 \multicolumn{5}{|l|}{P1.10.4:Proben Kommentar}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Zu Proben\\sollen\\ Kommentare\\erstellt werden\\können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Es muss eine \\Fläche für\\Kommentareingabe\\und Darstellung\\geben. \end{tabular} \\ \hline
 \multicolumn{5}{|l|}{P2.1:Mehrsprachig}                                                                         \\ \hline
@@ -506,6 +508,10 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
   Kapitel eindeutig aufeinander beziehen.
 }
 
+Im Folgenden werden einige Probleme, die sich aus den herausgearbeiteten Einflussfaktoren ergeben, thematisiert. Dazu werden die Probleme zunächst mitsamt der Einflussfaktoren, aus denen sie sich ergeben, vorgestellt, und anschließend unterschiedliche Strategien, um mit ihnen umzugehen, vorgestellt. \\ Diese Strategien werden daraufhin bewertet und es wird eine für jedes Problem ausgewählt. Diese Auswahl wird begründet. \\ 
+Folgende Strategien zur Lösung von Problemen wurden ausgewählt: \\
+...
+
 \begin{table}[]
     \centering
     \begin{tabular}{|p{15cm}|}
@@ -519,13 +525,14 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
           \hline
           \textbf{Strategien} \\ \hline
           \textbf{Strategie 1:} Jeder Mitarbeiter kriegt für jede der Rollen, die er erfüllt, einen eigenen Account. \\
+          \textbf{Strategie 2: (augewählt)} Die Rollen werden als Aufzählungstyp realisiert, der in einer m:m Beziehung zu der Userklasse steht. Dadurch kann für jeden User gespeichert werden, welche Rollen er/sie innehat. Die Sicherheit bezüglich der unterschiedlichen Fähigkeiten/Rechte der Rollen wird über die JavaEE-Security-Spezifikation realisiert (siehe Strategie 1 für Problem 2)\\
           Machen sichtbar unterschiedlichen Schnittstellen des Software in Bezug von der Rollen jedes User. \\ \hline
     \end{tabular}
 
     \caption{Caption}
     \label{tab:my_label}
 \end{table}
-
+Hier haben wir uns für die zweite Strategie entschieden, weil diese eine elegantere Lösung bietet, und benutzerfreundlicher ist. Des Weiteren erleichtert uns die bereits implementierte Java-Spezifikation die Arbeit. \\
 \begin{table}[]
     \centering
     \begin{tabular}{|p{15cm}|}
@@ -537,7 +544,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
           T 1.7: Multiple Users\\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Da JavaEE eine Vorgabe ist, nutzen wir die davon zur Datensicherheit zur Verfügung gestellte Spezifikation JavaEE security.\\
+          \textbf{Strategie 1:(augewählt)} Da JavaEE eine Vorgabe ist, nutzen wir die davon zur Datensicherheit zur Verfügung gestellte Spezifikation JavaEE security.\\
           \textbf{Strategie 2:} Wir implementieren selber ein System. \\
           \\ \hline
     \end{tabular}
@@ -545,7 +552,6 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \caption{Caption}
     \label{tab:my_label}
 \end{table}
-
 \begin{table}[]
     \centering
     \begin{tabular}{|p{15cm}|}
@@ -557,7 +563,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
           T 1.7: Multiple Users\\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Wir verwenden eine transaktionssichere Datenbank. \\
+          \textbf{Strategie 1:(augewählt)} Wir verwenden die transaktionssichere Datenbank H2. \\
           \textbf{Strategie 2:} Wenn es Probleme mit der Nebenläufigkeit geben könnte, werden den aktiven Benutzern Warnungen angezeigt, damit sie sich selbstorganisiert darum kümmern können. \\
           \\ \hline
     \end{tabular}
@@ -578,7 +584,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
           T 1.7: Multiple Users\\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Der Administrator der Software kann neue Mitglieder hinzufügen und auch existierende Mitglieder entfernen. \\
+          \textbf{Strategie 1:(augewählt)} Der Administrator der Software kann neue Mitglieder hinzufügen und auch existierende Mitglieder entfernen. \\
 	  \textbf{Strategie 2:} Wir entscheiden uns für eine feste Anzahl an Benutzern (in Rücksprache mit dem Kunden); die Benutzerprofile werden vererbt, wenn Mitarbeiter gehen/neu anfangen. \\
           \\ \hline
     \end{tabular}
@@ -663,7 +669,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
           \\ \hline
           \textbf{Einflussfaktoren: } \\
           P1.10.2: Lagerübersicht \\
-	 
+	 P1.10.3: Proben-id-Nummern \\
           \hline
           \textbf{Strategien} \\ \hline
           \textbf{Strategie 1:} Es wird immer nur ein kleiner Ausschnitt aus der Datenbank geladen. \\
