@@ -430,9 +430,9 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
 \centering
 \begin{tabular}{|p{1cm}|p{3cm}|p{5cm}|p{1cm}|p{5cm}|}
 \hline
-\begin{tabular}[c]{@{}l@{}}Abge-\\ leitet\\aus\end{tabular} & Einflussfaktor                                                                        & \begin{tabular}[c]{@{}l@{}}Flexibilität und \\ Veränderlichkeit\end{tabular}                                                              & \begin{tabular}[c]{@{}l@{}}++/\\\\ −−\end{tabular} & Auswirkungen                                                                                                                                                                                                                              \\ \hline                                                       \multicolumn{5}{|l|}{P1.7.3: Prioritäten}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
-                                                          & \begin{tabular}[c]{@{}l@{}}Für Aufträge\\soll eine Priorität \\errechnet werden. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Anwendung\\ muss die Parameter \\der Prozessschritte\\ einer Prozesskette \\auswerten können, und \\daraus schließen, welche \\Proben/Träger\\ gebraucht werden. \end{tabular} \\ \hline
-\multicolumn{5}{|l|}{P1.7.4: Zustand Auftrag}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
+\begin{tabular}[c]{@{}l@{}}Abge-\\ leitet\\aus\end{tabular} & Einflussfaktor                                                                        & \begin{tabular}[c]{@{}l@{}}Flexibilität und \\ Veränderlichkeit\end{tabular}                                                              & \begin{tabular}[c]{@{}l@{}}++/\\\\ −−\end{tabular} & Auswirkungen                                                                                                                                                                                                                              \\ \hline                                                      % \multicolumn{5}{|l|}{P1.7.3: Prioritäten}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
+%                                                          & \begin{tabular}[c]{@{}l@{}}Für Aufträge\\soll eine Priorität \\errechnet werden. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Anwendung\\ muss die Parameter \\der Prozessschritte\\ einer Prozesskette \\auswerten können, und \\daraus schließen, welche \\Proben/Träger\\ gebraucht werden. \end{tabular} \\ \hline
+\multicolumn{5}{|l|}{P1.7.4: Zustand Prozessschritt}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Der Zustand\\ eines Prozess-\\schrittes \\(Auftrag im\\Kontext Techno-\\loge) soll\\manuell aktuali-\\siert werden. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss \\vorsehen, dass von außen \\eine Auwahl des\\Zustandes möglich ist. \end{tabular} \\ \hline
 \multicolumn{5}{|l|}{P1.8: Träger}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Träger sollen\\erstellt und\\gelöscht\\werden können.\\ \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss \\eine Möglichkeit haben,\\Träger zu löschen\\(über einen Knopf oä)\\und neue Träger\\zu erstellen. \end{tabular} \\ \hline
@@ -622,11 +622,15 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \hline
           \textbf{Problem 6:} Stationenbearbeitung
           \\ \hline
+<<<<<<< HEAD
           Der Administrator soll neue Stationen hinzufügen können. Die Software muss die Fähigkeit haben neue Stationen zu übernehmen und zu nutzen. Außerdem soll der Zustand jeder Station sichtbar und Bearbeitbar sein.
+=======
+          Der Administrator soll neue Stationen hinzufügen können.  Die Software muss die Fähigkeit haben neue Stationen zu übernehmen und zu nutzen.
+>>>>>>> 667d6a57cde317e75a0d16754f7d6e27d9b27ac5
           \\ \hline
           \textbf{Einflussfaktoren: } \\
-          T 1.5: Persistent \\
-          P 1.4: Experimentierstationen (XXX)\\
+          T 1.5: Persistenz \\
+          P 1.4: Experimentierstationen\\
           P 1.4: Kaputte Stationen\\
           \hline
           \textbf{Strategien} \\ \hline
@@ -644,17 +648,24 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \hline
           \textbf{Problem 7:} Überwachung der Zustände
           \\ \hline
+<<<<<<< HEAD
           Wenn ein Logistiker einen Prozess gestartet hat, sollte der Prozess gestoppt, wieder gestartet und priorisiert.
+=======
+          Wenn ein Logistiker einen Prozess gestartet hat, sollte der Prozess gestoppt werden können, woraufhin die Proben sofort in das Lager gebracht werden und keine weiteren Schritte durchgeführt werden dürfen. Dementsprechend muss vom Prozesskettenadministrator in die laufende Kette eingegriffen werden dürfen.
+>>>>>>> 667d6a57cde317e75a0d16754f7d6e27d9b27ac5
           \\ \hline
           \textbf{Einflussfaktoren: } \\
-          T 1.5: Persistent \\
-          P 1.7: Aufträge (XXX)\\
+          T 1.5: Persistenz \\
+          P 1.7: Aufträge \\
           P 1.7.1: Kaputte Stationen\\
-          P 1.7.2: Automatisches Zuorden\\
-          P 1.9: Automatisches Zuorden\\
+          P 1.7.2: Automatisches Zuordnen\\
           \hline
           \textbf{Strategien} \\ \hline
+<<<<<<< HEAD
           \textbf{Strategie 1:} Prozess muss eine Variablen von zustand zu haben, welche der Logistiker und Prozesskette-admin verändere kann. Jede Prozesskette hat eine klasse für die Prozessauftrag, welche der Logistiker bestätigen wird, um die Prozess zu starten.
+=======
+          \textbf{Strategie 1:} Zustandsau
+>>>>>>> 667d6a57cde317e75a0d16754f7d6e27d9b27ac5
           \\ \hline
     \end{tabular}
     \caption{Caption}
@@ -665,20 +676,28 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 8:} Prozessbearbeitung und Überwachung
+          \textbf{Problem 8:} Priorisierung von Prozessketten
           \\ \hline
-          Der Prozesskettenadministrator kann einen Prozess mit unterschiedlichen Prozessschritten bauen. Dieser Prozess soll veränderbar sein und umtauschbar, um den Bedürfnissen der Benutzer gerecht zu werden.
+          Laufende Prozessketten sollen priorisiert werden können, was zur Folge hat, dass sie, wann immer mehrere Prozessketten auf die gleichen Aktionen warten, schneller drankommen. 
           \\ \hline
           \textbf{Einflussfaktoren: } \\
+<<<<<<< HEAD
           T 1.5: Persistent \\
           P 1.4: Experimentierstationen (XXX)\\
           P 1.6: Prozessketten\\
           \hline
           \textbf{Strategien} \\ \hline
           \textbf{Strategie 1:} die Klasse  Prozesskette bestehe aus Prozessschritte. Diese Prozessschritten können in eine beliebige Reihen folge gestellt zu werden.
+=======
+          T 1.5: Persistenz \\
+          P 1.7: Aufträge \\
+          \hline
+          \textbf{Strategien} \\ \hline
+          \textbf{Strategie 1:} Die Prioritäten der Prozessketten werden den Usern angezeigt, damit sie selber sehen, welche sie als erstes bearbeiten sollten. \\
+          \textbf{Strategie 2:} Es werden automatisch die Prozesskettenprioritäten analysiert und sortiert angezeigt. \\
+>>>>>>> 667d6a57cde317e75a0d16754f7d6e27d9b27ac5
           \\ \hline
     \end{tabular}
-
     \caption{Caption}
     \label{tab:my_label}
 \end{table}
@@ -687,42 +706,84 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
+<<<<<<< HEAD
           \textbf{Problem 9:} Laden Informationen
+=======
+          \textbf{Problem 8:} Prozessbearbeitung und Überwachung
+>>>>>>> 667d6a57cde317e75a0d16754f7d6e27d9b27ac5
+          \\ \hline
+          Der Prozesskettenadministrator kann einen Prozess mit unterschiedlichen Prozessschritten bauen. Dieser Prozess soll veränderbar sein und umtauschbar, um den Bedürfnissen der Benutzer gerecht zu werden.
+          \\ \hline
+          \textbf{Einflussfaktoren: } \\
+<<<<<<< HEAD
+          P1.10.2: Lagerübersicht \\
+          \hline
+          \textbf{Strategien} \\ \hline
+          \textbf{Strategie 1:} Es wird immer nur ein kleiner Ausschnitt aus der Datenbank geladen.
+=======
+          T 1.5: Persistenz \\
+          P 1.4: Experimentierstationen \\
+          P 1.6: Prozessketten\\
+          \hline
+          \textbf{Strategien} \\ \hline
+          \textbf{Strategie 1:} Eigenschaften der Stationen herausfinden, damit der entsprechende Nutzer ein Station einfach hinzufügen können.
+>>>>>>> 667d6a57cde317e75a0d16754f7d6e27d9b27ac5
+          \\ \hline
+    \end{tabular}
+
+    \caption{Caption}
+    \label{tab:my_label}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{15cm}|}
+    \hline
+          \textbf{Problem 10:} Laden von Informationen
           \\ \hline
           Der Logistiker möchte einen Überblick über alle Proben, die im Lager liegen. Da die Probenkügelchen alle einzeln gespeichert werden, und es somit eine sehr große Menge an Proben ist, könnte das Laden aller Proben auf einmal zu Performanceproblemen führen.
           \\ \hline
           \textbf{Einflussfaktoren: } \\
           P1.10.2: Lagerübersicht \\
+	 P1.10.3: Proben-id-Nummern \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Es wird immer nur ein kleiner Ausschnitt aus der Datenbank geladen.
+          \textbf{Strategie 1:In kleinen Schritten:(ausgewählt)} Es wird immer nur ein kleiner Ausschnitt aus der Datenbank geladen. \\
+         \textbf{Strategie 2:} Es werden Repräsentanten von Probenkügelchenmenge ausgewählt und angezeigt, dazu noch eine Gesamtanzahl der gleichartigen Kügelchen. \\
           \\ \hline
     \end{tabular}
     \caption{Caption}
     \label{tab:my_label}
 \end{table}
 
+<<<<<<< HEAD
 \begin{table}[]
-    \centering
-    \begin{tabular}{|p{15cm}|}
-    \hline
-          \textbf{Problem 10:} Verlust/Schaden an Proben
-          \\ \hline
-          Proben können im Laufe der Bearbeitung einer Prozesskette kaputt oder verloren gehen. Diese können dann nicht weiter benutzt werden, was zu Problemen im weiteren Verlauf führen könnte.
-          \\ \hline
-          \textbf{Einflussfaktoren: } \\
-          P1.10: Kaputte Proben\\
-          P1.10.1: Verlorene Proben \\
-          \hline
-          \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Proben können als kaputt gemeldet werden. Dadurch werden sie sowohl als solche dargestellt, und können weder manuell noch automatisch irgendwelchen Prozessen zugeordnet werden.
-          \\ \hline
-    \end{tabular}
-    \caption{Caption}
-    \label{tab:my_label}
-\end{table}
+=======
+Hier haben wir uns für die erste Strategie entschieden, weil die zweite Strategie deutlich mehr zusätzliche Arbeit schafft. \\
 
-\begin{table}[]
+%\begin{table}[H]
+%    \centering
+%    \begin{tabular}{|p{15cm}|}
+%    \hline
+%          \textbf{Problem 11:} Verlust/Schaden an Proben %Problem: auch in den Mindestanforderungen
+%          \\ \hline
+%          Proben können im Laufe der Bearbeitung einer Prozesskette kaputt oder verloren gehen. Diese können dann nicht weiter benutzt werden, was zu Problemen im weiteren Verlauf führen könnte.
+%          \\ \hline
+%          \textbf{Einflussfaktoren: } \\
+%          P1.10: Kaputte Proben\\
+%          P1.10.1: Verlorene Proben \\
+%          \hline
+%          \textbf{Strategien} \\ \hline
+%          \textbf{Strategie 1:(ausgewählt)} Proben können als kaputt gemeldet werden. Dadurch werden sie sowohl als solche dargestellt, und können weder manuell noch automatisch irgendwelchen Prozessen zugeordnet werden. \\
+%          \textbf{Strategie 2:} Für einzelne Proben werden solche Ereignisse ignoriert, mit der Hoffnung, dass es nicht häufig vorkommt. Zur Not soll ein Prozess gestoppt werden können, damit einem neuen Prozess neue Proben zugeordnet werden können. \\
+%          \\ \hline
+%    \end{tabular}
+%    \caption{Caption}
+%    \label{tab:my_label}
+%\end{table}
+%Hier haben wir uns für die erste Strategie entschieden, da diese die benutzerfreundlichere und sicherere ist. Des Weiteren ist bei diesen Experimenten %Genauigkeit wahrscheinlich sehr wichtig, was durch die zweite Strategie etwas untergraben werden würde. \\
+\begin{table}[H]
+>>>>>>> 667d6a57cde317e75a0d16754f7d6e27d9b27ac5
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
@@ -734,6 +795,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
           O1.1: Time-To-Market\\
           \hline
           \textbf{Strategien} \\ \hline
+<<<<<<< HEAD
           \textbf{Strategie 1:} Einteilung Anforderungen: Es gibt grundliegende Anforderungen, die umbedingt erfüllt werden müssen, und andere Forderungen, die schön wären, aber nicht notwendig sind. Aus letzteren können die Entwickler, wenn Zeit über ist, weitere zur Implementierung aussuchen.
           \\ \hline
     \end{tabular}
@@ -759,6 +821,11 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
           \hline
           \textbf{Strategien} \\ \hline
           \textbf{Strategie 1:} Alle Entwickler müssen sich die Zeit nehmen, sich in diese Technologien anzueignen. Ebenfalls sollte die Gruppe sich untereinander unterstützen; hilfreich wäre zum Beispiel eine Sammlung an Problemen, auf die Entwickler gestoßen sind, und wie sie diese gelöst haben, um eventuell anderen Gruppenmitgliedern die Recherche zu erleichtern.
+=======
+          \textbf{Strategie 1: Priorisierung Anforderungen:(ausgewählt)}Bestimmte, notwendigere Anforderungen, sollen über andere priorisiert werden. Die höherpriorisierten werden zuerst abgearbeitet. \\
+          \textbf{Strategie 2:} Einige Anforderungen sind für ein Bestehen nicht notwendig und können weggelassen werden.\\
+          \textbf{Strategie 3: Gruppenarbeit: (ausgewählt)} Die Gruppe muss strukturiert und mit möglichst fair verteilten Aufgaben arbeiten, um die Fähigkeiten aller möglichst effizient nutzen zu können. \\
+>>>>>>> 667d6a57cde317e75a0d16754f7d6e27d9b27ac5
           \\ \hline
     \end{tabular}
     \caption{Caption}
