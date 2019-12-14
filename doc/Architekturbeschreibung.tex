@@ -161,44 +161,37 @@ Version & Datum & Änderungen \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Einführung}
 
-Diese Architektur Beschreibung wurde im Rahmen von von Software Projekt 2 im Wintersemester 2019/2020 geschrieben.  Das Projekt wurde im Rahmen des SFB 1232 Farbige Zustände erstellt. Die SFB-intitative "Farbige Zustände" erarbeitet sich eine neuartige experimentelle Methode der Werkstoffentwicklung.
+Diese Architektur Beschreibung wurde im Rahmen von von Software Projekt 2 im Wintersemester 2019/2020 geschrieben. Das Projekt wurde im Rahmen des SFB 1232 Farbige Zustände erstellt. Die SFB-intitative "Farbige Zustände" erarbeitet sich eine neuartige experimentelle Methode der Werkstoffentwicklung.
 
-Die Aufgabe unserer Software ist es einerseits der SFB-Initiative zu ermöglichen effizient und ohne einer Verzögerung durch einen Administrativen Mehraufwand Prozessketten für die untersuchten metallischen Konstruktionswerkstoffe zu finden. Andererseits ermöglichen wir es den Forschern der SFB-Initative den Überblick über laufende Prozessketten und deren Prozessschritte zu behalten. Konkret bedeutet dies, dass wir es den Logistik-beauftragen mit Hilfe unserer Software ermöglichen, Proben und deren Träger zu verwalten. Den Technologen der SFB-Initiative ermöglichen wir es den Überblick über dessen Experimentierstationen zu haben, dies bedeutet, er ist immer über die laufenden Prozessschritte informiert.
-Der Prozesskettenadministrator ... TODO Fix below
-
-
-Diese Architektur Beschreibung wurde im Rahmen von von Software Projekt 2 im Wintersemester 2019/2020 geschrieben.  Das Projekt wurde im Rahmen des SFB 1232 Farbige Zustände erstellt. Die SFB-intitative "Farbige Zustände" erarbeitet sich eine neuartige experimentelle Methode der Werkstoffentwicklung.
-
-Die Aufgabe unserer Software ist es einerseits der SFB-Initiative zu ermöglichen effizient und ohne Verzögerung durch einen Administrativen Mehraufwand Prozessketten für die untersuchten metallischen Konstruktionswerkstoffe zu finden. Andererseits ermöglichen wir es den Forschern der SFB-Initative über viele laufende Prozessketten und deren Prozessschritte den Überblick zu behalten. Konkret bedeutet dies, dass wir es den Logistik-beauftragen ermöglichen aus unserer Software Proben und
-
-
-Das software muss bei der Verwaltung eine Prozess Kette helfen. die Nutzer können unterschiedliche Prozessschitten auf eine Zustanden stellen, diese Prozessschritten können hochgeladen und untergeladen sein werden. außerdem kann man auf eine Kette der Zuständ den Pruben überwachen. durch ein Prozesskette von Prueben interaktuiren unterschiedlichen Nutzer, wie zum Bespiel, Prozessketteadministrator, der das Prozesskette umbaut und Trasnporter, der ein Probe durch unterschiedlichen Stationen transportieren kann. Das Software hat ins gesamt fünf Benutzer, jede hat ihre eizige Eingeschafften:
-
+Es handelt sich hierbei um eine Webapplikation, welche den Mitarbeitern der SFB-Initiative ermöglichen soll, effizient und ohne Verzögerung durch einen Administrativen Mehraufwand Prozessketten für die untersuchten metallischen Konstruktionswerkstoffe zu finden. 
+Außerdem ermöglichen wir es den Forschern der SFB-Initative den Überblick über laufende Prozessketten und deren Prozessschritte zu behalten. 
+Konkret bedeutet dies, dass wir es den Logistik-beauftragen mit Hilfe unserer Software ermöglichen, Proben und deren Träger zu verwalten. Den Technologen der SFB-Initiative ermöglichen wir es den Überblick über ihre Experimentierstationen zu behalten; sie werden immer über die laufenden Prozessschritte informiert sein.
+Dem Prozesskettenadministrator möchten wir es ermöglichen, Prozessketten zu erstellen und verwalten, welche auf digitalem Wege an die Technologen weitergegeben werden als auszuführende Aufträge, welche diese wiederum annehmen und durchführen können.
+Außerdem möchten wir den Mitarbeitern im Lager ermöglichen, eine klare Übersicht über die im Lager sich befindende Proben zu behalten.
+Außerdem möchten wir dem Transporter der Proben, welcher diese von A nach B transportieren muss, ermöglichen, diese Transporte einfach protokolliert durchführen zu können, mit einfachem Probeverlusts-Protokoll. 
+Zu guter Letzt soll es noch dem System-Administrator möglich sein, die Benutzer des Systems zu verwalten und ihnen ihre Rollen im SFB einzuteilen.
+ 
+Diese Webapplikation soll also, in Stichpunkten, die folgenden Funktionen ermöglichen:
 \begin{itemize}
-  \item Admin kann Nutzer und Stationen einfüngen und entfernen.
-  \item ProzessKetteadministrator instanziert eine Prozess Kette.
-  \item Logistiker beschäftige sich auf der Resssourcen in der Lage für jede Prozess Kette und start den Prozess.
-  \item  Trasporter befördet die Proben zu den benötigten Stationen.
- \item Technologer führen die Prozessschitten der Prozesskette durch, sie werten die Erbgenisse aus und laden sie hoch in die Datenbank.
+  \item Die Erstellung und Verwaltung von Prozessketten durch einen Prozessketten-Administrator.
+  \item Eine protokollierte, (digital semi-automatische-) beobachtete Durchführung von Experimenten auf die Werkstoff-Proben. 
+  \item Ein protokollierter Transport der Proben in ihren Trägern von A nach B, mit Verlusts-Protokoll.
+  \item Eine einfache Übersicht über die im Lager befindende Proben zu haben.
+  \item Nutzer der Webapplikation einfach verwalten und ihren Rollen im SFB einteilen zu können.
+  \item Das System sollte zudem auch noch lauffähig auf mobilen Geräten sein, und möchte noch auf Englisch verfügbar sein.
 \end{itemize}
 
-Diese software muss die benötigen Funktionalitäten inhalt. Außerdem insofern neue Funtionalitäten gebraucht sind, das software erweitern diese Funtionalität soll.
-
-Diese Architekturbeschreibung ist für die Entsprechende Prüfer an der Universität Bremen als auch für die Kunde geschriben.  Das Struktur und Schnittstelle und Entwicklenprozess sind auseinandergesetzt und hier detaliert dargestellt, um von der Entsprechende Leser evaluiert zu werden.
-
+Leser dieser Architekturbeschreibung sind hiermit also nicht nur die Mitarbeiter der SFB-Initiative, sondern gegeben falls auch der Endkunde, welcher die Benutzer des Systems verwalten kann.
 
 \subsection{Zweck}
 
-  {\em Diese Architektur Beschreibung  hat als Zweck, die Ermittlung der Eingeschärften und Struktur des Software von Produktion und Logistik. Welche eine Verwaltung der Kette von Prozessen bearbeiten soll. damit die Benutzer oder Kunden als Basis für die Testen nutzen kann.
-
-  Diese Dokument beschreibt die Hauptpunkten der Parameter und Begrenzungen des Software, sowie die Parameter und die Zeit ablauft der Prozess, um diese Software Entwickeln und testest wurde.
-  }
+  {\em Diese Architekturbeschreibung beschreibt die Architektur von +++BLABLA+++, eine digitale Software welche die Erstellung, Verwaltung und Durchführung von Prozessketten ermöglicht, mit wessen Hilfe neue Werkstoffeigenschaften gefunden werden sollen für den industriellen Gebrauch. Es beschreibt wie das System von +++BLABLA+++ implementiert werden soll, und wie seine Struktur aussehen wird. 
+Dieses Dokument soll allen die die Software bedienen und bearbeiten werden dabei helfen die Struktur und Funktionsweise von +++BLABLA+++ zu verstehen. Es soll sowohl den Entwicklern eine Übersicht über die Funktionsweise der Software geben, welche diese schließlich implementieren werden, als auch den Testern zur Vorbereitung  ihrer Tests. Es soll außerdem dem Systemadministratoren eine Übersicht der Software geben, da diese das System anschließend verwalten müssen, und diese vielleicht die Software weiterentwickeln möchten. 
+}
 
 \subsection{Status}
 
-{\em Dieses Dokument beschreibt den ersten Entwurf. Es wurde noch nicht durch ein
-Architektur-Review freigegeben.
-}
+{\em Diese Architektur beschreibt den ersten Entwurf dieser Software. Es wurde auch noch nicht freigegeben durch ein Architektur Review, und ist somit die allererste Version.  }
 
 
 
