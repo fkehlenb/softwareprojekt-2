@@ -1,12 +1,26 @@
 #+TITLE: plantuml
 
 #+begin_src plantuml :file tryout.png
-  Alice -> Bob: synchronous call
+  Alice <- Bob: synchronous call
   Alice ->> Bob: asynchronous call
 #+end_src
 
 #+RESULTS:
 [[file:tryout.png]]
+
+
+#+BEGIN_SRC plantuml :file JRP
+actor "Phillip" as p
+participant "Joint" as j
+actor "Liam" as l
+j -> p: Lefthand an Phillip
+p -> p: Geniesser Zug
+p -> l: Left hand an liam
+l -> l: anders
+#+END_SRC
+
+#+RESULTS:
+[[file:JRP]]
 
 * Onboarding eines Benutzers
 Der Administrator erstellt einen Nutzer, das Backend fordert eine
@@ -104,40 +118,3 @@ ui == Client: HTTPs Request/Response
 
 #+RESULTS:
 [[file:konzeptionelleSicht.png]]
-
-#+BEGIN_SRC plantuml :file datenModel.png
-
-package Datenmodel {
-
-class Role {
-
-}
-
-class Logistiker {
-
-+logID: int
-
-}
-
-class Probe {
-+probenID: int
-+öffentlicheProbenID: String
-}
-
-class ProbenEigenschften {
-+materialEigenschaften: String
-+wärmebehandlung
-}
-
-Role <|-- Logistiker
-Logistiker "1" -- Probe
-Probe o-- "0..*"ProbenEigenschften : hat
-
-hide empty members
-Parent o-- "0..1"ReferedTo : ref
-Parent *-- "0..1" Child : child
-
-#+END_SRC
-
-#+RESULTS:
-[[file:datenModel.png]]
