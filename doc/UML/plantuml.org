@@ -104,3 +104,40 @@ ui == Client: HTTPs Request/Response
 
 #+RESULTS:
 [[file:konzeptionelleSicht.png]]
+
+#+BEGIN_SRC plantuml :file datenModel.png
+
+package Datenmodel {
+
+class Role {
+
+}
+
+class Logistiker {
+
++logID: int
+
+}
+
+class Probe {
++probenID: int
++öffentlicheProbenID: String
+}
+
+class ProbenEigenschften {
++materialEigenschaften: String
++wärmebehandlung
+}
+
+Role <|-- Logistiker
+Logistiker "1" -- Probe
+Probe o-- "0..*"ProbenEigenschften : hat
+
+hide empty members
+Parent o-- "0..1"ReferedTo : ref
+Parent *-- "0..1" Child : child
+
+#+END_SRC
+
+#+RESULTS:
+[[file:datenModel.png]]
