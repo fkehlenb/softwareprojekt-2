@@ -36,13 +36,13 @@
 
 				<p:panel id="reporting" header="Reporting"
 					style="margin-bottom:20px">
-					<p:chart type="bar" model="#{indexBean.customerBarModel}"
+					<p:chart type="bar" model="#{indexBean2.customerBarModel}"
 						style="height:300px" />
 				</p:panel>
 
 				<p:panel id="orders" header="Latest orders"
 					style="margin-bottom:20px">
-					<p:dataTable var="order" value="#{indexBean.orders}">
+					<p:dataTable var="order" value="#{indexBean2.orders}">
 						<p:column headerText="Order ID">
 							<h:outputText value="#{order.orderId}" />
 						</p:column>

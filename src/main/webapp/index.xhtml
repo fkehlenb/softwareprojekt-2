@@ -5,12 +5,8 @@
       xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
       xmlns:of="http://omnifaces.org/functions">
 <h:head>
-    <title>PrimeFaces 7.0</title>
-    <h:outputStylesheet>
-        .jqplot-series-canvas {
-            background: white;
-        }
-    </h:outputStylesheet>
+    <title>SFB - Farbige Zustände</title>
+    <link rel="icon" href="background.png"/>
 </h:head>
 
 <body background="background.png">
@@ -24,9 +20,9 @@
         <h1 style="color: cornflowerblue">Wilkommen zum SFB - Farbige Zustände!</h1>
         <p>Um sich Einzuloggen, geben sie bitte ihre details ein!</p>
         <h2 style="color: cornflowerblue">Login</h2>
-        <p:inputText placeholder="Usernamee" required="true"/>
-        <p:password placeholder="Password" required="true"/>
-        <p:commandButton value="Login" action="#" style="width: auto"/>
+        <p:inputText placeholder="Usernamee" required="true" requiredMessage="Bitte Benutzername angeben!"/>
+        <p:password placeholder="Password" required="true" requiredMessage="Bitte Passwort angeben!"/>
+        <p:commandButton value="Login" style="width: auto"/>
         <p>Forgot password? <a href="_blank">Reset Password</a></p>
         <p>New User? <a href="_blank">Register Now</a></p>
     </p:panelGrid>
