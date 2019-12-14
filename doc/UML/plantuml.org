@@ -138,159 +138,163 @@ skinparam componentStyle uml2
 hide empty members
 
 package Datenmodel {
-class Role {
+  class Role {
+  }
+
+  class Logistiker {
+  +logID: int
+  }
+
+  class User {
+    +id: int
+    +vorname: String
+    +nachname: String
+    +email: String
+    +telefonnummer: String
+    +username: String
+    +password: String
+    +wurdeVerifiziert: boolean
+    +erstellungsDatum: java.util.Date
+  }
+
+  class Admin {
+    +adminID: int
+  }
+
+
+  class "Technologe" as t {
+    +TID: int
+  }
+
+  class "Transport" as transport {
+    +transportID: int
+  }
+
+  class Probe {
+    +probenID: int
+    +öffentlicheProbenID: String
+    +unbrauchbar: Boolean
+  }
+
+  class Träger {
+    +id: int
+    +standort: Standort
+  }
+
+  enum Trägerart {
+    eingebettet
+    einzelen
+    glass
+  }
+
+  class "QualitativeEigenschaft" as qualE {
+    +name: String
+    +hat: Boolean
+  }
+
+  class "QuantitativeEigenschaft" as quantE {
+    +name: String
+    +wert: java.lang.Number
+    +einheit: java.units.SI
+  }
+
+  together {
+    class "Prozessschritt" as ps {
+      +psID: int
+    }
+
+    class "ProzessschrittVorlage" as psV {
+      +psVID: int
+    }
+
+    class "ProzessParameter" as pp {
+      +name: String
+      +wert: java.lang.Number
+      +einheit: java.util.SI
+    }
+  }
+
+  together {
+    class "ProzesskettenAdministrator" as pkAdmin {
+      +pkAdminID: int
+    }
+
+
+    class "Prozesskette" as pk {
+      +priorität: enum
+      +pkID:int
+      +pkZustand: enum
+    }
+
+    class "ProzessketteVorlage" as pkV {
+      +pkKID: int
+    }
+
+    class "ProzesskettenZustand" as pkZ {
+      +pkStatus: enum("Instanziert", "Freigeben", "Abgebrochen")
+    }
+  }
+
+  class "ExperimentierStation" as es {
+    +esID: int
+    +standort: String
+    +status: boolean
+    +kaputt: boolean
+  }
+
+  class "Randbedingung" as rb {
+    +pre: List<ProzessParameter>
+    +post: List<ProzessParameter>
+  }
+
+  class JSONObject {
+    +JSONPS: JSONArray
+    +PSObejct: JSONObject
+  }
+
+  Role <|-left- Logistiker
+  Role "0..*"-left-"1..*" User
+  Role <|-right- Admin
+  Role <|-right- t
+  Role <|-- transport
+
+  Logistiker "1" -- Probe
+  Logistiker "1" -- "1..*" Träger
+  Probe o-- "0..*"quantE : besitzt
+  Probe o-- "0..*"qualE : besitzt
+  Trägerart"1" --o "1.." Träger
+  Probe "0..*"--o "0..1" Träger
+
+  Admin "1" -- "1..*" User
+
+  Role <|-- pkAdmin
+  pkAdmin "1" -- psV
+
+  psV -- Trägerart
+  ps "1"--"1" psV
+  ps "1..*" -- "0..*" pk
+
+  pkV "1" -- "1" ps
+  pkV "1..*" -- "1..*" pk
+
+  pk "1" -- "1" pkZ
+  pk -- Träger
+  pk -- "1" t
+
+  ps "1..*" -- "1..*" pp
+  pp o-- "1..*" qualE: besitzt
+  pp o-- "1..*" quantE: besitzt
+
+  es "0..*" -- "1" Admin
+  es "1" -- "0..*" psV
+  es "0..*" -- "1" t
+
+  transport "1" -- pk
+
+  rb "0..*" --o ps
+
+  t "1" -down- "0..*" JSONObject
 }
-
-class Logistiker {
-+logID: int
-}
-
-class User {
-id: int
-vorname: String
-nachname: String
-email: String
-telefonnummer: String
-username: String
-password: String
-wurdeVerifiziert: boolean
-erstellungsDatum: java.util.Date
-}
-
-class Admin {
-+adminID: int
-}
-
-class "ProzesskettenAdministrator" as pkAdmin {
-+pkAdminID: int
-}
-
-class "Technologe" as t {
-+TID: int
-}
-
-class "Transport" as transport {
-transportID: int
-}
-
-class Probe {
-+probenID: int
-+öffentlicheProbenID: String
-+unbrauchbar: Boolean
-}
-
-class Träger {
-+id: int
-+standort: Standort
-}
-
-enum Trägerart {
-eingebettet
-einzelen
-glass
-}
-
-class "QualitativeEigenschaft" as qualE {
-+name: String
-+hat: Boolean
-}
-
-class "QuantitativeEigenschaft" as quantE {
-+name: String
-+wert: java.lang.Number
-+einheit: java.units.SI
-}
-
-together {
-class "Prozessschritt" as ps {
-+psID: int
-}
-
-class "ProzessschrittVorlage" as psV {
-+psVID: int
-}
-
-class "ProzessParameter" as pp {
-+name: String
-+wert: java.lang.Number
-+einheit: java.util.SI
-}
-}
-
-together {
-class "Prozesskette" as pk {
-+priorität: enum
-+pkID:int
-+pkZustand: enum
-}
-
-class "ProzessketteVorlage" as pkV {
-+pkKID: int
-}
-
-class "ProzesskettenZustand" as pkZ {
-+pkStatus: enum("Instanziert", "Freigeben", "Abgebrochen")
-}
-}
-class "ExperimentierStation" as es {
-+esID: int
-+standort: String
-+status: boolean
-+kaputt: boolean
-}
-
-class "Randbedingung" as rb {
-+pre: List<ProzessParameter>
-+post: List<ProzessParameter>
-}
-
-class JSONObject {
-+JSONPS: JSONArray
-+PSObejct: JSONObject
-}
-
-Role <|-left- Logistiker
-Role "0..*"-left-"1..*" User
-Role <|-right- Admin
-Role <|-right- t
-Role <|-- transport
-
-Logistiker "1" -- Probe
-Logistiker "1" -- "1..*" Träger
-Probe o-- "0..*"quantE : besitzt
-Probe o-- "0..*"qualE : besitzt
-Trägerart"1" --o "1.." Träger
-Probe "0..*"--o "0..1" Träger
-
-Admin "1" -- "1..*" User
-
-Role <|-- pkAdmin
-pkAdmin "1" -- psV
-
-psV -- Trägerart
-ps "1"--"1" psV
-ps "1..*" -- "0..*" pk
-
-pkV "1" -- "1" ps
-pkV "1..*" -- "1..*" pk
-
-pk "1" -- "1" pkZ
-pk -- Träger
-pk -- "1" t
-
-ps "1..*" -- "1..*" pp
-pp o-- "1..*" qualE: besitzt
-pp o-- "1..*" quantE: besitzt
-
-es "0..*" -- "1" Admin
-es "1" -- "0..*" psV
-es "0..*" -- "1" t
-
-transport "1" -- pk
-
-rb "0..*" --o ps
-
-t "1" -down- "0..*" JSONObject
 #+END_SRC
 
 #+RESULTS:
