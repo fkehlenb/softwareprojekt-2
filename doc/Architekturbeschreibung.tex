@@ -537,7 +537,8 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
           T 1.7: Multiple Users\\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Das System wird mit einer Authentifizierung versehen: Jeder muss eingeloggt sein, um die Anwendung nutzen zu können. In der Implementierung muss dafür gesorgt werden, dass es keine Benutzer ohne mindestens eine Rolle gibt. \\
+          \textbf{Strategie 1:} Da JavaEE eine Vorgabe ist, nutzen wir die davon zur Datensicherheit zur Verfügung gestellte Spezifikation JavaEE security.\\
+          \textbf{Strategie 2:} Wir implementieren selber ein System. \\
           \\ \hline
     \end{tabular}
 
@@ -549,7 +550,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 3:} Nebenläufige Benutzung  \\ \hline
+          \textbf{Problem 3:} Nebenläufige Benutzung !!Irgendwie bs weil H2 vorgegeben!!  \\ \hline
           Die Anwendung kann von mehreren Usern gleichzeitig benutzt werden. Dabei müssen die Daten in der Datenbank richtig angezeigt/verändert werden, und die Datensicherheit darf nicht komprimiert werden. \\ \hline
           \textbf{Einflussfaktoren: } \\
           T 1.5: Persistent \\
@@ -656,7 +657,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 10:} Laden Informationen
+          \textbf{Problem 10:} Laden von Informationen
           \\ \hline
           Der Logistiker möchte einen Überblick über alle Proben, die im Lager liegen. Da die Probenkügelchen alle einzeln gespeichert werden, und es somit eine sehr große Menge an Proben ist, könnte das Laden aller Proben auf einmal zu Performanceproblemen führen.
           \\ \hline
@@ -706,7 +707,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
           P1.10.1: Verlorene Proben \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Proben können als kaputt gemeldet werden. Dadurch werden sie sowohl als solche dargestellt, und können weder manuell noch automatisch irgendwelchen Prozessen zugeordnet werden.
+          \textbf{Strategie 1:} Proben können als kaputt gemeldet werden. Dadurch werden sie sowohl als solche dargestellt, und können weder manuell noch automatisch irgendwelchen Prozessen zugeordnet werden. \\
           \textbf{Strategie 2:} Für einzelne Proben werden solche Ereignisse ignoriert, mit der Hoffnung, dass es nicht häufig vorkommt. Zur Not soll ein Prozess gestoppt werden können, damit einem neuen Prozess neue Proben zugeordnet werden können. \\
           \\ \hline
     \end{tabular}
@@ -727,7 +728,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
           \hline
           \textbf{Strategien} \\ \hline
           \textbf{Strategie 1:} Priorisierung Anforderungen: Bestimmte, notwendigere Anforderungen, sollen über andere priorisiert werden. Die höherpriorisierten werden zuerst abgearbeitet. \\
-          \textbf{Strategie 2:} Einige Anforderungen sind für ein Bestehen nicht notwendig und können weggelassen werden.
+          \textbf{Strategie 2:} Einige Anforderungen sind für ein Bestehen nicht notwendig und können weggelassen werden.\\
           \textbf{Strategie 3:} Die Gruppe muss strukturiert und mit möglichst fair verteilten Aufgaben arbeiten, um die Fähigkeiten aller möglichst effizient nutzen zu können. \\
           \\ \hline
     \end{tabular}
@@ -739,7 +740,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 13:} Vorgaben von Technologien
+          \textbf{Problem 13:} Vorgaben von Technologien !KEIN EINFLUSS AUF ARCHITEKTUR!
           \\ \hline
           Die Vorgaben, welche Technologien bei der Implementierung verwendet werden sollen/dürfen, sind relativ streng. Dadurch können wir als Gruppe nicht Technologien verwenden, die wir vielleicht schon kennen; das kann sich wiederum auf die Qualität und Zeit der Implementierung auswirken.
           \\ \hline
@@ -771,8 +772,8 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
           P1.7.2: Automatisches Zuordnen \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Diese Anforderung ist optional, das heißt zur Not kann man ihn einfach weglassen. \\
-	  \textbf{Strategie 2:} Die Eigenschaften/Anforderungen von Proben/Aufträgen sollten nicht einfach nur String-Felder sein, da diese miteinander vergleichen schwierig ist (unterschiedliche Formulierungen etc). Stattdessen sollten Eigenschaften/Anforderungen vordefiniert sein (vom Prozesskettenadministrator?) und gespeichert werden, welche Eigenschaften zu welchen Anforderungen passen. \\
+          \textbf{Strategie 1:} Diese Anforderung gehört nicht zu den Grundanforderungen, das heißt zur Not kann man sie einfach weglassen. \\
+	  \textbf{Strategie 2:} Die Eigenschaften/Anforderungen von Proben/Aufträgen sollten nicht einfach nur String-Felder sein, da diese miteinander vergleichen schwierig ist (unterschiedliche Formulierungen etc). Stattdessen sollten Eigenschaften/Anforderungen vordefiniert sein (vom Prozesskettenadministrator) und gespeichert werden, welche Eigenschaften zu welchen Anforderungen passen. \\
           \\ \hline
     \end{tabular}
     \caption{Caption}
@@ -800,7 +801,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
           \hline
           \textbf{Strategien} \\ \hline
          \textbf{Strategie 1:} Die Entwickler könnten nur in Kleingruppen programmieren. Dadurch sitzen immer eine Menge unterschiedlicher Menschen mit eventuell unterschiedlichen Fähigkeiten an einem Programmstück. \\
-          \textbf{Strategie 2:} Die Implementierung wird bestmöglich nach dem Können der Entwickler aufgeteilt. Die Entwickler bemühen sich frühzeitig darum, sich weiteres Wissen anzueignen. Ebenfalls unterstützen sich alle Gruppenmitglieder gegenseitig.\\
+          \textbf{Strategie 2:} Die Implementierung wird bestmöglich nach dem Können der Entwickler aufgeteilt, indem die Anwendung modularisiert wird. Dadurch kann jeder Entwickler an seinem eigenen Modul arbeiten, und sich auf einen kleineren Bereich konzentrieren. Die Entwickler bemühen sich frühzeitig darum, sich weiteres Wissen anzueignen. Ebenfalls unterstützen sich alle Gruppenmitglieder gegenseitig.\\
           \\ \hline
     \end{tabular}
     \caption{Caption}
