@@ -159,12 +159,17 @@ Version & Datum & Änderungen \\
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Einführung} 
+\section{Einführung}
 
 Diese Architektur Beschreibung wurde im Rahmen von von Software Projekt 2 im Wintersemester 2019/2020 geschrieben.  Das Projekt wurde im Rahmen des SFB 1232 Farbige Zustände erstellt. Die SFB-intitative "Farbige Zustände" erarbeitet sich eine neuartige experimentelle Methode der Werkstoffentwicklung.
 
 Die Aufgabe unserer Software ist es einerseits der SFB-Initiative zu ermöglichen effizient und ohne einer Verzögerung durch einen Administrativen Mehraufwand Prozessketten für die untersuchten metallischen Konstruktionswerkstoffe zu finden. Andererseits ermöglichen wir es den Forschern der SFB-Initative den Überblick über laufende Prozessketten und deren Prozessschritte zu behalten. Konkret bedeutet dies, dass wir es den Logistik-beauftragen mit Hilfe unserer Software ermöglichen, Proben und deren Träger zu verwalten. Den Technologen der SFB-Initiative ermöglichen wir es den Überblick über dessen Experimentierstationen zu haben, dies bedeutet, er ist immer über die laufenden Prozessschritte informiert.
 Der Prozesskettenadministrator ... TODO Fix below
+
+
+Diese Architektur Beschreibung wurde im Rahmen von von Software Projekt 2 im Wintersemester 2019/2020 geschrieben.  Das Projekt wurde im Rahmen des SFB 1232 Farbige Zustände erstellt. Die SFB-intitative "Farbige Zustände" erarbeitet sich eine neuartige experimentelle Methode der Werkstoffentwicklung.
+
+Die Aufgabe unserer Software ist es einerseits der SFB-Initiative zu ermöglichen effizient und ohne Verzögerung durch einen Administrativen Mehraufwand Prozessketten für die untersuchten metallischen Konstruktionswerkstoffe zu finden. Andererseits ermöglichen wir es den Forschern der SFB-Initative über viele laufende Prozessketten und deren Prozessschritte den Überblick zu behalten. Konkret bedeutet dies, dass wir es den Logistik-beauftragen ermöglichen aus unserer Software Proben und
 
 
 Das software muss bei der Verwaltung eine Prozess Kette helfen. die Nutzer können unterschiedliche Prozessschitten auf eine Zustanden stellen, diese Prozessschritten können hochgeladen und untergeladen sein werden. außerdem kann man auf eine Kette der Zuständ den Pruben überwachen. durch ein Prozesskette von Prueben interaktuiren unterschiedlichen Nutzer, wie zum Bespiel, Prozessketteadministrator, der das Prozesskette umbaut und Trasnporter, der ein Probe durch unterschiedlichen Stationen transportieren kann. Das Software hat ins gesamt fünf Benutzer, jede hat ihre eizige Eingeschafften:
@@ -262,10 +267,10 @@ SQL                                    & Ist eine domän spezifische Sprache die
 
 \subsection{Übersicht über das Dokument}
 
-{ \em In Kapitel 2 werden die Einflussfaktoren und Probleme und Strategien, die zum Lösen der Probleme entworfen wurden, dargestellt. 
+{ \em In Kapitel 2 werden die Einflussfaktoren und Probleme und Strategien, die zum Lösen der Probleme entworfen wurden, dargestellt.
 
-In den Kapiteln 3, 4 und 6 werden die verschiedenen Sichten von Hofmeister gezeigt. Die Codesicht wird in diesem Projekt nicht behandelt. 
-Im Nachfolgenden Kapitel 3 wird die Konzeptionelle Sicht unserer Software beschrieben. In Kapitel 4 wird die Modulsicht und In Kapitel 6 wird die Ausführungssicht gezeigt. Kapitel 5 ist eine nähere Beschreibung der Architektursicht und wird durchn ein Modell in der Datensicht dargestellt. 
+In den Kapiteln 3, 4 und 6 werden die verschiedenen Sichten von Hofmeister gezeigt. Die Codesicht wird in diesem Projekt nicht behandelt.
+Im Nachfolgenden Kapitel 3 wird die Konzeptionelle Sicht unserer Software beschrieben. In Kapitel 4 wird die Modulsicht und In Kapitel 6 wird die Ausführungssicht gezeigt. Kapitel 5 ist eine nähere Beschreibung der Architektursicht und wird durchn ein Modell in der Datensicht dargestellt.
 
 Im Kapitel 7 werden einige Anwendungsfälle dargestellt. im abschließenden Kapitel 8 wird auf die mögliche zukünftige Entwicklung der Software bei neu eingehenden Wünschen der Kunden eingegangen.
 
@@ -519,9 +524,11 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
   Kapitel eindeutig aufeinander beziehen.
 }
 
+
 Im Folgenden werden einige Probleme, die sich aus den herausgearbeiteten Einflussfaktoren ergeben, thematisiert. Dazu werden die Probleme zunächst mitsamt der Einflussfaktoren, aus denen sie sich ergeben, vorgestellt, und anschließend unterschiedliche Strategien, um mit ihnen umzugehen, vorgestellt. \\ Diese Strategien werden daraufhin bewertet und es wird eine für jedes Problem ausgewählt. Diese Auswahl wird begründet. \\ 
 Folgende Strategien zur Lösung von Problemen wurden ausgewählt: \\
 ...
+
 
 \begin{table}[]
     \centering
@@ -543,7 +550,9 @@ Folgende Strategien zur Lösung von Problemen wurden ausgewählt: \\
     \caption{Caption}
     \label{tab:my_label}
 \end{table}
+
 Hier haben wir uns für die zweite Strategie entschieden, weil diese eine elegantere Lösung bietet, und benutzerfreundlicher ist. Des Weiteren erleichtert uns die bereits implementierte Java-Spezifikation die Arbeit. \\
+
 \begin{table}[]
     \centering
     \begin{tabular}{|p{15cm}|}
@@ -563,6 +572,7 @@ Hier haben wir uns für die zweite Strategie entschieden, weil diese eine elegan
     \caption{Caption}
     \label{tab:my_label}
 \end{table}
+
 \begin{table}[]
     \centering
     \begin{tabular}{|p{15cm}|}
@@ -593,6 +603,54 @@ Hier haben wir uns für die zweite Strategie entschieden, weil diese eine elegan
           \textbf{Einflussfaktoren: } \\
           T 1.5: Persistent \\
           T 1.7: Multiple Users\\
+
+          XXX : Datenbank \\
+          \hline
+          \textbf{Strategien} \\ \hline
+          \textbf{Strategie 1:} Der Admin der Software kann neue Mitglieder hinzufügen und auch existierende Mitglieder entfernen.
+          \\ \hline
+    \end{tabular}
+
+    \caption{Caption}
+    \label{tab:my_label}
+\end{table}
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{|p{15cm}|}
+    \hline
+          \textbf{Problem 5:} Upload/Download Prozessketten- und Prozessschrittparameter \\ \hline
+          Die Software kann neue Prozessketten und Prozessschrittparameter aus JSON-Dateien hochladen, und bestehende als JSON-Dateien exportieren.
+          \\ \hline
+          \textbf{Einflussfaktoren: } \\
+          T 1.5: Persistent \\
+          P 1.1.1: Upload\\
+          P 1.1.2: Download\\
+          XXX : Datenbank \\
+          \hline
+          \textbf{Strategien} \\ \hline
+          \textbf{Strategie 1:} XXX
+          \\ \hline
+    \end{tabular}
+
+    \caption{Caption}
+    \label{tab:my_label}
+\end{table}
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{|p{15cm}|}
+    \hline
+          \textbf{Problem 6:} Protokollierung der Prozessketten
+          \\ \hline
+          Die Abarbeitung einer Prozesskette soll protokolliert werden (wann welche Zustandsübergänge stattfanden).
+          \\ \hline
+          \textbf{Einflussfaktoren: } \\
+          T 1.5: Persistent \\
+          P 1.2: Protokollierung\\
+          P 1.4:\\
+          p 1.4.1\\
+
           \hline
           \textbf{Strategien} \\ \hline
           \textbf{Strategie 1:(augewählt)} Der Administrator der Software kann neue Mitglieder hinzufügen und auch existierende Mitglieder entfernen. \\
@@ -603,6 +661,7 @@ Hier haben wir uns für die zweite Strategie entschieden, weil diese eine elegan
     \caption{Caption}
     \label{tab:my_label}
 \end{table}
+
 
 %\begin{table}[]
 %    \centering
@@ -674,9 +733,46 @@ Hier haben wir uns für die zweite Strategie entschieden, weil diese eine elegan
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
+          \textbf{Problem 7:} Stationenbearbeitung
+          \\ \hline
+          Der Administrator soll neue Stationen hinzufügen können. Die Software muss die Fähigkeit haben neue Stationen zu übernehmen und zu nutzen. Außerdem soll der Zustand jeder Station sichtbar und bearbeitbar sein.
+          \\ \hline
+          \textbf{Einflussfaktoren: } \\
+          T 1.5: Persistent \\
+          P 1.4: Experimentierstationen (XXX)\\
+          P 1.4: Kaputte Stationen\\
+          \hline
+          \textbf{Strategien} \\ \hline
+          \textbf{Strategie 1:} Eingeschaften der Stationen herausfinden, damit der entsprechende Nutzer eine Station einfach hinzufügen kann.
+          \\ \hline
+    \end{tabular}
+    \caption{Caption}
+    \label{tab:my_label}
+\end{table}
+
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{|p{15cm}|}
+    \hline
           \textbf{Problem 10:} Laden von Informationen
           \\ \hline
+
           Der Logistiker möchte einen Überblick über alle Proben, die im Lager liegen. Da die Probenkügelchen alle einzeln gespeichert werden, und es somit eine sehr große Menge an Proben ist, könnte das Laden aller Proben auf einmal zu Performanceproblemen führen.
+
+    \end{tabular}
+    \caption{Caption}
+    \label{tab:my_label}
+\end{table}
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{|p{15cm}|}
+    \hline
+          \textbf{Problem 9:} Prozessbearbeitung und Überwachung
+          \\ \hline
+          Der Prozesskettenadministrator kann einen Prozess mit unterschiedlichen Prozessschritten bauen. Dieser Prozess soll veränderbar sein und umtauschbar, um den Bedürfnissen der Benutzer gerecht zu werden.
+
           \\ \hline
           \textbf{Einflussfaktoren: } \\
           P1.10.2: Lagerübersicht \\
@@ -903,8 +999,13 @@ die Entstehung anhand der Strategien erläutert werden.
 
 { \em Zunächst existiert die Klasse Probe, welche die ID, die Legierung als (???), die Art der Behandlung und die Materialeigenschaften beinhaltet. Eine bestimmte Probe kann ausschließlich einem Träger zugeordnet werden. 
 Die Klasse Träger besteht wieder aus einer ID, dem aktuellen Standort als  Standort und dem Typ als Trägerart. Ein Träger kann beliebig viele Proben beinhalten. Ein bestimmter Träger kann genau einer Experimentierstation (ES) zugeordnet sein. Eine Experimentierstation besteht aus einem Namen als String und dem Ort, an dem die ES zu finden ist als Standort. Einer bestimmten ES können beliebig viele Träger zugeordnet sein, während ihr immer nur ein  Technologe zugeordnet sein wird. Die ES ist immer nur einem bestimmten Prozessschritt (PS) zugeordnet. Ein Prozessschritt beinhaltet den Namen als String, die Prozessparameter (PP) als Prozessparameter, der Probenzustand, die Dauer und die Zustände und (???). Ein Prozessschritt ist einer bestimmten Prozesskette zugeordnet. Die Prozesskette (PK) beinhaltet den Namen als String. Sie beherbergt beliebig viele Prozessschritte und beliebig viele Prozesskettenaufträge. Der  Prozesskettenauftrag (PKAuftrag) kann nur einer Prozesskette zugeordnet sein und hat einen KettenInstanzwert (KIW) zugeordnet. \\
+
+{  Zunächst existiert die Klasse Probe, welche die ID, die Legierung als (???), die Art der Behandlung und die Materialeigenschaften beinhaltet. Eine bestimmte Probe kann ausschließlich einem Träger zugeordnet werden.
+Die Klasse Träger besteht wieder aus einer ID, dem aktuellen Standort als  Standort und dem Typ als Trägerart. Ein Träger kann beliebig viele Proben beinhalten. Ein bestimmter Träger kann genau einer Experimentiertstation (ES) zugeordnet sein. Eine Experimentiertstation besteht aus einem Namen als String und dem Ort, an dem die ES zu finden ist als Standort. Einer bestimmten ES können beliebig viele Träger zugeordnet sein, während ihr immer nur einTechnologe zugeordnet sein wird. Die ES ist immer nur einem bestimmten Prozessschritt (PS) zugeordnet. Ein Prozessschritt beinhaltet den Namen als String, die Prozessparameter (PP) als Prozessparameter, der Probenzustand, die Dauer und die Zustände und (???). Ein Prozessschritt ist einer bestimmten Prozesskette zugeordnet. Die Prozesskette (PK) beinhaltet den Namen als String. Sie beherbergt beliebig viele Prozessschritte und beliebig viele Prozesskettenaufträge. Der  Prozesskettenauftrag (PKAuftrag) kann nur einer Prozesskette zugeordnet sein und hat einen KettenInstanzwert (KIW) zugeordnet. \\
+
+
 Der Ketteninstanzwert ist einem PKAuftrag zugeordnet und beinhaltet beliebig viele Schnittinstanzwerte (SIW). Die Schnittinstanzwerte beinhalten einen Wert, welcher über KIW, PKAuftrag und die PK einem Prozessschritt zugeschrieben werden. Ein SIW kann einem KIW zugeordnet sein. 
-Dies wird so gehandhabt, da man im Nachhinein, nachdem eine Prozesskette instanziiert wurde, die Werte noch einfach ändern können soll. 
+Dies wird so gehandhabt, da man im Nachhinein, nachdem eine Prozesskette instanziiert wurde, die Werte noch einfach ändern können soll.
 }
 
 {\it Hier wird das der Anwendung zugrundeliegende Datenmodell
@@ -918,12 +1019,35 @@ Dies wird so gehandhabt, da man im Nachhinein, nachdem eine Prozesskette instanz
   \caption{Caption for my figure}
   \centering
   
+
   \includegraphics[width=0.75\textwidth]{UML/Model.pdf}
+
+\includegraphics[width=0.75\textwidth]{UML/Model.pdf}
+>>>>>>> doc/Architekturbeschreibung.tex
  \end{sidewaysfigure}
 
 \section{Ausführungssicht}
 
 \label{sec:ausfuehrung}
+
+
+{ Im folgenden Schritt werden wir die Ausführungssicht erläutern. Es wird aufgezeigt, welche verschiedenen Geräte benötigt werden, welche Prozesse auf den Geräten jeweils laufen und welche Module dort enthalten sind.
+}
+
+
+%%\includepdf[]{06Ausfuehrungssicht.pdf}
+\includegraphics[scale=0.5]{UML/06Ausfuehrungssicht.pdf}
+
+
+{ Die Ausführungssicht von unserer Software (SWP2) ist in der obrigen Abbildung 6.1 modelliert.
+
+Beliebig viele Benutzer können via TCP/IP auf den SFB-Server zugreifen. Dies geschieht über eine Webapplikation, die im Internetbrowser eines PCs oder eines mobilen Endgerät läuft.
+
+Es gibt einen Anwendungsserver, welchen wir SFB-Server genannt haben, auf dem eine Instanz von Wildfly läuft. Auf dieser Wildflyinstanz wird der SWP2-Server mit allen dazugehörigen modulen ausgeführt.
+
+Der SFB-Server stellt eine Verbindung über TCP/IP eine Verbindung zu dem einzigen Datenbankserver her. Auf dem Server läfut eine Instanz der Datenbanksoftware (........INSERT NAME...........).
+
+}
 
 {\it
 Die Ausführungssicht beschreibt das Laufzeitverhalten. Hier

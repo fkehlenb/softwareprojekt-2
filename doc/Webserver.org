@@ -182,6 +182,9 @@ Benutzt Spring
 * simple crud with primfaces
 
 * nice looking jsf apps with primefaces
+<<<<<<< HEAD
+=======
 
 
 * Simpe databse Connection with schemaspy
+>>>>>>> docEinleitung
