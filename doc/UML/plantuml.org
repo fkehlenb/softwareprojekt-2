@@ -1,0 +1,143 @@
+#+TITLE: plantuml
+
+#+begin_src plantuml :file tryout.png
+  Alice -> Bob: synchronous call
+  Alice ->> Bob: asynchronous call
+#+end_src
+
+#+RESULTS:
+[[file:tryout.png]]
+
+* Onboarding eines Benutzers
+Der Administrator erstellt einen Nutzer, das Backend fordert eine
+Onboarding email an und der Nutzer meldet sich das erste mal an
+#+BEGIN_SRC plantuml :file seq.png
+    skinparam monochrome true
+    Admin -> Backend: Create User Request
+    Email <- Backend: Welcome Email Request
+    User  <- Email: Welcome Email Response
+    User ->  Backend: Verification Email Request
+    Admin <- Backend: User Verified Response
+    User ->  Backend: Authentication Request
+    User ->  Backend: Access Control List Request
+    User <-  Backend: Real Access Response
+    User <-- Backend: another authentication Response
+#+END_SRC
+
+#+RESULTS:
+[[file:seq.png]]
+
+* Erstbenutzung
+#+BEGIN_SRC plantuml :file erstbenutzung.png
+autonumber
+skinparam monochrome true
+
+actor User as user
+participant "Browser UI" as browser
+participant "Home Page" as home_page
+
+user -> browser : Besuchen Sie die Login-Seite der DataColorrado-Benutzeroberfläche.
+browser -> home_page : Rufen Sie die Anmeldeseite der  DataColorrado-Benutzeroberfläche auf.
+browser <- home_page : Geben Sie die Anmeldeseite mit dem Formularfeld Benutzername und Passwortzurück.
+user <- browser : Seite anzeigen, auf Benutzereingaben warten
+Benutzer -> Benutzer: Abruf von Benutzername und Passwort aus dem Speicher
+user -> browser : Füllen Sie das Feld Benutzername und Passwort aus und klicken Sie auf die Schaltfläche Senden.
+browser -> home_page : Senden Sie den Benutzernamen und das Passwort.
+home_page -> home_page : Überprüfen Sie, ob die Informationen gültig sind.
+alt Login gültig
+    browser <- home_page : Gibt die eingeloggte Seite zurück
+    user <- browser : Anzeige der angemeldeten Seite
+else Login ungültig
+    browser <- home_page : Rückgabe der Login-Fehlerseite
+    user <- browser : Anzeige der Login-Fehlerseite
+end
+#+END_SRC
+
+
+#+RESULTS:
+[[file:erstbenutzung.png]]
+
+
+* PKAdmin erstellt eine Prozesskette
+#+BEGIN_SRC plantuml :file pkErstellen.png
+autonumber
+skinparam monochrome true
+
+actor Technologr:nnen as t
+actor Logitisker:Innen as l
+participant "Prozesskette" as pk
+participant "Auftrag als" as a
+participant "Technolgen App" tApp
+
+t -> tApp: Aufruf vorhandener Vorlagen
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:pkErstellen.png]]
+
+
+
+* Konzeptionelle Sicht
+#+BEGIN_SRC plantuml :file konzeptionelleSicht.png
+database "H2 Datenbank" as db
+package "Server Wildfly" as server{
+[Persistenz] as per
+[Geschäftslogik] as gl
+[Controller] as cont
+[Presentationsicht] as pres
+[REST API] as rest
+[User Interface] as ui
+}
+db == per: SQL
+per - gl: JPA
+gl -- cont: Applies
+cont -- pres: Views & Request
+
+per -- rest: JPA
+rest -- restClient: HTTPs Request/Response
+
+pres -- ui: Request
+ui == Client: HTTPs Request/Response
+#+END_SRC
+
+#+RESULTS:
+[[file:konzeptionelleSicht.png]]
+
+#+BEGIN_SRC plantuml :file datenModel.png
+
+package Datenmodel {
+
+class Role {
+
+}
+
+class Logistiker {
+
++logID: int
+
+}
+
+class Probe {
++probenID: int
++öffentlicheProbenID: String
+}
+
+class ProbenEigenschften {
++materialEigenschaften: String
++wärmebehandlung
+}
+
+Role <|-- Logistiker
+Logistiker "1" -- Probe
+Probe o-- "0..*"ProbenEigenschften : hat
+
+hide empty members
+Parent o-- "0..1"ReferedTo : ref
+Parent *-- "0..1" Child : child
+
+#+END_SRC
+
+#+RESULTS:
+[[file:datenModel.png]]

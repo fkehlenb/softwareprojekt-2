@@ -1,0 +1,13 @@
+#+TITLE: notes
+
+Problem Nutzerimpl
+Stratgeie: Java ee Nutzen oder Spring oder selber
+
+In der Modulsicht: Packet Security löst Problem, aufgrund von Strategie Blah
+
+Darstellen, wann bewegt der Tranport die Proben
+tApp hinterlegen welche ps wnd durchgelaufen, befndet sich der ps im schritt
+fertig
+
+gibt es nicht abgwchlossene ps, info an t
+Strategien abbilden in die module
