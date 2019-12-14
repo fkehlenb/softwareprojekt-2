@@ -109,12 +109,16 @@
   \sf
   \begin{tabular}{lr}
   Liam Hurwitz & hurwitz@tzi.de \\
+  Kevin Santiago Rodriguez Rey & hurwitz@tzi.de \\
+  Fabian Kehlenberg & rudkows@tzi.de \\
   Aaron Rudkowski & rudkows@tzi.de \\
-  \end{tabular}
+  Samuel nejati Masouleh & rudkows@tzi.de \\
+  Leonard Haddad & s\textunderscore xsipo6@tzi.de \\  
+\end{tabular}
   \\ ~
   \vspace{2cm}
   \\
-  \it Abgabe: 22. Dezember 2019 --- Version 1.0\\ ~
+  \it Abgabe: 23. Dezember 2019 --- Version 1.0\\ ~
   \end{center}
   \end{minipage}
 
@@ -159,7 +163,7 @@ Version & Datum & Änderungen \\
 
 Diese Architektur Beschreibung wurde im Rahmen von von Software Projekt 2 im Wintersemester 2019/2020 geschrieben.  Das Projekt wurde im Rahmen des SFB 1232 Farbige Zustände erstellt. Die SFB-intitative "Farbige Zustände" erarbeitet sich eine neuartige experimentelle Methode der Werkstoffentwicklung.
 
-Die Aufgabe unserer Software ist es einerseits der SFB-Initiative zu ermöglichen effizient und ohne einer Verzögerung durch einen Administrativen Mehraufwand Prozessketten für die untersuchten metallischen Konstruktionswerkstoffe zu finden. Andererseits ermöglichen wir es den Forschern der SFB-Initative den Überblick über laufende Prozessketten und deren Prozessschritte zu behalten. Konkret bedeutet dies, dass wir es den Logistik-beauftragen ermöglichen mit unserer Software Proben und deren Träger zu verwalten. Den Technologen der SFB-Initiative ermöglichen wir es den Überblick über dessen Experimentierstationen zu haben, dies bedeutet, er ist immer über die laufenden Prozessschritte informiert.
+Die Aufgabe unserer Software ist es einerseits der SFB-Initiative zu ermöglichen effizient und ohne einer Verzögerung durch einen Administrativen Mehraufwand Prozessketten für die untersuchten metallischen Konstruktionswerkstoffe zu finden. Andererseits ermöglichen wir es den Forschern der SFB-Initative den Überblick über laufende Prozessketten und deren Prozessschritte zu behalten. Konkret bedeutet dies, dass wir es den Logistik-beauftragen mit Hilfe unserer Software ermöglichen, Proben und deren Träger zu verwalten. Den Technologen der SFB-Initiative ermöglichen wir es den Überblick über dessen Experimentierstationen zu haben, dies bedeutet, er ist immer über die laufenden Prozessschritte informiert.
 Der Prozesskettenadministrator ... TODO Fix below
 
 
@@ -270,7 +274,14 @@ Im Kapitel 7 werden einige Anwendungsfälle dargestellt. im abschließenden Kapi
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{Anwendungsfälle}
+\subsection{Benutzer Verwalten}
+\subsection{Prozessketten Verwalten}
+\subsection{Prozesskettenschritt Ausführen}
+\subsection{Proben Transport}
+\subsection{Lager Verwaltung}
 \section{Globale Analyse}
+
 \label{sec:globale_analyse}
 
 {\it Hier werden Einflussfaktoren aufgezählt und bewertet sowie Strategien
@@ -829,6 +840,17 @@ konzeptionelle Sicht wird mit {UML}-Komponentendiagrammen visualisiert.}
 \section{Modulsicht}
 \label{sec:modulsicht}
 
+\subsection{Pakete}
+
+\subsubsection{Model}
+
+\subsubsection{Controller}
+
+\subsubsection{Persistence}
+
+\subsection{Module}
+
+
 {\it
 Diese Sicht beschreibt den statischen Aufbau des Systems mit Hilfe von
 Modulen, Subsystemen, Schichten und Schnittstellen.
@@ -917,6 +939,14 @@ Prozessen auf welchen Rechnern ausgeführt werden.}
 \section[Zusammenhänge zwischen Anwendungsfällen und Architektur]{Zusammenhänge zwischen Anwendungsfällen und Architektur\sectionmark{Zusammenhänge AF u. Architektur}}
 \sectionmark{Zusammenhänge AF u. Architektur}
 \label{sec:anwendungsfaelle}
+
+\subsection{Nutzer Verwalten}
+\subsection{Prozessketten Verwalten}
+\subsection{Proben Transport}
+\subsection{Prozessschritt Ausführen}
+\subsection{Lager Verwaltung}
+
+
 
 {\it In diesem Abschnitt sollen Sequenzdiagramme mit Beschreibung(!)
   für zwei bis drei von Euch ausgewählte
