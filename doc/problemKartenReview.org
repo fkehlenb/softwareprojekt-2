@@ -102,3 +102,6 @@ Wer kann das Problem lösen?
    Die in existierenden Prozesschrit vorlagen erhalten Anforderungen an die
    Prozessparameter und and die Materialeigenschaften. Durch das Festlegen,
    welche parameter verändert werden können, kann der PKAdmin später schneller zuweisen
+
+
+
