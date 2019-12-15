@@ -992,8 +992,8 @@ die Entstehung anhand der Strategien erläutert werden.
 \section{Datensicht}
 \label{sec:datensicht}
 
-{ \em Zunächst existiert die Klasse Probe, welche die ID, die Legierung als (???), die Art der Behandlung und die Materialeigenschaften beinhaltet. Eine bestimmte Probe kann ausschließlich einem Träger zugeordnet werden. 
-Die Klasse Träger besteht wieder aus einer ID, dem aktuellen Standort als  Standort und dem Typ als Trägerart. Ein Träger kann beliebig viele Proben beinhalten. Ein bestimmter Träger kann genau einer Experimentierstation (ES) zugeordnet sein. Eine Experimentierstation besteht aus einem Namen als String und dem Ort, an dem die ES zu finden ist als Standort. Einer bestimmten ES können beliebig viele Träger zugeordnet sein, während ihr immer nur ein  Technologe zugeordnet sein wird. Die ES ist immer nur einem bestimmten Prozessschritt (PS) zugeordnet. Ein Prozessschritt beinhaltet den Namen als String, die Prozessparameter (PP) als Prozessparameter, der Probenzustand, die Dauer und die Zustände und (???). Ein Prozessschritt ist einer bestimmten Prozesskette zugeordnet. Die Prozesskette (PK) beinhaltet den Namen als String. Sie beherbergt beliebig viele Prozessschritte und beliebig viele Prozesskettenaufträge. Der  Prozesskettenauftrag (PKAuftrag) kann nur einer Prozesskette zugeordnet sein und hat einen KettenInstanzwert (KIW) zugeordnet. \\
+{ Zunächst existiert die Klasse Probe, welche die ID, die Legierung als (???), die Art der Behandlung und die Materialeigenschaften beinhaltet. Eine bestimmte Probe kann ausschließlich einem Träger zugeordnet werden. 
+Die Klasse Träger besteht wieder aus einer ID, dem aktuellen Standort als  Standort und dem Typ als Trägerart. Ein Träger kann beliebig viele Proben beinhalten. Ein bestimmter Träger kann genau einer Experimentierstation (ES) zugeordnet sein. Eine Experimentierstation besteht aus einem Namen als String und dem Ort, an dem die ES zu finden ist als Standort. Einer bestimmten ES können beliebig viele Träger zugeordnet sein, während ihr immer nur ein  Technologe zugeordnet sein wird. Die ES ist immer nur einem bestimmten Prozessschritt (PS) zugeordnet. Ein Prozessschritt beinhaltet den Namen als String, die Prozessparameter (PP) als Prozessparameter, der Probenzustand, die Dauer und die Zustände und (???). Ein Prozessschritt ist einer bestimmten Prozesskette zugeordnet. Die Prozesskette (PK) beinhaltet den Namen als String. Sie beherbergt beliebig viele Prozessschritte und beliebig viele Prozesskettenaufträge. Der  Prozesskettenauftrag (PKAuftrag) kann nur einer Prozesskette zugeordnet sein und hat einen KettenInstanzwert (KIW) zugeordnet. \\}
 
 {  Zunächst existiert die Klasse Probe, welche die ID, die Legierung als (???), die Art der Behandlung und die Materialeigenschaften beinhaltet. Eine bestimmte Probe kann ausschließlich einem Träger zugeordnet werden.
 Die Klasse Träger besteht wieder aus einer ID, dem aktuellen Standort als  Standort und dem Typ als Trägerart. Ein Träger kann beliebig viele Proben beinhalten. Ein bestimmter Träger kann genau einer Experimentiertstation (ES) zugeordnet sein. Eine Experimentiertstation besteht aus einem Namen als String und dem Ort, an dem die ES zu finden ist als Standort. Einer bestimmten ES können beliebig viele Träger zugeordnet sein, während ihr immer nur einTechnologe zugeordnet sein wird. Die ES ist immer nur einem bestimmten Prozessschritt (PS) zugeordnet. Ein Prozessschritt beinhaltet den Namen als String, die Prozessparameter (PP) als Prozessparameter, der Probenzustand, die Dauer und die Zustände und (???). Ein Prozessschritt ist einer bestimmten Prozesskette zugeordnet. Die Prozesskette (PK) beinhaltet den Namen als String. Sie beherbergt beliebig viele Prozessschritte und beliebig viele Prozesskettenaufträge. Der  Prozesskettenauftrag (PKAuftrag) kann nur einer Prozesskette zugeordnet sein und hat einen KettenInstanzwert (KIW) zugeordnet. \\
@@ -1081,6 +1081,23 @@ Prozessen auf welchen Rechnern ausgeführt werden.}
 \section{Evolution}
 
 \label{sec:evolution}
+
+\subsection{Kristallkugel Software}
+{
+Die erste Idee zum sinnvollen Erweitern der Software soll eine gewisse Vorraussicht ausgeben können, was nach einem beliebigen Schritt mit den Eigenschaften einer Probe passiert, bzw welche Eigenschaften die Proba danach wahrscheinlich haben wird. Das ganze soll durch einen analytischen Algorithmus realisiert werden, welcher die vorherigen Daten auswertet und daraus dann eine wahrscheinlichkeit für die Eigenschaften entwickelt und die wahrscheinlichsten Eigenschaften dann ausgibt. 
+}
+\subsection{Vorraussichtliche Dauer eines Prozesses}
+{
+Man kann den Algorithmus aus der Kristallkugel Software auch dafür verwenden, dass aus empirischen Daten die vorraussichtliche Dauer eines Prozesses errechnet und ausgegeben wird. 
+
+Außerdem könnte man statt eines Algorithmus Microchips in die Experimentierstationen einbauen, welche die verbleibene Zeit an die Software weitergeben können. 
+}
+\subsection{Scanner}
+{
+Da so gut wie jedes mobile Endgerät eine Kamera besitzt, könnte man diese nutzen, um QR-Codes, die auf den Proben, den Trägern, im Archiv und an jeder Station zu finden sind, zu scannen damit z.B. der Transporter nichtmehr manuell eingeben muss, welche Datei er wohin bringt. \\
+Er scannt den QR-Code des Trägers und dann die QR-Codes beliebig vieler Proben. Die Software ordnet nun automatisch die gescannten Proben dem gescannten Träger zu. 
+Er kann den QR-Code des Trägers scannen und die Software weiß automatisch, dass der angemeldete Transporter den Träger abgeholt hat und wenn er jetzt den QR-Code der nächsten Experimentierstation scannt, trägt die Software automatisch den Träger als Abgeliefert ein. 
+}
 
 {\it
   Beschreibt in diesem Abschnitt, welche Änderungen Ihr
