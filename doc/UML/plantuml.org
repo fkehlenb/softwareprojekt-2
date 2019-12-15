@@ -104,3 +104,26 @@ ui == Client: HTTPs Request/Response
 
 #+RESULTS:
 [[file:konzeptionelleSicht.png]]
+Problemkarten auf Korrekheit überpürfen
+Zu lösendes Problem
+
+Die Qualität der Problemkarten soll überprüft werden
+Vorschlag
+
+Für jeden der Problemkarten wird bewertet ob es auf
+
+    die Grenzen und Einschränkungen eingeht
+
+    beschreibt die Problemkarte ein Problem was einen Faktor begrentzt?
+
+    Gibt es Schwierigkeit den Faktor zu erfüllen
+
+    Wie fließt dieses Problem auf die Markoebene ein
+
+    Problem betrifft die Archtitektur
+
+    Die Problemkarte erklärt wie das Problem in der Architektur gelöst wird
+
+    Die Problemkate geht dabei auf die Schichten ein
+
+Wer kann das Problem lösen?
