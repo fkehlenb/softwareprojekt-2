@@ -321,7 +321,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
   %Verwendet eine eindeutige Nummerierung der Faktoren, um sie auf den
   %Problemkarten einfach referenzieren zu können.  }
   %%%%%%%%%%%%%%%%%%
-\begin{table}[]
+\begin{table}[H]
 \centering
 \begin{tabular}{|p{1cm}|p{3cm}|p{5cm}|p{1cm}|p{5cm}|}
 \hline
@@ -476,40 +476,40 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
 
 \subsection{Probleme und Strategien} \label{sec:strategien}
 
-{ \em Aus einer Menge von Faktoren ergeben sich Probleme, die nun in
-  Form von Problemkarten beschrieben werden. Diese resultieren z.\,B.\
-  aus
-  \begin{itemize}
-    \item Grenzen oder Einschränkungen durch Faktoren
-    \item der Notwendigkeit, die Auswirkung eines Faktors zu begrenzen
-    \item der Schwierigkeit, einen Produktfaktor zu erfüllen, oder
-    \item der Notwendigkeit einer allgemeinen Lösung zu globalen
-      Anforderungen.
-  \end{itemize}
-  Dazu entwickelt Ihr Strategien, um mit den identifizierten Problemen
-  umzugehen.
+%{ \em Aus einer Menge von Faktoren ergeben sich Probleme, die nun in
+% Form von Problemkarten beschrieben werden. Diese resultieren z.\,B.\
+% aus
+%  \begin{itemize}
+%   \item Grenzen oder Einschränkungen durch Faktoren
+%    \item der Notwendigkeit, die Auswirkung eines Faktors zu begrenzen
+%    \item der Schwierigkeit, einen Produktfaktor zu erfüllen, oder
+%    \item der Notwendigkeit einer allgemeinen Lösung zu globalen
+%      Anforderungen.
+%  \end{itemize}
+%  Dazu entwickelt Ihr Strategien, um mit den identifizierten Problemen
+%  umzugehen.
 
-  Achtet auch hier darauf, dass die Probleme und Strategien wirklich
-  die Architektur betreffen und nicht etwa das Projektmanagement. Die
-  Strategien stellen im Prinzip die Designentscheidungen dar. Sie
-  sollten also die Erklärung für den konkreten Aufbau der
-  verschiedenen Sichten liefern.
+%  Achtet auch hier darauf, dass die Probleme und Strategien wirklich
+%  die Architektur betreffen und nicht etwa das Projektmanagement. Die
+%  Strategien stellen im Prinzip die Designentscheidungen dar. Sie
+%  sollten also die Erklärung für den konkreten Aufbau der
+%  verschiedenen Sichten liefern.
 
-  Beschreibt möglichst mehrere Alternativen und gebt an, für welche
-  Ihr Euch letztlich aus welchem Grunde entschieden habt. Natürlich
-  müssen die genannten Strategien in den folgenden Sichten auch
-  tatsächlich umgesetzt werden!
+%  Beschreibt möglichst mehrere Alternativen und gebt an, für welche
+%  Ihr Euch letztlich aus welchem Grunde entschieden habt. Natürlich
+%  müssen die genannten Strategien in den folgenden Sichten auch
+%  tatsächlich umgesetzt werden!
 
-  Ein sehr häufiger Fehler ist es, dass SWP-Gruppen arbeitsteilig
-  vorgehen: die eine Teilgruppe schreibt das Kapitel zur Analyse von
-  Faktoren und zu den Strategien, die andere Teilruppe beschreibt die
-  diversen Sichten, ohne dass diese beiden Teilgruppen sich abstimmen.
-  Da der Zweck der Faktoren und Strategien ist, die
-  Designentscheidungen für den Entwurf zu erarbeiten, besteht
-  natürlich ein Zusammenhang zwischen den Faktoren, Strategien und
-  Sichten. Dieser muss erkennbar sein, indem sich die verschiedenen
-  Kapitel eindeutig aufeinander beziehen.
-}
+ % Ein sehr häufiger Fehler ist es, dass SWP-Gruppen arbeitsteilig
+ % vorgehen: die eine Teilgruppe schreibt das Kapitel zur Analyse von
+ % Faktoren und zu den Strategien, die andere Teilruppe beschreibt die
+ % diversen Sichten, ohne dass diese beiden Teilgruppen sich abstimmen.
+ % Da der Zweck der Faktoren und Strategien ist, die
+ % Designentscheidungen für den Entwurf zu erarbeiten, besteht
+ % natürlich ein Zusammenhang zwischen den Faktoren, Strategien und
+ % Sichten. Dieser muss erkennbar sein, indem sich die verschiedenen
+ % Kapitel eindeutig aufeinander beziehen.
+%}
 
 \begin{table}[H]
     \centering
@@ -814,7 +814,34 @@ Hier haben wir uns für die erste Strategie entschieden, weil die zweite Strateg
     \caption{Caption}
     \label{tab:my_label}
 \end{table}
-%%%%%%%%%%%%%%%%%%
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{15cm}|}
+    \hline
+          \textbf{Problem 15:} Data Persistenz 
+          \\ \hline
+          Es ist notwendig die Interaktion der Nutzer mit das System zu speichern, daher braucht das Software ein Hauptspeichern Ort. Wo alle die Daten und notwendig Anmerkungen gespeichert sind.
+          \\ \hline
+          \textbf{Einflussfaktoren: } \\
+          O1.3: Entwickler \\
+          O1.4: Fähigkeiten Entwickler \\
+          T1.1: Programmiersprache \\
+          T1.4: Oberfläche \\
+          T1.5: Persistenz \\
+          T1.6: Build System\\
+          \hline
+          \textbf{Strategien} \\ \hline
+          \textbf{Strategie 1:} Eine relationale Datenbank zu nutzen, die in das Software Wildfly schon verfügbar ist.
+          \textbf{Strategie 2:} XML Data Persistenz zu nutzen, um die Data  zu speichern. 
+          \\ \hline
+    \end{tabular}
+    \caption{Caption}
+    \label{tab:my_label}
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \section{Konzeptionelle Sicht}
