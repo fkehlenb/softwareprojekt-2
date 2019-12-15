@@ -8,20 +8,6 @@
 #+RESULTS:
 [[file:tryout.png]]
 
-
-#+BEGIN_SRC plantuml :file JRP
-actor "Phillip" as p
-participant "Joint" as j
-actor "Liam" as l
-j -> p: Lefthand an Phillip
-p -> p: Geniesser Zug
-p -> l: Left hand an liam
-l -> l: anders
-#+END_SRC
-
-#+RESULTS:
-[[file:JRP]]
-
 * Onboarding eines Benutzers
 Der Administrator erstellt einen Nutzer, das Backend fordert eine
 Onboarding email an und der Nutzer meldet sich das erste mal an
@@ -118,6 +104,7 @@ ui == Client: HTTPs Request/Response
 
 #+RESULTS:
 [[file:konzeptionelleSicht.png]]
+<<<<<<< HEAD
 
 
 ** example
