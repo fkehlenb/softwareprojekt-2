@@ -118,7 +118,7 @@
   \\ ~
   \vspace{2cm}
   \\
-  \it Abgabe: 23. Dezember 2019 --- Version 1.0\\ ~
+  \it Abgabe: 22. Dezember 2019 --- Version 1.0\\ ~
   \end{center}
   \end{minipage}
 
@@ -275,11 +275,55 @@ Im Kapitel 8 werden einige Anwendungsfälle dargestellt. im abschließenden Kapi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Anwendungsfälle}
-\subsection{Benutzer Verwalten}
-\subsection{Prozessketten Verwalten}
-\subsection{Prozesskettenschritt Ausführen}
-\subsection{Proben Transport}
-\subsection{Lager Verwaltung}
+
+In diesen Kapitel werden wir verschiedene Anwendungsszenarien abdecken, welche unsere Software erfüllen soll. Diese Szenarien werden wir als Ausgangs- und Vergleichspunkt für den Rest unserer Architektur benutzen. Hiermit kann am Ende geprüft werden, ob die Software alle Anforderungen erfüllt. 
+
+\subsection{Anmeldung am System (alle Benutzer)}
+
+Der Benutzer wird mit einem Login-Fenster begrüßt an welchem er sich einloggen kann. Sollte es noch keinen Benutzer im System geben, so kann ein neuer Benutzer über ein Create-Account Knopf erstellt werden. Sollte er sein Passwort vergessen haben, so kann er mithilfe von einem Passwort Vergessen Knopf dieses zurücksetzen.
+Nach der Erstellung eines Benutzers wird dieser im Datenbanksystem eingespeichert, wodurch der System Administrator ihm nun eine Rolle einteilen kann.
+Der System Administrator befindet sich schon zu Anfang im System. Das heißt er muss seinen Benutzer nicht neu erstellen.
+Nach einer erfolgreichen Anmeldung am System werden alle Benutzer mit einer Navigationstabelle begrüßt. Diese Tabelle beinhaltet die für den Benutzer spezifizierten Funktionalitäten.
+
+\subsection{Benutzer Verwaltung - System Administrator}
+
+Die Aufgabe des System Administrators ist es die Benutzer zu verwalten. Nach seiner Anmeldung am System wird dieser mit einer Tabelle begrüßt welche seine Optionen im System anzeigt. Nach druck auf den Knopf für Nutzerverwaltung wird er mit einer weiteren Tabelle begrüßt, welche alle Nutzer des Systems beinhaltet. Diese Tabelle hat sowohl einen sortierungs Knopf, als auch eine Suchbox, wodurch er die angezeigten Nutzer des Systems filtern kann.
+Jeder Nutzer hat einen Bearbeitungsknopf neben seinem Namen. Durch druck auf diesen Knopf öffnet sich ein weiteres Fenster, in dem der Systemadministrator alle Optionen zur Verwaltung des Nutzers hat. Hier kann er z.B. dessen Details ändern (Name, Vorname, usw...), seine Rolle im SFB (Technologe, Transporter, usw...), aber auch einen Löschung Knopf mit welchem er diesen Benutzer aus dem System entfernen kann. 
+Die Tabelle beinhaltet natürlich auch einen Add Knopf, wodurch der System Administrator neue Benutzer im System einfügen kann. 
+
+\subsection{Experimentierstationsverwaltung - System Administrator}
+
+Wir nehmen an der Administrator hätte sich schon im System angemeldet. In dem vor ihm stehendes Fenster sieht er unter der Benutzerverwaltung einen weiteren Knopf zur Experimentierstationsverwaltung. Durch druck auf diesen Knopf öffnet sich ein weiteres Fenster mit einer weiteren Tabelle welche alle im System enthaltenden Experimentierstationen beinhaltet.  Diese sind auch wieder mal in reihen der Tabelle eingeteilt. Jede Reihe hat rechts einen Knopf mit welchem der Administrator die zugehörige Experimentierstation verwalten kann, und daneben einen weiteren Knopf zur Löschung der Experimentierstation.
+Unten in der Tabelle befindet sich ein weiterer Knopf mit welchem er weitere Experimentierstationen einfügen kann.
+Bei normalen druck auf eine Experimentierstation werden Informationen über diese angezeigt, wie z.B. Standort und ob diese momentan in Benutzung ist. 
+  
+\subsection{Prozesskettenverwaltung - Prozesskettenadministrator}
+
+Da die Aufgabe des Prozesskettenadministrators die Erstellung und Verwaltung von Prozessketten ist, wird dieser nach seiner Anmeldung am System mit einem Fenster begrüßt, wo er durch druck auf den Knopf zur Prozesskettenverwaltung mit einem weiteren Fenster begrüßt wird, welches alle Prozessketten des Systems enthält.
+Auch diese Tabelle kann durch eine Suchbox und weitere Kriterien wie z.B. Datum der Erstellung der Prozesskette filtriert werden.
+In dieser Tabelle sind alle Prozessketten die sich im System befinden, in reihen sortiert, sichtbar. An der Seite jeder noch nicht instanziierten Prozesskette ist ein Knopf um diese zu Bearbeiten. Durch druck auf den Bearbeitungsknopf kann der Prozesskettenadministrator die Schritte dieser Prozesskette bearbeiten. Hier kann er z.B. weitere Schritte der Prozesskette hinzufügen, oder schon existierende Schritte entfernen.
+Ein weiterer Knopf in der Tabelle erlaubt ihm eine Prozesskette zu starten. Sobald dieses getan ist, kann diese nicht mehr von ihm gestoppt werden.
+Die Tabelle beinhaltet auch einen Einfügungs-Knopf, durch welchen weitere Prozessketten erstellt werden können.
+Bei Erstellung einer Prozesskette wird diese auf Korrektheit überprüft. Sollte ein Prozessschritt z.B. unrealistische Vorbedingungen haben, so wird dem Prozesskettenadministrator Bescheid gegeben, dass er diese Prozesskette im jetzigen Stand nicht erstellen kann.
+Bei der Erstellung von Prozessketten, welche aus verschiedenen Prozessschritten besteht, muss der Prozesskettenadministrator natürlich auch diese Prozessschritte erstellen. Bei der Erstellung von Prozessketten wird er also mit einem Fenster begrüßt in welchem er die Prozessschritte der Prozesskette verwalten kann.
+Hier kann er z.B. einem Prozessschritt Vorbedingungen geben, welche er in einem Vorbedingungsfeld eingeben kann. In einem weiteren Feld kann er die Experimentierstation dieses Schrittes zuordnen. Diese Prozessschritte kann er so lange noch bearbeiten und verändern, bis die Prozesskette gestartet wird, durch den druck auf den Knopf zur Bearbeitung der Prozesskette. 
+Sollte eine Prozesskette in Bearbeitung sein, so kann der Prozesskettenadministrator auf diese drücken um zu sehen bei welchem Schritt sie sich momentan befindet. Er kann außerdem auch alle schon abgelaufenen- und noch auszuführende-Schritte sehen.
+ 
+\subsection{Lagerübersicht - Logistiker}
+
+Nehmen wir an der Logistiker hätte sich im System schon angemeldet.
+In dem von ihm befindenden Fenster ist ein Knopf für Lagerübersicht. Durch druck auf diesen öffnet sich ein weiteres Fenster mit einer Tabelle welche alle sich im Lager befindenden Proben beinhaltet. Auch diese Tabelle kann durch Suchbox und weiteres filtriert werden. Sie beinhaltet aber auch eine Option zur Gruppierung der Proben nach Legierung, Wärmebehandlung und Stationen.
+
+\subsection{Proben mit Prozessketten assoziieren - Logistiker}
+
+Nach seinem Login findet der Logistiker in dem Begrüßungsfenster ein weiteren Knopf für Prozessketten. Hier kann er die verschiedenen Prozessketten sehen welche gerade ausgeführt werden und welche Proben sie benötigen. Durch eine schnelle suche mit z.B. der Suchbox im Lagerübersichtsfenster kann der Logistiker herausfinden, ob die benötigten Proben sich im Lager befinden. Es soll bei jeder Prozesskette auch einen automatisierten Suchknopf geben welcher diese Proben automatisch im Lager sucht.
+Befinden sich die Proben im Lager, so kann er die Proben der Prozesskette zuweisen. Sollte das nicht der Fall sein, so kann er auf einen Knopf neben der Prozesskette drücken, wodurch dem Prozesskettenadministrator Bescheid gegeben wird das die benötigten Proben nicht verfügbar sind.
+ 
+\subsection{Prozessketten Starten/Stoppen - Logistiker}
+
+Sollten die benötigten Proben vom Letzten Absatz sich im Lager befinden, so kann der Logistiker durch einen weiteren Knopf eine noch nicht gestartete Prozesskette starten.
+Sollte aus welchem Grund auch immer eine Prozesskette gestoppt werden, so kann dieser auch diese stoppen.
+
 \section{Globale Analyse}
 
 \label{sec:globale_analyse}
@@ -1118,8 +1162,8 @@ die Entstehung anhand der Strategien erläutert werden.
 \section{Datensicht}
 \label{sec:datensicht}
 
-{ \em Zunächst existiert die Klasse Probe, welche die ID, die Legierung als (???), die Art der Behandlung und die Materialeigenschaften beinhaltet. Eine bestimmte Probe kann ausschließlich einem Träger zugeordnet werden. 
-Die Klasse Träger besteht wieder aus einer ID, dem aktuellen Standort als  Standort und dem Typ als Trägerart. Ein Träger kann beliebig viele Proben beinhalten. Ein bestimmter Träger kann genau einer Experimentierstation (ES) zugeordnet sein. Eine Experimentierstation besteht aus einem Namen als String und dem Ort, an dem die ES zu finden ist als Standort. Einer bestimmten ES können beliebig viele Träger zugeordnet sein, während ihr immer nur ein  Technologe zugeordnet sein wird. Die ES ist immer nur einem bestimmten Prozessschritt (PS) zugeordnet. Ein Prozessschritt beinhaltet den Namen als String, die Prozessparameter (PP) als Prozessparameter, der Probenzustand, die Dauer und die Zustände und (???). Ein Prozessschritt ist einer bestimmten Prozesskette zugeordnet. Die Prozesskette (PK) beinhaltet den Namen als String. Sie beherbergt beliebig viele Prozessschritte und beliebig viele Prozesskettenaufträge. Der  Prozesskettenauftrag (PKAuftrag) kann nur einer Prozesskette zugeordnet sein und hat einen KettenInstanzwert (KIW) zugeordnet. \\
+{ Zunächst existiert die Klasse Probe, welche die ID, die Legierung als (???), die Art der Behandlung und die Materialeigenschaften beinhaltet. Eine bestimmte Probe kann ausschließlich einem Träger zugeordnet werden. 
+Die Klasse Träger besteht wieder aus einer ID, dem aktuellen Standort als  Standort und dem Typ als Trägerart. Ein Träger kann beliebig viele Proben beinhalten. Ein bestimmter Träger kann genau einer Experimentierstation (ES) zugeordnet sein. Eine Experimentierstation besteht aus einem Namen als String und dem Ort, an dem die ES zu finden ist als Standort. Einer bestimmten ES können beliebig viele Träger zugeordnet sein, während ihr immer nur ein  Technologe zugeordnet sein wird. Die ES ist immer nur einem bestimmten Prozessschritt (PS) zugeordnet. Ein Prozessschritt beinhaltet den Namen als String, die Prozessparameter (PP) als Prozessparameter, der Probenzustand, die Dauer und die Zustände und (???). Ein Prozessschritt ist einer bestimmten Prozesskette zugeordnet. Die Prozesskette (PK) beinhaltet den Namen als String. Sie beherbergt beliebig viele Prozessschritte und beliebig viele Prozesskettenaufträge. Der  Prozesskettenauftrag (PKAuftrag) kann nur einer Prozesskette zugeordnet sein und hat einen KettenInstanzwert (KIW) zugeordnet. \\}
 
 {  Zunächst existiert die Klasse Probe, welche die ID, die Legierung als (???), die Art der Behandlung und die Materialeigenschaften beinhaltet. Eine bestimmte Probe kann ausschließlich einem Träger zugeordnet werden.
 Die Klasse Träger besteht wieder aus einer ID, dem aktuellen Standort als  Standort und dem Typ als Trägerart. Ein Träger kann beliebig viele Proben beinhalten. Ein bestimmter Träger kann genau einer Experimentiertstation (ES) zugeordnet sein. Eine Experimentiertstation besteht aus einem Namen als String und dem Ort, an dem die ES zu finden ist als Standort. Einer bestimmten ES können beliebig viele Träger zugeordnet sein, während ihr immer nur einTechnologe zugeordnet sein wird. Die ES ist immer nur einem bestimmten Prozessschritt (PS) zugeordnet. Ein Prozessschritt beinhaltet den Namen als String, die Prozessparameter (PP) als Prozessparameter, der Probenzustand, die Dauer und die Zustände und (???). Ein Prozessschritt ist einer bestimmten Prozesskette zugeordnet. Die Prozesskette (PK) beinhaltet den Namen als String. Sie beherbergt beliebig viele Prozessschritte und beliebig viele Prozesskettenaufträge. Der  Prozesskettenauftrag (PKAuftrag) kann nur einer Prozesskette zugeordnet sein und hat einen KettenInstanzwert (KIW) zugeordnet. \\
@@ -1244,6 +1288,23 @@ In der Graphik \ref{fig:logstikProbenPüftZuweisen} erhält die Logistik eine An
 \section{Evolution}
 
 \label{sec:evolution}
+
+\subsection{Kristallkugel Software}
+{
+Die erste Idee zum sinnvollen Erweitern der Software soll eine gewisse Vorraussicht ausgeben können, was nach einem beliebigen Schritt mit den Eigenschaften einer Probe passiert, bzw welche Eigenschaften die Proba danach wahrscheinlich haben wird. Das ganze soll durch einen analytischen Algorithmus realisiert werden, welcher die vorherigen Daten auswertet und daraus dann eine wahrscheinlichkeit für die Eigenschaften entwickelt und die wahrscheinlichsten Eigenschaften dann ausgibt. 
+}
+\subsection{Vorraussichtliche Dauer eines Prozesses}
+{
+Man kann den Algorithmus aus der Kristallkugel Software auch dafür verwenden, dass aus empirischen Daten die vorraussichtliche Dauer eines Prozesses errechnet und ausgegeben wird. 
+
+Außerdem könnte man statt eines Algorithmus Microchips in die Experimentierstationen einbauen, welche die verbleibene Zeit an die Software weitergeben können. 
+}
+\subsection{Scanner}
+{
+Da so gut wie jedes mobile Endgerät eine Kamera besitzt, könnte man diese nutzen, um QR-Codes, die auf den Proben, den Trägern, im Archiv und an jeder Station zu finden sind, zu scannen damit z.B. der Transporter nichtmehr manuell eingeben muss, welche Datei er wohin bringt. \\
+Er scannt den QR-Code des Trägers und dann die QR-Codes beliebig vieler Proben. Die Software ordnet nun automatisch die gescannten Proben dem gescannten Träger zu. 
+Er kann den QR-Code des Trägers scannen und die Software weiß automatisch, dass der angemeldete Transporter den Träger abgeholt hat und wenn er jetzt den QR-Code der nächsten Experimentierstation scannt, trägt die Software automatisch den Träger als Abgeliefert ein. 
+}
 
 {\it
   Beschreibt in diesem Abschnitt, welche Änderungen Ihr
