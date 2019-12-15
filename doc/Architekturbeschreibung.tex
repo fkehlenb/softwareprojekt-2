@@ -324,6 +324,29 @@ Befinden sich die Proben im Lager, so kann er die Proben der Prozesskette zuweis
 Sollten die benötigten Proben vom Letzten Absatz sich im Lager befinden, so kann der Logistiker durch einen weiteren Knopf eine noch nicht gestartete Prozesskette starten.
 Sollte aus welchem Grund auch immer eine Prozesskette gestoppt werden, so kann dieser auch diese stoppen.
 
+\subsection{Zustand eines Auftrags angeben - Technologe}
+
+Nehmen wir an der Technologe hätte sich schon im System angemeldet. Er sieht vor sich ein Fenster mit einem Knopf für Aufträge. Durch druck auf diesen gelangt er zu einem weiteren Fenster in dem alle verfügbaren Aufträge als Reihen in einer Tabelle angezeigt werden. Hier kann er nun einen Auftrag annehmen, durch druck auf einen Knopf neben einem Auftrag, wodurch dieser Auftrag automatisch in den Zustand angenommen geht. Dieser Auftrag kann nun von keinem anderen Technologen mehr angenommen werden. Sobald der Technologe mit der Bearbeitung des Auftrags beginnt, muss er nur auf den Knopf für in-Bearbeitung drücken, wodurch dieser Auftrag nun automatisch in den Zustand in-Bearbeitung gelangt. Sobald der Technologe mit seiner Bearbeitung fertig ist, muss er nur auf einen Knopf drücken, wodurch der Auftrag nun als Bearbeitet gekennzeichnet wird. Sollte er nun diesen Auftrag weiterschicken möchten, so kann er dieses durch druck auf einen weiteren Knopf tun. Sobald der Technologe die Prozessparameter dieses Auftrags in der Datenbank hochgeladen hat, wird der Auftrag entweder automatisch auf in die DB hochgeladen gesetzt, oder manuell durch den Technologen. Dieses kommt drauf an ob der Technologe zum Hochladen der Daten den Knopf in diesem Auftrag verwendet hat, oder einen anderen.
+
+\subsection{Aufnahme der Zeit in einem Auftrag - Technologe}
+
+Bei der Annahme eines Auftrags aus dem  vorherigen Absatz wird die jetzige Systemzeit aufgenommen und im Auftrag eingegeben. Das gleiche passiert auch bei den weiteren Schritten aus dem vorherigen Absatz.
+Sollte der Technologe allerdings an einem späteren Zeitpunkt diese Zeiten bearbeiten möchten, so kann er durch druck auf einen Bearbeitungsknopf neben dem Auftrag in der Tabelle die Zeiten manuell ändern.  
+
+\subsection{Station Fehler Melden - Technologe}
+
+Sollte irgendetwas schiefgehen und eine Station fehlerhaft werden, so kann der Technologe, nach seiner Anmeldung im System, durch einen Knopf einen Station Fehler melden. Hierdurch wird das System auch die Fehlernachricht bekommen, und somit allen anderen Prozessketten welche diese Station benötigen darüber Bescheid geben. 
+
+\subsection{Proben Transportieren - Transporter}
+
+Nehmen wir an der Transporter hätte sich schon am System angemeldet. Er sieht ein Fenster mit einem Transportübersicht Knopf, welcher ein weiteres Fenster öffnet, mit allen Transportaufträgen als Reihen in einer Tabelle. Hier kann er, durch druck auf einen Auftrag sehen, wo diese Proben abgeholt werden müssen, und wo sie hin geliefert werden müssen. 
+Er kann durch Knopfdruck einen Auftrag annehmen, wodurch dieser als Annahme gekennzeichnet wird. Sobald er die Proben abgeholt hat, kann er durch Knopfdruck diesen Auftrag auf die Kennzeichnung Transport setzen. Sobald er die Proben zum korrekten Ort gebracht hat, kann er durch einen weiteren Knopfdruck diesen Auftrag als Ausgeliefert markieren.
+
+\subsection{Probenverlust Melden - Transporter}
+
+Nachdem der Transporter den Transport aus dem vorherigen Abschnitt ausgeführt hat, kann er durch druck auf einen Knopf innerhalb der Auftragstabelle für jeden Auftrag Probenverlust angeben. Hierdurch wird der Auftrag automatisch auf den Zustand Verlust gesetzt.
+
+
 \section{Globale Analyse}
 
 \label{sec:globale_analyse}
