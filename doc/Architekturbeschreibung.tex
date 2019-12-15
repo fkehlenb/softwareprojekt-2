@@ -290,6 +290,12 @@ Nach einer erfolgreichen Anmeldung am System werden alle Benutzer mit einer Navi
 Die Aufgabe des System Administrators ist es die Benutzer zu verwalten. Nach seiner Anmeldung am System wird dieser mit einer Tabelle begrüßt welche seine Optionen im System anzeigt. Nach druck auf den Knopf für Nutzerverwaltung wird er mit einer weiteren Tabelle begrüßt, welche alle Nutzer des Systems beinhaltet. Diese Tabelle hat sowohl einen sortierungs Knopf, als auch eine Suchbox, wodurch er die angezeigten Nutzer des Systems filtern kann.
 Jeder Nutzer hat einen Bearbeitungsknopf neben seinem Namen. Durch druck auf diesen Knopf öffnet sich ein weiteres Fenster, in dem der Systemadministrator alle Optionen zur Verwaltung des Nutzers hat. Hier kann er z.B. dessen Details ändern (Name, Vorname, usw...), seine Rolle im SFB (Technologe, Transporter, usw...), aber auch einen Löschung Knopf mit welchem er diesen Benutzer aus dem System entfernen kann. 
 Die Tabelle beinhaltet natürlich auch einen Add Knopf, wodurch der System Administrator neue Benutzer im System einfügen kann. 
+
+\subsection{Experimentierstationsverwaltung - System Administrator}
+
+Wir nehmen an der Administrator hätte sich schon im System angemeldet. In dem vor ihm stehendes Fenster sieht er unter der Benutzerverwaltung einen weiteren Knopf zur Experimentierstationsverwaltung. Durch druck auf diesen Knopf öffnet sich ein weiteres Fenster mit einer weiteren Tabelle welche alle im System enthaltenden Experimentierstationen beinhaltet.  Diese sind auch wieder mal in reihen der Tabelle eingeteilt. Jede Reihe hat rechts einen Knopf mit welchem der Administrator die zugehörige Experimentierstation verwalten kann, und daneben einen weiteren Knopf zur Löschung der Experimentierstation.
+Unten in der Tabelle befindet sich ein weiterer Knopf mit welchem er weitere Experimentierstationen einfügen kann.
+Bei normalen druck auf eine Experimentierstation werden Informationen über diese angezeigt, wie z.B. Standort und ob diese momentan in Benutzung ist. 
   
 \subsection{Prozesskettenverwaltung - Prozesskettenadministrator}
 
@@ -303,9 +309,20 @@ Bei der Erstellung von Prozessketten, welche aus verschiedenen Prozessschritten 
 Hier kann er z.B. einem Prozessschritt Vorbedingungen geben, welche er in einem Vorbedingungsfeld eingeben kann. In einem weiteren Feld kann er die Experimentierstation dieses Schrittes zuordnen. Diese Prozessschritte kann er so lange noch bearbeiten und verändern, bis die Prozesskette gestartet wird, durch den druck auf den Knopf zur Bearbeitung der Prozesskette. 
 Sollte eine Prozesskette in Bearbeitung sein, so kann der Prozesskettenadministrator auf diese drücken um zu sehen bei welchem Schritt sie sich momentan befindet. Er kann außerdem auch alle schon abgelaufenen- und noch auszuführende-Schritte sehen.
  
-\subsection{Proben Transport}
+\subsection{Lagerübersicht - Logistiker}
 
-\subsection{Lager Verwaltung}
+Nehmen wir an der Logistiker hätte sich im System schon angemeldet.
+In dem von ihm befindenden Fenster ist ein Knopf für Lagerübersicht. Durch druck auf diesen öffnet sich ein weiteres Fenster mit einer Tabelle welche alle sich im Lager befindenden Proben beinhaltet. Auch diese Tabelle kann durch Suchbox und weiteres filtriert werden. Sie beinhaltet aber auch eine Option zur Gruppierung der Proben nach Legierung, Wärmebehandlung und Stationen.
+
+\subsection{Proben mit Prozessketten assoziieren - Logistiker}
+
+Nach seinem Login findet der Logistiker in dem Begrüßungsfenster ein weiteren Knopf für Prozessketten. Hier kann er die verschiedenen Prozessketten sehen welche gerade ausgeführt werden und welche Proben sie benötigen. Durch eine schnelle suche mit z.B. der Suchbox im Lagerübersichtsfenster kann der Logistiker herausfinden, ob die benötigten Proben sich im Lager befinden. Es soll bei jeder Prozesskette auch einen automatisierten Suchknopf geben welcher diese Proben automatisch im Lager sucht.
+Befinden sich die Proben im Lager, so kann er die Proben der Prozesskette zuweisen. Sollte das nicht der Fall sein, so kann er auf einen Knopf neben der Prozesskette drücken, wodurch dem Prozesskettenadministrator Bescheid gegeben wird das die benötigten Proben nicht verfügbar sind.
+ 
+\subsection{Prozessketten Starten/Stoppen - Logistiker}
+
+Sollten die benötigten Proben vom Letzten Absatz sich im Lager befinden, so kann der Logistiker durch einen weiteren Knopf eine noch nicht gestartete Prozesskette starten.
+Sollte aus welchem Grund auch immer eine Prozesskette gestoppt werden, so kann dieser auch diese stoppen.
 
 \section{Globale Analyse}
 
