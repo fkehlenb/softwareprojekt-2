@@ -860,6 +860,44 @@ Hier haben wir uns für Strategie 2 entschieden, weil durch die Modularisierung 
 \end{table}
 Hier haben wir uns für die erste Strategie entschieden, weil diese einfacher umzusetzen ist, wodurch wir Zeit sparen, die wir auf wichtigere Aspekte der Anwendung verwenden können. 
 
+%\begin{table}[]
+%    \centering
+%    \begin{tabular}{|p{15cm}|}
+%    \hline
+%          \textbf{Problem 13:} Nur ein Transporteur
+%          \\ \hline
+%          Wenn es Träger gibt, die von einer Station zur nächsten transportiert werden sollen, dann werden diese für alle Transporteure angezeigt. Natürlich kann aber nur ein Transporteur tatsächlich die Träger weitertragen; deswegen soll es möglich sein, dass ein Transporteur einen Auftrag annimmt, der dann für alle anderen nicht mehr sichtbar ist. \\
+%        \\  \hline
+%        \textbf{Einflussfaktoren: } \\
+%	 P1.10.3: Proben-id-Nummern \\
+%        \hline
+%        \textbf{Strategien} \\
+%         \textbf{Strategie 13.1: (ausgewählt)} \\
+%    \end{tabular}
+%    \caption{Laden von Informationen Problemkarte}
+%    \label{tab:ProblemKarte131}
+%\end{table}
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{|p{15cm}|}
+    \hline
+          \textbf{Problem 14:} Automatische Lastverteilung
+          \\ \hline
+         Wenn für einen Prozessschritt mehrere Experimentierstationen möglich sind, muss ausgewählt werden, welche Stationen eine Prozesskette tatsächlich benutzen soll. \\
+        \\  \hline
+        \textbf{Einflussfaktoren: } \\
+	P1.4.1: Auslastung \\
+        \hline
+        \textbf{Strategien} \\
+         \textbf{Strategie 14.1: Von Hand:} Der Prozesskettenadministrator wählt die Stationen selber aus, wenn er die Prozesskette instanziiert. \\
+	\textbf{Strategie 14.2: Automatisch: (ausgewählt)} Das System analysiert, wie die für jeden Prozessschritt möglichen Stationen ausgelastet sind, und entscheidet, wo welche Schritte am effizientesten abgearbeitet werden. \\
+    \end{tabular}
+    \caption{Automatische Lastverteilung Problemkarte}
+    \label{tab:ProblemKarte141}
+\end{table}
+Hier haben wir uns für die zweite Strategie entschieden, da sie den Ablauf im Fachbereich effizienter gestalten kann. Des Weiteren könnte es für den Prozesskettenadministrator bei zu vielen Prozessketten schwierig werden, einen Überblick zu behalten. \\
+
 \begin{table}[H]
     \centering
     \begin{tabular}{|p{15cm}|}
