@@ -118,7 +118,7 @@
   \\ ~
   \vspace{2cm}
   \\
-  \it Abgabe: 22. Dezember 2019 --- Version 1.0\\ ~
+  \it Abgabe: 23. Dezember 2019 --- Version 1.0\\ ~
   \end{center}
   \end{minipage}
 
@@ -275,78 +275,11 @@ Im Kapitel 8 werden einige Anwendungsfälle dargestellt. im abschließenden Kapi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Anwendungsfälle}
-
-In diesen Kapitel werden wir verschiedene Anwendungsszenarien abdecken, welche unsere Software erfüllen soll. Diese Szenarien werden wir als Ausgangs- und Vergleichspunkt für den Rest unserer Architektur benutzen. Hiermit kann am Ende geprüft werden, ob die Software alle Anforderungen erfüllt. 
-
-\subsection{Anmeldung am System (alle Benutzer)}
-
-Der Benutzer wird mit einem Login-Fenster begrüßt an welchem er sich einloggen kann. Sollte es noch keinen Benutzer im System geben, so kann ein neuer Benutzer über ein Create-Account Knopf erstellt werden. Sollte er sein Passwort vergessen haben, so kann er mithilfe von einem Passwort Vergessen Knopf dieses zurücksetzen.
-Nach der Erstellung eines Benutzers wird dieser im Datenbanksystem eingespeichert, wodurch der System Administrator ihm nun eine Rolle einteilen kann.
-Der System Administrator befindet sich schon zu Anfang im System. Das heißt er muss seinen Benutzer nicht neu erstellen.
-Nach einer erfolgreichen Anmeldung am System werden alle Benutzer mit einer Navigationstabelle begrüßt. Diese Tabelle beinhaltet die für den Benutzer spezifizierten Funktionalitäten.
-
-\subsection{Benutzer Verwaltung - System Administrator}
-
-Die Aufgabe des System Administrators ist es die Benutzer zu verwalten. Nach seiner Anmeldung am System wird dieser mit einer Tabelle begrüßt welche seine Optionen im System anzeigt. Nach druck auf den Knopf für Nutzerverwaltung wird er mit einer weiteren Tabelle begrüßt, welche alle Nutzer des Systems beinhaltet. Diese Tabelle hat sowohl einen sortierungs Knopf, als auch eine Suchbox, wodurch er die angezeigten Nutzer des Systems filtern kann.
-Jeder Nutzer hat einen Bearbeitungsknopf neben seinem Namen. Durch druck auf diesen Knopf öffnet sich ein weiteres Fenster, in dem der Systemadministrator alle Optionen zur Verwaltung des Nutzers hat. Hier kann er z.B. dessen Details ändern (Name, Vorname, usw...), seine Rolle im SFB (Technologe, Transporter, usw...), aber auch einen Löschung Knopf mit welchem er diesen Benutzer aus dem System entfernen kann. 
-Die Tabelle beinhaltet natürlich auch einen Add Knopf, wodurch der System Administrator neue Benutzer im System einfügen kann. 
-
-\subsection{Experimentierstationsverwaltung - System Administrator}
-
-Wir nehmen an der Administrator hätte sich schon im System angemeldet. In dem vor ihm stehendes Fenster sieht er unter der Benutzerverwaltung einen weiteren Knopf zur Experimentierstationsverwaltung. Durch druck auf diesen Knopf öffnet sich ein weiteres Fenster mit einer weiteren Tabelle welche alle im System enthaltenden Experimentierstationen beinhaltet.  Diese sind auch wieder mal in reihen der Tabelle eingeteilt. Jede Reihe hat rechts einen Knopf mit welchem der Administrator die zugehörige Experimentierstation verwalten kann, und daneben einen weiteren Knopf zur Löschung der Experimentierstation.
-Unten in der Tabelle befindet sich ein weiterer Knopf mit welchem er weitere Experimentierstationen einfügen kann.
-Bei normalen druck auf eine Experimentierstation werden Informationen über diese angezeigt, wie z.B. Standort und ob diese momentan in Benutzung ist. 
-  
-\subsection{Prozesskettenverwaltung - Prozesskettenadministrator}
-
-Da die Aufgabe des Prozesskettenadministrators die Erstellung und Verwaltung von Prozessketten ist, wird dieser nach seiner Anmeldung am System mit einem Fenster begrüßt, wo er durch druck auf den Knopf zur Prozesskettenverwaltung mit einem weiteren Fenster begrüßt wird, welches alle Prozessketten des Systems enthält.
-Auch diese Tabelle kann durch eine Suchbox und weitere Kriterien wie z.B. Datum der Erstellung der Prozesskette filtriert werden.
-In dieser Tabelle sind alle Prozessketten die sich im System befinden, in reihen sortiert, sichtbar. An der Seite jeder noch nicht instanziierten Prozesskette ist ein Knopf um diese zu Bearbeiten. Durch druck auf den Bearbeitungsknopf kann der Prozesskettenadministrator die Schritte dieser Prozesskette bearbeiten. Hier kann er z.B. weitere Schritte der Prozesskette hinzufügen, oder schon existierende Schritte entfernen.
-Ein weiterer Knopf in der Tabelle erlaubt ihm eine Prozesskette zu starten. Sobald dieses getan ist, kann diese nicht mehr von ihm gestoppt werden.
-Die Tabelle beinhaltet auch einen Einfügungs-Knopf, durch welchen weitere Prozessketten erstellt werden können.
-Bei Erstellung einer Prozesskette wird diese auf Korrektheit überprüft. Sollte ein Prozessschritt z.B. unrealistische Vorbedingungen haben, so wird dem Prozesskettenadministrator Bescheid gegeben, dass er diese Prozesskette im jetzigen Stand nicht erstellen kann.
-Bei der Erstellung von Prozessketten, welche aus verschiedenen Prozessschritten besteht, muss der Prozesskettenadministrator natürlich auch diese Prozessschritte erstellen. Bei der Erstellung von Prozessketten wird er also mit einem Fenster begrüßt in welchem er die Prozessschritte der Prozesskette verwalten kann.
-Hier kann er z.B. einem Prozessschritt Vorbedingungen geben, welche er in einem Vorbedingungsfeld eingeben kann. In einem weiteren Feld kann er die Experimentierstation dieses Schrittes zuordnen. Diese Prozessschritte kann er so lange noch bearbeiten und verändern, bis die Prozesskette gestartet wird, durch den druck auf den Knopf zur Bearbeitung der Prozesskette. 
-Sollte eine Prozesskette in Bearbeitung sein, so kann der Prozesskettenadministrator auf diese drücken um zu sehen bei welchem Schritt sie sich momentan befindet. Er kann außerdem auch alle schon abgelaufenen- und noch auszuführende-Schritte sehen.
- 
-\subsection{Lagerübersicht - Logistiker}
-
-Nehmen wir an der Logistiker hätte sich im System schon angemeldet.
-In dem von ihm befindenden Fenster ist ein Knopf für Lagerübersicht. Durch druck auf diesen öffnet sich ein weiteres Fenster mit einer Tabelle welche alle sich im Lager befindenden Proben beinhaltet. Auch diese Tabelle kann durch Suchbox und weiteres filtriert werden. Sie beinhaltet aber auch eine Option zur Gruppierung der Proben nach Legierung, Wärmebehandlung und Stationen.
-
-\subsection{Proben mit Prozessketten assoziieren - Logistiker}
-
-Nach seinem Login findet der Logistiker in dem Begrüßungsfenster ein weiteren Knopf für Prozessketten. Hier kann er die verschiedenen Prozessketten sehen welche gerade ausgeführt werden und welche Proben sie benötigen. Durch eine schnelle suche mit z.B. der Suchbox im Lagerübersichtsfenster kann der Logistiker herausfinden, ob die benötigten Proben sich im Lager befinden. Es soll bei jeder Prozesskette auch einen automatisierten Suchknopf geben welcher diese Proben automatisch im Lager sucht.
-Befinden sich die Proben im Lager, so kann er die Proben der Prozesskette zuweisen. Sollte das nicht der Fall sein, so kann er auf einen Knopf neben der Prozesskette drücken, wodurch dem Prozesskettenadministrator Bescheid gegeben wird das die benötigten Proben nicht verfügbar sind.
- 
-\subsection{Prozessketten Starten/Stoppen - Logistiker}
-
-Sollten die benötigten Proben vom Letzten Absatz sich im Lager befinden, so kann der Logistiker durch einen weiteren Knopf eine noch nicht gestartete Prozesskette starten.
-Sollte aus welchem Grund auch immer eine Prozesskette gestoppt werden, so kann dieser auch diese stoppen.
-
-\subsection{Zustand eines Auftrags angeben - Technologe}
-
-Nehmen wir an der Technologe hätte sich schon im System angemeldet. Er sieht vor sich ein Fenster mit einem Knopf für Aufträge. Durch druck auf diesen gelangt er zu einem weiteren Fenster in dem alle verfügbaren Aufträge als Reihen in einer Tabelle angezeigt werden. Hier kann er nun einen Auftrag annehmen, durch druck auf einen Knopf neben einem Auftrag, wodurch dieser Auftrag automatisch in den Zustand angenommen geht. Dieser Auftrag kann nun von keinem anderen Technologen mehr angenommen werden. Sobald der Technologe mit der Bearbeitung des Auftrags beginnt, muss er nur auf den Knopf für in-Bearbeitung drücken, wodurch dieser Auftrag nun automatisch in den Zustand in-Bearbeitung gelangt. Sobald der Technologe mit seiner Bearbeitung fertig ist, muss er nur auf einen Knopf drücken, wodurch der Auftrag nun als Bearbeitet gekennzeichnet wird. Sollte er nun diesen Auftrag weiterschicken möchten, so kann er dieses durch druck auf einen weiteren Knopf tun. Sobald der Technologe die Prozessparameter dieses Auftrags in der Datenbank hochgeladen hat, wird der Auftrag entweder automatisch auf in die DB hochgeladen gesetzt, oder manuell durch den Technologen. Dieses kommt drauf an ob der Technologe zum Hochladen der Daten den Knopf in diesem Auftrag verwendet hat, oder einen anderen.
-
-\subsection{Aufnahme der Zeit in einem Auftrag - Technologe}
-
-Bei der Annahme eines Auftrags aus dem  vorherigen Absatz wird die jetzige Systemzeit aufgenommen und im Auftrag eingegeben. Das gleiche passiert auch bei den weiteren Schritten aus dem vorherigen Absatz.
-Sollte der Technologe allerdings an einem späteren Zeitpunkt diese Zeiten bearbeiten möchten, so kann er durch druck auf einen Bearbeitungsknopf neben dem Auftrag in der Tabelle die Zeiten manuell ändern.  
-
-\subsection{Station Fehler Melden - Technologe}
-
-Sollte irgendetwas schiefgehen und eine Station fehlerhaft werden, so kann der Technologe, nach seiner Anmeldung im System, durch einen Knopf einen Station Fehler melden. Hierdurch wird das System auch die Fehlernachricht bekommen, und somit allen anderen Prozessketten welche diese Station benötigen darüber Bescheid geben. 
-
-\subsection{Proben Transportieren - Transporter}
-
-Nehmen wir an der Transporter hätte sich schon am System angemeldet. Er sieht ein Fenster mit einem Transportübersicht Knopf, welcher ein weiteres Fenster öffnet, mit allen Transportaufträgen als Reihen in einer Tabelle. Hier kann er, durch druck auf einen Auftrag sehen, wo diese Proben abgeholt werden müssen, und wo sie hin geliefert werden müssen. 
-Er kann durch Knopfdruck einen Auftrag annehmen, wodurch dieser als Annahme gekennzeichnet wird. Sobald er die Proben abgeholt hat, kann er durch Knopfdruck diesen Auftrag auf die Kennzeichnung Transport setzen. Sobald er die Proben zum korrekten Ort gebracht hat, kann er durch einen weiteren Knopfdruck diesen Auftrag als Ausgeliefert markieren.
-
-\subsection{Probenverlust Melden - Transporter}
-
-Nachdem der Transporter den Transport aus dem vorherigen Abschnitt ausgeführt hat, kann er durch druck auf einen Knopf innerhalb der Auftragstabelle für jeden Auftrag Probenverlust angeben. Hierdurch wird der Auftrag automatisch auf den Zustand Verlust gesetzt.
-
-
+\subsection{Benutzer Verwalten}
+\subsection{Prozessketten Verwalten}
+\subsection{Prozesskettenschritt Ausführen}
+\subsection{Proben Transport}
+\subsection{Lager Verwaltung}
 \section{Globale Analyse}
 
 \label{sec:globale_analyse}
@@ -432,7 +365,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
 \multicolumn{5}{|l|}{T1.4: Oberfläche}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Als Framework \\zur Erstellung \\der Oberfläche\\ muss JSF\\ verwendet\\ werden.\end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine Flexibilität, da\\   Vorgaben bestehen. /\\   Keine Veränderbarkeit, da\\  Vorgaben bestehen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Das Projekt muss\\ in Java umgesetzt \\werden.\end{tabular} \\ \hline
 
-\multicolumn{5}{|l|}{T1.5: Persistenz}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
+\multicolumn{5}{|l|}{T1.5: Persistent}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Relationale\\ Datenbank H2 \\muss für die\\ Persistenz\\ verwendet werden.\end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine Flexibilität, da\\   Vorgaben bestehen. /\\   Keine Veränderbarkeit, da\\  Vorgaben bestehen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Bei der Implementierung\\muss H2 verwendet \\werden.\end{tabular} \\ \hline
 
 \multicolumn{5}{|l|}{T1.6: Build System}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
@@ -545,58 +478,12 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
                                                           & \begin{tabular}[c]{@{}l@{}}Es soll\\unterschiedliche \\Rollen mit\\unterschiedlichen\\Rechten und\\angezeigten\\Informationen\\ geben.\\Jeder User\\soll mindestens\\eine Rolle haben. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss\\zwischen diesen Rollen\\unterscheiden können und \\sichergehen, dass bestimmte\\Funktionen und\\ Informationen nur zur \\Verfügung stehen wenn der \\Benutzer die Rechte dafür \\hat.\end{tabular} \\ \hline
  \multicolumn{5}{|l|}{P3.2: Authentifizierung}                                                                         \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Benutzer sollten\\sich in das\\System einloggen\\müssen, um\\relevante\\Informationen\\angezeigt zu\\bekommen. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss\\eine Login Seite\\vorsehen; ein Zugriff auf\\die Anwendung ohne sich\\einzuloggen soll nicht\\möglich sein.\end{tabular} \\ \hline
- \multicolumn{5}{|l|}{P4: Datenbank}                                                                         \\ \hline
-                                                          & \begin{tabular}[c]{@{}l@{}}Zur Speicherung\\ der Daten über\\ eine Sitzung \\hinweg soll\\ eine Datenbank\\ verwendet werden. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Anwendung muss\\ alle Daten korrekt \\auf der Datenbank\\ speichern können und \\von dieser Datenbank\\ lesen können. \end{tabular} \\ \hline
 \end{tabular}
 \end{table}
-
-die Notation der Flexibilität hat die  Bedeutung :
-\begin{itemize}
-    \item -- : Keine Flexibilität
-    \item - : schlechte, aber nicht komplett starre Flexibilität
-    \item ++: sehr gute Flexibilität
-    \item +: gute Flexibilität
-      Anforderungen.
-  \end{itemize} 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Probleme und Strategien} \label{sec:strategien}
 
-%{ \em Aus einer Menge von Faktoren ergeben sich Probleme, die nun in
-% Form von Problemkarten beschrieben werden. Diese resultieren z.\,B.\
-% aus
-%  \begin{itemize}
-%   \item Grenzen oder Einschränkungen durch Faktoren
-%    \item der Notwendigkeit, die Auswirkung eines Faktors zu begrenzen
-%    \item der Schwierigkeit, einen Produktfaktor zu erfüllen, oder
-%    \item der Notwendigkeit einer allgemeinen Lösung zu globalen
-%      Anforderungen.
-%  \end{itemize}
-%  Dazu entwickelt Ihr Strategien, um mit den identifizierten Problemen
-%  umzugehen.
-
-%  Achtet auch hier darauf, dass die Probleme und Strategien wirklich
-%  die Architektur betreffen und nicht etwa das Projektmanagement. Die
-%  Strategien stellen im Prinzip die Designentscheidungen dar. Sie
-%  sollten also die Erklärung für den konkreten Aufbau der
-%  verschiedenen Sichten liefern.
-
-%  Beschreibt möglichst mehrere Alternativen und gebt an, für welche
-%  Ihr Euch letztlich aus welchem Grunde entschieden habt. Natürlich
-%  müssen die genannten Strategien in den folgenden Sichten auch
-%  tatsächlich umgesetzt werden!
-
- % Ein sehr häufiger Fehler ist es, dass SWP-Gruppen arbeitsteilig
- % vorgehen: die eine Teilgruppe schreibt das Kapitel zur Analyse von
- % Faktoren und zu den Strategien, die andere Teilruppe beschreibt die
- % diversen Sichten, ohne dass diese beiden Teilgruppen sich abstimmen.
- % Da der Zweck der Faktoren und Strategien ist, die
- % Designentscheidungen für den Entwurf zu erarbeiten, besteht
- % natürlich ein Zusammenhang zwischen den Faktoren, Strategien und
- % Sichten. Dieser muss erkennbar sein, indem sich die verschiedenen
- % Kapitel eindeutig aufeinander beziehen.
-%}
 
 Im Folgenden werden einige Probleme, die sich aus den herausgearbeiteten Einflussfaktoren ergeben, thematisiert. Dazu werden die Probleme zunächst mitsamt der Einflussfaktoren, aus denen sie sich ergeben, vorgestellt, und anschließend unterschiedliche Strategien, um mit ihnen umzugehen, vorgestellt. \\ Diese Strategien werden daraufhin bewertet und es wird eine für jedes Problem ausgewählt. Diese Auswahl wird begründet. \\ 
 Folgende Strategien zur Lösung von Problemen wurden ausgewählt: \\
@@ -611,8 +498,6 @@ Folgende Strategien zur Lösung von Problemen wurden ausgewählt: \\
 \item Modularisierung
 \end{itemize}
 
-
-
 \begin{table}[H]
     \centering
     \begin{tabular}{|p{15cm}|}
@@ -625,16 +510,16 @@ Folgende Strategien zur Lösung von Problemen wurden ausgewählt: \\
           O 1.1: Time-To-Market \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1.1: Mehrere Accounts:} Jeder Mitarbeiter kriegt für jede der Rollen, die er erfüllt, einen eigenen Account. \\
-          \textbf{Strategie 1.2: Enumeration (augewählt)} Die Rollen werden als Aufzählungstyp realisiert, der in einer m:m Beziehung zu der Userklasse steht. Dadurch kann für jeden User gespeichert werden, welche Rollen er/sie innehat. Die Sicherheit bezüglich der unterschiedlichen Fähigkeiten/Rechte der Rollen wird über die JavaEE-Security-Spezifikation realisiert (siehe Strategie 1 für Problem 2)\\
-	 \\ \hline
+
+          \textbf{Strategie 1:} Jeder Mitarbeiter kriegt für jede der Rollen, die er erfüllt, einen eigenen Account. \\
+          \textbf{Strategie 2: (augewählt)} Die Rollen werden als Aufzählungstyp realisiert, der in einer m:m Beziehung zu der Userklasse steht. Dadurch kann für jeden User gespeichert werden, welche Rollen er/sie innehat. Die Sicherheit bezüglich der unterschiedlichen Fähigkeiten/Rechte der Rollen wird über die JavaEE-Security-Spezifikation realisiert (siehe Strategie 1 für Problem 2)\\
+          Machen sichtbar unterschiedlichen Schnittstellen des Software in Bezug von der Rollen jedes User. \\ \hline
     \end{tabular}
 
-    \caption{Userrollen Problemkarte}
-    \label{tab:ProblemKarte1}
+    \caption{Caption}
+    \label{tab:my_label}
 \end{table}
 Hier haben wir uns für die zweite Strategie entschieden, weil diese eine elegantere Lösung bietet, und benutzerfreundlicher ist. Des Weiteren erleichtert uns die bereits implementierte Java-Spezifikation die Arbeit. \\
-
 
 \begin{table}[]
     \centering
@@ -645,119 +530,199 @@ Hier haben wir uns für die zweite Strategie entschieden, weil diese eine elegan
           \textbf{Einflussfaktoren: } \\
           T 1.5: Persistenz \\
           T 1.7: Multiple Users\\
-         \hline
+          \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 2.1: JavaEE Security(ausgewählt)} Das system wird das Java Class PasswordAuthentication nutzen, durch wen die User sich anmelden können. \\ %warum? nicht JavaEE Security?
-           \textbf{Strategie 2.2: Eigene Implementierung:} Wir implementieren selber ein System zur Authentifizierung von Usern. \\
+          \textbf{Strategie 1:(augewählt)} Da JavaEE eine Vorgabe ist, nutzen wir die davon zur Datensicherheit zur Verfügung gestellte Spezifikation JavaEE security.\\
+          \textbf{Strategie 2:} Wir implementieren selber ein System. \\
           \\ \hline
-
     \end{tabular}
 
-    \caption{Datensicherheit Problemkarte}
-    \label{tab:ProblemKarte2}
+    \caption{Caption}
+    \label{tab:my_label}
 \end{table}
 Hier haben wir uns für die erste Strategie entschieden, weil die Benutzung einer bereits implementierten Spezifikation uns viel Zeit spart. \\
 
-
 \begin{table}[H]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 3:} Entlassen Mitarbeiter \\ \hline 
-          Da alte Mitarbeiter gehen können, muss es notwendig sein, alte User zu löschen, ohne dass relevante Informationen zu den Prozessketten verloren gehen (wie Nullpointer in den Protokollen).
-          \\ \hline
+          \textbf{Problem 3:} Nebenläufige Benutzung  \\ \hline %H2 TEIL DER MINDESTANFORDERUNGEN!
+          Die Anwendung kann von mehreren Usern gleichzeitig benutzt werden. Dabei müssen die Daten in der Datenbank richtig angezeigt/verändert werden, und die Datensicherheit darf nicht komprimiert werden. \\ \hline
           \textbf{Einflussfaktoren: } \\
-          T 1.5: Persistenz \\
+          T 1.5: Persistent \\
           T 1.7: Multiple Users\\
-          T 1.5: Datenbank \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 3.1: Variable} Jede User  wird ein Variabel Aktiv haben, die anzeigt, ob dieser User noch im Fachbereich arbeitet oder nicht. Alle notwendigen Daten dieses Users existieren aber in archivierter Form weiter auf der Datenbank, um keine Referenzen oder Protokolle unlesbar zu machen. \\
-	\textbf{Strategie 3.2: Unabhängiges Speichern} Im Protokoll und an allen weiteren Stellen wird nicht mit Referenzen auf User gearbeitet, sondern Name oder id fest gespeichert. \\
+          \textbf{Strategie 1:(augewählt)} Wir verwenden die transaktionssichere Datenbank H2. \\
+          \textbf{Strategie 2:} Wenn es Probleme mit der Nebenläufigkeit geben könnte, werden den aktiven Benutzern Warnungen angezeigt, damit sie sich selbstorganisiert darum kümmern können. \\
           \\ \hline
-
     \end{tabular}
 
-    \caption{Entlassen Mitarbeiter Problemkarte}
-    \label{tab:ProblemKarte3}
+    \caption{Caption}
+    \label{tab:my_label}
 \end{table}
 
 \begin{table}[H]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 4:} Upload/Download Prozessketten- und Prozessschrittparameter \\ \hline
-          Die Software kann neue Prozessketten- und Prozessschrittparameter aus JSON-Dateien hochladen, und bestehende als JSON-Dateien exportieren.
+          \textbf{Problem 4:} Entlassen/Einstellen Mitarbeiter \\ \hline %TEIL DER MINDESTANFORDERUNGEN!
+          Da neue Mitarbeiter hinzukommen/alte gehen können, muss es notwendig sein, neue User hinzuzufügen und alte zu Löschen, ohne dass relevante Informationen zu den Prozessketten verloren gehen (wie Nullpointer in den Protokollen).
           \\ \hline
           \textbf{Einflussfaktoren: } \\
-          T 1.5: Persistenz \\
+          T 1.5: Persistent \\
+          T 1.7: Multiple Users\\
+          \hline
+          \textbf{Strategien} \\ \hline
+          \textbf{Strategie 1:} Der Admin der Software kann neue Mitglieder hinzufügen und auch existierende Mitglieder entfernen.
+          \\ \hline
+    \end{tabular}
+
+    \caption{Caption}
+    \label{tab:my_label}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{15cm}|}
+    \hline
+          \textbf{Problem 5:} Upload/Download Prozessketten- und Prozessschrittparameter \\ \hline
+          Die Software kann neue Prozessketten und Prozessschrittparameter aus JSON-Dateien hochladen, und bestehende als JSON-Dateien exportieren.
+          \\ \hline
+          \textbf{Einflussfaktoren: } \\
+          T 1.5: Persistent \\
           P 1.1.1: Upload\\
           P 1.1.2: Download\\
-          XXX : Datenbank \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 4.1:}  Nutzung von JaxB und foo, um aus den Beans JSON zu Generieren und zu können.
-          \textbf{Strategie 4.2:} Dafür nutzen wir jakarta EE und die Rest Unterstüzung von Klassen welche Serialsierbar sind, werden durch Annotation so erweitert, dass eine JSON Repräsentation möglich ist. %what? und sind das wirklich zwei, oder machen wir beiden?
+          \textbf{Strategie 1:} XXX
           \\ \hline
     \end{tabular}
 
-
-    \caption{Upload/Download Problemkarte}
-    \label{tab:ProblemKarte4}
+    \caption{Caption}
+    \label{tab:my_label}
 \end{table}
 
 \begin{table}[H]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 5:} Protokollierung der Prozessketten
+          \textbf{Problem 6:} Protokollierung der Prozessketten
           \\ \hline
-          Die Abarbeitung einer Prozesskette soll protokolliert werden (wann welche Zustandsübergänge stattfanden). Dazu sollen Parameter, Personen, und Stationen gespeichert werden. %ist das alles?
+          Die Abarbeitung einer Prozesskette soll protokolliert werden (wann welche Zustandsübergänge stattfanden).
           \\ \hline
           \textbf{Einflussfaktoren: } \\
-          T 1.5: Persistenz \\
+          T 1.5: Persistent \\
           P 1.2: Protokollierung\\
+          P 1.4:\\
+          p 1.4.1\\
+
           \hline
           \textbf{Strategien} \\ \hline
-	\textbf{Strategie 5.1: Datenklassen (ausgewählt)} Wir legen für die Protokolle und die einzelnen Einträge eigene Datenklassen an.\\
-        \textbf{Strategie 5.2: Liste von Strings} Alle Details werden in einer Liste von Strings, die jeweils den Protokolleintrag für eine Veränderung beinhalten, gespeichert. \\
+          \textbf{Strategie 1:(augewählt)} Der Administrator der Software kann neue Mitglieder hinzufügen und auch existierende Mitglieder entfernen. \\
+	  \textbf{Strategie 2:} Wir entscheiden uns für eine feste Anzahl an Benutzern (in Rücksprache mit dem Kunden); die Benutzerprofile werden vererbt, wenn Mitarbeiter gehen/neu anfangen. \\
           \\ \hline
     \end{tabular}
 
-    \caption{Protokollierung der Prozessketten Problemkarte}
-    \label{tab:ProblemKarte5}
+    \caption{Caption}
+    \label{tab:my_label}
 \end{table}
-Hier haben wir uns  für die erste Strategie entschieden, weil diese eine feste Formatierung vorgibt, und somit sichergestellt ist, dass die Protokolle gleich aussehen.\\
+
+
+%\begin{table}[]
+ %   \centering
+%    \begin{tabular}{|p{15cm}|}
+%    \hline
+%          \textbf{Problem 8:} Überwachung der Zustände
+%          \\ \hline
+%          Wenn ein Logistiker einen Prozess gestartet hat, sollte der Prozess gestoppt, wieder gestartet und priorisiert werden können von dem Prozessketteadministrator.
+%          \\ \hline
+%          \textbf{Einflussfaktoren: } \\
+ %         T 1.5: Persistent \\
+ %         P 1.7: Aufträge\\
+ %         P 1.7.1: Kaputte Stationen\\
+%          P 1.7.2: Automatisches Zuorden\\
+%          P 1.9: Automatisches Zuorden\\
+%          \hline
+%          \textbf{Strategien} \\ \hline
+%          \textbf{Strategie 1:} Zustandautma
+%          \\ \hline
+%    \end{tabular}
+%    \caption{Caption}
+%    \label{tab:my_label}
+%\end{table}
+
+%\begin{table}[]
+   % \centering
+ %  \begin{tabular}{|p{15cm}|}
+%    \hline
+%          \textbf{Problem 9:} Prozessbearbeitung und Überwachung
+%          \\ \hline
+%          Der Prozesskettenadministrator kann einen Prozess mit unterschiedlichen Prozessschritten bauen. Dieser Prozess soll veränderbar sein und umtauschbar, um den Bedürfnissen der Benutzer gerecht zu werden.
+%          \\ \hline
+%          \textbf{Einflussfaktoren: } \\
+%          T 1.5: Persistent \\
+%          P 1.4: Experimentierstationen verwalten\\
+%          P 1.6: Prozessketten\\
+%          \hline
+%          \textbf{Strategien} \\ \hline
+%          \textbf{Strategie 1:} Eigenschaften der Stationen herausfinden, damit der entsprechende Nutzer ein Station einfach hinzufügen können.
+%          \\ \hline
+%    \end{tabular}
+
+%    \caption{Caption}
+%    \label{tab:my_label}
+%\end{table}
 
 \begin{table}[]
 
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 6:} Stationenbearbeitung
+          \textbf{Problem 7:} Stationenbearbeitung
           \\ \hline
           Der Administrator soll neue Stationen hinzufügen können. Die Software muss die Fähigkeit haben neue Stationen zu übernehmen und zu nutzen. Außerdem soll der Zustand jeder Station sichtbar und bearbeitbar sein.
           \\ \hline
           \textbf{Einflussfaktoren: } \\
-          T 1.5: Persistenz \\
-          P 1.4: Experimentierstationen\\
+          T 1.5: Persistent \\
+          P 1.4: Experimentierstationen (XXX)\\
           P 1.4: Kaputte Stationen\\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 6.1:} Eigeschaften der Stationen herausfinden, damit der entsprechende Nutzer eine Station einfach hinzufügen kann. Nutzung von Spike Data modulo, um query auf der Database zu erstellen.
+          \textbf{Strategie 1:} Eingeschaften der Stationen herausfinden, damit der entsprechende Nutzer eine Station einfach hinzufügen kann.
           \\ \hline
     \end{tabular}
-    \caption{ Startionenbearbeitung Problemkarte}
-    \label{tab:ProblemKarte6}
+    \caption{Caption}
+    \label{tab:my_label}
 \end{table}
 
 
+\begin{table}[]
+    \centering
+    \begin{tabular}{|p{15cm}|}
+    \hline
+          \textbf{Problem 10:} Laden von Informationen
+          \\ \hline
+
+          Der Logistiker möchte einen Überblick über alle Proben, die im Lager liegen. Da die Probenkügelchen alle einzeln gespeichert werden, und es somit eine sehr große Menge an Proben ist, könnte das Laden aller Proben auf einmal zu Performanceproblemen führen.
+        \\  \hline
+        \textbf{Einflussfaktoren: } \\
+	 P1.10.3: Proben-id-Nummern \\
+        \hline
+        \textbf{Strategien} \\
+         \textbf{Strategie 1:(ausgewählt)} Es wird immer nur ein kleiner Ausschnitt aus der Datenbank geladen. \\
+         \textbf{Strategie 2:} Es werden Repräsentanten von Probenkügelchenmenge ausgewählt und angezeigt, dazu noch eine Gesamtanzahl der gleichartigen Kügelchen. \\
+    \end{tabular}
+    \caption{Caption}
+    \label{tab:my_label}
+\end{table}
+Hier haben wir uns für die erste Strategie entschieden, weil diese einfacher umzusetzen ist, wodurch wir Zeit sparen, die wir auf wichtigere Aspekte der Anwendung verwenden können. 
 
 \begin{table}[H]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 7:} Priorisieren von Prozessketten
+          \textbf{Problem 8:} Priorisierung von Prozessketten
           \\ \hline
           Laufende Prozessketten sollen priorisiert werden können, was zur Folge hat, dass sie, wann immer mehrere Prozessketten auf die gleichen Aktionen warten, schneller drankommen. 
           \\ \hline
@@ -766,45 +731,84 @@ Hier haben wir uns  für die erste Strategie entschieden, weil diese eine feste 
           P 1.7: Aufträge \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 7.1: Anzeige} Die Prioritäten der Prozessketten werden den Usern angezeigt, damit sie selber sehen, welche sie als erstes bearbeiten sollten. \\
-          \textbf{Strategie 7.2: Automatische Sortierung} Es werden automatisch die Prozesskettenprioritäten analysiert und sortiert angezeigt. \\
+          \textbf{Strategie 1:} Die Prioritäten der Prozessketten werden den Usern angezeigt, damit sie selber sehen, welche sie als erstes bearbeiten sollten. \\
+          \textbf{Strategie 2:} Es werden automatisch die Prozesskettenprioritäten analysiert und sortiert angezeigt. \\
           \\ \hline
     \end{tabular}
-    \caption{Priorisieren von Prozessketten Problemkarte}
-    \label{tab:ProblemKarte7}
+    \caption{Caption}
+    \label{tab:my_label}
 \end{table}
-
-
 
 \begin{table}[H]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 8:} Probenverwaltung
+          \textbf{Problem 9:} Prozessbearbeitung und Überwachung
+          \\ \hline
+          Der Prozesskettenadministrator kann einen Prozess mit unterschiedlichen Prozessschritten bauen. Dieser Prozess soll veränderbar sein und umtauschbar, um den Bedürfnissen der Benutzer gerecht zu werden.
+
+          \\ \hline
+          \textbf{Einflussfaktoren: } \\
+          P1.10.2: Lagerübersicht \\
+	      P1.10.3: Proben-id-Nummern \\
+          \hline
+          \textbf{Strategien} \\ \hline
+         
+          \\ \hline
+    \end{tabular}
+    \caption{Caption}
+    \label{tab:my_label}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{15cm}|}
+    \hline
+          \textbf{Problem 10:} Probenverwaltung
           \\ \hline
          In der Anwendungsumgebung gibt es eine hohe Anzahl an Proben, die alle in der Datenbank gespeichert werden sollen. Dadurch, dass es so viele sind (von Materialien der gleichen Sorte gibt es viele kleine Kügelchen), stellt sich die Frage, ob es sinnvoll ist, jede einzelne dieser Kügelchen identifizieren zu können.
           \\ \hline
           \textbf{Einflussfaktoren: } \\
           P1.10.2: Lagerübersicht \\
-	 P1.10.3: Proben-id-Nummern \\
           \hline
           \textbf{Strategien} \\ \hline
-	\textbf{Strategie 8.1: Alle einzeln (ausgewählt):} Jedem einzelnen Probenkügelchen wird eine eigene id zugeordnet. \\
-	\textbf{Strategie 8.2: In Gruppen} Gleichartigen Probenkügelchen wird eine id zugeordnet. \\
+\textbf{Strategie 1:In kleinen Schritten:(ausgewählt)} Es wird immer nur ein kleiner Ausschnitt aus der Datenbank geladen. Dafür wird lazy loading gennutzt \\
+         \textbf{Strategie 2:} Es werden Repräsentanten von Probenkügelchenmenge ausgewählt und angezeigt, dazu noch eine Gesamtanzahl der gleichartigen Kügelchen. \\
           \\ \hline
     \end{tabular}
-    \caption{Probenverwaltung Problemkarte}
-    \label{tab:ProblemKarte8}
+    \caption{Caption}
+    \label{tab:my_label}
 \end{table}
 
-Hier haben wir uns für die erste Strategie entschieden, weil dadurch genaueres Zugreifen auf die Proben möglich ist. Des Weiteren würde die zweite Strategie möglicherweise Probleme aufwerfen, wenn an einer Stelle im Lauf einer Prozesskette die Proben aufgeteilt werden und unterschiedlich weiterbehandelt werden. \\
-
+Hier haben wir uns für die erste Strategie entschieden, weil die zweite Strategie deutlich mehr zusätzliche Arbeit schafft. \\
 
 \begin{table}[H]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 9:} Ambitionierter Zeitplan
+
+          \textbf{Problem 11:} Verlust/Schaden an Proben %TEIL DER MINDESTANFORDERUNGEN
+          \\ \hline
+          Proben können im Laufe der Bearbeitung einer Prozesskette kaputt oder verloren gehen. Diese können dann nicht weiter benutzt werden, was zu Problemen im weiteren Verlauf führen könnte.
+          \\ \hline
+          \textbf{Einflussfaktoren: } \\
+          P1.10: Kaputte Proben\\
+          P1.10.1: Verlorene Proben \\
+          \hline
+          \textbf{Strategien} \\ \hline
+          \textbf{Strategie 1:} Proben können als kaputt gemeldet werden. Dadurch werden sie sowohl als solche dargestellt, und können weder manuell noch automatisch irgendwelchen Prozessen zugeordnet werden. \\
+          \textbf{Strategie 2:} Für einzelne Proben werden solche Ereignisse ignoriert, mit der Hoffnung, dass es nicht häufig vorkommt. Zur Not soll ein Prozess gestoppt werden können, damit einem neuen Prozess neue Proben zugeordnet werden können. \\
+          \\ \hline
+    \end{tabular}
+    \caption{Caption}
+    \label{tab:my_label}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{15cm}|}
+    \hline
+          \textbf{Problem 12:} Ambitionierter Zeitplan
           \\ \hline
           Die Auslieferung der Anwendung muss am 08.03.2020 erfolgen. Dadurch könnten die Entwickler unter Zeitdruck geraten und eventuell nicht alle Anforderungen erfüllen.
           \\ \hline
@@ -812,24 +816,47 @@ Hier haben wir uns für die erste Strategie entschieden, weil dadurch genaueres 
           O1.1: Time-To-Market\\
           \hline
           \textbf{Strategien} \\ \hline
-
-         \textbf{Strategie 9.1: Priorisierung Anforderungen:(ausgewählt)}Bestimmte, notwendigere Anforderungen, sollen über andere priorisiert werden. Die höherpriorisierten werden zuerst abgearbeitet. \\
-          \textbf{Strategie 9.2: Wegfallen Anforderungen:} Einige Anforderungen sind für ein Bestehen nicht notwendig und können weggelassen werden.\\
-          \textbf{Strategie 9.3: Gruppenarbeit: (ausgewählt)} Die Gruppe muss strukturiert und mit möglichst fair verteilten Aufgaben arbeiten, um die Fähigkeiten aller möglichst effizient nutzen zu können. \\
+         \textbf{Strategie 1: Priorisierung Anforderungen:(ausgewählt)}Bestimmte, notwendigere Anforderungen, sollen über andere priorisiert werden. Die höherpriorisierten werden zuerst abgearbeitet. \\
+          \textbf{Strategie 2:} Einige Anforderungen sind für ein Bestehen nicht notwendig und können weggelassen werden.\\
+          \textbf{Strategie 3: Gruppenarbeit: (ausgewählt)} Die Gruppe muss strukturiert und mit möglichst fair verteilten Aufgaben arbeiten, um die Fähigkeiten aller möglichst effizient nutzen zu können. \\
           \\ \hline
     \end{tabular}
-    \caption{Ambitionierter Zeitplan Problemkarte}
-    \label{tab:ProblemKarte9}
+    \caption{Caption}
+    \label{tab:my_label}
 \end{table}
 Hier haben wir uns für die erste und dritte Strategie entschieden, weil wir grundsätzlich so viele Anforderungen wie möglich umsetzen wollen. Durch die Priorisierung ist es möglich, uns die Anzahl an Anforderungen offen zu halten, gleichzeitig aber auch ein logische Arbeitsvorgehen zu haben. Strategie 3 ist offensichtlich. \\
-
 
 
 \begin{table}[H]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 10:} Probenzuordnung zu Aufträgen
+          \textbf{Problem 13:} Vorgaben von Technologien %KEIN EINFLUSS AUF ARCHITEKTUR!
+          \\ \hline
+          Die Vorgaben, welche Technologien bei der Implementierung verwendet werden sollen/dürfen, sind relativ streng. Dadurch können wir als Gruppe nicht Technologien verwenden, die wir vielleicht schon kennen; das kann sich wiederum auf die Qualität und Zeit der Implementierung auswirken.
+          \\ \hline
+          \textbf{Einflussfaktoren: } \\
+          T 1.1: Programmiersprache \\
+          T1.2: Webbrowser \\
+          T1.3: Server \\
+          T1.4: Oberfläche \\
+          T1.5: Persistenz \\
+          T1.6: Build System \\
+          \hline
+          \textbf{Strategien} \\ \hline
+          \textbf{Strategie 1:} Alle Entwickler müssen sich die Zeit nehmen, sich in diese Technologien anzueignen. Ebenfalls sollte die Gruppe sich untereinander unterstützen; hilfreich wäre zum Beispiel eine Sammlung an Problemen, auf die Entwickler gestoßen sind, und wie sie diese gelöst haben, um eventuell anderen Gruppenmitgliedern die Recherche zu erleichtern.
+          \\ \hline
+    \end{tabular}
+    \caption{Caption}
+    \label{tab:my_label}
+\end{table}
+
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{15cm}|}
+    \hline
+          \textbf{Problem 13:} Probenzuordnung zu Aufträgen
           \\ \hline
           Proben sollen ohne Einfluss des Benutzers Aufträgen passend zugeordnet werden. Das bedeutet, dass das System die Eigenschaften von Proben kennen und den Anforderungen von Aufträgen passend zuordnen soll.
           \\ \hline
@@ -837,12 +864,12 @@ Hier haben wir uns für die erste und dritte Strategie entschieden, weil wir gru
           P1.7.2: Automatisches Zuordnen \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 10.1:Wegfallen Anforderungen:} Diese Anforderung ist optional, das heißt zur Not kann man ihn einfach weglassen. \\
-	  \textbf{Strategie 10.2: Eigenschaften: (ausgewählt)} Die Eigenschaften/Anforderungen von Proben/Aufträgen sollten nicht einfach nur String-Felder sein, da diese miteinander vergleichen schwierig ist (unterschiedliche Formulierungen etc). Stattdessen sollten Eigenschaften/Anforderungen vordefiniert sein (vom Prozesskettenadministrator?) und gespeichert werden, welche Eigenschaften zu welchen Anforderungen passen. \\
+          \textbf{Strategie 1:} Diese Anforderung ist optional, das heißt zur Not kann man ihn einfach weglassen. \\
+	  \textbf{Strategie 2: Eigenschaften: (ausgewählt)} Die Eigenschaften/Anforderungen von Proben/Aufträgen sollten nicht einfach nur String-Felder sein, da diese miteinander vergleichen schwierig ist (unterschiedliche Formulierungen etc). Stattdessen sollten Eigenschaften/Anforderungen vordefiniert sein (vom Prozesskettenadministrator?) und gespeichert werden, welche Eigenschaften zu welchen Anforderungen passen. \\
           \\ \hline
     \end{tabular}
-    \caption{Probenzuordnung zu Aufträgen Problemkarte}
-    \label{tab:ProblemKarte10}
+    \caption{Caption}
+    \label{tab:my_label}
 \end{table}
 Hier haben wir uns für Strategie 2 entschieden, weil wir nicht von Anfang an Anforderungen schon ausschließen wollen. \\
 
@@ -850,7 +877,7 @@ Hier haben wir uns für Strategie 2 entschieden, weil wir nicht von Anfang an An
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 11:} Kompetenz der Entwickler
+          \textbf{Problem 15:} Kompetenz der Entwickler
           \\ \hline
           Die unterschiedlichen Entwickler haben unterschiedlich (weitreichende) Kenntnisse der Technologien; das führt dazu, dass die Implementierung eventuell länger dauert/fehlerbehaftet ist. Aneignen dieser Informationen ist vor allem wegen dem Ambitionierten Zeitplan stressig.
           \\ \hline
@@ -866,122 +893,15 @@ Hier haben wir uns für Strategie 2 entschieden, weil wir nicht von Anfang an An
           T1.6: Build System\\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 11.1: Kleingruppen:} Die Entwickler könnten nur in Kleingruppen programmieren. Dadurch sitzen immer eine Menge unterschiedlicher Menschen mit eventuell unterschiedlichen Fähigkeiten an einem Programmstück. \\
-          \textbf{Strategie 11.2: Modularisierung: (ausgewählt)} Die Implementierung wird bestmöglich nach dem Können der Entwickler aufgeteilt, indem die Anwendung modularisiert wird. Dadurch kann jeder Entwickler an seinem eigenen Modul arbeiten, und sich auf einen kleineren Bereich konzentrieren. Die Entwickler bemühen sich frühzeitig darum, sich weiteres Wissen anzueignen. Ebenfalls unterstützen sich alle Gruppenmitglieder gegenseitig.\\
-          \\ \hline
-    \end{tabular}
-    \caption{ Kompetenz der Entwickler Problemkarte}
-    \label{tab:ProblemKarte11}
-\end{table}
-Hier haben wir uns für Strategie 2 entschieden, weil durch die Modularisierung kein Entwickler alle neuen Technologien/Themen verstehen muss, sondern jeder nur einen kleineren Teil des Ganzen. Des Weiteren ist diese Strategie hoffentlich zeiteffizienter. \\
-
-
-\begin{table}[]
-    \centering
-    \begin{tabular}{|p{15cm}|}
-    \hline
-          \textbf{Problem 12:} Laden von Informationen
-          \\ \hline
-          Der Logistiker möchte einen Überblick über alle Proben, die im Lager liegen. Da die Probenkügelchen alle einzeln gespeichert werden, und es somit eine sehr große Menge an Proben ist, könnte das Laden aller Proben auf einmal zu Performanceproblemen führen.
-        \\  \hline
-        \textbf{Einflussfaktoren: } \\
-	 P1.10.3: Proben-id-Nummern \\
-        \hline
-        \textbf{Strategien} \\
-         \textbf{Strategie 12.1: Lazy Loading: (ausgewählt)} Es wird immer nur ein kleiner Ausschnitt aus der Datenbank geladen (lazy loading). \\
-         \textbf{Strategie 12.2: Repräsentanten:} Es werden Repräsentanten von Probenkügelchenmenge ausgewählt und angezeigt, dazu noch eine Gesamtanzahl der gleichartigen Kügelchen. \\
-    \end{tabular}
-    \caption{Laden von Informationen Problemkarte}
-    \label{tab:ProblemKarte12}
-\end{table}
-Hier haben wir uns für die erste Strategie entschieden, weil diese einfacher umzusetzen ist, wodurch wir Zeit sparen, die wir auf wichtigere Aspekte der Anwendung verwenden können. 
-
-%\begin{table}[]
-%    \centering
-%    \begin{tabular}{|p{15cm}|}
-%    \hline
-%          \textbf{Problem 13:} Nur ein Transporteur
-%          \\ \hline
-%          Wenn es Träger gibt, die von einer Station zur nächsten transportiert werden sollen, dann werden diese für alle Transporteure angezeigt. Natürlich kann aber nur ein Transporteur tatsächlich die Träger weitertragen; deswegen soll es möglich sein, dass ein Transporteur einen Auftrag annimmt, der dann für alle anderen nicht mehr sichtbar ist. \\
-%        \\  \hline
-%        \textbf{Einflussfaktoren: } \\
-%	 P1.10.3: Proben-id-Nummern \\
-%        \hline
-%        \textbf{Strategien} \\
-%         \textbf{Strategie 13.1: (ausgewählt)} \\
-%    \end{tabular}
-%    \caption{Laden von Informationen Problemkarte}
-%    \label{tab:ProblemKarte131}
-%\end{table}
-
-\begin{table}[]
-    \centering
-    \begin{tabular}{|p{15cm}|}
-    \hline
-          \textbf{Problem 14:} Automatische Lastverteilung
-          \\ \hline
-         Wenn für einen Prozessschritt mehrere Experimentierstationen möglich sind, muss ausgewählt werden, welche Stationen eine Prozesskette tatsächlich benutzen soll. \\
-        \\  \hline
-        \textbf{Einflussfaktoren: } \\
-	P1.4.1: Auslastung \\
-        \hline
-        \textbf{Strategien} \\
-         \textbf{Strategie 14.1: Von Hand:} Der Prozesskettenadministrator wählt die Stationen selber aus, wenn er die Prozesskette instanziiert. \\
-	\textbf{Strategie 14.2: Automatisch: (ausgewählt)} Das System analysiert, wie die für jeden Prozessschritt möglichen Stationen ausgelastet sind, und entscheidet, wo welche Schritte am effizientesten abgearbeitet werden. \\
-    \end{tabular}
-    \caption{Automatische Lastverteilung Problemkarte}
-    \label{tab:ProblemKarte141}
-\end{table}
-Hier haben wir uns für die zweite Strategie entschieden, da sie den Ablauf im Fachbereich effizienter gestalten kann. Des Weiteren könnte es für den Prozesskettenadministrator bei zu vielen Prozessketten schwierig werden, einen Überblick zu behalten. \\
-
-
-\begin{table}[H]
-    \centering
-    \begin{tabular}{|p{15cm}|}
-    \hline
-          \textbf{Problem 15:} Prozessbearbeitung und Überwachung %Strategien?
-          \\ \hline
-          Der Prozesskettenadministrator kann einen Prozess mit unterschiedlichen Prozessschritten bauen. Dieser Prozess soll veränderbar sein und umtauschbar, um den Bedürfnissen der Benutzer gerecht zu werden.
-
-          \\ \hline
-          \textbf{Einflussfaktoren: } \\
-          P1.10.2: Lagerübersicht \\
-	      P1.10.3: Proben-id-Nummern \\
-          \hline
-          \textbf{Strategien} \\ \hline
-          \\ \hline
-    \end{tabular}
-    \caption{Prozessbearbeitung und Überwachung Problemkarte}
-    \label{tab:ProblemKarte15}
-\end{table}
-
-\begin{table}[H]
-    \centering
-    \begin{tabular}{|p{15cm}|}
-    \hline
-          \textbf{Problem 15:} Data Persistenz 
-          \\ \hline
-          Es ist notwendig die Interaktion der Nutzer mit das System zu speichern, daher braucht das Software ein Hauptspeichern Ort. Wo alle die Daten und notwendig Anmerkungen gespeichert sind.
-          \\ \hline
-          \textbf{Einflussfaktoren: } \\
-          O1.3: Entwickler \\
-          O1.4: Fähigkeiten Entwickler \\
-          T1.1: Programmiersprache \\
-          T1.4: Oberfläche \\
-          T1.5: Persistenz \\
-          T1.6: Build System\\
-          \hline
-          \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Eine relationale Datenbank zu nutzen, die in das Software Wildfly schon verfügbar ist.
-          \textbf{Strategie 2:} XML Data Persistenz zu nutzen, um die Data  zu speichern. 
+          \textbf{Strategie 1:} Die Entwickler könnten nur in Kleingruppen programmieren. Dadurch sitzen immer eine Menge unterschiedlicher Menschen mit eventuell unterschiedlichen Fähigkeiten an einem Programmstück. \\
+          \textbf{Strategie 2: Modularisierung: (ausgewählt)} Die Implementierung wird bestmöglich nach dem Können der Entwickler aufgeteilt, indem die Anwendung modularisiert wird. Dadurch kann jeder Entwickler an seinem eigenen Modul arbeiten, und sich auf einen kleineren Bereich konzentrieren. Die Entwickler bemühen sich frühzeitig darum, sich weiteres Wissen anzueignen. Ebenfalls unterstützen sich alle Gruppenmitglieder gegenseitig.\\
           \\ \hline
     \end{tabular}
     \caption{Caption}
     \label{tab:my_label}
 \end{table}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Hier haben wir uns für Strategie 2 entschieden, weil durch die Modularisierung kein Entwickler alle neuen Technologien/Themen verstehen muss, sondern jeder nur einen kleineren Teil des Ganzen. Des Weiteren ist diese Strategie hoffentlich zeiteffizienter. \\
+%%%%%%%%%%%%%%%%%%
 
 
 \section{Konzeptionelle Sicht}
@@ -994,14 +914,6 @@ ohne gleich in die Details von spezifischen Technologien abzugleiten.
 Sie wird in den nachfolgenden Sichten konkretisiert und verfeinert. Die
 konzeptionelle Sicht wird mit {UML}-Komponentendiagrammen visualisiert.}
 
-\begin{figure}
-  \includegraphics[width=\linewidth]{UML/konzeptionelleSicht.png}
-  \caption{Die konzeptionelle Sicht}
-  \label{fig:boat1}
-\end{figure}
-
-Figure \ref{fig:konzept} zeigt unsere konzeptionelle Sicht auf das System. 
-Hierbei ist es wichtig zu bemerken, dass der Client abstract ist.
 \section{Modulsicht}
 \label{sec:modulsicht}
 
@@ -1066,8 +978,8 @@ die Entstehung anhand der Strategien erläutert werden.
 \section{Datensicht}
 \label{sec:datensicht}
 
-{ Zunächst existiert die Klasse Probe, welche die ID, die Legierung als (???), die Art der Behandlung und die Materialeigenschaften beinhaltet. Eine bestimmte Probe kann ausschließlich einem Träger zugeordnet werden. 
-Die Klasse Träger besteht wieder aus einer ID, dem aktuellen Standort als  Standort und dem Typ als Trägerart. Ein Träger kann beliebig viele Proben beinhalten. Ein bestimmter Träger kann genau einer Experimentierstation (ES) zugeordnet sein. Eine Experimentierstation besteht aus einem Namen als String und dem Ort, an dem die ES zu finden ist als Standort. Einer bestimmten ES können beliebig viele Träger zugeordnet sein, während ihr immer nur ein  Technologe zugeordnet sein wird. Die ES ist immer nur einem bestimmten Prozessschritt (PS) zugeordnet. Ein Prozessschritt beinhaltet den Namen als String, die Prozessparameter (PP) als Prozessparameter, der Probenzustand, die Dauer und die Zustände und (???). Ein Prozessschritt ist einer bestimmten Prozesskette zugeordnet. Die Prozesskette (PK) beinhaltet den Namen als String. Sie beherbergt beliebig viele Prozessschritte und beliebig viele Prozesskettenaufträge. Der  Prozesskettenauftrag (PKAuftrag) kann nur einer Prozesskette zugeordnet sein und hat einen KettenInstanzwert (KIW) zugeordnet. \\}
+{ \em Zunächst existiert die Klasse Probe, welche die ID, die Legierung als (???), die Art der Behandlung und die Materialeigenschaften beinhaltet. Eine bestimmte Probe kann ausschließlich einem Träger zugeordnet werden. 
+Die Klasse Träger besteht wieder aus einer ID, dem aktuellen Standort als  Standort und dem Typ als Trägerart. Ein Träger kann beliebig viele Proben beinhalten. Ein bestimmter Träger kann genau einer Experimentierstation (ES) zugeordnet sein. Eine Experimentierstation besteht aus einem Namen als String und dem Ort, an dem die ES zu finden ist als Standort. Einer bestimmten ES können beliebig viele Träger zugeordnet sein, während ihr immer nur ein  Technologe zugeordnet sein wird. Die ES ist immer nur einem bestimmten Prozessschritt (PS) zugeordnet. Ein Prozessschritt beinhaltet den Namen als String, die Prozessparameter (PP) als Prozessparameter, der Probenzustand, die Dauer und die Zustände und (???). Ein Prozessschritt ist einer bestimmten Prozesskette zugeordnet. Die Prozesskette (PK) beinhaltet den Namen als String. Sie beherbergt beliebig viele Prozessschritte und beliebig viele Prozesskettenaufträge. Der  Prozesskettenauftrag (PKAuftrag) kann nur einer Prozesskette zugeordnet sein und hat einen KettenInstanzwert (KIW) zugeordnet. \\
 
 {  Zunächst existiert die Klasse Probe, welche die ID, die Legierung als (???), die Art der Behandlung und die Materialeigenschaften beinhaltet. Eine bestimmte Probe kann ausschließlich einem Träger zugeordnet werden.
 Die Klasse Träger besteht wieder aus einer ID, dem aktuellen Standort als  Standort und dem Typ als Trägerart. Ein Träger kann beliebig viele Proben beinhalten. Ein bestimmter Träger kann genau einer Experimentiertstation (ES) zugeordnet sein. Eine Experimentiertstation besteht aus einem Namen als String und dem Ort, an dem die ES zu finden ist als Standort. Einer bestimmten ES können beliebig viele Träger zugeordnet sein, während ihr immer nur einTechnologe zugeordnet sein wird. Die ES ist immer nur einem bestimmten Prozessschritt (PS) zugeordnet. Ein Prozessschritt beinhaltet den Namen als String, die Prozessparameter (PP) als Prozessparameter, der Probenzustand, die Dauer und die Zustände und (???). Ein Prozessschritt ist einer bestimmten Prozesskette zugeordnet. Die Prozesskette (PK) beinhaltet den Namen als String. Sie beherbergt beliebig viele Prozessschritte und beliebig viele Prozesskettenaufträge. Der  Prozesskettenauftrag (PKAuftrag) kann nur einer Prozesskette zugeordnet sein und hat einen KettenInstanzwert (KIW) zugeordnet. \\
@@ -1131,47 +1043,8 @@ Prozessen auf welchen Rechnern ausgeführt werden.}
 \sectionmark{Zusammenhänge AF u. Architektur}
 \label{sec:anwendungsfaelle}
 
-
 \subsection{Nutzer Verwalten}
-\begin{figure}
-  \includegraphics[width=\linewidth]{UML/seq.png}
-  \caption{Anlegen eines Nutzers}
-  \label{fig:pkErstellen}
-\end{figure}
-In dieser Graphik wird ein Nutzer vom Admin angelegt. Dieser muss dann eine Mail bestätigen und kann dann zugriff beantragen
-
-
-\begin{figure}
-  \includegraphics[width=\linewidth]{UML/erstbenutzung.png}
-  \caption{Nutzer möchte sich auf dem System anmelden}
-  \label{fig:pkErstellen}
-\end{figure}
-In dieser Graphik wird in einem Sequenzdiagramm gezeigt, wie der Nutzer sich auf unserem System anmelden kann. Dazu ruft er die Login Seite auf, meldet sich an und landet dann auf der richtigen Seite
-
-\subsection{Prozessketten Verwalten und Proben beantragen}
-
-\begin{figure}
-  \includegraphics[width=\linewidth]{UML/pkErstellen.png}
-  \caption{Ablauf des Erstellens einer Prozesskette}
-  \label{fig:pkErstellen}
-\end{figure}
-
-Figure \ref{fig:pkErstellen} zeigt wie der Prozesskettenadministrator die Prozesskette erstellt. 
-Bei Schritt 18, schauen sie bitte in Graphik \ref{fig:logstikProbenPüftZuweisen}. 
-
-Der Prozesskettenadministrator wählt aus den vorhandenen Vorlagen eine aus, damit erstellt er einen neuen Auftrag und legt für diese alle Parameter fest.
-Falls die Randbedingen der Kette stimmen darf diese instanziiert werden. Beim Speichern des Auftrages mit der instanzierten Prozesskette werden diese auch persistiert.
-
-Jetzt erhält der Logistiker einen neuen Probenzuweisung Auftrag, falls die Anfrage genehmigt wurde kann der PKAdmin nun die Prozesskette starten
-
-\begin{figure}
-  \includegraphics[width=\linewidth]{UML/logstikProbenPueftZuweisen.png}
-  \caption{Ablauf vom zuweisen der Proben zu einer Prozessketteninstanz}
-  \label{fig:logstikProbenPüftZuweisen}
-\end{figure}
-
-In der Graphik \ref{fig:logstikProbenPüftZuweisen} erhält die Logistik eine Anfrage für die Probenverwaltung. Es muss nun vom System geprüft werden ob Proben mit den gewünschten Materialeigenschaften im Lager sind. Das System gibt diese an die Logistik zurück. Werden die Proben dann von dem Logistiker ausgewählt und genehmigt, so werden diese an den Auftrag übermittelt und persistiert. Die Genehmigung wird an die Prozesskettenverwaltungs-Administrationsapp übermittelt.
-
+\subsection{Prozessketten Verwalten}
 \subsection{Proben Transport}
 \subsection{Prozessschritt Ausführen}
 \subsection{Lager Verwaltung}
@@ -1192,23 +1065,6 @@ In der Graphik \ref{fig:logstikProbenPüftZuweisen} erhält die Logistik eine An
 \section{Evolution}
 
 \label{sec:evolution}
-
-\subsection{Kristallkugel Software}
-{
-Die erste Idee zum sinnvollen Erweitern der Software soll eine gewisse Vorraussicht ausgeben können, was nach einem beliebigen Schritt mit den Eigenschaften einer Probe passiert, bzw welche Eigenschaften die Proba danach wahrscheinlich haben wird. Das ganze soll durch einen analytischen Algorithmus realisiert werden, welcher die vorherigen Daten auswertet und daraus dann eine wahrscheinlichkeit für die Eigenschaften entwickelt und die wahrscheinlichsten Eigenschaften dann ausgibt. 
-}
-\subsection{Vorraussichtliche Dauer eines Prozesses}
-{
-Man kann den Algorithmus aus der Kristallkugel Software auch dafür verwenden, dass aus empirischen Daten die vorraussichtliche Dauer eines Prozesses errechnet und ausgegeben wird. 
-
-Außerdem könnte man statt eines Algorithmus Microchips in die Experimentierstationen einbauen, welche die verbleibene Zeit an die Software weitergeben können. 
-}
-\subsection{Scanner}
-{
-Da so gut wie jedes mobile Endgerät eine Kamera besitzt, könnte man diese nutzen, um QR-Codes, die auf den Proben, den Trägern, im Archiv und an jeder Station zu finden sind, zu scannen damit z.B. der Transporter nichtmehr manuell eingeben muss, welche Datei er wohin bringt. \\
-Er scannt den QR-Code des Trägers und dann die QR-Codes beliebig vieler Proben. Die Software ordnet nun automatisch die gescannten Proben dem gescannten Träger zu. 
-Er kann den QR-Code des Trägers scannen und die Software weiß automatisch, dass der angemeldete Transporter den Träger abgeholt hat und wenn er jetzt den QR-Code der nächsten Experimentierstation scannt, trägt die Software automatisch den Träger als Abgeliefert ein. 
-}
 
 {\it
   Beschreibt in diesem Abschnitt, welche Änderungen Ihr

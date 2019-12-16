@@ -1,0 +1,40 @@
+#+TITLE: problemKartenReview
+
+* Problemkarten auf Korrektheit überpürfen
+Zu lösendes Problem
+
+Die Qualität der Problemkarten soll überprüft werden
+Vorschlag
+
+** Für jeden der Problemkarten wird bewertet ob es auf
+
+1. die Grenzen und Einschränkungen eingeht
+
+2. beschreibt die Problemkarte ein Problem was einen Faktor begrenzt?
+
+3. Gibt es Schwierigkeit den Faktor zu erfüllen
+
+4. Wie fließt dieses Problem auf die Markoebene ein
+
+5. Problem betrifft die Architektur
+
+6. Die Problemkarte erklärt wie das Problem in der Architektur gelöst wird
+
+7. Die Problemkate geht dabei auf die Schichten ein
+
+Wer kann das Problem lösen?
+
+* Review
+1. Hat {1,2,4,5}
+   Genauer{6}
+   Fehlt{7}
+
+   Bitte gucke nochmal in das Modell: $Role Technolge \in Roles$
+   Technologe erbt von Role.
+   Schwierigkeit: Java EE ist nicht Trivial
+
+
+   Was soll die letze Zeile da? "Machen sie..."
+
+   Bitte ein Beispiel raussuchen wie es mit Jakarta EE realsierbar ist, am
+   besten ein Code BSP. Bitte ein gucken ob apache shiro geeigneter ist
