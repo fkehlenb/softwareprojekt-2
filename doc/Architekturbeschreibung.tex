@@ -600,7 +600,7 @@ Folgende Strategien zur Lösung von Problemen wurden ausgewählt: \\
 Hier haben wir uns für die zweite Strategie entschieden, weil diese eine elegantere Lösung bietet, und benutzerfreundlicher ist. Des Weiteren erleichtert uns die bereits implementierte Java-Spezifikation die Arbeit. \\
 
 
-\begin{table}[]
+\begin{table}[H]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
@@ -611,8 +611,9 @@ Hier haben wir uns für die zweite Strategie entschieden, weil diese eine elegan
           T 1.7: Multiple Users\\
          \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 2.1: JavaEE Security(ausgewählt)} Das system wird das Java Class PasswordAuthentication nutzen, durch wen die User sich anmelden können. \\ %warum? nicht JavaEE Security?
-           \textbf{Strategie 2.2: Eigene Implementierung:} Wir implementieren selber ein System zur Authentifizierung von Usern. \\
+          \textbf{Strategie 2.1: Chiro(ausgewählt)} Wir benutzen Chiro \\
+	\textbf{Strategie 2.2: JavaEE Security:} Wir benutzen JavaEE Security. \\
+           \textbf{Strategie 2.3: Eigene Implementierung:} Wir implementieren selber ein System zur Authentifizierung von Usern. \\
           \\ \hline
 
     \end{tabular}
@@ -627,7 +628,7 @@ Hier haben wir uns für die erste Strategie entschieden, weil die Benutzung eine
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 3:} Entlassen Mitarbeiter \\ \hline 
+          \textbf{Problem 3:} Entlassen Mitarbeiter \\ \hline  %Gruppe Modellierung fragen
           Da alte Mitarbeiter gehen können, muss es notwendig sein, alte User zu löschen, ohne dass relevante Informationen zu den Prozessketten verloren gehen (wie Nullpointer in den Protokollen).
           \\ \hline
           \textbf{Einflussfaktoren: } \\
@@ -650,18 +651,18 @@ Hier haben wir uns für die erste Strategie entschieden, weil die Benutzung eine
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 4:} Upload/Download Prozessketten- und Prozessschrittparameter \\ \hline
+          \textbf{Problem 4:} Upload/Download Prozessketten- und Prozessschrittparameter \\ \hline %Liam fragen
           Die Software kann neue Prozessketten- und Prozessschrittparameter aus JSON-Dateien hochladen, und bestehende als JSON-Dateien exportieren.
           \\ \hline
           \textbf{Einflussfaktoren: } \\
           T 1.5: Persistenz \\
           P 1.1.1: Upload\\
           P 1.1.2: Download\\
-          XXX : Datenbank \\
+          P1.4: Datenbank \\
           \hline
           \textbf{Strategien} \\ \hline
           \textbf{Strategie 4.1:}  Nutzung von JaxB und foo, um aus den Beans JSON zu Generieren und zu können.
-          \textbf{Strategie 4.2:} Dafür nutzen wir jakarta EE und die Rest Unterstüzung von Klassen welche Serialsierbar sind, werden durch Annotation so erweitert, dass eine JSON Repräsentation möglich ist. %what? und sind das wirklich zwei, oder machen wir beiden?
+          \textbf{Strategie 4.2:} Dafür nutzen wir jakarta EE und die Rest Unterstüzung von Klassen welche Serialisierbar sind, werden durch Annotation so erweitert, dass eine JSON Repräsentation möglich ist. %what? und sind das wirklich zwei, oder machen wir beiden?
           \\ \hline
     \end{tabular}
 
@@ -693,12 +694,12 @@ Hier haben wir uns für die erste Strategie entschieden, weil die Benutzung eine
 \end{table}
 Hier haben wir uns  für die erste Strategie entschieden, weil diese eine feste Formatierung vorgibt, und somit sichergestellt ist, dass die Protokolle gleich aussehen.\\
 
-\begin{table}[]
+\begin{table}[H]
 
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 6:} Stationenbearbeitung
+          \textbf{Problem 6:} Stationenbearbeitung %Liam fragen
           \\ \hline
           Der Administrator soll neue Stationen hinzufügen können. Die Software muss die Fähigkeit haben neue Stationen zu übernehmen und zu nutzen. Außerdem soll der Zustand jeder Station sichtbar und bearbeitbar sein.
           \\ \hline
@@ -714,16 +715,16 @@ Hier haben wir uns  für die erste Strategie entschieden, weil diese eine feste 
     \caption{ Startionenbearbeitung Problemkarte}
     \label{tab:ProblemKarte6}
 \end{table}
-
+Hier haben wir uns für die erste Strategie entschieden, weil.
 
 
 \begin{table}[H]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 7:} Priorisieren von Prozessketten
+          \textbf{Problem 7:} Priorisieren von Prozessketten %Gruppe Modellierung fragen
           \\ \hline
-          Laufende Prozessketten sollen priorisiert werden können, was zur Folge hat, dass sie, wann immer mehrere Prozessketten auf die gleichen Aktionen warten, schneller drankommen. 
+          Prozessketten sollen priorisiert werden können, was zur Folge hat, dass sie, wann immer mehrere Prozessketten auf die gleichen Aktionen warten, schneller drankommen. 
           \\ \hline
           \textbf{Einflussfaktoren: } \\
           T 1.5: Persistenz \\
@@ -875,7 +876,7 @@ Hier haben wir uns für die erste Strategie entschieden, weil diese einfacher um
 %         \textbf{Strategie 13.1: (ausgewählt)} \\
 %    \end{tabular}
 %    \caption{Laden von Informationen Problemkarte}
-%    \label{tab:ProblemKarte131}
+%    \label{tab:ProblemKarte13}
 %\end{table}
 
 \begin{table}[]
@@ -917,6 +918,25 @@ Hier haben wir uns für die zweite Strategie entschieden, da sie den Ablauf im F
     \end{tabular}
     \caption{Prozessbearbeitung und Überwachung Problemkarte}
     \label{tab:ProblemKarte15}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{15cm}|}
+    \hline
+          \textbf{Problem 16: Vor- und Nachbedingungen Prozessschritte} 
+          \\ \hline
+          Beschreibung
+          \\ \hline
+          \textbf{Einflussfaktoren: } \\
+          Faktoren \\
+          \hline
+          \textbf{Strategien} \\ \hline
+	Strategien
+          \\ \hline
+    \end{tabular}
+    \caption{Vor- und Nachbedingungen Prozessschritte Problemkarte}
+    \label{tab:ProblemKarte16}
 \end{table}
 
 %%%%%%%%%%%%%%%%%%
