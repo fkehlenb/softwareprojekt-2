@@ -25,7 +25,6 @@ Vorschlag
 Wer kann das Problem lösen?
 
 * Review
->>>>>Angeguck Neue Stragenien. 
 1. Userrollen: Hat {1,2,4,5}
    Genauer{6}
    Fehlt{7}
@@ -65,7 +64,7 @@ Wer kann das Problem lösen?
 
        seine Aufträge an andere Transporteure Übertragen werden.
    2.TODO. Es fehlt:
-       Benutzen wir deltaspike data? (Marcel Vorschlag)(>>>>>Schon ain Stationen bearbeitung gemacht)
+       Benutzen wir deltaspike data? (Marcel Vorschlag)
        Dann SQL ausdrücke für diese Problem
 
       Hibernate, dann bitte ähnliches BSP, den wir müssen schnell uns für eine
@@ -80,7 +79,7 @@ Wer kann das Problem lösen?
    erlauben, dass wir PS und PK serialisieren können Dafür benutzen wir
    JSONArrays, welche JSONObjects enthalten (siehe Modell)
 
-  (>>>>Bearbeitete) a) Dafür Nutzen Wir JaxB und foo, um aus den Beans JSON zu Generieren und zu
+   - a) Dafür nutzen wir JaxB und foo, um aus den Beans JSON zu Generieren und zu
    können
    - b) Dafür nutzen wir jakarta EE und die Rest Unterstüzung von
    Klassen welche Serialsierbar sind, werden durch Annotation so erweitert, dass
