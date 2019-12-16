@@ -889,7 +889,7 @@ Hier haben wir uns für Strategie 2 entschieden, weil durch die Modularisierung 
         \hline
         \textbf{Strategien} \\
          \textbf{Strategie 12.1: Lazy Loading: (ausgewählt)} Es wird immer nur ein kleiner Ausschnitt aus der Datenbank geladen (lazy loading). \\
-         \textbf{Strategie 12.2: Repräsentanten:} Es werden Repräsentanten von Probenkügelchenmenge ausgewählt und angezeigt, dazu noch eine Gesamtanzahl der gleichartigen Kügelchen. \\
+         \textbf{Strategie 12.2: Repräsentanten:} Es werden Repräsentanten von Probenkügelchenmenge ausgewählt und angezeigt, dazu noch eine Gesamtanzahl der gleichartigen Kügelchen. \\ \hline
     \end{tabular}
     \caption{Laden von Informationen Problemkarte}
     \label{tab:ProblemKarte12}
@@ -927,7 +927,7 @@ Hier haben wir uns für die erste Strategie entschieden, weil diese einfacher um
         \hline
         \textbf{Strategien} \\
          \textbf{Strategie 14.1: Von Hand:} Der Prozesskettenadministrator wählt die Stationen selber aus, wenn er die Prozesskette instanziiert. \\
-	\textbf{Strategie 14.2: Automatisch: (ausgewählt)} Das System analysiert, wie die für jeden Prozessschritt möglichen Stationen ausgelastet sind, und entscheidet, wo welche Schritte am effizientesten abgearbeitet werden. \\
+	\textbf{Strategie 14.2: Automatisch: (ausgewählt)} Das System analysiert, wie die für jeden Prozessschritt möglichen Stationen ausgelastet sind, und entscheidet, wo welche Schritte am effizientesten abgearbeitet werden. \\ \hline
     \end{tabular}
     \caption{Automatische Lastverteilung Problemkarte}
     \label{tab:ProblemKarte141}
@@ -939,46 +939,24 @@ Hier haben wir uns für die zweite Strategie entschieden, da sie den Ablauf im F
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 15:} Prozessbearbeitung und Überwachung %Strategien?
+          \textbf{Problem 15:} Datenbearbeitung und Datenüberwachung %Strategien?
           \\ \hline
-          Der Prozesskettenadministrator kann einen Prozess mit unterschiedlichen Prozessschritten bauen. Dieser Prozess soll veränderbar sein und umtauschbar, um den Bedürfnissen der Benutzer gerecht zu werden.
+          Die Nutzer können mit Daten an der System , dieses Daten können mit unterschiedlichen vorausgesetzte  Verhalten bearbeiten werden und diese Daten müssen sichtbar, Speicherbar und Bearbeiter sein werden. Daher das System braucht eine geordnete Weise jede verlangete Funktionalität zu implementieren.
 
           \\ \hline
           \textbf{Einflussfaktoren: } \\
-          P1.10.2: Lagerübersicht \\
-	      P1.10.3: Proben-id-Nummern \\
+          T1.7: Multiple Users\\
+	      T1.5: Perzistence\\
           \hline
           \textbf{Strategien} \\ \hline
+            \textbf{Strategie 15.1: Kapselung des Datenhaltung:} Nutzung unterschiedlichen Komponenten, die unterschiedlichen abstrahiere Teilen der System trägen können, damit eine schneller und sicherer Implementierung  zu erreichen. \\
           \\ \hline
     \end{tabular}
     \caption{Prozessbearbeitung und Überwachung Problemkarte}
     \label{tab:ProblemKarte15}
 \end{table}
 
-\begin{table}[H]
-    \centering
-    \begin{tabular}{|p{15cm}|}
-    \hline
-          \textbf{Problem 15:} Data Persistenz 
-          \\ \hline
-          Es ist notwendig die Interaktion der Nutzer mit das System zu speichern, daher braucht das Software ein Hauptspeichern Ort. Wo alle die Daten und notwendig Anmerkungen gespeichert sind.
-          \\ \hline
-          \textbf{Einflussfaktoren: } \\
-          O1.3: Entwickler \\
-          O1.4: Fähigkeiten Entwickler \\
-          T1.1: Programmiersprache \\
-          T1.4: Oberfläche \\
-          T1.5: Persistenz \\
-          T1.6: Build System\\
-          \hline
-          \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Eine relationale Datenbank zu nutzen, die in das Software Wildfly schon verfügbar ist.
-          \textbf{Strategie 2:} XML Data Persistenz zu nutzen, um die Data  zu speichern. 
-          \\ \hline
-    \end{tabular}
-    \caption{Caption}
-    \label{tab:my_label}
-\end{table}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -993,13 +971,19 @@ Hier haben wir uns für die zweite Strategie entschieden, da sie den Ablauf im F
 %ohne gleich in die Details von spezifischen Technologien abzugleiten.
 %Sie wird in den nachfolgenden Sichten konkretisiert und verfeinert. Die
 %konzeptionelle Sicht wird mit {UML}-Komponentendiagrammen visualisiert.}
-\textbf{Busin:}\\
-\textbf{JDVC:}\\
-\textbf{DB Abstraction:}\\
-\textbf{Control:}\\
-\textbf{Request:}\\
+in diese Konzeptionelle Ansicht betrachten die Interation zwichen die Komponenten des system. Diese Funtionalität des System ist verteilt. Hierbei ist es wichtig zu bemerken, dass der Client abstract ist. Die Komponenten an diese System sind: \\
+\textbf{H2:} Diese Teil liegt verlangte Dateibase H2, wo die Datei der Model gespeichert sind, an diese Stelle man die Datei bearbeiten, gespeichert und angerufenen zu werden. Diese Stelle ergibt sich aus die Vorgegebene Anforderungen des System. infolgedessen besteht aus keine Problem Karte.\\
+\textbf{Interface:} In diesem Teil liegt die User Interface, wo die User mit den System interagieren können. Diese Problem Karte beziehen sich aus Strategie 1.2, weil jede User hat ein unterschiedliche Oberfläche, mit wenn er mit des System interagieren kann. Außerdem ergibt sich aus die Strategie 15.1.
+Diese Komponente ist verwunden mit der BusinessLogik, um die Request und Data Bearbeitung zu erreichen.\\
+\textbf{Model:} Hier liegen die Daten der User, Prozesskette , Proben sowie Daten und Vormerkungen des System. Diese Komponente ist mit der Interface verwundet, weil die Daten das Interfaces gezeigt werden, sind das an der Model implementieren. Diese Komponente ergibt sich aus der \ref{tab:ProblemKarte15} \\
+\textbf{Persistenz:} Hier liegt die Verbindungen zwischen das System und Datei an der Dateibase, Diese Komponente ist verantwortlich und die Speicherung und Schreibung Funktionen an der Dateibase. diese Komponente  ist getroffen an der Anwendung der verlangte Technologie.  \\
+\textbf{BusinessLogik:} In diese Teil liegt die Funktionalität des System, diese Teil ist verantwortlich die Interaktion zwischen die Modelle und die Bearbeitung ihre Data in die Persistenz Komponente. Hier sind die das gewuchtetes Verhalten des System implementiert. diese Schnittstelle ergibt sich aus der  Strategie 15.1.  \\
+\textbf{JDVC:} Durch diese Anschlüsse  ist die Verwindung mit der Dateibase erreichbar. diese Anschlüsse erlaubt die Kommunikation zwischen die Sprache Java und die Dateibase.  \\
+\textbf{DB Abstraction:} Hier sind die Datei unsere Modell abstrahiert, um durch die Anschlüsse zu der Dateibase sie zugreifen zu können \\
+\textbf{Control:} durch diese Anschlüsse ist die Bearbeitung der Data an der Persistenz Teile und der Geschäftsprozess möglich  \\
+\textbf{Request:} durch diese Anschlüsse bekommt die Modelle Komponente ihre entsprechende Daten durch die Geschäftsprozess.\\
 \textbf{Action:}\\
-\textbf{Interface der Controller:}\\
+\textbf{Interface der Controller:} Hier ist  abstrahierte  Data  der Modelle Komponente  durch eine Interface geordnete und gezeigt.\\
 \begin{figure}[H]
   \includegraphics[width=310px]{UML/KonzeptioneleSicht.png}
   \caption{Die konzeptionelle Sicht}
@@ -1007,7 +991,7 @@ Hier haben wir uns für die zweite Strategie entschieden, da sie den Ablauf im F
 \end{figure}
 
 Figure \ref{fig:konzept} zeigt unsere konzeptionelle Sicht auf das System. 
-Hierbei ist es wichtig zu bemerken, dass der Client abstract ist.
+
 \section{Modulsicht}
 \label{sec:modulsicht}
 
