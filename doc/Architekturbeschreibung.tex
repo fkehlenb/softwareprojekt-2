@@ -109,10 +109,10 @@
   \sf
   \begin{tabular}{lr}
   Liam Hurwitz & hurwitz@tzi.de \\
-  Kevin Santiago Rodriguez Rey & hurwitz@tzi.de \\
-  Fabian Kehlenberg & rudkows@tzi.de \\
+  Kevin Santiago Rodriguez Rey & kev\textunderscore rey@tzi.de \\
+  Fabian Kehlenbeck & fkehlenb@tzi.de \\
   Aaron Rudkowski & rudkows@tzi.de \\
-  Samuel nejati Masouleh & rudkows@tzi.de \\
+  Samuel Nejati Masouleh & samnej@tzi.de \\
   Leonard Haddad & s\textunderscore xsipo6@tzi.de \\  
 \end{tabular}
   \\ ~
@@ -1305,11 +1305,13 @@ In der Graphik \ref{fig:logstikProbenPüftZuweisen} erhält die Logistik eine An
 
 \subsection{Kristallkugel Software}
 {
-Die erste Idee zum sinnvollen Erweitern der Software soll eine gewisse Vorraussicht ausgeben können, was nach einem beliebigen Schritt mit den Eigenschaften einer Probe passiert, bzw welche Eigenschaften die Proba danach wahrscheinlich haben wird. Das ganze soll durch einen analytischen Algorithmus realisiert werden, welcher die vorherigen Daten auswertet und daraus dann eine wahrscheinlichkeit für die Eigenschaften entwickelt und die wahrscheinlichsten Eigenschaften dann ausgibt. 
+Die erste Idee zum sinnvollen Erweitern der Software soll eine Vorraussicht ausgeben können, wie sich nach dem Ausführen eines beliebigen Prozessschritts auf eine Probe ihre Eigenschaften ändern würden, bzw. welche Eigenschaften die Probe danach wahrscheinlich haben wird.
+Da wir in der Datenbank ca. eine halbe Million Proben haben, kann ein analytischer Algorithmus Statistiken erstellen, welche die höchste Wahrscheinlichkeit einer Veränderung der Eigenschaften einer Probe auswertet. 
+Um es in unsere Architektur einzubinden, muss eine Klasse für die Statistiksoftware erstellt werden, aus dieser werden die Statistiken erstellt und dann mit den eingegebenen Daten abgeglichen. Am ende bekommt man die Eigenschaftenänderung zurück, die am wahrscheinlichsten ist.
 }
 \subsection{Vorraussichtliche Dauer eines Prozesses}
 {
-Man kann den Algorithmus aus der Kristallkugel Software auch dafür verwenden, dass aus empirischen Daten die vorraussichtliche Dauer eines Prozesses errechnet und ausgegeben wird. 
+Man kann den Algorithmus aus der Kristallkugel Software auch dafür verwenden, dass aus den durch den Algorithmus aus 9.1 errechneten empirischen Daten die vorraussichtliche Dauer eines Prozesses errechnet und ausgegeben wird. Hier braucht man, wie in 9.1, eine neue Klasse, welche die Statistiksoftware beinhaltet, aus welcher man dann eine wahrescheinliche Zeit herausbekommt
 
 Außerdem könnte man statt eines Algorithmus Microchips in die Experimentierstationen einbauen, welche die verbleibene Zeit an die Software weitergeben können. 
 }
