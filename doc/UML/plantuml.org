@@ -165,6 +165,8 @@ Grandparent --|> Parent : extends
 #+BEGIN_SRC plantuml :file datenModel.png
 skinparam monochrome true
 skinparam componentStyle uml2
+skinparam linetype ortho
+
 
 hide empty members
 
@@ -313,7 +315,7 @@ package Datenmodel {
   pkV "1..*" -- "1..*" pk
 
   pk "1" -- "1" pkZ
-  pk -- Träger
+  pk "1" -- "1..*" Träger
   pk -- "1" t
 
   ps "1..*" -- "1..*" pp
@@ -337,3 +339,178 @@ package Datenmodel {
 
 #+RESULTS:
 [[file:datenModel.png]]
+
+* Datenmodel aber es kann nur an einen Übertragen werden
+#+BEGIN_SRC plantuml :file datenModelNurEineID.png
+skinparam monochrome true
+skinparam componentStyle uml2
+
+hide empty members
+
+package Datenmodel {
+  class Role  <<abstract>> {
+  }
+
+  class Logistiker  <<abstract>> {
+  +logID: int
+  }
+
+  class User {
+    +id: int
+    +vorname: String
+    +nachname: String
+    +email: String
+    +telefonnummer: String
+    +username: String
+    +password: String
+    +wurdeVerifiziert: boolean
+    +erstellungsDatum: java.util.Date
+  }
+
+  class Admin <<abstract>>{
+    +adminID: int
+  }
+
+
+  class "Technologe" as t  <<abstract>> {
+    +TID: int
+  }
+
+  class "Transport" as transport  <<abstract>> {
+    +transportID: int
+  }
+
+  class Probe {
+    +probenID: int
+    +öffentlicheProbenID: String
+    +unbrauchbar: Boolean
+  }
+
+  class Träger {
+    +id: int
+    +standort: Standort
+  }
+
+  enum Trägerart {
+    eingebettet
+    einzelen
+    glass
+  }
+
+  class "QualitativeEigenschaft" as qualE {
+    +name: String
+    +hat: Boolean
+  }
+
+  class "QuantitativeEigenschaft" as quantE {
+    +name: String
+    +wert: java.lang.Number
+    +einheit: java.units.SI
+  }
+
+  together {
+    class "Prozessschritt" as ps {
+      +psID: int
+    }
+
+    class "ProzessschrittVorlage" as psV {
+      +psVID: int
+    }
+
+    class "ProzessParameter" as pp {
+      +name: String
+      +wert: java.lang.Number
+      +einheit: java.util.SI
+    }
+  }
+
+  together {
+    class "ProzesskettenAdministrator" as pkAdmin  <<abstract>> {
+      +pkAdminID: int
+    }
+
+
+    class "Prozesskette" as pk {
+      +priorität: enum
+      +pkID:int
+      +pkZustand: enum
+    }
+
+    class "ProzessketteVorlage" as pkV {
+      +pkKID: int
+    }
+
+    class "ProzesskettenZustand" as pkZ {
+      +pkStatus: enum("Instanziert", "Freigeben", "Abgebrochen")
+    }
+  }
+
+  class "ExperimentierStation" as es {
+    +esID: int
+    +standort: String
+    +status: boolean
+    +kaputt: boolean
+  }
+
+  class "Randbedingung" as rb {
+    +pre: List<ProzessParameter>
+    +post: List<ProzessParameter>
+  }
+
+  class JSONObject {
+    +JSONPS: JSONArray
+    +PSObejct: JSONObject
+  }
+
+  class Auftrag {
+  logs: List<String>
+  }
+
+  Role <|-left- Logistiker
+  Role "0..*"-left-"1..*" User: hat >
+  Role <|-right- Admin
+  Role <|-right- t
+  Role <|-- transport
+
+  Logistiker "1" -- Probe: verwaltet >
+  Logistiker "1" -- "1..*" Träger: verwaltet >
+  Probe o-- "0..*"quantE : hat >
+  Probe o-- "0..*"qualE : hat >
+  Trägerart"1" --o "1.." Träger: < ist
+  Probe "0..*"--o "0..1" Träger: befindet sich in >
+
+  Admin "1" -- "1..*" User: verwaltet >
+
+  Role <|-- pkAdmin
+  pkAdmin "1" -- psV
+
+  psV -- Trägerart
+  ps "1"--"1" psV: < enthält
+  ps "1..*" -- "0..*" pk: < besteht aus
+
+  pkV "1..*" -- "1..*" pk
+
+  pk "1" -- "1" pkZ
+  pk "1"-- "1..*" Träger
+  pk -- "1" t
+
+  ps "1..*" -- "1..*" pp
+  pp o-- "1..*" qualE: besitzt
+  pp o-- "1..*" quantE: besitzt
+
+  es "0..*" -- "1" Admin
+  es "1" -- "0..*" psV
+  es "0..*" -- "1" t
+
+  transport "1" -- pk
+
+  rb "0..*" --o ps
+
+  t "1" -down- "0..*" JSONObject
+
+  pkAdmin "0..n" -- "1" Auftrag
+  pkV "1" --o Auftrag
+#+END_SRC
+
+#+RESULTS:
+[[file:datenModelNurEineID.png]]
