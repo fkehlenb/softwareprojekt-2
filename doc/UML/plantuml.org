@@ -351,104 +351,109 @@ skinparam linetype ortho
 hide empty members
 
 package Datenmodel {
-  class Role  <<abstract>> {
-  }
+  enum Role{
+  TECHNOLOGE
+  PKADMIN
+  TRANSPORT
+  LOGISTIKER
+}
 
-  class User {
-    +id: int
-    +vorname: String
-    +nachname: String
-    +email: String
-    +telefonnummer: String
-    +username: String
-    +password: String
-    +wurdeVerifiziert: boolean
-    +erstellungsDatum: java.util.Date
-  }
+class User {
+  +id: int
+  +vorname: String
+  +nachname: String
+  +email: String
+  +telefonnummer: String
+  +username: String
+  +password: String
+  +wurdeVerifiziert: boolean
+  +erstellungsDatum: java.util.Date
+}
 
 
-  class Probe {
-    +probenID: int
-    +öffentlicheProbenID: String
-    +unbrauchbar: Boolean
-  }
+class Probe {
+  +probenID: int
+  +öffentlicheProbenID: String
+  +unbrauchbar: Boolean
+}
 
-  class Träger {
-    +id: int
-    +standort: Standort
-  }
+class Träger {
+  +id: int
+  +standort: Standort
+}
 
-  enum Trägerart {
-    eingebettet
-    einzelen
-    glass
-  }
+enum Trägerart {
+  eingebettet
+  einzelen
+  glass
+}
 
-  class "QualitativeEigenschaft" as qualE {
-    +name: String
-    +hat: Boolean
-  }
+class "QualitativeEigenschaft" as qualE {
+  +name: String
+  +hat: Boolean
+}
 
-  class "QuantitativeEigenschaft" as quantE {
+class "QuantitativeEigenschaft" as quantE {
+  +name: String
+  +wert: java.lang.Number
+  +einheit: java.units.SI
+}
+
+class "Prozessschritt" as ps {
+  +psID: int
+}
+
+class "ProzessschrittVorlage" as psV {
+  +psVID: int
+}
+
+ class "ProzessParameter" as pp {
     +name: String
     +wert: java.lang.Number
-    +einheit: java.units.SI
-  }
-
-  together {
-    class "Prozessschritt" as ps {
-      +psID: int
-    }
-
-    class "ProzessschrittVorlage" as psV {
-      +psVID: int
-    }
-
-    class "ProzessParameter" as pp {
-      +name: String
-      +wert: java.lang.Number
-      +einheit: java.util.SI
-    }
+    +einheit: java.util.SI
   }
 
 
-    class "Prozesskette" as pk {
-      +priorität: enum
-      +pkID:int
-      +pkZustand: enum
-    }
+class "Prozesskette" as pk {
+  +priorität: enum
+  +pkID:int
+  +pkZustand: enum
+}
 
-    class "ProzessketteVorlage" as pkV {
-      +pkKID: int
-    }
+class "ProzessketteVorlage" as pkV {
+    +pkKID: int
+}
 
-    class "ProzesskettenZustand" as pkZ {
-      +pkStatus: enum("Instanziert", "Freigeben", "Abgebrochen")
-    }
+class "ProzesskettenZustand" as pkZ {
+    +pkStatus: enum("Instanziert", "Freigeben", "Abgebrochen")
+}
 
-  class "ExperimentierStation" as es {
-    +esID: int
-    +standort: String
-    +status: boolean
-    +kaputt: boolean
-  }
+class "ExperimentierStation" as es {
+  +esID: int
+  +standort: String
+  +status: boolean
+  +kaputt: boolean
+}
 
-  class "Randbedingung" as rb {
-    +pre: List<ProzessParameter>
-    +post: List<ProzessParameter>
-  }
+class "Randbedingung" as rb {
+  +pre: List<ProzessParameter>
+  +post: List<ProzessParameter>
+}
 
-  class JSONObject {
-    +JSONPS: JSONArray
-    +PSObejct: JSONObject
-  }
+class JSONObject {
+  +JSONPS: JSONArray
+  +PSObejct: JSONObject
+}
 
-  class Auftrag {
+class Auftrag {
   logs: List<String>
-  }
+}
 
-  Probe o-- "0..*"quantE : besitzt
-  Probe o-- "0..*"qualE : besitzt
+
+  User "1..*" -- "0..*" Role
+
+  Probe o-- "0..*"quantE : hat >
+  Probe o-- "0..*"qualE : hat >
   Trägerart"1" --o "1.." Träger
   Probe "0..*"--o "0..1" Träger
 
@@ -457,8 +462,7 @@ package Datenmodel {
   ps "1"--"1" psV
   ps "1..*" -- "0..*" pk
 
-  pkV "1" -- "1" ps
-  pkV "1..*" -- "1..*" pk
+  pkV "1" -- "1" pk
 
   pk "1" -- "1" pkZ
   pk "1" -- "1..*" Träger
@@ -473,7 +477,10 @@ package Datenmodel {
 
   Auftrag "1" -down- "0..*" JSONObject
 
-  pkV "1" --o Auftrag
+  pkV "1" -right-o Auftrag
+
+  User "1. *" -- "1.*" es: hat >
+  User "1..*" -- "1" Auftrag
 }
 #+END_SRC
 
