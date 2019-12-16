@@ -563,6 +563,41 @@ die Notation der Flexibilität hat die  Bedeutung :
 
 \subsection{Probleme und Strategien} \label{sec:strategien}
 
+%{ \em Aus einer Menge von Faktoren ergeben sich Probleme, die nun in
+% Form von Problemkarten beschrieben werden. Diese resultieren z.\,B.\
+% aus
+%  \begin{itemize}
+%   \item Grenzen oder Einschränkungen durch Faktoren
+%    \item der Notwendigkeit, die Auswirkung eines Faktors zu begrenzen
+%    \item der Schwierigkeit, einen Produktfaktor zu erfüllen, oder
+%    \item der Notwendigkeit einer allgemeinen Lösung zu globalen
+%      Anforderungen.
+%  \end{itemize}
+%  Dazu entwickelt Ihr Strategien, um mit den identifizierten Problemen
+%  umzugehen.
+
+%  Achtet auch hier darauf, dass die Probleme und Strategien wirklich
+%  die Architektur betreffen und nicht etwa das Projektmanagement. Die
+%  Strategien stellen im Prinzip die Designentscheidungen dar. Sie
+%  sollten also die Erklärung für den konkreten Aufbau der
+%  verschiedenen Sichten liefern.
+
+%  Beschreibt möglichst mehrere Alternativen und gebt an, für welche
+%  Ihr Euch letztlich aus welchem Grunde entschieden habt. Natürlich
+%  müssen die genannten Strategien in den folgenden Sichten auch
+%  tatsächlich umgesetzt werden!
+
+ % Ein sehr häufiger Fehler ist es, dass SWP-Gruppen arbeitsteilig
+ % vorgehen: die eine Teilgruppe schreibt das Kapitel zur Analyse von
+ % Faktoren und zu den Strategien, die andere Teilruppe beschreibt die
+ % diversen Sichten, ohne dass diese beiden Teilgruppen sich abstimmen.
+ % Da der Zweck der Faktoren und Strategien ist, die
+ % Designentscheidungen für den Entwurf zu erarbeiten, besteht
+ % natürlich ein Zusammenhang zwischen den Faktoren, Strategien und
+ % Sichten. Dieser muss erkennbar sein, indem sich die verschiedenen
+ % Kapitel eindeutig aufeinander beziehen.
+%}
+
 Im Folgenden werden einige Probleme, die sich aus den herausgearbeiteten Einflussfaktoren ergeben, thematisiert. Dazu werden die Probleme zunächst mitsamt der Einflussfaktoren, aus denen sie sich ergeben, vorgestellt, und anschließend unterschiedliche Strategien, um mit ihnen umzugehen, vorgestellt. \\ Diese Strategien werden daraufhin bewertet und es wird eine für jedes Problem ausgewählt. Diese Auswahl wird begründet. \\ 
 Folgende Strategien zur Lösung von Problemen wurden ausgewählt: \\
 \begin{itemize}
@@ -575,6 +610,7 @@ Folgende Strategien zur Lösung von Problemen wurden ausgewählt: \\
 \item Eigenschaften
 \item Modularisierung
 \end{itemize}
+
 
 
 \begin{table}[H]
@@ -600,7 +636,7 @@ Folgende Strategien zur Lösung von Problemen wurden ausgewählt: \\
 Hier haben wir uns für die zweite Strategie entschieden, weil diese eine elegantere Lösung bietet, und benutzerfreundlicher ist. Des Weiteren erleichtert uns die bereits implementierte Java-Spezifikation die Arbeit. \\
 
 
-\begin{table}[H]
+\begin{table}[]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
@@ -611,9 +647,8 @@ Hier haben wir uns für die zweite Strategie entschieden, weil diese eine elegan
           T 1.7: Multiple Users\\
          \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 2.1: Chiro(ausgewählt)} Wir benutzen Chiro \\
-	\textbf{Strategie 2.2: JavaEE Security:} Wir benutzen JavaEE Security. \\
-           \textbf{Strategie 2.3: Eigene Implementierung:} Wir implementieren selber ein System zur Authentifizierung von Usern. \\
+          \textbf{Strategie 2.1: JavaEE Security(ausgewählt)} Das system wird das Java Class PasswordAuthentication nutzen, durch wen die User sich anmelden können. \\ %warum? nicht JavaEE Security?
+           \textbf{Strategie 2.2: Eigene Implementierung:} Wir implementieren selber ein System zur Authentifizierung von Usern. \\
           \\ \hline
 
     \end{tabular}
@@ -628,7 +663,7 @@ Hier haben wir uns für die erste Strategie entschieden, weil die Benutzung eine
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 3:} Entlassen Mitarbeiter \\ \hline  %Gruppe Modellierung fragen
+          \textbf{Problem 3:} Entlassen Mitarbeiter \\ \hline 
           Da alte Mitarbeiter gehen können, muss es notwendig sein, alte User zu löschen, ohne dass relevante Informationen zu den Prozessketten verloren gehen (wie Nullpointer in den Protokollen).
           \\ \hline
           \textbf{Einflussfaktoren: } \\
@@ -651,18 +686,18 @@ Hier haben wir uns für die erste Strategie entschieden, weil die Benutzung eine
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 4:} Upload/Download Prozessketten- und Prozessschrittparameter \\ \hline %Liam fragen
+          \textbf{Problem 4:} Upload/Download Prozessketten- und Prozessschrittparameter \\ \hline
           Die Software kann neue Prozessketten- und Prozessschrittparameter aus JSON-Dateien hochladen, und bestehende als JSON-Dateien exportieren.
           \\ \hline
           \textbf{Einflussfaktoren: } \\
           T 1.5: Persistenz \\
           P 1.1.1: Upload\\
           P 1.1.2: Download\\
-          P1.4: Datenbank \\
+          XXX : Datenbank \\
           \hline
           \textbf{Strategien} \\ \hline
           \textbf{Strategie 4.1:}  Nutzung von JaxB und foo, um aus den Beans JSON zu Generieren und zu können.
-          \textbf{Strategie 4.2:} Dafür nutzen wir jakarta EE und die Rest Unterstüzung von Klassen welche Serialisierbar sind, werden durch Annotation so erweitert, dass eine JSON Repräsentation möglich ist. %what? und sind das wirklich zwei, oder machen wir beiden?
+          \textbf{Strategie 4.2:} Dafür nutzen wir jakarta EE und die Rest Unterstüzung von Klassen welche Serialsierbar sind, werden durch Annotation so erweitert, dass eine JSON Repräsentation möglich ist. %what? und sind das wirklich zwei, oder machen wir beiden?
           \\ \hline
     \end{tabular}
 
@@ -694,12 +729,12 @@ Hier haben wir uns für die erste Strategie entschieden, weil die Benutzung eine
 \end{table}
 Hier haben wir uns  für die erste Strategie entschieden, weil diese eine feste Formatierung vorgibt, und somit sichergestellt ist, dass die Protokolle gleich aussehen.\\
 
-\begin{table}[H]
+\begin{table}[]
 
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 6:} Stationenbearbeitung %Liam fragen
+          \textbf{Problem 6:} Stationenbearbeitung
           \\ \hline
           Der Administrator soll neue Stationen hinzufügen können. Die Software muss die Fähigkeit haben neue Stationen zu übernehmen und zu nutzen. Außerdem soll der Zustand jeder Station sichtbar und bearbeitbar sein.
           \\ \hline
@@ -715,16 +750,16 @@ Hier haben wir uns  für die erste Strategie entschieden, weil diese eine feste 
     \caption{ Startionenbearbeitung Problemkarte}
     \label{tab:ProblemKarte6}
 \end{table}
-Hier haben wir uns für die erste Strategie entschieden, weil.
+
 
 
 \begin{table}[H]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 7:} Priorisieren von Prozessketten %Gruppe Modellierung fragen
+          \textbf{Problem 7:} Priorisieren von Prozessketten
           \\ \hline
-          Prozessketten sollen priorisiert werden können, was zur Folge hat, dass sie, wann immer mehrere Prozessketten auf die gleichen Aktionen warten, schneller drankommen. 
+          Laufende Prozessketten sollen priorisiert werden können, was zur Folge hat, dass sie, wann immer mehrere Prozessketten auf die gleichen Aktionen warten, schneller drankommen. 
           \\ \hline
           \textbf{Einflussfaktoren: } \\
           T 1.5: Persistenz \\
@@ -876,7 +911,7 @@ Hier haben wir uns für die erste Strategie entschieden, weil diese einfacher um
 %         \textbf{Strategie 13.1: (ausgewählt)} \\
 %    \end{tabular}
 %    \caption{Laden von Informationen Problemkarte}
-%    \label{tab:ProblemKarte13}
+%    \label{tab:ProblemKarte131}
 %\end{table}
 
 \begin{table}[]
@@ -924,36 +959,49 @@ Hier haben wir uns für die zweite Strategie entschieden, da sie den Ablauf im F
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 16: Vor- und Nachbedingungen Prozessschritte} 
+          \textbf{Problem 15:} Data Persistenz 
           \\ \hline
-          Beschreibung
+          Es ist notwendig die Interaktion der Nutzer mit das System zu speichern, daher braucht das Software ein Hauptspeichern Ort. Wo alle die Daten und notwendig Anmerkungen gespeichert sind.
           \\ \hline
           \textbf{Einflussfaktoren: } \\
-          Faktoren \\
+          O1.3: Entwickler \\
+          O1.4: Fähigkeiten Entwickler \\
+          T1.1: Programmiersprache \\
+          T1.4: Oberfläche \\
+          T1.5: Persistenz \\
+          T1.6: Build System\\
           \hline
           \textbf{Strategien} \\ \hline
-	Strategien
+          \textbf{Strategie 1:} Eine relationale Datenbank zu nutzen, die in das Software Wildfly schon verfügbar ist.
+          \textbf{Strategie 2:} XML Data Persistenz zu nutzen, um die Data  zu speichern. 
           \\ \hline
     \end{tabular}
-    \caption{Vor- und Nachbedingungen Prozessschritte Problemkarte}
-    \label{tab:ProblemKarte16}
+    \caption{Caption}
+    \label{tab:my_label}
 \end{table}
-
-%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \section{Konzeptionelle Sicht}
 \label{sec:konzeptionell}
 
-{\it Diese Sicht beschreibt das System auf einer hohen Abstraktionsebene,
-d.\,h. mit sehr starkem Bezug zur Anwendungsdomäne und den geforderten
-Produktfunktionen und \linebreak-attributen. Sie legt die Grobstruktur fest,
-ohne gleich in die Details von spezifischen Technologien abzugleiten.
-Sie wird in den nachfolgenden Sichten konkretisiert und verfeinert. Die
-konzeptionelle Sicht wird mit {UML}-Komponentendiagrammen visualisiert.}
-
-\begin{figure}
-  \includegraphics[width=\linewidth]{UML/konzeptionelleSicht.png}
+%{\it Diese Sicht beschreibt das System auf einer hohen Abstraktionsebene,
+%d.\,h. mit sehr starkem Bezug zur Anwendungsdomäne und den geforderten
+%Produktfunktionen und \linebreak-attributen. Sie legt die Grobstruktur fest,
+%ohne gleich in die Details von spezifischen Technologien abzugleiten.
+%Sie wird in den nachfolgenden Sichten konkretisiert und verfeinert. Die
+%konzeptionelle Sicht wird mit {UML}-Komponentendiagrammen visualisiert.}
+\textbf{Busin:}\\
+\textbf{JDVC:}\\
+\textbf{DB Abstraction:}\\
+\textbf{Control:}\\
+\textbf{Request:}\\
+\textbf{Action:}\\
+\textbf{Interface der Controller:}\\
+\begin{figure}[H]
+  \includegraphics[width=310px]{UML/KonzeptioneleSicht.png}
   \caption{Die konzeptionelle Sicht}
   \label{fig:boat1}
 \end{figure}
