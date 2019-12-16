@@ -79,6 +79,23 @@ t -> tApp: Aufruf vorhandener Vorlagen
 
 
 
+* Probentransport Sequenzdiagramm
+#+BEGIN_SRC plantuml :file probenTransport.png
+actor Transport as t
+participant "Transport APP" as tApp
+participant Probe as p
+participant Träger as träger
+participant ExperimentierStation as es
+
+tApp <- t: "Besuchen der Auftragsübersicht"
+tApp -> t: "Anzeigen der Aufträge"
+t -> t: "Auswählen eines Auftrages"
+
+#+END_SRC
+
+#+RESULTS:
+[[file:probenTransport.png]]
+
 * Grobe konzeptionelle Sicht
 #+BEGIN_SRC plantuml :file grobeSicht.png
 package "Datenbank System " as dbSys {
@@ -356,6 +373,7 @@ package Datenmodel {
   PKADMIN
   TRANSPORT
   LOGISTIKER
+  ADMIN
 }
 
 class User {
@@ -401,6 +419,8 @@ class "QuantitativeEigenschaft" as quantE {
 
 class "Prozessschritt" as ps {
   +psID: int
+  +pre: List<ProzessParameter>
+  +post: List<ProzessParameter>
 }
 
 class "ProzessschrittVorlage" as psV {
@@ -409,8 +429,6 @@ class "ProzessschrittVorlage" as psV {
 
  class "ProzessParameter" as pp {
     +name: String
-    +wert: java.lang.Number
-    +einheit: java.util.SI
   }
 
 
@@ -424,8 +442,10 @@ class "ProzessketteVorlage" as pkV {
     +pkKID: int
 }
 
-class "ProzesskettenZustand" as pkZ {
-    +pkStatus: enum("Instanziert", "Freigeben", "Abgebrochen")
+enum "ProzesskettenZustand" as pkZ {
+    Instanziert
+    Freigeben
+    Abgebrochen
 }
 
 class "ExperimentierStation" as es {
@@ -433,11 +453,6 @@ class "ExperimentierStation" as es {
   +standort: String
   +status: boolean
   +kaputt: boolean
-}
-
-class "Randbedingung" as rb {
-  +pre: List<ProzessParameter>
-  +post: List<ProzessParameter>
 }
 
 class JSONObject {
@@ -458,7 +473,6 @@ class Auftrag {
   Probe "0..*"--o "0..1" Träger
 
 
-  psV -- Trägerart
   ps "1"--"1" psV
   ps "1..*" -- "0..*" pk
 
@@ -473,13 +487,11 @@ class Auftrag {
 
   es "1" -- "0..*" psV
 
-  rb "0..*" --o ps
 
   Auftrag "1" -down- "0..*" JSONObject
 
-  pkV "1" -right-o Auftrag
+  pkV "1" -right-"1" Auftrag
 
-  User "1. *" -- "1.*" es: hat >
   User "1..*" -- "1" Auftrag
 }
 #+END_SRC
