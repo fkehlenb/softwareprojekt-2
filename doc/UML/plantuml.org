@@ -79,9 +79,12 @@ t -> tApp: Aufruf vorhandener Vorlagen
 
 
 
-* Konzeptionelle Sicht
-#+BEGIN_SRC plantuml :file konzeptionelleSicht.png
+* Grobe konzeptionelle Sicht
+#+BEGIN_SRC plantuml :file grobeSicht.png
+package "Datenbank System " as dbSys {
 database "H2 Datenbank" as db
+}
+
 package "Server Wildfly" as server{
 [Persistenz] as per
 [Geschäftslogik] as gl
@@ -90,7 +93,8 @@ package "Server Wildfly" as server{
 [REST API] as rest
 [User Interface] as ui
 }
-db == per: SQL
+db -0)- per: "SQL"
+db -(0- per: "    SQL"
 per - gl: JPA
 gl -- cont: Applies
 cont -- pres: Views & Request
@@ -103,8 +107,48 @@ ui == Client: HTTPs Request/Response
 #+END_SRC
 
 #+RESULTS:
+[[file:grobeSicht.png]]
+
+* Konzeptionelle Sicht
+
+
+#+BEGIN_SRC plantuml :file konzeptionelleSicht.png
+skinparam linetype polyline
+package "Server Wildfly" as server{
+together {
+  [Persistenz] as per
+  [Geschäftslogik] as gl
+  [Model] as model
+}
+[User Interface] as ui
+
+}
+
+database "H2 Datenbank" as db
+
+package "Client System" as ext {
+actor "Client" as client
+}
+
+model -left(0- gl: "Daten"
+model -right0)- per: "Representation"
+model -right(0- per: "Speicher"
+model -up0)-- ui: Daten
+model -up(0-- ui: "   Kontrolle"
+
+ui -(0- per: "Datei Behandlung"
+ui -(0- gl: " Model Analyse"
+
+db --up0)- per: "  SQL Query   "
+db --up(0- per: "    SQL schreiben"
+
+
+ui -up(0- ext: "HTTP Request"
+ui -up0)- ext: "   HTTP Response"
+#+END_SRC
+
+#+RESULTS:
 [[file:konzeptionelleSicht.png]]
-<<<<<<< HEAD
 
 
 ** example
@@ -118,17 +162,20 @@ Grandparent --|> Parent : extends
 #+RESULTS:
 [[file:ex.png]]
 
+* Datenmodell
 #+BEGIN_SRC plantuml :file datenModel.png
 skinparam monochrome true
 skinparam componentStyle uml2
+skinparam linetype ortho
+
 
 hide empty members
 
 package Datenmodel {
-  class Role {
+  class Role  <<abstract>> {
   }
 
-  class Logistiker {
+  class Logistiker  <<abstract>> {
   +logID: int
   }
 
@@ -144,16 +191,16 @@ package Datenmodel {
     +erstellungsDatum: java.util.Date
   }
 
-  class Admin {
+  class Admin <<abstract>>{
     +adminID: int
   }
 
 
-  class "Technologe" as t {
+  class "Technologe" as t  <<abstract>> {
     +TID: int
   }
 
-  class "Transport" as transport {
+  class "Transport" as transport  <<abstract>> {
     +transportID: int
   }
 
@@ -202,7 +249,7 @@ package Datenmodel {
   }
 
   together {
-    class "ProzesskettenAdministrator" as pkAdmin {
+    class "ProzesskettenAdministrator" as pkAdmin  <<abstract>> {
       +pkAdminID: int
     }
 
@@ -239,6 +286,10 @@ package Datenmodel {
     +PSObejct: JSONObject
   }
 
+  class Auftrag {
+  logs: List<String>
+  }
+
   Role <|-left- Logistiker
   Role "0..*"-left-"1..*" User
   Role <|-right- Admin
@@ -265,7 +316,7 @@ package Datenmodel {
   pkV "1..*" -- "1..*" pk
 
   pk "1" -- "1" pkZ
-  pk -- Träger
+  pk "1" -- "1..*" Träger
   pk -- "1" t
 
   ps "1..*" -- "1..*" pp
@@ -289,3 +340,149 @@ package Datenmodel {
 
 #+RESULTS:
 [[file:datenModel.png]]
+
+* Datenmodel aber es kann nur an einen Übertragen werden
+#+BEGIN_SRC plantuml :file datenModelNurEineID.png
+skinparam monochrome true
+skinparam componentStyle uml2
+skinparam linetype ortho
+
+
+hide empty members
+
+package Datenmodel {
+  enum Role{
+  TECHNOLOGE
+  PKADMIN
+  TRANSPORT
+  LOGISTIKER
+}
+
+class User {
+  +id: int
+  +vorname: String
+  +nachname: String
+  +email: String
+  +telefonnummer: String
+  +username: String
+  +password: String
+  +wurdeVerifiziert: boolean
+  +erstellungsDatum: java.util.Date
+}
+
+
+class Probe {
+  +probenID: int
+  +öffentlicheProbenID: String
+  +unbrauchbar: Boolean
+}
+
+class Träger {
+  +id: int
+  +standort: Standort
+}
+
+enum Trägerart {
+  eingebettet
+  einzelen
+  glass
+}
+
+class "QualitativeEigenschaft" as qualE {
+  +name: String
+  +hat: Boolean
+}
+
+class "QuantitativeEigenschaft" as quantE {
+  +name: String
+  +wert: java.lang.Number
+  +einheit: java.units.SI
+}
+
+class "Prozessschritt" as ps {
+  +psID: int
+}
+
+class "ProzessschrittVorlage" as psV {
+  +psVID: int
+}
+
+ class "ProzessParameter" as pp {
+    +name: String
+    +wert: java.lang.Number
+    +einheit: java.util.SI
+  }
+
+
+class "Prozesskette" as pk {
+  +priorität: enum
+  +pkID:int
+  +pkZustand: enum
+}
+
+class "ProzessketteVorlage" as pkV {
+    +pkKID: int
+}
+
+class "ProzesskettenZustand" as pkZ {
+    +pkStatus: enum("Instanziert", "Freigeben", "Abgebrochen")
+}
+
+class "ExperimentierStation" as es {
+  +esID: int
+  +standort: String
+  +status: boolean
+  +kaputt: boolean
+}
+
+class "Randbedingung" as rb {
+  +pre: List<ProzessParameter>
+  +post: List<ProzessParameter>
+}
+
+class JSONObject {
+  +JSONPS: JSONArray
+  +PSObejct: JSONObject
+}
+
+class Auftrag {
+  logs: List<String>
+}
+
+
+  User "1..*" -- "0..*" Role
+
+  Probe o-- "0..*"quantE : hat >
+  Probe o-- "0..*"qualE : hat >
+  Trägerart"1" --o "1.." Träger
+  Probe "0..*"--o "0..1" Träger
+
+
+  psV -- Trägerart
+  ps "1"--"1" psV
+  ps "1..*" -- "0..*" pk
+
+  pkV "1" -- "1" pk
+
+  pk "1" -- "1" pkZ
+  pk "1" -- "1..*" Träger
+
+  ps "1..*" -- "1..*" pp
+  pp o-- "1..*" qualE: besitzt
+  pp o-- "1..*" quantE: besitzt
+
+  es "1" -- "0..*" psV
+
+  rb "0..*" --o ps
+
+  Auftrag "1" -down- "0..*" JSONObject
+
+  pkV "1" -right-o Auftrag
+
+  User "1. *" -- "1.*" es: hat >
+  User "1..*" -- "1" Auftrag
+}
+#+END_SRC
+
+#+RESULTS:
+[[file:datenModelNurEineID.png]]
