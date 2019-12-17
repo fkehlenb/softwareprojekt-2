@@ -1082,8 +1082,6 @@ Dies wird so gehandhabt, da man im Nachhinein, nachdem eine Prozesskette instanz
  \begin{sidewaysfigure}
   \caption{Datenmodell für DataColorado}
   \centering
-  
-
   \includegraphics[width=0.75\textwidth]{UML/datenModel}
 
  \end{sidewaysfigure}
@@ -1101,14 +1099,26 @@ Dies wird so gehandhabt, da man im Nachhinein, nachdem eine Prozesskette instanz
 \includegraphics[scale=0.5]{UML/06Ausfuehrungssicht.pdf}
 
 
-{ Die Ausführungssicht von unserer Software (SWP2) ist in der obrigen Abbildung 6.1 modelliert.
+{ Die Ausführungssicht von unserer Software (SWP2) ist in der obrigen Abbildung
+  6.1 modelliert.
 
-Beliebig viele Benutzer können via TCP/IP auf den SFB-Server zugreifen. Dies geschieht über eine Webapplikation, die im Internetbrowser eines PCs oder eines mobilen Endgerät läuft.
+Beliebig viele Benutzer können via TCP/IP auf den SFB-Server zugreifen. Dies
+geschieht über eine Webapplikation, die im Internetbrowser eines PCs oder eines
+mobilen Endgerät läuft.
 
-Es gibt einen Anwendungsserver, welchen wir SFB-Server genannt haben, auf dem eine Instanz von Wildfly läuft. Auf dieser Wildflyinstanz wird der SWP2-Server mit allen dazugehörigen modulen ausgeführt.
+Es ist auch möglich, das sich ein Rest-Client sich mit unserem Server verbindet,
+dieser verbindet sich dann an den REST-Endpunkt über den SFB-Server. Das Module
+der Businesslogik führt die Befehle dann aus.
 
-Der SFB-Server stellt eine Verbindung über TCP/IP eine Verbindung zu dem einzigen Datenbankserver her. Auf dem Server läfut eine Instanz der Datenbanksoftware (........INSERT NAME...........).
+Es gibt einen Anwendungsserver, welchen wir SFB-Server genannt haben, auf dem
+eine Instanz von Wildfly läuft. Auf dieser Wildflyinstanz wird der SWP2-Server
+mit allen dazugehörigen modulen ausgeführt.
 
+Das Modul Persistence kommuniziert mit der Modul Businesslogik aber auch "abstract" über
+JDBC mit dem H2 Server
+
+Der SFB-Server stellt eine Verbindung über TCP/IP zu dem
+Datenbankserver her. Auf dem Server läfut eine Instanz der Datenbanksoftware H2.
 }
 
 {\it
