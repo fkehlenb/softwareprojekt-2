@@ -337,6 +337,11 @@ class Bedingung {
   +vorBedingungB: List<QualitativenEigenschaften>
 }
 
+class Bedingung {
+  +vorBedingungA: List<ProzessParamter>
+  +vorBedingungB: List<QualitativenEigenschaften>
+}
+
 class "ExperimentierStation" as es {
   +esID: int
   +standort: String
@@ -351,6 +356,12 @@ class "ExperimentierStation" as es {
   User "*" -- "*" es: < hat
   User "0" --  "*" Träger
 
+  User "0..1" -- "0..*" Auftrag: hat >
+  Auftrag "1" -* "1" AuftragsPriorität
+  Auftrag "1" -* "1..*" ps: hat >
+  Auftrag "1"  -- "1..*" AuftragsLog: hat >
+  Auftrag "1" -- "1" pkZ: hat >
+  Auftrag "1" -- "1" pkV: < instanziert
 
   User "0..1" -- "0..*" Auftrag: hat >
   Auftrag "1" -* "1" AuftragsPriorität
@@ -361,6 +372,9 @@ class "ExperimentierStation" as es {
 
   (Auftrag, ps) .. Träger
 
+  ps "1" -- "1" psV: < instanziert
+  ps "1"-- "1" Prozessschrittlog:  hat >
+  ps "1" -- "1" ProzessschrittZustand: hat >
 
   ps "1" -- "1" psV: < instanziert
   ps "1"-- "1" Prozessschrittlog:  hat >
