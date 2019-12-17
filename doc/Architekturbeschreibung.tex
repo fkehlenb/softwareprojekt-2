@@ -629,6 +629,7 @@ Folgende Strategien zur Lösung von Problemen wurden ausgewählt: \\
           O 1.1: Time-To-Market \\
           \hline
           \textbf{Strategien} \\ \hline
+          
           \textbf{Strategie 1.1: Mehrere Accounts:} Jeder Mitarbeiter kriegt für jede der Rollen, die er erfüllt, einen eigenen Account. \\
           \textbf{Strategie 1.2: Enumeration (augewählt)} Die Rollen werden als Aufzählungstyp realisiert, der in einer m:m Beziehung zu der Userklasse steht. Dadurch kann für jeden User gespeichert werden, welche Rollen er/sie innehat. Die Sicherheit bezüglich der unterschiedlichen Fähigkeiten/Rechte der Rollen wird über die JavaEE-Security-Spezifikation realisiert (siehe Strategie 1 für Problem 2)\\
 	 \\ \hline
@@ -1079,7 +1080,8 @@ Hier haben wir uns für die zweite Strategie entschieden, da sie den Ablauf im F
 	      T1.5: Persistenz\\
           \hline
           \textbf{Strategien} \\ \hline
-
+		\section{Greetings}
+          \label{sec:strategie15.1}
             \textbf{Strategie 15.1: Kapselung des Datenhaltung:} Nutzung unterschiedlichen Komponenten, die unterschiedlichen abstrahiere Teilen der System trägen können, damit eine schneller und sicherer Implementierung  zu erreichen.
 
           \\ \hline
@@ -1235,6 +1237,7 @@ in diese Konzeptionelle Ansicht betrachten die Interation zwichen die Komponente
 }
 
 \textbf{H2:} Diese Teil liegt verlangte Dateibase H2, wo die Datei der Model gespeichert sind, an diese Stelle man die Datei bearbeiten, gespeichert und angerufenen zu werden. Diese Stelle ergibt sich aus die Vorgegebene Anforderungen des System. infolgedessen besteht aus keine Problem Karte.\\
+<<<<<<< HEAD
 
 {%Korrekturvorschlag Samuel
 \textbf{Persistence:} Hier liegt die Verbindung zwischen dem System und der Datei der Datenbank. Die Persistenz ist dafür verantwortlich für die Speicherung, das Schreiben und der Funktion [TODO] (?) der Datenbank. Persistenz stellt eine Schnittstelle Data für Businesslogic zur Verfügung und nutzt die von Model zur Verfügung gestellte Schnittstelle. Auch die Verwendung dieser Technologie ist gefordert. 
@@ -1274,6 +1277,13 @@ in diese Konzeptionelle Ansicht betrachten die Interation zwichen die Komponente
 
 \textbf{Rest:} Hier sind die Implementierung Rest abgeleitet. \\
 
+=======
+\textbf{Interface:} In diesem Teil liegt die User Interface, wo die User mit den System interagieren können. Diese Problem Karte beziehen sich aus Strategie 1.2, weil jede User hat ein unterschiedliche Oberfläche, mit wenn er mit des System interagieren kann. Außerdem ergibt sich aus die Strategie 15.1: Kapselung des Datenhaltung ~\ref{sec:strategie15.1}.
+Diese Komponente ist verwunden mit der BusinessLogik, um die Request und Data Bearbeitung zu erreichen.\\
+\textbf{Model:} Hier liegen die Daten der User, Prozesskette , Proben sowie Daten und Vormerkungen des System. Diese Komponente ist mit der Interface verwundet, weil die Daten das Interfaces gezeigt werden, sind das an der Model implementieren. Diese Komponente ergibt sich aus der  Strategie 15.1: Kapselung des Datenhaltung ~\ref{sec:strategie15.1} \\
+\textbf{Persistenz:} Hier liegt die Verbindungen zwischen das System und Datei an der Dateibase, Diese Komponente ist verantwortlich und die Speicherung und Schreibung Funktionen an der Dateibase. diese Komponente  ist getroffen an der Anwendung der verlangte Technologie.  \\
+\textbf{BusinessLogik:} In diese Teil liegt die Funktionalität des System, diese Teil ist verantwortlich die Interaktion zwischen die Modelle und die Bearbeitung ihre Data in die Persistenz Komponente. Hier sind die das gewuchtetes Verhalten des System implementiert. diese Schnittstelle ergibt sich aus der   Strategie 15.1: Kapselung des Datenhaltung ~\ref{sec:strategie15.1} \\
+>>>>>>> Last anderüngen
 \textbf{JDBC:} Durch diese Anschlüsse  ist die Verwindung mit der Dateibase erreichbar. diese Anschlüsse erlaubt die Kommunikation zwischen die Sprache Java und die Dateibase.  \\
 
 \textbf{Data:} Hier sind die Datei von der Komponente  zu der BusinessLogik  geliefert \\
