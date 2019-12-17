@@ -1,0 +1,415 @@
+#+TITLE: plantuml
+
+#+begin_src plantuml :file tryout.png
+  Alice <- Bob: synchronous call
+  Alice ->> Bob: asynchronous call
+#+end_src
+
+#+RESULTS:
+[[file:tryout.png]]
+
+* Onboarding eines Benutzers
+Der Administrator erstellt einen Nutzer, das Backend fordert eine
+Onboarding email an und der Nutzer meldet sich das erste mal an
+#+BEGIN_SRC plantuml :file seq.png
+    skinparam monochrome true
+    Admin -> Backend: Create User Request
+    Email <- Backend: Welcome Email Request
+    User  <- Email: Welcome Email Response
+    User ->  Backend: Verification Email Request
+    Admin <- Backend: User Verified Response
+    User ->  Backend: Authentication Request
+    User ->  Backend: Access Control List Request
+    User <-  Backend: Real Access Response
+    User <-- Backend: another authentication Response
+#+END_SRC
+
+#+RESULTS:
+[[file:seq.png]]
+
+* Erstbenutzung
+#+BEGIN_SRC plantuml :file erstbenutzung.png
+autonumber
+skinparam monochrome true
+
+actor User as user
+participant "Browser UI" as browser
+participant "Home Page" as home_page
+
+user -> browser : Besuchen Sie die Login-Seite der DataColorrado-Benutzeroberfläche.
+browser -> home_page : Rufen Sie die Anmeldeseite der  DataColorrado-Benutzeroberfläche auf.
+browser <- home_page : Geben Sie die Anmeldeseite mit dem Formularfeld Benutzername und Passwortzurück.
+user <- browser : Seite anzeigen, auf Benutzereingaben warten
+Benutzer -> Benutzer: Abruf von Benutzername und Passwort aus dem Speicher
+user -> browser : Füllen Sie das Feld Benutzername und Passwort aus und klicken Sie auf die Schaltfläche Senden.
+browser -> home_page : Senden Sie den Benutzernamen und das Passwort.
+home_page -> home_page : Überprüfen Sie, ob die Informationen gültig sind.
+alt Login gültig
+    browser <- home_page : Gibt die eingeloggte Seite zurück
+    user <- browser : Anzeige der angemeldeten Seite
+else Login ungültig
+    browser <- home_page : Rückgabe der Login-Fehlerseite
+    user <- browser : Anzeige der Login-Fehlerseite
+end
+#+END_SRC
+
+
+#+RESULTS:
+[[file:erstbenutzung.png]]
+
+
+* PKAdmin erstellt eine Prozesskette
+#+BEGIN_SRC plantuml :file pkErstellen.png
+autonumber
+skinparam monochrome true
+
+actor Technologr:nnen as t
+actor Logitisker:Innen as l
+participant "Prozesskette" as pk
+participant "Auftrag als" as a
+participant "Technolgen App" tApp
+
+t -> tApp: Aufruf vorhandener Vorlagen
+
+
+#+END_SRC
+
+#+RESULTS:
+[[file:pkErstellen.png]]
+
+
+
+* Probentransport Sequenzdiagramm
+#+BEGIN_SRC plantuml :file probenTransport.png
+actor Transport as t
+participant "Transport APP" as tApp
+participant Probe as p
+participant Träger as träger
+participant ExperimentierStation as es
+
+tApp <- t: "Besuchen der Auftragsübersicht"
+tApp -> t: "Anzeigen der Aufträge"
+t -> t: "Auswählen eines Auftrages"
+
+#+END_SRC
+
+#+RESULTS:
+[[file:probenTransport.png]]
+
+* Grobe konzeptionelle Sicht
+#+BEGIN_SRC plantuml :file grobeSicht.png
+package "Datenbank System " as dbSys {
+database "H2 Datenbank" as db
+}
+
+package "Server Wildfly" as server{
+[Persistenz] as per
+[Geschäftslogik] as gl
+[Controller] as cont
+[Presentationsicht] as pres
+[REST API] as rest
+[User Interface] as ui
+}
+db -0)- per: "SQL"
+db -(0- per: "    SQL"
+per - gl: JPA
+gl -- cont: Applies
+cont -- pres: Views & Request
+
+per -- rest: JPA
+rest -- restClient: HTTPs Request/Response
+
+pres -- ui: Request
+ui == Client: HTTPs Request/Response
+#+END_SRC
+
+#+RESULTS:
+[[file:grobeSicht.png]]
+
+* Konzeptionelle Sicht
+
+
+#+BEGIN_SRC plantuml :file konzeptionelleSicht.png
+skinparam linetype polyline
+package "Server Wildfly" as server{
+together {
+  [Persistenz] as per
+  [Geschäftslogik] as gl
+  [Model] as model
+}
+[User Interface] as ui
+
+}
+
+database "H2 Datenbank" as db
+
+package "Client System" as ext {
+actor "Client" as client
+}
+
+model -left(0- gl: "Daten"
+model -right0)- per: "Representation"
+model -right(0- per: "Speicher"
+model -up0)-- ui: Daten
+model -up(0-- ui: "   Kontrolle"
+
+ui -(0- per: "Datei Behandlung"
+ui -(0- gl: " Model Analyse"
+
+db --up0)- per: "  JDBC  "
+
+
+ui -up(0- ext: "HTTP Request"
+ui -up0)- ext: "   HTTP Response"
+#+END_SRC
+
+#+RESULTS:
+[[file:konzeptionelleSicht.png]]
+
+
+** example
+#+BEGIN_SRC plantuml :file ex.png
+hide empty members
+Parent o-- "0..1"ReferedTo : ref
+Parent *-- "0..1" Child : child
+Grandparent --|> Parent : extends
+#+END_SRC
+
+#+RESULTS:
+[[file:ex.png]]
+
+* Datenmodel
+
+Die Ausgabe von Prozessschritt n muss kompatibel zu Eingabe Prozessschritt m
+sein: Steht steht in der Vorlage
+
+
+User hat bis zu n Rollen
+Eine Rolle existiert nicht ohne User
+Ein Auftrag ist eine instanzierte Prozesskette
+Eine Prozesskette wird von einer PkV erzeugt, die Prozesskettentemplate, kann hierbei
+gespeichert werden
+Ein Träger hat eine Art
+Die Trägerart hat getter und Setter
+Eine Experimentierstation soll die Dauer der Queue berechnen
+#+BEGIN_SRC plantuml :file datenModel.png
+skinparam monochrome true
+skinparam componentStyle uml2
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+
+
+hide empty members
+
+package Datenmodel {
+  enum Role{
+  TECHNOLOGE
+  PKADMIN
+  TRANSPORT
+  LOGISTIKER
+  ADMIN
+}
+
+class User {
+  +id: int
+  +vorname: String
+  +nachname: String
+  +email: String
+  +telefonnummer: String
+  +username: String
+  +password: Byte[]
+  +wurdeVerifiziert: boolean
+  +erstellungsDatum: java.util.Date
+}
+
+
+class Probe {
+  +probenID: String
+  +kommentar: String
+  +zerstört: boolean
+  +verloren: boolean
+}
+
+
+class Standort {
+  +Ort:String
+}
+
+class Träger {
+  +id: int
+  +standort: Standort
+  +zugewiesnerAuftrag: Auftrag
+}
+
+enum Trägerart {
+  eingebettet
+  einzelen
+  glass
+}
+
+class Archiv {
+auftrag: Auftrag
+archiviert: boolean
+datum: java.util.Date
+}
+
+class "QualitativeEigenschaft" as qualE {
+  +name: String
+}
+
+class "QuantitativeEigenschaft" as quantE {
+  +wert: java.lang.Number
+  +einheit: java.units.SI
+}
+
+class "Prozessschritt" as ps {
+  +psID: int
+  +uploaded: bool
+  +eingabeTräger: List<Trägerart>
+  +ausgabeTräger: List<Trägerart>
+  +current: Experimentierstation
+  +zustand: String
+  +station : Experimentierstation
+  +auftrag: Auftrag
+}
+
+class Prozessschrittlog {
+  +gestartet
+  +geendet
+  +PSZustand
+}
+
+class ProzessschrittZustand {
+   +zustände: List<String>
+}
+
+class "ProzessschrittVorlage" as psV {
+  +psVID: int
+  +zustände: List<String>
+  +trägerArt: Trägerart
+  +dauer: java.util.Time
+}
+
+enum ProzessschrittArt {
+URFORMEND
+FÄRBEND
+ERMITTELEND
+}
+
+ class "ProzessParameter" as pp {
+    +name: String
+  }
+
+
+class Auftrag {
+  +pkID:int
+}
+
+class AuftragsLog {
+  +start: java.util.Date
+  +ende: java.util.Date
+  +psLogs: Prozessschrittlog
+}
+
+
+enum AuftragsPriorität {
+keine
+etwas
+viel
+hoch
+sehr hoch
+}
+
+class "ProzessketteVorlage" as pkV {
+    +pkKID: int
+}
+
+enum "ProzesskettenZustand" as pkZ {
+    Instanziert
+    Freigeben
+    Gestartet
+    Abgebrochen
+    Durchgeführt
+}
+
+class Bedingung {
+  +vorBedingungA: List<ProzessParamter>
+  +vorBedingungB: List<QualitativenEigenschaften>
+}
+
+class Bedingung {
+  +vorBedingungA: List<ProzessParamter>
+  +vorBedingungB: List<QualitativenEigenschaften>
+}
+
+class "ExperimentierStation" as es {
+  +esID: int
+  +standort: String
+  +status: enum ["verfügbar", "besetzt", kaputt]
+  +currentPS: Prozessschritt
+  +nextPS: Queue<Prozessschritt>
+}
+
+
+
+  User "0..*" -left- "1..*" Role
+  User "*" -- "*" es: < hat
+  User "0" --  "*" Träger
+
+  User "0..1" -- "0..*" Auftrag: hat >
+  Auftrag "1" -* "1" AuftragsPriorität
+  Auftrag "1" -* "1..*" ps: hat >
+  Auftrag "1"  -- "1..*" AuftragsLog: hat >
+  Auftrag "1" -- "1" pkZ: hat >
+  Auftrag "1" -- "1" pkV: < instanziert
+
+  User "0..1" -- "0..*" Auftrag: hat >
+  Auftrag "1" -* "1" AuftragsPriorität
+  Auftrag "1" -* "1..*" ps: hat >
+  Auftrag "1"  -- "1..*" AuftragsLog: hat >
+  Auftrag "1" -- "1" pkZ: hat >
+  Auftrag "1" -- "1" pkV: < instanziert
+
+  (Auftrag, ps) .. Träger
+
+  ps "1" -- "1" psV: < instanziert
+  ps "1"-- "1" Prozessschrittlog:  hat >
+  ps "1" -- "1" ProzessschrittZustand: hat >
+
+  ps "1" -- "1" psV: < instanziert
+  ps "1"-- "1" Prozessschrittlog:  hat >
+  ps "1" -- "1" ProzessschrittZustand: hat >
+
+
+  psV "1" --  "1" ProzessschrittArt: hat >
+  psV "1" -- "1..*" pp: hat >
+  psV "1" --"1..*" es: hat >
+
+  (psV, es) .. Bedingung
+
+ Träger "1" -- "1" Trägerart: hat >
+ Träger "0..1" -- "0..*" Probe: hat >
+ Träger "*" -- "1" Standort: hat >
+
+  pkV "*" -- "1" psV: hat >
+
+  Bedingung "1" -- "*" pp
+  Bedingung  "1" -- "*" qualE
+
+
+  Probe "0..1" *- "0..1" Archiv
+  Probe "*" -- "1" Standort: hat >
+  Probe "*" -- "*" pp: hat >
+  Probe "*" -- "*" qualE: hat >
+
+  pp "*" o- "*" qualE: besteht aus >
+
+
+  quantE --|> qualE
+
+}
+#+END_SRC
+
+#+RESULTS:
+[[file:datenModel.png]]
+file:datenModel.png

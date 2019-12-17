@@ -1,0 +1,60 @@
+#+TITLE: Was alles in den Controller soll
+
+
+* User
+- Es soll dem Nutzer möglich sein sich anzumelden
+  #+begin_src java
+  login();
+  #+end_src
+
+- Es soll dem Nutzer möglich sein sich abzumelden
+  *logout*
+- Es soll dem Admin möglich sein, einem Nutzer eine Rolle hinzuzufügen
+  *rolleHinzufügen(Rolle dieRolle)*
+- Es soll dem Admin möglich sein, einem Nutzer eine Rolle zu löschen
+  *rolleLöschen(Rolle dieRolle)*
+- Es soll dem Nutzer möglich sein das Password zu ändern
+  *changePW(String newPassword)*
+
+* PKAdmin
+Die Operation der PKAdmin sind wie folgt:
+- hinzufügen einer ProzessketteVorlage
+  createPKV(ProzessketteVorlage v)
+- löschen der ProzessketteVorlage
+  deletePKV(ProzessketteVorlage v)
+- Aktualiseren der ProzessketteVorlage
+  updatePSK(ProzessketteVorlage v)
+
+- hinzufügen einer ProzessschrittVorlage
+  createPSV(ProzessschrittVorlage v)
+- löschen der ProzessschrittVorlage
+  deletePSV(ProzessschrittVorlage v)
+- Aktualiseren der ProzessschrittVorlage
+  updatePSV(ProzessschrittVorlage v)
+
+- hinzufügen einer Prozesskette
+  createPK(Prozesskette pk)
+- löschen der Prozesskette
+  deletePK(Prozesskette pk)
+- Aktualiseren der Prozesskette
+  updatePK(Prozesskette pk)
+
+- hinzufügen eines ProzessSchritt
+  createPK(ProzessSchritt ps)
+- löschen des ProzessSchrittes
+  deletePK(ProzessSchritt ps)
+- Aktualiseren des ProzessSchrittes
+  updatePK(ProzessSchritt ps)
+
+- Ihm ist es möglich die Prozesskette zu stoppen
+  stopPK(Prozesskette pk)
+- Ihm ist es möglich eine PK mit zugewiesenen Proben zu starten
+  startPK(Prozesskette pk)
+- Ihm ist es möglich eine PK zu instanzieren
+  instancePK(Auftrag a, Prozesskette pk)
+- Zuweisen einer Station an einen ProzessSchritt
+  setEsForPs(Exerperimentierstation es, ProzessSchrittVorlage ps)
+
+  Todo: Hier müssen wir entscheiden ob in der Vorlage die Station feststeht oder
+  ob es nur möglich ist schon instanzierte Prozessschritte an stationen
+  zuzuweisen. Ich bin für ersteres

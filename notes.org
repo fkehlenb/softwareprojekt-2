@@ -1,0 +1,107 @@
+#+TITLE: notes
+
+Problem Nutzerimpl
+Stratgeie: Java ee Nutzen oder Spring oder selber
+
+In der Modulsicht: Packet Security löst Problem, aufgrund von Strategie Blah
+
+Darstellen, wann bewegt der Tranport die Proben
+tApp hinterlegen welche ps wnd durchgelaufen, befndet sich der ps im schritt
+fertig
+
+gibt es nicht abgwchlossene ps, info an t
+Strategien abbilden in die module
+
+
+Abstracte PS {1:alle als eingaben zwei als ausgaben, 2}
+
+PS: fehlt welche eingabe, welche ausgabe
+
+Struktur für Log
+wann Probe wie verabeitet worden
+von was bis wann ist ps durchgelaufen
+
+
+pkZ an Auftrag
+ES kann mehre kann mehre psv haben
+ps nur an einer Station
+Gammel: Welche ps an welcher es
+PSV an 3 Stationen möglich
+Entscheiden an welchen Durchführen
+Gute Lösung: Automatische Lastenverteilung
+  - wenn ps fertig, system proben an nächsten Schritt
+  - es gibt 3, 2 frei
+    TODO: Beschreiben wie das geht
+
+    Transporteur modellieren: PS fertig probe raus
+    sehen welche Proben zu welcher Station müssen
+    Transport auch Protokollieren
+
+
+  PSSchritt braucht einen festen Zustandsautomaten
+
+  Technologe schaltet bei Proben ps n, t an n+1 liefern
+  Zustand angenommen log time, weitergeleitet
+
+  Konfigurierbarer zustand: selber definieren
+
+PP können sich als zusätzliche Attribute auswirken, also Eigenschaft an PSV
+
+Prio von Auftrag
+
+Angenommen
+In Bearbeitung
+Bearbeitet
+Weitergeleitet
+
+
+psV und PsS
+
+Menge von Aufträgen , welcher Auftrag von welchen Usern bearbeitet werden müssen
+Keine Assoziation zwischen user und Auftrag
+
+Umschalten von
+
+Es gibt 3 Prozesschritte, Uhrfomen liefert Proben
+  - Einfärbende PS: Proben rein, proben raus mit vlt neuen Attributen
+  - ermittelnde PS: messen bestimmter eigenschaften, vlt kaputt
+
+Wenn PSAdmin zustammen steckt, nur ein uhrformender
+Messend kann nur
+
+PS hat enum
+
+Probe braucht kommentar Atributt
+
+
+Hinterlegen von Informationen wie was durchgelaufen ist
+
+* Problemkarten
+In Datenmodell Text: User hat Rolle mit enum
+Strategie eindeutig Nummerieren
+
+label mit eindutigen ref mit Titel
+
+Strategie 17 Sinnlos
+
+
+* Konzeptionel
+Rest an GL
+Eigentliche Gegenbheit Abstrakion
+Client an WIldlfly wild fly an Client
+
+Behauptung: H2 ruft von
+h2 hat 1 ding
+per hat lollipop
+ JDBC
+
+ Persitzen & modell nicht mit ui verbinden
+
+ GL hat funktionen welche ui aufgerufen werden
+
+ Ports fehlen: Verlassen des Scopes des Systems
+ Wildfly und H2
+ Wildfly und Client
+
+* Evolution
+   Was muss ver'ndert werden
