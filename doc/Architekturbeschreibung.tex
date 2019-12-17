@@ -1303,7 +1303,7 @@ In der Graphik \ref{fig:logstikProbenPüftZuweisen} erhält die Logistik eine An
 
 \label{sec:evolution}
 
-\subsection{Kristallkugel Software}
+\subsection{Automatische statistische Ausewertung}
 {
 Die erste Idee zum sinnvollen Erweitern der Software soll eine Vorraussicht ausgeben können, wie sich nach dem Ausführen eines beliebigen Prozessschritts auf eine Probe ihre Eigenschaften ändern würden, bzw. welche Eigenschaften die Probe danach wahrscheinlich haben wird.
 Da wir in der Datenbank ca. eine halbe Million Proben haben, kann ein analytischer Algorithmus Statistiken erstellen, welche die höchste Wahrscheinlichkeit einer Veränderung der Eigenschaften einer Probe auswertet. 
@@ -1312,24 +1312,14 @@ Um es in unsere Architektur einzubinden, muss eine Klasse für die Statistiksoft
 \subsection{Vorraussichtliche Dauer eines Prozesses}
 {
 Man kann den Algorithmus aus der Kristallkugel Software auch dafür verwenden, dass aus den durch den Algorithmus aus 9.1 errechneten empirischen Daten die vorraussichtliche Dauer eines Prozesses errechnet und ausgegeben wird. Hier braucht man, wie in 9.1, eine neue Klasse, welche die Statistiksoftware beinhaltet, aus welcher man dann eine wahrescheinliche Zeit herausbekommt
-
-Außerdem könnte man statt eines Algorithmus Microchips in die Experimentierstationen einbauen, welche die verbleibene Zeit an die Software weitergeben können. 
 }
 \subsection{Scanner}
 {
 Da so gut wie jedes mobile Endgerät eine Kamera besitzt, könnte man diese nutzen, um QR-Codes, die auf den Proben, den Trägern, im Archiv und an jeder Station zu finden sind, zu scannen damit z.B. der Transporter nichtmehr manuell eingeben muss, welche Datei er wohin bringt. \\
 Er scannt den QR-Code des Trägers und dann die QR-Codes beliebig vieler Proben. Die Software ordnet nun automatisch die gescannten Proben dem gescannten Träger zu. 
-Er kann den QR-Code des Trägers scannen und die Software weiß automatisch, dass der angemeldete Transporter den Träger abgeholt hat und wenn er jetzt den QR-Code der nächsten Experimentierstation scannt, trägt die Software automatisch den Träger als Abgeliefert ein. 
+Er kann den QR-Code des Trägers scannen und die Software weiß automatisch, dass der angemeldete Transporter den Träger abgeholt hat und wenn er jetzt den QR-Code der nächsten Experimentierstation scannt, trägt die Software automatisch den Träger als Abgeliefert ein. \\
 }
 
-{\it
-  Beschreibt in diesem Abschnitt, welche Änderungen Ihr
-  vornehmen müsst, wenn sich Anforderungen oder Rahmenbedingungen
-  ändern. Insbesondere würden hierbei die in der
-  Anforderungsspezifikation unter "`Ausblick"' genannten
-  Punkte behandelt werden.}
-
-\dots
 
 
 \end{document}
