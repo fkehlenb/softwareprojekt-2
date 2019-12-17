@@ -1027,23 +1027,23 @@ Hier haben wir uns für Strategie 2 entschieden, weil durch die Modularisierung 
 \end{table}
 Hier haben wir uns für die erste Strategie entschieden, weil diese einfacher umzusetzen ist, wodurch wir Zeit sparen, die wir auf wichtigere Aspekte der Anwendung verwenden können. 
 
-%\begin{table}[]
-%    \centering
-%    \begin{tabular}{|p{15cm}|}
-%    \hline
-%          \textbf{Problem 13:} Nur ein Transporteur
-%          \\ \hline
-%          Wenn es Träger gibt, die von einer Station zur nächsten transportiert werden sollen, dann werden diese für alle Transporteure angezeigt. Natürlich kann aber nur ein Transporteur tatsächlich die Träger weitertragen; deswegen soll es möglich sein, dass ein Transporteur einen Auftrag annimmt, der dann für alle anderen nicht mehr sichtbar ist. \\
-%        \\  \hline
-%        \textbf{Einflussfaktoren: } \\
-%	 P1.10.3: Proben-id-Nummern \\
-%        \hline
-%        \textbf{Strategien} \\
-%         \textbf{Strategie 13.1: (ausgewählt)} \\
-%    \end{tabular}
-%    \caption{Laden von Informationen Problemkarte}
-%    \label{tab:ProblemKarte131}
-%\end{table}
+\begin{table}[]
+    \centering
+    \begin{tabular}{|p{15cm}|}
+    \hline
+          \textbf{Problem 13:} Nur ein Transporteur
+         \\ \hline
+         Wenn es Träger gibt, die von einer Station zur nächsten transportiert werden sollen, dann werden diese für alle Transporteure angezeigt. Natürlich kann aber nur ein Transporteur tatsächlich die Träger weitertragen; deswegen soll es möglich sein, dass ein Transporteur einen Auftrag annimmt, der dann für alle anderen nicht mehr sichtbar ist. \\
+        \\  \hline
+        \textbf{Einflussfaktoren: } \\
+	 P1.10.3: Proben-id-Nummern \\
+        \hline
+        \textbf{Strategien} \\
+         \textbf{Strategie 13.1: (ausgewählt)} \\
+    \end{tabular}
+    \caption{Laden von Informationen Problemkarte}
+    \label{tab:ProblemKarte131}
+\end{table}
 
 
 \begin{table}[H]
@@ -1113,7 +1113,7 @@ Diese Komponente ist verwunden mit der BusinessLogik, um die Request und Data Be
 \textbf{Model:} Hier liegen die Daten der User, Prozesskette , Proben sowie Daten und Vormerkungen des System. Diese Komponente ist mit der Interface verwundet, weil die Daten das Interfaces gezeigt werden, sind das an der Model implementieren. Diese Komponente ergibt sich aus der Strategie 15.1. \\
 \textbf{Persistenz:} Hier liegt die Verbindungen zwischen das System und Datei an der Dateibase, Diese Komponente ist verantwortlich und die Speicherung und Schreibung Funktionen an der Dateibase. diese Komponente  ist getroffen an der Anwendung der verlangte Technologie.  \\
 \textbf{BusinessLogik:} In diese Teil liegt die Funktionalität des System, diese Teil ist verantwortlich die Interaktion zwischen die Modelle und die Bearbeitung ihre Data in die Persistenz Komponente. Hier sind die das gewuchtetes Verhalten des System implementiert. diese Schnittstelle ergibt sich aus der  Strategie 15.1.  \\
-\textbf{JDVC:} Durch diese Anschlüsse  ist die Verwindung mit der Dateibase erreichbar. diese Anschlüsse erlaubt die Kommunikation zwischen die Sprache Java und die Dateibase.  \\
+\textbf{JDBC:} Durch diese Anschlüsse  ist die Verwindung mit der Dateibase erreichbar. diese Anschlüsse erlaubt die Kommunikation zwischen die Sprache Java und die Dateibase.  \\
 \textbf{DB Abstraction:} Hier sind die Datei unsere Modell abstrahiert, um durch die Anschlüsse zu der Dateibase sie zugreifen zu können \\
 \textbf{Control:} durch diese Anschlüsse ist die Bearbeitung der Data an der Persistenz Teile und der Geschäftsprozess möglich  \\
 \textbf{Request:} durch diese Anschlüsse bekommt die Modelle Komponente ihre entsprechende Daten durch die Geschäftsprozess.\\
