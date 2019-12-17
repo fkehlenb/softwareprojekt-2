@@ -603,7 +603,6 @@ Folgende Strategien zur Lösung von Problemen wurden ausgewählt: \\
 \begin{itemize}
 \item Rollen als Enum
 \item JavaEE Spezifikation
-\item H2
 \item In kleinen Schritten
 \item Priorisierte Anforderungen
 \item Gruppenarbeit
@@ -636,7 +635,7 @@ Folgende Strategien zur Lösung von Problemen wurden ausgewählt: \\
 Hier haben wir uns für die zweite Strategie entschieden, weil diese eine elegantere Lösung bietet, und benutzerfreundlicher ist. Des Weiteren erleichtert uns die bereits implementierte Java-Spezifikation die Arbeit. \\
 
 
-\begin{table}[]
+\begin{table}[H]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
@@ -647,7 +646,7 @@ Hier haben wir uns für die zweite Strategie entschieden, weil diese eine elegan
           T 1.7: Multiple Users\\
          \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 2.1: JavaEE Security(ausgewählt)} Das system wird das Java Class PasswordAuthentication nutzen, durch wen die User sich anmelden können. \\ %warum? nicht JavaEE Security?
+          \textbf{Strategie 2.1: JavaEE Security(ausgewählt)} Das system wird das Java Class PasswordAuthentication nutzen, durch wen die User sich anmelden können. \\ % das was liam meinte (steht in altem commit?
            \textbf{Strategie 2.2: Eigene Implementierung:} Wir implementieren selber ein System zur Authentifizierung von Usern. \\
           \\ \hline
 
@@ -693,11 +692,11 @@ Hier haben wir uns für die erste Strategie entschieden, weil die Benutzung eine
           T 1.5: Persistenz \\
           P 1.1.1: Upload\\
           P 1.1.2: Download\\
-          XXX : Datenbank \\
+          P 1.4: Datenbank \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 4.1:}  Nutzung von JaxB und foo, um aus den Beans JSON zu Generieren und zu können.
-          \textbf{Strategie 4.2:} Dafür nutzen wir jakarta EE und die Rest Unterstüzung von Klassen welche Serialsierbar sind, werden durch Annotation so erweitert, dass eine JSON Repräsentation möglich ist. %what? und sind das wirklich zwei, oder machen wir beiden?
+          \textbf{Strategie 4.1:}  Konkrete Parameter sind bei uns Objekte von einer Klasse Parameter. Diese Objekte können wir mithilfe von JAXB und der Rest api nach JSON serialisieren. \\ 
+          \textbf{Strategie 4.2:} Dafür nutzen wir jakarta EE und die Rest Unterstüzung von Klassen welche Serialsierbar sind, werden durch Annotation so erweitert, dass eine JSON Repräsentation möglich ist. 
           \\ \hline
     \end{tabular}
 
@@ -705,6 +704,7 @@ Hier haben wir uns für die erste Strategie entschieden, weil die Benutzung eine
     \caption{Upload/Download Problemkarte}
     \label{tab:ProblemKarte4}
 \end{table}
+Hier haben wir uns für die .. Strategie entschieden, weil .. \\
 
 \begin{table}[H]
     \centering
@@ -734,7 +734,7 @@ Hier haben wir uns  für die erste Strategie entschieden, weil diese eine feste 
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 6:} Stationenbearbeitung
+          \textbf{Problem 6:} Stationenbearbeitung 
           \\ \hline
           Der Administrator soll neue Stationen hinzufügen können. Die Software muss die Fähigkeit haben neue Stationen zu übernehmen und zu nutzen. Außerdem soll der Zustand jeder Station sichtbar und bearbeitbar sein.
           \\ \hline
@@ -744,13 +744,13 @@ Hier haben wir uns  für die erste Strategie entschieden, weil diese eine feste 
           P 1.4: Kaputte Stationen\\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 6.1:} Eigeschaften der Stationen herausfinden, damit der entsprechende Nutzer eine Station einfach hinzufügen kann. Nutzung von Spike Data modulo, um query auf der Database zu erstellen.
+          \textbf{Strategie 6.1: DeltaSpike Data: (ausgewählt)} Wir benutzen DeltaSpike Data, um Repository Patterns zu implementieren, zum Beispiel für die Bearbeitung von Stationen. \\
           \\ \hline
     \end{tabular}
     \caption{ Startionenbearbeitung Problemkarte}
     \label{tab:ProblemKarte6}
 \end{table}
-
+Hier haben wir uns für die erste Strategie entschieden, da sich dadurch eine praktische Abkoppelung zwischen Datenbank-Queries und Buisnesslogik ergibt. Des Weiteren sparen wir uns durch die Verwendung Zeit. \\
 
 
 \begin{table}[H]
@@ -773,7 +773,7 @@ Hier haben wir uns  für die erste Strategie entschieden, weil diese eine feste 
     \caption{Priorisieren von Prozessketten Problemkarte}
     \label{tab:ProblemKarte7}
 \end{table}
-
+Hier haben wir uns für die .. Strategie entschieden, weil .. \\
 
 
 \begin{table}[H]
@@ -876,7 +876,7 @@ Hier haben wir uns für Strategie 2 entschieden, weil wir nicht von Anfang an An
 Hier haben wir uns für Strategie 2 entschieden, weil durch die Modularisierung kein Entwickler alle neuen Technologien/Themen verstehen muss, sondern jeder nur einen kleineren Teil des Ganzen. Des Weiteren ist diese Strategie hoffentlich zeiteffizienter. \\
 
 
-\begin{table}[]
+\begin{table}[H]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
@@ -914,7 +914,7 @@ Hier haben wir uns für die erste Strategie entschieden, weil diese einfacher um
 %    \label{tab:ProblemKarte131}
 %\end{table}
 
-\begin{table}[]
+\begin{table}[H]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
@@ -930,7 +930,7 @@ Hier haben wir uns für die erste Strategie entschieden, weil diese einfacher um
 	\textbf{Strategie 14.2: Automatisch: (ausgewählt)} Das System analysiert, wie die für jeden Prozessschritt möglichen Stationen ausgelastet sind, und entscheidet, wo welche Schritte am effizientesten abgearbeitet werden. \\ \hline
     \end{tabular}
     \caption{Automatische Lastverteilung Problemkarte}
-    \label{tab:ProblemKarte141}
+    \label{tab:ProblemKarte14}
 \end{table}
 Hier haben wir uns für die zweite Strategie entschieden, da sie den Ablauf im Fachbereich effizienter gestalten kann. Des Weiteren könnte es für den Prozesskettenadministrator bei zu vielen Prozessketten schwierig werden, einen Überblick zu behalten. \\
 
@@ -946,13 +946,13 @@ Hier haben wir uns für die zweite Strategie entschieden, da sie den Ablauf im F
           \\ \hline
           \textbf{Einflussfaktoren: } \\
           T1.7: Multiple Users\\
-	      T1.5: Perzistence\\
+	      T1.5: Persistenz\\
           \hline
           \textbf{Strategien} \\ \hline
 
             \textbf{Strategie 15.1: Kapselung des Datenhaltung:} Nutzung unterschiedlichen Komponenten, die unterschiedlichen abstrahiere Teilen der System trägen können, damit eine schneller und sicherer Implementierung  zu erreichen.
 
-             \label{sec:strategie151} \\
+             \label{sec:strategie15} \\
           \\ \hline
     \end{tabular}
     \caption{Prozessbearbeitung und Überwachung Problemkarte}
