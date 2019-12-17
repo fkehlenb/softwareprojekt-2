@@ -26,7 +26,7 @@ pkZ an Auftrag
 ES kann mehre kann mehre psv haben
 ps nur an einer Station
 Gammel: Welche ps an welcher es
-PSV an 3 Stationen möglich
+PSV an 3 stationen möglich
 Entscheiden an welchen Durchführen
 Gute Lösung: Automatische Lastenverteilung
   - wenn ps fertig, system proben an nächsten Schritt
@@ -71,37 +71,7 @@ Messend kann nur
 
 PS hat enum
 
-Probe braucht kommentar Atributt
+Probe braucht kommentar Atribut
 
 
 Hinterlegen von Informationen wie was durchgelaufen ist
-
-* Problemkarten
-In Datenmodell Text: User hat Rolle mit enum
-Strategie eindeutig Nummerieren
-
-label mit eindutigen ref mit Titel
-
-Strategie 17 Sinnlos
-
-
-* Konzeptionel
-Rest an GL
-Eigentliche Gegenbheit Abstrakion
-Client an WIldlfly wild fly an Client
-
-Behauptung: H2 ruft von
-h2 hat 1 ding
-per hat lollipop
- JDBC
-
- Persitzen & modell nicht mit ui verbinden
-
- GL hat funktionen welche ui aufgerufen werden
-
- Ports fehlen: Verlassen des Scopes des Systems
- Wildfly und H2
- Wildfly und Client
-
-* Evolution
-   Was muss ver'ndert werden
