@@ -156,8 +156,7 @@ model -up(0-- ui: "   Kontrolle"
 ui -(0- per: "Datei Behandlung"
 ui -(0- gl: " Model Analyse"
 
-db --up0)- per: "  SQL Query   "
-db --up(0- per: "    SQL schreiben"
+db --up0)- per: "  JDBC  "
 
 
 ui -up(0- ext: "HTTP Request"
@@ -179,190 +178,25 @@ Grandparent --|> Parent : extends
 #+RESULTS:
 [[file:ex.png]]
 
-* Datenmodell
+* Datenmodel
+
+Die Ausgabe von Prozessschritt n muss kompatibel zu Eingabe Prozessschritt m
+sein: Steht steht in der Vorlage
+
+
+User hat bis zu n Rollen
+Eine Rolle existiert nicht ohne User
+Ein Auftrag ist eine instanzierte Prozesskette
+Eine Prozesskette wird von einer PkV erzeugt, die Prozesskettentemplate, kann hierbei
+gespeichert werden
+Ein Träger hat eine Art
+Die Trägerart hat getter und Setter
+Eine Experimentierstation soll die Dauer der Queue berechnen
 #+BEGIN_SRC plantuml :file datenModel.png
 skinparam monochrome true
 skinparam componentStyle uml2
 skinparam linetype ortho
-
-
-hide empty members
-
-package Datenmodel {
-  class Role  <<abstract>> {
-  }
-
-  class Logistiker  <<abstract>> {
-  +logID: int
-  }
-
-  class User {
-    +id: int
-    +vorname: String
-    +nachname: String
-    +email: String
-    +telefonnummer: String
-    +username: String
-    +password: String
-    +wurdeVerifiziert: boolean
-    +erstellungsDatum: java.util.Date
-  }
-
-  class Admin <<abstract>>{
-    +adminID: int
-  }
-
-
-  class "Technologe" as t  <<abstract>> {
-    +TID: int
-  }
-
-  class "Transport" as transport  <<abstract>> {
-    +transportID: int
-  }
-
-  class Probe {
-    +probenID: int
-    +öffentlicheProbenID: String
-    +unbrauchbar: Boolean
-  }
-
-  class Träger {
-    +id: int
-    +standort: Standort
-  }
-
-  enum Trägerart {
-    eingebettet
-    einzelen
-    glass
-  }
-
-  class "QualitativeEigenschaft" as qualE {
-    +name: String
-    +hat: Boolean
-  }
-
-  class "QuantitativeEigenschaft" as quantE {
-    +name: String
-    +wert: java.lang.Number
-    +einheit: java.units.SI
-  }
-
-  together {
-    class "Prozessschritt" as ps {
-      +psID: int
-    }
-
-    class "ProzessschrittVorlage" as psV {
-      +psVID: int
-    }
-
-    class "ProzessParameter" as pp {
-      +name: String
-      +wert: java.lang.Number
-      +einheit: java.util.SI
-    }
-  }
-
-  together {
-    class "ProzesskettenAdministrator" as pkAdmin  <<abstract>> {
-      +pkAdminID: int
-    }
-
-
-    class "Prozesskette" as pk {
-      +priorität: enum
-      +pkID:int
-      +pkZustand: enum
-    }
-
-    class "ProzessketteVorlage" as pkV {
-      +pkKID: int
-    }
-
-    class "ProzesskettenZustand" as pkZ {
-      +pkStatus: enum("Instanziert", "Freigeben", "Abgebrochen")
-    }
-  }
-
-  class "ExperimentierStation" as es {
-    +esID: int
-    +standort: String
-    +status: boolean
-    +kaputt: boolean
-  }
-
-  class "Randbedingung" as rb {
-    +pre: List<ProzessParameter>
-    +post: List<ProzessParameter>
-  }
-
-  class JSONObject {
-    +JSONPS: JSONArray
-    +PSObejct: JSONObject
-  }
-
-  class Auftrag {
-  logs: List<String>
-  }
-
-  Role <|-left- Logistiker
-  Role "0..*"-left-"1..*" User
-  Role <|-right- Admin
-  Role <|-right- t
-  Role <|-- transport
-
-  Logistiker "1" -- Probe
-  Logistiker "1" -- "1..*" Träger
-  Probe o-- "0..*"quantE : besitzt
-  Probe o-- "0..*"qualE : besitzt
-  Trägerart"1" --o "1.." Träger
-  Probe "0..*"--o "0..1" Träger
-
-  Admin "1" -- "1..*" User
-
-  Role <|-- pkAdmin
-  pkAdmin "1" -- psV
-
-  psV -- Trägerart
-  ps "1"--"1" psV
-  ps "1..*" -- "0..*" pk
-
-  pkV "1" -- "1" ps
-  pkV "1..*" -- "1..*" pk
-
-  pk "1" -- "1" pkZ
-  pk "1" -- "1..*" Träger
-  pk -- "1" t
-
-  ps "1..*" -- "1..*" pp
-  pp o-- "1..*" qualE: besitzt
-  pp o-- "1..*" quantE: besitzt
-
-  es "0..*" -- "1" Admin
-  es "1" -- "0..*" psV
-  es "0..*" -- "1" t
-
-  transport "1" -- pk
-
-  rb "0..*" --o ps
-
-  t "1" -down- "0..*" JSONObject
-
-  pkAdmin "0..n" -- "1" Auftrag
-  pkV "1" --o Auftrag
-}
-#+END_SRC
-
-#+RESULTS:
-[[file:datenModel.png]]
-
-* Datenmodel aber es kann nur an einen Übertragen werden
-#+BEGIN_SRC plantuml :file datenModelNurEineID.png
-skinparam monochrome true
-skinparam componentStyle uml2
-skinparam linetype ortho
+skinparam classAttributeIconSize 0
 
 
 hide empty members
@@ -383,21 +217,28 @@ class User {
   +email: String
   +telefonnummer: String
   +username: String
-  +password: String
+  +password: Byte[]
   +wurdeVerifiziert: boolean
   +erstellungsDatum: java.util.Date
 }
 
 
 class Probe {
-  +probenID: int
-  +öffentlicheProbenID: String
-  +unbrauchbar: Boolean
+  +probenID: String
+  +kommentar: String
+  +zerstört: boolean
+  +verloren: boolean
+}
+
+
+class Standort {
+  +Ort:String
 }
 
 class Träger {
   +id: int
   +standort: Standort
+  +zugewiesnerAuftrag: Auftrag
 }
 
 enum Trägerart {
@@ -406,25 +247,53 @@ enum Trägerart {
   glass
 }
 
+class Archiv {
+auftrag: Auftrag
+archiviert: boolean
+datum: java.util.Date
+}
+
 class "QualitativeEigenschaft" as qualE {
   +name: String
-  +hat: Boolean
 }
 
 class "QuantitativeEigenschaft" as quantE {
-  +name: String
   +wert: java.lang.Number
   +einheit: java.units.SI
 }
 
 class "Prozessschritt" as ps {
   +psID: int
-  +pre: List<ProzessParameter>
-  +post: List<ProzessParameter>
+  +uploaded: bool
+  +eingabeTräger: List<Trägerart>
+  +ausgabeTräger: List<Trägerart>
+  +current: Experimentierstation
+  +zustand: String
+  +station : Experimentierstation
+  +auftrag: Auftrag
+}
+
+class Prozessschrittlog {
+  +gestartet
+  +geendet
+  +PSZustand
+}
+
+class ProzessschrittZustand {
+   +zustände: List<String>
 }
 
 class "ProzessschrittVorlage" as psV {
   +psVID: int
+  +zustände: List<String>
+  +trägerArt: Trägerart
+  +dauer: java.util.Time
+}
+
+enum ProzessschrittArt {
+URFORMEND
+FÄRBEND
+ERMITTELEND
 }
 
  class "ProzessParameter" as pp {
@@ -432,10 +301,23 @@ class "ProzessschrittVorlage" as psV {
   }
 
 
-class "Prozesskette" as pk {
-  +priorität: enum
+class Auftrag {
   +pkID:int
-  +pkZustand: enum
+}
+
+class AuftragsLog {
+  +start: java.util.Date
+  +ende: java.util.Date
+  +psLogs: Prozessschrittlog
+}
+
+
+enum AuftragsPriorität {
+keine
+etwas
+viel
+hoch
+sehr hoch
 }
 
 class "ProzessketteVorlage" as pkV {
@@ -445,56 +327,75 @@ class "ProzessketteVorlage" as pkV {
 enum "ProzesskettenZustand" as pkZ {
     Instanziert
     Freigeben
+    Gestartet
     Abgebrochen
+    Durchgeführt
+}
+
+class Bedingung {
+  +vorBedingungA: List<ProzessParamter>
+  +vorBedingungB: List<QualitativenEigenschaften>
 }
 
 class "ExperimentierStation" as es {
   +esID: int
   +standort: String
-  +status: boolean
-  +kaputt: boolean
-}
-
-class JSONObject {
-  +JSONPS: JSONArray
-  +PSObejct: JSONObject
-}
-
-class Auftrag {
-  logs: List<String>
+  +status: enum ["verfügbar", "besetzt", kaputt]
+  +currentPS: Prozessschritt
+  +nextPS: Queue<Prozessschritt>
 }
 
 
-  User "1..*" -- "0..*" Role
 
-  Probe o-- "0..*"quantE : hat >
-  Probe o-- "0..*"qualE : hat >
-  Trägerart"1" --o "1.." Träger
-  Probe "0..*"--o "0..1" Träger
+  User "0..*" -left- "1..*" Role
+  User "*" -- "*" es: < hat
+  User "0" --  "*" Träger
 
 
-  ps "1"--"1" psV
-  ps "1..*" -- "0..*" pk
+  User "0..1" -- "0..*" Auftrag: hat >
+  Auftrag "1" -* "1" AuftragsPriorität
+  Auftrag "1" -* "1..*" ps: hat >
+  Auftrag "1"  -- "1..*" AuftragsLog: hat >
+  Auftrag "1" -- "1" pkZ: hat >
+  Auftrag "1" -- "1" pkV: < instanziert
 
-  pkV "1" -- "1" pk
-
-  pk "1" -- "1" pkZ
-  pk "1" -- "1..*" Träger
-
-  ps "1..*" -- "1..*" pp
-  pp o-- "1..*" qualE: besitzt
-  pp o-- "1..*" quantE: besitzt
-
-  es "1" -- "0..*" psV
+  (Auftrag, ps) .. Träger
 
 
-  Auftrag "1" -down- "0..*" JSONObject
+  ps "1" -- "1" psV: < instanziert
+  ps "1"-- "1" Prozessschrittlog:  hat >
+  ps "1" -- "1" ProzessschrittZustand: hat >
 
-  pkV "1" -right-"1" Auftrag
 
-  User "1..*" -- "1" Auftrag
+  psV "1" --  "1" ProzessschrittArt: hat >
+  psV "1" -- "1..*" pp: hat >
+  psV "1" --"1..*" es: hat >
+
+  (psV, es) .. Bedingung
+
+ Träger "1" -- "1" Trägerart: hat >
+ Träger "0..1" -- "0..*" Probe: hat >
+ Träger "*" -- "1" Standort: hat >
+
+  pkV "*" -- "1" psV: hat >
+
+  Bedingung "1" -- "*" pp
+  Bedingung  "1" -- "*" qualE
+
+
+  Probe "0..1" *- "0..1" Archiv
+  Probe "*" -- "1" Standort: hat >
+  Probe "*" -- "*" pp: hat >
+  Probe "*" -- "*" qualE: hat >
+
+  pp "*" o- "*" qualE: besteht aus >
+
+
+  quantE --|> qualE
+
 }
 #+END_SRC
 
 #+RESULTS:
-[[file:datenModelNurEineID.png]]
+[[file:datenModel.png]]
+file:datenModel.png
