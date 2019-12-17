@@ -432,7 +432,7 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
 \multicolumn{5}{|l|}{T1.4: Oberfläche}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Als Framework \\zur Erstellung \\der Oberfläche\\ muss JSF\\ verwendet\\ werden.\end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine Flexibilität, da\\   Vorgaben bestehen. /\\   Keine Veränderbarkeit, da\\  Vorgaben bestehen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Das Projekt muss\\ in Java umgesetzt \\werden.\end{tabular} \\ \hline
 
-\multicolumn{5}{|l|}{T1.5: Persistent}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
+\multicolumn{5}{|l|}{T1.5: Persistenz}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Relationale\\ Datenbank H2 \\muss für die\\ Persistenz\\ verwendet werden.\end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine Flexibilität, da\\   Vorgaben bestehen. /\\   Keine Veränderbarkeit, da\\  Vorgaben bestehen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Bei der Implementierung\\muss H2 verwendet \\werden.\end{tabular} \\ \hline
 
 \multicolumn{5}{|l|}{T1.6: Build System}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
@@ -545,15 +545,17 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
                                                           & \begin{tabular}[c]{@{}l@{}}Es soll\\unterschiedliche \\Rollen mit\\unterschiedlichen\\Rechten und\\angezeigten\\Informationen\\ geben.\\Jeder User\\soll mindestens\\eine Rolle haben. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss\\zwischen diesen Rollen\\unterscheiden können und \\sichergehen, dass bestimmte\\Funktionen und\\ Informationen nur zur \\Verfügung stehen wenn der \\Benutzer die Rechte dafür \\hat.\end{tabular} \\ \hline
  \multicolumn{5}{|l|}{P3.2: Authentifizierung}                                                                         \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Benutzer sollten\\sich in das\\System einloggen\\müssen, um\\relevante\\Informationen\\angezeigt zu\\bekommen. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss\\eine Login Seite\\vorsehen; ein Zugriff auf\\die Anwendung ohne sich\\einzuloggen soll nicht\\möglich sein.\end{tabular} \\ \hline
+ \multicolumn{5}{|l|}{P4: Datenbank}                                                                         \\ \hline
+                                                          & \begin{tabular}[c]{@{}l@{}}Zur Speicherung\\ der Daten über\\ eine Sitzung \\hinweg soll\\ eine Datenbank\\ verwendet werden. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Anwendung muss\\ alle Daten korrekt \\auf der Datenbank\\ speichern können und \\von dieser Datenbank\\ lesen können. \end{tabular} \\ \hline
 \end{tabular}
 \end{table}
 
 die Notation der Flexibilität hat die  Bedeutung :
 \begin{itemize}
-    \item --
-    \item -
-    \item ++
-    \item +
+    \item -- : Keine Flexibilität
+    \item - : schlechte, aber nicht komplett starre Flexibilität
+    \item ++: sehr gute Flexibilität
+    \item +: gute Flexibilität
       Anforderungen.
   \end{itemize} 
 
@@ -561,46 +563,46 @@ die Notation der Flexibilität hat die  Bedeutung :
 
 \subsection{Probleme und Strategien} \label{sec:strategien}
 
-{ \em Aus einer Menge von Faktoren ergeben sich Probleme, die nun in
-  Form von Problemkarten beschrieben werden. Diese resultieren z.\,B.\
-  aus
-  \begin{itemize}
-    \item Grenzen oder Einschränkungen durch Faktoren
-    \item der Notwendigkeit, die Auswirkung eines Faktors zu begrenzen
-    \item der Schwierigkeit, einen Produktfaktor zu erfüllen, oder
-    \item der Notwendigkeit einer allgemeinen Lösung zu globalen
-      Anforderungen.
-  \end{itemize}
-  Dazu entwickelt Ihr Strategien, um mit den identifizierten Problemen
-  umzugehen.
+%{ \em Aus einer Menge von Faktoren ergeben sich Probleme, die nun in
+% Form von Problemkarten beschrieben werden. Diese resultieren z.\,B.\
+% aus
+%  \begin{itemize}
+%   \item Grenzen oder Einschränkungen durch Faktoren
+%    \item der Notwendigkeit, die Auswirkung eines Faktors zu begrenzen
+%    \item der Schwierigkeit, einen Produktfaktor zu erfüllen, oder
+%    \item der Notwendigkeit einer allgemeinen Lösung zu globalen
+%      Anforderungen.
+%  \end{itemize}
+%  Dazu entwickelt Ihr Strategien, um mit den identifizierten Problemen
+%  umzugehen.
 
-  Achtet auch hier darauf, dass die Probleme und Strategien wirklich
-  die Architektur betreffen und nicht etwa das Projektmanagement. Die
-  Strategien stellen im Prinzip die Designentscheidungen dar. Sie
-  sollten also die Erklärung für den konkreten Aufbau der
-  verschiedenen Sichten liefern.
+%  Achtet auch hier darauf, dass die Probleme und Strategien wirklich
+%  die Architektur betreffen und nicht etwa das Projektmanagement. Die
+%  Strategien stellen im Prinzip die Designentscheidungen dar. Sie
+%  sollten also die Erklärung für den konkreten Aufbau der
+%  verschiedenen Sichten liefern.
 
-  Beschreibt möglichst mehrere Alternativen und gebt an, für welche
-  Ihr Euch letztlich aus welchem Grunde entschieden habt. Natürlich
-  müssen die genannten Strategien in den folgenden Sichten auch
-  tatsächlich umgesetzt werden!
+%  Beschreibt möglichst mehrere Alternativen und gebt an, für welche
+%  Ihr Euch letztlich aus welchem Grunde entschieden habt. Natürlich
+%  müssen die genannten Strategien in den folgenden Sichten auch
+%  tatsächlich umgesetzt werden!
 
-  Ein sehr häufiger Fehler ist es, dass SWP-Gruppen arbeitsteilig
-  vorgehen: die eine Teilgruppe schreibt das Kapitel zur Analyse von
-  Faktoren und zu den Strategien, die andere Teilgruppe beschreibt die
-  diversen Sichten, ohne dass diese beiden Teilgruppen sich abstimmen.
-  Da der Zweck der Faktoren und Strategien ist, die
-  Designentscheidungen für den Entwurf zu erarbeiten, besteht
-  natürlich ein Zusammenhang zwischen den Faktoren, Strategien und
-  Sichten. Dieser muss erkennbar sein, indem sich die verschiedenen
-  Kapitel eindeutig aufeinander beziehen.
-}
+ % Ein sehr häufiger Fehler ist es, dass SWP-Gruppen arbeitsteilig
+ % vorgehen: die eine Teilgruppe schreibt das Kapitel zur Analyse von
+ % Faktoren und zu den Strategien, die andere Teilruppe beschreibt die
+ % diversen Sichten, ohne dass diese beiden Teilgruppen sich abstimmen.
+ % Da der Zweck der Faktoren und Strategien ist, die
+ % Designentscheidungen für den Entwurf zu erarbeiten, besteht
+ % natürlich ein Zusammenhang zwischen den Faktoren, Strategien und
+ % Sichten. Dieser muss erkennbar sein, indem sich die verschiedenen
+ % Kapitel eindeutig aufeinander beziehen.
+%}
+
 Im Folgenden werden einige Probleme, die sich aus den herausgearbeiteten Einflussfaktoren ergeben, thematisiert. Dazu werden die Probleme zunächst mitsamt der Einflussfaktoren, aus denen sie sich ergeben, vorgestellt, und anschließend unterschiedliche Strategien, um mit ihnen umzugehen, vorgestellt. \\ Diese Strategien werden daraufhin bewertet und es wird eine für jedes Problem ausgewählt. Diese Auswahl wird begründet. \\ 
 Folgende Strategien zur Lösung von Problemen wurden ausgewählt: \\
 \begin{itemize}
 \item Rollen als Enum
 \item JavaEE Spezifikation
-\item H2
 \item In kleinen Schritten
 \item Priorisierte Anforderungen
 \item Gruppenarbeit
@@ -609,13 +611,8 @@ Folgende Strategien zur Lösung von Problemen wurden ausgewählt: \\
 \end{itemize}
 
 
-Im Folgenden werden einige Probleme, die sich aus den herausgearbeiteten Einflussfaktoren ergeben, thematisiert. Dazu werden die Probleme zunächst mitsamt der Einflussfaktoren, aus denen sie sich ergeben, vorgestellt, und anschließend unterschiedliche Strategien, um mit ihnen umzugehen, vorgestellt. \\ 
-Diese Strategien werden daraufhin bewertet und es wird eine für jedes Problem ausgewählt. Diese Auswahl wird begründet. \\ 
-Folgende Strategien zur Lösung von Problemen wurden ausgewählt: \\
-...
 
-
-\begin{table}[]
+\begin{table}[H]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
@@ -627,18 +624,18 @@ Folgende Strategien zur Lösung von Problemen wurden ausgewählt: \\
           O 1.1: Time-To-Market \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Jeder Mitarbeiter kriegt für jede der Rollen, die er erfüllt, einen eigenen Account. \\
-          \textbf{Strategie 2: (augewählt)} Die Rollen werden als Aufzählungstyp realisiert, der in einer m:m Beziehung zu der Userklasse steht. Dadurch kann für jeden User gespeichert werden, welche Rollen er/sie innehat. Die Sicherheit bezüglich der unterschiedlichen Fähigkeiten/Rechte der Rollen wird über die JavaEE-Security-Spezifikation realisiert (siehe Strategie 1 für Problem 2)\\
-          Machen sichtbar unterschiedlichen Schnittstellen des Software in Bezug von der Rollen jedes User. \\ \hline
+          \textbf{Strategie 1.1: Mehrere Accounts:} Jeder Mitarbeiter kriegt für jede der Rollen, die er erfüllt, einen eigenen Account. \\
+          \textbf{Strategie 1.2: Enumeration (augewählt)} Die Rollen werden als Aufzählungstyp realisiert, der in einer m:m Beziehung zu der Userklasse steht. Dadurch kann für jeden User gespeichert werden, welche Rollen er/sie innehat. Die Sicherheit bezüglich der unterschiedlichen Fähigkeiten/Rechte der Rollen wird über die JavaEE-Security-Spezifikation realisiert (siehe Strategie 1 für Problem 2)\\
+	 \\ \hline
     \end{tabular}
 
-    \caption{Userrollen Problem Karte}
+    \caption{Userrollen Problemkarte}
     \label{tab:ProblemKarte1}
 \end{table}
 Hier haben wir uns für die zweite Strategie entschieden, weil diese eine elegantere Lösung bietet, und benutzerfreundlicher ist. Des Weiteren erleichtert uns die bereits implementierte Java-Spezifikation die Arbeit. \\
 
 
-\begin{table}[]
+\begin{table}[H]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
@@ -649,34 +646,38 @@ Hier haben wir uns für die zweite Strategie entschieden, weil diese eine elegan
           T 1.7: Multiple Users\\
          \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:(ausgewählt)} Das system wird das Java Class PasswordAuthentication nutzen, durch wen die User sich anmelden können. \\
-           \textbf{Strategie 2:} Wir werden eine eigene Klasse implementieren, um die User an der Software sich anmelden kann. \\
+          \textbf{Strategie 2.1: JavaEE Security(ausgewählt)} Das system wird das Java Class PasswordAuthentication nutzen, durch wen die User sich anmelden können. \\ % das was liam meinte (steht in altem commit?
+           \textbf{Strategie 2.2: Eigene Implementierung:} Wir implementieren selber ein System zur Authentifizierung von Usern. \\
           \\ \hline
 
     \end{tabular}
 
-    \caption{Datensicherheit Problem Karte}
+    \caption{Datensicherheit Problemkarte}
     \label{tab:ProblemKarte2}
 \end{table}
 Hier haben wir uns für die erste Strategie entschieden, weil die Benutzung einer bereits implementierten Spezifikation uns viel Zeit spart. \\
+
 
 \begin{table}[H]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 3:} Nebenläufige Benutzung  \\ \hline !H2 TEIL DER MINDESTANFORDERUNGEN!
-          Die Anwendung kann von mehreren Usern gleichzeitig benutzt werden. Dabei müssen die Daten in der Datenbank richtig angezeigt/verändert werden, und die Datensicherheit darf nicht komprimiert werden. \\ \hline
+          \textbf{Problem 3:} Entlassen Mitarbeiter \\ \hline 
+          Da alte Mitarbeiter gehen können, muss es notwendig sein, alte User zu löschen, ohne dass relevante Informationen zu den Prozessketten verloren gehen (wie Nullpointer in den Protokollen).
+          \\ \hline
           \textbf{Einflussfaktoren: } \\
-          T 1.5: Persistent \\
+          T 1.5: Persistenz \\
           T 1.7: Multiple Users\\
+          T 1.5: Datenbank \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1 Einsatz ein Transaktionssicherheit  Datenbank:} Nutzung eine Datenbank, die Transaktion Sicherheit . Infolgedessen kann man inkonsistente  Transaktionen vermeiden, wenn multiple User an der Software gleichzeitig arbeiten. \\
-          \textbf{Strategie 2 Warnungen zur Users:} Informieren zu der User, dass andere Users  arbeiten an der selbe Datei, damit der User  Nebenläufigkeit Probleme vermeiden kann. \\
+          \textbf{Strategie 3.1: Variable} Jede User  wird ein Variabel Aktiv haben, die anzeigt, ob dieser User noch im Fachbereich arbeitet oder nicht. Alle notwendigen Daten dieses Users existieren aber in archivierter Form weiter auf der Datenbank, um keine Referenzen oder Protokolle unlesbar zu machen. \\
+	\textbf{Strategie 3.2: Unabhängiges Speichern} Im Protokoll und an allen weiteren Stellen wird nicht mit Referenzen auf User gearbeitet, sondern Name oder id fest gespeichert. \\
           \\ \hline
+
     \end{tabular}
 
-    \caption{Nebenläufige Benutzung Problem Karte}
+    \caption{Entlassen Mitarbeiter Problemkarte}
     \label{tab:ProblemKarte3}
 \end{table}
 
@@ -684,186 +685,79 @@ Hier haben wir uns für die erste Strategie entschieden, weil die Benutzung eine
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 4:} Entlassen/Einstellen Mitarbeiter \\ \hline !TEIL DER MINDESTANFORDERUNGEN!
-          Da alte Mitarbeiter gehen können, muss es notwendig sein, alte User zu Löschen, ohne dass relevante Informationen zu den Prozessketten verloren gehen (wie Nullpointer in den Protokollen).
+          \textbf{Problem 4:} Upload/Download Prozessketten- und Prozessschrittparameter \\ \hline
+          Die Software kann neue Prozessketten- und Prozessschrittparameter aus JSON-Dateien hochladen, und bestehende als JSON-Dateien exportieren.
           \\ \hline
           \textbf{Einflussfaktoren: } \\
-          T 1.5: Persistent \\
-          T 1.7: Multiple Users\\
-          T 1.5: Datenbank \\
-          \hline
-          \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Jede User  wird ein Variabel Aktiv haben, an der Fall dass ein User nicht mehr an der Firma arbeitet wird. Diese Instanz wird deaktiviert werden. aber an der Data Base wird die Daten noch existieren, damit ein weiteres Kontrolle  auf die Aufgabe der deaktivieren User zu haben. 
-          \textbf{Strategie 2:} \\
-          \\ \hline
-
-    \end{tabular}
-
-    \caption{Entlassen/Einstellen Mitarbeiter Problem Karte}
-    \label{tab:ProblemKarte4}
-\end{table}
-
-\begin{table}[H]
-    \centering
-    \begin{tabular}{|p{15cm}|}
-    \hline
-          \textbf{Problem 5:} Upload/Download Prozessketten- und Prozessschrittparameter \\ \hline
-          Die Software kann neue Prozessketten und Prozessschrittparameter aus JSON-Dateien hochladen, und bestehende als JSON-Dateien exportieren.
-          \\ \hline
-          \textbf{Einflussfaktoren: } \\
-          T 1.5: Persistent \\
+          T 1.5: Persistenz \\
           P 1.1.1: Upload\\
           P 1.1.2: Download\\
-          XXX : Datenbank \\
+          P 1.4: Datenbank \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:}  Nutzung von JaxB und foo, um aus den Beans JSON zu Generieren und zu können.
-          \textbf{Strategie 2:} Dafür nutzen wir jakarta EE und die Rest Unterstüzung von Klassen welche Serialsierbar sind, werden durch Annotation so erweitert, dass eine JSON Repräsentation möglich ist.
+          \textbf{Strategie 4.1:}  Konkrete Parameter sind bei uns Objekte von einer Klasse Parameter. Diese Objekte können wir mithilfe von JAXB und der Rest api nach JSON serialisieren. \\ 
+          \textbf{Strategie 4.2:} Dafür nutzen wir jakarta EE und die Rest Unterstüzung von Klassen welche Serialsierbar sind, werden durch Annotation so erweitert, dass eine JSON Repräsentation möglich ist. 
           \\ \hline
     \end{tabular}
 
 
-    \caption{Problem Karte}
-    \label{tab:ProblemKarte5}
+    \caption{Upload/Download Problemkarte}
+    \label{tab:ProblemKarte4}
 \end{table}
+Hier haben wir uns für die .. Strategie entschieden, weil .. \\
 
 \begin{table}[H]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 6:} Protokollierung der Prozessketten
+          \textbf{Problem 5:} Protokollierung der Prozessketten
           \\ \hline
-          Die Abarbeitung einer Prozesskette soll protokolliert werden (wann welche Zustandsübergänge stattfanden).
+          Die Abarbeitung einer Prozesskette soll protokolliert werden (wann welche Zustandsübergänge stattfanden). Dazu sollen Parameter, Personen, und Stationen gespeichert werden. %ist das alles?
           \\ \hline
           \textbf{Einflussfaktoren: } \\
-          T 1.5: Persistent \\
+          T 1.5: Persistenz \\
           P 1.2: Protokollierung\\
           \hline
           \textbf{Strategien} \\ \hline
+	\textbf{Strategie 5.1: Datenklassen (ausgewählt)} Wir legen für die Protokolle und die einzelnen Einträge eigene Datenklassen an.\\
+        \textbf{Strategie 5.2: Liste von Strings} Alle Details werden in einer Liste von Strings, die jeweils den Protokolleintrag für eine Veränderung beinhalten, gespeichert. \\
           \\ \hline
     \end{tabular}
 
-    \caption{Protokollierung der Prozessketten Problem Karte}
-    \label{tab:ProblemKarte6}
+    \caption{Protokollierung der Prozessketten Problemkarte}
+    \label{tab:ProblemKarte5}
 \end{table}
-
-%\begin{table}[]
-%    \centering
-%    \begin{tabular}{|p{15cm}|}
-%    \hline
-%          \textbf{Problem 7:} Stationenbearbeitung
-%          \\ \hline
-%          Der Administrator soll neue Stationen hinzufügen können. Die Software muss die Fähigkeit haben neue Stationen zu übernehmen und zu nutzen. Außerdem soll der Zustand jeder Station sichtbar und bearbeitbar sein.
-%          \\ \hline
-%          \textbf{Einflussfaktoren: } \\
-%          T 1.5: Persistent \\
-%          P 1.4: Experimentierstationen \\
-%          P 1.4: Kaputte Stationen\\
-%          \hline
-%          \textbf{Strategien} \\ \hline
-%          \textbf{Strategie 1:} Die 
-%          \\ \hline
-%    \end{tabular}
-%    \caption{Caption}
-%    \label{tab:ProblemKarte7}
-%\end{table}
-
-%\begin{table}[]
- %   \centering
-%    \begin{tabular}{|p{15cm}|}
-%    \hline
-%          \textbf{Problem 8:} Überwachung der Zustände
-%          \\ \hline
-%          Wenn ein Logistiker einen Prozess gestartet hat, sollte der Prozess gestoppt, wieder gestartet und priorisiert werden können von dem Prozessketteadministrator.
-%          \\ \hline
-%          \textbf{Einflussfaktoren: } \\
- %         T 1.5: Persistent \\
- %         P 1.7: Aufträge\\
- %         P 1.7.1: Kaputte Stationen\\
-%          P 1.7.2: Automatisches Zuorden\\
-%          P 1.9: Automatisches Zuorden\\
-%          \hline
-%          \textbf{Strategien} \\ \hline
-%          \textbf{Strategie 1:} Zustandautma
-%          \\ \hline
-%    \end{tabular}
-%    \caption{Caption}
-%    \label{tab:ProblemKarte8}
-%\end{table}
-
-%\begin{table}[]
-   % \centering
- %  \begin{tabular}{|p{15cm}|}
-%    \hline
-%          \textbf{Problem 9:} Prozessbearbeitung und Überwachung
-%          \\ \hline
-%          Der Prozesskettenadministrator kann einen Prozess mit unterschiedlichen Prozessschritten bauen. Dieser Prozess soll veränderbar sein und umtauschbar, um den Bedürfnissen der Benutzer gerecht zu werden.
-%          \\ \hline
-%          \textbf{Einflussfaktoren: } \\
-%          T 1.5: Persistent \\
-%          P 1.4: Experimentierstationen verwalten\\
-%          P 1.6: Prozessketten\\
-%          \hline
-%          \textbf{Strategien} \\ \hline
-%          \textbf{Strategie 1:} Eigenschaften der Stationen herausfinden, damit der entsprechende Nutzer ein Station einfach hinzufügen können.
-%          \\ \hline
-%    \end{tabular}
-
-%    \caption{Caption}
-%    \label{tab:ProblemKarte9}
-%\end{table}
-
-%\begin{table}[]
-%    \centering
-%    \begin{tabular}{|p{15cm}|}
-%    \hline
-%          \textbf{Problem 7:} Stationenbearbeitung
-%          \\ \hline
-%          Der Administrator soll neue Stationen hinzufügen können. Die Software muss die Fähigkeit haben neue Stationen zu %übernehmen und zu nutzen. Außerdem soll der Zustand jeder Station sichtbar und bearbeitbar sein.
-%          \\ \hline
-%          \textbf{Einflussfaktoren: } \\
-%          T 1.5: Persistent \\
-%          P 1.2: Protokollierung\\
-%          P 1.4:\\
-%          p 1.4.1\\
-%          \hline
-%          \textbf{Strategien} \\ \hline
-%          \textbf{Strategie 1:} Eingeschaften der Stationen herausfinden, damit der entsprechende Nutzer eine Station einfach %hinzufügen kann.
-%          \\ \hline
-%    \end{tabular}
-%    \caption{Caption}
-%    \label{tab:ProblemKarte7}
-%\end{table}
+Hier haben wir uns  für die erste Strategie entschieden, weil diese eine feste Formatierung vorgibt, und somit sichergestellt ist, dass die Protokolle gleich aussehen.\\
 
 \begin{table}[]
 
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 7:} Startionenbearbeitung
+          \textbf{Problem 6:} Stationenbearbeitung 
           \\ \hline
           Der Administrator soll neue Stationen hinzufügen können. Die Software muss die Fähigkeit haben neue Stationen zu übernehmen und zu nutzen. Außerdem soll der Zustand jeder Station sichtbar und bearbeitbar sein.
           \\ \hline
           \textbf{Einflussfaktoren: } \\
-          T 1.5: Persistent \\
+          T 1.5: Persistenz \\
           P 1.4: Experimentierstationen\\
           P 1.4: Kaputte Stationen\\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Eingeschaften der Stationen herausfinden, damit der entsprechende Nutzer eine Station einfach hinzufügen kann. Nutzung von Spike Data modulo, um query auf der Database zu erstellen.
+          \textbf{Strategie 6.1: DeltaSpike Data: (ausgewählt)} Wir benutzen DeltaSpike Data, um Repository Patterns zu implementieren, zum Beispiel für die Bearbeitung von Stationen. \\
           \\ \hline
     \end{tabular}
-    \caption{ Startionenbearbeitung Problem Karte}
-    \label{tab:ProblemKarte7}
+    \caption{ Startionenbearbeitung Problemkarte}
+    \label{tab:ProblemKarte6}
 \end{table}
-
+Hier haben wir uns für die erste Strategie entschieden, da sich dadurch eine praktische Abkoppelung zwischen Datenbank-Queries und Buisnesslogik ergibt. Des Weiteren sparen wir uns durch die Verwendung Zeit. \\
 
 
 \begin{table}[H]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 8:} Priorisieren von Prozessketten
+          \textbf{Problem 7:} Priorisieren von Prozessketten
           \\ \hline
           Laufende Prozessketten sollen priorisiert werden können, was zur Folge hat, dass sie, wann immer mehrere Prozessketten auf die gleichen Aktionen warten, schneller drankommen. 
           \\ \hline
@@ -872,45 +766,24 @@ Hier haben wir uns für die erste Strategie entschieden, weil die Benutzung eine
           P 1.7: Aufträge \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Die Prioritäten der Prozessketten werden den Usern angezeigt, damit sie selber sehen, welche sie als erstes bearbeiten sollten. \\
-          \textbf{Strategie 2:} Es werden automatisch die Prozesskettenprioritäten analysiert und sortiert angezeigt. \\
+          \textbf{Strategie 7.1: Anzeige} Die Prioritäten der Prozessketten werden den Usern angezeigt, damit sie selber sehen, welche sie als erstes bearbeiten sollten. \\
+          \textbf{Strategie 7.2: Automatische Sortierung} Es werden automatisch die Prozesskettenprioritäten analysiert und sortiert angezeigt. \\
           \\ \hline
 
           Der Logistiker möchte einen Überblick über alle Proben, die im Lager liegen. Da die Probenkügelchen alle einzeln gespeichert werden, und es somit eine sehr große Menge an Proben ist, könnte das Laden aller Proben auf einmal zu Performanceproblemen führen.
 
     \end{tabular}
-    \caption{Priorisieren von Prozessketten Problem Karte}
-    \label{tab:ProblemKarte8}
+    \caption{Priorisieren von Prozessketten Problemkarte}
+    \label{tab:ProblemKarte7}
 \end{table}
-
-
+Hier haben wir uns für die .. Strategie entschieden, weil .. \\
 
 
 \begin{table}[H]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 9:} Prozessbearbeitung und Überwachung
-          \\ \hline
-          Der Prozesskettenadministrator kann einen Prozess mit unterschiedlichen Prozessschritten bauen. Dieser Prozess soll veränderbar sein und umtauschbar, um den Bedürfnissen der Benutzer gerecht zu werden.
-
-          \\ \hline
-          \textbf{Einflussfaktoren: } \\
-          P1.10.2: Lagerübersicht \\
-	      P1.10.3: Proben-id-Nummern \\
-          \hline
-          \textbf{Strategien} \\ \hline
-          \\ \hline
-    \end{tabular}
-    \caption{Prozessbearbeitung und Überwachung Problem Karte}
-    \label{tab:ProblemKarte9}
-\end{table}
-
-\begin{table}[H]
-    \centering
-    \begin{tabular}{|p{15cm}|}
-    \hline
-          \textbf{Problem 10:} Probenverwaltung
+          \textbf{Problem 8:} Probenverwaltung
           \\ \hline
          In der Anwendungsumgebung gibt es eine hohe Anzahl an Proben, die alle in der Datenbank gespeichert werden sollen. Dadurch, dass es so viele sind (von Materialien der gleichen Sorte gibt es viele kleine Kügelchen), stellt sich die Frage, ob es sinnvoll ist, jede einzelne dieser Kügelchen identifizieren zu können.
           \\ \hline
@@ -919,42 +792,22 @@ Hier haben wir uns für die erste Strategie entschieden, weil die Benutzung eine
 	 P1.10.3: Proben-id-Nummern \\
           \hline
           \textbf{Strategien} \\ \hline
-\textbf{Strategie 1:In kleinen Schritten:(ausgewählt)} Es wird immer nur ein kleiner Ausschnitt aus der Datenbank geladen. Dafür wird lazy loading gennutzt \\
-         \textbf{Strategie 2:} Es werden Repräsentanten von Probenkügelchenmenge ausgewählt und angezeigt, dazu noch eine Gesamtanzahl der gleichartigen Kügelchen. \\
+	\textbf{Strategie 8.1: Alle einzeln (ausgewählt):} Jedem einzelnen Probenkügelchen wird eine eigene id zugeordnet. \\
+	\textbf{Strategie 8.2: In Gruppen} Gleichartigen Probenkügelchen wird eine id zugeordnet. \\
           \\ \hline
     \end{tabular}
-    \caption{Probenverwaltung Problem Karte}
-    \label{tab:ProblemKarte10}
+    \caption{Probenverwaltung Problemkarte}
+    \label{tab:ProblemKarte8}
 \end{table}
 
-Hier haben wir uns für die erste Strategie entschieden, weil die zweite Strategie deutlich mehr zusätzliche Arbeit schafft. \\
+Hier haben wir uns für die erste Strategie entschieden, weil dadurch genaueres Zugreifen auf die Proben möglich ist. Des Weiteren würde die zweite Strategie möglicherweise Probleme aufwerfen, wenn an einer Stelle im Lauf einer Prozesskette die Proben aufgeteilt werden und unterschiedlich weiterbehandelt werden. \\
+
 
 \begin{table}[H]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 11:} Verlust/Schaden an Proben !Teil der Mindestanforderungen
-          \\ \hline
-          Proben können im Laufe der Bearbeitung einer Prozesskette kaputt oder verloren gehen. Diese können dann nicht weiter benutzt werden, was zu Problemen im weiteren Verlauf führen könnte.
-          \\ \hline
-          \textbf{Einflussfaktoren: } \\
-          P1.10: Kaputte Proben\\
-          P1.10.1: Verlorene Proben \\
-          \hline
-          \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Proben können als kaputt gemeldet werden. Dadurch werden sie sowohl als solche dargestellt, und können weder manuell noch automatisch irgendwelchen Prozessen zugeordnet werden. \\
-          \textbf{Strategie 2:} Für einzelne Proben werden solche Ereignisse ignoriert, mit der Hoffnung, dass es nicht häufig vorkommt. Zur Not soll ein Prozess gestoppt werden können, damit einem neuen Prozess neue Proben zugeordnet werden können. \\
-          \\ \hline
-    \end{tabular}
-    \caption{Verlust/Schaden an Proben Problem Karte}
-    \label{tab:ProblemKarte11}
-\end{table}
-
-\begin{table}[H]
-    \centering
-    \begin{tabular}{|p{15cm}|}
-    \hline
-          \textbf{Problem 12:} Ambitionierter Zeitplan
+          \textbf{Problem 9:} Ambitionierter Zeitplan
           \\ \hline
           Die Auslieferung der Anwendung muss am 08.03.2020 erfolgen. Dadurch könnten die Entwickler unter Zeitdruck geraten und eventuell nicht alle Anforderungen erfüllen.
           \\ \hline
@@ -963,45 +816,23 @@ Hier haben wir uns für die erste Strategie entschieden, weil die zweite Strateg
           \hline
           \textbf{Strategien} \\ \hline
 
-         \textbf{Strategie 1: Priorisierung Anforderungen:(ausgewählt)}Bestimmte, notwendigere Anforderungen, sollen über andere priorisiert werden. Die höherpriorisierten werden zuerst abgearbeitet. \\
-          \textbf{Strategie 2:} Einige Anforderungen sind für ein Bestehen nicht notwendig und können weggelassen werden.\\
-          \textbf{Strategie 3: Gruppenarbeit: (ausgewählt)} Die Gruppe muss strukturiert und mit möglichst fair verteilten Aufgaben arbeiten, um die Fähigkeiten aller möglichst effizient nutzen zu können. \\
+         \textbf{Strategie 9.1: Priorisierung Anforderungen:(ausgewählt)}Bestimmte, notwendigere Anforderungen, sollen über andere priorisiert werden. Die höherpriorisierten werden zuerst abgearbeitet. \\
+          \textbf{Strategie 9.2: Wegfallen Anforderungen:} Einige Anforderungen sind für ein Bestehen nicht notwendig und können weggelassen werden.\\
+          \textbf{Strategie 9.3: Gruppenarbeit: (ausgewählt)} Die Gruppe muss strukturiert und mit möglichst fair verteilten Aufgaben arbeiten, um die Fähigkeiten aller möglichst effizient nutzen zu können. \\
           \\ \hline
     \end{tabular}
-    \caption{Ambitionierter Zeitplan Problem Karte}
-    \label{tab:ProblemKarte12}
+    \caption{Ambitionierter Zeitplan Problemkarte}
+    \label{tab:ProblemKarte9}
 \end{table}
 Hier haben wir uns für die erste und dritte Strategie entschieden, weil wir grundsätzlich so viele Anforderungen wie möglich umsetzen wollen. Durch die Priorisierung ist es möglich, uns die Anzahl an Anforderungen offen zu halten, gleichzeitig aber auch ein logische Arbeitsvorgehen zu haben. Strategie 3 ist offensichtlich. \\
 
-\begin{table}[H]
-    \centering
-    \begin{tabular}{|p{15cm}|}
-    \hline
-          \textbf{Problem 13:} Vorgaben von Technologien !KEIN EINFLUSS AUF ARCHITEKTUR!
-          \\ \hline
-          Die Vorgaben, welche Technologien bei der Implementierung verwendet werden sollen/dürfen, sind relativ streng. Dadurch können wir als Gruppe nicht Technologien verwenden, die wir vielleicht schon kennen; das kann sich wiederum auf die Qualität und Zeit der Implementierung auswirken.
-          \\ \hline
-          \textbf{Einflussfaktoren: } \\
-          T 1.1: Programmiersprache \\
-          T1.2: Webbrowser \\
-          T1.3: Server \\
-          T1.4: Oberfläche \\
-          T1.5: Persistenz \\
-          T1.6: Build System \\
-          \hline
-          \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Alle Entwickler müssen sich die Zeit nehmen, sich in diese Technologien anzueignen. Ebenfalls sollte die Gruppe sich untereinander unterstützen; hilfreich wäre zum Beispiel eine Sammlung an Problemen, auf die Entwickler gestoßen sind, und wie sie diese gelöst haben, um eventuell anderen Gruppenmitgliedern die Recherche zu erleichtern.
-          \\ \hline
-    \end{tabular}
-    \caption{Problem Karte}
-    \label{tab:ProblemKarte13}
-\end{table}
+
 
 \begin{table}[H]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 15:} Probenzuordnung zu Aufträgen
+          \textbf{Problem 10:} Probenzuordnung zu Aufträgen
           \\ \hline
           Proben sollen ohne Einfluss des Benutzers Aufträgen passend zugeordnet werden. Das bedeutet, dass das System die Eigenschaften von Proben kennen und den Anforderungen von Aufträgen passend zuordnen soll.
           \\ \hline
@@ -1009,12 +840,12 @@ Hier haben wir uns für die erste und dritte Strategie entschieden, weil wir gru
           P1.7.2: Automatisches Zuordnen \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Diese Anforderung ist optional, das heißt zur Not kann man ihn einfach weglassen. \\
-	  \textbf{Strategie 2: Eigenschaften: (ausgewählt)} Die Eigenschaften/Anforderungen von Proben/Aufträgen sollten nicht einfach nur String-Felder sein, da diese miteinander vergleichen schwierig ist (unterschiedliche Formulierungen etc). Stattdessen sollten Eigenschaften/Anforderungen vordefiniert sein (vom Prozesskettenadministrator?) und gespeichert werden, welche Eigenschaften zu welchen Anforderungen passen. \\
+          \textbf{Strategie 10.1:Wegfallen Anforderungen:} Diese Anforderung ist optional, das heißt zur Not kann man ihn einfach weglassen. \\
+	  \textbf{Strategie 10.2: Eigenschaften: (ausgewählt)} Die Eigenschaften/Anforderungen von Proben/Aufträgen sollten nicht einfach nur String-Felder sein, da diese miteinander vergleichen schwierig ist (unterschiedliche Formulierungen etc). Stattdessen sollten Eigenschaften/Anforderungen vordefiniert sein (vom Prozesskettenadministrator?) und gespeichert werden, welche Eigenschaften zu welchen Anforderungen passen. \\
           \\ \hline
     \end{tabular}
-    \caption{Probenzuordnung zu Aufträgen Problem Karte}
-    \label{tab:ProblemKarte15}
+    \caption{Probenzuordnung zu Aufträgen Problemkarte}
+    \label{tab:ProblemKarte10}
 \end{table}
 Hier haben wir uns für Strategie 2 entschieden, weil wir nicht von Anfang an Anforderungen schon ausschließen wollen. \\
 
@@ -1022,7 +853,7 @@ Hier haben wir uns für Strategie 2 entschieden, weil wir nicht von Anfang an An
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 16:} Kompetenz der Entwickler
+          \textbf{Problem 11:} Kompetenz der Entwickler
           \\ \hline
           Die unterschiedlichen Entwickler haben unterschiedlich (weitreichende) Kenntnisse der Technologien; das führt dazu, dass die Implementierung eventuell länger dauert/fehlerbehaftet ist. Aneignen dieser Informationen ist vor allem wegen dem Ambitionierten Zeitplan stressig.
           \\ \hline
@@ -1038,12 +869,12 @@ Hier haben wir uns für Strategie 2 entschieden, weil wir nicht von Anfang an An
           T1.6: Build System\\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Die Entwickler könnten nur in Kleingruppen programmieren. Dadurch sitzen immer eine Menge unterschiedlicher Menschen mit eventuell unterschiedlichen Fähigkeiten an einem Programmstück. \\
-          \textbf{Strategie 2: Modularisierung: (ausgewählt)} Die Implementierung wird bestmöglich nach dem Können der Entwickler aufgeteilt, indem die Anwendung modularisiert wird. Dadurch kann jeder Entwickler an seinem eigenen Modul arbeiten, und sich auf einen kleineren Bereich konzentrieren. Die Entwickler bemühen sich frühzeitig darum, sich weiteres Wissen anzueignen. Ebenfalls unterstützen sich alle Gruppenmitglieder gegenseitig.\\
+          \textbf{Strategie 11.1: Kleingruppen:} Die Entwickler könnten nur in Kleingruppen programmieren. Dadurch sitzen immer eine Menge unterschiedlicher Menschen mit eventuell unterschiedlichen Fähigkeiten an einem Programmstück. \\
+          \textbf{Strategie 11.2: Modularisierung: (ausgewählt)} Die Implementierung wird bestmöglich nach dem Können der Entwickler aufgeteilt, indem die Anwendung modularisiert wird. Dadurch kann jeder Entwickler an seinem eigenen Modul arbeiten, und sich auf einen kleineren Bereich konzentrieren. Die Entwickler bemühen sich frühzeitig darum, sich weiteres Wissen anzueignen. Ebenfalls unterstützen sich alle Gruppenmitglieder gegenseitig.\\
           \\ \hline
     \end{tabular}
-    \caption{ Kompetenz der Entwickler Problem Karte}
-    \label{tab:ProblemKarte16}
+    \caption{ Kompetenz der Entwickler Problemkarte}
+    \label{tab:ProblemKarte11}
 \end{table}
 Hier haben wir uns für Strategie 2 entschieden, weil durch die Modularisierung kein Entwickler alle neuen Technologien/Themen verstehen muss, sondern jeder nur einen kleineren Teil des Ganzen. Des Weiteren ist diese Strategie hoffentlich zeiteffizienter. \\
 
@@ -1052,30 +883,7 @@ Hier haben wir uns für Strategie 2 entschieden, weil durch die Modularisierung 
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 17:} Daten Persistenz ?Teil der Mindestanforderungen
-          \\ \hline
-          Es ist notwendig die Interaktion der Nutzer mit das System zu speichern, daher braucht das Software ein Hauptspeichern Ort. Wo alle die Daten und notwendig Anmerkungen gespeichert sind.
-          \\ \hline
-          \textbf{Einflussfaktoren: } \\
-          O1.3: Entwickler \\
-          T1.4: Oberfläche \\
-          T1.5: Persistenz \\
-          T1.6: Build System\\
-          \hline
-          \textbf{Strategien} \\ \hline
-          \textbf{Strategie 1:} Eine relationale Datenbank zu nutzen. in diese Fall H2 verlangt ist.
-          \textbf{Strategie 2:} XML Data Persistenz zu nutzen, um die Data  zu speichern. 
-          \\ \hline
-    \end{tabular}
-    \caption{Data Persistenz Problem Karte}
-    \label{tab:ProblemKarte17}
-\end{table}
-
-\begin{table}[]
-    \centering
-    \begin{tabular}{|p{15cm}|}
-    \hline
-          \textbf{Problem 10:} Laden von Informationen
+          \textbf{Problem 12:} Laden von Informationen
           \\ \hline
           Der Logistiker möchte einen Überblick über alle Proben, die im Lager liegen. Da die Probenkügelchen alle einzeln gespeichert werden, und es somit eine sehr große Menge an Proben ist, könnte das Laden aller Proben auf einmal zu Performanceproblemen führen.
         \\  \hline
@@ -1083,35 +891,112 @@ Hier haben wir uns für Strategie 2 entschieden, weil durch die Modularisierung 
 	 P1.10.3: Proben-id-Nummern \\
         \hline
         \textbf{Strategien} \\
-         \textbf{Strategie 1:(ausgewählt)} Es wird immer nur ein kleiner Ausschnitt aus der Datenbank geladen (lazy loading). \\
-         \textbf{Strategie 2:} Es werden Repräsentanten von Probenkügelchenmenge ausgewählt und angezeigt, dazu noch eine Gesamtanzahl der gleichartigen Kügelchen. \\
+         \textbf{Strategie 12.1: Lazy Loading: (ausgewählt)} Es wird immer nur ein kleiner Ausschnitt aus der Datenbank geladen (lazy loading). \\
+         \textbf{Strategie 12.2: Repräsentanten:} Es werden Repräsentanten von Probenkügelchenmenge ausgewählt und angezeigt, dazu noch eine Gesamtanzahl der gleichartigen Kügelchen. \\ \hline
     \end{tabular}
-    \caption{Caption}
-    \label{tab:my_label}
+    \caption{Laden von Informationen Problemkarte}
+    \label{tab:ProblemKarte12}
 \end{table}
 Hier haben wir uns für die erste Strategie entschieden, weil diese einfacher umzusetzen ist, wodurch wir Zeit sparen, die wir auf wichtigere Aspekte der Anwendung verwenden können. 
 
-%%%%%%%%%%%%%%%%%%
+%\begin{table}[]
+%    \centering
+%    \begin{tabular}{|p{15cm}|}
+%    \hline
+%          \textbf{Problem 13:} Nur ein Transporteur
+%          \\ \hline
+%          Wenn es Träger gibt, die von einer Station zur nächsten transportiert werden sollen, dann werden diese für alle Transporteure angezeigt. Natürlich kann aber nur ein Transporteur tatsächlich die Träger weitertragen; deswegen soll es möglich sein, dass ein Transporteur einen Auftrag annimmt, der dann für alle anderen nicht mehr sichtbar ist. \\
+%        \\  \hline
+%        \textbf{Einflussfaktoren: } \\
+%	 P1.10.3: Proben-id-Nummern \\
+%        \hline
+%        \textbf{Strategien} \\
+%         \textbf{Strategie 13.1: (ausgewählt)} \\
+%    \end{tabular}
+%    \caption{Laden von Informationen Problemkarte}
+%    \label{tab:ProblemKarte131}
+%\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{15cm}|}
+    \hline
+          \textbf{Problem 14:} Automatische Lastverteilung
+          \\ \hline
+         Wenn für einen Prozessschritt mehrere Experimentierstationen möglich sind, muss ausgewählt werden, welche Stationen eine Prozesskette tatsächlich benutzen soll. \\
+        \\  \hline
+        \textbf{Einflussfaktoren: } \\
+	P1.4.1: Auslastung \\
+        \hline
+        \textbf{Strategien} \\
+         \textbf{Strategie 14.1: Von Hand:} Der Prozesskettenadministrator wählt die Stationen selber aus, wenn er die Prozesskette instanziiert. \\
+	\textbf{Strategie 14.2: Automatisch: (ausgewählt)} Das System analysiert, wie die für jeden Prozessschritt möglichen Stationen ausgelastet sind, und entscheidet, wo welche Schritte am effizientesten abgearbeitet werden. \\ \hline
+    \end{tabular}
+    \caption{Automatische Lastverteilung Problemkarte}
+    \label{tab:ProblemKarte14}
+\end{table}
+Hier haben wir uns für die zweite Strategie entschieden, da sie den Ablauf im Fachbereich effizienter gestalten kann. Des Weiteren könnte es für den Prozesskettenadministrator bei zu vielen Prozessketten schwierig werden, einen Überblick zu behalten. \\
+
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{15cm}|}
+    \hline
+          \textbf{Problem 15:} Datenbearbeitung und Datenüberwachung %Strategien?
+          \\ \hline
+          Die Nutzer können mit Daten an der System , dieses Daten können mit unterschiedlichen vorausgesetzte  Verhalten bearbeiten werden und diese Daten müssen sichtbar, Speicherbar und Bearbeiter sein werden. Daher das System braucht eine geordnete Weise jede verlangete Funktionalität zu implementieren.
+
+          \\ \hline
+          \textbf{Einflussfaktoren: } \\
+          T1.7: Multiple Users\\
+	      T1.5: Persistenz\\
+          \hline
+          \textbf{Strategien} \\ \hline
+
+            \textbf{Strategie 15.1: Kapselung des Datenhaltung:} Nutzung unterschiedlichen Komponenten, die unterschiedlichen abstrahiere Teilen der System trägen können, damit eine schneller und sicherer Implementierung  zu erreichen.
+
+             \label{sec:strategie15} \\
+          \\ \hline
+    \end{tabular}
+    \caption{Prozessbearbeitung und Überwachung Problemkarte}
+    \label{tab:ProblemKarte15}
+\end{table}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \section{Konzeptionelle Sicht}
 \label{sec:konzeptionell}
 
-{\it Diese Sicht beschreibt das System auf einer hohen Abstraktionsebene,
-d.\,h. mit sehr starkem Bezug zur Anwendungsdomäne und den geforderten
-Produktfunktionen und \linebreak-attributen. Sie legt die Grobstruktur fest,
-ohne gleich in die Details von spezifischen Technologien abzugleiten.
-Sie wird in den nachfolgenden Sichten konkretisiert und verfeinert. Die
-konzeptionelle Sicht wird mit {UML}-Komponentendiagrammen visualisiert.}
-
-\begin{figure}
-  \includegraphics[width=\linewidth]{UML/konzeptionelleSicht.png}
+%{\it Diese Sicht beschreibt das System auf einer hohen Abstraktionsebene,
+%d.\,h. mit sehr starkem Bezug zur Anwendungsdomäne und den geforderten
+%Produktfunktionen und \linebreak-attributen. Sie legt die Grobstruktur fest,
+%ohne gleich in die Details von spezifischen Technologien abzugleiten.
+%Sie wird in den nachfolgenden Sichten konkretisiert und verfeinert. Die
+%konzeptionelle Sicht wird mit {UML}-Komponentendiagrammen visualisiert.}
+in diese Konzeptionelle Ansicht betrachten die Interation zwichen die Komponenten des system. Diese Funtionalität des System ist verteilt. Hierbei ist es wichtig zu bemerken, dass der Client abstract ist. Die Komponenten an diese System sind: \\
+\textbf{H2:} Diese Teil liegt verlangte Dateibase H2, wo die Datei der Model gespeichert sind, an diese Stelle man die Datei bearbeiten, gespeichert und angerufenen zu werden. Diese Stelle ergibt sich aus die Vorgegebene Anforderungen des System. infolgedessen besteht aus keine Problem Karte.\\
+\textbf{Interface:} In diesem Teil liegt die User Interface, wo die User mit den System interagieren können. Diese Problem Karte beziehen sich aus Strategie 1.2, weil jede User hat ein unterschiedliche Oberfläche, mit wenn er mit des System interagieren kann. Außerdem ergibt sich aus die Strategie ~\ref{sec:strategie151}.
+Diese Komponente ist verwunden mit der BusinessLogik, um die Request und Data Bearbeitung zu erreichen.\\
+\textbf{Model:} Hier liegen die Daten der User, Prozesskette , Proben sowie Daten und Vormerkungen des System. Diese Komponente ist mit der Interface verwundet, weil die Daten das Interfaces gezeigt werden, sind das an der Model implementieren. Diese Komponente ergibt sich aus der Strategie 15.1. \\
+\textbf{Persistenz:} Hier liegt die Verbindungen zwischen das System und Datei an der Dateibase, Diese Komponente ist verantwortlich und die Speicherung und Schreibung Funktionen an der Dateibase. diese Komponente  ist getroffen an der Anwendung der verlangte Technologie.  \\
+\textbf{BusinessLogik:} In diese Teil liegt die Funktionalität des System, diese Teil ist verantwortlich die Interaktion zwischen die Modelle und die Bearbeitung ihre Data in die Persistenz Komponente. Hier sind die das gewuchtetes Verhalten des System implementiert. diese Schnittstelle ergibt sich aus der  Strategie 15.1.  \\
+\textbf{JDVC:} Durch diese Anschlüsse  ist die Verwindung mit der Dateibase erreichbar. diese Anschlüsse erlaubt die Kommunikation zwischen die Sprache Java und die Dateibase.  \\
+\textbf{DB Abstraction:} Hier sind die Datei unsere Modell abstrahiert, um durch die Anschlüsse zu der Dateibase sie zugreifen zu können \\
+\textbf{Control:} durch diese Anschlüsse ist die Bearbeitung der Data an der Persistenz Teile und der Geschäftsprozess möglich  \\
+\textbf{Request:} durch diese Anschlüsse bekommt die Modelle Komponente ihre entsprechende Daten durch die Geschäftsprozess.\\
+\textbf{Bearbeitung:} Hier sind die mögliche Bearbeitung der Daten an der Interface mit die Funktionalitäten von der BusinessLogik verwunden, damit der User Funktionalitäten der BusinessLogik ausführen kann. \\ 
+\textbf{Interface der Controller:} Hier ist  abstrahierte  Data  der Modelle Komponente  durch eine Interface geordnete und gezeigt.\\
+\begin{figure}[H]
+  \includegraphics[width=310px]{UML/KonzeptioneleSicht.png}
   \caption{Die konzeptionelle Sicht}
   \label{fig:boat1}
 \end{figure}
+ 
 
-Figure \ref{fig:konzept} zeigt unsere konzeptionelle Sicht auf das System. 
-Hierbei ist es wichtig zu bemerken, dass der Client abstract ist.
 \section{Modulsicht}
 \label{sec:modulsicht}
 
