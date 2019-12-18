@@ -1,5 +1,6 @@
 package de.unibremen.sfb.Persistence;
 
+import de.unibremen.sfb.Exception.DuplicateProzessKettenVorlageException;
 import de.unibremen.sfb.Exception.ProzesskettenVorlageNotFoundException;
 import de.unibremen.sfb.Model.ProzesskettenVorlage;
 
@@ -7,8 +8,9 @@ import de.unibremen.sfb.Model.ProzesskettenVorlage;
 public class ProzesskettenVorlageDAO extends ObjectDAO<ProzesskettenVorlage> {
 
     /** Add a job template to the database
-     * @param pkv - the job template to add to the database */
-    public void persist(ProzesskettenVorlage pkv){}
+     * @param pkv - the job template to add to the database
+     * @throws DuplicateProzessKettenVorlageException if the job template already exists in the database */
+    public void persist(ProzesskettenVorlage pkv) throws DuplicateProzessKettenVorlageException {}
 
     /** Update an existing job template in the database
      * @param pkv - the job template to update in the database
