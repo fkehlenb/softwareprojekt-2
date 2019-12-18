@@ -1059,7 +1059,71 @@ die Entstehung anhand der Strategien erläutert werden.
 \section{Datensicht}
 \label{sec:datensicht}
 
-{ Zunächst existiert die Klasse Probe, welche die ID, die Legierung als (???), die Art der Behandlung und die Materialeigenschaften beinhaltet. Eine bestimmte Probe kann ausschließlich einem Träger zugeordnet werden. 
+{
+
+Alle Rollen die ein Nutzer annehmen kann, sind in einer Enum gepspeichert. Diese
+sind TECHNOLOGE, PKADMIN, TRANSPORT, LOGISTIKER und der ADMIN.
+
+Die User bestehen aus einer id, einem Vornamen, einem Nachnamen, einer Email,
+einer Telefonnummer, einer Kombination von seinem Passwort und seinem Usernamen.
+Der User erhält nach dem sein Konto erstellt wurde eine email, nachdem er seinen
+Account verifiziert, wird wurdeVerifiziert auf True gesetzt. Das Attribut
+Erstellungsdatum, speichert wann der Nutzer erstellt worden ist.
+
+Ein Standort enthält ein String.
+
+Ein Träger hat eine id, einen Standort. Falls er einem Auftrag zugewiesen ist,
+referenziert er auch diesen.
+
+Es gibt drei Trägerarten, nämlich eingebettet, einzelnen und Glas. Diese sind in
+der Enum Trägerart gespeichert.
+
+Wir haben das Archiv als eigenständig Klasse modelliert, so können wir im
+Nachhinein Proben, welche archiviert werden eine Referenz zu einer Instanz von
+Archiv geben. Falls es diese Referenz gibt, so können wir wissen, dass diese
+Probe Archiviert wurde.
+
+Es gibt Zwei Arten von Eigenschaften die wir modellieren. Die Qualitative
+Eigenschaft beschreibt ob das Objekt diese Eigenschaft hat. Sie hat also ein
+Namen, falls es eine Referent dahin gibt, wissen wir dass das Objekt auch diese
+Eigenschaft hat. Die Quantitative Eigenschaft ist eine Erweiterung der
+Qualitativen Eigenschaft. Sie enthält einen Wert und eine Einheit. Der Wert ist
+eine Zahl, welche von Java unterstützt wird. Für die Einheiten nutzen wir die SI
+Implementierung, welche die Java Laufzeit Bibliothek bereitstellt.
+
+Eine ProzesschrittVorlage, enthält eine eindeutige ID, einen Zustandsautomaten
+(ProzessschrittZustand) und die geschätzte Dauer für den Prozessschritt.
+Das Attribut eingabeTräger ist Liste von Trägerarten die als Eingabe akzeptiert
+werden, die Liste der Trägerarten ausgabeTräger beschreibt welche Träger von
+diesem Prozesschritt ausgeben werden.
+
+Es gibt drei Arten von ProzessschrittArten: umformend, färbend und ermittelend.
+Diese sind vom Kunden Vorgeben und können nicht im Nachhinein geändert werden.
+
+Ein Prozessschritt ist eine instanzierte ProzesschrittVorlage. Ihre Attribute
+sind, eine Prozesschritt ID, ein Boolean uploaded. Dieser wird auf True gesetzt,
+nachdem der Technologe die ProzessParameter an die externe Datenbank hochgeladen
+hat. current ist referiert eine Experimentierstation, falls es eine
+Experimentierstation gibt, wo aktuell dieser Prozesschritt durchläuft. Der
+Aktuelle Zustand aus dem Zustandsautomaten des Prozesschrittes wird in dem
+String Zustand gespeichert. TODO Warum hat PS einen Auftrag
+
+Ein ProzessschrittZustand ist eine Liste von Zuständen. Der
+ProzessschrittZustand kann vom pkAdmin erweitert um weitere Zustände erweitert
+werden, wenn dieser nicht in Benutzung ist.
+
+Ein ProzessParameter hat einen Namen. Einer ProzesschrittVorlage Vorlage können
+Parameter zugewiesen werden. Bei falls der Prozesschritt ermittelnd ist, wird
+nachher die Eigenschaft, welche ermittelt wurde der Probe zugewiesen.
+
+
+Eine ProzesskettenVorlage, hat eine eindeutige id.
+
+Ein Auftrag ist eine Instanz einer Prozesskettenvorlage
+
+Ein AuftragsLog enthält start und end
+
+  . Eine bestimmte Probe kann ausschließlich einem Träger zugeordnet werden.
 Die Klasse Träger besteht wieder aus einer ID, dem aktuellen Standort als  Standort und dem Typ als Trägerart. Ein Träger kann beliebig viele Proben beinhalten. Ein bestimmter Träger kann genau einer Experimentierstation (ES) zugeordnet sein. Eine Experimentierstation besteht aus einem Namen als String und dem Ort, an dem die ES zu finden ist als Standort. Einer bestimmten ES können beliebig viele Träger zugeordnet sein, während ihr immer nur ein  Technologe zugeordnet sein wird. Die ES ist immer nur einem bestimmten Prozessschritt (PS) zugeordnet. Ein Prozessschritt beinhaltet den Namen als String, die Prozessparameter (PP) als Prozessparameter, der Probenzustand, die Dauer und die Zustände und (???). Ein Prozessschritt ist einer bestimmten Prozesskette zugeordnet. Die Prozesskette (PK) beinhaltet den Namen als String. Sie beherbergt beliebig viele Prozessschritte und beliebig viele Prozesskettenaufträge. Der  Prozesskettenauftrag (PKAuftrag) kann nur einer Prozesskette zugeordnet sein und hat einen KettenInstanzwert (KIW) zugeordnet. \\}
 
 {  Zunächst existiert die Klasse Probe, welche die ID, die Legierung als (???), die Art der Behandlung und die Materialeigenschaften beinhaltet. Eine bestimmte Probe kann ausschließlich einem Träger zugeordnet werden.
