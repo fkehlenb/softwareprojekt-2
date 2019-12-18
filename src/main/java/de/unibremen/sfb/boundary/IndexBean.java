@@ -14,7 +14,7 @@ public class IndexBean {
 
     @Getter
     @Setter
-    public String username;
+    String username;
 
     public String login(){
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username",username);
