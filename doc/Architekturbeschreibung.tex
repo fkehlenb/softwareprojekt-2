@@ -657,29 +657,27 @@ Hier haben wir uns für die zweite Strategie entschieden, weil diese eine elegan
 \end{table}
 Hier haben wir uns für die erste Strategie entschieden, weil die Benutzung einer bereits implementierten Spezifikation uns viel Zeit spart. \\
 
-
 \begin{table}[H]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 3:} Entlassen Mitarbeiter \\ \hline 
-          Da alte Mitarbeiter gehen können, muss es notwendig sein, alte User zu löschen, ohne dass relevante Informationen zu den Prozessketten verloren gehen (wie Nullpointer in den Protokollen).
+          \textbf{Problem 3:} Vorlagen und Instanzen \\ \hline
+          Der Prozesskettenadministrator möchte abstrakte Prozessketten und -schritte erstellen können, die als Vorlagen dienen. Die Prozesskettenvorlagen sollen aus Prozessschrittevorlagen bestehen, und instanziiert werden können. \\
           \\ \hline
           \textbf{Einflussfaktoren: } \\
-          T 1.5: Persistenz \\
-          T 1.7: Multiple Users\\
-          T 1.5: Datenbank \\
+          Faktoren \\
+          
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 3.1: Variable} Jede User  wird ein Variabel Aktiv haben, die anzeigt, ob dieser User noch im Fachbereich arbeitet oder nicht. Alle notwendigen Daten dieses Users existieren aber in archivierter Form weiter auf der Datenbank, um keine Referenzen oder Protokolle unlesbar zu machen. \\
-	\textbf{Strategie 3.2: Unabhängiges Speichern} Im Protokoll und an allen weiteren Stellen wird nicht mit Referenzen auf User gearbeitet, sondern Name oder id fest gespeichert. \\
+          \textbf{Strategie 3.1: EIgene Klassen: (ausgewählt)}  Es gibt getrennte Klassen für die Vorlagen und die tatsächlichen Instanzen. \\
           \\ \hline
-
     \end{tabular}
 
-    \caption{Entlassen Mitarbeiter Problemkarte}
+
+    \caption{}
     \label{tab:ProblemKarte3}
 \end{table}
+Hier haben wir uns für die erste Strategie entschieden, weil .. \\
 
 \begin{table}[H]
     \centering
@@ -955,14 +953,117 @@ Hier haben wir uns für die zweite Strategie entschieden, da sie den Ablauf im F
 
             \textbf{Strategie 15.1: Kapselung des Datenhaltung:} Nutzung unterschiedlichen Komponenten, die unterschiedlichen abstrahiere Teilen der System trägen können, damit eine schneller und sicherer Implementierung  zu erreichen.
 
-             \label{sec:strategie15} \\
           \\ \hline
     \end{tabular}
     \caption{Prozessbearbeitung und Überwachung Problemkarte}
     \label{tab:ProblemKarte15}
 \end{table}
 
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{15cm}|}
+    \hline
+          \textbf{Problem 16:} Archivierung
+          \\ \hline
+	Proben sollen archiviert werden können, dafür soll zusätzlich zu den anderen Informationen auch gespeichert werden, wann die Archivierung stattfand, und im Kontext von welchem Auftrag.
 
+          \\ \hline
+          \textbf{Einflussfaktoren: } \\
+          Fak \\
+          \hline
+          \textbf{Strategien} \\ \hline
+            \textbf{Strategie 16.1:Archiv-Attribut(ausgewählt)} Wenn eine Probe archiviert wird, wird zusätzlich ein Attribut Archiv gesetzt, in dem die zusätzlichen Informationen gespeichert werden. \\
+          \\ \hline
+    \end{tabular}
+    \caption{Archivierung}
+    \label{tab:ProblemKarte16}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{15cm}|}
+    \hline
+          \textbf{Problem 17:} Träger und Trägerart
+          \\ \hline
+          Jeder Träger soll eine eigene Trägerart haben. Hierbei ist die Frage, wie diese Arten realisiert werden sollen.
+
+          \\ \hline
+          \textbf{Einflussfaktoren: } \\
+         Fak \\
+          \hline
+          \textbf{Strategien} \\ \hline
+
+            \textbf{Strategie 17.1: als String:} Die Trägerart wird als Stringattribut gespeichert. \\
+	\textbf{Strategie 17.2: als Enum:} Die Trägerart wird als Enum bereitgestellt. \\
+	\textbf{Strategie 17.3: als eigene Klasse: (ausgewählt)} Die Trägerart wird als eigene Klasse (möglicherweise mit Attributen) dargestellt. \\
+          \\ \hline
+    \end{tabular}
+    \caption{Träger und Trägerart Problemkarte}
+    \label{tab:ProblemKarte17}
+\end{table}
+Hier haben wir uns für die dritte Strategie entschieden. Die Darstellung als Enum könnte Probleme aufwerfen, wenn in während der Laufzeit neue Trägerarten hinzugefügt werden sollen: Das ginge nicht. Dafür müsste die Anwendung komplett neu übersetzt und deployed werden. Die Darstellung als String ist nicht sehr elegant und sicher. Durch die Auswahl aus Objekten der Klasse Trägerart werden mögliche Fehler eingedämmt. \\
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{15cm}|}
+    \hline
+          \textbf{Problem 18:} Zustandsautomaten Prozessketten
+          \\ \hline
+          Für die Prozessketten soll es Zustandsautomaten geben. 
+          \\ \hline
+          \textbf{Einflussfaktoren: } \\
+         Fak \\
+          \hline
+          \textbf{Strategien} \\ \hline
+	\textbf{Strategie 18.1: als Enum: (ausgewählt)} Da die Zustände fest vorgegeben sind und die Anzahl nicht veränderbar sein sollen, können sie als Enum gespeichert werden. \\
+	\textbf{Strategie 18.2: als String:} Die Zustände werden als String-Liste gespeichert. \\
+          \\ \hline
+    \end{tabular}
+    \caption{Zustandsautomaten Prozessketten Problemkarte}
+    \label{tab:ProblemKarte18}
+\end{table}
+Hier haben wir uns für die erste Strategie entschieden. Weil die Anzahl der Zustände fest ist und nicht von irgendeinem User verändert werden soll, ergeben sich dadurch keine Probleme, und machen die Implementierung sicherer vor unerlaubten Manipulationen. \\
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{15cm}|}
+    \hline
+          \textbf{Problem 19:} Zustandsautomaten Prozessschritte
+          \\ \hline
+          Für die Prozessketten soll es Zustandsautomaten geben. 
+          \\ \hline
+          \textbf{Einflussfaktoren: } \\
+         Fak \\
+          \hline
+          \textbf{Strategien} \\ \hline
+	\textbf{Strategie 19.1: als Enum:} Die Zustände werden als Enum gespeichert. \\
+	\textbf{Strategie 19.2: als Liste von Strings: (ausgewählt)} Die Zustände werden als String-Liste gespeichert. \\
+          \\ \hline
+    \end{tabular}
+    \caption{Zustandsautomaten Prozessschritte Problemkarte}
+    \label{tab:ProblemKarte19}
+\end{table}
+Hier haben wir uns für die zweite Strategie entschieden, weil die Zustände wegen einer optionalen Anforderung vom Prozesskettenadministrator veränderbar sein sollen. Dafür bietet sich die Darstellung als Enum nicht an. \\
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{15cm}|}
+    \hline
+          \textbf{Problem 20:} Arten an Prozessketten
+          \\ \hline
+          Die Prozessketten werden grundsätzlich in drei unterschiedliche Arten unterteilt; für jede Prozesskettenvorlage soll gespeichert werden, um welche es sich handelt. \\
+          \\ \hline
+          \textbf{Einflussfaktoren: } \\
+         Fak \\
+          \hline
+          \textbf{Strategien} \\ \hline
+	\textbf{Strategie 20.1: als Enum: (ausgewählt)} Die unterschiedlichen Arten werden als Enum dargestellt. \\
+          \\ \hline
+    \end{tabular}
+    \caption{Arten an Prozessketten Problemkarte}
+    \label{tab:ProblemKarte20}
+\end{table}
+Hier haben wir uns für die erste Strategie entschieden, weil die Anzahl an Arten voraussichtlich nicht verändert wird. Dadurch ist nicht zu erwarten, dass der hohe Aufwand, dem Enum eine Art hinzuzufügen, aufgewandt werden muss. \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
