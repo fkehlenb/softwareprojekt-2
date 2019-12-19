@@ -279,7 +279,7 @@ Im Kapitel 8 werden einige Anwendungsfälle dargestellt. Im abschließenden Kapi
 
 In diesen Kapitel werden wir verschiedene Anwendungsszenarien abdecken, welche unsere Software erfüllen soll. Diese Szenarien werden wir als Ausgangs- und Vergleichspunkt für den Rest unserer Architektur benutzen. Hiermit kann am Ende geprüft werden, ob die Software alle Anforderungen erfüllt. 
 
-\subsection{Anmeldung am System (alle Benutzer)}
+\textbf{•}\subsection{Anmeldung am System (alle Benutzer)}
 
 Der Benutzer wird mit einem Login-Fenster begrüßt an welchem er sich einloggen kann. Sollte es noch keinen Benutzer im System geben, so kann ein neuer Benutzer über ein Create-Account Knopf erstellt werden. Sollte er sein Passwort vergessen haben, so kann er mithilfe von einem Passwort Vergessen Knopf dieses zurücksetzen.
 Nach der Erstellung eines Benutzers wird dieser im Datenbanksystem eingespeichert, wodurch der System Administrator ihm nun eine Rolle einteilen kann.
@@ -1103,27 +1103,42 @@ Hier haben wir uns für die zweite Strategie entschieden, da sie den Ablauf im F
 
 %{\it Diese Sicht beschreibt das System auf einer hohen Abstraktionsebene,
 %d.\,h. mit sehr starkem Bezug zur Anwendungsdomäne und den geforderten
-%Produktfunktionen und \linebreak-attributen. Sie legt die Grobstruktur fest,
+%Produktfunktionen und \linebreak-attributen. Sie l\ref{•}egt die Grobstruktur fest,
 %ohne gleich in die Details von spezifischen Technologien abzugleiten.
 %Sie wird in den nachfolgenden Sichten konkretisiert und verfeinert. Die
 %konzeptionelle Sicht wird mit {UML}-Komponentendiagrammen visualisiert.}
 in diese Konzeptionelle Ansicht betrachten die Interation zwichen die Komponenten des system. Diese Funtionalität des System ist verteilt. Hierbei ist es wichtig zu bemerken, dass der Client abstract ist. Die Komponenten an diese System sind: \\
+
 \textbf{H2:} Diese Teil liegt verlangte Dateibase H2, wo die Datei der Model gespeichert sind, an diese Stelle man die Datei bearbeiten, gespeichert und angerufenen zu werden. Diese Stelle ergibt sich aus die Vorgegebene Anforderungen des System. infolgedessen besteht aus keine Problem Karte.\\
-\textbf{Interface:} In diesem Teil liegt die User Interface, wo die User mit den System interagieren können. Diese Problem Karte beziehen sich aus Strategie 1.2, weil jede User hat ein unterschiedliche Oberfläche, mit wenn er mit des System interagieren kann. Außerdem ergibt sich aus die Strategie ~\ref{sec:strategie151}.
-Diese Komponente ist verwunden mit der BusinessLogik, um die Request und Data Bearbeitung zu erreichen.\\
-\textbf{Model:} Hier liegen die Daten der User, Prozesskette , Proben sowie Daten und Vormerkungen des System. Diese Komponente ist mit der Interface verwundet, weil die Daten das Interfaces gezeigt werden, sind das an der Model implementieren. Diese Komponente ergibt sich aus der Strategie 15.1. \\
-\textbf{Persistenz:} Hier liegt die Verbindungen zwischen das System und Datei an der Dateibase, Diese Komponente ist verantwortlich und die Speicherung und Schreibung Funktionen an der Dateibase. diese Komponente  ist getroffen an der Anwendung der verlangte Technologie.  \\
-\textbf{BusinessLogik:} In diese Teil liegt die Funktionalität des System, diese Teil ist verantwortlich die Interaktion zwischen die Modelle und die Bearbeitung ihre Data in die Persistenz Komponente. Hier sind die das gewuchtetes Verhalten des System implementiert. diese Schnittstelle ergibt sich aus der  Strategie 15.1.  \\
-\textbf{JDVC:} Durch diese Anschlüsse  ist die Verwindung mit der Dateibase erreichbar. diese Anschlüsse erlaubt die Kommunikation zwischen die Sprache Java und die Dateibase.  \\
-\textbf{DB Abstraction:} Hier sind die Datei unsere Modell abstrahiert, um durch die Anschlüsse zu der Dateibase sie zugreifen zu können \\
-\textbf{Control:} durch diese Anschlüsse ist die Bearbeitung der Data an der Persistenz Teile und der Geschäftsprozess möglich  \\
-\textbf{Request:} durch diese Anschlüsse bekommt die Modelle Komponente ihre entsprechende Daten durch die Geschäftsprozess.\\
-\textbf{Bearbeitung:} Hier sind die mögliche Bearbeitung der Daten an der Interface mit die Funktionalitäten von der BusinessLogik verwunden, damit der User Funktionalitäten der BusinessLogik ausführen kann. \\ 
-\textbf{Interface der Controller:} Hier ist  abstrahierte  Data  der Modelle Komponente  durch eine Interface geordnete und gezeigt.\\
+
+\textbf{Persistenz:} Hier liegt die Verbindungen zwischen das System und Datei an der Dateibase, Diese Komponente ist verantwortlich und die Speicherung und Schreibung Funktionen an der Dateibase. diese Komponente  ist getroffen an der Anwendung der verlangte Technologie.   \\
+
+\textbf{BusinessLogik:} In diese Teil liegt die Funktionalität des System, diese Teil ist von Controller und die Bearbeitung ihre Data in die Persistenz Komponente benutzt. Hier sind das gewuchtetes Verhalten des System implementiert. diese Schnittstelle ergibt sich aus der  Strategie 15.1.  \\
+
+\textbf{Model:} Hier liegen die Daten der User, Prozesskette , Proben sowie Daten und Vormerkungen des System. Diese Komponente ist mit der Controller und Persistenz verwundet, weil die Daten das Interfaces gezeigt werden, sind das an der Model implementieren. Diese Komponente ergibt sich aus der Strategie 15.1. \\
+
+\textbf{Interface:} In diesem Teil liegt die User Interface, wo die User mit den System interagieren können. Diese Problem Karte beziehen sich aus Strategie 1.2, weil jede User hat ein unterschiedliche Oberfläche, mit wenn er mit des System interagieren kann. Außerdem ergibt sich aus die Strategie ~\ref{sec:strategie151}. Diese Komponente ist verwunden mit der BusinessLogik, um die Request und Data Bearbeitung zu erreichen.\\
+
+\textbf{Controller:} Hier sind die Petitionen mit den entsprechende Data zur anderen Model und die BusinessLogik abgeleitet. Mit diese Modul reagiert der Interface,  um die unterschiedlichen Funktionalität zu erreichen. Außerdem ergibt sich aus die Strategie ~\ref{sec:strategie151}.  \\
+
+\textbf{Rest:} Hier sind die Implementierung Rest abgeleitet. \\
+
+\textbf{JDBC:} Durch diese Anschlüsse  ist die Verwindung mit der Dateibase erreichbar. diese Anschlüsse erlaubt die Kommunikation zwischen die Sprache Java und die Dateibase.  \\
+
+\textbf{Data:} Hier sind die Datei von der Komponente  zu der BusinessLogik  geliefert \\
+
+\textbf{Update:} durch diese Anschlüsse ist die Bearbeitung der Data an der Persistenz Komponente  möglich. diese Anschlüsse ist mit der Model Komponente und BusinessLogik verbindet.  \\
+
+\textbf{Control:} durch diese Anschlüsse bekommt die Controller Komponente ihre entsprechende Daten durch die Geschäftsprozess und Modell.\\
+
+\textbf{HTTPS/Request/Response:} Jede  Interaktion mit den System wird durch HTTPS, gemacht zu werden. Infolgedessen ist diese Anschlüsse verantwortlich für die Ableitung der Data an der Web Browser und der REST client zu der Server.\\
+
 \begin{figure}[H]
+\begin{center}
   \includegraphics[width=310px]{UML/KonzeptioneleSicht.png}
   \caption{Die konzeptionelle Sicht}
   \label{fig:boat1}
+\end{center}
 \end{figure}
  
 
