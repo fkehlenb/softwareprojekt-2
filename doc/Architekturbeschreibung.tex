@@ -1237,18 +1237,40 @@ in diese Konzeptionelle Ansicht betrachten die Interation zwichen die Komponente
 \textbf{H2:} Diese Teil liegt verlangte Dateibase H2, wo die Datei der Model gespeichert sind, an diese Stelle man die Datei bearbeiten, gespeichert und angerufenen zu werden. Diese Stelle ergibt sich aus die Vorgegebene Anforderungen des System. infolgedessen besteht aus keine Problem Karte.\\
 
 {%Korrekturvorschlag Samuel
-\textbf{Persistenz:} Hier liegt die Verbindung zwischen dem System und der Datei der Datenbank. Die Persistenz ist dafür verantwortlich für die Speicherung, das Schreiben und der Funktion [TODO] (?) der Datenbank. Auch die Verwendung dieser Technologie ist gefordert. 
+\textbf{Persistence:} Hier liegt die Verbindung zwischen dem System und der Datei der Datenbank. Die Persistenz ist dafür verantwortlich für die Speicherung, das Schreiben und der Funktion [TODO] (?) der Datenbank. Persistenz stellt eine Schnittstelle Data für Businesslogic zur Verfügung und nutzt die von Model zur Verfügung gestellte Schnittstelle. Auch die Verwendung dieser Technologie ist gefordert. 
 }
 
 \textbf{Persistenz:} Hier liegt die Verbindungen zwischen das System und Datei an der Dateibase, Diese Komponente ist verantwortlich und die Speicherung und Schreibung Funktionen an der Dateibase. diese Komponente  ist getroffen an der Anwendung der verlangte Technologie.   \\
 
+{%Korrekturvorschlag Samuel
+\textbf{BusinessLogik:} Die Businesslogik beinhaltet die Funktionalität des Systems. Sie nutzt die Schnittstellen Data von Persistence und nutzt die Update Schnittstelle von Model. Sie ergibt sich aus Strategie 15.1
+}
+
 \textbf{BusinessLogik:} In diese Teil liegt die Funktionalität des System, diese Teil ist von Controller und die Bearbeitung ihre Data in die Persistenz Komponente benutzt. Hier sind das gewuchtetes Verhalten des System implementiert. diese Schnittstelle ergibt sich aus der  Strategie 15.1.  \\
+
+{%Korrekturvorschlag Samuel
+\textbf{Model:} Hier liegen die Daten der User, Prozessketten, Proben sowie Daten und Vormerkungen des System. Model stellt ein Interface Update zur Verfügung, welches von Businesslogic und Persistence genutzt wird. Diese Komponente ergibt sich aus der Strategie 15.1.\\
+}
 
 \textbf{Model:} Hier liegen die Daten der User, Prozesskette , Proben sowie Daten und Vormerkungen des System. Diese Komponente ist mit der Controller und Persistenz verwundet, weil die Daten das Interfaces gezeigt werden, sind das an der Model implementieren. Diese Komponente ergibt sich aus der Strategie 15.1. \\
 
+{%Korrekturvorschlag Samuel
+\textbf{Interface:} Hier liegt unser User Interface, also die xhtml Website, in der die User mit dem System interagieren. Interface nutzt das Interface liferung von Controller
+
+
+}
+
 \textbf{Interface:} In diesem Teil liegt die User Interface, wo die User mit den System interagieren können. Diese Problem Karte beziehen sich aus Strategie 1.2, weil jede User hat ein unterschiedliche Oberfläche, mit wenn er mit des System interagieren kann. Außerdem ergibt sich aus die Strategie ~\ref{sec:strategie151}. Diese Komponente ist verwunden mit der BusinessLogik, um die Request und Data Bearbeitung zu erreichen.\\
 
+{%Korrekturvorschlag Samuel
+
+}
+
 \textbf{Controller:} Hier sind die Petitionen mit den entsprechende Data zur anderen Model und die BusinessLogik abgeleitet. Mit diese Modul reagiert der Interface,  um die unterschiedlichen Funktionalität zu erreichen. Außerdem ergibt sich aus die Strategie ~\ref{sec:strategie151}.  \\
+
+{%Korrekturvorschlag Samuel
+
+}
 
 \textbf{Rest:} Hier sind die Implementierung Rest abgeleitet. \\
 
@@ -1575,12 +1597,6 @@ der Businesslogik führt die Befehle dann aus.
 Es gibt einen Anwendungsserver, welchen wir SFB-Server genannt haben, auf dem
 eine Instanz von Wildfly läuft. Auf dieser Wildflyinstanz wird der SWP2-Server
 mit allen dazugehörigen Modulen ausgeführt.
-
-[TODO] 
-- Auf der Abbildung für eine Sprache entscheiden! Nicht Module und Prozess...\\
-- Abbildung ist nicht aktuell! Tipps aus dem Tutorium\\
-- Text hier drunter müsste auf die neue Abbildung angepasst werden!
-- Wird REST und API nicht groß geschrieben?
 
 Das Modul Persistence kommuniziert mit dem Modul Businesslogik aber auch
 \glqq abstract\grqq{} über JDBC mit dem H2 Server.
