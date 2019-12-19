@@ -200,7 +200,7 @@ skinparam classAttributeIconSize 0
 
 hide empty members
 
-package Datenmodel {
+package Datenmodell {
   enum Role{
   TECHNOLOGE
   PKADMIN
@@ -225,10 +225,10 @@ class User {
 class Probe {
   +probenID: String
   +kommentar: Pair<java.time.LocalTimeDate, String>
-  +zustand: enum["kapput", "verloren", "vorhanden"]
+  +zustand: enum["KAPPUTT", "VERLOREN", "VORHANDEN"]
 }
 
-class Standort {
+CLASS Standort {
   +ort: String
 }
 
@@ -251,7 +251,7 @@ class "QualitativeEigenschaft" as qualE {
 
 class "QuantitativeEigenschaft" as quantE {
   +wert: java.lang.Number
-  +einheit: javax.units.SI
+  +einheit: uom.si
 }
 
 class "Prozessschritt" as ps {
@@ -260,13 +260,12 @@ class "Prozessschritt" as ps {
   +current: Experimentierstation
   +zustand: String
   +station : Experimentierstation
-  +auftrag: Auftrag
 }
 
 class Prozessschrittlog {
-  +gestartet
-  +geendet
-  +PSZustand
+  +gestartet: java.time.LocalDateTime
+  +geendet: java.time.LocalDateTime
+  +psZustand: String
 }
 
 class ProzessschrittZustand {
@@ -289,7 +288,7 @@ class ProzessschrittArt {
 }
 
  class TransportAuftrag {
-   +zustand: enum["abgeholt", "abgeliefert"]
+   +zustand: enum["FREIGEGEBEN", "ABGEHOLT", "ABGELIEFERT"]
 }
 
  class "ProzessSchrittParameter" as pp {
@@ -308,11 +307,11 @@ class AuftragsLog {
 
 
 enum AuftragsPriorität {
-keine
-etwas
-viel
-hoch
-sehr hoch
+KEINE
+ETWAS
+VIEL
+HOCH
+SEHR HOCH
 }
 
 class "ProzesskettenVorlage" as pkV {
@@ -320,11 +319,11 @@ class "ProzesskettenVorlage" as pkV {
 }
 
 enum "ProzesskettenZustand" as pkZ {
-    Instanziert
-    Freigeben
-    Gestartet
-    Abgebrochen
-    Durchgeführt
+    INSTANZIERT
+    FREIGEBEN
+    GESTARTET
+    ABGEBROCHEN
+    DURCHGEFÜHRT
 }
 
 class Bedingung {
@@ -334,7 +333,6 @@ class "ExperimentierStation" as es {
   +esID: int
   +standort: String
   +status: enum ["verfügbar", "besetzt", kaputt]
-  +currentPS: Prozessschritt DELETEME
   +nextPS: Queue<Prozessschritt>
 }
 
@@ -344,11 +342,11 @@ class "ExperimentierStation" as es {
   User "*" -- "*" es: < hat
 
 
-  Auftrag "1" -* "1" AuftragsPriorität
+  Auftrag "*" -* "1" AuftragsPriorität
   Auftrag "1" -* "1..*" ps: hat >
-  Auftrag "1"  -- "1..*" AuftragsLog: hat >
-  Auftrag "1" -- "1" pkZ: hat >
-  Auftrag "1" -- "1" pkV: < ersellt von
+  Auftrag "*"  --* "1" AuftragsLog: hat >
+  Auftrag "*" -- "1" pkZ: hat >
+  Auftrag "*" -- "1" pkV: < erstellt von
 
   (Auftrag, ps) .. Traeger
 
@@ -356,20 +354,20 @@ class "ExperimentierStation" as es {
   ps "*" -- "1" psV: instanziert >
   ps "1"-- "1" Prozessschrittlog:  hat >
   ps "*" -- "1" ProzessschrittZustand: hat >
-  ps "1" -- "0..1" TransportAuftrag: hat >
+  ps "*" -- "1" TransportAuftrag: hat >
 
 
   psV "*" --  "1" ProzessschrittArt: hat >
   psV "1" -- "1..*" pp: hat >
   psV "1" --"1..*" es: hat >
-  psV "*" -- ProzessschrittZustand: TODO
+  psV "1" -- "*" ProzessschrittZustand: hat >
 
   (psV, es) .. Bedingung
 
- ProzessschrittZustandVorlage -- ProzessschrittZustand: < erstellt von
+ ProzessschrittZustandVorlage -- ProzessschrittZustand: erstellt von >
  ps -- ProzessschrittZustandVorlage
 
- Traeger "1" -- "1" Traegerart: hat >
+ Traeger "*" -- "1" Traegerart: hat >
  Traeger "0..1" -- "0..*" Probe: hat >
  Traeger "*" -- "1" Standort: hat >
 
