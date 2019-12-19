@@ -1299,36 +1299,46 @@ in diese Konzeptionelle Ansicht betrachten die Interation zwichen die Komponente
 \textbf{Persistenz:} Hier liegt die Verbindungen zwischen das System und Datei an der Dateibase, Diese Komponente ist verantwortlich und die Speicherung und Schreibung Funktionen an der Dateibase. diese Komponente  ist getroffen an der Anwendung der verlangte Technologie.   \\
 
 {%Korrekturvorschlag Samuel
-\textbf{BusinessLogik:} Die Businesslogik beinhaltet die Funktionalität des Systems. Sie nutzt die Schnittstellen Data von Persistence und nutzt die Update Schnittstelle von Model. Sie ergibt sich aus Strategie 15.1
+\textbf{BusinessLogik:} Die Businesslogik beinhaltet die Funktionalität des Systems. Sie nutzt die Schnittstellen Data von Persistence und nutzt die Update Schnittstelle von Model. Sie ergibt sich aus Strategie (15.1)~\ref{prob:15.1}
 }
 
-\textbf{BusinessLogik:} In diese Teil liegt die Funktionalität des System, diese Teil ist von Controller und die Bearbeitung ihre Data in die Persistenz Komponente benutzt. Hier sind das gewuchtetes Verhalten des System implementiert. diese Schnittstelle ergibt sich aus der  Strategie 15.1.  \\
+\textbf{BusinessLogik:} In diese Teil liegt die Funktionalität des System, diese Teil ist von Controller und die Bearbeitung ihre Data in die Persistenz Komponente benutzt. Hier sind das gewuchtetes Verhalten des System implementiert. diese Schnittstelle ergibt sich aus der  Strategie (15.1)~\ref{prob:15.1}.  \\
 
 {%Korrekturvorschlag Samuel
-\textbf{Model:} Hier liegen die Daten der User, Prozessketten, Proben sowie Daten und Vormerkungen des System. Model stellt ein Interface Update zur Verfügung, welches von Businesslogic und Persistence genutzt wird. Diese Komponente ergibt sich aus der Strategie 15.1.\\
+\textbf{Model:} Hier liegen die Daten der User, Prozessketten, Proben sowie Daten und Vormerkungen des System. Model stellt ein Interface Update zur Verfügung, welches von Businesslogic und Persistence genutzt wird. Diese Komponente ergibt sich aus der Strategie (15.1)~\ref{prob:15.1}.\\
 }
 
-\textbf{Model:} Hier liegen die Daten der User, Prozesskette , Proben sowie Daten und Vormerkungen des System. Diese Komponente ist mit der Controller und Persistenz verwundet, weil die Daten das Interfaces gezeigt werden, sind das an der Model implementieren. Diese Komponente ergibt sich aus der Strategie 15.1. \\
+\textbf{Model:} Hier liegen die Daten der User, Prozesskette , Proben sowie Daten und Vormerkungen des System. Diese Komponente ist mit der Controller und Persistenz verwundet, weil die Daten das Interfaces gezeigt werden, sind das an der Model implementieren. Diese Komponente ergibt sich aus der Strategie (15.1)~\ref{prob:15.1}. \\
 
 {%Korrekturvorschlag Samuel
-\textbf{Interface:} Hier liegt unser User Interface, also die xhtml Website, in der die User mit dem System interagieren. Interface nutzt das Interface liferung von Controller
-
-
+\textbf{Interface:} Hier liegt unser User Interface, also die xhtml Website, in der die User mit dem System interagieren. Interface nutzt das Interface Lieferung von Controller. Die Komponente Interface bezieht sich auf Strategie (1.2)\ref{prob:1.2}, weil jeder User eine unterschiedliche Oberfläche benutzt. Außerdem ergibt sich die Komponente aus der Strategie (15.1)~\ref{prob:15.1}. Interface ist mit einem Port verbunden. 
 }
 
-\textbf{Interface:} In diesem Teil liegt die User Interface, wo die User mit den System interagieren können. Diese Problem Karte beziehen sich aus Strategie 1.2, weil jede User hat ein unterschiedliche Oberfläche, mit wenn er mit des System interagieren kann. Außerdem ergibt sich aus die Strategie ~\ref{sec:strategie151}. Diese Komponente ist verwunden mit der BusinessLogik, um die Request und Data Bearbeitung zu erreichen.\\
+\textbf{Interface:} In diesem Teil liegt die User Interface, wo die User mit den System interagieren können. Diese Problem Karte beziehen sich aus Strategie 1.2, weil jede User hat ein unterschiedliche Oberfläche, mit wenn er mit des System interagieren kann. Außerdem ergibt sich aus die Strategie ~\ref{prob:15.1}(15.1). Diese Komponente ist verwunden mit der BusinessLogik, um die Request und Data Bearbeitung zu erreichen.\\
 
 {%Korrekturvorschlag Samuel
-
+\textbf{Controller:} Controller nutzt das Interface Control von BusinessLogic und Control von Model. Controller stellt ein Interface Lieferung zur Verfügung. Durch Controller kann das Interface die unterschiedlichen Funktionen aus BusinessLogic oder Model erreichen. Es ergibt sich aus der Strategie (15.1) ~\ref{prob:15.1}.
 }
 
 \textbf{Controller:} Hier sind die Petitionen mit den entsprechende Data zur anderen Model und die BusinessLogik abgeleitet. Mit diese Modul reagiert der Interface,  um die unterschiedlichen Funktionalität zu erreichen. Außerdem ergibt sich aus die Strategie ~\ref{sec:strategie151}.  \\
 
 {%Korrekturvorschlag Samuel
-
+\textbf{REST:} Hier greift der REST-Client auf REST-Funktionen zu. Über einen Port verbindet er sich mit dem RESTClient. 
 }
 
 \textbf{Rest:} Hier sind die Implementierung Rest abgeleitet. \\
+
+{%Korrekturvorschlag Samuel
+\textbf{RESTClient:} Der RESTClient ist für die Kommunikation in einem System, das auf mehreren Systemen verteilt läuft. 
+}
+
+{%Korrekturvorschlag Samuel
+\textbf{User:} Der User greift über den Webbrowser über HTTPS/Request/Response auf das vom Interface und dessen Port zur Verfügung gestellte Interface. Die Sicht auf den User ist stark abstrahiert.
+}
+
+{%Korrekturvorschlag Samuel
+\textbf{JDBC:} Durch diesen Anschluss ist die Verbindung zu der Datenbank erreichbar. Er erlaubt die Kommunikation zwischen Java und der in der H2 Datenbank laufenden Sprache.
+}
 
 \textbf{Interface:} In diesem Teil liegt die User Interface, wo die User mit den System interagieren können. Diese Problem Karte beziehen sich aus Strategie 1.2, weil jede User hat ein unterschiedliche Oberfläche, mit wenn er mit des System interagieren kann. Außerdem ergibt sich aus die Strategie 15.1: Kapselung des Datenhaltung \ref{strategie:15.1}.
 Diese Komponente ist verwunden mit der BusinessLogik, um die Request und Data Bearbeitung zu erreichen.\\
@@ -1337,13 +1347,30 @@ Diese Komponente ist verwunden mit der BusinessLogik, um die Request und Data Be
 \textbf{BusinessLogik:} In diese Teil liegt die Funktionalität des System, diese Teil ist verantwortlich die Interaktion zwischen die Modelle und die Bearbeitung ihre Data in die Persistenz Komponente. Hier sind die das gewuchtetes Verhalten des System implementiert. diese Schnittstelle ergibt sich aus der Strategie 15.1: Kapselung des Datenhaltung \ref{strategie:15.1} \\
 \textbf{JDBC:} Durch diese Anschlüsse  ist die Verwindung mit der Dateibase erreichbar. diese Anschlüsse erlaubt die Kommunikation zwischen die Sprache Java und die Dateibase.  \\
 
+{%Korrekturvorschlag Samuel
+\textbf{Data:} Data ist ein von Persistence zur Verfügung gestelltes Interface zur Kommunikation mit BusinessLogic
+}
+
 \textbf{Data:} Hier sind die Datei von der Komponente  zu der BusinessLogik  geliefert \\
+
+{%Korrekturvorschlag Samuel
+\textbf{Update:} Durch diesen Anschluss wird die Bearbeitung der Dateien an der Persistence ermöglicht. Er wird von Model zur Verfügung gestellt und von Persistence und BusinessLogic genutzt
+}
 
 \textbf{Update:} durch diese Anschlüsse ist die Bearbeitung der Data an der Persistenz Komponente  möglich. diese Anschlüsse ist mit der Model Komponente und BusinessLogik verbindet.  \\
 
+{%Korrekturvorschlag Samuel
+\textbf{Control:} Durch diesen Anschluss bekommt der Controller seine geforderten Daten von BusinessLogic und Model. 
+}
+
 \textbf{Control:} durch diese Anschlüsse bekommt die Controller Komponente ihre entsprechende Daten durch die Geschäftsprozess und Modell.\\
 
+{%Korrekturvorschlag Samuel
+\textbf{HTTPS/Request/Response:} Jede Interaktion mit dem System wird per HTTPS gemacht, also sind diese Anschlüsse verantwortlich für die verschiebung der Dateien von den Webbrowser und den RESTClient zu dem Server und umgekehrt.
+}
+
 \textbf{HTTPS/Request/Response:} Jede  Interaktion mit den System wird durch HTTPS, gemacht zu werden. Infolgedessen ist diese Anschlüsse verantwortlich für die Ableitung der Data an der Web Browser und der REST client zu der Server.\\
+
 \begin{figure}[H]
 \begin{center}
   \includegraphics[width=340px]{UML/KonzeptioneleSicht.pdf}
