@@ -1136,6 +1136,7 @@ Hier haben wir uns für die zweite Strategie entschieden, da sie den Ablauf im F
 	      T1.5: Persistenz\\
           \hline
           \textbf{Strategien} \\ \hline 
+          
             \textbf{Strategie 15.1: Kapselung des Datenhaltung:} Nutzung unterschiedlichen Komponenten, die unterschiedlichen abstrahiere Teilen der System trägen können, damit eine schneller und sicherer Implementierung  zu erreichen. 
 		{\phantomsection}          
            \label{strategie:15.1} 
@@ -1158,6 +1159,8 @@ Hier haben wir uns für die zweite Strategie entschieden, da sie den Ablauf im F
           P1.10.2: Lagerübersicht \\ 
           \hline
           \textbf{Strategien} \\ \hline
+          {\phantomsection}          
+           \label{strategie:16.1}   
             \textbf{Strategie 16.1:Archiv-Attribut(ausgewählt)} Wenn eine Probe archiviert wird, wird zusätzlich ein Attribut Archiv gesetzt, in dem die zusätzlichen Informationen gespeichert werden. \\
           \\ \hline
     \end{tabular}
@@ -1179,9 +1182,14 @@ Hier haben wir uns für die zweite Strategie entschieden, da sie den Ablauf im F
 	P1.8.1: Trägerarten \\
           \hline
           \textbf{Strategien} \\ \hline
-
+		{\phantomsection}          
+           \label{strategie:17.1} 
             \textbf{Strategie 17.1: als String:} Die Trägerart wird als Stringattribut gespeichert. \\
+            {\phantomsection}          
+           \label{strategie:17.2} 
 	\textbf{Strategie 17.2: als Enum:} Die Trägerart wird als Enum bereitgestellt. \\
+	 {\phantomsection}          
+           \label{strategie:17.3} 
 	\textbf{Strategie 17.3: als eigene Klasse: (ausgewählt)} Die Trägerart wird als eigene Klasse (möglicherweise mit Attributen) dargestellt. \\
           \\ \hline
     \end{tabular}
@@ -1202,7 +1210,11 @@ Hier haben wir uns für die dritte Strategie entschieden. Die Darstellung als En
          Fak \\ %hier fehlt noch was -> evtl neue Faktoren?
           \hline
           \textbf{Strategien} \\ \hline
+          	 {\phantomsection}          
+           \label{strategie:18.1} 
 	\textbf{Strategie 18.1: als Enum: (ausgewählt)} Da die Zustände fest vorgegeben sind und die Anzahl nicht veränderbar sein sollen, können sie als Enum gespeichert werden. \\
+		 {\phantomsection}          
+           \label{strategie:18.2} 
 	\textbf{Strategie 18.2: als String:} Die Zustände werden als String-Liste gespeichert. \\
           \\ \hline
     \end{tabular}
@@ -1223,7 +1235,11 @@ Hier haben wir uns für die erste Strategie entschieden. Weil die Anzahl der Zus
          P1.9: Dynamische Zustandsautomaten \\
           \hline
           \textbf{Strategien} \\ \hline
+          	 {\phantomsection}          
+           \label{strategie:19.1} 
 	\textbf{Strategie 19.1: als Enum:} Die Zustände werden als Enum gespeichert. \\
+	{\phantomsection}          
+           \label{strategie:19.2} 
 	\textbf{Strategie 19.2: als Liste von Strings: (ausgewählt)} Die Zustände werden als String-Liste gespeichert. \\
           \\ \hline
     \end{tabular}
@@ -1245,7 +1261,11 @@ Hier haben wir uns für die zweite Strategie entschieden, weil die Zustände weg
 	P1.6.1: Prozesskettenart \\
           \hline
           \textbf{Strategien} \\ \hline
+          {\phantomsection}          
+           \label{strategie:20.1} 
 	\textbf{Strategie 20.1: als Enum: (ausgewählt)} Die unterschiedlichen Arten werden als Enum dargestellt. \\
+	{\phantomsection}          
+           \label{strategie:20.2} 
 	\textbf{Strategie 20.2: als String:} Für jede Vorlage wird in einem Stringattribut gespeichert, um welche Art es sich handelt. \\
           \\ \hline
     \end{tabular}
@@ -1266,7 +1286,11 @@ Hier haben wir uns für die erste Strategie entschieden, weil die Anzahl an Arte
          P1.10.4: Proben Kommentar \\ 
           \hline
           \textbf{Strategien} \\ \hline
+          {\phantomsection}          
+           \label{strategie:21.1} 
 	\textbf{Strategie 21.1: als eigene Klasse: } Es gibt eine Klasse Kommentare; in Objekten von dieser werden die Kommentare und Details gespeichert. \\
+	{\phantomsection}          
+           \label{strategie:21.2} 
 	\textbf{Strategie 21.2: Als String: (ausgewählt)} Die Kommentare zu Proben werden als Strings gespeichert. \\
           \\ \hline
     \end{tabular}
@@ -1434,10 +1458,10 @@ die Entstehung anhand der Strategien erläutert werden.
 
 Alle Rollen die ein Nutzer annehmen kann, sind in einer Enum gepspeichert. Diese
 sind TECHNOLOGE, PKADMIN, TRANSPORT, LOGISTIKER und der ADMIN. Hiermit
-realisieren wir die Strategie 1.2. Wir können somit mehrere Rollen für einen
+realisieren wir die Strategie 1.2 \ref{strategie:1.2}. Wir können somit mehrere Rollen für einen
 User speichern. Um die Datensicherheit zu gewährleisten haben wir uns für
 Apache Shiro entschieden. Hiermit können wir einzelnen Programmfunktionen nur
-für bestimmte Rollen zulassen. Damit setzen wir die Strategie 2.1 um. Apache
+für bestimmte Rollen zulassen. Damit setzen wir die Strategie 2.1 \ref{strategie:2.1} um. Apache
 Shiro muss wissen welche Rollen zu welchen Usern gehören. Daher referenziert
 User eine oder mehrere Rollen.
 
@@ -1458,12 +1482,12 @@ der Klasse Trägerart gespeichert. Die Information über die Trägerarten wird
 benötigt um in Erfahrung zu bringen, ob eine Experimentierstationen ein
 Prozessschritt ausführen kann. Die ProzessschrittVorlage hat als Attribut welche
 Träger sie annimmt und welche Träger sie ausgibt (eingabeTräger. ausgabeTräger).
-Siehe Strategie 17.3
+Siehe Strategie 17.3 \ref{strategie:17.3}.
 
 Wir haben das Archiv als eigenständig Klasse modelliert, so können wir im
 Nachhinein Proben, welche archiviert werden eine Referenz zu einer Instanz von
 Archiv geben. Falls es diese Referenz gibt, so können wir wissen, dass diese
-Probe Archiviert wurde. Dies wird in der Strategie 16.1 umgesetzt
+Probe Archiviert wurde. Dies wird in der Strategie 16.1 \ref{strategie:16.1} umgesetzt
 
 Es gibt Zwei Arten von Eigenschaften die wir modellieren. Die Qualitative
 Eigenschaft beschreibt ob das Objekt diese Eigenschaft hat. Sie hat also ein
@@ -1479,11 +1503,11 @@ Bedingungen, diese werden durch Eigenschaften oder Prozess-Parametern realisiert
 Wir können festlegen, dass ein Prozesschritt nur ausgeführt werden kann, wenn
 ein vorheriger Prozesschritt eine Eigenschaft besitzt oder ein Parameter hat.
 Ein Logistiker kann in der Logistik Ansicht Proben auflisten, welche
-einer Bedingung entsprechen. Hier haben wir die Strategie 10.2 umgesetzt.
+einer Bedingung entsprechen. Hier haben wir die Strategie 10.2 \ref{strategie:10.2} umgesetzt.
 
 Eine ProzesschrittVorlage, enthält eine eindeutige ID, einen Zustandsautomaten
 (ProzessschrittZustand) und die geschätzte Dauer für den Prozessschritt.
-Strategie 19.2 setzen wir um, indem wir die Zustände einer ProzessSchrittVorlage
+Strategie 19.2 \ref{strategie:19.2}  setzen wir um, indem wir die Zustände einer ProzessSchrittVorlage
 nicht als Enum speichern, sondern sie als Klasse modellieren.
 Das Attribut eingabeTräger ist Liste von Trägerarten die als Eingabe akzeptiert
 werden, die Liste der Trägerarten ausgabeTräger beschreibt welche Träger von
@@ -1494,10 +1518,10 @@ haben kann. Falls ein Prozesschritt eine höhere Priorität hat, wird dieser vor
 dem Prozesschritt ausgeführt der eine geringere Priorität hat.  Somit kann dann
 automatisch bestimmt werden, welcher Prozessschritt als nächstes an einer
 Experimentierstation ausgeführt wird unter Berücksichtigung der Priorität.
-Hiermit setzen wir die Strategie 7.2 um.
+Hiermit setzen wir die Strategie 7.2 \ref{strategie:7.2}  um.
 
 Es gibt drei Arten von ProzessschrittArten: umformend, färbend und ermittelend.
-Diese wurden als Enum modeliert, dies ist unsere Umsetzung der Strategie 20.1
+Diese wurden als Enum modeliert, dies ist unsere Umsetzung der Strategie 20.1 \ref{strategie:20.1} 
 Diese sind vom Kunden Vorgeben und können nicht im Nachhinein geändert werden.
 
 Ein Prozessschritt ist eine instanzierte ProzesschrittVorlage. Ihre Attribute
@@ -1518,7 +1542,7 @@ nachher die Eigenschaft, welche ermittelt wurde der Probe zugewiesen.
 
 Um den Up/Download von den Parameter der Prozesschritte als JSON zu ermöglichen
 ist es diese mit JAXB zu serialisieren. Dazu verwenden wir
-TODO. Hiermit setzen wir die Strategie 4.1 um. Dafür stellen wir ein Interface
+TODO. Hiermit setzen wir die Strategie 4.1 \ref{strategie:4.1}  um. Dafür stellen wir ein Interface
 bereit, dass es uns ermöglicht die Parameter der Prozesschritte zu serialiseren.
 Um mit externen Diensten zu kommunizieren werden für das serialisierte JSON
 Rest-Schnittstellen angeboten
@@ -1535,7 +1559,7 @@ Ein Auftrag ist eine Instanz einer Prozesskettenvorlage
 Wie oben erwähnt ist Auftrag eine Instanzierung von der Prozesskette, die
 ProzesschrittVorlage erstellt eine Prozessschritt Objekt. Wir haben getrennte
 Klassen für die Vorlage und die Instanzen von den Prozesschritten und Prozessketten.
-Hiermit setzen wir die Strategie 3.1 um. Die Prozessschritte sind somit abstrakt
+Hiermit setzen wir die Strategie 3.1 \ref{strategie:3.1}  um. Die Prozessschritte sind somit abstrakt
 und können später auch in anderen Prozessketten wiederverwendet werden.
 
 Ein AuftragsLog enthält start und end Zeiten für die instanzierte Prozesskette.
@@ -1544,7 +1568,7 @@ sind. Aus diesen ist zu entnehmen, wann der einzelne Prozesschritt gestartet
 worden ist, in welchem Zustand dieser sich befand und wann er beendet worden
 ist. Falls später dann ein Prozesschritt betrachtet wird, enthält er die Logs
 und seine Prozesschritt Parameter. Die Prozessschrittparameter lassen sich zu
-JSON serialisieren (Strategie 4.1), der ProzesschrittLog sowie der Prozesschritt
+JSON serialisieren (Strategie 4.1) \ref{strategie:4.1} , der ProzesschrittLog sowie der Prozesschritt
 ansich sind auch serialisierbar. Jetzt ist es uns möglich ein Protokol
 der Prozesskette zu serialisieren.
 
@@ -1561,7 +1585,7 @@ Aus dem Bedingungen der ProzesschrittVorlage ergibt sich die Menge an
 Experimentierstationen, welche möglich sind. Für diese wird geschätzt, wie lange
 es dauert bis die bisherige Warteschlange beendet ist. Die Experimentierstation
 mit der geringsten Wartezeit wird dem Prozesschritt zugeteilt. Dies ist unsere
-Umsetzung von der Strategie 14.2
+Umsetzung von der Strategie 14.2 \ref{strategie:14.2} .
 
 Zu einer Station können mehrere User vom Administrator zugewiesen
 werden. User, welche der Station zugeordnet sind haben die Möglichkeit den
@@ -1574,17 +1598,17 @@ nun möglich SQL ähnliche Queries für unsere modellierten Klassen zu erstllen
 
 Jede der Proben enthält eine eindeutige ID, diese entspricht dem ID Schema,
 welches der Kunde schon in seiner jetzigen Datenbank nutzt. Kommentare und deren
-Zeitstempel werden als Pair gespeichert (Strategie 21.3) und von den
+Zeitstempel werden als Pair gespeichert (Strategie 21.3)\ref{strategie:21.3}  und von den
 Useren bearbeitet. Somit kann jede Probe in dem System betrachtet werden.
 Dadurch, dass wir für jede Probe eine ID haben und sie einzeln in der Datenbank
-speichern wird Strategie 8.1 umgesetzt. Somit kann nachvollzogen werden, zu
+speichern wird Strategie 8.1 \ref{strategie:8.1} umgesetzt. Somit kann nachvollzogen werden, zu
 welchem Zeitpunkt sich eine Probbe wo und in welcher Prozessketten befunden hat.
 Weiter kann der Technologe durch das kommentieren einzelner Proben wichtige
 Informationen über eine Probe an seine Mitarbeiter weitergeben. Damit die Nutzer
 der Proben Verwaltung nicht unter langen Ladezeiten leiden, laden wir nur Proben
 aus der Datenbank, welche wir auch benötigen. Dies wird durch deltaspike data
 und einem Query, der nur einen kleinen Ausschnitt aus der Datenbank lädt,
-realisiert. Wir nutzen also lazy loading und setzen damit die Strategie 12.1 um.
+realisiert. Wir nutzen also lazy loading und setzen damit die Strategie 12.1 \ref{strategie:12.1} um.
 
 Ein Träger enthält Referenzen zu alle Proben die in Ihm enthalten sind. Weiter
 hat der Träger ein Standort und eine ID. Träger ist eine assoziations Klasse von
@@ -1604,7 +1628,7 @@ die anderen Transporteure in der Transort Ansicht. Der Transporteur läuft nun
 los und erledigt den Auftrag, danach wird der AuftragsZustand auf abgegeben
 gesetzt. Der Transport erfährt in seiner Ansicht, wo die Proben sich befinden
 und was ihr nächstes Ziel ist. Er selber wird nicht persistiert. Dies ist unsere
-Umsetzung von der Strategie 13.1
+Umsetzung von der Strategie 13.1 \ref{strategie:13.1} 
 
 
 
