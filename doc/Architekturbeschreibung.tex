@@ -36,6 +36,7 @@
             pdftex=true]{hyperref}
 \usepackage{bookmark}
 \usepackage{rotating}
+\usepackage{float}
 
 \hyphenation{Arbeits-paket}
 
@@ -249,11 +250,11 @@ Primefaces                             & Ist eine Menge an UI Komponenten für J
 JSF                                    & Steht für Java Server Faces. Ist eine Spezifikation zur Entwicklung von grafischen Oberflächen in Java.                                                                                                                \\ \hline
 GUI                                    & Eine Form eines User Interfaces, die dem Benutzer erlaubt durch elektronische Geräte grafisch mit der Software zu interagieren (Graphical User Interface).                                                         \\ \hline
 Klassendiagramm                        & Ist ein Typ von statischen Struktur Diagrammen, welche Klassen, Attribute, Operationen und Relationen des Systems als Diagramm darstellen.                                                                              \\ \hline
-Komponentendiagramm                    & Beschreiben wie Komponenten durch ihre Schnittstellen verbunden sind. Sie werden benutzt, um die Struktur komplexer Systeme darzustellen.                                                                                \\ \hline
-Model-View-Controller (MVC)            & Ein Architekturmuster welches für User Interfaces benutzt wird, um Programmlogik in 3 Elemente zu unterteilen: Model, View und Controller.                                                                               \\ \hline
-Object-Relation-Mapping (ORM)          & ===TODO====                                                                                                                                                                                                             \\ \hline
-Paketdiagramm                         & Zeigt die Abhängigkeiten der Pakete des Models.                                                                                                                                                                        \\ \hline
-Sequenzdiagramme                       & Zeigt die Struktur unseres Models und stellt den Austausch von Nachrichten zwischen Objekten dar. Dabei wird eine Lebenslinie benutzt.                                                                                   \\ \hline
+Komponentendiagramm                    & Beschreiben wie Komponenten durch ihre Schnittstellen verbunden sind. Sie werden benutzt um die Struktur komplexer Systeme darzustellen.                                                                                \\ \hline
+Model-View-Controller (MVC)            & Ein Architekturmuster welches für User Interfaces benutzt wird um Programmlogik in 3 Elemente zu unterteilen: Model, View und Controller.                                                                               \\ \hline
+Object-Relation-Mapping (ORM)          & Ist ein Verfahren um Datentypen zwischen inkompatiblen Typ Systemen zu konvertieren. Dieses erstellt eine virtuelle Objekt Datenbank                                                                                                                                                                                                             \\ \hline
+Packetdiagramm                         & Zeigt die Abhängigkeiten der Packete des Models.                                                                                                                                                                        \\ \hline
+Sequenzdiagramme                       & Zeigt die Struktur unseres Models und stellt den Austausch von nachricten zwischen Objekten dar. Dabei wird eine Lebenslinie benutzt.                                                                                   \\ \hline
 Problemkarten                          & Beschreiben Probleme und passende Strategien.                                                                                                                                                                           \\ \hline
 SQL                                    & Ist eine domänenspezifische Sprache, die in der Softwareentwicklung benutzt wird und Daten in relationalen Datenbanken verwaltet.                                                                                         \\ \hline
 \end{longtable}
@@ -653,9 +654,12 @@ Hier haben wir uns für die zweite Strategie entschieden, weil diese eine elegan
     \end{tabular}
 
     \caption{Datensicherheit Problemkarte}
+
     \label{tab:ProblemKarte2}
 \end{table}
 Hier haben wir uns für die erste Strategie entschieden, weil die Benutzung einer bereits implementierten Spezifikation uns viel Zeit spart. \\
+
+
 
 
 \begin{table}[H]
@@ -677,8 +681,11 @@ Hier haben wir uns für die erste Strategie entschieden, weil die Benutzung eine
 
     \end{tabular}
 
-    \caption{Entlassen Mitarbeiter Problemkarte}
+
+    \caption{Entlassen/Einstellen Mitarbeiter Problem Karte}
+
     \label{tab:ProblemKarte3}
+
 \end{table}
 
 \begin{table}[H]
@@ -701,10 +708,11 @@ Hier haben wir uns für die erste Strategie entschieden, weil die Benutzung eine
     \end{tabular}
 
 
+
     \caption{Upload/Download Problemkarte}
     \label{tab:ProblemKarte4}
+
 \end{table}
-Hier haben wir uns für die .. Strategie entschieden, weil .. \\
 
 \begin{table}[H]
     \centering
@@ -724,10 +732,106 @@ Hier haben wir uns für die .. Strategie entschieden, weil .. \\
           \\ \hline
     \end{tabular}
 
-    \caption{Protokollierung der Prozessketten Problemkarte}
+    \caption{Protokollierung der Prozessketten Problem Karte}
+
     \label{tab:ProblemKarte5}
 \end{table}
+
+
+
+
+
+%\begin{table}[]
+%    \centering
+%    \begin{tabular}{|p{15cm}|}
+%    \hline
+%          \textbf{Problem 7:} Stationenbearbeitung
+%          \\ \hline
+%          Der Administrator soll neue Stationen hinzufügen können. Die Software muss die Fähigkeit haben neue Stationen zu übernehmen und zu nutzen. Außerdem soll der Zustand jeder Station sichtbar und bearbeitbar sein.
+%          \\ \hline
+%          \textbf{Einflussfaktoren: } \\
+%          T 1.5: Persistent \\
+%          P 1.4: Experimentierstationen \\
+%          P 1.4: Kaputte Stationen\\
+%          \hline
+%          \textbf{Strategien} \\ \hline
+%          \textbf{Strategie 1:} Die 
+%          \\ \hline
+%    \end{tabular}
+%    \caption{Caption}
+%    \label{tab:ProblemKarte7}
+%\end{table}
+
+%\begin{table}[]
+ %   \centering
+%    \begin{tabular}{|p{15cm}|}
+%    \hline
+%          \textbf{Problem 8:} Überwachung der Zustände
+%          \\ \hline
+%          Wenn ein Logistiker einen Prozess gestartet hat, sollte der Prozess gestoppt, wieder gestartet und priorisiert werden können von dem Prozessketteadministrator.
+%          \\ \hline
+%          \textbf{Einflussfaktoren: } \\
+ %         T 1.5: Persistent \\
+ %         P 1.7: Aufträge\\
+ %         P 1.7.1: Kaputte Stationen\\
+%          P 1.7.2: Automatisches Zuorden\\
+%          P 1.9: Automatisches Zuorden\\
+%          \hline
+%          \textbf{Strategien} \\ \hline
+%          \textbf{Strategie 1:} Zustandautma
+%          \\ \hline
+%    \end{tabular}
+%    \caption{Caption}
+%    \label{tab:ProblemKarte8}
+%\end{table}
+
+%\begin{table}[]
+   % \centering
+ %  \begin{tabular}{|p{15cm}|}
+%    \hline
+%          \textbf{Problem 9:} Prozessbearbeitung und Überwachung
+%          \\ \hline
+%          Der Prozesskettenadministrator kann einen Prozess mit unterschiedlichen Prozessschritten bauen. Dieser Prozess soll veränderbar sein und umtauschbar, um den Bedürfnissen der Benutzer gerecht zu werden.
+%          \\ \hline
+%          \textbf{Einflussfaktoren: } \\
+%          T 1.5: Persistent \\
+%          P 1.4: Experimentierstationen verwalten\\
+%          P 1.6: Prozessketten\\
+%          \hline
+%          \textbf{Strategien} \\ \hline
+%          \textbf{Strategie 1:} Eigenschaften der Stationen herausfinden, damit der entsprechende Nutzer ein Station einfach hinzufügen können.
+%          \\ \hline
+%    \end{tabular}
+
+%    \caption{Caption}
+%    \label{tab:ProblemKarte9}
+
+%\end{table}
+
+%\begin{table}[]
+%    \centering
+%    \begin{tabular}{|p{15cm}|}
+%    \hline
+%          \textbf{Problem 7:} Stationenbearbeitung
+%          \\ \hline
+%          Der Administrator soll neue Stationen hinzufügen können. Die Software muss die Fähigkeit haben neue Stationen zu %übernehmen und zu nutzen. Außerdem soll der Zustand jeder Station sichtbar und bearbeitbar sein.
+%          \\ \hline
+%          \textbf{Einflussfaktoren: } \\
+%          T 1.5: Persistent \\
+%          P 1.2: Protokollierung\\
+%          P 1.4:\\
+%          p 1.4.1\\
+%          \hline
+%          \textbf{Strategien} \\ \hline
+%          \textbf{Strategie 1:} Eingeschaften der Stationen herausfinden, damit der entsprechende Nutzer eine Station einfach %hinzufügen kann.
+%          \\ \hline
+%    \end{tabular}
+%    \caption{Caption}
+%    \label{tab:ProblemKarte7}
+%\end{table}
+
 Hier haben wir uns  für die erste Strategie entschieden, weil diese eine feste Formatierung vorgibt, und somit sichergestellt ist, dass die Protokolle gleich aussehen.\\
+
 
 \begin{table}[]
 
@@ -750,7 +854,33 @@ Hier haben wir uns  für die erste Strategie entschieden, weil diese eine feste 
     \caption{ Startionenbearbeitung Problemkarte}
     \label{tab:ProblemKarte6}
 \end{table}
+
+%\end{table}
+
+%\begin{table}[]
+%    \centering
+%    \begin{tabular}{|p{15cm}|}
+%    \hline
+%          \textbf{Problem 7:} Stationenbearbeitung
+%          \\ \hline
+%          Der Administrator soll neue Stationen hinzufügen können. Die Software muss die Fähigkeit haben neue Stationen zu %übernehmen und zu nutzen. Außerdem soll der Zustand jeder Station sichtbar und bearbeitbar sein.
+%          \\ \hline
+%          \textbf{Einflussfaktoren: } \\
+%          T 1.5: Persistent \\
+%          P 1.2: Protokollierung\\
+%          P 1.4:\\
+%          p 1.4.1\\
+%          \hline
+%          \textbf{Strategien} \\ \hline
+%          \textbf{Strategie 1:} Eingeschaften der Stationen herausfinden, damit der entsprechende Nutzer eine Station einfach %hinzufügen kann.
+%          \\ \hline
+%    \end{tabular}
+%    \caption{Caption}
+%    \label{tab:ProblemKarte7}
+%\end{table}
+
 Hier haben wir uns für die erste Strategie entschieden, da sich dadurch eine praktische Abkoppelung zwischen Datenbank-Queries und Buisnesslogik ergibt. Des Weiteren sparen wir uns durch die Verwendung Zeit. \\
+
 
 
 \begin{table}[H]
@@ -770,13 +900,12 @@ Hier haben wir uns für die erste Strategie entschieden, da sich dadurch eine pr
           \textbf{Strategie 7.2: Automatische Sortierung} Es werden automatisch die Prozesskettenprioritäten analysiert und sortiert angezeigt. \\
           \\ \hline
 
-          Der Logistiker möchte einen Überblick über alle Proben, die im Lager liegen. Da die Probenkügelchen alle einzeln gespeichert werden, und es somit eine sehr große Menge an Proben ist, könnte das Laden aller Proben auf einmal zu Performanceproblemen führen.
+          %Der Logistiker möchte einen Überblick über alle Proben, die im Lager liegen. Da die Probenkügelchen alle einzeln gespeichert werden, und es somit eine sehr große Menge an Proben ist, könnte das Laden aller Proben auf einmal zu Performanceproblemen führen.\\ 
 
     \end{tabular}
     \caption{Priorisieren von Prozessketten Problemkarte}
     \label{tab:ProblemKarte7}
 \end{table}
-Hier haben wir uns für die .. Strategie entschieden, weil .. \\
 
 
 \begin{table}[H]
@@ -917,6 +1046,7 @@ Hier haben wir uns für die erste Strategie entschieden, weil diese einfacher um
 %    \label{tab:ProblemKarte131}
 %\end{table}
 
+
 \begin{table}[H]
     \centering
     \begin{tabular}{|p{15cm}|}
@@ -1007,6 +1137,12 @@ Diese Komponente ist verwunden mit der BusinessLogik, um die Request und Data Be
 \subsubsection{Controller}
 
 \subsubsection{Persistence}
+Fick dich
+ \begin{sidewaysfigure}
+  \caption{Persistenzmodelll für DataColorado}
+  \centering
+  \includegraphics[width=\textwidth]{UML/Persistence}
+ \end{sidewaysfigure}
 
 \subsection{Module}
 
@@ -1061,7 +1197,71 @@ die Entstehung anhand der Strategien erläutert werden.
 \section{Datensicht}
 \label{sec:datensicht}
 
-{ Zunächst existiert die Klasse Probe, welche die ID, die Legierung als (???), die Art der Behandlung und die Materialeigenschaften beinhaltet. Eine bestimmte Probe kann ausschließlich einem Träger zugeordnet werden. 
+{
+
+Alle Rollen die ein Nutzer annehmen kann, sind in einer Enum gepspeichert. Diese
+sind TECHNOLOGE, PKADMIN, TRANSPORT, LOGISTIKER und der ADMIN.
+
+Die User bestehen aus einer id, einem Vornamen, einem Nachnamen, einer Email,
+einer Telefonnummer, einer Kombination von seinem Passwort und seinem Usernamen.
+Der User erhält nach dem sein Konto erstellt wurde eine email, nachdem er seinen
+Account verifiziert, wird wurdeVerifiziert auf True gesetzt. Das Attribut
+Erstellungsdatum, speichert wann der Nutzer erstellt worden ist.
+
+Ein Standort enthält ein String.
+
+Ein Träger hat eine id, einen Standort. Falls er einem Auftrag zugewiesen ist,
+referenziert er auch diesen.
+
+Es gibt drei Trägerarten, nämlich eingebettet, einzelnen und Glas. Diese sind in
+der Enum Trägerart gespeichert.
+
+Wir haben das Archiv als eigenständig Klasse modelliert, so können wir im
+Nachhinein Proben, welche archiviert werden eine Referenz zu einer Instanz von
+Archiv geben. Falls es diese Referenz gibt, so können wir wissen, dass diese
+Probe Archiviert wurde.
+
+Es gibt Zwei Arten von Eigenschaften die wir modellieren. Die Qualitative
+Eigenschaft beschreibt ob das Objekt diese Eigenschaft hat. Sie hat also ein
+Namen, falls es eine Referent dahin gibt, wissen wir dass das Objekt auch diese
+Eigenschaft hat. Die Quantitative Eigenschaft ist eine Erweiterung der
+Qualitativen Eigenschaft. Sie enthält einen Wert und eine Einheit. Der Wert ist
+eine Zahl, welche von Java unterstützt wird. Für die Einheiten nutzen wir die SI
+Implementierung, welche die Java Laufzeit Bibliothek bereitstellt.
+
+Eine ProzesschrittVorlage, enthält eine eindeutige ID, einen Zustandsautomaten
+(ProzessschrittZustand) und die geschätzte Dauer für den Prozessschritt.
+Das Attribut eingabeTräger ist Liste von Trägerarten die als Eingabe akzeptiert
+werden, die Liste der Trägerarten ausgabeTräger beschreibt welche Träger von
+diesem Prozesschritt ausgeben werden.
+
+Es gibt drei Arten von ProzessschrittArten: umformend, färbend und ermittelend.
+Diese sind vom Kunden Vorgeben und können nicht im Nachhinein geändert werden.
+
+Ein Prozessschritt ist eine instanzierte ProzesschrittVorlage. Ihre Attribute
+sind, eine Prozesschritt ID, ein Boolean uploaded. Dieser wird auf True gesetzt,
+nachdem der Technologe die ProzessParameter an die externe Datenbank hochgeladen
+hat. current ist referiert eine Experimentierstation, falls es eine
+Experimentierstation gibt, wo aktuell dieser Prozesschritt durchläuft. Der
+Aktuelle Zustand aus dem Zustandsautomaten des Prozesschrittes wird in dem
+String Zustand gespeichert. TODO Warum hat PS einen Auftrag
+
+Ein ProzessschrittZustand ist eine Liste von Zuständen. Der
+ProzessschrittZustand kann vom pkAdmin erweitert um weitere Zustände erweitert
+werden, wenn dieser nicht in Benutzung ist.
+
+Ein ProzessParameter hat einen Namen. Einer ProzesschrittVorlage Vorlage können
+Parameter zugewiesen werden. Bei falls der Prozesschritt ermittelnd ist, wird
+nachher die Eigenschaft, welche ermittelt wurde der Probe zugewiesen.
+
+
+Eine ProzesskettenVorlage, hat eine eindeutige id.
+
+Ein Auftrag ist eine Instanz einer Prozesskettenvorlage
+
+Ein AuftragsLog enthält start und end
+
+  . Eine bestimmte Probe kann ausschließlich einem Träger zugeordnet werden.
 Die Klasse Träger besteht wieder aus einer ID, dem aktuellen Standort als  Standort und dem Typ als Trägerart. Ein Träger kann beliebig viele Proben beinhalten. Ein bestimmter Träger kann genau einer Experimentierstation (ES) zugeordnet sein. Eine Experimentierstation besteht aus einem Namen als String und dem Ort, an dem die ES zu finden ist als Standort. Einer bestimmten ES können beliebig viele Träger zugeordnet sein, während ihr immer nur ein  Technologe zugeordnet sein wird. Die ES ist immer nur einem bestimmten Prozessschritt (PS) zugeordnet. Ein Prozessschritt beinhaltet den Namen als String, die Prozessparameter (PP) als Prozessparameter, der Probenzustand, die Dauer und die Zustände und (???). Ein Prozessschritt ist einer bestimmten Prozesskette zugeordnet. Die Prozesskette (PK) beinhaltet den Namen als String. Sie beherbergt beliebig viele Prozessschritte und beliebig viele Prozesskettenaufträge. Der  Prozesskettenauftrag (PKAuftrag) kann nur einer Prozesskette zugeordnet sein und hat einen KettenInstanzwert (KIW) zugeordnet. \\}
 
 {  Zunächst existiert die Klasse Probe, welche die ID, die Legierung als (???), die Art der Behandlung und die Materialeigenschaften beinhaltet. Eine bestimmte Probe kann ausschließlich einem Träger zugeordnet werden.
@@ -1079,15 +1279,13 @@ Dies wird so gehandhabt, da man im Nachhinein, nachdem eine Prozesskette instanz
   allerdings mit implementierungsspezifischen Änderungen und
   Erweiterungen. Siehe die gesonderten Hinweise.}
    
- \begin{sidewaysfigure}
+ \begin{figure}[H]
   \caption{Datenmodell für DataColorado}
   \centering
-  
+  \includegraphics[width=1.1\textwidth]{UML/datenModel}
 
-  \includegraphics[width=0.75\textwidth]{UML/datenModel}
-
- \end{sidewaysfigure}
-
+ \end{figure}
+\newpage
 \section{Ausführungssicht}
 
 \label{sec:ausfuehrung}
@@ -1098,17 +1296,32 @@ Dies wird so gehandhabt, da man im Nachhinein, nachdem eine Prozesskette instanz
 
 
 %%\includepdf[]{06Ausfuehrungssicht.pdf}
+\begin{figure}[H]
 \includegraphics[scale=0.5]{UML/06Ausfuehrungssicht.pdf}
+ \caption{Ausführungssicht}
+\end{figure}
 
 
-{ Die Ausführungssicht von unserer Software (SWP2) ist in der obrigen Abbildung 6.1 modelliert.
+{ Die Ausführungssicht von unserer Software (SWP2) ist in der obrigen Abbildung
+  6.1 modelliert.
 
-Beliebig viele Benutzer können via TCP/IP auf den SFB-Server zugreifen. Dies geschieht über eine Webapplikation, die im Internetbrowser eines PCs oder eines mobilen Endgerät läuft.
+Beliebig viele Benutzer können via TCP/IP auf den SFB-Server zugreifen. Dies
+geschieht über eine Webapplikation, die im Internetbrowser eines PCs oder eines
+mobilen Endgeräts aufgerufen werden kann.
 
-Es gibt einen Anwendungsserver, welchen wir SFB-Server genannt haben, auf dem eine Instanz von Wildfly läuft. Auf dieser Wildflyinstanz wird der SWP2-Server mit allen dazugehörigen modulen ausgeführt.
+Es ist auch möglich, das sich ein Rest-Client sich mit unserem Server verbindet,
+dieser verbindet sich dann an den REST-Endpunkt über den SFB-Server. Das Module
+der Businesslogik führt die Befehle dann aus.
 
-Der SFB-Server stellt eine Verbindung über TCP/IP eine Verbindung zu dem einzigen Datenbankserver her. Auf dem Server läfut eine Instanz der Datenbanksoftware (........INSERT NAME...........).
+Es gibt einen Anwendungsserver, welchen wir SFB-Server genannt haben, auf dem
+eine Instanz von Wildfly läuft. Auf dieser Wildflyinstanz wird der SWP2-Server
+mit allen dazugehörigen modulen ausgeführt.
 
+Das Modul Persistence kommuniziert mit dem Modul Businesslogik aber auch
+\glqq abstract \grqq über JDBC mit dem H2 Server
+
+Der SFB-Server stellt eine Verbindung über TCP/IP zu dem
+Datenbankserver her. Auf dem Server läfut eine Instanz der Datenbanksoftware H2.
 }
 
 {\it
@@ -1128,7 +1341,7 @@ Prozessen auf welchen Rechnern ausgeführt werden.}
 
 
 \subsection{Nutzer Verwalten}
-\begin{figure}
+\begin{figure}[H]
   \includegraphics[width=\linewidth]{UML/seq.png}
   \caption{Anlegen eines Nutzers}
   \label{fig:pkErstellen}
@@ -1136,7 +1349,7 @@ Prozessen auf welchen Rechnern ausgeführt werden.}
 In dieser Graphik wird ein Nutzer vom Admin angelegt. Dieser muss dann eine Mail bestätigen und kann dann zugriff beantragen
 
 
-\begin{figure}
+\begin{figure}[H]
   \includegraphics[width=\linewidth]{UML/erstbenutzung.png}
   \caption{Nutzer möchte sich auf dem System anmelden}
   \label{fig:pkErstellen}
@@ -1145,7 +1358,7 @@ In dieser Graphik wird in einem Sequenzdiagramm gezeigt, wie der Nutzer sich auf
 
 \subsection{Prozessketten Verwalten und Proben beantragen}
 
-\begin{figure}
+\begin{figure}[H]
   \includegraphics[width=\linewidth]{UML/pkErstellen.png}
   \caption{Ablauf des Erstellens einer Prozesskette}
   \label{fig:pkErstellen}
@@ -1159,7 +1372,7 @@ Falls die Randbedingen der Kette stimmen darf diese instanziiert werden. Beim Sp
 
 Jetzt erhält der Logistiker einen neuen Probenzuweisung Auftrag, falls die Anfrage genehmigt wurde kann der PKAdmin nun die Prozesskette starten
 
-\begin{figure}
+\begin{figure}[H]
   \includegraphics[width=\linewidth]{UML/logstikProbenPueftZuweisen.png}
   \caption{Ablauf vom zuweisen der Proben zu einer Prozessketteninstanz}
   \label{fig:logstikProbenPüftZuweisen}
@@ -1187,22 +1400,38 @@ In der Graphik \ref{fig:logstikProbenPüftZuweisen} erhält die Logistik eine An
 \section{Evolution}
 
 \label{sec:evolution}
+Um die Anwendung nach der Auslieferung an den Kunden entwickel- und erweiterbar zu halten, wird die Software in verschiedene Module aufgeteilt und eine gute Entkopplung \& Kapselung dieser kommen der Erweiterung der Software zugute. Im folgenden präsentieren wir Ideen zur Erweiterung der Software.
 
-\subsection{Automatische statistische Ausewertung}
-{
-Die erste Idee zum sinnvollen Erweitern der Software soll eine Vorraussicht ausgeben können, wie sich nach dem Ausführen eines beliebigen Prozessschritts auf eine Probe ihre Eigenschaften ändern würden, bzw. welche Eigenschaften die Probe danach wahrscheinlich haben wird.
-Da wir in der Datenbank ca. eine halbe Million Proben haben, kann ein analytischer Algorithmus Statistiken erstellen, welche die höchste Wahrscheinlichkeit einer Veränderung der Eigenschaften einer Probe auswertet. 
-Um es in unsere Architektur einzubinden, muss eine Klasse für die Statistiksoftware erstellt werden, aus dieser werden die Statistiken erstellt und dann mit den eingegebenen Daten abgeglichen. Am ende bekommt man die Eigenschaftenänderung zurück, die am wahrscheinlichsten ist.
-}
-\subsection{Vorraussichtliche Dauer eines Prozesses}
-{
-Man kann den Algorithmus aus der Kristallkugel Software auch dafür verwenden, dass aus den durch den Algorithmus aus 9.1 errechneten empirischen Daten die vorraussichtliche Dauer eines Prozesses errechnet und ausgegeben wird. Hier braucht man, wie in 9.1, eine neue Klasse, welche die Statistiksoftware beinhaltet, aus welcher man dann eine wahrescheinliche Zeit herausbekommt
-}
-\subsection{Scanner}
-{
-Da so gut wie jedes mobile Endgerät eine Kamera besitzt, könnte man diese nutzen, um QR-Codes, die auf den Proben, den Trägern, im Archiv und an jeder Station zu finden sind, zu scannen damit z.B. der Transporter nichtmehr manuell eingeben muss, welche Datei er wohin bringt. \\
-Er scannt den QR-Code des Trägers und dann die QR-Codes beliebig vieler Proben. Die Software ordnet nun automatisch die gescannten Proben dem gescannten Träger zu. 
-Er kann den QR-Code des Trägers scannen und die Software weiß automatisch, dass der angemeldete Transporter den Träger abgeholt hat und wenn er jetzt den QR-Code der nächsten Experimentierstation scannt, trägt die Software automatisch den Träger als Abgeliefert ein. \\
+\subsection{Automatische statistische Ausewertung} { Die erste Idee zum
+  sinnvollen Erweitern der Software soll eine Vorraussicht ausgeben können, wie
+  sich nach dem Ausführen eines beliebigen Prozessschritts auf eine Probe ihre
+  Eigenschaften ändern würden, bzw. welche Eigenschaften die Probe danach
+  wahrscheinlich haben wird. Da wir in der Datenbank ca. eine halbe Million
+  Proben haben, kann ein analytischer Algorithmus Statistiken erstellen, welche
+  die höchste Wahrscheinlichkeit einer Veränderung der Eigenschaften einer Probe
+  auswertet. Um es in unsere Architektur einzubinden, muss eine Klasse für die
+  Statistiksoftware erstellt werden, aus dieser werden die Statistiken erstellt
+  und dann mit den eingegebenen Daten abgeglichen. Am ende bekommt man die
+  Eigenschaftenänderung zurück, die am wahrscheinlichsten ist. }
+\subsection{Vorraussichtliche Dauer eines Prozesses} { Man kann den Algorithmus
+  aus der Kristallkugel Software auch dafür verwenden, dass aus den durch den
+  Algorithmus aus 9.1 errechneten empirischen Daten die voraussichtliche Dauer
+  eines Prozesses errechnet und ausgegeben wird. Hier braucht man, wie in 9.1,
+  eine neue Klasse, welche die Statistiksoftware beinhaltet, aus welcher man
+  dann eine wahrescheinliche Zeit herausbekommt }
+\subsection{Scanner}{
+  Da so gut wie jedes mobile Endgerät eine Kamera besitzt, könnte man diese nutzen, um QR-Codes, die auf den Proben, den Trägern, im Archiv und an jeder Station zu finden sind, zu scannen damit z.B. der Transporter nichtmehr manuell eingeben muss, welche Datei er wohin bringt. \\
+  Er scannt den QR-Code des Trägers und dann die QR-Codes beliebig vieler
+  Proben. Die Software ordnet nun automatisch die gescannten Proben dem
+  gescannten Träger zu.
+  Er kann den QR-Code des Trägers scannen und die Software weiß automatisch,
+  dass der angemeldete Transporter den Träger abgeholt hat und wenn er jetzt den
+  QR-Code der nächsten Experimentierstation scannt, trägt die Software
+  automatisch den Träger als Abgeliefert ein. \\
+
+  Um dies zu realisieren muss die REST-API so erweitert werden, dass über
+  die Buisnesslogik die Proben und Träger im Modell und  aktualisiert. Der
+  Zustand der jeweiligen Prozesschritte muss ebenfalls verändert werden.		
 }
 
 
