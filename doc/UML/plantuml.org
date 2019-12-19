@@ -224,7 +224,7 @@ class User {
 
 class Probe {
   +probenID: String
-  +kommentar: String
+  +kommentar: Pair<java.util.LocalDataTime, String>
   +zerstört: boolean
   +verloren: boolean
 }
@@ -237,7 +237,7 @@ class Standort {
 class Träger {
   +id: int
   +standort: Standort
-  +zugewiesnerAuftrag: Auftrag
+  +zugewiesnerAuftrag: Auftrag DELTEME
 }
 
 enum Trägerart {
@@ -257,7 +257,7 @@ class "QualitativeEigenschaft" as qualE {
 
 class "QuantitativeEigenschaft" as quantE {
   +wert: java.lang.Number
-  +einheit: java.units.SI
+  +einheit: javax.units.SI
 }
 
 class "Prozessschritt" as ps {
@@ -287,11 +287,14 @@ class "ProzessschrittVorlage" as psV {
   +ausgabeTräger: List<Trägerart>
 }
 
-enum ProzessschrittArt {
+enum ProzessSchrittArt {
 URFORMEND
 FÄRBEND
 ERMITTELEND
 }
+
+ class TransportAuftrag {
+   +zustand: enum["abgeholt", "abgeliefert"]
 
  class "ProzessParameter" as pp {
     +name: String
@@ -338,7 +341,7 @@ class "ExperimentierStation" as es {
   +esID: int
   +standort: String
   +status: enum ["verfügbar", "besetzt", kaputt]
-  +currentPS: Prozessschritt
+  +currentPS: Prozessschritt DELETEME
   +nextPS: Queue<Prozessschritt>
 }
 
@@ -362,6 +365,7 @@ class "ExperimentierStation" as es {
   ps "1" -- "1" psV: < instanziert
   ps "1"-- "1" Prozessschrittlog:  hat >
   ps "1" -- "1" ProzessschrittZustand: hat >
+  ps "1" -- "0..1" TransportAuftrag: hat >
 
 
   psV "1" --  "1" ProzessschrittArt: hat >
