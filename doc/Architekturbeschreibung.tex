@@ -1137,11 +1137,11 @@ Diese Komponente ist verwunden mit der BusinessLogik, um die Request und Data Be
 \subsubsection{Controller}
 
 \subsubsection{Persistence}
+Fick dich
  \begin{sidewaysfigure}
   \caption{Persistenzmodelll für DataColorado}
   \centering
-  \includegraphics[width=0.75\textwidth]{UML/Persistence}
-
+  \includegraphics[width=\textwidth]{UML/Persistence}
  \end{sidewaysfigure}
 
 \subsection{Module}
@@ -1317,8 +1317,14 @@ Es gibt einen Anwendungsserver, welchen wir SFB-Server genannt haben, auf dem
 eine Instanz von Wildfly läuft. Auf dieser Wildflyinstanz wird der SWP2-Server
 mit allen dazugehörigen Modulen ausgeführt.
 
+[TODO] 
+- Auf der Abbildung für eine Sprache entscheiden! Nicht Module und Prozess...\\
+- Abbildung ist nicht aktuell! Tipps aus dem Tutorium\\
+- Text hier drunter müsste auf die neue Abbildung angepasst werden!
+- Wird REST und API nicht groß geschrieben?
+
 Das Modul Persistence kommuniziert mit dem Modul Businesslogik aber auch
-\glqq abstract \grqq über JDBC mit dem H2 Server
+\glqq abstract\grqq{} über JDBC mit dem H2 Server.
 
 Der SFB-Server stellt eine Verbindung über TCP/IP zu der
 Datenbank her, welche auf dem gleichen SFB Server läuft und eine Instanz der Datenbanksoftware H2 betreibt.
@@ -1389,10 +1395,11 @@ In der Graphik \ref{fig:logstikProbenPüftZuweisen} erhält die Logistik eine An
 \section{Evolution}
 
 \label{sec:evolution}
-Um die Anwendung nach der Auslieferung an den Kunden entwickel- und erweiterbar zu halten, wird die Software in verschiedene Module aufgeteilt und eine gute Entkopplung \& Kapselung dieser kommen der Erweiterung der Software zugute. Im folgenden präsentieren wir Ideen zur Erweiterung der Software.
+Um die Anwendung nach der Auslieferung an den Kunden entwickel- und erweiterbar zu halten, wird die Software in verschiedene Module aufgeteilt und eine gute Entkopplung \& Kapselung dieser kommen der Erweiterung der Software zugute. Im Folgenden präsentieren wir Ideen zur Erweiterung der Software.
 
-\subsection{Automatische statistische Ausewertung} { Die erste Idee zum
-  sinnvollen Erweitern der Software soll eine Vorraussicht ausgeben können, wie
+\subsection{Automatische statistische Auswertung} 
+{ Die erste Idee zum
+  sinnvollen Erweitern der Software soll eine Voraussicht ausgeben können, wie
   sich nach dem Ausführen eines beliebigen Prozessschritts auf eine Probe ihre
   Eigenschaften ändern würden, bzw. welche Eigenschaften die Probe danach
   wahrscheinlich haben wird. Da wir in der Datenbank ca. eine halbe Million
@@ -1400,27 +1407,25 @@ Um die Anwendung nach der Auslieferung an den Kunden entwickel- und erweiterbar 
   die höchste Wahrscheinlichkeit einer Veränderung der Eigenschaften einer Probe
   auswertet. Um es in unsere Architektur einzubinden, muss eine Klasse für die
   Statistiksoftware erstellt werden, aus dieser werden die Statistiken erstellt
-  und dann mit den eingegebenen Daten abgeglichen. Am ende bekommt man die
-  Eigenschaftenänderung zurück, die am wahrscheinlichsten ist. }
-\subsection{Vorraussichtliche Dauer eines Prozesses} { Man kann den Algorithmus
-  aus der Kristallkugel Software auch dafür verwenden, dass aus den durch den
-  Algorithmus aus 9.1 errechneten empirischen Daten die voraussichtliche Dauer
-  eines Prozesses errechnet und ausgegeben wird. Hier braucht man, wie in 9.1,
-  eine neue Klasse, welche die Statistiksoftware beinhaltet, aus welcher man
-  dann eine wahrescheinliche Zeit herausbekommt }
+  und dann mit den eingegebenen Daten abgeglichen. Am Ende bekommt man die
+  Änderung der Eigenschaften zurück, die am wahrscheinlichsten ist, wenn ein Prozessschritt auf die Probe angewandt wird. 
+}
+\subsection{Voraussichtliche Dauer eines Prozesses} 
+{ Man kann den Algorithmus aus der automatischen statistischen Auswertung auch dafür verwenden, dass aus den durch den Algorithmus aus 9.1 errechneten empirischen Daten die voraussichtliche Dauer eines Prozesses errechnet und ausgegeben wird. Hier braucht man, wie in 9.1, eine neue Klasse, welche die Statistiksoftware beinhaltet, aus welcher man dann eine wahrscheinliche Zeit herausbekommt.
+}
 \subsection{Scanner}{
-  Da so gut wie jedes mobile Endgerät eine Kamera besitzt, könnte man diese nutzen, um QR-Codes, die auf den Proben, den Trägern, im Archiv und an jeder Station zu finden sind, zu scannen damit z.B. der Transporter nichtmehr manuell eingeben muss, welche Datei er wohin bringt. \\
+  Da so gut wie jedes mobile Endgerät eine Kamera besitzt, könnte man diese nutzen, um QR-Codes, die auf den Proben, den Trägern, im Archiv und an jeder Station zu finden sind, zu scannen damit z. B. der Transporter nicht mehr manuell eingeben muss, welche Datei er wohin bringt. \\
   Er scannt den QR-Code des Trägers und dann die QR-Codes beliebig vieler
   Proben. Die Software ordnet nun automatisch die gescannten Proben dem
   gescannten Träger zu.
   Er kann den QR-Code des Trägers scannen und die Software weiß automatisch,
   dass der angemeldete Transporter den Träger abgeholt hat und wenn er jetzt den
   QR-Code der nächsten Experimentierstation scannt, trägt die Software
-  automatisch den Träger als Abgeliefert ein. \\
+  automatisch den Träger als abgeliefert ein. \\
 
-  Um dies zu realisieren muss die REST-API so erweitert werden, dass über
-  die Buisnesslogik die Proben und Träger im Modell und  aktualisiert. Der
-  Zustand der jeweiligen Prozesschritte muss ebenfalls verändert werden.		
+  Um dies zu realisieren, muss die REST-API so erweitert werden, dass über
+  die Businesslogik die Proben und Träger im Modell aktualisiert werden. Der
+  Zustand der jeweiligen Prozessschritte muss ebenfalls verändert werden.		
 }
 
 
