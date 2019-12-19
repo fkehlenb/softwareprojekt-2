@@ -146,3 +146,39 @@ Zuordnung des Trägers braucht kein User
 
  entity manager privat oder protected
  em auch protected
+
+* Gespraaech vom Donnerstag
+ Leo macht Code:
+
+ Erst ein Diagram mit allen Controllern -> 5.1
+
+
+5.1 Refereniziert das Datenmodel
+5.2 Einzelbeschreibung MC Per, als Trippel mit Text
+5.3 Pers wird fertiggestellt heute
+
+Contnrolller Weitergemacht
+
+Website sind Controller
+Controller zu Klasse
+Bean zu Seite
+
+Fabian: es gibt eine Kombi beider
+
+
+Services
+- Java Mail
+- Shrio (Hashing)
+- DeltaData Spike
+  https://shiro.apache.org/java-authentication-guide.html
+- JSON Export
+- Jersey und Jackson
+
+  Santi:
+- schreibt labels
+- Modulsicht
+
+  Sam
+  Ausf
+  Evolution
+  Konyeptionellen Sicht *L'nge*
