@@ -218,25 +218,22 @@ class User {
   +username: String
   +password: Byte[]
   +wurdeVerifiziert: boolean
-  +erstellungsDatum: java.util.Date
+  +erstellungsDatum: java.time.LocalTimeDate
 }
 
 
 class Probe {
   +probenID: String
-  +kommentar: Pair<java.util.LocalDataTime, String>
-  +zerstört: boolean
-  +verloren: boolean
+  +kommentar: Pair<java.time.LocalTimeDate, String>
+  +zustand: enum["kapput", "verloren", "vorhanden"]
 }
 
-
 class Standort {
-  +Ort:String
+  +ort: String
 }
 
 class Traeger {
   +id: int
-  +zugewiesnerAuftrag: Auftrag DELTEME
 }
 
 class Traegerart {
@@ -245,7 +242,7 @@ class Traegerart {
 
 class Archiv {
 auftrag: Auftrag
-datum: java.util.Date
+datum: java.time.LocalTimeDate
 }
 
 class "QualitativeEigenschaft" as qualE {
@@ -282,7 +279,7 @@ class ProzessschrittZustandVorlage {
 class "ProzessschrittVorlage" as psV {
   +psVID: int
   +zustände: List<String>
-  +dauer: java.util.Time
+  +dauer: java.time.Duration
   +eingabeTraeger: List<Traegerart>
   +ausgabeTraeger: List<Traegerart>
 }
@@ -293,8 +290,9 @@ class ProzessschrittArt {
 
  class TransportAuftrag {
    +zustand: enum["abgeholt", "abgeliefert"]
+}
 
- class "ProzessParameter" as pp {
+ class "ProzessSchrittParameter" as pp {
     +name: String
   }
 
@@ -304,8 +302,8 @@ class Auftrag {
 }
 
 class AuftragsLog {
-  +start: java.util.LocalDate
-  +ende: java.util.LocalDate
+  +start: java.time.LocalDate
+  +ende: java.time.LocalDate
 }
 
 
@@ -330,8 +328,6 @@ enum "ProzesskettenZustand" as pkZ {
 }
 
 class Bedingung {
-  +vorBedingungA: List<ProzessParamter>
-  +vorBedingungB: List<QualitativenEigenschaften>
 }
 
 class "ExperimentierStation" as es {
@@ -366,10 +362,11 @@ class "ExperimentierStation" as es {
   psV "*" --  "1" ProzessschrittArt: hat >
   psV "1" -- "1..*" pp: hat >
   psV "1" --"1..*" es: hat >
+  psV "*" -- ProzessschrittZustand: TODO
 
   (psV, es) .. Bedingung
 
- ProzessschrittZustandVorlage -- ProzessschrittZustand: erstellt von >
+ ProzessschrittZustandVorlage -- ProzessschrittZustand: < erstellt von
  ps -- ProzessschrittZustandVorlage
 
  Traeger "1" -- "1" Traegerart: hat >
@@ -378,8 +375,8 @@ class "ExperimentierStation" as es {
 
   pkV "*" -- "1" psV: hat >
 
-  Bedingung "1" -- "*" pp
-  Bedingung  "1" -- "*" qualE
+  Bedingung "*" -- "1" pp
+  Bedingung  "*" -- "*" qualE
 
 
   Probe "0..1" *- "0..1" Archiv
