@@ -24,11 +24,9 @@ public class ProzessschrittDAO extends ObjectDAO<Prozessschritt> {
      * @throws ProzessschrittNotFoundException if the process chain step object couldn't be found */
     public void remove(Prozessschritt ps) throws ProzessschrittNotFoundException{}
 
-    /** Fetch a process chain step object from the database
-     * @return the requested process chain step object
-     * @throws ProzessschrittNotFoundException if the process chain step object couldn't be found */
-    public Prozessschritt get() throws ProzessschrittNotFoundException{
-        return null;
+    /** @return the class of process steps */
+    public Class<Prozessschritt> get(){
+        return Prozessschritt.class;
     }
 
     /** Fetch a process chain step matching a specific id from the database

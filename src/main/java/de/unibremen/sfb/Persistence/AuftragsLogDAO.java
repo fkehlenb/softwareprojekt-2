@@ -22,9 +22,8 @@ public class AuftragsLogDAO extends ObjectDAO<AuftragsLog> {
      * @throws AuftragsLogNotFoundException if the job log cannot be found in the database */
     public void remove(AuftragsLog a) throws AuftragsLogNotFoundException{}
 
-    /** Get a job log from the database
-     * @throws AuftragsLogNotFoundException if the job log cannot be found in the database */
-    public AuftragsLog get() throws AuftragsLogNotFoundException{
-        return null;
+    /** @return class of job logs */
+    public Class<AuftragsLog> get(){
+        return AuftragsLog.class;
     }
 }

@@ -26,11 +26,9 @@ public class AuftragDAO extends ObjectDAO<Auftrag> {
      * @throws AuftragNotFoundException if the job object couldn't be found in the database */
     public void remove(Auftrag a) throws AuftragNotFoundException {}
 
-    /** Get a job object from the database
-     * @return the requested job object
-     * @throws AuftragNotFoundException if the job object couldn't be found */
-    public Auftrag get() throws AuftragNotFoundException{
-        return null;
+    /** @return the class of job */
+    public Class<Auftrag> get(){
+        return Auftrag.class;
     }
 
     /** Get a job object from the database using the job id

@@ -1,6 +1,13 @@
 package de.unibremen.sfb.Model;
 
-/** The container kinds existing in the system */
-public enum Traegerart {
-    EINGEBETTET,EINZELEN,GLASS
+import lombok.Data;
+
+import java.util.List;
+
+@Data
+/** This class is the data class for container types */
+public class Traegerart {
+
+    /** List containing all container types */
+    public List<String> traegerArten;
 }

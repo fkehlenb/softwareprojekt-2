@@ -22,11 +22,9 @@ public class ExperimentierStationDAO extends ObjectDAO<ExperimentierStation> {
      * @throws ExperimentierStationNotFoundException if the experimenting station couldn't be found in the database */
     public void remove(ExperimentierStation es) throws ExperimentierStationNotFoundException{}
 
-    /** Gets an experimenting station object from the database
-     * @return the requested experimenting station object
-     * @throws ExperimentierStationNotFoundException if the experimenting station couldn't be found in the database */
-    public ExperimentierStation get() throws ExperimentierStationNotFoundException{
-        return null;
+    /** @return the class of experimenting stations */
+    public Class<ExperimentierStation> get(){
+        return ExperimentierStation.class;
     }
 
     /** Get an experimenting station object from the database using its unique id

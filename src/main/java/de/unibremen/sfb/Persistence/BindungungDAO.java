@@ -22,10 +22,8 @@ public class BindungungDAO extends ObjectDAO<Bedingung> {
      * @throws BedingungNotFoundException if the condition couldn't be found */
     public void remove(Bedingung b) throws BedingungNotFoundException{}
 
-    /** Get a specific condition from the database
-     * @return the requested condition object
-     * @throws BedingungNotFoundException if the condition couldn't be found*/
-    public Bedingung get() throws BedingungNotFoundException{
-        return null;
+    /** @return the class of condition */
+    public Class<Bedingung> get(){
+        return Bedingung.class;
     }
 }
