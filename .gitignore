@@ -59,8 +59,8 @@ out/
 # JIRA plugin
 atlassian-ide-plugin.xml
 
-# Cursive Clojure plugin
-.idea/replstate.xml
+# Cursive alle IDEA Projecte Dateiene Ignorieren
+.idea
 
 # Crashlytics plugin (for Android Studio and IntelliJ)
 com_crashlytics_export_strings.xml
@@ -400,3 +400,5 @@ buildNumber.properties
 .flattened-pom.xml
 
 # End of https://www.gitignore.io/api/web,java,latex,maven,intellij
+
+ *.DS_STORE
