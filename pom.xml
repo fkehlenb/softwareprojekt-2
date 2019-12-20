@@ -71,7 +71,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>SFB-Farbigs</finalName>
+		<finalName>SFB-Farbig</finalName>
 	</build>
 
 </project>
