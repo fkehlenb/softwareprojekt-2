@@ -279,10 +279,10 @@ class ProzessSchrittZustandsAutomatVorlage {
 
 class "ProzessSchrittVorlage" as psV {
   +psVID: int
-  +zustände: List<String>
+  +zustaende: List<ProzessKettenZustandsAutomat>
   +dauer: java.time.Duration
-  +eingabeTraeger: List<Traegerart>
-  +ausgabeTraeger: List<Traegerart>
+  +eingabeTraeger: Set<Traegerart>
+  +ausgabeTraeger: Set<Traegerart>
 }
 
 class ProzessSchrittArt {
@@ -373,7 +373,7 @@ class "ExperimentierStation" as es {
  Traeger "0..1" -- "0..*" Probe: hat >
  Traeger "*" -- "1" Standort: hat >
 
-  pkV "*" -- "*" psV: hat >
+  pkV "*" -- "1..*" psV: hat >
 
   Bedingung "*" -- "*" pp
   Bedingung  "*" -- "*" qualE
