@@ -28,9 +28,7 @@ public class IndexBean2 {
 
 	private BarChartModel customerBarModel;
 
-	private String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-	private List<Order> orders;
+    private List<Order> orders;
 
 	@PostConstruct
 	public void init() {
@@ -47,7 +45,8 @@ public class IndexBean2 {
 
 		List<Customer> customers = customerService.getCustomers();
 
-		for (int i = 0; i < alphabet.length(); i++) {
+        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        for (int i = 0; i < alphabet.length(); i++) {
 			String letter = alphabet.substring(i, i + 1);
 
 			long summedRevenueByLetter = customers.stream()

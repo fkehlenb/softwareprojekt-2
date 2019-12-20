@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-/** The location data class */
+/* The location data class */
 public class Standort {
 
     /** The location */

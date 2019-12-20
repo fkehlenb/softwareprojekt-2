@@ -26,8 +26,8 @@ public class ProzessSchrittVorlageDAO extends ObjectDAO<ProzessSchrittVorlage> {
     /** Get a process chain step template from the database
      * @return the requested process chain step
      * @throws ProzessSchrittVorlageNotFoundException if the process chain step template couldn't be found */
-    public ProzessSchrittVorlage get() throws ProzessSchrittVorlageNotFoundException{
-        return ProzessschrittVorlage.class;
+    public Class<ProzessSchrittVorlage> get() throws ProzessSchrittVorlageNotFoundException{
+        return ProzessSchrittVorlage.class;
     }
 
     /** Get a process chain step template from the database using its defined id

@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-/** This class is the data class for container types */
+/* This class is the data class for container types */
 public class Traegerart {
 
     /** List containing all container types */

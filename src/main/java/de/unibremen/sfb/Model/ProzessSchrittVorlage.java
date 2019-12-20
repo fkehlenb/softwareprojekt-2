@@ -6,7 +6,7 @@ import java.time.Duration;
 import java.util.List;
 
 @Data
-/** Data class for the process step templates */
+/* Data class for the process step templates */
 public class ProzessSchrittVorlage {
 
     /** Process step template id */
@@ -30,5 +30,5 @@ public class ProzessSchrittVorlage {
     /** The experimenting stations accepted in the process step template */
     public List<ExperimentierStation> stationen;
 
-    /** */
+    /* */
 }

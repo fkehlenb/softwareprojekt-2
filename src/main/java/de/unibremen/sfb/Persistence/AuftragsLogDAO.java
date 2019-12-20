@@ -14,7 +14,7 @@ public class AuftragsLogDAO extends ObjectDAO<AuftragsLog> {
 
     /** Update a job log in the database
      * @param a - the job log to update in the database
-     * @throws  if the job log cannot be found in the database */
+     * @throws AuftragsLogNotFoundException  - is thrown when the job log cannot be found in the database */
     public void update(AuftragsLog a) throws AuftragsLogNotFoundException {}
 
     /** Remove a job log from the database
