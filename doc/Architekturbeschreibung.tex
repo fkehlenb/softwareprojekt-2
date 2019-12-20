@@ -1335,7 +1335,7 @@ in diese Konzeptionelle Ansicht betrachten die Interation zwichen die Komponente
 \textbf{Model:} Hier liegen die Daten der User, Prozesskette , Proben sowie Daten und Vormerkungen des System. Diese Komponente ist mit der Controller und Persistenz verwundet, weil die Daten das Interfaces gezeigt werden, sind das an der Model implementieren. Diese Komponente ergibt sich aus der Strategie (15.1)~\ref{prob:15.1}. \\
 
 {%Korrekturvorschlag Samuel
-\textbf{Interface:} Hier liegt unser User Interface, also die xhtml Website, in der die User mit dem System interagieren. Interface nutzt das Interface Lieferung von Controller. Die Komponente Interface bezieht sich auf Strategie (1.2)\ref{prob:1.2}, weil jeder User eine unterschiedliche Oberfläche benutzt. Außerdem ergibt sich die Komponente aus der Strategie (15.1)~\ref{prob:15.1}. Interface ist mit einem Port verbunden. 
+\textbf{Interface:} Hier liegt unser User Interface, also die xhtml Website, in der die User mit dem System interagieren. Interface nutzt das Interface Lieferung von Controller. Die Komponente Interface bezieht sich auf Strategie 1.2 \ref{strategie:1.2}, weil jeder User eine unterschiedliche Oberfläche benutzt. Außerdem ergibt sich die Komponente aus der Strategie (15.1)~\ref{prob:15.1}. Interface ist mit einem Port verbunden. 
 }
 
 \textbf{Interface:} In diesem Teil liegt die User Interface, wo die User mit den System interagieren können. Diese Problem Karte beziehen sich aus Strategie 1.2, weil jede User hat ein unterschiedliche Oberfläche, mit wenn er mit des System interagieren kann. Außerdem ergibt sich aus die Strategie ~\ref{prob:15.1}(15.1). Diese Komponente ist verwunden mit der BusinessLogik, um die Request und Data Bearbeitung zu erreichen.\\
@@ -1422,12 +1422,21 @@ Diese Komponente ist verwunden mit der BusinessLogik, um die Request und Data Be
 \subsubsection{Controller}
 
 \subsubsection{Persistence}
-Fick dich
+
+{
+Die Persistenzklassen sind für die persistierung von Daten zuständig. Sie erben alle von der abstrakten Klasse ObjectDAO. Diese Klasse implementiert den EntityManager, der für das Verwalten der Datenbankinformationen zuständig ist. Die verschiedenen Funktionen sollen zum Beispiel das Speichern und das Laden nach einem Neustart von Daten ermöglichen. Jedes Objekt, was für die Speicherung in der Datenbank relevant ist, hat eine Klasse, die von ObjectDAO erbt. ObjectDAO hat drei abstrakte Funktionen, die jeweils in den Klassen für die einzelnen Objekte implementiert werden. Zusätzlich gibt es in zu jeder Klasse die relevanten Get Funktionen, um Informationen aus diesen Klassen zu bekommen. Die Funktion persist(T) speichert Objekte in die Datenbank. Update() überschreibt eine vorherige Version dieses Objektes mit der neuen und remove() entfernt das Objekt.
+
+Hier wird das DAO-Pattern genutzt, wodurch die Programmlogik sich nicht an technische Deteils der Datenspeicherung halten muss. Datdurch ist ein flexibelerer Einsatz möglich. 
+Dieses Paket wird gebraucht, da es vorgegeben ist. 
+}
+
  \begin{sidewaysfigure}
   \caption{Persistenzmodelll für DataColorado}
   \centering
   \includegraphics[width=\textwidth]{UML/Persistence}
  \end{sidewaysfigure}
+
+
 
 \subsection{Module}
 
