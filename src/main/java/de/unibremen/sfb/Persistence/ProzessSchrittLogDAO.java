@@ -24,7 +24,7 @@ public class ProzessSchrittLogDAO extends ObjectDAO<ProzessSchrittLog> {
     /** Get an existing process step log object from the database
      * @return the requested process step log object from the database
      * @throws ProzessSchrittLogNotFoundException if the process step log couldn't be found in the database */
-    public ProzessSchrittLog get() throws ProzessSchrittLogNotFoundException{
+    public Class<ProzessSchrittLog> get() throws ProzessSchrittLogNotFoundException{
         return ProzessSchrittLog.class;
     }
 }

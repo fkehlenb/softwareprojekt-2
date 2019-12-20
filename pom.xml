@@ -96,7 +96,6 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
 
         <finalName>SFB-Farbig</finalName>
