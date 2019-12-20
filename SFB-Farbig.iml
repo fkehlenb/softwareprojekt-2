@@ -39,6 +39,6 @@
     <orderEntry type="library" name="Maven: tec.uom:uom-se:1.0.10" level="project" />
     <orderEntry type="library" name="Maven: tec.uom.lib:uom-lib-common:1.0.3" level="project" />
     <orderEntry type="library" name="Maven: si.uom:si-quantity:1.3" level="project" />
-    <orderEntry type="library" name="Maven: nl.talsmasoftware:umldoclet:2.0.7" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: nl.talsmasoftware:umldoclet:2.0.7" level="project" />
   </component>
 </module>
