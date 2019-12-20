@@ -234,6 +234,7 @@ class Standort {
 
 class Traeger {
   +id: int
+  +current: String
 }
 
 class Traegerart {
