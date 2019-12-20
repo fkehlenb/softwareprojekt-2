@@ -6,11 +6,11 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-/** This class is used to create user objects */
+/* This class is used to create user objects */
 public class User {
 
     /** User's id  */
-    public int id;
+    public final int id;
 
     /** The user's name */
     public String vorname;

@@ -22,11 +22,9 @@ public class UserDAO extends ObjectDAO<User> {
      * @throws UserNotFoundException if the user object couldn't be found*/
     public void remove(User u) throws UserNotFoundException {}
 
-    /** Get a user object from the database
-     * @return the requested User object
-     * @throws UserNotFoundException if the user object couldn't be found in the database*/
-    private User get() throws UserNotFoundException{
-        return null;
+    /** @return the class of User */
+    public Class<User> get(){
+        return User.class;
     }
 
     /** Get a user object using the user's id

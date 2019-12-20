@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-/** Data class for container objects */
+/* Data class for container objects */
 public class Traeger {
 
     /** The container's id */

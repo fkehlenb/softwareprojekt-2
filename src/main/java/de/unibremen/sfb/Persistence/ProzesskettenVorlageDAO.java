@@ -1,6 +1,6 @@
 package de.unibremen.sfb.Persistence;
 
-import de.unibremen.sfb.Exception.DuplicateProzessKettenVorlageException;
+import de.unibremen.sfb.Exception.DuplicateProzesskettenVorlageException;
 import de.unibremen.sfb.Exception.ProzesskettenVorlageNotFoundException;
 import de.unibremen.sfb.Model.ProzesskettenVorlage;
 
@@ -9,8 +9,8 @@ public class ProzesskettenVorlageDAO extends ObjectDAO<ProzesskettenVorlage> {
 
     /** Add a job template to the database
      * @param pkv - the job template to add to the database
-     * @throws DuplicateProzessKettenVorlageException if the job template already exists in the database */
-    public void persist(ProzesskettenVorlage pkv) throws DuplicateProzessKettenVorlageException {}
+     * @throws DuplicateProzesskettenVorlageException if the job template already exists in the database */
+    public void persist(ProzesskettenVorlage pkv) throws DuplicateProzesskettenVorlageException {}
 
     /** Update an existing job template in the database
      * @param pkv - the job template to update in the database
@@ -22,11 +22,9 @@ public class ProzesskettenVorlageDAO extends ObjectDAO<ProzesskettenVorlage> {
      * @throws ProzesskettenVorlageNotFoundException if the job template couldn't be found */
     public void remove(ProzesskettenVorlage pkv) throws ProzesskettenVorlageNotFoundException{}
 
-    /** Get a specific job template from the database
-     * @return the requested job template from the database
-     * @throws ProzesskettenVorlageNotFoundException if the job template couldn't be found */
-    public ProzesskettenVorlage get() throws ProzesskettenVorlageNotFoundException{
-        return null;
+    /** @return the class of process chain templates */
+    public Class<ProzesskettenVorlage> get(){
+        return ProzesskettenVorlage.class;
     }
 
     /** Get a specific job template from the database matching a specific id

@@ -22,10 +22,8 @@ public class QualitativeEigenschaftDAO extends ObjectDAO<QualitativeEigenschaft>
      * @throws QualitativeEigenschaftNotFoundException if the qualitative descriptor couldn't be found in the database */
     public void remove(QualitativeEigenschaft q) throws QualitativeEigenschaftNotFoundException{}
 
-    /** Get a qualitative descriptor object from the database
-     * @return the requested qualitative descriptor object
-     * @throws QualitativeEigenschaftNotFoundException if the qualitative descriptor couldn't be found in the database */
-    public QualitativeEigenschaft get() throws QualitativeEigenschaftNotFoundException{
-        return null;
+    /** @return the class of qualitative descriptors */
+    public Class<QualitativeEigenschaft> get(){
+        return QualitativeEigenschaft.class;
     }
 }

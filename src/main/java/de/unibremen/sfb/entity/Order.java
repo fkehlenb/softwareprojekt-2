@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class Order {
 
-	private String orderId;
+	private final String orderId;
 	private String taxId;
 	private String customerId;
 	private String product;
