@@ -1,5 +1,5 @@
 package de.unibremen.sfb.Model;
 
-public enum ProzessschrittArt {
+public enum ProzessSchrittArt {
     UMFORMEND, FAEBEND, ERMITTELND
 }
