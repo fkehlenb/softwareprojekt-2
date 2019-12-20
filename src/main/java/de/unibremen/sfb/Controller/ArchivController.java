@@ -8,11 +8,31 @@ public class ArchivController {
 
     public Archiv archiv;
 
+    /**
+     * Setzt den Auftrag, der mit dem Archiv archiviert wird.
+     *
+     * @param a Der neue Auftrag
+     */
     public void setAuftrag(Auftrag a) {}
 
+    /**
+     * Gibt den Auftrag, der mit diesem Archiv archivivert wird.
+     *
+     * @return Der Auftrag
+     */
     public Auftrag getAuftrag() { return null; }
 
+    /**
+     *  Diese Methode setzt die Zeit der Archivierung
+     *
+     * @param d Die neue Zeit
+     */
     public void setDatum(LocalDateTime d) {}
 
+    /**
+     * Die Methode gibt die Zeit der Archivierung aus
+     *
+     * @return Die Zeit
+     */
     public LocalDateTime getDatum() { return null; }
 }
