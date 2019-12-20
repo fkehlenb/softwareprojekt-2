@@ -705,7 +705,6 @@ Hier haben wir uns für die zweite Strategie entschieden, weil diese eine elegan
 	P2.2:Anzeige \\
 	P3.1: User Rechte \\
 	P3.2: Authentifizierung \\
-	P4.1: Datenbank \\
          \hline
           \textbf{Strategien} \\ \hline
           \textbf{Strategie 2.1: Apache Shiro: (ausgewählt)} Das System wird Apache Shiro nutzen, um das Rollensystem zu realisieren und die Informationen auf der Datenbank vor unautorisierten Personen zu schützen.. \\ 
@@ -725,10 +724,8 @@ Hier haben wir uns für die erste Strategie entschieden, weil eine eigene Implem
          Der Prozesskettenadministrator möchte nicht gestartete Prozessketten und Prozessschritte bearbeiten können.
           \\ \hline
           \textbf{Einflussfaktoren: } \\
-          P1.6: Prozessketten \\ 
-	P1.7: Aufträge \\
+          P1.6.1: Prozessketten Grundlagen\\ 
 	P1.5: Prozessschritte \\
-	P1.5.1: Prozessschritte an Experimentierstationen \\
           \hline
           \textbf{Strategien} \\ \hline
           \textbf{Strategie 3.1: Eigene Klassen: (ausgewählt)} Wir differenzieren zwischen Vorlagen und tatsächlich gestarteten Prozessketten/schritten, beides bekommt eine eigene Klasse. \\
@@ -751,7 +748,6 @@ Hier haben wir uns für die erste Strategie entschieden, weil es die einzige Mö
           T 1.5: Persistenz \\
           P 1.1.1: Upload\\
           P 1.1.2: Download\\
-          P 1.4: Datenbank \\
           \hline
           \textbf{Strategien} \\ \hline
           \textbf{Strategie 4.1: JAXB:}  Konkrete Parameter sind bei uns Objekte von einer Klasse Parameter. Diese Objekte können wir mithilfe von JAXB und der Rest API nach JSON serialisieren. \\ 
@@ -773,7 +769,7 @@ Hier haben wir uns für die erste Strategie entschieden, weil diese Umsetzung we
           \\ \hline
           \textbf{Einflussfaktoren: } \\
           T 1.5: Persistenz \\
-          P 1.2: Protokollierung\\
+          P 1.2.1: Protokollierung der Prozessketten\\
           \hline
           \textbf{Strategien} \\ \hline
 	\textbf{Strategie 5.1: Datenklassen (ausgewählt)} Wir legen für die Protokolle und die einzelnen Einträge eigene Datenklassen an.\\
@@ -800,7 +796,7 @@ Hier haben wir uns  für die erste Strategie entschieden, weil diese eine feste 
           \\ \hline
           \textbf{Einflussfaktoren: } \\
           T 1.5: Persistenz \\
-          P 1.4: Experimentierstationen\\
+          P 1.4.1: Experimentierstationen verwalten\\
           \hline
           \textbf{Strategien} \\ \hline
           \textbf{Strategie 6.1: DeltaSpike Data: (ausgewählt)} Wir benutzen DeltaSpike Data, um Repository Patterns zu implementieren, zum Beispiel für die Bearbeitung von Stationen. \\
@@ -810,7 +806,6 @@ Hier haben wir uns  für die erste Strategie entschieden, weil diese eine feste 
     \label{tab:ProblemKarte6}
 \end{table}
 Hier haben wir uns für die erste Strategie entschieden, da sich dadurch eine praktische Abkoppelung zwischen Datenbank-Queries und Buisnesslogik ergibt. Des Weiteren sparen wir uns durch die Verwendung Zeit. \\
-%FAKTOR technisch: DeltaSpikeData
 
 \begin{table}[H]
     \centering
@@ -821,8 +816,8 @@ Hier haben wir uns für die erste Strategie entschieden, da sich dadurch eine pr
           Laufende Prozessketten sollen priorisiert werden können, was zur Folge hat, dass sie, wann immer mehrere Prozessketten auf die gleichen Aktionen warten, schneller drankommen. 
           \\ \hline
           \textbf{Einflussfaktoren: } \\
-          P 1.7: Aufträge \\
-	P1.5.1: Prozessschritte an Experimentierstationen \\
+          P 1.7.1: Aufträge Grundlagen\\
+	P1.5.2: Prozessschritte an Experimentierstationen \\
           \hline
           \textbf{Strategien} \\ \hline
           \textbf{Strategie 7.1: Anzeige} Die Prioritäten der Prozessketten werden den Usern angezeigt, damit sie selber sehen, welche sie als erstes bearbeiten sollten. \\
@@ -833,7 +828,6 @@ Hier haben wir uns für die erste Strategie entschieden, da sich dadurch eine pr
     \label{tab:ProblemKarte7}
 \end{table}
 Hier haben wir uns für die zweite Strategie entschieden, weil sie deutlich benutzerfreundlicher ist. \\
-%FAKTOR: die laufenden aufträge, die an jeder experimentierstation anstehen, sollen automatisch nach priorität sortiert werden.
 
 \begin{table}[H]
     \centering
@@ -844,7 +838,7 @@ Hier haben wir uns für die zweite Strategie entschieden, weil sie deutlich benu
          In der Anwendungsumgebung gibt es eine hohe Anzahl an Proben, die alle in der Datenbank gespeichert werden sollen. Dadurch, dass es so viele sind (von Materialien der gleichen Sorte gibt es viele kleine Kügelchen), stellt sich die Frage, ob es sinnvoll ist, jede einzelne dieser Kügelchen identifizieren zu können.
           \\ \hline
           \textbf{Einflussfaktoren: } \\
-          P1.10.3: Lagerübersicht \\
+          P1.10.4: Lagerübersicht \\
           \hline
           \textbf{Strategien} \\ \hline
 	\textbf{Strategie 8.1: Alle einzeln (ausgewählt):} Jedem einzelnen Probenkügelchen wird eine eigene id zugeordnet. \\
@@ -891,7 +885,7 @@ Hier haben wir uns für die erste und dritte Strategie entschieden, weil wir gru
           Proben sollen ohne Einfluss des Benutzers Aufträgen passend zugeordnet werden. Das bedeutet, dass das System die Eigenschaften von Proben kennen und den Anforderungen von Aufträgen passend zuordnen soll.
           \\ \hline
           \textbf{Einflussfaktoren: } \\
-          P1.7.2: Automatisches Zuordnen \\
+          P1.7.3: Automatisches Zuordnen \\
           \hline
           \textbf{Strategien} \\ \hline
           \textbf{Strategie 10.1:Wegfallen Anforderungen:} Diese Anforderung ist optional, das heißt zur Not kann man ihn einfach weglassen. \\
@@ -942,9 +936,9 @@ Hier haben wir uns für Strategie 2 entschieden, weil durch die Modularisierung 
           Der Logistiker möchte einen Überblick über alle Proben, die im Lager liegen. Da die Probenkügelchen alle einzeln gespeichert werden, und es somit eine sehr große Menge an Proben ist, könnte das Laden aller Proben auf einmal zu Performanceproblemen führen.
         \\  \hline
         \textbf{Einflussfaktoren: } \\
-	 P1.10.3: Lagerübersicht \\
-	P1.10.4: Proben-id-Nummern \\
-	P4.1: Datenbank \\
+	 P1.10.4: Lagerübersicht \\
+	P1.10.5: Proben-id-Nummern \\
+	T1.5: Persistent
 	P2.2: Anzeige \\
         \hline
         \textbf{Strategien} \\
@@ -965,7 +959,7 @@ Hier haben wir uns für die erste Strategie entschieden, weil diese einfacher um
           Wenn es Träger gibt, die von einer Station zur nächsten transportiert werden sollen, dann werden diese für alle Transporteure angezeigt. Natürlich kann aber nur ein Transporteur tatsächlich die Träger weitertragen; deswegen soll es möglich sein, dass ein Transporteur einen Auftrag annimmt, der dann für alle anderen nicht mehr sichtbar ist. \\
         \\  \hline
         \textbf{Einflussfaktoren: } \\
-	 P5.1: Transporte \\ 
+	 P1.11: Transporte \\ 
         \hline
         \textbf{Strategien} \\
          \textbf{Strategie 13.1: Klasse mit Zuständen: (ausgewählt)} Es soll eine Klasse für die Transportaufträge geben. Der Transportauftrag kann unterschiedliche Zustände annehmen, es werden nur Transportaufträge dargestellt, die im entsprechenden Zustand sind. \\
@@ -986,8 +980,8 @@ Hier haben wir uns für die erste Strategie entschieden, weil wir sowieso schon 
          Wenn für einen Prozessschritt mehrere Experimentierstationen möglich sind, muss ausgewählt werden, welche Stationen eine Prozesskette tatsächlich benutzen soll. \\
         \\  \hline
         \textbf{Einflussfaktoren: } \\
-	P1.4.1: Auslastung \\
-	P1.5.1: Prozessschritte an Experimentierstationen\\
+	P1.4.2: Auslastung \\
+	P1.5.2: Prozessschritte an Experimentierstationen\\
         \hline
         \textbf{Strategien} \\
          \textbf{Strategie 14.1: Von Hand:} Der Prozesskettenadministrator wählt die Stationen selber aus, wenn er die Prozesskette instanziiert. \\
@@ -997,7 +991,6 @@ Hier haben wir uns für die erste Strategie entschieden, weil wir sowieso schon 
     \label{tab:ProblemKarte14}
 \end{table}
 Hier haben wir uns für die zweite Strategie entschieden, da sie den Ablauf im Fachbereich effizienter gestalten kann. Des Weiteren könnte es für den Prozesskettenadministrator bei zu vielen Prozessketten schwierig werden, einen Überblick zu behalten. \\
-%FAKTOR: die anwenudng soll automatisch ermitteln, welche experimentierstationen eine prozesskette durchläuft (bei instanziierung)
 
 \begin{table}[H]
     \centering
@@ -1029,8 +1022,8 @@ Hier haben wir uns für die erste Strategie entschieden, weil durch die Kapselun
 	Proben sollen archiviert werden können, dafür soll zusätzlich zu den anderen Informationen auch gespeichert werden, wann die Archivierung stattfand, und im Kontext von welchem Auftrag.
           \\ \hline
           \textbf{Einflussfaktoren: } \\
-          P1.10.3: Lagerübersicht \\ 
-	P1.10.2: Archivierte Proben \\
+          P1.10.4: Lagerübersicht \\ 
+	P1.10.3: Archivierte Proben \\
           \hline
           \textbf{Strategien} \\ \hline
             \textbf{Strategie 16.1:Archiv-Attribut(ausgewählt)} Wenn eine Probe archiviert wird, wird zusätzlich ein Attribut Archiv gesetzt, in dem die zusätzlichen Informationen gespeichert werden. \\
@@ -1051,7 +1044,6 @@ Hier haben wir uns für die erste Strategie entschieden, weil durch eine eigene 
           \\ \hline
           \textbf{Einflussfaktoren: } \\
          P1.8: Träger \\ 
-	P1.8.1: Trägerarten \\
           \hline
           \textbf{Strategien} \\ \hline
             \textbf{Strategie 17.1: als String:} Die Trägerart wird als Stringattribut gespeichert. \\
@@ -1073,8 +1065,8 @@ Hier haben wir uns für die dritte Strategie entschieden. Die Darstellung als En
           Für die Prozessketten soll es Zustandsautomaten geben. 
           \\ \hline
           \textbf{Einflussfaktoren: } \\
-         P1.6 Prozessketten \\ 
-	P1.6.2: Zustand Prozesskette \\
+         P1.6.1: Prozessketten Grundlagen \\ 
+	P1.6.3: Zustand Prozesskette \\
           \hline
           \textbf{Strategien} \\ \hline
 	\textbf{Strategie 18.1: als Enum: (ausgewählt)} Die Zustände werden als Enum gespeichert. \\
@@ -1116,8 +1108,8 @@ Hier haben wir uns für die zweite Strategie entschieden, weil die Zustände weg
           Die Prozessketten werden grundsätzlich in drei unterschiedliche Arten unterteilt; für jede Prozesskettenvorlage soll gespeichert werden, um welche es sich handelt. \\
           \\ \hline
           \textbf{Einflussfaktoren: } \\
-         P1.6: Prozessketten \\
-	P1.6.1: Prozesskettenart \\
+         P1.6.1: Prozessketten Grundlagen\\
+	P1.6.2: Prozesskettenart \\
           \hline
           \textbf{Strategien} \\ \hline
 	\textbf{Strategie 20.1: als Enum: (ausgewählt)} Die unterschiedlichen Arten werden als Enum dargestellt. \\
@@ -1138,7 +1130,7 @@ Hier haben wir uns für die erste Strategie entschieden, weil die Anzahl an Arte
           Für Proben sollen Kommentare erstellt werden können. 
           \\ \hline
           \textbf{Einflussfaktoren: } \\
-         P1.10.4: Proben Kommentar \\ 
+         P1.10.6: Proben Kommentar \\ 
           \hline
           \textbf{Strategien} \\ \hline
 	\textbf{Strategie 21.1: als eigene Klasse: } Es gibt eine Klasse Kommentare; in Objekten von dieser werden die Kommentare und Details gespeichert. \\
