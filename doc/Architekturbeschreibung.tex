@@ -489,10 +489,14 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
 \begin{tabular}[c]{@{}l@{}}Abge-\\ leitet\\aus\end{tabular} & Einflussfaktor                                                                        & \begin{tabular}[c]{@{}l@{}}Flexibilität und \\ Veränderlichkeit\end{tabular}                                                              & \begin{tabular}[c]{@{}l@{}}++/\\\\ −−\end{tabular} & Auswirkungen                                                                                                                                                                                                                              \\ \hline
  \multicolumn{5}{|l|}{P1.5: Prozessschritte}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Prozessschritte\\ sollen erstellt,\\ gelöscht, \\bearbeitet, und\\ hervorgehoben\\(sofern im \\Zustand kaputt)\\ werden können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Mangel an den\\ Mindestanforderungen,\\ Architektur wird\\ möglicherweise vom \\Kunden nicht akzeptiert.\end{tabular} \\ \hline
+ \multicolumn{5}{|l|}{P1.5.1: Prozessschritte an Experimentierstationen}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
+                                                          & \begin{tabular}[c]{@{}l@{}}Für jeden\\ Prozessschritt \\soll gespeichert \\werden, an \\welchen Stationen \\dieser durchgeführt\\ werden kann. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss \\diese Information speichern\\ und damit umgehen \\können, dass es\\ eventuell im Ablauf\\ einer Prozesskette \\mehrere Optionen gibt.\end{tabular} \\ \hline
 \multicolumn{5}{|l|}{P1.6: Prozessketten}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Prozessketten\\ sollen erstellt,\\ gelöscht, und\\ bearbeitet\\ werden können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Mangel an den\\ Mindestanforderungen,\\ Architektur wird\\ möglicherweise vom \\Kunden nicht akzeptiert.\end{tabular} \\ \hline
 \multicolumn{5}{|l|}{P1.6.1: Prozesskettenart}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Jede\\ Prozesskette\\ ist einem \\Typ zugeordnet. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die unterschiedlichen \\Arten müssen\\ irgendwie gespeichert\\ werden. \end{tabular} \\ \hline
+\multicolumn{5}{|l|}{P1.6.2: Zustand Prozessketten}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
+                                                          & \begin{tabular}[c]{@{}l@{}}Für jede \\Prozesskette\\ soll angegeben \\werden können,\\ welche Zustände\\ sie durchlaufen\\ kann. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur \\muss es möglich \\machen, dass in \\den Zuständen\\ navigiert wird (von\\ einem zum nächsten). \end{tabular} \\ \hline
 \multicolumn{5}{|l|}{P1.7: Aufträge}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Aufträge sollen\\ erstellt, \\freigegeben, \\gestoppt,\\ gelöscht,\\ priorisiert, und \\bearbeitet\\ werden können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss eine Seite vorsehen, .\end{tabular} \\ \hline
 \multicolumn{5}{|l|}{P1.7.1: Zuordnen zu Aufträgen}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
@@ -506,9 +510,9 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
 \centering
 \begin{tabular}{|p{1cm}|p{3cm}|p{5cm}|p{1cm}|p{5cm}|}
 \hline
-\begin{tabular}[c]{@{}l@{}}Abge-\\ leitet\\aus\end{tabular} & Einflussfaktor                                                                        & \begin{tabular}[c]{@{}l@{}}Flexibilität und \\ Veränderlichkeit\end{tabular}                                                              & \begin{tabular}[c]{@{}l@{}}++/\\\\ −−\end{tabular} & Auswirkungen                                                                                                                                                                                                                              \\ \hline                                                      % \multicolumn{5}{|l|}{P1.7.3: Prioritäten}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
+\begin{tabular}[c]{@{}l@{}}Abge-\\ leitet\\aus\end{tabular} & Einflussfaktor                                                                        & \begin{tabular}[c]{@{}l@{}}Flexibilität und \\ Veränderlichkeit\end{tabular}                                                              & \begin{tabular}[c]{@{}l@{}}++/\\\\ −−\end{tabular} & Auswirkungen                                                                                                                                                                                                                              \\ \hline %                                                      \multicolumn{5}{|l|}{P1.7.3: Prioritäten}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
 %                                                          & \begin{tabular}[c]{@{}l@{}}Für Aufträge\\soll eine Priorität \\errechnet werden. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Anwendung\\ muss die Parameter \\der Prozessschritte\\ einer Prozesskette \\auswerten können, und \\daraus schließen, welche \\Proben/Träger\\ gebraucht werden. \end{tabular} \\ \hline
-\multicolumn{5}{|l|}{P1.7.4: Zustand Prozessschritt}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
+\multicolumn{5}{|l|}{P1.7.3: Zustand Prozessschritt}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Der Zustand\\ eines Prozess-\\schrittes \\(Auftrag im\\Kontext Techno-\\loge) soll\\manuell aktuali-\\siert werden. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss \\vorsehen, dass von außen \\eine Auwahl des\\Zustandes möglich ist. \end{tabular} \\ \hline
 \multicolumn{5}{|l|}{P1.8: Träger}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Träger sollen\\erstellt und\\gelöscht\\werden können.\\ \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss \\eine Möglichkeit haben,\\Träger zu löschen\\(über einen Knopf oä)\\und neue Träger\\zu erstellen. \end{tabular} \\ \hline
@@ -528,11 +532,13 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
 \begin{tabular}[c]{@{}l@{}}Abge-\\ leitet\\aus\end{tabular} & Einflussfaktor                                                                        & \begin{tabular}[c]{@{}l@{}}Flexibilität und \\ Veränderlichkeit\end{tabular}                                                              & \begin{tabular}[c]{@{}l@{}}++/\\\\ −−\end{tabular} & Auswirkungen                                                                                                                                                                                                                              \\ \hline
 \multicolumn{5}{|l|}{P1.10.1: Verlorene Proben}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Proben\\ sollen als \\verloren gemeldet\\ werden können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss \\mit verlorenen Proben\\umgehen können: Es\\muss möglich sein,\\zu sehen, wenn eine\\Probe verloren gegangen\\ist, diese darf nicht weiter\\verplant werden. \end{tabular} \\ \hline
-\multicolumn{5}{|l|}{P1.10.2: Lagerübersicht}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
+\multicolumn{5}{|l|}{P1.10.2: Archivierte Proben}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     \\ \hline
+                                                          & \begin{tabular}[c]{@{}l@{}}Proben müssen\\ archiviert werden\\ können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss \\vorsehen, dass\\ Proben archiviert werden, \\wobei die zustäzlichen \\notwendigen Informationen\\ gespeichert werden sollen \\und die Probe im\\ Lager landet, wo sie \\kein Teil von einer \\laufenden Prozesskette\\ ist. \end{tabular} \\ \hline %TEXT ÄNDERN UND ÜBERALL NUMMERN ÄNDERN
+\multicolumn{5}{|l|}{P1.10.3: Lagerübersicht}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Proben müssen\\ archiviert werden\\ können. \\ Die im Lager\\liegenden Proben\\sollen angezeigt\\werden können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da es vom Chinese \\Menu ist aber\\ Flexibilität gegeben:\\ muss nicht\\ unbedingt gemacht werden.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Es muss irgendwie\\erkennbar sein, welche\\Proben im Lager sind,\\und welche nicht.\\Weitergehend muss es \\einfach sein,alle im Lager\\ liegenden zu finden und\\aufzulisten. \end{tabular} \\ \hline
-\multicolumn{5}{|l|}{P1.10.3: Proben-id-Nummern}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
+\multicolumn{5}{|l|}{P1.10.4: Proben-id-Nummern}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                         P1.10.2  & \begin{tabular}[c]{@{}l@{}}Die Proben-\\kügelchen sollen\\ alle eigene\\id-Nummern \\bekommen. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Flexibilität: nicht hoch,\\ da eine Entscheidung\\ bezüglich der Speicherung \\der Proben gemacht\\ werden muss. \\(Allerdings auch andere \\Optionen theoretisch\\ möglich). \\Veränderlichkeit: nach \\Beginn der Implementierung\\ sehr gering, da großer\\ Einfluss auf viele\\ Programmteile. \end{tabular} & \begin{tabular}[c]{@{}l@{}}-/--\end{tabular} & \begin{tabular}[c]{@{}l@{}}Es ensteht eine\\ hohe Menge an Einträgen\\ in der Datenbank, mit\\ der ohne Performance-\\probleme umgegangen\\ werden muss. \end{tabular} \\ \hline
-\multicolumn{5}{|l|}{P1.10.4:Proben Kommentar}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
+\multicolumn{5}{|l|}{P1.10.5:Proben Kommentar}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Zu Proben\\sollen\\ Kommentare\\erstellt werden\\können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Es muss eine \\Fläche für\\Kommentareingabe\\und Darstellung\\geben. \end{tabular} \\ \hline
 \multicolumn{5}{|l|}{P2.1:Mehrsprachig}                                                                         \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Der User\\soll zwischen\\Deutsch und\\Englisch ent-\\scheiden können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da es vom Chinese \\Menu ist aber\\ Flexibilität gegeben:\\ muss nicht\\ unbedingt gemacht werden.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss \\ein Umschalten zwischen\\den beiden Sprachen\\in der Darstellung vorsehen.\end{tabular} \\ \hline
@@ -550,8 +556,10 @@ zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
                                                           & \begin{tabular}[c]{@{}l@{}}Es soll\\unterschiedliche \\Rollen mit\\unterschiedlichen\\Rechten und\\angezeigten\\Informationen\\ geben.\\Jeder User\\soll mindestens\\eine Rolle haben. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss\\zwischen diesen Rollen\\unterscheiden können und \\sichergehen, dass bestimmte\\Funktionen und\\ Informationen nur zur \\Verfügung stehen wenn der \\Benutzer die Rechte dafür \\hat.\end{tabular} \\ \hline
  \multicolumn{5}{|l|}{P3.2: Authentifizierung}                                                                         \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Benutzer sollten\\sich in das\\System einloggen\\müssen, um\\relevante\\Informationen\\angezeigt zu\\bekommen. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss\\eine Login Seite\\vorsehen; ein Zugriff auf\\die Anwendung ohne sich\\einzuloggen soll nicht\\möglich sein.\end{tabular} \\ \hline
- \multicolumn{5}{|l|}{P4: Datenbank}                                                                         \\ \hline
+ \multicolumn{5}{|l|}{P4.1: Datenbank}                                                                         \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Zur Speicherung\\ der Daten über\\ eine Sitzung \\hinweg soll\\ eine Datenbank\\ verwendet werden. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Anwendung muss\\ alle Daten korrekt \\auf der Datenbank\\ speichern können und \\von dieser Datenbank\\ lesen können. \end{tabular} \\ \hline
+ \multicolumn{5}{|l|}{P5.1: Transporte}                                                                         \\ \hline
+                                                          & \begin{tabular}[c]{@{}l@{}}Transporteure sollen Transportaufträge annehmen können. Sie sollen Proben zwischen den einzelnen Stationen tragen. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da es vom Chinese \\Menu ist aber\\ Flexibilität gegeben:\\ muss nicht\\ unbedingt gemacht werden\end{tabular} & \begin{tabular}[c]{@{}l@{}}−−/\\   −−\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss\\ Transportaufträge sinnvoll\\ in die Prozesskette\\ einbauen können, sodass \\die Proben zwischen\\ den Prozessschritten\\ transportiert werden und \\an den richtigen \\Stellen sind. \end{tabular} \\ \hline
 \end{tabular}
 \end{table}
 
@@ -625,7 +633,7 @@ Folgende Strategien zur Lösung von Problemen wurden ausgewählt: \\
           Es soll unterschiedliche Rollen geben, die unterschiedliche Rechte/Fähigkeiten haben; jeder User kann mehrere Rollen (muss mindestens eine) übernehmen. \\ \hline
           \textbf{Einflussfaktoren: } \\
           T 1.5: Persistenz \\
-          T 1.7: Multiple Users\\
+          P3.1: User Rechte
           O 1.1: Time-To-Market \\
           \hline
           \textbf{Strategien} \\ \hline
@@ -648,31 +656,33 @@ Hier haben wir uns für die zweite Strategie entschieden, weil diese eine elegan
           Jeder User darf nur die Informationen sehen, die ihm nach seiner Rolle/seinen Rollen zustehen. Unauthorisierten Personen sollen keine Informationen angezeigt werden. Auch die Bearbeitung von Informationen ist nur Rollen mit den entsprechenden Privilegien erlaubt. \\ \hline
           \textbf{Einflussfaktoren: } \\
           T 1.5: Persistenz \\
-          T 1.7: Multiple Users\\
+	P2.2:Anzeige \\
+	P3.1: User Rechte \\
+	P3.2: Authentifizierung \\
+	P4.1: Datenbank \\
          \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 2.1: JavaEE Security(ausgewählt)} Das system wird das Java Class PasswordAuthentication nutzen, durch wen die User sich anmelden können. \\ 
+          \textbf{Strategie 2.1: Apache Shiro(ausgewählt)} Das System wird Apache Shiro nutzen, um das Rollensystem zu realisieren und die Informationen auf der Datenbank vor unautorisierten Personen zu schützen.. \\ 
            \textbf{Strategie 2.2: Eigene Implementierung:} Wir implementieren selber ein System zur Authentifizierung von Usern. \\
           \\ \hline
-
     \end{tabular}
-
     \caption{Datensicherheit Problemkarte}
-
     \label{tab:ProblemKarte2}
 \end{table}
-Hier haben wir uns für die erste Strategie entschieden, weil die Benutzung einer bereits implementierten Spezifikation uns viel Zeit spart. \\
-
+Hier haben wir uns für die erste Strategie entschieden, weil eine eigene Implementierung uns wahrscheinlich viel Zeit kosten würde, die wir an dieser Stelle nicht investieren müssen. \\
 
 \begin{table}[H]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
           \textbf{Problem 3:} Vorlagen und Instanzen \\ \hline
-          Der Prozesskettenadministrator möchte abstrakte Prozessketten und -schritte erstellen können, die als Vorlagen dienen. Die Prozesskettenvorlagen sollen aus Prozessschrittevorlagen bestehen, und instanziiert werden können. \\
+          Der Prozesskettenadministrator möchte abstrakte Prozessketten und -schritte erstellen können, die als Vorlagen dienen. Die Prozesskettenvorlagen sollen aus Prozessschrittvorlagen bestehen, und instanziiert werden können. \\
           \\ \hline
           \textbf{Einflussfaktoren: } \\
-          Faktoren \\ %hier fehlt noch was
+          P1.6: Prozessketten \\ 
+	P1.7: Aufträge \\
+	P1.5: Prozessschritte \\
+	P1.5.1: Prozessschritte an Experimentierstationen \\
           \hline
           \textbf{Strategien} \\ \hline
           \textbf{Strategie 3.1: Eigene Klassen: (ausgewählt)}  Es gibt getrennte Klassen für die Vorlagen und die tatsächlichen Instanzen. \\
@@ -682,7 +692,7 @@ Hier haben wir uns für die erste Strategie entschieden, weil die Benutzung eine
     \label{tab:ProblemKarte3}
 
 \end{table}
-Hier haben wir uns für die erste Strategie entschieden, weil .. \\
+Hier haben wir uns für die erste Strategie entschieden, weil es die einzige Möglichkeit ist, die wir gefunden haben, mit der wir die unterschiedlichen Assoziationen, die die Vorlagen und Instanzen haben, sowie die dazukommenden Parameter der Instanzen von Schritten und Ketten darstellen können.  \\ %TODO
 
 \begin{table}[H]
     \centering
@@ -698,14 +708,15 @@ Hier haben wir uns für die erste Strategie entschieden, weil .. \\
           P 1.4: Datenbank \\
           \hline
           \textbf{Strategien} \\ \hline
-          \textbf{Strategie 4.1:}  Konkrete Parameter sind bei uns Objekte von einer Klasse Parameter. Diese Objekte können wir mithilfe von JAXB und der Rest api nach JSON serialisieren. \\ 
-          \textbf{Strategie 4.2:} Dafür nutzen wir jakarta EE und die Rest Unterstüzung von Klassen welche Serialsierbar sind, werden durch Annotation so erweitert, dass eine JSON Repräsentation möglich ist. 
+          \textbf{Strategie 4.1: JAXB:}  Konkrete Parameter sind bei uns Objekte von einer Klasse Parameter. Diese Objekte können wir mithilfe von JAXB und der Rest API nach JSON serialisieren. \\ 
+          \textbf{Strategie 4.2: jakartaEE:(ausgewählt)} Wir benutzen JSON-B mit jakarteEE, um die Parameter zu serialisieren. \\
           \\ \hline
     \end{tabular}
     \caption{Upload/Download Problemkarte}
     \label{tab:ProblemKarte4}
 \end{table}
-Hier haben wir uns für die .. Strategie entschieden, weil .. \\
+Hier haben wir uns für die erste Strategie entschieden, weil diese Umsetzung weniger aufwändig zu sein scheint. \\
+
 \begin{table}[H]
     \centering
     \begin{tabular}{|p{15cm}|}
@@ -744,7 +755,6 @@ Hier haben wir uns  für die erste Strategie entschieden, weil diese eine feste 
           \textbf{Einflussfaktoren: } \\
           T 1.5: Persistenz \\
           P 1.4: Experimentierstationen\\
-          P 1.4: Kaputte Stationen\\
           \hline
           \textbf{Strategien} \\ \hline
           \textbf{Strategie 6.1: DeltaSpike Data: (ausgewählt)} Wir benutzen DeltaSpike Data, um Repository Patterns zu implementieren, zum Beispiel für die Bearbeitung von Stationen. \\
@@ -767,8 +777,8 @@ Hier haben wir uns für die erste Strategie entschieden, da sich dadurch eine pr
           Laufende Prozessketten sollen priorisiert werden können, was zur Folge hat, dass sie, wann immer mehrere Prozessketten auf die gleichen Aktionen warten, schneller drankommen. 
           \\ \hline
           \textbf{Einflussfaktoren: } \\
-          T 1.5: Persistenz \\
           P 1.7: Aufträge \\
+	P1.5.1: Prozessschritte an Experimentierstationen \\
           \hline
           \textbf{Strategien} \\ \hline
           \textbf{Strategie 7.1: Anzeige} Die Prioritäten der Prozessketten werden den Usern angezeigt, damit sie selber sehen, welche sie als erstes bearbeiten sollten. \\
@@ -789,8 +799,7 @@ Hier haben wir uns für die zweite Strategie entschieden, weil sie deutlich benu
          In der Anwendungsumgebung gibt es eine hohe Anzahl an Proben, die alle in der Datenbank gespeichert werden sollen. Dadurch, dass es so viele sind (von Materialien der gleichen Sorte gibt es viele kleine Kügelchen), stellt sich die Frage, ob es sinnvoll ist, jede einzelne dieser Kügelchen identifizieren zu können.
           \\ \hline
           \textbf{Einflussfaktoren: } \\
-          P1.10.2: Lagerübersicht \\
-	 P1.10.3: Proben-id-Nummern \\
+          P1.10.3: Lagerübersicht \\
           \hline
           \textbf{Strategien} \\ \hline
 	\textbf{Strategie 8.1: Alle einzeln (ausgewählt):} Jedem einzelnen Probenkügelchen wird eine eigene id zugeordnet. \\
@@ -814,6 +823,7 @@ Hier haben wir uns für die erste Strategie entschieden, weil dadurch genaueres 
           \\ \hline
           \textbf{Einflussfaktoren: } \\
           O1.1: Time-To-Market\\
+	Alle Produktfaktoren \\
           \hline
           \textbf{Strategien} \\ \hline
 
@@ -889,7 +899,10 @@ Hier haben wir uns für Strategie 2 entschieden, weil durch die Modularisierung 
           Der Logistiker möchte einen Überblick über alle Proben, die im Lager liegen. Da die Probenkügelchen alle einzeln gespeichert werden, und es somit eine sehr große Menge an Proben ist, könnte das Laden aller Proben auf einmal zu Performanceproblemen führen.
         \\  \hline
         \textbf{Einflussfaktoren: } \\
-	 P1.10.3: Proben-id-Nummern \\
+	 P1.10.3: Lagerübersicht \\
+	P1.10.4: Proben-id-Nummern \\
+	P4.1: Datenbank \\
+	P2.2: Anzeige \\
         \hline
         \textbf{Strategien} \\
          \textbf{Strategie 12.1: Lazy Loading: (ausgewählt)} Es wird immer nur ein kleiner Ausschnitt aus der Datenbank geladen (lazy loading). \\
@@ -900,7 +913,7 @@ Hier haben wir uns für Strategie 2 entschieden, weil durch die Modularisierung 
 \end{table}
 Hier haben wir uns für die erste Strategie entschieden, weil diese einfacher umzusetzen ist, wodurch wir Zeit sparen, die wir auf wichtigere Aspekte der Anwendung verwenden können. 
 
-\begin{table}[]
+\begin{table}[H]
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
@@ -909,7 +922,7 @@ Hier haben wir uns für die erste Strategie entschieden, weil diese einfacher um
           Wenn es Träger gibt, die von einer Station zur nächsten transportiert werden sollen, dann werden diese für alle Transporteure angezeigt. Natürlich kann aber nur ein Transporteur tatsächlich die Träger weitertragen; deswegen soll es möglich sein, dass ein Transporteur einen Auftrag annimmt, der dann für alle anderen nicht mehr sichtbar ist. \\
         \\  \hline
         \textbf{Einflussfaktoren: } \\
-	 P1.10.3: Proben-id-Nummern \\ %faktoren?
+	 P5.1: Transporte \\ %faktoren?
         \hline
         \textbf{Strategien} \\
          \textbf{Strategie 13.1: Klasse mit Zuständen: (ausgewählt)} Es soll eine Klasse für die Transportaufträge geben. Der Transportauftrag kann unterschiedliche Zustände annehmen, es werden nur Transportaufträge dargestellt, die im entsprechenden Zustand sind. \\
@@ -930,10 +943,11 @@ Hier haben wir uns für die erste Strategie entschieden, weil wir sowieso schon 
         \\  \hline
         \textbf{Einflussfaktoren: } \\
 	P1.4.1: Auslastung \\
+	P1.5.1: Prozessschritte an Experimentierstationen\\
         \hline
         \textbf{Strategien} \\
          \textbf{Strategie 14.1: Von Hand:} Der Prozesskettenadministrator wählt die Stationen selber aus, wenn er die Prozesskette instanziiert. \\
-	\textbf{Strategie 14.2: Automatisch: (ausgewählt)} Das System analysiert, wie die für jeden Prozessschritt möglichen Stationen ausgelastet sind, und entscheidet, wo welche Schritte am effizientesten abgearbeitet werden. \\ \hline
+	\textbf{Strategie 14.2: Automatisch: (ausgewählt)} Das System analysiert, wie die für jeden Prozessschritt möglichen Stationen ausgelastet sind, und entscheidet, wo welche Schritte am effizientesten abgearbeitet werden.\\ \hline
     \end{tabular}
     \caption{Automatische Lastverteilung Problemkarte}
     \label{tab:ProblemKarte14}
@@ -946,24 +960,21 @@ Hier haben wir uns für die zweite Strategie entschieden, da sie den Ablauf im F
     \begin{tabular}{|p{15cm}|}
     \hline
           \textbf{Problem 15:} Datenbearbeitung und Datenüberwachung %Strategien?
-          \\ \hline
-          Die Nutzer können mit Daten an der System , dieses Daten können mit unterschiedlichen vorausgesetzte  Verhalten bearbeiten werden und diese Daten müssen sichtbar, Speicherbar und Bearbeiter sein werden. Daher das System braucht eine geordnete Weise jede verlangete Funktionalität zu implementieren.
-
+          \\ \hline 
+Die Nutzer können mit den Daten des Systems interagieren (durch unterschiedliches, vorausgesetzes Verhalten). Die Daten sollen sichtbar, speicherbar und bearbeitbar sein. Daher braucht das System eine geordnete Weise jede verlangte Funktionalität zu implementieren.
           \\ \hline
           \textbf{Einflussfaktoren: } \\
           T1.7: Multiple Users\\
 	      T1.5: Persistenz\\
           \hline
           \textbf{Strategien} \\ \hline
-
-            \textbf{Strategie 15.1: Kapselung des Datenhaltung:} Nutzung unterschiedlichen Komponenten, die unterschiedlichen abstrahiere Teilen der System trägen können, damit eine schneller und sicherer Implementierung  zu erreichen.
-
+            \textbf{Strategie 15.1: Kapselung des Datenhaltung:(ausgewählt)} Wir nutzen unterschiedliche Komponente, die unterschiedliche abstrahierte Teile des Systems tragen können, um eine schnelle und sichere Implementierung  zu erreichen.
           \\ \hline
     \end{tabular}
     \caption{Prozessbearbeitung und Überwachung Problemkarte}
     \label{tab:ProblemKarte15}
 \end{table}
-Hier haben wir uns für die erste Strategie entschieden, weil ..\\
+Hier haben wir uns für die erste Strategie entschieden, weil durch die Kapselung eine Ordnung und Struktur in das System kommt. Dadurch \\%TODO
 
 \begin{table}[H]
     \centering
@@ -972,10 +983,10 @@ Hier haben wir uns für die erste Strategie entschieden, weil ..\\
           \textbf{Problem 16:} Archivierung
           \\ \hline
 	Proben sollen archiviert werden können, dafür soll zusätzlich zu den anderen Informationen auch gespeichert werden, wann die Archivierung stattfand, und im Kontext von welchem Auftrag.
-
           \\ \hline
           \textbf{Einflussfaktoren: } \\
-          P1.10.2: Lagerübersicht \\ 
+          P1.10.3: Lagerübersicht \\ 
+	P1.10.2: Archivierte Proben \\
           \hline
           \textbf{Strategien} \\ \hline
             \textbf{Strategie 16.1:Archiv-Attribut(ausgewählt)} Wenn eine Probe archiviert wird, wird zusätzlich ein Attribut Archiv gesetzt, in dem die zusätzlichen Informationen gespeichert werden. \\
@@ -984,7 +995,7 @@ Hier haben wir uns für die erste Strategie entschieden, weil ..\\
     \caption{Archivierung}
     \label{tab:ProblemKarte16}
 \end{table}
-Hier haben wir uns für die erste Strategie entschieden, weil ..\\
+Hier haben wir uns für die erste Strategie entschieden, weil durch eine eigene Klasse und ein Attribut von dieser Klasse die Informationen am Besten an einem Ort gespeichert werden können. \\
 
 \begin{table}[H]
     \centering
@@ -1002,7 +1013,7 @@ Hier haben wir uns für die erste Strategie entschieden, weil ..\\
             \textbf{Strategie 17.1: als String:} Die Trägerart wird als Stringattribut gespeichert. \\
 	\textbf{Strategie 17.2: als Enum:} Die Trägerart wird als Enum bereitgestellt. \\
 	\textbf{Strategie 17.3: als eigene Klasse: (ausgewählt)} Die Trägerart wird als eigene Klasse (möglicherweise mit Attributen) dargestellt. \\
-          \\ \hline
+          \\ \hline 
     \end{tabular}
     \caption{Träger und Trägerart Problemkarte}
     \label{tab:ProblemKarte17}
@@ -1018,10 +1029,11 @@ Hier haben wir uns für die dritte Strategie entschieden. Die Darstellung als En
           Für die Prozessketten soll es Zustandsautomaten geben. 
           \\ \hline
           \textbf{Einflussfaktoren: } \\
-         Fak \\ %hier fehlt noch was -> evtl neue Faktoren?
+         P1.6 Prozessketten \\ 
+	P1.6.2: Zustand Prozesskette \\
           \hline
           \textbf{Strategien} \\ \hline
-	\textbf{Strategie 18.1: als Enum: (ausgewählt)} Da die Zustände fest vorgegeben sind und die Anzahl nicht veränderbar sein sollen, können sie als Enum gespeichert werden. \\
+	\textbf{Strategie 18.1: als Enum: (ausgewählt)} Die Zustände werden als Enum gespeichert. \\
 	\textbf{Strategie 18.2: als String:} Die Zustände werden als String-Liste gespeichert. \\
           \\ \hline
     \end{tabular}
@@ -1036,7 +1048,7 @@ Hier haben wir uns für die erste Strategie entschieden. Weil die Anzahl der Zus
     \hline
           \textbf{Problem 19:} Zustandsautomaten Prozessschritte
           \\ \hline
-          Für die Prozessketten soll es Zustandsautomaten geben. 
+          Für die Prozessschritte soll es Zustandsautomaten geben. 
           \\ \hline
           \textbf{Einflussfaktoren: } \\
          P1.9: Dynamische Zustandsautomaten \\
