@@ -71,7 +71,114 @@ Messend kann nur
 
 PS hat enum
 
-Probe braucht kommentar Atribut
+Probe braucht kommentar Attribut
 
 
 Hinterlegen von Informationen wie was durchgelaufen ist
+
+
+* Auftrag
+Muss nicht mit weil redundanz
+Strategien in Datensicht
+
+
+Bei den Anwendungssfällen, keine alts da implizieht in der methode
+
+
+user Darf abstract nachher auch
+
+In der PK steht stehen die PS, die PS sind mit Aufträgen assoziert
+diese mit es, dadurch sieht man das dann
+
+
+Zuordnung des Trägers braucht kein User
+
+ Zustände können der Vorlage zugeordnet werden
+ PS Zustands Instanz
+
+ Alles braucht multipliziert
+
+ Rollennamen fehlen
+
+ Insanzierung ist laufzeit verhalten
+
+ ps psv n zu 1, wissen welche ps aus welchen psv kommen
+
+ Welcher Strategie liegt es zugrunde
+
+ instanzirt, erstellt von lese richtung umdrehen
+
+ psArt nicht 1 zu 1, sondern 1 zu *
+
+
+ enums müssen in die Persistiert werden
+
+ pk log, welcher logistiker
+
+ pk terminiert, wenn logistiker proben hinterlergt
+ später t hochladen
+ abrechen wird dokumentiert
+ add Datenarten
+
+ nicht ersichtlich in der db
+
+
+ Alle Klassenamen ohne
+
+
+ REST muss ins modell
+
+
+ In der modulsicht alles ausser model rein zoomen
+ aber erwähnen, dass im kapitel 6
+
+ Modulsicht, luppe gucken in jeder der komponenten
+
+ Es fehlen die paketdiagramme
+
+ Die Gui verwendet methoden von dem cntrollern
+ deseegen lollipop zwischen beiden
+ Rückweg auch hinzufügen
+
+ von cont benutzt view und vice versa
+
+ Rest mit gl oder controller
+
+ entity manager privat oder protected
+ em auch protected
+
+* Gespraaech vom Donnerstag
+ Leo macht Code:
+
+ Erst ein Diagram mit allen Controllern -> 5.1
+
+
+5.1 Refereniziert das Datenmodel
+5.2 Einzelbeschreibung MC Per, als Trippel mit Text
+5.3 Pers wird fertiggestellt heute
+
+Contnrolller Weitergemacht
+
+Website sind Controller
+Controller zu Klasse
+Bean zu Seite
+
+Fabian: es gibt eine Kombi beider
+
+
+Services
+- Java Mail
+- Shrio (Hashing)
+- DeltaData Spike
+  https://shiro.apache.org/java-authentication-guide.html
+- JSON Export
+- Jersey und Jackson
+
+  Santi:
+- schreibt labels
+- Modulsicht
+
+  Sam
+  Ausf
+  Evolution
+  Konyeptionellen Sicht *L'nge*
