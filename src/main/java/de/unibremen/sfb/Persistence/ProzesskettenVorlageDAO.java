@@ -22,11 +22,9 @@ public class ProzesskettenVorlageDAO extends ObjectDAO<ProzesskettenVorlage> {
      * @throws ProzesskettenVorlageNotFoundException if the job template couldn't be found */
     public void remove(ProzesskettenVorlage pkv) throws ProzesskettenVorlageNotFoundException{}
 
-    /** Get a specific job template from the database
-     * @return the requested job template from the database
-     * @throws ProzesskettenVorlageNotFoundException if the job template couldn't be found */
-    public ProzesskettenVorlage get() throws ProzesskettenVorlageNotFoundException{
-        return null;
+    /** @return the class of process chain templates */
+    public Class<ProzesskettenVorlage> get(){
+        return ProzesskettenVorlage.class;
     }
 
     /** Get a specific job template from the database matching a specific id

@@ -24,11 +24,9 @@ public class ProbeDAO extends ObjectDAO<Probe> {
      * @throws ProbeNotFoundException if the sample couldn't be found in the database */
     public void remove(Probe p) throws ProbeNotFoundException{}
 
-    /** Get a specific sample from the database
-     * @return the requested sample
-     * @throws ProbeNotFoundException if the sample couldn't be found in the database */
-    public Probe get() throws ProbeNotFoundException{
-        return null;
+    /** @return the class of sample */
+    public Class<Probe> get(){
+        return Probe.class;
     }
 
     /** Use a sample id to get a specific sample

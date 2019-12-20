@@ -7,7 +7,7 @@
         <packaging>war</packaging>
       </options>
     </properties>
-    <root id="archive" name="SFB-Farbigs.war">
+    <root id="archive" name="SFB-Farbig.war">
       <element id="artifact" artifact-name="SFB-Farbig:war exploded" />
     </root>
   </artifact>

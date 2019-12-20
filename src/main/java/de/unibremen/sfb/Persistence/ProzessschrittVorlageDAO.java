@@ -22,11 +22,9 @@ public class ProzessschrittVorlageDAO extends ObjectDAO<ProzessschrittVorlage> {
      * @throws ProzessschrittVorlageNotFoundException if the process chain step template couldn't be found */
     public void remove(ProzessschrittVorlage psv) throws ProzessschrittVorlageNotFoundException{}
 
-    /** Get a process chain step template from the database
-     * @return the requested process chain step
-     * @throws ProzessschrittVorlageNotFoundException if the process chain step template couldn't be found */
-    public ProzessschrittVorlage get() throws ProzessschrittVorlageNotFoundException{
-        return null;
+    /** @return the class of process chain templates */
+    public Class<ProzessschrittVorlage> get(){
+        return ProzessschrittVorlage.class;
     }
 
     /** Get a process chain step template from the database using its defined id

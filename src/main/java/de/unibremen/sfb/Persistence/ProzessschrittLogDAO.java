@@ -22,10 +22,8 @@ public class ProzessschrittLogDAO extends ObjectDAO<ProzessschrittLog> {
      * @throws ProzessschrittLogNotFoundException if the process step log couldn't be found in the database */
     public void remove(ProzessschrittLog pl) throws ProzessschrittLogNotFoundException{}
 
-    /** Get an existing process step log object from the database
-     * @return the requested process step log object from the database
-     * @throws ProzessschrittLogNotFoundException if the process step log couldn't be found in the database */
-    public ProzessschrittLog get() throws ProzessschrittLogNotFoundException{
-        return null;
+    /** @return the class of process step logs */
+    public Class<ProzessschrittLog> get(){
+        return ProzessschrittLog.class;
     }
 }

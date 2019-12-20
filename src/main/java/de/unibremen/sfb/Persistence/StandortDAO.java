@@ -22,11 +22,9 @@ public class StandortDAO extends ObjectDAO<Standort> {
      * @throws StandortNotFoundException if the location object couldn't be found in the database */
     public void remove(Standort s) throws StandortNotFoundException{}
 
-    /** Get a location object from the database
-     * @return the requested location object
-     * @throws StandortNotFoundException if the location object couldn't be found in the database */
-    public Standort get() throws StandortNotFoundException{
-        return null;
+    /** @return the class of location */
+    public Class<Standort> get(){
+        return Standort.class;
     }
 
     /** Get a location object from the database using its unique id
