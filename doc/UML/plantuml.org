@@ -254,29 +254,29 @@ class "QuantitativeEigenschaft" as quantE {
   +einheit: uom.si
 }
 
-class "Prozessschritt" as ps {
+class "ProzessSchritt" as ps {
   +psID: int
   +uploaded: bool
   +current: Experimentierstation
-  +zustand: String
+  +ZustandsAutomat: String
   +station : Experimentierstation
 }
 
-class Prozessschrittlog {
+class ProzessSchrittLog {
   +gestartet: java.time.LocalDateTime
   +geendet: java.time.LocalDateTime
-  +psZustand: String
+  +psZustandsAutomat: String
 }
 
-class ProzessschrittZustand {
+class ProzessSchrittZustandsAutomat {
   +current:+String
 }
 
-class ProzessschrittZustandVorlage {
+class ProzessSchrittZustandsAutomatVorlage {
    +zustände: List<String>
 }
 
-class "ProzessschrittVorlage" as psV {
+class "ProzessSchrittVorlage" as psV {
   +psVID: int
   +zustände: List<String>
   +dauer: java.time.Duration
@@ -284,12 +284,12 @@ class "ProzessschrittVorlage" as psV {
   +ausgabeTraeger: List<Traegerart>
 }
 
-class ProzessschrittArt {
+class ProzessSchrittArt {
   +psArt: Set<String>
 }
 
  class TransportAuftrag {
-   +zustand: enum["FREIGEGEBEN", "ABGEHOLT", "ABGELIEFERT"]
+   +ZustandsAutomat: enum["ABGEHOLT", "ABGELIEFERT"]
 }
 
  class "ProzessSchrittParameter" as pp {
@@ -316,11 +316,11 @@ HOCH
 SEHR HOCH
 }
 
-class "ProzesskettenVorlage" as pkV {
+class "ProzessKettenVorlage" as pkV {
     +pkKID: int
 }
 
-enum "ProzesskettenZustand" as pkZ {
+enum "ProzessKettenZustandsAutomat" as pkZ {
     INSTANZIERT
     FREIGEBEN
     GESTARTET
@@ -335,7 +335,7 @@ class "ExperimentierStation" as es {
   +esID: int
   +standort: String
   +status: enum ["verfügbar", "besetzt", kaputt]
-  +nextPS: Queue<Prozessschritt>
+  +nextPS: Queue<ProzessSchritt>
 }
 
 
@@ -353,29 +353,29 @@ class "ExperimentierStation" as es {
   (Auftrag, ps) .. Traeger
 
 
-  ps "*" -- "1" psV: instanziert >
-  ps "1"-- "1" Prozessschrittlog:  hat >
-  ps "*" -- "1" ProzessschrittZustand: hat >
+  ps "*" -- "1" psV: < erstellt von
+  ps "1"-- "1" ProzessSchrittLog:  hat >
+  ps "*" -- "1" ProzessSchrittZustandsAutomat: hat >
   ps "*" -- "1" TransportAuftrag: hat >
 
 
-  psV "*" --  "1" ProzessschrittArt: hat >
+  psV "*" --  "1" ProzessSchrittArt: hat >
   psV "1" -- "1..*" pp: hat >
   psV "1" --"1..*" es: hat >
-  psV "1" -- "*" ProzessschrittZustand: hat >
+  psV "1" -- "*" ProzessSchrittZustandsAutomat: hat >
 
   (psV, es) .. Bedingung
 
- ProzessschrittZustandVorlage -- ProzessschrittZustand: erstellt von >
- ps -- ProzessschrittZustandVorlage
+ ProzessSchrittZustandsAutomatVorlage "1" -- "*" ProzessSchrittZustandsAutomat: < hat
+ psV "*" -- "1" ProzessSchrittZustandsAutomatVorlage
 
  Traeger "*" -- "1" Traegerart: hat >
  Traeger "0..1" -- "0..*" Probe: hat >
  Traeger "*" -- "1" Standort: hat >
 
-  pkV "*" -- "1" psV: hat >
+  pkV "*" -- "*" psV: hat >
 
-  Bedingung "*" -- "1" pp
+  Bedingung "*" -- "*" pp
   Bedingung  "*" -- "*" qualE
 
 
