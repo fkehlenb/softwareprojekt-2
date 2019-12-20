@@ -273,7 +273,7 @@ class ProzessSchrittZustandsAutomat {
 }
 
 class ProzessSchrittZustandsAutomatVorlage {
-   +zustände: List<String>
+   +zustände: Set<String>
 }
 
 class "ProzessSchrittVorlage" as psV {
@@ -367,7 +367,6 @@ class "ExperimentierStation" as es {
   (psV, es) .. Bedingung
 
  ProzessSchrittZustandsAutomatVorlage "1" -- "*" ProzessSchrittZustandsAutomat: < hat
- psV "*" -- "1" ProzessSchrittZustandsAutomatVorlage
 
  Traeger "*" -- "1" Traegerart: hat >
  Traeger "0..1" -- "0..*" Probe: hat >
