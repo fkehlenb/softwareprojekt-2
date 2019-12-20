@@ -22,10 +22,8 @@ public class QuantitativeEigenschaftDAO extends ObjectDAO<QuantitativeEigenschaf
      * @throws QuantitativeEingenschaftNotFoundException if the quantitative descriptor couldn't be found in the database */
     public void remove(QuantitativeEigenschaft q) throws QuantitativeEingenschaftNotFoundException{}
 
-    /** Get a quantitative descriptor object from the database
-     * @return the requested quantitative descriptor object from the database
-     * @throws QuantitativeEingenschaftNotFoundException if the quantitative descriptor couldn't be found in the database */
-    public QuantitativeEigenschaft get() throws QuantitativeEingenschaftNotFoundException{
-        return null;
+    /** @return the class of Quantitative descriptors */
+    public Class<QuantitativeEigenschaft> get(){
+        return QuantitativeEigenschaft.class;
     }
 }

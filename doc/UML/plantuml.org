@@ -200,8 +200,8 @@ skinparam classAttributeIconSize 0
 
 hide empty members
 
-package Datenmodel {
-  enum Role{
+package Datenmodell {
+  enum Role {
   TECHNOLOGE
   PKADMIN
   TRANSPORT
@@ -218,37 +218,32 @@ class User {
   +username: String
   +password: Byte[]
   +wurdeVerifiziert: boolean
-  +erstellungsDatum: java.util.Date
+  +erstellungsDatum: java.time.LocalTimeDate
 }
 
 
 class Probe {
   +probenID: String
-  +kommentar: String
-  +zerstört: boolean
-  +verloren: boolean
+  +kommentar: Pair<java.time.LocalTimeDate, String>
+  +zustand: enum["KAPPUTT", "VERLOREN", "VORHANDEN"]
 }
-
 
 class Standort {
-  +Ort:String
+  +ort: String
 }
 
-class Träger {
+class Traeger {
   +id: int
-  +standort: Standort
-  +zugewiesnerAuftrag: Auftrag
+  +current: String
 }
 
-enum Trägerart {
-  eingebettet
-  einzelen
-  glass
+class Traegerart {
+  +arten: Set<String>
 }
 
 class Archiv {
 auftrag: Auftrag
-datum: java.util.Date
+datum: java.time.LocalTimeDate
 }
 
 class "QualitativeEigenschaft" as qualE {
@@ -257,43 +252,48 @@ class "QualitativeEigenschaft" as qualE {
 
 class "QuantitativeEigenschaft" as quantE {
   +wert: java.lang.Number
-  +einheit: java.units.SI
+  +einheit: uom.si
 }
 
-class "Prozessschritt" as ps {
+class "ProzessSchritt" as ps {
   +psID: int
   +uploaded: bool
   +current: Experimentierstation
-  +zustand: String
+  +ZustandsAutomat: String
   +station : Experimentierstation
-  +auftrag: Auftrag
 }
 
-class Prozessschrittlog {
-  +gestartet
-  +geendet
-  +PSZustand
+class ProzessSchrittLog {
+  +gestartet: java.time.LocalDateTime
+  +geendet: java.time.LocalDateTime
+  +psZustandsAutomat: String
 }
 
-class ProzessschrittZustand {
-   +zustände: List<String>
+class ProzessSchrittZustandsAutomat {
+  +current:+String
 }
 
-class "ProzessschrittVorlage" as psV {
+class ProzessSchrittZustandsAutomatVorlage {
+   +zustände: Set<String>
+}
+
+class "ProzessSchrittVorlage" as psV {
   +psVID: int
-  +zustände: List<String>
-  +dauer: java.util.Time
-  +eingabeTräger: List<Trägerart>
-  +ausgabeTräger: List<Trägerart>
+  +zustaende: List<ProzessKettenZustandsAutomat>
+  +dauer: java.time.Duration
+  +eingabeTraeger: Set<Traegerart>
+  +ausgabeTraeger: Set<Traegerart>
 }
 
-enum ProzessschrittArt {
-URFORMEND
-FÄRBEND
-ERMITTELEND
+class ProzessSchrittArt {
+  +psArt: Set<String>
 }
 
- class "ProzessParameter" as pp {
+ class TransportAuftrag {
+   +ZustandsAutomat: enum["ABGEHOLT", "ABGELIEFERT"]
+}
+
+ class "ProzessSchrittParameter" as pp {
     +name: String
   }
 
@@ -303,81 +303,80 @@ class Auftrag {
 }
 
 class AuftragsLog {
-  +start: java.util.Date
-  +ende: java.util.Date
-  +psLogs: Prozessschrittlog
+  +start: java.time.LocalDate
+  +beeendet: java.time.LocalDate
+  +archiviert: java.time.LocalDate
 }
 
 
 enum AuftragsPriorität {
-keine
-etwas
-viel
-hoch
-sehr hoch
+KEINE
+ETWAS
+VIEL
+HOCH
+SEHR HOCH
 }
 
-class "ProzesskettenVorlage" as pkV {
+class "ProzessKettenVorlage" as pkV {
     +pkKID: int
 }
 
-enum "ProzesskettenZustand" as pkZ {
-    Instanziert
-    Freigeben
-    Gestartet
-    Abgebrochen
-    Durchgeführt
+enum "ProzessKettenZustandsAutomat" as pkZ {
+    INSTANZIERT
+    FREIGEBEN
+    GESTARTET
+    ABGEBROCHEN
+    DURCHGEFÜHRT
 }
 
 class Bedingung {
-  +vorBedingungA: List<ProzessParamter>
-  +vorBedingungB: List<QualitativenEigenschaften>
 }
 
 class "ExperimentierStation" as es {
   +esID: int
   +standort: String
   +status: enum ["verfügbar", "besetzt", kaputt]
-  +currentPS: Prozessschritt
-  +nextPS: Queue<Prozessschritt>
+  +nextPS: Queue<ProzessSchritt>
 }
 
 
 
   User "0..*" -left- "1..*" Role
   User "*" -- "*" es: < hat
-  User "0" --  "*" Träger
 
 
-  User "0..1" -- "0..*" Auftrag: hat >
-  Auftrag "1" -* "1" AuftragsPriorität
+  Auftrag "*" -* "1" AuftragsPriorität
   Auftrag "1" -* "1..*" ps: hat >
-  Auftrag "1"  -- "1..*" AuftragsLog: hat >
-  Auftrag "1" -- "1" pkZ: hat >
-  Auftrag "1" -- "1" pkV: < instanziert
+  Auftrag "*"  --* "1" AuftragsLog: hat >
+  Auftrag "*" -- "1" pkZ: hat >
+  Auftrag "*" -- "1" pkV: < erstellt von
 
-  (Auftrag, ps) .. Träger
-
-
-  ps "1" -- "1" psV: < instanziert
-  ps "1"-- "1" Prozessschrittlog:  hat >
-  ps "1" -- "1" ProzessschrittZustand: hat >
+  (Auftrag, ps) .. Traeger
 
 
-  psV "1" --  "1" ProzessschrittArt: hat >
+  ps "*" -- "1" psV: < erstellt von
+  ps "1"-- "1" ProzessSchrittLog:  hat >
+  ps "*" -- "1" ProzessSchrittZustandsAutomat: hat >
+  ps "*" -- "1" TransportAuftrag: hat >
+
+
+  psV "*" --  "1" ProzessSchrittArt: hat >
   psV "1" -- "1..*" pp: hat >
   psV "1" --"1..*" es: hat >
+  psV "1" -- "*" ProzessSchrittZustandsAutomat: hat >
 
   (psV, es) .. Bedingung
 
- Träger "1" -- "1" Trägerart: hat >
- Träger "0..1" -- "0..*" Probe: hat >
- Träger "*" -- "1" Standort: hat >
+ ProzessSchrittZustandsAutomatVorlage "1" -- "*" ProzessSchrittZustandsAutomat: < hat
 
-  pkV "*" -- "1" psV: hat >
+ Traeger "*" -- "1" Traegerart: hat >
+ Traeger "0..1" -- "0..*" Probe: hat >
+ Traeger "*" -- "1" Standort: hat >
 
-  Bedingung "1" -- "*" pp
-  Bedingung  "1" -- "*" qualE
+  pkV "*" -- "1..*" psV: hat >
+
+  Bedingung "*" -- "*" pp
+  Bedingung  "*" -- "*" qualE
 
 
   Probe "0..1" *- "0..1" Archiv
@@ -385,7 +384,7 @@ class "ExperimentierStation" as es {
   Probe "*" -- "*" pp: hat >
   Probe "*" -- "*" qualE: hat >
 
-  pp "*" o- "*" qualE: besteht aus >
+  pp "*" o-down- "*" qualE: besteht aus >
 
 
   quantE --|> qualE
