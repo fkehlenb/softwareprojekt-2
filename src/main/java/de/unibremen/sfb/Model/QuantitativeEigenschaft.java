@@ -4,7 +4,7 @@ import lombok.Data;
 import si.uom.SI;
 
 @Data
-/** The quantitative descriptor data class */
+/* The quantitative descriptor data class */
 public class QuantitativeEigenschaft extends QualitativeEigenschaft {
 
     /** The numeric quantitative value  */

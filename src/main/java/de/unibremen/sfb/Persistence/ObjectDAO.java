@@ -1,13 +1,13 @@
 package de.unibremen.sfb.Persistence;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /** This class is the template database handler for its children
  * It handles the connection to the database using the EntityManager em*/
 public abstract class ObjectDAO<T> {
 
-    @Inject
+    @PersistenceContext(unitName = "sfb")
     protected EntityManager em;
 
     /** Add an object to the database

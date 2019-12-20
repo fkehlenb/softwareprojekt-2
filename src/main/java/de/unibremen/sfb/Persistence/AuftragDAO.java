@@ -3,7 +3,7 @@ package de.unibremen.sfb.Persistence;
 import de.unibremen.sfb.Exception.AuftragNotFoundException;
 import de.unibremen.sfb.Exception.DuplicateAuftragException;
 import de.unibremen.sfb.Model.Auftrag;
-import de.unibremen.sfb.Model.Prozessschritt;
+import de.unibremen.sfb.Model.ProzessSchritt;
 import de.unibremen.sfb.Model.User;
 
 import java.util.List;
@@ -26,11 +26,9 @@ public class AuftragDAO extends ObjectDAO<Auftrag> {
      * @throws AuftragNotFoundException if the job object couldn't be found in the database */
     public void remove(Auftrag a) throws AuftragNotFoundException {}
 
-    /** Get a job object from the database
-     * @return the requested job object
-     * @throws AuftragNotFoundException if the job object couldn't be found */
-    public Auftrag get() throws AuftragNotFoundException{
-        return null;
+    /** @return the class of job */
+    public Class<Auftrag> get(){
+        return Auftrag.class;
     }
 
     /** Get a job object from the database using the job id
@@ -50,7 +48,7 @@ public class AuftragDAO extends ObjectDAO<Auftrag> {
     /** Get the process chain steps of a specific job object
      * @return the process chain steps of a specific job
      * @throws AuftragNotFoundException if the job couldn't be found */
-    public List<Prozessschritt> getPS() throws AuftragNotFoundException{
+    public List<ProzessSchritt> getPS() throws AuftragNotFoundException{
         return null;
     }
 }

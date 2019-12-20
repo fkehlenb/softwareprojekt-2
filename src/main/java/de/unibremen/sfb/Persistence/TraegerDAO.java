@@ -26,12 +26,11 @@ public class TraegerDAO extends ObjectDAO<Traeger> {
      * @throws TraegerNotFoundException if the container cannot be found in the database */
     public void remove(Traeger t) throws TraegerNotFoundException{}
 
-    /** Get a specific container from the database
-     * @return the requested container
-     * @throws TraegerNotFoundException if the container cannot be found in the database */
-    public Traeger get() throws TraegerNotFoundException{
-        return null;
+    /** @return the class of container */
+    public Class<Traeger> get(){
+        return Traeger.class;
     }
+
 
     /** Get a container through its id
      * @param id - the id of the requested container

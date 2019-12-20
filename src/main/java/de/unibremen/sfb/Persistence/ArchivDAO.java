@@ -22,11 +22,9 @@ public class ArchivDAO extends ObjectDAO<Archiv> {
      * @throws ArchivNotFoundException if the archive couldn't be found in the database */
     public void remove(Archiv a) throws ArchivNotFoundException{}
 
-    /** Get an existing archive from the database
-     * @return the requested archive
-     * @throws ArchivNotFoundException if the archive couldn't be found in the database */
-    public Archiv get() throws ArchivNotFoundException{
-        return null;
+    /** @return the class of archive */
+    public Class<Archiv> get(){
+        return Archiv.class;
     }
 
     /** Get an existing archive using its id

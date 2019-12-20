@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-/** Data class for the qualitative descriptors */
+/* Data class for the qualitative descriptors */
 public class QualitativeEigenschaft {
 
     /** Descriptor name */

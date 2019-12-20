@@ -22,10 +22,8 @@ public class ProzessParameterDAO extends ObjectDAO<ProzessParameter> {
      * @throws ProzessParameterNotFoundException if the process parameter couldn't be found in the database */
     public void remove(ProzessParameter pp) throws ProzessParameterNotFoundException{}
 
-    /** Get a specific process parameter from the database
-     * @return the requested process parameter
-     * @throws ProzessParameterNotFoundException if the process parameter couldn't be found in the database */
-    public ProzessParameter get() throws ProzessParameterNotFoundException{
-        return null;
+    /** @return the class of process parameters */
+    public Class<ProzessParameter> get(){
+        return ProzessParameter.class;
     }
 }
