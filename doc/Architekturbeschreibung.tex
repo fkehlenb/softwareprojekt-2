@@ -1457,11 +1457,11 @@ Alle Rollen die ein Nutzer annehmen kann, sind in einer Enum gepspeichert. Diese
 sind TECHNOLOGE, PKADMIN, TRANSPORT, LOGISTIKER und der ADMIN. Hiermit
 realisieren wir die Strategie 1.2. Wir können somit mehrere Rollen für einen
 User speichern. Um die Datensicherheit zu gewährleisten haben wir uns für
-Apache Shiro entschieden. Hiermit können wir einzelnen Programmfunktionen nur
+Apache Shiro entschieden. Shiro übernimmt für uns die Authentifizierung und die
+Autorisierung. Somit können wir einzelnen Programmfunktionen nur
 für bestimmte Rollen zulassen. Damit setzen wir die Strategie 2.1 um. Apache
-Shiro muss wissen welche Rollen zu welchen Usern gehören. Daher referenziert
-User eine oder mehrere Rollen.
-
+Shiro muss wissen welche Rollen zu welchen Usern gehören, daher kann
+User eine oder mehrere Rollen haben.
 
 Die User bestehen aus einer id, einem Vornamen, einem Nachnamen, einer Email,
 einer Telefonnummer, einer Kombination von seinem Passwort und seinem Usernamen.
@@ -1469,7 +1469,7 @@ Der User erhält nach dem sein Konto erstellt wurde eine email, nachdem er seine
 Account verifiziert, wird wurdeVerifiziert auf True gesetzt. Das Attribut
 Erstellungsdatum, speichert wann der Nutzer erstellt worden ist.
 
-Ein Standort enthält ein String.
+Ein Standort enthält ein String in dem der Ort des Standorts steht.
 
 Ein Träger hat eine id, einen Standort. Falls er einem Auftrag zugewiesen ist,
 referenziert er auch diesen.
@@ -1544,14 +1544,16 @@ bereit, dass es uns ermöglicht die Parameter der Prozesschritte zu serialiseren
 Um mit externen Diensten zu kommunizieren werden für das serialisierte JSON
 Rest-Schnittstellen angeboten
 
-Eine ProzesskettenVorlage, hat eine eindeutige id.
+Eine ProzesskettenVorlage, hat eine eindeutige id. Aufträge besitzen
+Prioritäten. AuftragsPriorität ist bei uns eine Enum. Die Prioritäten sind fest
+und können im Nachhinein nicht mehr geändert werden.
 
 
 Die Enum ProzesskettenZustandsautomat enthällt alle Zustände die eine Auftrag
 haben kann. Diese sind fest und können im nachhinein nicht mehr geändert werden.
 Deshalb werden sie als Enum gespeichert. Hiermit wird die Strategie 18.1 umgesetzt.
 
-Ein Auftrag ist eine Instanz einer Prozesskettenvorlage
+Ein Auftrag ist eine Instanz einer Prozesskettenvorlage.
 
 Wie oben erwähnt ist Auftrag eine Instanzierung von der Prozesskette, die
 ProzesschrittVorlage erstellt eine Prozessschritt Objekt. Wir haben getrennte
@@ -1631,16 +1633,6 @@ Umsetzung von der Strategie 13.1
 
 
   . Eine bestimmte Probe kann ausschließlich einem Träger zugeordnet werden.
-Die Klasse Träger besteht wieder aus einer ID, dem aktuellen Standort als  Standort und dem Typ als Trägerart. Ein Träger kann beliebig viele Proben beinhalten. Ein bestimmter Träger kann genau einer Experimentierstation (ES) zugeordnet sein. Eine Experimentierstation besteht aus einem Namen als String und dem Ort, an dem die ES zu finden ist als Standort. Einer bestimmten ES können beliebig viele Träger zugeordnet sein, während ihr immer nur ein  Technologe zugeordnet sein wird. Die ES ist immer nur einem bestimmten Prozessschritt (PS) zugeordnet. Ein Prozessschritt beinhaltet den Namen als String, die Prozessparameter (PP) als Prozessparameter, der Probenzustand, die Dauer und die Zustände und (???). Ein Prozessschritt ist einer bestimmten Prozesskette zugeordnet. Die Prozesskette (PK) beinhaltet den Namen als String. Sie beherbergt beliebig viele Prozessschritte und beliebig viele Prozesskettenaufträge. Der  Prozesskettenauftrag (PKAuftrag) kann nur einer Prozesskette zugeordnet sein und hat einen KettenInstanzwert (KIW) zugeordnet. \\}
-
-{  Zunächst existiert die Klasse Probe, welche die ID, die Legierung als (???), die Art der Behandlung und die Materialeigenschaften beinhaltet. Eine bestimmte Probe kann ausschließlich einem Träger zugeordnet werden.
-Die Klasse Träger besteht wieder aus einer ID, dem aktuellen Standort als  Standort und dem Typ als Trägerart. Ein Träger kann beliebig viele Proben beinhalten. Ein bestimmter Träger kann genau einer Experimentiertstation (ES) zugeordnet sein. Eine Experimentiertstation besteht aus einem Namen als String und dem Ort, an dem die ES zu finden ist als Standort. Einer bestimmten ES können beliebig viele Träger zugeordnet sein, während ihr immer nur einTechnologe zugeordnet sein wird. Die ES ist immer nur einem bestimmten Prozessschritt (PS) zugeordnet. Ein Prozessschritt beinhaltet den Namen als String, die Prozessparameter (PP) als Prozessparameter, der Probenzustand, die Dauer und die Zustände und (???). Ein Prozessschritt ist einer bestimmten Prozesskette zugeordnet. Die Prozesskette (PK) beinhaltet den Namen als String. Sie beherbergt beliebig viele Prozessschritte und beliebig viele Prozesskettenaufträge. Der  Prozesskettenauftrag (PKAuftrag) kann nur einer Prozesskette zugeordnet sein und hat einen KettenInstanzwert (KIW) zugeordnet. \\
-
-
-Der Ketteninstanzwert ist einem PKAuftrag zugeordnet und beinhaltet beliebig viele Schnittinstanzwerte (SIW). Die Schnittinstanzwerte beinhalten einen Wert, welcher über KIW, PKAuftrag und die PK einem Prozessschritt zugeschrieben werden. Ein SIW kann einem KIW zugeordnet sein. 
-Dies wird so gehandhabt, da man im Nachhinein, nachdem eine Prozesskette instanziiert wurde, die Werte noch einfach ändern können soll.
-}
-
 {\it Hier wird das der Anwendung zugrundeliegende Datenmodell
   beschrieben. Hierzu werden neben einem erläuternden Text auch ein
   oder mehrere {UML}-Klassendiagramme verwendet. Das hier beschriebene

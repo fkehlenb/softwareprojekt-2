@@ -201,7 +201,7 @@ skinparam classAttributeIconSize 0
 hide empty members
 
 package Datenmodell {
-  enum Role{
+  enum Role {
   TECHNOLOGE
   PKADMIN
   TRANSPORT
@@ -228,7 +228,7 @@ class Probe {
   +zustand: enum["KAPPUTT", "VERLOREN", "VORHANDEN"]
 }
 
-CLASS Standort {
+class Standort {
   +ort: String
 }
 
@@ -269,6 +269,7 @@ class Prozessschrittlog {
 }
 
 class ProzessschrittZustand {
+  +current:+String
 }
 
 class ProzessschrittZustandVorlage {
@@ -302,7 +303,8 @@ class Auftrag {
 
 class AuftragsLog {
   +start: java.time.LocalDate
-  +ende: java.time.LocalDate
+  +beeendet: java.time.LocalDate
+  +archiviert: java.time.LocalDate
 }
 
 
@@ -382,7 +384,7 @@ class "ExperimentierStation" as es {
   Probe "*" -- "*" pp: hat >
   Probe "*" -- "*" qualE: hat >
 
-  pp "*" o- "*" qualE: besteht aus >
+  pp "*" o-down- "*" qualE: besteht aus >
 
 
   quantE --|> qualE
