@@ -19,10 +19,10 @@ public class ProzessSchrittVorlage {
     public Duration dauer;
 
     /** Accepted container input types */
-    public List<Traegerart> eingabeTraeger;
+    public List<TraegerArt> eingabeTraeger;
 
     /** Accepted container output types */
-    public List<Traegerart> ausgabeTraeger;
+    public List<TraegerArt> ausgabeTraeger;
 
     /** The process step type */
     public ProzessSchrittArt art;

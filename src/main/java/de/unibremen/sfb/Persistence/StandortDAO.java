@@ -29,6 +29,7 @@ public class StandortDAO extends ObjectDAO<Standort> {
 
     /** Get a location object from the database using its unique id
      * @return the location object with an id matching the entered one
+     * @param id - Die ID des Standortes
      * @throws StandortNotFoundException if the location object couldn't be found in the database */
     public Standort getObjById(int id) throws StandortNotFoundException{
         return null;

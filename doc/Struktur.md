@@ -61,7 +61,7 @@ __Auftrag__
 * Status kaputt : Boolean
 
 * Prozessparameterinstanzen für jeden ps
-  Instanzerung der Prozessschritte
+  Instanzerung der ProzessSchritte
   
  Kickoff Folien xml 40
 
@@ -85,18 +85,18 @@ Im folgendem Teil erläutern wir die verschienden Akteure Prozesskettenadministr
  * Was wünscht er sich?
    1. Übersicht über aktuell laufende Prozessketteninstanzen (und deren Status)
 * **Was muss er tun?**
-    * Übersicht über alle Prozessschritte
-        1. Anlegen neuer Prozessschritte
+    * Übersicht über alle ProzessSchritte
+        1. Anlegen neuer ProzessSchritte
             * Auswahl von vordefinierten Abläufen (Zustandsautomat)
             * Auswahl von dyn. Abläufen (O«Dynamische Zustandsautomaten»)
-            * Eingabe von voraussichtlicher Prozessschrittdauer
-            * Definition von Prozessschrittparametern (Name, Einheit)
+            * Eingabe von voraussichtlicher ProzessSchrittdauer
+            * Definition von ProzessSchrittparametern (Name, Einheit)
             * Zuordnung von Experimentierstation
             * Setzen von Attributen wie â€žeinfärbendâ€œ, Präparationsart
-        3. Löschen bestehender Prozessschritte
+        3. Löschen bestehender ProzessSchritte
         2. Prüfen (Auf Korrektheit)
-        3. Bearbeiten von â€œnicht gestarteten Prozessschritten
-        4. Hervorhebung der Prozessschritte, die im Zustand auf kaputt gesetzt sind
+        3. Bearbeiten von â€œnicht gestarteten ProzessSchritten
+        4. Hervorhebung der ProzessSchritte, die im Zustand auf kaputt gesetzt sind
 
     * Übersicht über dynamische Abläufe (O«Dynamische Zustandsautomaten»)
         1. Anlegen von Zustandsautomaten
@@ -104,7 +104,7 @@ Im folgendem Teil erläutern wir die verschienden Akteure Prozesskettenadministr
         3. Bearbeiten von unbenutzten Zustandsautomaten
     
     * Übersicht über alle Prozessketten
-        1. Anlegen von neuen Prozessketten aus bestehenden Prozessschritten
+        1. Anlegen von neuen Prozessketten aus bestehenden ProzessSchritten
         1. Löschen von bestehenden Prozessketten
         1. Bearbeiten von bestehenden Prozessketten (nicht durchgeführt oder freigegeben)
 
@@ -115,7 +115,7 @@ Im folgendem Teil erläutern wir die verschienden Akteure Prozesskettenadministr
         * Freigabe von Aufträgen
             * Logistiker muss daraufhin Proben zuordnen
         * Stoppen von Aufträgen
-            * Aktueller Prozessschritt wird beendet
+            * Aktueller ProzessSchritt wird beendet
             * Aufträge verschwinden aus der Übersicht der Technologen
             * Transport bringt Proben ins Lager (O«Transporteur»)
         * Löschen von Aufträgen
@@ -327,13 +327,13 @@ Die Basisversion umfasst alle oben genannten Anforderungen, die nicht explizit a
 
 Die folgenden weiteren Zusatzpunkte werden vollständig vergeben, wenn die dazugehörige optionale Anforderung vollständig und benutzbar umgesetzt wurde. Ansonsten gibt es entsprechend weniger Punkte.
 ### **(O)«Dynamische Zustandsautomaten» (15P)**
-Anstelle der vorkonfigurierten Zustandsautomaten für die Prozessschritte möchte der Kunde die Möglichkeit haben diese selber zu konfigurieren. Die Zustandsautomaten sind einfacher linearer Natur und bieten keine Verzweigungen.
+Anstelle der vorkonfigurierten Zustandsautomaten für die ProzessSchritte möchte der Kunde die Möglichkeit haben diese selber zu konfigurieren. Die Zustandsautomaten sind einfacher linearer Natur und bieten keine Verzweigungen.
 ### **O«Lagerverwalter» (10P)**
 Übersicht über die im Lager vorhandenen Proben, gruppiert nach einstellbaren Proben-ID-Mustern oder Probenattributen, und Hervorhebung von Gruppen, die unter einen konfigurierbaren Schwellenwert fallen.
 ### **O«Parameter.Import» (5P)**
-Beim Anlegen von Aufträgen sollen die Prozessketten- und Prozessschrittparameter mit Hilfe einer JSON-Datei importiert werden können.
+Beim Anlegen von Aufträgen sollen die Prozessketten- und ProzessSchrittparameter mit Hilfe einer JSON-Datei importiert werden können.
 ### **O«Parameter.Export» (5P)**
-Ein Technologe soll die Parameter seines Prozessschrittes nach JSON exportieren und runterladen können.
+Ein Technologe soll die Parameter seines ProzessSchrittes nach JSON exportieren und runterladen können.
 ### **O«Sprache» (5P)**
 Die Sprache der GUI kann von jedem Nutzer individuell eingestellt werden. Erforderliche Sprachen hierfür sind englisch und deutsch.
 ### **O«UI.Ankündigung» (10P)**
@@ -341,9 +341,9 @@ Der Technologe bekommt eine Übersicht der Aufträge angezeigt, die sich auf dem
 ### **O«UI.AlteAufträge» (5P) **
 Visuelle Hervorhebung von Arbeitsaufträgen, deren letzte Änderung länger zurückliegt. Der Zeitraum kann vom Administrator vorgegeben werden.
 ### **O«WebService.API» (15P) **
-Implementieren Sie eine auf HTTP-basierende REST-Schnittstelle, die es erlaubt, den Datenbestand der Anwendung abzufragen und mit Hilfe geeigneter Methoden zu aktualisieren. Diese Schnittstelle soll später genutzt werden, um externe Auswertungen auf den erhobenen Daten umzusetzen oder um die Priorisierungen von außen zu steuern. Implementieren Sie eine externe Auswertung, die die Dauer der Prozessschritte auf Basis der erhobenen Logs berechnet. Dazu soll der Mittelwert aller bereits protokollierten Dauern eines Schritts berechnet werden.
+Implementieren Sie eine auf HTTP-basierende REST-Schnittstelle, die es erlaubt, den Datenbestand der Anwendung abzufragen und mit Hilfe geeigneter Methoden zu aktualisieren. Diese Schnittstelle soll später genutzt werden, um externe Auswertungen auf den erhobenen Daten umzusetzen oder um die Priorisierungen von außen zu steuern. Implementieren Sie eine externe Auswertung, die die Dauer der ProzessSchritte auf Basis der erhobenen Logs berechnet. Dazu soll der Mittelwert aller bereits protokollierten Dauern eines Schritts berechnet werden.
 ### **O«WebService.Upload» (10P) **
- Für bestimmte Prozessschritte müssen die Technologen ihre Experimentergebnisse in die SFB-interne Probendatenbank einpflegen. Das zu entwickelnde System soll die Technologen an diese Aufgabe erinnern, indem es die Proben von abgeschlossenen Arbeitsaufträge anzeigt. Implementieren Sie zudem eine auf HTTP-basierende REST-Schnittstelle, die es erlaubt, den Daten-Upload der einzelnen Experimente für Proben zu vermerken, so dass diese dann aus der Übersicht der Technologen entfernt werden.
+ Für bestimmte ProzessSchritte müssen die Technologen ihre Experimentergebnisse in die SFB-interne Probendatenbank einpflegen. Das zu entwickelnde System soll die Technologen an diese Aufgabe erinnern, indem es die Proben von abgeschlossenen Arbeitsaufträge anzeigt. Implementieren Sie zudem eine auf HTTP-basierende REST-Schnittstelle, die es erlaubt, den Daten-Upload der einzelnen Experimente für Proben zu vermerken, so dass diese dann aus der Übersicht der Technologen entfernt werden.
 ### **O«UI.Auslastung» (15P) 
 Der Prozesskettenplaner wünscht eine Übersicht über die Auslastung der verschiedenen Experimentierstationen. Von Interesse sind die Anzahl der Aufträge/Proben und die darauf basierende geschätzte Gesamtdauer.
 ## Fragerunde
