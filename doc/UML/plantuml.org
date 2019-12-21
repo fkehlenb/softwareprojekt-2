@@ -54,8 +54,6 @@ shiro -> database: getPasswordForUser(username)
 shiro <- database: return password
 index <-shiro:  externalContext.redirect(externalContext.getRequestContextPath() + path);\n TODO PATH?
 index -> browser: Zeige korrekte Seite an
-
-
 #+END_SRC
 
 
@@ -335,6 +333,8 @@ enum "ProzessKettenZustandsAutomat" as pkZ {
 }
 
 class Bedingung {
+  +param: Set<ProzessSchrittParameter>
+  +eigenschaften: Set<QualitativeEigenschaft>
 }
 
 class "ExperimentierStation" as es {
@@ -380,7 +380,6 @@ class "ExperimentierStation" as es {
 
   pkV "*" -- "1..*" psV: hat >
 
-  Bedingung "*" -- "*" pp
   Bedingung  "*" -- "*" qualE
 
 
