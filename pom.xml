@@ -106,6 +106,7 @@
                             <goal>jar</goal>
                         </goals>
                         <configuration>
+                            <useStandardDocletOptions>true</useStandardDocletOptions>
                             <jdkToolchain>
                                 <version>13</version>
                             </jdkToolchain>
