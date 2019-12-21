@@ -51,7 +51,10 @@ public class ExperimentierStationController {
 
     /**
      *
-     * @param ps
+     * @return popt den Proezesschritt aus der Warteschalange
      */
-    public void popNextPS(ProzessSchritt ps) {}
+    public ProzessSchritt popNextPS() {
+        return null;
+    }
+
 }

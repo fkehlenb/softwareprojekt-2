@@ -110,7 +110,7 @@
                             <docletArtifact>
                                 <groupId>nl.talsmasoftware</groupId>
                                 <artifactId>umldoclet</artifactId>
-                                <version>2.0.7</version>
+                                <version>2.0.7</version>/Uni/SWPNP/softwareprojekt-2/target
                             </docletArtifact>
                             <additionalOptions>
                                 <!--<additionalOption>...</additionalOption>-->

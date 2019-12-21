@@ -64,7 +64,7 @@ public class AuftragController {
 
     /**
      * Gibt die Prozesssschritte zurück, aus denen dieser Auftrag besteht.
-     * @return
+     * @return Gibt alle ProzessSchritte zurück
      */
     public Set<ProzessSchritt> getPS() { return null; }
 }
