@@ -1225,32 +1225,63 @@ Hier haben wir uns für die dritte Strategie entschieden, weil wir so ohne den A
 
 
 \section{Konzeptionelle Sicht}
-\label{sec:konzeptionell}
-{ %Korrekturvorschlag Samuel
-In der Konzeptionellen Sicht werden die Interaktionen [TODO] zwischen den verschiedenen Komponenten der Software betrachtet. Die Funktionalität des Systems ist auf verschiedene Komponenten verteilt, die wir im Folgenden zeigen:\\
+\label{sec:konzeptionell} { %Korrekturvorschlag Samuel
+In diesem Kapitel verwenden wir die Konzeptionelle Sicht nach Hofmeister
+et al. um das zu entwerfende System zu beschreiben. Unser System ist eine
+Webapplikation die auf JSF basiert. Benutzer können mit ihren Endgeräten auf
+unser System zugreifen. Dafür stellen wir den Benutzen ein Web-Frontend
+zur Verfügung. Die Kommunikation vom JSF, unserem Framework, ist als
+Model-View-Controller System konzipiert worden. TODO text wie mvc umgesetz
+
+  In der Konzeptionellen Sicht werden die Interaktionen von unserer Datenbank,
+dem Persistence Module, dem Model, der Buisnesslogik, den Controllern, den JSF
+Seiten sowie dem Rest-Modul zwischen den verschiedenen Komponenten der Software
+betrachtet. Die Funktionalität des Systems ist auf verschiedene Komponenten
+verteilt, die wir im Folgenden zeigen:\\
 }
 
-in diese Konzeptionelle Ansicht betrachten die Interation zwichen die Komponenten des system. Diese Funtionalität des System ist verteilt. Hierbei ist es wichtig zu bemerken, dass der Client abstract ist. Die Komponenten an diese System sind: \\
-
 {%Korrekturvorschlag Samuel
-\textbf{H2:} Die Datenbanksoftware H2 kann Dateien Bearbeiten, speichern und aufrufen. Sie wird benutzt, da es es in den Anforderungen von uns gefordert wird. 
+\textbf{H2:} Die Datenbanksoftware H2 wird genutzt um unser Modul zu
+Persistieren. Sie wird benutzt, da es es in den Anforderungen von uns gefordert
+wird. Unsere Datenbank kommuniziert über JDBC. TODO {DELTADATASPIKE}
 }
 
-\textbf{H2:} Diese Teil liegt verlangte Dateibase H2, wo die Datei der Model gespeichert sind, an diese Stelle man die Datei bearbeiten, gespeichert und angerufenen zu werden. Diese Stelle ergibt sich aus die Vorgegebene Anforderungen des System. infolgedessen besteht aus keine Problem Karte.\\
 {%Korrekturvorschlag Samuel
-\textbf{Persistence:} Hier liegt die Verbindung zwischen dem System und der Datei der Datenbank. Die Persistenz ist dafür verantwortlich für die Speicherung, das Schreiben und der Funktion [TODO] (?) der Datenbank. Persistenz stellt eine Schnittstelle Data für Businesslogic zur Verfügung und nutzt die von Model zur Verfügung gestellte Schnittstelle. Auch die Verwendung dieser Technologie ist gefordert. 
+\textbf{Persistence:} Hier liegt die Verbindung zwischen dem System und der
+Datei der Datenbank. Die Persistenz ist verantwortlich, dass die Datenbank auf
+dem akutellen Stand des laufendem Systems ist. Falls unser System Terminiert,
+müssen alle bei der nächsten Benutzung noch da sein. JPA ist eine java
+Spezifikation, welche unter anderem von Hibernate umgesetzt wird. Unsere
+Konzeption sieht es vor, das Hibernate impliziert die JPA mittels deltaspike data umsetzt.
+Die Persistenz ist mit der BusinessLogik verbunden
+
 }
 
-\textbf{Persistenz:} Hier liegt die Verbindungen zwischen das System und Datei an der Dateibase, Diese Komponente ist verantwortlich und die Speicherung und Schreibung Funktionen an der Dateibase. diese Komponente  ist getroffen an der Anwendung der verlangte Technologie.   \\
-
 {%Korrekturvorschlag Samuel
-\textbf{BusinessLogik:} Die Businesslogik beinhaltet die Funktionalität des Systems. Sie nutzt die Schnittstellen Data von Persistence und nutzt die Update Schnittstelle von Model. Sie ergibt sich aus Strategie (15.1)~\ref{prob:15.1}
+\textbf{BusinessLogik:} Die Businesslogik beinhaltet die Funktionalität des
+Systems. Sie nutzt die Schnittstellen Data von Persistence und nutzt die Update
+Schnittstelle von Model. Sie ergibt sich aus Strategie (15.1)~\ref{prob:15.1}.
+Wir nutzen die BusinessLogik um die Wünsche unseres Kunden zu erfüllen. Die
+BusinessLogik erlaubt es, dass Prozessketten geplant und durchgeführt werden
+können. Hier liegt also die eigentliche Funktionalität unseres Systems.
+
+TODO: Kurzer Text zu jedem der Kontroller.
+
 }
 
-\textbf{BusinessLogik:} In diese Teil liegt die Funktionalität des System, diese Teil ist von Controller und die Bearbeitung ihre Data in die Persistenz Komponente benutzt. Hier sind das gewuchtetes Verhalten des System implementiert. diese Schnittstelle ergibt sich aus der  Strategie (15.1)~\ref{prob:15.1}.  \\
-
 {%Korrekturvorschlag Samuel
-\textbf{Model:} Hier liegen die Daten der User, Prozessketten, Proben sowie Daten und Vormerkungen des System. Model stellt ein Interface Update zur Verfügung, welches von Businesslogic und Persistence genutzt wird. Diese Komponente ergibt sich aus der Strategie (15.1)~\ref{prob:15.1}.\\
+  \textbf{Model:} Das Model unserer Datenbank beschreibt die logische Struktur
+  unserer Datenbank, hiermit wird fundamental bestimmt in welche Art auf die in
+  der Datenbank enthaltenen Daten zugriffen werden kann. Wir nutzen eine
+  relationale Datenbank, welche auf Tabellen basiert.
+
+In dem Modell liegen die Daten der User, Prozessketten, Proben sowie
+Daten und Vormerkungen des System. Model stellt ein Interface Update zur
+Verfügung, welches von Businesslogic und Persistence genutzt wird. Diese
+Komponente ergibt sich aus der Strategie (15.1)~\ref{prob:15.1}.\\
+In dem Abschnitt \ref{sec:datensicht} nehmen wir unser Datenmodel genauer unter
+die Lupe und gehen auf die Strategien ein, welche wir versucht haben im
+Datenmodel umzusetzen.
 }
 
 \textbf{Model:} Hier liegen die Daten der User, Prozesskette , Proben sowie Daten und Vormerkungen des System. Diese Komponente ist mit der Controller und Persistenz verwundet, weil die Daten das Interfaces gezeigt werden, sind das an der Model implementieren. Diese Komponente ergibt sich aus der Strategie (15.1)~\ref{prob:15.1}. \\
