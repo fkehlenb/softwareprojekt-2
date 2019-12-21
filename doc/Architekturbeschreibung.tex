@@ -1,4 +1,4 @@
-\documentclass[enabledeprecatedfontcommands,fontsize=12.1pt,paper=a4,twoside]{scrartcl}
+\documentclass[enabledeprecatedfontcommands,fontsize=12pt,paper=a4,twoside]{scrartcl}
 
 
 \newcommand{\grad}{\ensuremath{^{\circ}} }
@@ -1507,7 +1507,8 @@ nachdem der Technologe die ProzessParameter an die externe Datenbank hochgeladen
 hat. current ist referiert eine Experimentierstation, falls es eine
 Experimentierstation gibt, wo aktuell dieser Prozesschritt durchläuft. Der
 Aktuelle Zustand aus dem Zustandsautomaten des Prozesschrittes wird in dem
-String Zustand gespeichert. TODO Warum hat PS einen Auftrag
+String Zustand gespeichert. Ein Prozessschritt gehört zu einem Auftrag, ein Auftrag
+kann aber viele ProzessSchritte enthalten
 
 Ein ProzessSchrittZustand ist eine Liste von Zuständen. Der
 ProzessSchrittZustand kann vom pkAdmin erweitert um weitere Zustände erweitert
@@ -1517,9 +1518,9 @@ Ein ProzessParameter hat einen Namen. Einer ProzesschrittVorlage Vorlage können
 Parameter zugewiesen werden. Bei falls der Prozesschritt ermittelnd ist, wird
 nachher die Eigenschaft, welche ermittelt wurde der Probe zugewiesen.
 
-Um den Up/Download von den Parameter der Prozesschritte als JSON zu ermöglichen
-ist es diese mit JAXB zu serialisieren. Dazu verwenden wir
-TODO. Hiermit setzen wir die Strategie 4.1 \ref{strategie:4.1}  um. Dafür stellen wir ein Interface
+JSON ist der aktuelle De-facto-Datenformat-Standard um Daten über APIs bereitzustellen. Das Java-Ökosystem bietet eine Reihe von Bibliotheken zur Erstellung von JSON aus Java-Objekten und umgekehrt (GSON, Jackson, etc.). Mit dem Release von Java EE 8 und der JSR-367 haben wir nun einen standardisierten Ansatz dafür: JSON-B.
+
+Um den Up/Download von den Parameter der Prozesschritte als JSON zu ermöglichen verwenden wir JSON-B. Hiermit setzen wir die Strategie 4.1 \ref{strategie:4.1}  um. Dafür stellen wir ein Interface
 bereit, dass es uns ermöglicht die Parameter der Prozesschritte zu serialiseren.
 Um mit externen Diensten zu kommunizieren werden für das serialisierte JSON
 Rest-Schnittstellen angeboten
@@ -1706,7 +1707,7 @@ Bei uns wird die Session in einer Webapplikation umgesetzt, folglich basiert
 unsere Session auf die standardmäßige HttpSession.
 
 Wir haben uns für ein rollenbasiertes Zugriffssystem entschieden. 
-Siehe Strategie 1.1 \ref{strategie:1.1}. Um dies in Shiro umzusetzen, benutzen wir das von Shiro bereitgestellte
+Siehe Strategie 1.2 \ref{strategie:1.2}. Um dies in Shiro umzusetzen, benutzen wir das von Shiro bereitgestellte
 JdbcRealm. Mit JdbcRealm kann Shiro aus unserer Datenbank die benötigen
 Attribute und Rollen eines Nutzers laden
 
