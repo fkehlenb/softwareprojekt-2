@@ -6,10 +6,20 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Set;
 
+/**
+ * this class manages the interaction with models of conditions
+ */
 public class BedingungController {
 
+    /**
+     * //TODO was
+     */
     public ModuleLayer.Controller controller;
 
+    /**
+     * //TODO was
+     * @param psz process step parameter
+     */
     public void setPSZ(Set<ProzessSchrittParameter> psz) {}
 
     public Set<ProzessSchrittParameter> getPSZ() { return null; }

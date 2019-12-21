@@ -64,8 +64,8 @@ public class ExperimentierStationController {
     public ProzessSchritt popNextPS() { return null; }
 
     /**
-     * Returns the (Auslastung?) //TODO
-     * @return
+     * Returns the usage of this station (how many jobs are currently being proccessed/waiting)
+     * @return the usage
      */
     public int getUsage() { return 0; }
 
