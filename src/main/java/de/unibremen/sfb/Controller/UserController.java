@@ -47,7 +47,7 @@ public class UserController {
     public void removeRole(Enum<Role> role) {}
 
     /**
-     * applies this user for a username //TODO was?
+     * applies this user for a username //TODO was? evtl setusername
      * @param username the username
      */
     public void applyUsername(String username) {}

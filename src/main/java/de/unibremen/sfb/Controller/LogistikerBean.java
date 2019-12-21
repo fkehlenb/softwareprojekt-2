@@ -22,7 +22,7 @@ public class LogistikerBean {
 
     /**
      * creates a new carrier
-     * @return the new carrier //TODO wirklich so rum?
+     * @return the new carrier //TODO wirklich so rum? mindest traegerart übergeben
      */
     public Traeger createTraeger() { return null; }
 

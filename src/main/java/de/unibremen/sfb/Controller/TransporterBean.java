@@ -18,7 +18,7 @@ public class TransporterBean {
     public User transporter;
 
     /**
-     * returns all jobs available to the transporter //TODO available oder accepted?
+     * returns all jobs available to the transporter //TODO available oder accepted? getoffene und getaccepted
      * @return a set containing all those jobs
      */
     public Set<Auftrag> getAuftragList() { return null; }

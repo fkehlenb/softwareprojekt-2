@@ -15,7 +15,7 @@ public class TechnologeBean {
     public User technologe;
 
     /**
-     * returns the experimentation stations this user is assigned to //TODO ?
+     * returns the experimentation stations this user is assigned to
      * @return a set containing all stations this user is assigned to
      */
     public Set<ExperimentierStation> getStationen() { return null; }

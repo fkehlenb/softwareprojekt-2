@@ -7,10 +7,18 @@ import de.unibremen.sfb.Model.User;
  */
 public class LoggedInBean {
 
-    //TODO
+    /**
+     * the user
+     */
     public User user;
 
+    /**
+     * sets the view for this user
+     */
     public void setView() {}
 
+    /**
+     * logs the user out
+     */
     public void logout() {}
 }
