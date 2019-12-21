@@ -21,5 +21,5 @@ public class Traeger {
     public List<Probe> proben;
 
     /** The container's type */
-    public Traegerart art;
+    public TraegerArt art;
 }

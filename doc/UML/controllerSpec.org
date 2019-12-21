@@ -25,12 +25,12 @@ Die Operation der PKAdmin sind wie folgt:
 - Aktualiseren der ProzessketteVorlage
   updatePSK(ProzessketteVorlage v)
 
-- hinzufügen einer ProzessschrittVorlage
-  createPSV(ProzessschrittVorlage v)
-- löschen der ProzessschrittVorlage
-  deletePSV(ProzessschrittVorlage v)
-- Aktualiseren der ProzessschrittVorlage
-  updatePSV(ProzessschrittVorlage v)
+- hinzufügen einer ProzessSchrittVorlage
+  createPSV(ProzessSchrittVorlage v)
+- löschen der ProzessSchrittVorlage
+  deletePSV(ProzessSchrittVorlage v)
+- Aktualiseren der ProzessSchrittVorlage
+  updatePSV(ProzessSchrittVorlage v)
 
 - hinzufügen einer Prozesskette
   createPK(Prozesskette pk)
@@ -56,5 +56,5 @@ Die Operation der PKAdmin sind wie folgt:
   setEsForPs(Exerperimentierstation es, ProzessSchrittVorlage ps)
 
   Todo: Hier müssen wir entscheiden ob in der Vorlage die Station feststeht oder
-  ob es nur möglich ist schon instanzierte Prozessschritte an stationen
+  ob es nur möglich ist schon instanzierte ProzessSchritte an stationen
   zuzuweisen. Ich bin für ersteres

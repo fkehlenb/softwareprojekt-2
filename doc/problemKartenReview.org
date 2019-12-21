@@ -97,7 +97,7 @@ Wer kann das Problem lösen?
 
 6. Stationsbearbeitung:
    Weitere Einflussfaktoren, An einer Experimentierstation es, gibt es bestimmt
-   Prozessschritte, welche durchgeführt werden könnne, daher muss ermöglicht
+   ProzessSchritte, welche durchgeführt werden könnne, daher muss ermöglicht
    werden, dass der Admin bei der Erstellung der es und später auch der t neue
    die Unterstüzten Prozessparameter einstellt,
    Die in existierenden Prozesschrit vorlagen erhalten Anforderungen an die
