@@ -1,4 +1,4 @@
-\documentclass[enabledeprecatedfontcommands,fontsize=12pt,paper=a4,twoside]{scrartcl}
+\documentclass[enabledeprecatedfontcommands,fontsize=12.5pt,paper=a4,twoside]{scrartcl}
 
 
 \newcommand{\grad}{\ensuremath{^{\circ}} }
@@ -1654,26 +1654,98 @@ Datenbank her, welche auf dem gleichen SFB Server läuft und eine Instanz der Da
 \label{sec:anwendungsfaelle}
 
 
-\subsection{Nutzer Verwalten}
+\subsection{Login eines Benutzers}
 \begin{figure}[H]
-  \includegraphics[width=\linewidth]{UML/seq.png}
-  \caption{Anlegen eines Nutzers}
-  \label{fig:pkErstellen}
+  \includegraphics[width=\linewidth]{UML/aw/erstbenutzung.png}
+  \caption{Sequenzdiagrammen des Loginvorganges}
+  \label{fig:erstbenutzung.png}
 \end{figure}
-In dieser Graphik wird ein Nutzer vom Admin angelegt. Dieser muss dann eine Mail bestätigen und kann dann zugriff beantragen
+
+In diesem Anwendungsfall geht es darum zu zeigen, was passiert wenn sich ein
+Benutzer anmeldet. Wir haben uns entschieden, die Sichehheite nicht selber zu
+implementieren, sondern Apache Shiro zu nutzen \ref{problemkarteXXX}
+
+\subsection{Was ist Apache Shiro}
+Als erstes möchten wir einen überblick über Apache Shiro geben, als dann wird Anhand
+des Sequenzdiagrammes erläutert, wie Apache Shiro mit unseren Schichten
+zusammenhängt. Apache Shiro kann ab jetzt auch nur als Shiro bezeichnet werden.
+
+Shiro ist ein sehr mächtiges und leistungsstarkes Java Security Framework,
+welches sich das Ziel gesetzt hat Entwicklern eine intuitive jedoch auch
+umfassende Lösung für Authentifizierung, Autorisierung und Session-Management zu
+bieten. Shiro basiert auf einem soliden, Schnittstellengesteuerten Design und
+folgt OO-Prinzipien.
+
+Ein \emph{Subject} ist eine sicherheitsspezifische Sicht auf einen Nutzer
+unseres Programms. Dabei wird nicht zwischen einem menschlichen Nutzer und
+einem maschinellen unterschieden. Auch in der Sicherheitswelt ist der Begriff
+Subject eigentlich die anerkannte Nomenklatur. Die Session erlaubt es dem
+Nutzer bestimmte Operationen durchzuführen. Es ist weiter möglich einer Session
+weitere Attribute zu geben. Unsere Session ist eine Shiro-spezifische Instanz,
+welche das meiste bietet davon bietet,  was uns auch eine reguläre HttpSession
+bietet. Der Vorteil der Session ist es, dass sie keine HTTP-Umgebung braucht.
+
+Bei uns wird die Session in einer Webapplikation umgesetzt, folglich basiert
+unsere Session auf die standardmäßige HttpSession.
+
+Wir haben uns für ein rollenbasiertes Zugriffssystem entschieden. TODO
+Strategie. Um dies in Shiro umzusetzen, benutzen wir das von Shiro bereitgestellte
+JdbcRealm. Mit JdbcRealm kann Shiro aus unserer Datenbank die benötigen
+Attribute und Rollen eines Nutzers laden
+
+\subsection{Erklärung des Diagramms}
+Es kann vorkommen, dass ein Benutzer unseres Systems in einen Realm navigiert,
+der nur für bestimmte Rollen zugänglich ist \textbf{Schritt 1} Dies ist der Fall
+für den ersten Schritt unseres Sequenz Diagrammes. Dies passiert in einem
+FacesContext. Der Webbrowser auf die $login.xhml$ weitergeleitet. Dort erscheint
+ein Login Formular \textbf{Schritt 2}, in dem der Nutzer seine Anmeldedaten
+eingeben kann \textbf{Schritt 3}. Das Formular wird vom Browser an unseren
+Server gesendet \textbf{Schritt 4}. Für die spätere Verarbeitung brauchen wir
+wir die Parameter die es in dem Kontext der Anmeldung gab. Diese werden in
+\textbf{Schritt 5} an das Login Bean gesendet. Das Login Bean hat die Aufgabe
+weitere Sichheitsfunktion an Shiro zu delegieren. Dafür nutzen die Methode login
+Methode der IndexBean. Die hat die Aufgabe zu ermitteln in welchem Kontext die
+Login anfrage gestellt wurde. Sobald dies ermittelt wurde ruft sie delegiert sie
+weiter an Shiro. \textbf{Schritt 6}. Um das Passwort aus der Datenbank zu lesen,
+nutzen die von Shiro bereitgestellte Methode \textbf{Schritt 7}. Die Datenbank
+liefert uns dann das Passwort. In diesem Sequenzdiagramm wurde abstrahiert, dass
+Passwörter gehashed und gesalted werden. Dies liegt daran, dass Shiro, falls so
+konfiguriert dies im Hintergrund macht.
+
+Shiro verlangt für ein Token für den Login. Der Token wird aus dem Passwort
+und dem Benutzernamen generiert. das genierierte Token hat den Datentyp
+UserNameToken.  Das Token wir in  Schritt \textbf{Schritt 9} generiert.
 
 
-\begin{figure}[H]
-  \includegraphics[width=\linewidth]{UML/erstbenutzung.png}
-  \caption{Nutzer möchte sich auf dem System anmelden}
-  \label{fig:pkErstellen}
-\end{figure}
-In dieser Graphik wird in einem Sequenzdiagramm gezeigt, wie der Nutzer sich auf unserem System anmelden kann. Dazu ruft er die Login Seite auf, meldet sich an und landet dann auf der richtigen Seite
+Ein schon angemeldet Nutzer, kann sich nicht nochmal anmelden. Daher müssen wir
+überprüfen ob unser Subject anonym ist \textbf{Schritt 10}.
+
+Subjects können Sessions besitzen. Shiro holt und merkt sich die Session eines
+Subjects in \textbf{Schritt 11 \& 12}. So haben wir nun ein Subject und seine Session.
+Hiermit können wir nützliche Dinge tun. Beispielsweise überprüfen, ob das
+Subject die die benötigte Rolle hat. Unsere obige Subject Instanz repräsentiert
+den akutellen Nutzer, aktuell ist unser Subject aber noch anonym. Um nicht mehr
+anonym zu sein muss sich ein Subject anmelden. Für den Anmeldeschritt führen wir
+ein Login mit unserem Token auf unserem aktuellen Nutzer aus \textbf{Schritt
+  13}. Nach der erfolgreichem Authentifizierung leiten wir den Nutzer auf den
+ursprünglichen zurück.  \textbf{Scrhitt 14}. Dafür Verwenden dafür nutzen wir
+eine Weiterleitung die den Pfad zu dem FacesContext kennt, die Anmeldung
+gefordert hat.
+
+\subsection{Kleiner Auschschnitt zur Fehlerbehandlung}
+Bei dem Login können folgende Exceptions geworfen werden:
+\begin{itemize}
+  \item Shiro löst eine UnknownAccountException aus, falls es den Nutzer nicht gibt
+  \item Shiro löst eine IncorrectCredentalException aus, falls das Token nicht
+  stimmt
+  \item Falls das Konto des Users gesperrt ist. Wird ein LockedAccountException
+  ausgelöst.
+\end{itemize}
 
 \subsection{Prozessketten Verwalten und Proben beantragen}
 
 \begin{figure}[H]
-  \includegraphics[width=\linewidth]{UML/pkErstellen.png}
+  \includegraphics[width=\linewidth]{UML/aw/erstellepk.png}
   \caption{Ablauf des Erstellens einer Prozesskette}
   \label{fig:pkErstellen}
 \end{figure}
@@ -1686,17 +1758,12 @@ Falls die Randbedingen der Kette stimmen darf diese instanziiert werden. Beim Sp
 
 Jetzt erhält der Logistiker einen neuen Probenzuweisung Auftrag, falls die Anfrage genehmigt wurde kann der PKAdmin nun die Prozesskette starten
 
-\begin{figure}[H]
-  \includegraphics[width=\linewidth]{UML/logstikProbenPueftZuweisen.png}
-  \caption{Ablauf vom zuweisen der Proben zu einer Prozessketteninstanz}
-  \label{fig:logstikProbenPüftZuweisen}
-\end{figure}
 
-In der Graphik \ref{fig:logstikProbenPüftZuweisen} erhält die Logistik eine Anfrage für die Probenverwaltung. Es muss nun vom System geprüft werden ob Proben mit den gewünschten Materialeigenschaften im Lager sind. Das System gibt diese an die Logistik zurück. Werden die Proben dann von dem Logistiker ausgewählt und genehmigt, so werden diese an den Auftrag übermittelt und persistiert. Die Genehmigung wird an die Prozesskettenverwaltungs-Administrationsapp übermittelt.
+%In der Graphik \ref{fig:logstikProbenPüftZuweisen} erhält die Logistik eine Anfrage für die Probenverwaltung. Es muss nun vom System geprüft werden ob %Proben mit den gewünschten Materialeigenschaften im Lager sind. Das System gibt diese an die Logistik zurück. Werden die Proben dann von dem %Logistiker ausgewählt und genehmigt, so werden diese an den Auftrag übermittelt und persistiert. Die Genehmigung wird an die Prozesskettenverwaltungs-%Administrationsapp übermittelt.
 
-\subsection{Proben Transport}
-\subsection{ProzessSchritt Ausführen}
-\subsection{Lager Verwaltung}
+
+\subsection{ProzessSchritt Sequenzdiagramm}
+
 
 
 
