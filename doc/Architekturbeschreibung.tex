@@ -1,4 +1,4 @@
-\documentclass[enabledeprecatedfontcommands,fontsize=12.5pt,paper=a4,twoside]{scrartcl}
+\documentclass[enabledeprecatedfontcommands,fontsize=12.1pt,paper=a4,twoside]{scrartcl}
 
 
 \newcommand{\grad}{\ensuremath{^{\circ}} }
@@ -1671,8 +1671,8 @@ Datenbank her, welche auf dem gleichen SFB Server läuft und eine Instanz der Da
 \end{figure}
 
 In diesem Anwendungsfall geht es darum zu zeigen, was passiert wenn sich ein
-Benutzer anmeldet. Wir haben uns entschieden, die Sichehheite nicht selber zu
-implementieren, sondern Apache Shiro zu nutzen \ref{problemkarteXXX}
+Benutzer anmeldet. Wir haben uns entschieden, die Sicherheit nicht selber zu
+implementieren, sondern Apache Shiro zu nutzen. Siehe Strategie 2.1 \ref{strategie:2.1}
 
 \subsection{Was ist Apache Shiro}
 Als erstes möchten wir einen überblick über Apache Shiro geben, als dann wird Anhand
@@ -1697,8 +1697,8 @@ bietet. Der Vorteil der Session ist es, dass sie keine HTTP-Umgebung braucht.
 Bei uns wird die Session in einer Webapplikation umgesetzt, folglich basiert
 unsere Session auf die standardmäßige HttpSession.
 
-Wir haben uns für ein rollenbasiertes Zugriffssystem entschieden. TODO
-Strategie. Um dies in Shiro umzusetzen, benutzen wir das von Shiro bereitgestellte
+Wir haben uns für ein rollenbasiertes Zugriffssystem entschieden. 
+Siehe Strategie 1.1 \ref{strategie:1.1}. Um dies in Shiro umzusetzen, benutzen wir das von Shiro bereitgestellte
 JdbcRealm. Mit JdbcRealm kann Shiro aus unserer Datenbank die benötigen
 Attribute und Rollen eines Nutzers laden
 
