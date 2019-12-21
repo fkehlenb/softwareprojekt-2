@@ -424,3 +424,59 @@ class "ExperimentierStation" as es {
 #+RESULTS:
 [[file:datenModel.png]]
 file:datenModel.png
+
+
+#+BEGIN_SRC plantuml :file ps.png
+autonumber
+skinparam monochrome true
+
+actor "TechnologerBean" as te
+participant "ExperimentStation" as es
+participant "ProzessSchrittVorlage" as psv
+participant "ProzessKetteVorlageController" as pkv
+participant "ProzessSchritt" as ps
+participant "BedingungController" as b
+participant "ProzessSchrittParametterController" as psp
+participant "ProzessSchrittLogController" as psl
+participant "ProzessSchrittZustandsAutomatController" as psza
+participant "ProzessSchrittArtController" as psa
+participant "ProzessSchrittZustandsAutomatVorlageController" as pszav
+participant "ProbeController" as p
+participant "TranportAuftragController"  as ta
+participant "QualitativeEigenschafftenController" as qe
+actor "TransporterBean" as tr
+
+note over te : Bei Ps n-1 setzt der Technologer \n der Zustand auf BEARBEITET.
+te -> es : getStationen()
+es -> es : setStatus(VEFÜGBAR)
+es -> pkv : popNextPS()
+note over pkv : Neheme dem erste Prozessschritt, der noch nicht begonen wurde
+====
+pkv -> psv : get PSV() 
+psv -> psv : getES()
+psv -> b : getProzessSchrittParameter 
+b -> psv : getBedingun() 
+====
+psv -> es : getES()
+es -> psv : getAuslastung
+note over psv :  Die es mit der niedrigsten Auslastung wird ausgewählt
+psv -> es : setPsLog(ProzessSchrittLog psl)
+es -> psv : addNextPs()
+ps -> ps : setLog()
+ps -> ps : setZustand (WEITERGELEITET)
+ps -> tr : setTransport()
+tr -> ps : setZustand(ABGEHOLT)
+ps -> ta : getEs()
+ta -> ps : setZustand(ABGELIEFERT)
+note over ps : Probe wurde abgelifert\nTechnologe begint 
+ps -> ps : setZustand(IN_BEARBEITUNG)
+ps -> psv :  setPsLog(psl)
+psv -> ps : getProzessSchrittParameter()
+note over ps : Falls notig werden Eigenschaft den Proben hinzugefügt
+ps -> p : getID()
+p -> p : addComment(comment)
+p -> ps : setEigenschaften(eigenschaft)
+note over ps : Es ist mit Ps fertig
+ps -> psl : setzustand(BEARBEITET)
+
+#+END_SRC
