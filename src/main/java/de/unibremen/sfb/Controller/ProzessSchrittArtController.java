@@ -7,7 +7,17 @@ public class ProzessSchrittArtController {
 
     public ProzessSchrittArt psa;
 
+    /**
+     * Setzt die ProzessSchrittArten, die es geben kann.
+     *
+     * @param psa Ein Set mit den neuen ProzessSchrittArten
+     */
     public void setProzessSchrittArt(Set<String> psa) {}
 
+    /**
+     * Gibt die aktuell existierenden ProzessSchrittArten zurück.
+     *
+     * @return Ein Set mit den aktuell existierenden ProzessSchrittArten
+     */
     public Set<String> getProzessSchrittArt() { return null; }
 }

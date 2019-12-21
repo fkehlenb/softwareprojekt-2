@@ -50,8 +50,10 @@ public class ExperimentierStationController {
     public ProzessSchritt peekNextPS() { return null; }
 
     /**
+     * Gibt den nächsten ProzessSchritt aus, der ausgeführt werden soll.
+     * Dieser wird aus der Warteschlange entfernt.
      *
-     * @param ps
+     * @return Der nöchste ProzessSchritt
      */
-    public void popNextPS(ProzessSchritt ps) {}
+    public ProzessSchritt popNextPS() { return null; }
 }
