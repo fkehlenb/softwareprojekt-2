@@ -38,12 +38,14 @@ public class TraegerController {
 
     /**
      * Returns the Art (type) of this Traeger (carrier)
-     * @return
+     * Examples for Types: vereinzelt (isolated), eingebettet (embedded), Glas (glass)
+     * @return The type
      */
     public String getArt() { return null; }
 
     /**
      * Adds a new TragerArt (carrier type) to the possible TraegerArten
+     * Examples for Types: vereinzelt (isolated), eingebettet (embedded), Glas (glass)
      *
      * @param ta The new TraegerArt
      */
