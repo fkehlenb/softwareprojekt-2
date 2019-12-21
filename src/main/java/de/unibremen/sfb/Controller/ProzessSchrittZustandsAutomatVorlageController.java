@@ -1,6 +1,8 @@
 package de.unibremen.sfb.Controller;
 
 import de.unibremen.sfb.Model.ProzessSchrittZustandsAutomatVorlage;
+
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -24,4 +26,13 @@ public class ProzessSchrittZustandsAutomatVorlageController {
      * @return A Set containing all possible states
      */
     public Set<String> getProzessSchrittZustandsAutomatVorlageZustaende() { return null; }
+
+    public Set<String> getDefaults() {
+        Set<String> returns = new HashSet<String>();
+        returns.add("Angenommen");
+        returns.add("In Bearbeitung");
+        returns.add("Bearbeitet");
+        returns.add("Weitergeleitet");
+        return returns; //TODO sind das alle
+    }
 }

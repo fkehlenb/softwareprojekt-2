@@ -62,4 +62,11 @@ public class ExperimentierStationController {
      * @return the next ProzessSchritt
      */
     public ProzessSchritt popNextPS() { return null; }
+
+    /**
+     * Returns the (Auslastung?) //TODO
+     * @return
+     */
+    public int getUsage() { return 0; }
+
 }

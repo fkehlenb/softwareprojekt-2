@@ -1,10 +1,10 @@
 package de.unibremen.sfb.Controller;
 
-import de.unibremen.sfb.Model.Probe;
-import de.unibremen.sfb.Model.ProbenZustand;
-import de.unibremen.sfb.Model.Standort;
-import de.unibremen.sfb.Model.Archiv;
+import de.unibremen.sfb.Model.*;
+
 import java.time.LocalDateTime;
+import java.util.Set;
+
 import org.apache.commons.lang3.tuple.Pair;
 
 /**
@@ -89,4 +89,17 @@ public class ProbeController {
      * @return the archive
      */
     public Archiv getArchiv() { return null; }
+
+    /**
+     *
+     * @return
+     */
+    public Set<QualitativeEigenschaft> getEigenschaften() { return null; }
+
+    /**
+     *
+     * @param eigenschaft
+     */
+    public void setEigenschaften(Set<QualitativeEigenschaft> eigenschaft) {}
+
 }

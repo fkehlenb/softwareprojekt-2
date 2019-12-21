@@ -18,7 +18,7 @@ public class TraegerArtController {
      *
      * @param ta A Set with all possible TraegerArten
      */
-    public void setTraegerArten(Set<String> ta) {}
+    public void setTraegerArten(Set<String> a) {}
 
     /**
      * Returns the TraegerArten (types of carriers) which a Traeger can be

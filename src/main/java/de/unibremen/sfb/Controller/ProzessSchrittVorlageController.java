@@ -1,10 +1,7 @@
 package de.unibremen.sfb.Controller;
 
-import de.unibremen.sfb.Model.ProzessSchrittVorlage;
-import de.unibremen.sfb.Model.ExperimentierStation;
-import de.unibremen.sfb.Model.TraegerArt;
-import de.unibremen.sfb.Model.ProzessSchrittZustandsAutomat;
-import de.unibremen.sfb.Model.ProzessSchrittArt;
+import de.unibremen.sfb.Model.*;
+
 import java.time.Duration;
 import java.util.Set;
 
@@ -134,4 +131,16 @@ public class ProzessSchrittVorlageController {
      * @return The ProzessSchrittArt
      */
     public ProzessSchrittArt getProzessSchrittArt() { return null; }
+
+    /**
+     *
+     * @param psp
+     */
+    public void setProzessSchrittParameter(Set<ProzessSchrittParameter> psp) {}
+
+    /**
+     *
+     * @return
+     */
+    public Set<ProzessSchrittParameter> getProzessSchrittParameter() { return null; }
 }

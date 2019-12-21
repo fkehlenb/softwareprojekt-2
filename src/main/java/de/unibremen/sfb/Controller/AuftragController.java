@@ -51,9 +51,8 @@ public class AuftragController {
      * sets the current Zustand (state) of this Auftrag
      * possible values: Instanziiert (instantiated), Freigegeben (enabled), Gestartet (started),
      *                  Abgebrochen (canceled), Durchgeführt (carried out)
-     * @param az the new Zustand
      */
-    public void setPKZ(AuftragsZustand az) {}
+    public void setPKZ() {}
 
     /**
      * returns the current Prioritaet (priority) of this Auftrag
@@ -63,9 +62,8 @@ public class AuftragController {
 
     /**
      * sets the current Priorität (priority) of this Auftrag
-     * @param ap the new Prioritaet
      */
-    public void setPrio(AuftragsPrioritaet ap) {}
+    public void setPrio() {}
 
     /**
      * returns the ProzessSchritte which the Auftrag consists of
