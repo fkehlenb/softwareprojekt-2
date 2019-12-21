@@ -35,24 +35,24 @@ skinparam monochrome true
 actor User as user
 participant "Browser UI" as browser
 participant "FacesContext" AS index
+participant "Index Bean" as login
 participant "Apache Shiro" as shiro
-participant "Login Seite" as login
 database "H2" as database
 
-login <- index:  @LoginToContinue(\nloginPage = "/login.xhtml",\nuseForwardToLogin = false
-login -> browser:
-browser -> user
-user -> browser : Eingabe von Password und Username\nloginBacking.submit()
-browser -> login : Übermitellen an den Server TODO HTTP Delegation für jsf
-login -> shiro: login(username, password)
-shiro -> shiro: SecurityUtils.getSubject()
-shiro -> shiro: currentUser.getSession()
-shiro -> shiro: new UsernamePasswordToken(username, password)
-shiro -> shiro: token.setRememberMe(true);
-shiro -> shiro: currentUser.login(token)
+index -> browser:  @LoginToContinue(\nloginPage = "/login.xhtml",\nuseForwardToLogin = false
+browser -> user: Browser zeige das Anmeldeformular
+user -> user: Eingabe von Password und Username
+user -> browser : Druck auf Login Knopf
+browser -> login : Übermitellen an das Servlet:\ngetExternalContext().getRequestParameterMap()
+login -> shiro: login("username", "password")
 shiro -> database: getPasswordForUser(username)
 shiro <- database: return password
-index <-shiro:  externalContext.redirect(externalContext.getRequestContextPath() + path);\n TODO PATH?
+shiro -> shiro: UsernamePasswordToken(username, password)
+shiro -> shiro: SecurityUtils.getSubject()
+shiro -> shiro: currentUser.getSession()
+shiro -> shiro: token.setRememberMe(true);
+shiro -> shiro: currentUser.login(token)
+index <-shiro:  externalContext.redirect(externalContext.getRequestContextPath())
 index -> browser: Zeige korrekte Seite an
 #+END_SRC
 
@@ -66,13 +66,39 @@ index -> browser: Zeige korrekte Seite an
 autonumber
 skinparam monochrome true
 
-actor Technologr:nnen as t
-actor Logitisker:Innen as l
-participant "Prozesskette" as pk
-participant "Auftrag als" as a
-participant "Technolgen App" tApp
 
-t -> tApp: Aufruf vorhandener Vorlagen
+participant "PKAdminBean" as pkaB
+participant "ProzessKettenVorlageController" as pkv
+participant "AuftragController" as auftrag
+participant "ProzessschrittVorlageController" as psv
+participant "ProzessSchrittZustandsAutomatVorlageController" as psza
+participant "auftraLogController" as aLog
+
+  ==Erstellen Eines neuen Auftrages== 
+note over pkaB : Technologe ruf TechnologeApp auf
+note over pkaB: Techonologe wählt Vorlage
+pkaB -> pkv : addProzessKettenVorlage(pkv:ProzessKettenVorlage)
+note over pkv : Alle ProzessSchrritteVorlage anzeigen
+pkv -> psv : getPSV()
+note over psv : Technologe setzt alle gewünschten Eigenschaften
+psv -> psv : setEs()
+psv -> psv : setZustaende(psz:Set<ProzessSchrittZustand>)
+psv -> psv :  setEingabeTraeger(Set<Traegerart>)
+psv -> psv : setAusgabeTraeger(Set<Traegerart>)
+psv -> psv : setProzessSchrittZustandsAutomat(\npsza:ProzessSchrittZustandsAutomat)
+psv -> psv :  setProzessschrittArt(psa:ProzessSchrittArt)
+psv -> b : add Bedinung (TODO) 
+b -> b : add Parameters (TODO)
+b -> pkv : get Bedinung
+pkv -> pkaB : checkPK(ProzessKette pk)
+pkaB -> auftrag : createAuftrag(ProzessKettenVorlage pkv)
+auftrag -> auftrag : setPrio(KEINE)
+note over auftrag : PkAdmin Kontrolliert den Auftrag 
+auftrag -> auftrag : setPKZ(FREIGEGEBEN)
+==Starten des Auftarges== 
+note over auftrag : der Logistiker hat alle Proben und Träger zugewissen   
+auftrag -> aLog : setPkset(GESTARTET)
+aLog -> Auftrag : setStart(java.time.LocalDateTime)
 
 
 #+END_SRC
@@ -222,6 +248,7 @@ class User {
   +password: Byte[]
   +wurdeVerifiziert: boolean
   +erstellungsDatum: java.time.LocalTimeDate
+  +lang: String
 }
 
 
@@ -245,8 +272,8 @@ class TraegerArt {
 }
 
 class Archiv {
-auftrag: Auftrag
-datum: java.time.LocalTimeDate
+  +auftrag: Auftrag
+  +datum: java.time.LocalTimeDate
 }
 
 class "QualitativeEigenschaft" as qualE {
@@ -255,7 +282,7 @@ class "QualitativeEigenschaft" as qualE {
 
 class "QuantitativeEigenschaft" as quantE {
   +wert: java.lang.Number
-  +einheit: uom.si
+  +einheit: si.uom.si
 }
 
 class "ProzessSchritt" as ps {
@@ -282,7 +309,7 @@ class ProzessSchrittZustandsAutomatVorlage {
 
 class "ProzessSchrittVorlage" as psV {
   +psVID: int
-  +zustaende: List<ProzessKettenZustandsAutomat>
+  +zustaende: Set<ProzessKettenZustandsAutomat>
   +dauer: java.time.Duration
   +eingabeTraeger: Set<TraegerArt>
   +ausgabeTraeger: Set<TraegerArt>
@@ -308,7 +335,7 @@ class Auftrag {
 class AuftragsLog {
   +start: java.time.LocalDate
   +beeendet: java.time.LocalDate
-  +archiviert: java.time.LocalDate
+  +zustand: ProzessKettenZustandsAutomat
 }
 
 
@@ -330,6 +357,7 @@ enum "ProzessKettenZustandsAutomat" as pkZ {
     GESTARTET
     ABGEBROCHEN
     DURCHGEFÜHRT
+    ARCHIVIERT
 }
 
 class Bedingung {
@@ -339,7 +367,7 @@ class Bedingung {
 
 class "ExperimentierStation" as es {
   +esID: int
-  +standort: String
+  +standort: Standort
   +status: enum ["verfügbar", "besetzt", kaputt]
   +nextPS: Queue<ProzessSchritt>
 }
@@ -347,7 +375,7 @@ class "ExperimentierStation" as es {
 
 
   User "0..*" -left- "1..*" Role
-  User "*" -- "*" es: < hat
+  User "*" -- "*" es: hat >
 
 
   Auftrag "*" -* "1" AuftragsPriorität
@@ -367,7 +395,7 @@ class "ExperimentierStation" as es {
 
   psV "*" --  "1" ProzessSchrittArt: hat >
   psV "1" -- "1..*" pp: hat >
-  psV "1" --"1..*" es: hat >
+  psV "*" --"1..*" es: hat >
   psV "1" -- "*" ProzessSchrittZustandsAutomat: hat >
 
   (psV, es) .. Bedingung
@@ -380,12 +408,9 @@ class "ExperimentierStation" as es {
 
   pkV "*" -- "1..*" psV: hat >
 
-  Bedingung  "*" -- "*" qualE
-
 
   Probe "0..1" *- "0..1" Archiv
   Probe "*" -- "1" Standort: hat >
-  Probe "*" -- "*" pp: hat >
   Probe "*" -- "*" qualE: hat >
 
   pp "*" o-down- "*" qualE: besteht aus >
@@ -399,3 +424,59 @@ class "ExperimentierStation" as es {
 #+RESULTS:
 [[file:datenModel.png]]
 file:datenModel.png
+
+
+#+BEGIN_SRC plantuml :file ps.png
+autonumber
+skinparam monochrome true
+
+actor "TechnologerBean" as te
+participant "ExperimentStation" as es
+participant "ProzessSchrittVorlage" as psv
+participant "ProzessKetteVorlageController" as pkv
+participant "ProzessSchritt" as ps
+participant "BedingungController" as b
+participant "ProzessSchrittParametterController" as psp
+participant "ProzessSchrittLogController" as psl
+participant "ProzessSchrittZustandsAutomatController" as psza
+participant "ProzessSchrittArtController" as psa
+participant "ProzessSchrittZustandsAutomatVorlageController" as pszav
+participant "ProbeController" as p
+participant "TranportAuftragController"  as ta
+participant "QualitativeEigenschafftenController" as qe
+actor "TransporterBean" as tr
+
+note over te : Bei Ps n-1 setzt der Technologer \n der Zustand auf BEARBEITET.
+te -> es : getStationen()
+es -> es : setStatus(VEFÜGBAR)
+es -> pkv : popNextPS()
+note over pkv : Neheme dem erste Prozessschritt, der noch nicht begonen wurde
+====
+pkv -> psv : get PSV() 
+psv -> psv : getES()
+psv -> b : getProzessSchrittParameter 
+b -> psv : getBedingun() 
+====
+psv -> es : getES()
+es -> psv : getAuslastung
+note over psv :  Die es mit der niedrigsten Auslastung wird ausgewählt
+psv -> es : setPsLog(ProzessSchrittLog psl)
+es -> psv : addNextPs()
+ps -> ps : setLog()
+ps -> ps : setZustand (WEITERGELEITET)
+ps -> tr : setTransport()
+tr -> ps : setZustand(ABGEHOLT)
+ps -> ta : getEs()
+ta -> ps : setZustand(ABGELIEFERT)
+note over ps : Probe wurde abgelifert\nTechnologe begint 
+ps -> ps : setZustand(IN_BEARBEITUNG)
+ps -> psv :  setPsLog(psl)
+psv -> ps : getProzessSchrittParameter()
+note over ps : Falls notig werden Eigenschaft den Proben hinzugefügt
+ps -> p : getID()
+p -> p : addComment(comment)
+p -> ps : setEigenschaften(eigenschaft)
+note over ps : Es ist mit Ps fertig
+ps -> psl : setzustand(BEARBEITET)
+
+#+END_SRC
