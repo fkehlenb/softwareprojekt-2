@@ -45,7 +45,7 @@ public class AuftragController {
      *                  Abgebrochen (canceled), Durchgeführt (carried out)
      * @return the current Zustand
      */
-    public AuftragsZustand getPKZ() { return null; }
+    public ProzessKettenZustandsAutomat getPKZ() { return null; }
 
     /**
      * sets the current Zustand (state) of this Auftrag
