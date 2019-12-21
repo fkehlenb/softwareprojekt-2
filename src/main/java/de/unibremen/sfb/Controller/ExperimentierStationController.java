@@ -1,59 +1,65 @@
 package de.unibremen.sfb.Controller;
 
 import de.unibremen.sfb.Model.ExperimentierStation;
+import de.unibremen.sfb.Model.ExperimentierStationZustand;
 import de.unibremen.sfb.Model.ProzessSchritt;
 
+/**
+ * this class manages communication with models of experimenting stations (ExperimentierStationen)
+ */
 public class ExperimentierStationController {
 
     public ExperimentierStation experimenteristation;
 
     /**
-     * gibt die ID dieser Experimentierstation zurück
+     * returns the ID of this station
      *
-     * @return die ID
+     * @return the ID
      */
     public int getESID() { return 0; }
 
     /**
-     * setzt den Standort dieser Experimentierstation
+     * Sets the Standort (location) of this station
      *
-     * @return der neue Standort
+     * @return the new Standort
      */
     public String getESStandort() { return null; }
 
     /**
-     * setzt den Status der Experimentierstation.
-     * Mögliche Werte: Verfügbar, Besetzt, Kaputt
+     * Sets the current Status (state) of the station
+     * Possible values: Verfügbar(available), Besetzt(in use), Kaputt(broken)
+     * @param esz the new Status of this ExperimentierStation
      */
-    //eigentlich enum übergeben
-    public void setStatus() {}
+    public void setStatus(ExperimentierStationZustand esz) {}
 
     /**
-     * gibt den aktuellen Status der Experimentierstation zurück.
-     * Mögliche Werte: Verfügbar, Besetzt, Kaputt
+     * Returns the current Status (state) of this station.
+     * Possible values: Verfügbar(available), Besetzt(in use), Kaputt(broken)
+     * @return the current Status of this ExperimentierStation
      */
-    //eigentlich enum returnt
-    public void getStatus() {}
+    public ExperimentierStationZustand getStatus() { return null; }
 
     /**
-     * Fügt einen neuen ProzessSchritt, der an dieser Station durchgeführt werden soll.
+     * Adds a ProzessSchritt to the waiting queue.
+     * The ProzessSchritt is added at the spot fitting its priority.
      *
-     * @param ps Der neue ProzessSchritt
+     * @param ps the added ProzessSchritt
      */
     public void addNextPS(ProzessSchritt ps) {}
 
     /**
-     * Gibt den nächsten ProzessSchritt aus, der ausgeführt werden soll.
+     * Returns the next ProzessSchritt to be executed at this station.
+     * The ProzessSchritt stays in the queue.
      *
-     * @return Der nächste durchzuführende ProzessSchritt
+     * @return the next durchzuführende ProzessSchritt
      */
     public ProzessSchritt peekNextPS() { return null; }
 
     /**
-     * Gibt den nächsten ProzessSchritt aus, der ausgeführt werden soll.
-     * Dieser wird aus der Warteschlange entfernt.
+     * Returns the next ProzessSchritt to be executed at this station.
+     * The ProzessSchritt is removed from the queue.
      *
-     * @return Der nöchste ProzessSchritt
+     * @return the next ProzessSchritt
      */
     public ProzessSchritt popNextPS() { return null; }
 }

@@ -4,35 +4,41 @@ import de.unibremen.sfb.Model.Archiv;
 import de.unibremen.sfb.Model.Auftrag;
 import java.time.LocalDateTime;
 
+/**
+ * this class manages the interaction with models of archives
+ */
 public class ArchivController {
 
+    /**
+     * The Archiv managed by this ArchivController
+     */
     public Archiv archiv;
 
     /**
-     * Setzt den Auftrag, der mit dem Archiv archiviert wird.
+     * Sets the Auftrag which is archived with this archive.
      *
-     * @param a Der neue Auftrag
+     * @param a The new Auftrag
      */
     public void setAuftrag(Auftrag a) {}
 
     /**
-     * Gibt den Auftrag, der mit diesem Archiv archivivert wird.
+     * returns the Auftrag which is archived with this archive
      *
-     * @return Der Auftrag
+     * @return the Auftrag
      */
     public Auftrag getAuftrag() { return null; }
 
     /**
-     *  Diese Methode setzt die Zeit der Archivierung
+     * Sets the time at which the Auftrag was archived
      *
-     * @param d Die neue Zeit
+     * @param d the new timestamp
      */
     public void setDatum(LocalDateTime d) {}
 
     /**
-     * Die Methode gibt die Zeit der Archivierung aus
+     * Returns the time at which the Auftrag was archived
      *
-     * @return Die Zeit
+     * @return The timestamp
      */
     public LocalDateTime getDatum() { return null; }
 }

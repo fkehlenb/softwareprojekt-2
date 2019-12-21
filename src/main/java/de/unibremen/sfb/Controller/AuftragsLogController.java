@@ -3,49 +3,51 @@ package de.unibremen.sfb.Controller;
 import de.unibremen.sfb.Model.AuftragsLog;
 import java.time.LocalDateTime;
 
+/**
+ * this class manages the interaction with models of assignment protocols (AuftragsLogs)
+ */
 public class AuftragsLogController {
 
     public AuftragsLog log;
 
     /**
-     * Setzt die Startzeit dieses Auftrags.
+     * sets the starting time of the Auftrag which this protocol belongs to
      *
-     * @param t die neue Startzeit
+     * @param t the new starting time
      */
     public void setStart(LocalDateTime t) {}
 
     /**
-     * gibt die Startzeit dieses Auftrags zurück
+     * returns the starting time of the Auftrag which this protocol belongs to
      *
-     * @return die Startzeit
+     * @return the starting time
      */
     public LocalDateTime getStart() { return null; }
 
     /**
-     * setzt die Endezeit dieses Auftrags
-     *
-     * @param t die neue Endzeit
+     * sets the time at which the corresponding  Auftrag was finished
+     * @param t the new time
      */
     public void setBeendet(LocalDateTime t) {}
 
     /**
-     * gibt die Endzeit dieses Auftrags zurück
+     * returns the time at which the corresponding Auftrag was finished
      *
-     * @return die Endzeit
+     * @return the finish time
      */
     public LocalDateTime getBeendet() { return null; }
 
     /**
-     * setzt die Zeit, zu der dieser Auftrag archiviert wurde
+     * sets the time at which the corresponding Auftrag was archived
      *
-     * @param t die neue Zeit
+     * @param t the new time
      */
     public void setArchiviert(LocalDateTime t) {}
 
     /**
-     * gibt die Zeit zurück, zu der dieser Auftrag archiviert wurde
+     * returns the time at which the corresponding Auftrag was archived
      *
-     * @return der Zeitpunkt der Archivierung
+     * @return the time
      */
     public LocalDateTime getArchiviert() { return null; }
 }

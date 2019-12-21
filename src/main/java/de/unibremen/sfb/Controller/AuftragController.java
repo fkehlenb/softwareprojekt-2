@@ -1,70 +1,75 @@
 package de.unibremen.sfb.Controller;
 
-import de.unibremen.sfb.Model.Auftrag;
-import de.unibremen.sfb.Model.ProzessKettenVorlage;
-import de.unibremen.sfb.Model.AuftragsLog;
-import de.unibremen.sfb.Model.ProzessSchritt;
+import de.unibremen.sfb.Model.*;
+
 import java.util.Set;
 
+/**
+ * this class manages the interaction with models of assignments (Auftraege)
+ */
 public class AuftragController {
 
     public Auftrag auftrag;
 
     /**
-     * Gibt die ID des Auftrags aus.
+     * returns the ID of this Auftrag
      *
-     * @return Die ID
+     * @return the ID
      */
     public int getID() { return 0; }
 
     /**
-     * Gibt die ProzessKettenVorlage, von der dieser Auftrag instanziiert wurde, aus.
+     * return the ProzessKettenVorlage which was used to instantiate this Auftrag
      *
-     * @return Die ProzessKettenVorlage
+     * @return the ProzessKettenVorlage
      */
     public ProzessKettenVorlage getPKV() { return null; }
 
     /**
-     * Gibt das bisherige Protokoll dieses Auftrags zurück
+     * return the protocol of this Auftrag that was created thus far
      *
-     * @return Das Protokoll
+     * @return the protocol
      */
     public AuftragsLog getLog() { return null; }
 
     /**
-     * Setzt das Protokoll dieses Auftrags
+     * sets the protocol of this Auftrag
      *
-     * @param al Das neue Protokoll
+     * @param al the new protocol
      */
     public void setLog(AuftragsLog al) { }
 
     /**
-     * Gibt den aktuellen Zustand des Auftrags zurück.
-     * Mögliche Werte: Instanziiert, Freigegeben, Gestartet, Abgebrochen, Durchgeführt
+     * returns the current Zustand (state) of this Auftrag
+     * possible values: Instanziiert (instantiated), Freigegeben (enabled), Gestartet (started),
+     *                  Abgebrochen (canceled), Durchgeführt (carried out)
+     * @return the current Zustand
      */
-    //returnt eigentlich enum (Zustände)!
-    public void getPKZ() { }
+    public AuftragsZustand getPKZ() { return null; }
 
     /**
-     * Setzt den Zustand des Auftrags.
-     * Mögliche Werte: Instanziiert, Freigegeben, Gestartet, Abgebrochen, Durchgeführt
+     * sets the current Zustand (state) of this Auftrag
+     * possible values: Instanziiert (instantiated), Freigegeben (enabled), Gestartet (started),
+     *                  Abgebrochen (canceled), Durchgeführt (carried out)
+     * @param az the new Zustand
      */
-    public void setPKZ() {}
+    public void setPKZ(AuftragsZustand az) {}
 
     /**
-     * Gibt die aktuelle Priorität dieses Auftrags zurück
+     * returns the current Prioritaet (priority) of this Auftrag
+     * @return the current Prioritaet
      */
-    //returnt eigentlich enum
-    public void getPrio() {}
+    public AuftragsPrioritaet getPrio() { return null; }
 
     /**
-     * Setzt die Priorität dieses Auftrags neu
+     * sets the current Priorität (priority) of this Auftrag
+     * @param ap the new Prioritaet
      */
-    public void setPrio() {}
+    public void setPrio(AuftragsPrioritaet ap) {}
 
     /**
-     * Gibt die Prozesssschritte zurück, aus denen dieser Auftrag besteht.
-     * @return Gibt alle ProzessSchritte zurück
+     * returns the ProzessSchritte which the Auftrag consists of
+     * @return a Set containing all ProzessSchritt
      */
     public Set<ProzessSchritt> getPS() { return null; }
 }
