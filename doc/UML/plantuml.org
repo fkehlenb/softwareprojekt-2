@@ -34,23 +34,26 @@ skinparam monochrome true
 
 actor User as user
 participant "Browser UI" as browser
-participant "Home Page" as home_page
+participant "FacesContext" AS index
+participant "Apache Shiro" as shiro
+participant "Login Seite" as login
+database "H2" as database
 
-user -> browser : Besuchen Sie die Login-Seite der DataColorrado-Benutzeroberfläche.
-browser -> home_page : Rufen Sie die Anmeldeseite der  DataColorrado-Benutzeroberfläche auf.
-browser <- home_page : Geben Sie die Anmeldeseite mit dem Formularfeld Benutzername und Passwortzurück.
-user <- browser : Seite anzeigen, auf Benutzereingaben warten
-Benutzer -> Benutzer: Abruf von Benutzername und Passwort aus dem Speicher
-user -> browser : Füllen Sie das Feld Benutzername und Passwort aus und klicken Sie auf die Schaltfläche Senden.
-browser -> home_page : Senden Sie den Benutzernamen und das Passwort.
-home_page -> home_page : Überprüfen Sie, ob die Informationen gültig sind.
-alt Login gültig
-    browser <- home_page : Gibt die eingeloggte Seite zurück
-    user <- browser : Anzeige der angemeldeten Seite
-else Login ungültig
-    browser <- home_page : Rückgabe der Login-Fehlerseite
-    user <- browser : Anzeige der Login-Fehlerseite
-end
+login <- index:  @LoginToContinue(\nloginPage = "/login.xhtml",\nuseForwardToLogin = false
+login -> browser:
+browser -> user
+user -> browser : Eingabe von Password und Username\nloginBacking.submit()
+browser -> login : Übermitellen an den Server TODO HTTP Delegation für jsf
+login -> shiro: login(username, password)
+shiro -> shiro: SecurityUtils.getSubject()
+shiro -> shiro: currentUser.getSession()
+shiro -> shiro: new UsernamePasswordToken(username, password)
+shiro -> shiro: token.setRememberMe(true);
+shiro -> shiro: currentUser.login(token)
+shiro -> database: getPasswordForUser(username)
+shiro <- database: return password
+index <-shiro:  externalContext.redirect(externalContext.getRequestContextPath() + path);\n TODO PATH?
+index -> browser: Zeige korrekte Seite an
 #+END_SRC
 
 
@@ -330,6 +333,8 @@ enum "ProzessKettenZustandsAutomat" as pkZ {
 }
 
 class Bedingung {
+  +param: Set<ProzessSchrittParameter>
+  +eigenschaften: Set<QualitativeEigenschaft>
 }
 
 class "ExperimentierStation" as es {
@@ -375,7 +380,6 @@ class "ExperimentierStation" as es {
 
   pkV "*" -- "1..*" psV: hat >
 
-  Bedingung "*" -- "*" pp
   Bedingung  "*" -- "*" qualE
 
 
