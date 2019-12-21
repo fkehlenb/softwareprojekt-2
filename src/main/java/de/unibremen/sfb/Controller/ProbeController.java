@@ -91,14 +91,15 @@ public class ProbeController {
     public Archiv getArchiv() { return null; }
 
     /**
+     * returns all properties this sample has
+     * @return a set containing all properties of this sample
      *
-     * @return
      */
     public Set<QualitativeEigenschaft> getEigenschaften() { return null; }
 
     /**
-     *
-     * @param eigenschaft
+     *sets the properties of this sample
+     * @param eigenschaft a set containing all properties this sample is supposed to have
      */
     public void setEigenschaften(Set<QualitativeEigenschaft> eigenschaft) {}
 

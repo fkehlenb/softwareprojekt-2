@@ -133,14 +133,14 @@ public class ProzessSchrittVorlageController {
     public ProzessSchrittArt getProzessSchrittArt() { return null; }
 
     /**
-     *
-     * @param psp
+     * sets the process step parameters of this process step template
+     * @param psp a set containing all process step parameters this template is supposed to have
      */
     public void setProzessSchrittParameter(Set<ProzessSchrittParameter> psp) {}
 
     /**
-     *
-     * @return
+     * returns all process step parameters of this process step template
+     * @return a set containing all process step parameters of this template
      */
     public Set<ProzessSchrittParameter> getProzessSchrittParameter() { return null; }
 }
