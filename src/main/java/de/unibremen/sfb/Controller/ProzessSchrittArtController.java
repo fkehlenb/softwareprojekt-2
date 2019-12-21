@@ -3,21 +3,27 @@ package de.unibremen.sfb.Controller;
 import de.unibremen.sfb.Model.ProzessSchrittArt;
 import java.util.Set;
 
+/**
+ * this class manages the interaction with models of process chain types (ProzessKettenArt)
+ */
 public class ProzessSchrittArtController {
 
+    /**
+     * the ProzessSchrittArt managed by an instance of this controller
+     */
     public ProzessSchrittArt psa;
 
     /**
-     * Setzt die ProzessSchrittArten, die es geben kann.
+     * Sets the ProzessSchrittArten which a ProzessSchritt can be.
      *
-     * @param psa Ein Set mit den neuen ProzessSchrittArten
+     * @param psa A set containing the ProzessSchrittArten
      */
     public void setProzessSchrittArt(Set<String> psa) {}
 
     /**
-     * Gibt die aktuell existierenden ProzessSchrittArten zurück.
+     * Returns the currently existing ProzessSchrittArten
      *
-     * @return Ein Set mit den aktuell existierenden ProzessSchrittArten
+     * @return A set with the currently existing ProzessSchrittArten
      */
     public Set<String> getProzessSchrittArt() { return null; }
 }

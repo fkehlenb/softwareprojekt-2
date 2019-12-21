@@ -15,5 +15,5 @@ public class QualitativeEigenschaft {
     public List<Probe> proben;
 
     /** The process parameters made out of the qualitative descriptor */
-    public List<ProzessParameter> parameter;
+    public List<ProzessSchrittParameter> parameter;
 }

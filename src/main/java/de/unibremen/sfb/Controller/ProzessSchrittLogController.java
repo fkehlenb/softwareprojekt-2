@@ -2,20 +2,57 @@ package de.unibremen.sfb.Controller;
 
 import de.unibremen.sfb.Model.ProzessSchrittLog;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
+/**
+ * this class manages the interaction with models of process chain logs (ProzessKettenLog)
+ */
 public class ProzessSchrittLogController {
 
+    /**
+     * the ProzessSchrittLog managed by an instance of this controller
+     */
     public ProzessSchrittLog pslog;
 
-    public void setStart(LocalDate t) {}
+    /**
+     * Sets the starting time of the ProzessSchritt corresponding to this protocol
+     *
+     * @param t The new starting time
+     */
+    public void setStart(LocalDateTime t) {}
 
-    public LocalDate getStart() { return null; }
+    /**
+     * Returns the starting time of the corresponding ProzessSchritt
+     *
+     * @return Die Startzeit
+     */
+    public LocalDateTime getStart() { return null; }
 
-    public void setBeendet(LocalDate t) {}
+    /**
+     * Sets the ending time of the corresponding ProzessSchritt
+     *
+     * @param t The new ending time
+     */
+    public void setBeendet(LocalDateTime t) {}
 
-    public LocalDate getBeendet() { return null; }
+    /**
+     * Returns the ending time of the corresponding ProzessSchritt
+     *
+     * @return the ending time
+     */
+    public LocalDateTime getBeendet() { return null; }
 
-    public void setArchiviert(LocalDate t) {}
+    /**
+     * Sets the time at which the corresponding ProzessSchritt was archived
+     *
+     * @param t The new timestamp
+     */
+    public void setArchiviert(LocalDateTime t) {}
 
-    public LocalDate getArchiviert() { return null; }
+    /**
+     * Returns the time at which the corresponding ProzessSchritt was archived
+     *
+     * @return The timestamp
+     */
+    public LocalDateTime getArchiviert() { return null; }
 }
