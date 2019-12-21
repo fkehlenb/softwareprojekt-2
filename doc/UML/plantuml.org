@@ -273,8 +273,8 @@ class TraegerArt {
 }
 
 class Archiv {
-auftrag: Auftrag
-datum: java.time.LocalTimeDate
++auftrag: Auftrag
++datum: java.time.LocalTimeDate
 }
 
 class "QualitativeEigenschaft" as qualE {

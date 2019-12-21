@@ -1,81 +1,105 @@
 package de.unibremen.sfb.Controller;
 
-import de.unibremen.sfb.Model.Probe;
-import de.unibremen.sfb.Model.Standort;
-import de.unibremen.sfb.Model.Archiv;
+import de.unibremen.sfb.Model.*;
+
 import java.time.LocalDateTime;
+import java.util.Set;
+
 import org.apache.commons.lang3.tuple.Pair;
 
+/**
+ * this class manages the interaction with models of samples (Proben)
+ */
 public class ProbeController {
+
+    /**
+     * the Probe managed by a controller instance
+     */
     public Probe probe;
 
     /**
-     * Setzt die Id dieser Probe
-     * Proben-IDs sind von der Form: [A-Z][0-9][0-9].[0-9]+(.[0-9]+)+
+     * Sets the ID of this Probe.
+     * Proben-IDs are of the format: [A-Z][0-9][0-9].[0-9]+(.[0-9]+)+
      *
-     * @param id Die neue ID
+     * @param id the new ID
      */
     public void setID(String id) {}
 
     /**
-     * Gibt die ID dieser Probe zurück.
-     * Proben-IDs sind von der Form: [A-Z][0-9][0-9].[0-9]+(.[0-9]+)+
+     * Returns the ID of this Probe
+     * Probens IDs are of the format: [A-Z][0-9][0-9].[0-9]+(.[0-9]+)+
      *
-     * @return Die Proben-ID
+     * @return the Proben-ID
      */
     public String getID() { return null; }
 
     /**
-     * Fügt dieser Probe einen Kommentar hinzu.
-     * Probenkommentare bestehen aus dem Zeitstempel und dem Kommentartext.
+     * Adds a ProbenKommentar (comment about this Probe) to this Probe.
+     * Probenkommentare consist of the timestamp and the comment text.
      *
-     * @param p Ein Paar, das den Zeitstempel und den Kommentartext enthält.
+     * @param p A pair consisting of the timestamp and the comment text.
      */
     public void addComment(Pair<LocalDateTime,String> p) {}
 
     /**
-     * Gibt den Probenkommentar dieser Probe zurück.
-     * Probenkommentare bestehen aus dem Zeitstempel un dem Kommentartext.
+     * Returns the Probenkommentar (comment about this Probe) to this Probe.
+     * Probenkommentare consist of the timestampt and the comment text
      *
-     * @return Ein Paar aus Zeitstempel und Kommentartext
+     * @return A pair consisting of the timestamp and the comment text
      */
     public Pair<LocalDateTime,String> getComment() { return null; }
 
     /**
-     * Setzt den Zustand dieser Probe.
-     * Mögliche Zustände sind: Kaputt, Verloren, Vorhanden
+     * Sets the Zustand (state) of this Probe
+     * Possible values are: Kaputt(broken), Verloren(lost), Vorhanden(available)
      *
-     * param: Der neue Zustand dieser Probe.
+     * @param pz the new state of this Probe
      */
-    //hier enum übergeben
-    public void setZustand() {}
+    public void setZustand(ProbenZustand pz) { }
 
     /**
-     * Gibt den akutellen Zustand dieser Probe zurück.
-     * Mögliche Zustände sind: Kaputt, Verloren, Vorhanden.
+     * returns the current Zustand (state) of this Probe
+     * Possible values are: Kaputt(broken), Verloren(lost), Vorhanden(available).
+     * @return the current Zustand
      */
-    //hier enum returnt
-    public void getZustand() {}
+    public ProbenZustand getZustand() { return null; }
 
     /**
-     * Setzt den Standort, an dem sich die Probe aktuell befindet.
+     * Sets the Standort (location) at which the Probe currently is.
      *
-     * @param s Der neue Standort.
+     * @param s the new location
      */
     public void setStandort(Standort s) {}
 
     /**
-     * Gibt den Standort zurück, an dem die Probe sich aktuell befindet.
+     * Returns the Standort (location) at which the Probe currently is
      *
-     * @return Der Standort.
+     * @return the location
      */
     public Standort getStandort() { return null; }
 
     /**
-     * //TODO
-     * @param a
+     * Sets an Archiv (archive) for this Probe (and thus archives it)
+     * @param a the new archive
      */
     public void setArchiv(Archiv a) {}
 
+    /**
+     * Returns the Archiv (archive) for this Probe
+     * @return the archive
+     */
     public Archiv getArchiv() { return null; }
+
+    /**
+     *
+     * @return
+     */
+    public Set<QualitativeEigenschaft> getEigenschaften() { return null; }
+
+    /**
+     *
+     * @param eigenschaft
+     */
+    public void setEigenschaften(Set<QualitativeEigenschaft> eigenschaft) {}
+
 }

@@ -4,34 +4,41 @@ import de.unibremen.sfb.Model.ProzessKettenVorlage;
 import de.unibremen.sfb.Model.ProzessSchrittVorlage;
 import java.util.Set;
 
+/**
+ * this class manages the interaction with models of process chain templates (ProzessKettenVorlage)
+ */
 public class ProzessKettenVorlageController {
+
+    /**
+     * the ProzessKettenVorlage managed by an instance of this controller
+     */
     public ProzessKettenVorlage pkv;
 
     /**
-     * Setzt die ID dieser ProzessKettenVorlage.
+     * Sets the ID of this ProzessKettenVorlage.
      *
-     * @param id Die neue ID
+     * @param id the new ID
      */
     public void setID(int id) {}
 
     /**
-     * Gibt die ID dieser ProzessKettenVorlage zurück.
+     * Returns the ID of this ProzessKettenVorlage.
      *
-     * @return Die ID
+     * @return the ID
      */
     public int getID() { return 0; }
 
     /**
-     * Setzt die ProzessSchrittVorlagen, aus denen diese ProessKettenVorlage besteht.
+     * Sets the ProzessSchrittVorlagen this ProzessKettenVorlage consists of.
      *
-     * @param psv Ein Set mit den neuen ProzessSchrittVorlagen
+     * @param psv A set containing the ProzessSchrittVorlagen
      */
     public void setPSV(Set<ProzessSchrittVorlage> psv) {}
 
     /**
-     * Gibt die ProzessSchrittVorlagen zurück, aus denen diese ProzessKettenVorlage besteht.
+     * Returns the ProzessSchrittVorlagen this ProzessKettenVorlage consists of.
      *
-     * @return Ein Set mit den ProzessSchrittVorlagen.
+     * @return A set containing the ProzessSchrittVorlagen
      */
     public Set<ProzessSchrittVorlage> getPSV() { return null; }
 }
