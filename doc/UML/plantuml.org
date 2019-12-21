@@ -35,26 +35,24 @@ skinparam monochrome true
 actor User as user
 participant "Browser UI" as browser
 participant "FacesContext" AS index
+participant "Index Bean" as login
 participant "Apache Shiro" as shiro
-participant "Login Bean" as login
 database "H2" as database
 
-login <- index:  @LoginToContinue(\nloginPage = "/login.xhtml",\nuseForwardToLogin = false
-login -> browser:
-browser -> user
+index -> browser:  @LoginToContinue(\nloginPage = "/login.xhtml",\nuseForwardToLogin = false
+browser -> user: Browser zeige das Anmeldeformular
 user -> user: Eingabe von Password und Username
 user -> browser : Druck auf Login Knopf
-browser -> login : Übermitellen an den Server TODO HTTP Delegation für jsf
-login -> shiro: login()
+browser -> login : Übermitellen an das Servlet:\ngetExternalContext().getRequestParameterMap()
+login -> shiro: login("username", "password")
 shiro -> database: getPasswordForUser(username)
 shiro <- database: return password
-shiro -> shiro: Token TODO
+shiro -> shiro: UsernamePasswordToken(username, password)
 shiro -> shiro: SecurityUtils.getSubject()
 shiro -> shiro: currentUser.getSession()
-shiro -> shiro: new UsernamePasswordToken()
 shiro -> shiro: token.setRememberMe(true);
 shiro -> shiro: currentUser.login(token)
-index <-shiro:  externalContext.redirect(externalContext.getRequestContextPath() + path);\n TODO PATH?
+index <-shiro:  externalContext.redirect(externalContext.getRequestContextPath())
 index -> browser: Zeige korrekte Seite an
 #+END_SRC
 
@@ -250,6 +248,7 @@ class User {
   +password: Byte[]
   +wurdeVerifiziert: boolean
   +erstellungsDatum: java.time.LocalTimeDate
+  +lang: String
 }
 
 
@@ -336,7 +335,7 @@ class Auftrag {
 class AuftragsLog {
   +start: java.time.LocalDate
   +beeendet: java.time.LocalDate
-  +archiviert: java.time.LocalDate
+  +zustand: ProzessKettenZustandsAutomat
 }
 
 
@@ -358,6 +357,7 @@ enum "ProzessKettenZustandsAutomat" as pkZ {
     GESTARTET
     ABGEBROCHEN
     DURCHGEFÜHRT
+    ARCHIVIERT
 }
 
 class Bedingung {
@@ -367,7 +367,7 @@ class Bedingung {
 
 class "ExperimentierStation" as es {
   +esID: int
-  +standort: String
+  +standort: Standort
   +status: enum ["verfügbar", "besetzt", kaputt]
   +nextPS: Queue<ProzessSchritt>
 }
