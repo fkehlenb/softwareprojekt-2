@@ -30,18 +30,19 @@ public class ProzessSchrittParameterController {
     public String getName() { return null; }
 
     /**
-     *
-     * @return
+     * returns all properties this process step parameter corresponds to
+     * @return a set containing all properties of this process step paramter
      */
     public Set<QualitativeEigenschaft> getEigenschaften() { return null; }
 
     /**
-     *
+     * sets the properties this process step parameter corresponds to
+     * @param eigenschaft a set containing all properties this process step parameter is supposed to have
      */
     public void setEigenschaften(Set<QualitativeEigenschaft> eigenschaft) {}
 
     /**
-     *
+     * Exports this parameter to JSON
      */
     public void JSONExport() {}
 }
