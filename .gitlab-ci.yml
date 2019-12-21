@@ -42,6 +42,7 @@ build:
     - docker
   stage: build
   script:
+    - apt update
     - apt install graphviz -y
     - mvn package
   artifacts:
