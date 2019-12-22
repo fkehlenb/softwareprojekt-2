@@ -280,7 +280,7 @@ Im Kapitel 8 werden einige Anwendungsfälle dargestellt. Im abschließenden Kapi
 
 In diesem Kapitel werden wir verschiedene Anwendungsszenarien abdecken, welche unsere Software erfüllen soll. Diese Szenarien werden wir als Ausgangs- und Vergleichspunkt für den Rest unserer Architektur benutzen. Hiermit kann am Ende geprüft werden, ob die Software alle Anforderungen erfüllt. 
 
-\subsection{Anmeldung am System (alle Benutzer)}
+\textbf{•}\subsection{Anmeldung am System (alle Benutzer)}
 
 Der Benutzer wird mit einem Login-Fenster begrüßt, an welchem er sich einloggen kann. Sollte es noch keinen Benutzer im System geben, so kann ein neuer Benutzer über ein Create-Account Knopf erstellt werden. Sollte er sein Passwort vergessen haben, so kann er mithilfe von einem Passwort Vergessen Knopf dieses zurücksetzen.
 Nach der Erstellung eines Benutzers wird dieser im Datenbanksystem eingespeichert, wodurch der Systemadministrator ihm nun eine Rolle einteilen kann.
@@ -1413,7 +1413,7 @@ Dieses Paket wird gebraucht, da es vorgegeben ist.
 }
 
  \begin{sidewaysfigure}
-  \caption{Persistenzmodelll für DataColorado}
+  \caption{Persistenzmodelll für FarbigesSFB}
   \centering
   \includegraphics[width=\textwidth]{UML/Persistence}
  \end{sidewaysfigure}
@@ -1670,7 +1670,7 @@ Umsetzung von der Strategie 13.1 \ref{strategie:13.1}
    
  \begin{sidewaysfigure}
    \includegraphics[width=\textwidth]{UML/datenModel}
-  \caption{Datenmodell für DataColorado}
+  \caption{Datenmodell für FarbigesSFB}
   \centering
  
 
@@ -1687,24 +1687,24 @@ Umsetzung von der Strategie 13.1 \ref{strategie:13.1}
 
 %%\includepdf[]{06Ausfuehrungssicht.pdf}
 \begin{figure}[H]
-\includegraphics[scale=0.5]{UML/06Ausfuehrungssicht.pdf}
+\includegraphics[width=\textwidth]{UML/06Ausfuehrungssicht.pdf}
  \caption{Ausführungssicht}
 \end{figure}
 
 
-{ Die Ausführungssicht von unserer Software (SWP2) ist in der obigen Abbildung
+{ Die Ausführungssicht von unserer Software (SFB-Farbig) ist in der obigen Abbildung
   7.1 modelliert.
 
 Beliebig viele Benutzer können via TCP/IP auf den SFB-Server zugreifen. Dies
 geschieht über eine Webapplikation, die im Internetbrowser eines PCs oder eines
 mobilen Endgeräts aufgerufen werden kann.
 
-Es ist auch möglich, dass ein Rest-Client sich mit unserem Server verbindet,
+Es ist auch möglich, dass ein REST-Client sich mit unserem Server verbindet,
 dieser verbindet sich dann an den REST-Endpunkt über den SFB-Server. Das Modul
 der Businesslogik führt die Befehle dann aus.
 
 Es gibt einen Anwendungsserver, welchen wir SFB-Server genannt haben, auf dem
-eine Instanz von Wildfly läuft. Auf dieser Wildflyinstanz wird der SWP2-Server
+eine Instanz von Wildfly läuft. Auf dieser Wildflyinstanz wird unser System (SFB-Farbig)
 mit allen dazugehörigen Modulen ausgeführt.
 
 Das Modul Persistence kommuniziert mit dem Modul Businesslogik aber auch
