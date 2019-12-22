@@ -247,7 +247,7 @@ class User {
   +username: String
   +password: Byte[]
   +wurdeVerifiziert: boolean
-  +erstellungsDatum: java.time.LocalTimeDate
+  +erstellungsDatum: java.time.LocalDateTime
   +lang: String
 }
 
@@ -303,7 +303,7 @@ class ProzessSchrittZustandsAutomat {
 }
 
 class ProzessSchrittZustandsAutomatVorlage {
-   +zustaende: Set<String>
+   +zustände: Set<String>
 }
 
 class "ProzessSchrittVorlage" as psV {
