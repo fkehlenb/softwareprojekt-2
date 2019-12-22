@@ -1772,7 +1772,10 @@ Standort, die Proben und deren Träger können dann dem Transport als neuen
 Transportauftrag zugewiesen werden. Der Transportauftrag ergibt sich impliziert
 aus dem Auftrag. Er wird dadurch realisiert, dass ein Transporteur nur die für
 ihn relevanten Informationen erhält.
-
+Eine Prozessschrittvorlage hat einen Prozessschrittzustandsautomaten zugewiesen der alle Zustände enthält
+welche der Prozessschritt anschließend haben kann. Zudem hat jeder Prozessschritt einen Zustandsautomaten, welcher den Zustand
+des Prozessschritts speichert. Dieser Zustandsautomat kann einen beliebigen Zustand aus dem zur Prozessschrittvorlage zugewiesenem
+Prozessschritt Zustands Automat Vorlage haben. Grund hierfür ist die Anforderung von dynamischen Zuständen nach Strategie 19 \ref{strategie:19.1}.
 Falls ein Prozessschritt einen Transportauftrag und den Zustand freigeben hat, wird er
 allen Transporteuren angezeigt. Wenn der Transporteur diesen annimmt, wird der
 AuftragsZustand auf angenommen gesetzt. Jetzt verschwindet der Auftrag für
