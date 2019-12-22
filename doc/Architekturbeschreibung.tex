@@ -1376,9 +1376,10 @@ In den nächsten Abschnitten werden die in der konzeptionellen Sicht gezeigten M
 
 \newpage
 \subsection{Pakete}
-
-
+In diesem Unterkapitel werden wir jedes Paket der Software detailliert modellieren und erklären.
+Wir fangen zudem erst einmal mit unserem Model Diagramm an, welches die Relationen zwischen den Datenklassen zeigt. Dieses Diagramm ist eine verfeinerte Version der Datensicht welche wir in Kapitel 6 modellieren und beschreiben. 
 \subsubsection{Model}
+Das folgende Diagramm beschreibt eine verfeinerte Version unserer Datensicht (siehe Kapitel 6). Dieses Diagramm beschreibt die Datenklassen unserer Software mit ihren Attributen und Relationen zueinander. Wie man sehen kann, ist es möglich über den User an die meisten Module des Systems zu gelangen, allerdings kann auch auf die meisten Einzelmodule auch beliebig zugegriffen werden. Der User hat hierbei allerdings eine zentrale Rolle, da er z.B. Prozess Ketten Vorlagen erstellen kann, und diese nicht von außen erstellt werden können sollen. 
 \begin{sidewaysfigure} 
 \begin{center}
  \includegraphics[width=\textwidth]{UML/Model51.pdf}
@@ -1390,7 +1391,7 @@ In den nächsten Abschnitten werden die in der konzeptionellen Sicht gezeigten M
 
 
 \subsubsection{Controller}
-
+Nun möchten wir die Controller in unserem System betrachten. Diese Module sind für die Logik zuständig, welche von der WebUI ausgelöst wird. Möchte zudem z.B. ein Prozess Ketten Administrator eine Neue Prozess Ketten Vorlage erstellen, so darf die WebUI nicht direkt auf die Datenklassen verweise machen, sondern muss diese Instruktion erst einmal an einen Controller weitergeben welcher diese anschließend realisiert. Zudem haben diese Controller auch zugriff auf die Persistenz Klassen, welche wir zunächst betrachten werden, um Objekte die von einer Datenklasse durch den Controller erstellt wurden auch in der Datenbank abspeichern zu können.   
 \begin{sidewaysfigure} 
 \begin{center}
  \includegraphics[width=\textwidth]{UML/Controller.pdf}
