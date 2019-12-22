@@ -21,7 +21,7 @@ public class ProzessSchrittVorlageController {
      *
      * @return A set with every possible ExperimentierStation
      */
-    public Set<ExperimentierStation> getES() { return null; }
+    public Set<ExperimentierStation> getES(Set<Bedingung> b) { return null; }
 
     /**
      * Adds a ExperimentierStation to the ExperimentierStationen

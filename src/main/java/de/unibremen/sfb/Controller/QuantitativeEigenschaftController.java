@@ -1,5 +1,6 @@
 package de.unibremen.sfb.Controller;
 
+import de.unibremen.sfb.Model.QuantitativeEigenschaft;
 import si.uom.SI;
 
 /**
@@ -7,7 +8,8 @@ import si.uom.SI;
  */
 public class QuantitativeEigenschaftController extends QualitativeEigenschaftController {
 
-    //TODO keine quantitative als attribut?
+    public QuantitativeEigenschaft eigenschaft;
+
     /**
      * sets the value for this quantity property
      * @param wert the new value

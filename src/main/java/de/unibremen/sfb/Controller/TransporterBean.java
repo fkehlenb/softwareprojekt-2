@@ -1,8 +1,6 @@
 package de.unibremen.sfb.Controller;
 
-import de.unibremen.sfb.Model.Auftrag;
-import de.unibremen.sfb.Model.Probe;
-import de.unibremen.sfb.Model.User;
+import de.unibremen.sfb.Model.*;
 
 import java.util.Set;
 
@@ -11,17 +9,22 @@ import java.util.Set;
  */
 public class TransporterBean {
 
-    //TODO das ist so noch keine bean!! der rest auch nicht
+    //TODO bean properties
     /**
      * the user managed by this bean
      */
     public User transporter;
 
     /**
-     * returns all jobs available to the transporter //TODO available oder accepted? getoffene und getaccepted
+     * returns all jobs available to the transporter
      * @return a set containing all those jobs
      */
-    public Set<Auftrag> getAuftragList() { return null; }
+    public Set<TransportAuftrag> getAuftragList() { return null; }
+
+    /**
+     * sets the status of the job this transporter is currently working on
+     */
+    public void setAuftragStatus() {}
 
     /**
      * reports a sample as lost
