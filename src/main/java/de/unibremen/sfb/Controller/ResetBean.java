@@ -6,7 +6,7 @@ package de.unibremen.sfb.Controller;
 public class ResetBean {
 
     /**
-     * the username of the user to be reset //TODO password, oder?
+     * the username of the user to be reset
      */
     public String username;
     /**
