@@ -1546,16 +1546,14 @@ Experimentierstation ausgeführt wird.
 Hiermit setzen wir die Strategie 7.2 \ref{strategie:7.2} um.
 
 Es gibt zu Beginn drei Arten von ProzessSchrittArten: umformend, färbend und ermittelend. Diese sind vom Kunden vorgegeben und können im Nachhinein nach Belieben des Kunden erweitert werden.
-Diese wurden als Klasse mit einem Set von Strings modeliert, dies ist unsere Umsetzung der Strategie 20.2 \ref{strategie:20.2}.
+Diese wurden als Klasse mit einem Set von Strings modelliert, dies ist unsere Umsetzung der Strategie 20.2 \ref{strategie:20.2}.
 
-Ein ProzessSchritt ist eine instanzierte ProzesschrittVorlage. Ihre Attribute
-sind, eine Prozesschritt ID, ein Boolean uploaded. Dieser wird auf True gesetzt,
-nachdem der Technologe die ProzessParameter an die externe Datenbank hochgeladen
-hat. current ist referiert eine Experimentierstation, falls es eine
-Experimentierstation gibt, wo aktuell dieser Prozesschritt durchläuft. Der
-Aktuelle Zustand aus dem Zustandsautomaten des Prozesschrittes wird in dem
-String Zustand gespeichert. Ein Prozessschritt gehört zu einem Auftrag, ein Auftrag
-kann aber viele ProzessSchritte enthalten
+Ein ProzessSchritt ist eine instanzierte ProzessSchrittVorlage. Ihre Attribute
+sind eine Prozesschritt ID, ein Boolean uploaded, der auf True gesetzt wird,
+nachdem der Technologe die ProzessParameter in die externe Datenbank hochgeladen
+hat, current, welches eine Experimentierstation referenziert, falls es eine
+Experimentierstation gibt, wo aktuell dieser Prozesschritt durchläuft, der String zustandsAutomat, der den aktuellen Zustand aus dem ProzessSchrittZustandsAutomaten speichert. Ein Prozessschritt gehört zu einem Auftrag, ein Auftrag
+kann aber viele ProzessSchritte enthalten.
 
 Ein ProzessSchrittZustand ist eine Liste von Zuständen. Der
 ProzessSchrittZustand kann vom pkAdmin erweitert um weitere Zustände erweitert
@@ -1810,7 +1808,7 @@ Bei dem Login können folgende Exceptions geworfen werden:
 \subsection{Prozessketten Verwalten und Proben beantragen}
 
 \begin{figure}[H]
-  \includegraphics[width=\linewidth]{UML/aw/erstellepk.png}
+  \includegraphics[width=\linewidth]{UML/aw/pkErstellen.png}
   \caption{Ablauf des Erstellens einer Prozesskette}
   \label{fig:pkErstellen}
 \end{figure}
