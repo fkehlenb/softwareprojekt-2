@@ -42,7 +42,7 @@ database "H2" as database
 index -> browser:  @LoginToContinue(\nloginPage = "/login.xhtml",\nuseForwardToLogin = false
 browser -> user: Browser zeige das Anmeldeformular
 user -> user: Eingabe von Password und Username
-user -> browser : Druck auf Login Knopf
+user --> browser : Druck auf Login Knopf
 browser -> login : Übermitellen an das Servlet:\ngetExternalContext().getRequestParameterMap()
 login -> shiro: login("username", "password")
 shiro -> database: getPasswordForUser(username)
@@ -433,7 +433,7 @@ class "ExperimentierStation" as es {
 file:datenModel.png
 
 * Leben einer Prozesskette
-#+BEGIN_SRC plantuml :file ps.png
+#+BEGIN_SRC plantuml :file aw/ps.png
 autonumber
 skinparam monochrome true
 
@@ -468,22 +468,26 @@ psv -> es : getES()
 es -> psv : getAuslastung
 note over psv :  Die es mit der niedrigsten Auslastung wird ausgewählt
 psv -> es : setPsLog(ProzessSchrittLog psl)
-es -> psv : addNextPs()
-ps -> ps : setLog()
-ps -> ps : setZustand (WEITERGELEITET)
-ps -> tr : setTransport()
+es -> ps : addNextPs()
+ps -> psl : setLog()
+psl -> ps:  setStart(t:java.time.LocalDateTime):void
+
+ps -> tr : setZustand (WEITERGELEITET)
 tr -> ps : setZustand(ABGEHOLT)
 ps -> ta : getEs()
 ta -> ps : setZustand(ABGELIEFERT)
 note over ps : Probe wurde abgelifert\nTechnologe begint
 ps -> ps : setZustand(IN_BEARBEITUNG)
-ps -> psv :  setPsLog(psl)
+ps -> psv :  setPsLog(psl:ProzessSchrittLog)
 psv -> ps : getProzessSchrittParameter()
 note over ps : Falls notig werden Eigenschaft den Proben hinzugefügt
 ps -> p : getID()
-p -> p : addComment(comment)
-p -> ps : setEigenschaften(eigenschaft)
+p -> p : addComment(comment: Pair<java.time.LocalTimeDate, String)
+p -> ps : setEigenschaften(e:QualitativeEigenschaft)
 note over ps : Es ist mit Ps fertig
 ps -> psl : setzustand(BEARBEITET)
 
 #+END_SRC
+
+#+RESULTS:
+[[file:aw/ps.png]]
