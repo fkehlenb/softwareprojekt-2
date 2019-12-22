@@ -10,4 +10,8 @@ public class QualitativeEigenschaft {
     /** Qualitative descriptor name */
     @NonNull
     public String name;
+
+    QualitativeEigenschaft(String s) {
+        name = s;
+    }
 }

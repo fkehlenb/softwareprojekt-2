@@ -15,4 +15,8 @@ public class QuantitativeEigenschaft extends QualitativeEigenschaft {
     /** The quantitative descriptor value's measuring unit */
     @NonNull
     public SI einheit;
+
+    QuantitativeEigenschaft() {
+        super("");
+    }
 }
