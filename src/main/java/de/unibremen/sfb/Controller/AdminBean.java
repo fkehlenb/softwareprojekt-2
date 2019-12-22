@@ -93,7 +93,7 @@ public class AdminBean {
     public Set<ExperimentierStation> getES()  { return null; }
 
     /**
-     * edits the time of a job //TODO to what?
+     * edits the time of a job
      * @param a the job
      */
     public void editAuftragTime(Auftrag a) {}

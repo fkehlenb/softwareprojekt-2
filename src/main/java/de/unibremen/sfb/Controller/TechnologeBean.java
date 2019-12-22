@@ -28,9 +28,9 @@ public class TechnologeBean {
 
     /**
      * sets the state of a job
-     * @param a the job //TODO with the new state?
+     * @param a the job
      */
-    public void setAuftragsZustand(Auftrag a) {}
+    public void setAuftragsZustand(Auftrag a, Enum<ProzessKettenZustandsAutomat> zustand) {}
 
     /**
      * reports an experimentation station as broken
@@ -51,9 +51,10 @@ public class TechnologeBean {
     public void prioSort(Set<Auftrag> prio) {}
 
     /**
-     * creates a "urformende" process chain (meaning a process chain which creates new samples) //TODO wirklich hier
+     * creates a new sample (happens in "urformende" process chains)
+     * @param id the sample id of the new sample
      */
-    public void createUrformend() {}
+    public void createUrformend(String id) {}
 
     /**
      * adds a comment to a process step
@@ -98,7 +99,7 @@ public class TechnologeBean {
     public void deleteProbenComment(Probe p, String c) {}
 
     /**
-     * returns all samples to which the user has not yet uploaded data //TODO was
+     * returns all samples to which the user has not yet uploaded data
      * @return a set containing all those samples
      */
     public Set<Probe> viewToBeUploaded() { return null; }
@@ -122,7 +123,6 @@ public class TechnologeBean {
     public void reportLostProbe(int id) {}
 
     /**
-     * //TODO warum returnt das das nicht?
      * @param e error messsage
      */
     public void errorMessage(String e) {}

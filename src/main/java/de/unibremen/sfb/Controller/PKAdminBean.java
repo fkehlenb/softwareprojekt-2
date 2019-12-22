@@ -109,9 +109,8 @@ public class PKAdminBean {
     /**
      * deletes a job
      * @param auftrag the job to be deleted
-     * @return the deleted job //TODO was? theoretisch alles returnen was man löscht
      */
-    public Auftrag deleteAuftrag(Auftrag auftrag) { return null; }
+    public void deleteAuftrag(Auftrag auftrag) { }
 
     /**
      * edits a job
@@ -203,14 +202,14 @@ public class PKAdminBean {
     public void stopAuftrag(Auftrag a) {}
 
     /**
-     * //TODO why void double? int als usage falsch? zeit mit einrechnen
+     *
      */
     public void viewESUsage() {}
 
     public void viewESUsage(ExperimentierStation es) {}
 
     /**
-     * exports something to json? // ps angeben TODO whas
+     * exports something to json? // ps angeben
      */
     public void exportJSON() {}
 }
