@@ -468,7 +468,7 @@ die Notation der Flexibilität hat die  Bedeutung :
 \hline
 \begin{tabular}[c]{@{}l@{}}Abge-\\ leitet\\aus\end{tabular} & Einflussfaktor                                                                        & \begin{tabular}[c]{@{}l@{}}Flexibilität und \\ Veränderlichkeit\end{tabular}                                                              & \begin{tabular}[c]{@{}l@{}}++/\\\\ - -\end{tabular} & Auswirkungen                                                                                                                                                                                                                              \\ \hline
 \multicolumn{5}{|l|}{T1.7: DeltaSpike Data}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     \\ \hline 
-                                            T1.5   P1.4             & \begin{tabular}[c]{@{}l@{}}Wir verwenden\\ DeltaSpike Data. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Große Flexibilität, dies ist \\keine Verpflichtung, sondern\\ eine Entscheidung unserer \\Gruppe. Nach Beginn\\ der Implementierung\\ besteht eine bedingte\\ Veränderlichkeit: Eventuell \\wären Änderungen zu\\ aufwendig.\end{tabular} & \begin{tabular}[c]{@{}l@{}}++/\\   o\end{tabular} & \begin{tabular}[c]{@{}l@{}} Folge\\\end{tabular} \\ \hline %TODO Folge
+                                            T1.5   P1.4             & \begin{tabular}[c]{@{}l@{}}Wir verwenden\\ DeltaSpike Data. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Große Flexibilität, dies ist \\keine Verpflichtung, sondern\\ eine Entscheidung unserer \\Gruppe. Nach Beginn\\ der Implementierung\\ besteht eine bedingte\\ Veränderlichkeit: Eventuell \\wären Änderungen zu\\ aufwendig.\end{tabular} & \begin{tabular}[c]{@{}l@{}}++/\\   o\end{tabular} & \begin{tabular}[c]{@{}l@{}} f\\\end{tabular} \\ \hline %TODO Folge
 \multicolumn{5}{|l|}{T1.8: Multiple Users}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Die Anwendung\\ muss von \\mehreren\\ Benutzern \\gleichzeitig\\ verwendbar sein.\end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit oder \\Flexibilität, da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}- -/\\   - -\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Anwendung\\ darf nicht von\\ gleichzeitiger \\Verwendung von\\ mehreren Nutzern\\ überfordert sein;\\ ebenfalls dürfen \\dadurch keine\\ Sicherheitslücken \\entstehen.\end{tabular} \\ \hline
 \multicolumn{5}{|l|}{P1: Produktfaktoren}
@@ -674,15 +674,29 @@ die Notation der Flexibilität hat die  Bedeutung :
 Im Folgenden werden einige Probleme, die sich aus den herausgearbeiteten Einflussfaktoren ergeben, thematisiert. Dazu werden die Probleme zunächst mitsamt der Einflussfaktoren, aus denen sie sich ergeben, vorgestellt, und anschließend unterschiedliche Strategien, um mit ihnen umzugehen, vorgestellt. \\ Diese Strategien werden daraufhin bewertet und es wird eine für jedes Problem ausgewählt. Diese Auswahl wird begründet. \\ 
 Folgende Strategien zur Lösung von Problemen wurden ausgewählt: \\
 \begin{itemize}
-\item Rollen als Enum
-\item JavaEE Spezifikation
-\item In kleinen Schritten
-\item Priorisierte Anforderungen
+\item Enumeration 
+\item Apache Shiro
+\item Eigene Klassen
+\item jakartaEE
+\item Datenklassen
+\item DeltaSpikeData
+\item Automatische Sortierung
+\item Alle einzeln
+\item Priorisierung Anforderungen
 \item Gruppenarbeit
 \item Eigenschaften
-\item Modularisierung
+\item Modularisierung 
+\item Lazy Loading
+\item Klasse mit Zuständen
+\item Automatisch
+\item Kapselung der Datenhaltung
+\item Archiv-Attribut
+\item Als eigene Klasse
+\item Als Enum
+\item Als eigene Klasse
+\item als String
+\item Als Tupel
 \end{itemize}
-//TODO das ist nicht vollständig
 
 
 \begin{table}[H]
@@ -755,7 +769,7 @@ Hier haben wir uns für die erste Strategie entschieden, weil eine eigene Implem
            \textbf{Strategie 3.1: Eigene Klassen: (ausgewählt)} Wir differenzieren zwischen Vorlagen und tatsächlich gestarteten Prozessketten/schritten, beides bekommt eine eigene Klasse. \\
           \\ \hline
     \end{tabular}
-    \caption{}
+    \caption{Vorlagen und Instanzen}
     \label{tab:ProblemKarte3}
 
 \end{table}
