@@ -33,6 +33,12 @@ public class ProzessSchrittVorlageController {
     public void setES(ExperimentierStation es) {}
 
     /**
+     * Adds a ExperimentierStation to the ExperimentierStationen
+     * at which this ProzessSchrittVorlage coudld be executed once instantiated as a ProzessSchritt
+     */
+    public void setED() {}
+
+    /**
      * Sets the ID for this ProzessSchrittVorlage
      *
      * @param i The new ID

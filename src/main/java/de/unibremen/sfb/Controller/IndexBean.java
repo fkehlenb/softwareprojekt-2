@@ -1,9 +1,11 @@
 package de.unibremen.sfb.Controller;
 
+import java.io.Serializable;
+
 /**
  * this class manages the interaction between the gui and the backend system for the initial situation (the first page any visitor sees)
  */
-public class IndexBean {
+public class IndexBean implements Serializable {
 
     /**
      * username will be saved here once entered
@@ -31,4 +33,33 @@ public class IndexBean {
      * @return the current language
      */
     public String getCurrentLanguage() { return null; }
+
+    /**
+     * the empty constructor
+     */
+    public IndexBean() {}
+
+    /**
+     * returns the username
+     * @return the username
+     */
+    public String getUsername() { return username; }
+
+    /**
+     * sets the username
+     * @param username the username
+     */
+    public void setUsername(String username) { this.username = username; }
+
+    /**
+     * returns the password
+     * @return the password
+     */
+    public String getPasswort() { return password; }
+
+    /**
+     * sets the password
+     * @param password the password
+     */
+    public void setPassword(String password) { this.password = password; }
 }

@@ -1,9 +1,11 @@
 package de.unibremen.sfb.Controller;
 
+import java.io.Serializable;
+
 /**
  * this class manages the interaction between the gui and the backend system for situations in which a new user is registered
  */
-public class RegisterBean {
+public class RegisterBean implements Serializable {
 
     /**
      * the username of the new user
@@ -42,4 +44,89 @@ public class RegisterBean {
      * @return the language
      */
     public String getCurrentLanguage() { return null; }
+
+    /**
+     * the empty constructor
+     */
+    public RegisterBean() {}
+
+    /**
+     * returns the username
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * sets the username
+     * @param username the new username
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     * returns the name
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * sets the name
+     * @param name the new name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * returns the surname
+     * @return the surname
+     */
+    public String getSurname() {
+        return surname;
+    }
+
+    /**
+     * sets the surname
+     * @param surname the new surname
+     */
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    /**
+     * returns the email address
+     * @return the email address
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * sets the email address
+     * @param email the new email address
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * returns the password
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * sets the password
+     * @param password the new password
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
