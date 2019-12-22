@@ -1479,6 +1479,7 @@ Hier werden unter anderem die Strategien 2.1 und 6.1 umgsetzt. \\
   \label{fig:boat1}
 \end{center}
 \end{figure}
+Um User erstellen oder verwalten zu können, muss unser UserController Zugriff auf die Userdatenklasse haben. Zusätzlich möchte man die User in der Datenbank einspeichern und verwalten können, wozu der Controller auch Zugriff auf die DAO Klasse von User hat. Jeder User hat eine eindeutige ID, und muss mindestens eine Rolle zugewiesen haben.\\
 Hier sieht man die Umsetzung der Strategie 1.2 anhand der Methoden setRole, und getRole, wobei letztere ein Set aus mehreren Rollen zurückgeben kann. \\
 
 \newpage
@@ -1491,6 +1492,7 @@ Hier sieht man die Umsetzung der Strategie 1.2 anhand der Methoden setRole, und 
   \label{fig:boat1}
 \end{center}
 \end{figure}
+Um Prozesskettenvorlagen erstellen und verwalten zu können, muss der ProzessKettenController Zugriff auf die zugehörige Datenklasse haben. Zusätzlich sollen die Prozesskettenvorlagen in der Datenbank gespeichert und verwaltet werden, wozu der Controller auch Zugriff auf die DAO Klasse haben muss. Eine Prozesskettenvorlage braucht mindestens einen User, der der Prozesskettenadministrator ist, der diese Vorlage erstellt hat, und besteht aus mindestens einer Prozessschrittvorlage. \\
 Hier wird Strategie 3.1 für die Prozessketten umgesetzt. \\
 \newpage
 
@@ -1527,7 +1529,7 @@ Hier wird Strategie 3.1 für die Prozessschritte durchgesetzt. \\
   \label{fig:boat1}
 \end{center}
 \end{figure}
-
+Um Prozessschritte erstellen und verwalten zu können, braucht der ProzessSchrittController Zugriff auf die ProzessSchritt Datenklasse. Da die Prozessschritte auch in der Datenbank gespeichert und verändert werden sollen, muss der Controller auch Zugriff auf die DAO haben. Ein Prozessschritt besteht aus einer ProzessSchrittVorlage, und hat einen ProzessSchrittZustandsAutomat. \\
 \newpage 
 
 \subsubsection{Probe Modul}
@@ -1538,7 +1540,7 @@ Hier wird Strategie 3.1 für die Prozessschritte durchgesetzt. \\
   \label{fig:boat1}
 \end{center}
 \end{figure}
-
+Um Proben verwalten und erstellen zu können, braucht der ProbeController Zugriff auf die Probendatenklasse. Da Proben auch in der Datenbank gespeichert und verändert werden sollen, muss der Controller auch Zugriff auf die DAO Klasse haben. Jede Probe hat eine eindeutige ID, und befindet sich in einem Zustand. \\
 Die Umsetzung der Strategie 8.1 zeigt sich vor allem dadurch, dass es keine Methoden oder andere Aspekte der Architektur gibt, die irgendwie Proben in Gruppen sortieren. Jede Probe hat eine ID. Des weiteren kann jede Probe durch Ihre ID identifiziert werden (so zum Beispiel in der Methode reportLostMethode des Technologen). 
 
 \newpage
@@ -1553,17 +1555,20 @@ Die Umsetzung der Strategie 8.1 zeigt sich vor allem dadurch, dass es keine Meth
 Die Proben in unserem System werden in Trägern transportiert. Diese Träger benötigen einen Standort zu jeder Zeit und haben immer eine Art. Um nun diese Träger verwalten zu können braucht unser Controller Zugriff auf die Träger Datenklasse. Um diese dann in der Datenbank verwalten zu können, braucht er ebenfalls Zugriff auf die TraegerDAO klasse.\\
 Strategie 17.3 wird hier umgesetzt. \\
 
-\subsubsection{Experimentier Station Modul}
+\newpage
+
+\subsubsection{Experimentierstation Modul}
 \begin{figure}[h!]
 \begin{center}
  \includegraphics[width=\textwidth]{UML/Modules/ExperimentierStation.pdf}
-  \caption{Experimentier Station Module}
+  \caption{Experimentierstation Module}
   \label{fig:boat1}
 \end{center}
 \end{figure}
+Um die Experimentierstationen in unserem System erstellen und verwalten zu können, braucht der ExperimentierStationController Zugriff auf die Datenklasse ExperimentierStation. Da Experimentierstationen auch in der Datenbank gespeichert und verändert werden sollen, braucht der Controller auch Zugriff auf die DAO Klasse. Eine Experimentierstation hat eine eindeutige ID, befindet sich immer in einem Zustand, befindet sich an einem Standort, und hat eine Warteschlange mit Prozessschritten, die abgearbeitet werden sollen. \\
 \newpage
 
-\subsubsection{Prozess Schritt Zustands Automat Vorlage Modul}
+\subsubsection{Prozessschritt Zustandsautomat Vorlage Modul}
 \begin{figure}[h!]
 \begin{center}
  \includegraphics[width=\textwidth]{UML/Modules/ProzessSchrittZustandsAutomatVorlage.pdf}
@@ -1571,10 +1576,11 @@ Strategie 17.3 wird hier umgesetzt. \\
   \label{fig:boat1}
 \end{center}
 \end{figure}
+Um Prozessschrittzustandsautomatvorlagen in unserem System erstellen und verwalten zu können, braucht der ProzessSchrittZustandsAutomatVorlageController Zugriff auf die Datenklasse ProzessSchrittZustandsAutomatVorlage. Da die Vorlagen auch in der Datenbank gespeichert und verändert werden sollen, braucht der Controller auch Zugriff auf die zugehörige DAO Klasse. \\
 Hier wird die Strategie 19.3 umgesetzt. \\
 \newpage
 
-\subsubsection{Prozess Schritt Zustands Automat Modul}
+\subsubsection{Prozessschritt Zustandsautomat Modul}
 \begin{figure}[h!]
 \begin{center}
  \includegraphics[width=\textwidth]{UML/Modules/ProzessSchritttZustandsAutomat.pdf}
@@ -1582,6 +1588,7 @@ Hier wird die Strategie 19.3 umgesetzt. \\
   \label{fig:boat1}
 \end{center}
 \end{figure}
+Um Prozessschrittzustandsautomaten in unserem System erstellen und verwalten zu können, braucht der ProzessSchrittZustandsAutomatController Zugriff auf die Datenklasse ProzessSchrittZustandsAutomat. Da die Zustandsautomaten auch in der Datenbank gespeichert und verändert werden können, braucht der Controller auch Zugriff auf die zugehörige DAO Klasse. Ein Prozesskettenzustandsautomat befindet sich immer in einem festen Zustand. \\
 Hier wird Strategie 19.3 umgesetzt. \\
 \newpage
 
@@ -1593,10 +1600,11 @@ Hier wird Strategie 19.3 umgesetzt. \\
   \label{fig:boat1}
 \end{center}
 \end{figure}
+Um Bedingungen in unserem System erstellen und bearbeiten zu können, braucht der BedingungController Zugriff auf die Datenklasse Bedingung. Da Bedingungen auch in der Datenbank gespeichert und verändert werden müssen, soll der Controller auch Zugriff auf die zugehörige DAO Klasse haben. \\
 Dies wird für die Umsetzung von Strategie 14.2 benutzt. \\
 \newpage
 
-\subsubsection{Prozess Schritt Log Modul}
+\subsubsection{Prozessschritt Log Modul}
 \begin{figure}[h!]
 \begin{center}
  \includegraphics[width=\textwidth]{UML/Modules/ProzessSchrittLog.pdf}
@@ -1604,6 +1612,7 @@ Dies wird für die Umsetzung von Strategie 14.2 benutzt. \\
   \label{fig:boat1}
 \end{center}
 \end{figure}
+Um Prozessschrittprotokolle in unserem System erstellen und verändern zu können, braucht der ProzessSchrittLogController Zugriff auf die Datenklasse ProzessSchrittLog. Da die Protkolle auch in der Datenbank gespeichert und verändert werden sollen, braucht der Controller auch Zugriff auf die DAO Klasse. Jedes Protokoll gehört zu genau einem Prozessschritt. \\
 Hier wird Strategie 5.1 für die Prozessschritte umgesetzt. Die komplette Umsetzung besteht daraus, dass für jeden Prozessschritt ein Log erstellt wird, und für jeden Auftrag die Prozessschrittlogs und die Auftragslogs zusammen das Protokoll ergeben. \\
 \newpage
 
@@ -1615,6 +1624,7 @@ Hier wird Strategie 5.1 für die Prozessschritte umgesetzt. Die komplette Umsetz
   \label{fig:boat1}
 \end{center}
 \end{figure}
+Um Transportaufträge in unserem System erstellen und bearbeiten zu können, braucht der TransportAuftragController Zugriff auf die Datenklasse TransportAuftrag. Da die Transportaufträge auch in der Datenbank gespeichert und verändert werden sollen, braucht der Controller auch Zugriff auf die DAO Klasse. Jeder Transportauftrag hat einen Zustandsautomat. \\
 Hier setzen wir Strategie 13.1 um. \\
 \newpage
 
