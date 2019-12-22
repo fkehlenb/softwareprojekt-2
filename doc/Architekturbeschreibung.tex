@@ -237,6 +237,8 @@ Standort                                                        & Träger und Pr
 Transportauftragzustand \textbf{(TA-Zustand)}  & Ein Transportauftrag befindet sich im Zustand wartend oder er wurde schon geliefert.                                                                                                                                                                  \\ \hline
 Prozessschrittzustand \textbf{(PS-Zustand)}    & Ein Prozessschrittzustand hat entweder den Zustand angenommen, in Bearbeitung oder abgegeben.                                                                                                                                                         \\ \hline
 Upload in Datenbank                                             & Ein Technologe muss nach dem Ausführen eines Prozessschrittes die Prozessparameter in die Datenbank (DAVIS) hochladen.                                                                                                                                \\ \hline
+BusinessLogic & ein Sammelbegriff für alle Controller und Beans die Geschäfts-relevante Prozesse bearbeiten und mit diesen interagieren, werden von uns mit BusinessLogic benannt.
+\\ \hline
 \end{longtable}
 
 \begin{longtable}[c]{|p{7cm}|p{8cm}|}
@@ -1257,7 +1259,7 @@ Hier haben wir uns für die dritte Strategie entschieden, weil wir so ohne den A
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\section{Konzeptionelle Sicht}
+\section{Konzeptionelle Sicht} 
 \label{sec:konzeptionell} { %Korrekturvorschlag Samuel
 In diesem Kapitel verwenden wir die Konzeptionelle Sicht nach Hofmeister
 et al. um das zu entwerfende System zu beschreiben. Unser System ist eine
@@ -1273,27 +1275,26 @@ System ausführt.
 {%Korrekturvorschlag Samuel
 \textbf{H2:} Die Datenbanksoftware H2 wird genutzt um unser Modul zu
 Persistieren. Sie wird benutzt, da es es in den Anforderungen von uns gefordert
-wird. Unsere Datenbank kommuniziert über JDBC. %TODO {DELTADATASPIKE}
+wird. Unsere Datenbank kommuniziert über JDBC. Zudem nutzen wir DeltaSpike data von Apache. Dies ist eine Menge von CDI-Erweiterungen, die es uns ermöglicht auf Entitäten und Klassen mit unserer JPA zugreifen zu können.
 }
 
 {%Korrekturvorschlag Samuel
-\textbf{Persistence:} Hier liegt die Verbindung zwischen dem System und der
-Datei der Datenbank. Die Persistenz ist verantwortlich, dass die Datenbank auf
+\textbf{Persistence:} Hier liegt die Verbindung zwischen dem System und der Datenbank. Die Persistenz ist dafür verantwortlich, dass die Datenbank auf
 dem akutellen Stand des laufendem Systems ist. Falls unser System Terminiert,
-müssen alle bei der nächsten Benutzung noch da sein. JPA ist eine java
+müssen alle Daten persistiert bleiben und auch bei der nächsten Benutzung noch gespeichert sein. JPA ist eine java
 Spezifikation, welche unter anderem von Hibernate umgesetzt wird. Unsere
-Konzeption sieht es vor, das Hibernate impliziert die JPA mittels deltaspike data umsetzt.
-Die Persistenz ist mit der BusinessLogik verbunden
+Konzeption sieht es vor, dass Hibernate impliziert die JPA mittels Deltaspike data umsetzt.
+Die Persistenz ist mit der BusinessLogic verbunden.
 
 }
 
 {%Korrekturvorschlag Samuel
-\textbf{BusinessLogik:} Die Businesslogik beinhaltet die Funktionalität des
+\textbf{BusinessLogic:} Die Businesslogic beinhaltet die Funktionalität des
 Systems. Sie nutzt die Schnittstellen Data von Persistence und nutzt die Update
-Schnittstelle von Model. Sie ergibt sich aus Strategie 15.1~\ref{strategie:15.1}.
-Wir nutzen die BusinessLogik um die Wünsche unseres Kunden zu erfüllen. Die
-BusinessLogik erlaubt es, dass Prozessketten geplant und durchgeführt werden
-können. Hier liegt also die eigentliche Funktionalität unseres Systems.
+Schnittstelle von Model. Sie ergibt sich aus Strategie 15.1~(\ref{strategie:15.1}).
+Wir nutzen die BusinessLogic um die Wünsche unseres Kunden zu erfüllen. Die
+BusinessLogic erlaubt es, dass Prozessketten geplant und durchgeführt werden
+können. Hier liegt also die eigentliche Funktionalität unseres Systems. Alle Controller und Beans die Geschäfts-relevante Prozesse bearbeiten und mit diesen interagieren, werden von uns mit BusinessLogic benannt.
 
 Hierzu sind die Controller mit unserer GUI verknüpft. Sollte der User irgendeine Auswahl oder Eingabe in der GUI machen
 so werden die Daten direkt an den Controller übermittelt welcher dann die Logik ausführt, indem er mit den Datenklassen und 
@@ -1309,31 +1310,25 @@ ihren Datenbank Klassen(DAO) verbunden ist, und somit vollen Zugriff auf die fun
 In dem Modell liegen die Daten der User, Prozessketten, Proben sowie
 Daten und Vormerkungen des System. Model stellt ein Interface Update zur
 Verfügung, welches von Businesslogic und Persistence genutzt wird. Diese
-Komponente ergibt sich aus der Strategie 15.1~\ref{strategie:15.1}.\\
+Komponente ergibt sich aus der Strategie 15.1~(\ref{strategie:15.1}).\\
 In dem Abschnitt \ref{sec:datensicht} nehmen wir unser Datenmodel genauer unter
 die Lupe und gehen auf die Strategien ein, welche wir versucht haben im
 Datenmodel umzusetzen.
 }
 
-\textbf{Model:} Hier liegen die Daten der User, Prozesskette , Proben sowie Daten und Vormerkungen des System. Diese Komponente ist mit der Controller und Persistenz verwundet, weil die Daten das Interfaces gezeigt werden, sind das an der Model implementieren. Diese Komponente ergibt sich aus der Strategie 15.1~\ref{strategie:15.1}. \\
-
 {%Korrekturvorschlag Samuel
-\textbf{Interface:} Hier liegt unser User Interface, also die xhtml Website, in der die User mit dem System interagieren. Interface nutzt das Interface Lieferung von Controller. Die Komponente Interface bezieht sich auf Strategie 1.2 \ref{strategie:1.2}, weil jeder User eine unterschiedliche Oberfläche benutzt. Außerdem ergibt sich die Komponente aus der Strategie 15.1~\ref{strategie:15.1}. Interface ist mit einem Port verbunden. 
+\textbf{Interface:} Hier liegt unser User Interface, also die xhtml Website, in der die User mit dem System interagieren. Interface nutzt das Interface Lieferung von Controller. Die Komponente Interface bezieht sich auf Strategie 1.2 (\ref{strategie:1.2}), weil jeder User eine unterschiedliche Oberfläche benutzt. Außerdem ergibt sich die Komponente aus der Strategie 15.1~(\ref{strategie:15.1}). Interface ist mit einem Port verbunden. 
 }
 
-\textbf{Interface:} In diesem Teil liegt die User Interface, wo die User mit den System interagieren können. Diese Problem Karte beziehen sich aus Strategie 1.2, weil jede User hat ein unterschiedliche Oberfläche, mit wenn er mit des System interagieren kann. Außerdem ergibt sich aus die Strategie 15.1~\ref{strategie:15.1}. Diese Komponente ist verwunden mit der BusinessLogik, um die Request und Data Bearbeitung zu erreichen.\\
-
 {%Korrekturvorschlag Samuel
-\textbf{Controller:} Controller nutzt das Interface Control von BusinessLogic und Control von Model. Controller stellt ein Interface Lieferung zur Verfügung. Durch Controller kann das Interface die unterschiedlichen Funktionen aus BusinessLogic oder Model erreichen. Es ergibt sich aus der Strategie 15.1 ~\ref{strategie:15.1}.
+\textbf{Controller:} Controller nutzt das Interface Control von BusinessLogic und Control von Model. Controller stellt ein Interface Lieferung zur Verfügung. Durch Controller kann das Interface die unterschiedlichen Funktionen aus BusinessLogic oder Model erreichen. Es ergibt sich aus der Strategie 15.1 ~(\ref{strategie:15.1}).
 }
 
-\textbf{Controller:} Hier sind die Petitionen mit den entsprechende Data zur anderen Model und die BusinessLogik abgeleitet. Mit diese Modul reagiert der Interface,  um die unterschiedlichen Funktionalität zu erreichen. Außerdem ergibt sich aus die Strategie ~\ref{strategie:15.1}.  \\
 
 {%Korrekturvorschlag Samuel
 \textbf{REST:} Hier greift der REST-Client auf REST-Funktionen zu. Über einen Port verbindet er sich mit dem RESTClient. 
 }
 
-\textbf{Rest:} Hier sind die Implementierung Rest abgeleitet. \\
 
 {%Korrekturvorschlag Samuel
 \textbf{RESTClient:} Der RESTClient ist für die Kommunikation in einem System, das auf mehreren Systemen verteilt läuft. 
@@ -1347,40 +1342,23 @@ Datenmodel umzusetzen.
 \textbf{JDBC:} Durch diesen Anschluss ist die Verbindung zu der Datenbank erreichbar. Er erlaubt die Kommunikation zwischen Java und der in der H2 Datenbank laufenden Sprache.
 }
 
-\textbf{Interface:} In diesem Teil liegt die User Interface, wo die User mit den System interagieren können. Diese Problem Karte beziehen sich aus Strategie 1.2~\ref{strategie:1.2}, weil jede User hat ein unterschiedliche Oberfläche, mit wenn er mit des System interagieren kann. Außerdem ergibt sich aus die Strategie 15.1~\ref{strategie:15.1}: Kapselung des Datenhaltung.
-Diese Komponente ist verwunden mit der BusinessLogik, um die Request und Data Bearbeitung zu erreichen.\\
-
-\textbf{Model:} Hier liegen die Daten der User, Prozesskette , Proben sowie Daten und Vormerkungen des System. Diese Komponente ist mit der Interface verwundet, weil die Daten das Interfaces gezeigt werden, sind das an der Model implementieren. Diese Komponente ergibt sich aus der  Strategie 15.1~\ref{strategie:15.1}: Kapselung des Datenhaltung. \\
-
-\textbf{Persistenz:} Hier liegt die Verbindungen zwischen das System und Datei an der Dateibase, Diese Komponente ist verantwortlich und die Speicherung und Schreibung Funktionen an der Dateibase. diese Komponente  ist getroffen an der Anwendung der verlangte Technologie.  \\
-
-\textbf{BusinessLogik:} In diese Teil liegt die Funktionalität des System, diese Teil ist verantwortlich die Interaktion zwischen die Modelle und die Bearbeitung ihre Data in die Persistenz Komponente. Hier sind die das gewuchtetes Verhalten des System implementiert. diese Schnittstelle ergibt sich aus der Strategie 15.1~\ref{strategie:15.1}: Kapselung des Datenhaltung. \\
-
-\textbf{JDBC:} Durch diese Anschlüsse  ist die Verwindung mit der Dateibase erreichbar. diese Anschlüsse erlaubt die Kommunikation zwischen die Sprache Java und die Dateibase.  \\
-
 {%Korrekturvorschlag Samuel
-\textbf{Data:} Data ist ein von Persistence zur Verfügung gestelltes Interface zur Kommunikation mit BusinessLogic
+\textbf{Data:} Data ist ein von Persistence zur Verfügung gestelltes Interface zur Kommunikation mit der BusinessLogic und den Controllern
 }
-
-\textbf{Data:} Hier sind die Datei von der Komponente  zu der BusinessLogik  geliefert \\
 
 {%Korrekturvorschlag Samuel
 \textbf{Update:} Durch diesen Anschluss wird die Bearbeitung der Dateien an der Persistence ermöglicht. Er wird von Model zur Verfügung gestellt und von Persistence und BusinessLogic genutzt
 }
 
-\textbf{Update:} durch diese Anschlüsse ist die Bearbeitung der Data an der Persistenz Komponente  möglich. diese Anschlüsse ist mit der Model Komponente und BusinessLogik verbindet.  \\
 
 {%Korrekturvorschlag Samuel
 \textbf{Control:} Durch diesen Anschluss bekommt der Controller seine geforderten Daten von BusinessLogic und Model. 
 }
 
-\textbf{Control:} durch diese Anschlüsse bekommt die Controller Komponente ihre entsprechende Daten durch die Geschäftsprozess und Modell.\\
-
 {%Korrekturvorschlag Samuel
 \textbf{HTTPS/Request/Response:} Jede Interaktion mit dem System wird per HTTPS gemacht, also sind diese Anschlüsse verantwortlich für die verschiebung der Dateien von den Webbrowser und den RESTClient zu dem Server und umgekehrt.
 }
 
-\textbf{HTTPS/Request/Response:} Jede  Interaktion mit den System wird durch HTTPS, gemacht zu werden. Infolgedessen ist diese Anschlüsse verantwortlich für die Ableitung der Data an der Web Browser und der REST client zu der Server.\\
 \newpage
 
 \begin{figure}[H]
@@ -1496,7 +1474,7 @@ Die Beans für jeden einzelnen Nutzer werden für ein Umsetzen der Rollen mit Ap
 \end{center}
 \end{figure}
 
-Um nun Aufträge erstellen oder verwalten zu können, muss unser Auftragscontroller Zugriff auf die Auftragsdatenklasse haben. Zusätzlich möchte man diese in der Datenbank einspeichern und verwalten können, wozu der Controller auch Zugriff auf die DAO Klasse von Auftrag hat. \\
+Um nun Aufträge erstellen oder verwalten zu können, muss unser Auftragscontroller Zugriff auf die Auftragsdatenklasse haben. Zusätzlich möchte man diese in der Datenbank einspeichern und verwalten können, wozu der Controller auch Zugriff auf die DAO Klasse von Auftrag hat. Dabei hat ein Auftrag immer eine eindeutige ID, wobei ein Auftrag bei Beginn keinen \textit{assigned user} benötigt um initialisiert zu werden, diese werden erst danach zugewiesen. \\
 \newpage
 
 \subsubsection{Prozessschrittvorlage Modul}
@@ -1543,6 +1521,8 @@ Die Umsetzung der Strategie 8.1 zeigt sich vor allem dadurch, dass es keine Meth
 \end{center}
 \end{figure}
 Die Proben in unserem System werden in Trägern transportiert. Diese Träger benötigen einen Standort zu jeder Zeit und haben immer eine Art. Um nun diese Träger verwalten zu können braucht unser Controller Zugriff auf die Träger Datenklasse. Um diese dann in der Datenbank verwalten zu können, braucht er ebenfalls Zugriff auf die TraegerDAO klasse.\\
+
+\newpage
 
 \subsubsection{Experimentier Station Modul}
 \begin{figure}[h!]
