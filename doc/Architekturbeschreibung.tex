@@ -1,4 +1,4 @@
-\documentclass[enabledeprecatedfontcommands,fontsize=12.1pt,paper=a4,twoside]{scrartcl}
+\documentclass[enabledeprecatedfontcommands,fontsize=12pt,paper=a4,twoside]{scrartcl}
 
 
 \newcommand{\grad}{\ensuremath{^{\circ}} }
@@ -178,7 +178,7 @@ Diese Architektur Beschreibung wurde im Rahmen von Software Projekt 2 im Winters
 
 Es handelt sich hierbei um eine Webapplikation, welche den Mitarbeitern der SFB-Initiative ermöglichen soll, effizient und ohne Verzögerung durch einen administrativen Mehraufwand Prozessketten für die untersuchten metallischen Konstruktionswerkstoffe zu finden. 
 Außerdem ermöglichen wir es den Forschern der SFB-Initative den Überblick über laufende Prozessketten und deren ProzessSchritte zu behalten.
-Konkret bedeutet dies, dass wir es den Logistikbeauftragten mithilfe unserer Software ermöglichen, Proben und deren Träger zu verwalten. Den Technologen der SFB-Initiative ermöglichen wir es, den Überblick über ihre Experimentierstationen zu behalten; sie werden immer über die laufenden ProzessSchritte informiert sein.
+Konkret bedeutet dies, dass wir es den Logistikbeauftragten mithilfe unserer Software ermöglichen, Proben und deren Träger zu verwalten. Den Technologen der SFB-Initiative ermöglichen wir es, den Überblick über ihre Experimentierstationen zu behalten; sie werden immer über die laufenden Prozessschritte informiert sein.
 Dem Prozesskettenadministrator möchten wir es ermöglichen, Prozessketten zu erstellen und verwalten, welche auf digitalem Wege an die Technologen weitergegeben werden als auszuführende Aufträge, welche diese wiederum annehmen und durchführen können.
 Außerdem möchten wir den Mitarbeitern im Lager ermöglichen, eine klare Übersicht über die im Lager sich befindende Proben zu behalten.
 Außerdem möchten wir dem Transporter der Proben, welcher diese von A nach B transportieren muss, ermöglichen, diese Transporte einfach protokolliert durchführen zu können, mit einfachem Probenverlustprotokoll. 
@@ -222,21 +222,21 @@ Werkstoff                                                       & Mikrokugeln di
 Träger                                                          & Transportmittel für Proben. Arten: Einzelträger, eingebettete Träger und Glasträger. Proben werden immer in Trägern transportiert                                                                                                                     \\ \hline
 Experimentierstation \textbf{(ES)}             & Physischer Standort an dem Technologen Messungen durchführen.                                                                                                                                                                                     \\ \hline
 Technologe                                                      & Ein Angestellter im SFB, er forscht und bedient die Experimentierstationen, und wertet diese im Anschluss aus und schreibt die Probeneigenschaften in die Software.                                                                                                  \\ \hline
-Prozesskette \textbf{(PK)}                       & Besteht aus vielen ProzessSchritten, die hintereinander ohne Verzweigung ablaufen. Sobald ein Auftrag erfolgt, wird eine Prozesskette gestartet.                                                                                                        \\ \hline
+Prozesskette \textbf{(PK)}                       & Besteht aus vielen Prozessschritten, die hintereinander ohne Verzweigung ablaufen. Sobald ein Auftrag erfolgt, wird eine Prozesskette gestartet.                                                                                                        \\ \hline
 Prozesskettenauftrag \textbf{(PK-Auftrag)}     & Enthält die Prozessparameter für jeden Schritt einer Prozesskette. Der Prozesskettenadministrator legt die Prozessparameter fest. Der Logistiker legt die Proben und Träger fest.                                                                     \\ \hline
-ProzessSchritt \textbf{(PS)}                     & In einem ProzessSchritt werden Werkstoffeigenschaften beeinflusst und / oder verändert. Er enthält Prozessparameter, welche beschreiben wie die Eigenschaften beeinflusst werden. Ein ProzessSchritt kann Vorbedingungen haben und eine geschätzte Dauer. \\ \hline
+Prozessschritt \textbf{(PS)}                     & In einem Prozessschritt werden Werkstoffeigenschaften beeinflusst und / oder verändert. Er enthält Prozessparameter, welche beschreiben wie die Eigenschaften beeinflusst werden. Ein Prozessschritt kann Vorbedingungen haben und eine geschätzte Dauer. \\ \hline
 Material- / Werkstoffeigenschaften                              & Jeder Werkstoff besitzt Eigenschaften. (Umformbarkeit / Verformbarkeit / ...)                                                                                                                                                                        \\ \hline
 Prozessparameter \textbf{(PP)}                   & Sind qualitativ oder quantitativ. Qualitativ beschreibt, ob etwas so ist oder nicht. Quantitative Parameter enthalten einen Namen, ein Wert und eine Einheit.                                                                                          \\ \hline
 Logistiker                                                      & Verwaltet das Archiv und alle Proben und Träger. Für die Ausführung einer Prozesskette bestimmt er welche Proben benutzt werden, falls dies nicht möglich ist, meldet er es dem Prozesskettenadministrator.                                           \\ \hline
-Prozesskettenadministrator\textbf{ (PK-Admin)} & Verwaltet Prozessketten und deren ProzessSchritte nach bestimmten Vorlagen. Verwaltet auch die Vorlagen. Ordnet ProzessSchritten Experimentierstationen zu. Überprüft dann auf Korrektheit.                                                           \\ \hline
+Prozesskettenadministrator\textbf{ (PK-Admin)} & Verwaltet Prozessketten und deren Prozessschritte nach bestimmten Vorlagen. Verwaltet auch die Vorlagen. Ordnet Prozessschritten Experimentierstationen zu. Überprüft dann auf Korrektheit.                                                           \\ \hline
 Transporter                                                     & Transportiert Träger mit ihren Proben zwischen Experimentierstationen. Bei Probenverlust meldet er diese.                                                                                                                                             \\ \hline
 Transportauftrag \textbf{(T-Auftrag)}          & Enthält Start- und Zielexperimentierstationen, wird vom Transporter ausgeführt.                                                                                                                                                                      \\ \hline
 System Administrator \textbf{(Sys-Admin)}      & Verwaltet Nutzer und Experimentierstationen. Konfiguriert globale Einstellungen und ist für Backups zuständig.                                                                                                                                         \\ \hline
-Prozessketteninstanz Werte \textbf{(PIW)}      & Enthält für jeden ProzessSchritt der Prozesskette alle Prozessparameter. Der Prozesskettenadmin benutzt die PIWs um Prozessketteninstanzen zu planen.                                                                                                 \\ \hline
+Prozessketteninstanz Werte \textbf{(PIW)}      & Enthält für jeden Prozessschritt der Prozesskette alle Prozessparameter. Der Prozesskettenadmin benutzt die PIWs um Prozessketteninstanzen zu planen.                                                                                                 \\ \hline
 Standort                                                        & Träger und Proben können entweder an einer Experimentierstation, im Archiv oder als verloren gemeldet sein.                                                                                                                                           \\ \hline
 Transportauftragzustand \textbf{(TA-Zustand)}  & Ein Transportauftrag befindet sich im Zustand wartend oder er wurde schon geliefert.                                                                                                                                                                  \\ \hline
-ProzessSchrittzustand \textbf{(PS-Zustand)}    & Ein ProzessSchrittzustand hat entweder den Zustand angenommen, in Bearbeitung oder abgegeben.                                                                                                                                                         \\ \hline
-Upload in Datenbank                                             & Ein Technologe muss nach dem Ausführen eines ProzessSchrittes die Prozessparameter in die Datenbank (DAVIS) hochladen.                                                                                                                                \\ \hline
+Prozessschrittzustand \textbf{(PS-Zustand)}    & Ein Prozessschrittzustand hat entweder den Zustand angenommen, in Bearbeitung oder abgegeben.                                                                                                                                                         \\ \hline
+Upload in Datenbank                                             & Ein Technologe muss nach dem Ausführen eines Prozessschrittes die Prozessparameter in die Datenbank (DAVIS) hochladen.                                                                                                                                \\ \hline
 \end{longtable}
 
 \begin{longtable}[c]{|p{7cm}|p{8cm}|}
@@ -317,9 +317,9 @@ Auch diese Tabelle kann durch eine Suchbox und weitere Kriterien wie z. B. Datum
 In dieser Tabelle sind alle Prozessketten, die sich im System befinden, in reihen sortiert sichtbar. An der Seite jeder noch nicht instanziierten Prozesskette ist ein Knopf, um diese zu bearbeiten. Durch Druck auf den Bearbeitungsknopf kann der Prozesskettenadministrator die Schritte dieser Prozesskette bearbeiten. Hier kann er z. B. weitere Schritte der Prozesskette hinzufügen, oder schon existierende Schritte entfernen.
 Ein weiterer Knopf in der Tabelle erlaubt ihm, eine Prozesskette zu starten. Sobald dieses getan ist, kann diese nicht mehr von ihm gestoppt werden.
 Die Tabelle beinhaltet auch einen Einfügungsknopf, durch welchen weitere Prozessketten erstellt werden können.
-Bei Erstellung einer Prozesskette wird diese auf Korrektheit überprüft. Sollte ein ProzessSchritt z. B. unrealistische Vorbedingungen haben, so wird dem Prozesskettenadministrator Bescheid gegeben, dass er diese Prozesskette im jetzigen Stand nicht erstellen kann.
-Bei der Erstellung von Prozessketten, welche aus verschiedenen ProzessSchritten besteht, muss der Prozesskettenadministrator natürlich auch diese ProzessSchritte erstellen. Bei der Erstellung von Prozessketten wird er also mit einem Fenster begrüßt, in welchem er die ProzessSchritte der Prozesskette verwalten kann.
-Hier kann er z. B. einem ProzessSchritt Vorbedingungen geben, welche er in einem Vorbedingungsfeld eingeben kann. In einem weiteren Feld kann er die Experimentierstation dieses Schrittes zuordnen. Diese ProzessSchritte kann er so lange noch bearbeiten und verändern, bis die Prozesskette gestartet wird, durch den Druck auf den Knopf zur Bearbeitung der Prozesskette.
+Bei Erstellung einer Prozesskette wird diese auf Korrektheit überprüft. Sollte ein Prozessschritt z. B. unrealistische Vorbedingungen haben, so wird dem Prozesskettenadministrator Bescheid gegeben, dass er diese Prozesskette im jetzigen Stand nicht erstellen kann.
+Bei der Erstellung von Prozessketten, welche aus verschiedenen Prozessschritten besteht, muss der Prozesskettenadministrator natürlich auch diese Prozessschritte erstellen. Bei der Erstellung von Prozessketten wird er also mit einem Fenster begrüßt, in welchem er die Prozessschritte der Prozesskette verwalten kann.
+Hier kann er z. B. einem Prozessschritt Vorbedingungen geben, welche er in einem Vorbedingungsfeld eingeben kann. In einem weiteren Feld kann er die Experimentierstation dieses Schrittes zuordnen. Diese Prozessschritte kann er so lange noch bearbeiten und verändern, bis die Prozesskette gestartet wird, durch den Druck auf den Knopf zur Bearbeitung der Prozesskette.
 Sollte eine Prozesskette in Bearbeitung sein, so kann der Prozesskettenadministrator auf diese drücken, um zu sehen, bei welchem Schritt sie sich momentan befindet. Er kann außerdem auch alle schon abgelaufenen und noch auszuführende Schritte sehen.
  
 \subsection{Lagerübersicht - Logistiker}
@@ -477,7 +477,7 @@ die Notation der Flexibilität hat die  Bedeutung :
 \multicolumn{5}{|l|}{P1: Produktfaktoren}
 \\ \hline
 \multicolumn{5}{|l|}{P1.1.1: Upload}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
-                                                          & \begin{tabular}[c]{@{}l@{}}Prozessketten-\\ und \\ProzessSchritt- \\Parameter\\ sollen aus \\JSON-Dateien\\ hochgeladen \\werden können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da es vom Chinese \\Menu ist aber\\ Flexibilität gegeben:\\ muss nicht\\ unbedingt gemacht werden.\end{tabular} & \begin{tabular}[c]{@{}l@{}} - -/\\ ++  \end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur\\ muss vorsehen,\\ dass JSON-Dateien\\ hochgeladen \\werden können, aus\\ denen automatisch für \\einen ProzessSchritt/\\eine Prozesskette die\\ Parameter eingefügt \\werden.\end{tabular} \\ \hline
+                                                          & \begin{tabular}[c]{@{}l@{}}Prozessketten-\\ und \\Prozessschritt- \\Parameter\\ sollen aus \\JSON-Dateien\\ hochgeladen \\werden können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da es vom Chinese \\Menu ist aber\\ Flexibilität gegeben:\\ muss nicht\\ unbedingt gemacht werden.\end{tabular} & \begin{tabular}[c]{@{}l@{}} - -/\\ ++  \end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur\\ muss vorsehen,\\ dass JSON-Dateien\\ hochgeladen \\werden können, aus\\ denen automatisch für \\einen Prozessschritt/\\eine Prozesskette die\\ Parameter eingefügt \\werden.\end{tabular} \\ \hline
 \end{tabular}
 \end{table}
 
@@ -487,7 +487,7 @@ die Notation der Flexibilität hat die  Bedeutung :
 \hline
 \begin{tabular}[c]{@{}l@{}}Abge-\\ leitet\\aus\end{tabular} & Einflussfaktor                                                                        & \begin{tabular}[c]{@{}l@{}}Flexibilität und \\ Veränderlichkeit\end{tabular}                                                              & \begin{tabular}[c]{@{}l@{}}++/\\\\ - -\end{tabular} & Auswirkungen                                                                                                                                                                                                                              \\ \hline
 \multicolumn{5}{|l|}{P1.1.2: Download}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
-                                                          & \begin{tabular}[c]{@{}l@{}}Die Parameter \\von einzelnen \\ProzessSchritten \\sollen nach JSON \\exportiert und \\heruntergeladen \\werden können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da es vom Chinese \\Menu ist aber\\ Flexibilität gegeben:\\ muss nicht\\ unbedingt gemacht werden.\end{tabular} & \begin{tabular}[c]{@{}l@{}}- -/\\ +\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss \\vorsehen, dass für einen\\ ProzessSchritt \\die Parameter gelistet\\ und in einem JSON-Format\\ exportiert werden können.\end{tabular} \\ \hline
+                                                          & \begin{tabular}[c]{@{}l@{}}Die Parameter \\von einzelnen \\Prozessschritten \\sollen nach JSON \\exportiert und \\heruntergeladen \\werden können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da es vom Chinese \\Menu ist aber\\ Flexibilität gegeben:\\ muss nicht\\ unbedingt gemacht werden.\end{tabular} & \begin{tabular}[c]{@{}l@{}}- -/\\ +\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss \\vorsehen, dass für einen\\ Prozessschritt \\die Parameter gelistet\\ und in einem JSON-Format\\ exportiert werden können.\end{tabular} \\ \hline
 \multicolumn{5}{|l|}{P1.2: Protokollierung}
 \\ \hline
 \multicolumn{5}{|l|}{P1.2.1: Protokollierung der Aufträge}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
@@ -527,13 +527,13 @@ die Notation der Flexibilität hat die  Bedeutung :
 \begin{tabular}[c]{@{}l@{}}Abge-\\ leitet\\aus\end{tabular} & Einflussfaktor                                                                        & \begin{tabular}[c]{@{}l@{}}Flexibilität und \\ Veränderlichkeit\end{tabular}                                                              & \begin{tabular}[c]{@{}l@{}}++/\\\\ - -\end{tabular} & Auswirkungen                                                                                                                                                                                                                              \\ \hline 
  \multicolumn{5}{|l|}{P1.4.4: Warteschlange}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline 
                                                       P1.7.1   P1.5.2    & \begin{tabular}[c]{@{}l@{}}Die laufenden\\ Aufträge, die\\ an jeder\\ Experimentier-\\station anstehen,\\ sollen auto-\\matisch nach \\Priorität sortiert \\werden. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Hohe Veränderlichkeit \\und Flexibilität:\\ Dies ist keine \\Anforderung, sondern \\eine Entscheidung\\ der Gruppe. \\Wir können uns \\auch nach Beginn \\der Implementierung noch\\ ohne größere Probleme\\ dazu entscheiden, diese\\ Verantwortung dem User\\ zu übertragen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}++/\\ ++\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Anwendung muss \\die Prioritäten analysieren\\ können, um herauszufinden,\\ in welcher Reihenfolge \\die Aufträge abgearbeitet\\ werden sollen.\end{tabular} \\ \hline
- \multicolumn{5}{|l|}{P1.5: ProzessSchritte}
+ \multicolumn{5}{|l|}{P1.5: Prozessschritte}
 \\ \hline
-\multicolumn{5}{|l|}{P1.5.1: Grundlagen ProzessSchritte}
+\multicolumn{5}{|l|}{P1.5.1: Grundlagen Prozessschritte}
  \\ \hline
-                                                          & \begin{tabular}[c]{@{}l@{}}ProzessSchritte\\ sollen erstellt,\\ gelöscht, \\bearbeitet, und\\ hervorgehoben\\(sofern im \\Zustand kaputt)\\ werden können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit oder \\Flexibilität, da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}- -/\\   - -\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss \\eine Möglichkeit vorsehen, \\alle notwendigen \\Informationen für neue\\ ProzessSchritte \\einzugeben. Des Weiteren \\muss die Architektur \\automatisch erkennen, wenn \\Schritte im Zustand\\ auf kaputt gesetzt sind. \end{tabular} \\ \hline
- \multicolumn{5}{|l|}{P1.5.2: ProzessSchritte an Experimentierstationen}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
-                                                          & \begin{tabular}[c]{@{}l@{}}Für jeden\\ ProzessSchritt \\soll gespeichert \\werden, an \\welchen Stationen \\dieser durchgeführt\\ werden kann. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit oder \\Flexibilität, da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}- -/\\   - -\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss \\diese Information speichern\\ und damit umgehen \\können, dass es\\ eventuell im Ablauf\\ einer Prozesskette \\mehrere Optionen gibt.\end{tabular} \\ \hline
+                                                          & \begin{tabular}[c]{@{}l@{}}Prozessschritte\\ sollen erstellt,\\ gelöscht, \\bearbeitet, und\\ hervorgehoben\\(sofern im \\Zustand kaputt)\\ werden können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit oder \\Flexibilität, da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}- -/\\   - -\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss \\eine Möglichkeit vorsehen, \\alle notwendigen \\Informationen für neue\\ Prozessschritte \\einzugeben. Des Weiteren \\muss die Architektur \\automatisch erkennen, wenn \\Schritte im Zustand\\ auf kaputt gesetzt sind. \end{tabular} \\ \hline
+ \multicolumn{5}{|l|}{P1.5.2: Prozessschritte an Experimentierstationen}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
+                                                          & \begin{tabular}[c]{@{}l@{}}Für jeden\\ Prozessschritt \\soll gespeichert \\werden, an \\welchen Stationen \\dieser durchgeführt\\ werden kann. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit oder \\Flexibilität, da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}- -/\\   - -\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss \\diese Information speichern\\ und damit umgehen \\können, dass es\\ eventuell im Ablauf\\ einer Prozesskette \\mehrere Optionen gibt.\end{tabular} \\ \hline
 \multicolumn{5}{|l|}{P1.6: Prozessketten}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 \\ \hline
 \multicolumn{5}{|l|}{P1.6.1: Prozessketten Grundlagen} 
@@ -559,7 +559,7 @@ die Notation der Flexibilität hat die  Bedeutung :
 \multicolumn{5}{|l|}{P1.7.2: Zuordnen zu Aufträgen}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Aufträgen sollen\\ Proben/Trägern \\zugeordnet \\werden können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit oder \\Flexibilität, da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}- -/\\   - -\end{tabular} & \begin{tabular}[c]{@{}l@{}} Die Architektur muss \\vorsehen, dass Proben und \\Träger irgendwie Aufträgen \\zugeordnet werden können. \\Zugeordnete Proben/Träger\\ dürfen dann nicht mehr \\anderen Aufträgen \\zugeordnet werden; was von \\der Anwendung überprüft \\werden muss.\end{tabular} \\ \hline
 \multicolumn{5}{|l|}{P1.7.3: Automatisches Zuordnen}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
-                                                          & \begin{tabular}[c]{@{}l@{}}Alternativ sollen\\ Aufträgen \\automatisch\\ Proben/Trägern \\zugeordnet \\werden. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ aber Flexibilität: \\da vom Chinese Menu,\\ ist diese Anforderung\\ optional.\end{tabular} & \begin{tabular}[c]{@{}l@{}}- -/\\  ++\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Anwendung\\ muss die Parameter \\der ProzessSchritte\\ einer Prozesskette \\auswerten können, und \\daraus schließen, welche \\Proben/Träger\\ gebraucht werden. \end{tabular} \\ \hline
+                                                          & \begin{tabular}[c]{@{}l@{}}Alternativ sollen\\ Aufträgen \\automatisch\\ Proben/Trägern \\zugeordnet \\werden. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ aber Flexibilität: \\da vom Chinese Menu,\\ ist diese Anforderung\\ optional.\end{tabular} & \begin{tabular}[c]{@{}l@{}}- -/\\  ++\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Anwendung\\ muss die Parameter \\der Prozessschritte\\ einer Prozesskette \\auswerten können, und \\daraus schließen, welche \\Proben/Träger\\ gebraucht werden. \end{tabular} \\ \hline
 \end{tabular}
 \end{table}
 
@@ -570,7 +570,7 @@ die Notation der Flexibilität hat die  Bedeutung :
 \begin{tabular}[c]{@{}l@{}}Abge-\\ leitet\\aus\end{tabular} & Einflussfaktor                                                                        & \begin{tabular}[c]{@{}l@{}}Flexibilität und \\ Veränderlichkeit\end{tabular}                                                              & \begin{tabular}[c]{@{}l@{}}++/\\\\ - -\end{tabular} & Auswirkungen                                                                                                                                                                                                                              \\ \hline
 \multicolumn{5}{|l|}{P1.7.4: Zuordnen zu Stationen}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline 
                                           P1.4.2  P1.5.2                & \begin{tabular}[c]{@{}l@{}}Beim Starten\\ eines  Auftrags \\soll automatisch \\ermittelt werden,\\ welche\\ Experimentier-\\stationen durch-\\laufen werden\\ (wenn für \\einen Schritt \\mehrere möglich \\sind). \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Hohe Veränderlichkeit \\und Flexibilität:\\ Dies ist keine\\ Anforderung, sondern\\ eine Entscheidung \\unserer Gruppe. \\Auch nach Beginn\\ der Implementierung\\ können wir uns \\noch spontan dafür\\ entscheiden, diese \\Verantwortung \\dem User zu \\übertragen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}++/\\  ++\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Anwendung \\muss automatisch die \\Auslastung von \\Experimentierstationen \\auswerten können und \\die effizienteste Wahl \\treffen. \end{tabular} \\ \hline
-\multicolumn{5}{|l|}{P1.7.5: Zustand ProzessSchritt}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
+\multicolumn{5}{|l|}{P1.7.5: Zustand Prozessschritt}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Der Zustand\\ eines Auftrags soll\\manuell aktuali-\\siert werden. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit oder \\Flexibilität, da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}- -/\\   - -\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss \\vorsehen, dass von außen \\eine Auwahl des\\Zustandes möglich ist. \end{tabular} \\ \hline
 \multicolumn{5}{|l|}{P1.8: Träger}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 \\ \hline
@@ -579,7 +579,7 @@ die Notation der Flexibilität hat die  Bedeutung :
 \multicolumn{5}{|l|}{P1.8.2: Trägerarten}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Für jeden\\ Träger soll \\gespeichert\\ werden, von \\welcher Art\\ er ist. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit oder \\Flexibilität, da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}- -/\\   - -\end{tabular} & \begin{tabular}[c]{@{}l@{}}Träger müssen ein\\ Attribut Art haben. \\ \end{tabular} \\ \hline
 \multicolumn{5}{|l|}{P1.9: Dynamische Zustandsautomaten}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
-                                                          & \begin{tabular}[c]{@{}l@{}}Lineare \\Zustandsauto-\\maten für die \\ProzessSchritte\\sollen angelegt,\\gelöscht\\und bearbeitet\\werden können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ aber Flexibilität: \\da vom Chinese Menu,\\ ist diese Anforderung\\ optional.\end{tabular} & \begin{tabular}[c]{@{}l@{}}- -/\\  ++\end{tabular} & \begin{tabular}[c]{@{}l@{}} Es muss eine\\ Ansicht geben, in\\ der diese Automaten \\erstellt werden/eine\\ Übersicht über\\ existierende möglich ist. \end{tabular} \\ \hline
+                                                          & \begin{tabular}[c]{@{}l@{}}Lineare \\Zustandsauto-\\maten für die \\Prozessschritte\\sollen angelegt,\\gelöscht\\und bearbeitet\\werden können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ aber Flexibilität: \\da vom Chinese Menu,\\ ist diese Anforderung\\ optional.\end{tabular} & \begin{tabular}[c]{@{}l@{}}- -/\\  ++\end{tabular} & \begin{tabular}[c]{@{}l@{}} Es muss eine\\ Ansicht geben, in\\ der diese Automaten \\erstellt werden/eine\\ Übersicht über\\ existierende möglich ist. \end{tabular} \\ \hline
 \end{tabular}
 \end{table}
 
@@ -611,7 +611,7 @@ die Notation der Flexibilität hat die  Bedeutung :
 \multicolumn{5}{|l|}{P1.10.6:Proben Kommentar}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Zu Proben\\sollen\\ Kommentare\\erstellt werden\\können. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit oder \\Flexibilität, da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}- -/\\   - -\end{tabular} & \begin{tabular}[c]{@{}l@{}}Es muss eine \\Fläche für\\Kommentareingabe\\und Darstellung\\geben. \end{tabular} \\ \hline
  \multicolumn{5}{|l|}{P1.11: Transporte}                                                                         \\ \hline
-                                                          & \begin{tabular}[c]{@{}l@{}}Transporteure\\ sollen Transport-\\aufträge \\annehmen\\ können. \\Sie sollen Proben\\ zwischen den ein-\\zelnen \\Stationen\\ tragen. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da es vom Chinese \\Menu ist aber\\ Flexibilität gegeben:\\ muss nicht\\ unbedingt gemacht werden\end{tabular} & \begin{tabular}[c]{@{}l@{}}- -/\\  +\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss\\ Transportaufträge sinnvoll\\ in die Prozesskette\\ einbauen können, sodass \\die Proben zwischen\\ den ProzessSchritten\\ transportiert werden und \\an den richtigen \\Stellen sind. \end{tabular} \\ \hline
+                                                          & \begin{tabular}[c]{@{}l@{}}Transporteure\\ sollen Transport-\\aufträge \\annehmen\\ können. \\Sie sollen Proben\\ zwischen den ein-\\zelnen \\Stationen\\ tragen. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit,\\ da es vom Chinese \\Menu ist aber\\ Flexibilität gegeben:\\ muss nicht\\ unbedingt gemacht werden\end{tabular} & \begin{tabular}[c]{@{}l@{}}- -/\\  +\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Architektur muss\\ Transportaufträge sinnvoll\\ in die Prozesskette\\ einbauen können, sodass \\die Proben zwischen\\ den Prozessschritten\\ transportiert werden und \\an den richtigen \\Stellen sind. \end{tabular} \\ \hline
 \multicolumn{5}{|l|}{P2: Benutzerschnittstelle}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 \\ \hline
 \multicolumn{5}{|l|}{P2.1:Mehrsprachig}                                                                         \\ \hline
@@ -760,11 +760,11 @@ Hier haben wir uns für die erste Strategie entschieden, weil eine eigene Implem
     \begin{tabular}{|p{15cm}|}
     \hline
           \textbf{Problem 3:} Vorlagen und Instanzen \\ \hline
-         Der Prozesskettenadministrator möchte nicht gestartete Prozessketten und ProzessSchritte bearbeiten können.
+         Der Prozesskettenadministrator möchte nicht gestartete Prozessketten und Prozessschritte bearbeiten können.
           \\ \hline
           \textbf{Einflussfaktoren: } \\
           P1.6.1: Prozessketten Grundlagen\\ 
-	P1.5: ProzessSchritte \\
+	P1.5: Prozessschritte \\
           \hline
           \textbf{Strategien} \\ \hline
             {\phantomsection}          
@@ -782,8 +782,8 @@ Hier haben wir uns für die erste Strategie entschieden, weil es die einzige Mö
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 4:} Upload/Download Prozessketten- und ProzessSchrittparameter \\ \hline
-          Die Software kann neue Prozessketten- und ProzessSchrittparameter aus JSON-Dateien hochladen, und bestehende als JSON-Dateien exportieren.
+          \textbf{Problem 4:} Upload/Download Prozessketten- und Prozessschrittparameter \\ \hline
+          Die Software kann neue Prozessketten- und Prozessschrittparameter aus JSON-Dateien hochladen, und bestehende als JSON-Dateien exportieren.
           \\ \hline
           \textbf{Einflussfaktoren: } \\
           T 1.5: Persistenz \\
@@ -868,7 +868,7 @@ Hier haben wir uns für die erste Strategie entschieden, da sich dadurch eine pr
           \\ \hline
           \textbf{Einflussfaktoren: } \\
           P 1.7.1: Aufträge Grundlagen\\
-	P1.5.2: ProzessSchritte an Experimentierstationen \\
+	P1.5.2: Prozessschritte an Experimentierstationen \\
           \hline
           \textbf{Strategien} \\ \hline
             {\phantomsection}          
@@ -1049,11 +1049,11 @@ Hier haben wir uns für die erste Strategie entschieden, weil wir sowieso schon 
     \hline
           \textbf{Problem 14:} Automatische Lastverteilung
           \\ \hline
-         Wenn für einen ProzessSchritt mehrere Experimentierstationen möglich sind, muss ausgewählt werden, welche Stationen eine Prozesskette tatsächlich benutzen soll. \\
+         Wenn für einen Prozessschritt mehrere Experimentierstationen möglich sind, muss ausgewählt werden, welche Stationen eine Prozesskette tatsächlich benutzen soll. \\
         \\  \hline
         \textbf{Einflussfaktoren: } \\
 	P1.4.2: Auslastung \\
-	P1.5.2: ProzessSchritte an Experimentierstationen\\
+	P1.5.2: Prozessschritte an Experimentierstationen\\
         \hline
         \textbf{Strategien} \\
           {\phantomsection}          
@@ -1061,7 +1061,7 @@ Hier haben wir uns für die erste Strategie entschieden, weil wir sowieso schon 
         \textbf{Strategie 14.1: Von Hand:} Der Prozesskettenadministrator wählt die Stationen selber aus, wenn er die Prozesskette instanziiert. \\   
         {\phantomsection}          
            \label{strategie:14.2}        
-	\textbf{Strategie 14.2: Automatisch: (ausgewählt)} Das System analysiert, wie die für jeden ProzessSchritt möglichen Stationen ausgelastet sind, und entscheidet, wo welche Schritte am effizientesten abgearbeitet werden.\\ \hline
+	\textbf{Strategie 14.2: Automatisch: (ausgewählt)} Das System analysiert, wie die für jeden Prozessschritt möglichen Stationen ausgelastet sind, und entscheidet, wo welche Schritte am effizientesten abgearbeitet werden.\\ \hline
     \end{tabular}
     \caption{Automatische Lastverteilung Problemkarte}
     \label{tab:ProblemKarte14}
@@ -1174,9 +1174,9 @@ Hier haben wir uns für die erste Strategie entschieden. Weil die Anzahl der Zus
     \centering
     \begin{tabular}{|p{15cm}|}
     \hline
-          \textbf{Problem 19:} Zustandsautomaten ProzessSchritte
+          \textbf{Problem 19:} Zustandsautomaten Prozessschritte
           \\ \hline
-          Für die ProzessSchritte soll es Zustandsautomaten geben.
+          Für die Prozessschritte soll es Zustandsautomaten geben.
           \\ \hline
           \textbf{Einflussfaktoren: } \\
          P1.9: Dynamische Zustandsautomaten \\
@@ -1191,7 +1191,7 @@ Hier haben wir uns für die erste Strategie entschieden. Weil die Anzahl der Zus
 	\textbf{Strategie 19.3: als eigene Klasse (ausgewählt)} Die Zustände werden als eigene Klasse gespeichert. \\
           \\ \hline
     \end{tabular}
-    \caption{Zustandsautomaten ProzessSchritte Problemkarte}
+    \caption{Zustandsautomaten Prozessschritte Problemkarte}
     \label{tab:ProblemKarte19}
 \end{table}
 Hier haben wir uns für die dritte Strategie entschieden, weil die Zustände wegen einer optionalen Anforderung vom Prozesskettenadministrator veränderbar sein sollen. Dafür bietet sich die Darstellung als Enum nicht an. \\
@@ -1473,7 +1473,7 @@ Dieses Modul ist für die Erstellung und Verwaltung von Nutzern zuständig. Durc
 \subsubsection{Prozess Ketten Vorlage Modul}
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=\textwidth]{UML/Modules/ProzessKettenVorlage.pdf}
+ \includegraphics[width=\textwidth]{UML/Modules/ProzesskettenVorlage.pdf}
   \caption{Prozess Ketten Vorlage Module}
   \label{fig:boat1}
 \end{center}
@@ -1497,7 +1497,7 @@ Um nun Aufträge erstellen oder verwalten zu können, muss unser Auftragscontrol
 \subsubsection{Prozessschrittvorlage Modul}
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=\textwidth]{UML/Modules/ProzessSchrittVorlage.pdf}
+ \includegraphics[width=\textwidth]{UML/Modules/ProzessschrittVorlage.pdf}
   \caption{Prozessschrittvorlage Module}
   \label{fig:boat1}
 \end{center}
@@ -1509,7 +1509,7 @@ Um Prozessschrittvorlagen erstellen zu können, benötigen wir allerdings Prozes
 \subsubsection{Prozessschritt Modul}
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=\textwidth]{UML/Modules/ProzessSchritt.pdf}
+ \includegraphics[width=\textwidth]{UML/Modules/Prozessschritt.pdf}
   \caption{Prozessschritt Module}
   \label{fig:boat1}
 \end{center}
@@ -1546,7 +1546,7 @@ Die Proben in unserem System werden in Trägern transportiert. Diese Träger ben
 {
 
 Alle Rollen, die ein Nutzer annehmen kann, sind in einer Enum gespeichert. Diese
-sind TECHNOLOGE, PKADMIN, TRANSPORT, LOGISTIKER und der ADMIN. Hiermit
+sind TECHNOLOGE, Prozesskettenadministrator, TRANSPORT, LOGISTIKER und der ADMIN. Hiermit
 realisieren wir die Strategie 1.2 \ref{strategie:1.2}. Wir können somit mehrere Rollen für einen
 User speichern. Um die Datensicherheit zu gewährleisten, haben wir uns für
 Apache Shiro entschieden. Hiermit können wir einzelne Programmfunktionen nur
@@ -1569,7 +1569,7 @@ referenziert er diesen auch.
 Es gibt standardmäßig die Trägerarten eingebettet, einzelne und Glas und diese können später nach Belieben des Kunden durch neue Trägerarten erweitert werden. Die Trägerarten sind in
 der Klasse Traegerart gespeichert. Die Information über die Trägerarten wird
 benötigt, um in Erfahrung zu bringen, ob eine Experimentierstation einen
-ProzessSchritt ausführen kann. Die ProzessSchrittVorlage hat als Attribut welche
+Prozessschritt ausführen kann. Die ProzessschrittVorlage hat als Attribut welche
 Träger sie annimmt und welche Träger sie ausgibt (eingabeTräger, ausgabeTräger).
 Siehe Strategie 17.3 \ref{strategie:17.3}.
 
@@ -1589,73 +1589,73 @@ Dies ermöglicht es unserem System, mit Eigenschaften und Anforderungen umgehen 
 können. Es ist uns hiermit möglich, Proben mit spezifizierten Eigenschaften zu
 finden und diese dann bestimmten Klassen zuzuweisen. Für Experimentierstationen gelten
 Bedingungen. Diese werden durch Eigenschaften oder Prozess-Parameter realisiert.
-Wir können festlegen, dass ein ProzessSchritt nur ausgeführt werden kann, wenn
-ein vorheriger ProzessSchritt eine Eigenschaft besitzt oder einen Parameter hat.
+Wir können festlegen, dass ein Prozessschritt nur ausgeführt werden kann, wenn
+ein vorheriger Prozessschritt eine Eigenschaft besitzt oder einen Parameter hat.
 Ein Logistiker kann in der Logistik-Ansicht Proben auflisten, welche
 einer Bedingung entsprechen. Hier haben wir die Strategie 10.2 \ref{strategie:10.2} umgesetzt.
 
-Eine ProzessSchrittVorlage enthält eine eindeutige ID, einen Zustandsautomaten
-(ProzessSchrittZustandsAutomat) und die geschätzte Dauer für den ProzessSchritt.
-Strategie 19.2 \ref{strategie:19.2} setzen wir um, indem wir die Zustände einer ProzessSchrittVorlage
+Eine ProzessschrittVorlage enthält eine eindeutige ID, einen Zustandsautomaten
+(ProzessschrittZustandsAutomat) und die geschätzte Dauer für den Prozessschritt.
+Strategie 19.2 \ref{strategie:19.2} setzen wir um, indem wir die Zustände einer ProzessschrittVorlage
 nicht als Enum speichern, sondern sie als Klasse modellieren.
 Das Attribut eingabeTraeger ist Liste von Trägerarten, die als Eingabe akzeptiert
 werden. Die Liste der Trägerarten ausgabeTraeger beschreibt, welche Träger von
-diesem ProzessSchritt ausgegeben werden.
+diesem Prozessschritt ausgegeben werden.
 
 Die Enum AuftragsPriorität enthält die Prioritäten, welche eine Prozesskette
-haben kann. Falls ein ProzessSchritt eine höhere Priorität hat, wird dieser vor
-dem ProzessSchritt, der eine geringere Priorität hat, ausgeführt. Somit kann dann
-automatisch, unter Berücksichtigung der Priorität, bestimmt werden, welcher ProzessSchritt als Nächstes an einer
+haben kann. Falls ein Prozessschritt eine höhere Priorität hat, wird dieser vor
+dem Prozessschritt, der eine geringere Priorität hat, ausgeführt. Somit kann dann
+automatisch, unter Berücksichtigung der Priorität, bestimmt werden, welcher Prozessschritt als Nächstes an einer
 Experimentierstation ausgeführt wird.
 Hiermit setzen wir die Strategie 7.2 \ref{strategie:7.2} um.
 
-Es gibt zu Beginn drei Arten von ProzessSchrittArten: umformend, färbend und ermittelend. Diese sind vom Kunden vorgegeben und können im Nachhinein nach Belieben des Kunden erweitert werden.
+Es gibt zu Beginn drei Arten von ProzessschrittArten: umformend, färbend und ermittelend. Diese sind vom Kunden vorgegeben und können im Nachhinein nach Belieben des Kunden erweitert werden.
 Diese wurden als Klasse mit einem Set von Strings modelliert, dies ist unsere Umsetzung der Strategie 20.2 \ref{strategie:20.2}.
 
-Ein ProzessSchritt ist eine instanziierte ProzessSchrittVorlage. Ihre Attribute
-sind eine ProzessSchritt-ID, ein Boolean uploaded, der auf True gesetzt wird,
+Ein Prozessschritt ist eine instanziierte ProzessschrittVorlage. Ihre Attribute
+sind eine Prozessschritt-ID, ein Boolean uploaded, der auf True gesetzt wird,
 nachdem der Technologe die ProzessParameter in die externe Datenbank hochgeladen
 hat, current, welches eine Experimentierstation referenziert, falls es eine
-Experimentierstation gibt, wo aktuell dieser ProzessSchritt durchläuft, und ein String zustandsAutomat, der den aktuellen Zustand aus dem ProzessSchrittZustandsAutomaten speichert. Ein Prozessschritt gehört zu einem Auftrag, ein Auftrag
-kann aber viele ProzessSchritte enthalten.
+Experimentierstation gibt, wo aktuell dieser Prozessschritt durchläuft, und ein String zustandsAutomat, der den aktuellen Zustand aus dem ProzessschrittZustandsAutomaten speichert. Ein Prozessschritt gehört zu einem Auftrag, ein Auftrag
+kann aber viele Prozessschritte enthalten.
 
-Ein ProzessSchrittZustandsAutomat ist eine Liste von Zuständen. Der
-ProzessSchrittZustandsAutomat kann vom PkAdmin um weitere Zustände erweitert
+Ein ProzessschrittZustandsAutomat ist eine Liste von Zuständen. Der
+ProzessschrittZustandsAutomat kann vom Prozesskettenadministrator um weitere Zustände erweitert
 werden, wenn dieser nicht in Benutzung ist.
 
-Ein ProzessSchrittParameter hat einen Namen. Einer ProzessSchrittVorlage können
-Parameter zugewiesen werden. Falls der ProzessSchritt ermittelnd ist, wird
+Ein ProzessschrittParameter hat einen Namen. Einer ProzessschrittVorlage können
+Parameter zugewiesen werden. Falls der Prozessschritt ermittelnd ist, wird
 nachher die Eigenschaft, welche ermittelt wurde, der Probe zugewiesen.
 
 JSON ist der aktuelle De-facto-Datenformat-Standard um Daten über APIs bereitzustellen. Das Java-Ökosystem bietet eine Reihe von Bibliotheken zur Erstellung von JSON aus Java-Objekten und umgekehrt (GSON, Jackson, etc.). Mit dem Release von Java EE 8 und der JSR-367 haben wir nun einen standardisierten Ansatz dafür: JSON-B.
 
-Um den Up/Download von den Parametern der ProzessSchritte als JSON zu ermöglichen verwenden wir JSON-B. Hiermit setzen wir die Strategie 4.1 \ref{strategie:4.1}  um. Dafür stellen wir ein Interface
-bereit, dass es uns ermöglicht die Parameter der ProzessSchritte zu serialisieren.
+Um den Up/Download von den Parametern der Prozessschritte als JSON zu ermöglichen verwenden wir JSON-B. Hiermit setzen wir die Strategie 4.1 \ref{strategie:4.1}  um. Dafür stellen wir ein Interface
+bereit, dass es uns ermöglicht die Parameter der Prozessschritte zu serialisieren.
 Um mit externen Diensten zu kommunizieren, werden für das serialisierte JSON
 Rest-Schnittstellen angeboten.
 
-Eine ProzessKettenVorlage, hat eine eindeutige ID. 
+Eine ProzesskettenVorlage, hat eine eindeutige ID. 
 
 
-Die Enum ProzessKettenZustandsAutomat enthält alle Zustände, die ein Auftrag
+Die Enum ProzesskettenZustandsAutomat enthält alle Zustände, die ein Auftrag
 haben kann. Diese sind fest und können im Nachhinein nicht mehr geändert werden.
 Deshalb werden sie als Enum gespeichert. Hiermit wird die Strategie 18.1 umgesetzt.
 
-Ein Auftrag ist eine Instanz einer ProzessKettenVorlage.
+Ein Auftrag ist eine Instanz einer ProzesskettenVorlage.
 
-Wie oben erwähnt, ist Auftrag eine Instanz von der ProzessKettenVorlage, die
-ProzessSchrittVorlage erstellt ein ProzessSchritt Objekt. Wir haben getrennte
-Klassen für die Vorlage und die Instanzen von den ProzessSchritten und ProzessKetten.
-Hiermit setzen wir die Strategie 3.1 \ref{strategie:3.1}  um. Die ProzessSchritte sind somit abstrakt
+Wie oben erwähnt, ist Auftrag eine Instanz von der ProzesskettenVorlage, die
+ProzessschrittVorlage erstellt ein Prozessschritt Objekt. Wir haben getrennte
+Klassen für die Vorlage und die Instanzen von den Prozessschritten und Prozessketten.
+Hiermit setzen wir die Strategie 3.1 \ref{strategie:3.1}  um. Die Prozessschritte sind somit abstrakt
 und können später auch in anderen Prozessketten wiederverwendet werden.
 
 Ein AuftragsLog enthält Start- und Endzeiten für die instanziierte Prozesskette.
-Diese referenziert auch alle ProzessSchrittLogs welche in dem Auftrag enthalten
-sind. Aus diesen ist zu entnehmen, wann der einzelne ProzessSchritt gestartet
+Diese referenziert auch alle ProzessschrittLogs welche in dem Auftrag enthalten
+sind. Aus diesen ist zu entnehmen, wann der einzelne Prozessschritt gestartet
 worden ist, in welchem Zustand dieser sich befand und wann er beendet worden
-ist. Falls später dann ein ProzessSchritt betrachtet wird, enthält er die Logs
-und seine ProzessSchrittParameter. Die ProzessSchrittParameter lassen sich zu
-JSON serialisieren (Strategie 4.1) \ref{strategie:4.1}, der ProzessSchrittLog sowie der ProzessSchritt
+ist. Falls später dann ein Prozessschritt betrachtet wird, enthält er die Logs
+und seine ProzessschrittParameter. Die ProzessschrittParameter lassen sich zu
+JSON serialisieren (Strategie 4.1) \ref{strategie:4.1}, der ProzessschrittLog sowie der Prozessschritt
 selber sind auch serialisierbar. Jetzt ist es uns möglich, ein Protokoll
 der Prozesskette zu serialisieren.
 
@@ -1663,15 +1663,15 @@ der Prozesskette zu serialisieren.
 Eine Experimentierstation besteht aus einer eindeutig ID, einem Standort, der
 als String gespeichert wird, sowie einer Enum, die den Status der Station
 enthält. Jede der Experimentierstationen enthält eine Warteschlange, die alle
-ProzessSchritt Instanzen enthält, welche auf die Durchführung an dieser Station
+Prozessschritt Instanzen enthält, welche auf die Durchführung an dieser Station
 warten. Um einer Warteschlange zugewiesen zu werden, muss unser System
-Folgendes tun: Einer ProzessSchrittVorlage können Bedingungen hinzugefügt werden,
+Folgendes tun: Einer ProzessschrittVorlage können Bedingungen hinzugefügt werden,
 ein Beispiel wäre die Existenz einer Wärmebehandlung. Experimentierstationen
 können auch Parametern oder Eigenschaften zugewiesen werden.
-Aus den Bedingungen der ProzessSchrittVorlage ergibt sich die Menge an
+Aus den Bedingungen der ProzessschrittVorlage ergibt sich die Menge an
 Experimentierstationen, welche möglich sind. Für diese wird geschätzt, wie lange
 es dauert, bis die bisherige Warteschlange beendet ist. Die Experimentierstation
-mit der geringsten Wartezeit wird dem ProzessSchritt zugeteilt. Dies ist unsere
+mit der geringsten Wartezeit wird dem Prozessschritt zugeteilt. Dies ist unsere
 Umsetzung von der Strategie 14.2 \ref{strategie:14.2}.
 
 Zu einer Station können mehrere User vom Administrator zugewiesen
@@ -1699,8 +1699,8 @@ realisiert. Wir nutzen also lazy loading und setzen damit die Strategie 12.1 \re
 
 Ein Träger enthält Referenzen zu alle Proben, die in ihm enthalten sind. Weiter
 hat der Träger ein Standort und eine ID. Träger ist eine Assoziationsklasse von
-Auftrag und ProzessSchritt, da manche Prozessschritte nur ausgewählte Trägerarten als Ein- und Ausgabe akzeptieren. Falls sich der Zustand eines
-ProzessSchrittes verändert, und Proben zwischen Experimentierstationen
+Auftrag und Prozessschritt, da manche Prozessschritte nur ausgewählte Trägerarten als Ein- und Ausgabe akzeptieren. Falls sich der Zustand eines
+Prozessschrittes verändert, und Proben zwischen Experimentierstationen
 transportiert werden sollen, weisen wir einem Träger, falls nötig, den neuen
 Schritt zu und setzen alle Proben in den Träger. Das Ziel, der aktuelle
 Standort, die Proben und deren Träger können dann dem Transport als neuen
@@ -1708,7 +1708,7 @@ Transportauftrag zugewiesen werden. Der Transportauftrag ergibt sich impliziert
 aus dem Auftrag. Er wird dadurch realisiert, dass ein Transporteur nur die für
 ihn relevanten Informationen erhält.
 
-Falls ein ProzessSchritt einen Transportauftrag und den Zustand freigeben hat, wird er
+Falls ein Prozessschritt einen Transportauftrag und den Zustand freigeben hat, wird er
 allen Transporteuren angezeigt. Wenn der Transporteur diesen annimmt, wird der
 AuftragsZustand auf angenommen gesetzt. Jetzt verschwindet der Auftrag für
 die anderen Transporteure in der Transportansicht. Der Transporteur läuft nun
@@ -1870,66 +1870,66 @@ Bei dem Login können folgende Exceptions geworfen werden:
 \end{figure}
 
 In der Abb. \ref{fig:pkErstellen} wird der Ablauf gezeigt, wie ein
-ProzessKettenAdministrator eine ProzessKette erstellt, diese dann instanziert
+ProzesskettenAdministrator eine Prozesskette erstellt, diese dann instanziert
 und dann startet.
 
-Als pkApp  App bezeichnen wir den Teil der Webapplikation, der dem pkAdmin
-das Verwalten der ProzessKetten ermöglicht.
+Als pkApp  App bezeichnen wir den Teil der Webapplikation, der dem Prozesskettenadministrator
+das Verwalten der Prozessketten ermöglicht.
 
-Sobald der pkAdmin der pkApp mitteilt, dass er gerne eine ProzesskettenVorlage
-bearbeiten würde führt die PKAdminBean die methode
-$editProzessKettenVorlage(pkv:ProzessKettenVorlage)$ aus (\textbf{Schritt 1}).
-Alls nächstes sollen alle ProzessSchrittVorlagen die einer ProzessKettenVorlage
-zugewiesen sind angezeigt werdne. Dafür führt der ProzessKettenController die
+Sobald der Prozesskettenadministrator der pkApp mitteilt, dass er gerne eine ProzesskettenVorlage
+bearbeiten würde führt die ProzesskettenadministratorBean die methode
+$editProzesskettenVorlage(pkv:ProzesskettenVorlage)$ aus (\textbf{Schritt 1}).
+Alls nächstes sollen alle ProzessschrittVorlagen die einer ProzesskettenVorlage
+zugewiesen sind angezeigt werdne. Dafür führt der ProzesskettenController die
 Methode $getPSV()$ aus (\textbf{Schritt 2}).
 
-Die nächsten Schritte sind optimal. Den es ist dem pkAdmin überlassen was er in
+Die nächsten Schritte sind optimal. Den es ist dem Prozesskettenadministrator überlassen was er in
 der Vorlage ändern will. Es bietet sich hier an, manuell eine
 Experimentierstation zuzuweisen, ansonsten wird dies in dem \textbf{11. Schritt}
 ausgeführt.
-Es ist dem pkAdmin möglich sich den den ProzessSchrittZustandsAutomaten des
-ProzessSchrittes anzeigen zu lassen. Damit die ProzessSchrittVorlage sich
-nachher Experimentierstationen sich zuweisen kann setzt der pkAdmin die Eingabe
-und Ausgabe Träger für die ProzessSchrittVorlage. Nun kann der pkAdmin die
-ProzessSchrittArt setzten. Anmerkung: Die ProzessSchrittArten werden im voraus
+Es ist dem Prozesskettenadministrator möglich sich den den ProzessschrittZustandsAutomaten des
+Prozessschrittes anzeigen zu lassen. Damit die ProzessschrittVorlage sich
+nachher Experimentierstationen sich zuweisen kann setzt der Prozesskettenadministrator die Eingabe
+und Ausgabe Träger für die ProzessschrittVorlage. Nun kann der Prozesskettenadministrator die
+ProzessschrittArt setzten. Anmerkung: Die ProzessschrittArten werden im voraus
 festgelegt.
 
-Wichtig für die Automatische Zuordnung der ProzessSchrittVorlage ist das setzen
-von Bedingungen. Bedingungen können entweder direkt in der ProzessSchrittVorlage
+Wichtig für die Automatische Zuordnung der ProzessschrittVorlage ist das setzen
+von Bedingungen. Bedingungen können entweder direkt in der ProzessschrittVorlage
 generiert werden. Falls eine Bedingung nicht einer trivialen Bedingung entspricht
 ist es möglich das der BedingungsController diese aus Eigenschaften oder aus
-ProzessSchrittParameteren einem erzeugt. Diese werden dann an den
+ProzessschrittParameteren einem erzeugt. Diese werden dann an den
 BedingungsController gesendet, dieser gibt dann die korrekte Bedingung zurück.
-Jetzt kennt der ProzessSchrittVorlageController alle Bedingungen für den den
-ProzessSchritt. Die methode setES(), welche keine Parameter hat, ist dafür
+Jetzt kennt der ProzessschrittVorlageController alle Bedingungen für den den
+Prozessschritt. Die methode setES(), welche keine Parameter hat, ist dafür
 zuständig aus der Menge $a$ aller Experimentierstationen eine Teilmenge $b$ der
 Experimentierstationen, die den geforderten Bedingungen
 entsprechen zu bilden. Alle Experimentierstationen  $a \in b$ die der Bedingung
-entsprechen werden dann der ProzessSchrittVorlage zugeordnet
+entsprechen werden dann der ProzessschrittVorlage zugeordnet
 
-Als letzes setzt der pkAdmin die geschätzte Dauer für die Durchführung des
-ProzessSchrittes. Jetzt verwaltet der ProzessKettenVorlageController wieder.
-Falls der pkAdmin jetzt weitere ProzesskettenVorlagen bearbeiten möchte, kann er
+Als letzes setzt der Prozesskettenadministrator die geschätzte Dauer für die Durchführung des
+Prozessschrittes. Jetzt verwaltet der ProzesskettenVorlageController wieder.
+Falls der Prozesskettenadministrator jetzt weitere ProzesskettenVorlagen bearbeiten möchte, kann er
 dies nun tun.
 
-Sobald er die gesamte Prozesskette kontrolliert hat, lässt er die ProzessKette
+Sobald er die gesamte Prozesskette kontrolliert hat, lässt er die Prozesskette
 verifizieren. Hier wird überprüft, ob alle Experimentierstationen die benötigen
 Träger an und ausgeben. Weiter wird in dieser Methode überprüft, ob alle
-ProzessSchrittVorlagen Experimentierstationen zugewiesen bekommen haben. Falls
-dies nicht klappt, muss der pkAdmin die probleme in den ProzessSchrittVorlagen
-selber lösen. Dafür kann er die Randbedingungen des ProzessSchrittes ändern oder
-selber Experimentierstationen der ProzessSchrittVorlage zuweisen.
+ProzessschrittVorlagen Experimentierstationen zugewiesen bekommen haben. Falls
+dies nicht klappt, muss der Prozesskettenadministrator die probleme in den ProzessschrittVorlagen
+selber lösen. Dafür kann er die Randbedingungen des Prozessschrittes ändern oder
+selber Experimentierstationen der ProzessschrittVorlage zuweisen.
 
-Der pkAdmin kann die angeforderten Proben setzen. Sobald die Verifizierung der
+Der Prozesskettenadministrator kann die angeforderten Proben setzen. Sobald die Verifizierung der
 Prozesskette erfolgt ist, kann er, falls gewollt, die Priorität ändern und dann
-den Zustand der ProzessKette zu FREIGEGEBEN ändern. Ab diesem Zeitpunkt
+den Zustand der Prozesskette zu FREIGEGEBEN ändern. Ab diesem Zeitpunkt
 erscheint in der App der Logistiker die Prozesskette.
 
-Jetzt erhält der Logistiker einen neuen Probenzuweisungsauftrag, falls die Anfrage genehmigt wurde, kann der PKAdmin nun die Prozesskette starten.
+Jetzt erhält der Logistiker einen neuen Probenzuweisungsauftrag, falls die Anfrage genehmigt wurde, kann der Prozesskettenadministrator nun die Prozesskette starten.
 
 Hier ist beginnt ein neues Kapitel in unserem Sequenz Diagramm, nämmlich das
 Starten eines neuen Auftrages. Jetzt erhält der Logistiker einen neuen
-Probenzuweisungsauftrag, falls die Anfrage genehmigt wurde, kann der PKAdmin nun
+Probenzuweisungsauftrag, falls die Anfrage genehmigt wurde, kann der Prozesskettenadministrator nun
 die Prozesskette starten.
 
 Um zu überprüfen ob genügend Proben zugewiesen worden sind, wird die Methode
@@ -1942,9 +1942,9 @@ In der Graphik \ref{fig:logstikProbenPüftZuweisen} erhält die Logistik eine
 Anfrage für die Probenverwaltung. Es muss nun vom System geprüft werden
 ob Proben mit den gewünschten Materialeigenschaften im Lager sind. Das System gibt diese an die Logistik zurück. Werden die Proben dann von dem Logistiker ausgewählt und genehmigt, so werden diese an den Auftrag übermittelt und persistiert.
 Diese Graphik wurde abstrakt gehalten, denn sie Betrifft den Logistiker und
-nicht den pkAdmin
+nicht den Prozesskettenadministrator
 
-\subsection{ProzessSchritt Sequenzdiagramm}
+\subsection{Prozessschritt Sequenzdiagramm}
 
 
 
@@ -1968,7 +1968,7 @@ Um die Anwendung nach der Auslieferung an den Kunden entwickel- und erweiterbar 
 \subsection{Automatische statistische Auswertung} 
 { Die erste Idee zum
   sinnvollen Erweitern der Software soll eine Voraussicht ausgeben können, wie
-  sich nach dem Ausführen eines beliebigen ProzessSchritts auf eine Probe ihre
+  sich nach dem Ausführen eines beliebigen Prozessschritts auf eine Probe ihre
   Eigenschaften ändern würden, bzw. welche Eigenschaften die Probe danach
   wahrscheinlich haben wird. Da wir in der Datenbank ca. eine halbe Million
   Proben haben, kann ein analytischer Algorithmus Statistiken erstellen, welche
@@ -1976,7 +1976,7 @@ Um die Anwendung nach der Auslieferung an den Kunden entwickel- und erweiterbar 
   auswertet. Um es in unsere Architektur einzubinden, muss eine Klasse für die
   Statistiksoftware erstellt werden, aus dieser werden die Statistiken erstellt
   und dann mit den eingegebenen Daten abgeglichen. Am Ende bekommt man die
-  Änderung der Eigenschaften zurück, die am wahrscheinlichsten ist, wenn ein ProzessSchritt auf die Probe angewandt wird.
+  Änderung der Eigenschaften zurück, die am wahrscheinlichsten ist, wenn ein Prozessschritt auf die Probe angewandt wird.
 }
 \subsection{Voraussichtliche Dauer eines Prozesses} 
 { Man kann den Algorithmus aus der automatischen statistischen Auswertung auch dafür verwenden, dass aus den durch den Algorithmus aus 9.1 errechneten empirischen Daten die voraussichtliche Dauer eines Prozesses errechnet und ausgegeben wird. Hier braucht man, wie in 9.1, eine neue Klasse, welche die Statistiksoftware beinhaltet, aus welcher man dann eine wahrscheinliche Zeit herausbekommt.
@@ -1993,7 +1993,7 @@ Um die Anwendung nach der Auslieferung an den Kunden entwickel- und erweiterbar 
 
   Um dies zu realisieren, muss die REST-API so erweitert werden, dass über
   die Businesslogik die Proben und Träger im Modell aktualisiert werden. Der
-  Zustand der jeweiligen ProzessSchritte muss ebenfalls verändert werden.
+  Zustand der jeweiligen Prozessschritte muss ebenfalls verändert werden.
 }
 
 
