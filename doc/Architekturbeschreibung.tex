@@ -101,9 +101,11 @@
   \begin{center}
   \vspace{1cm}
   \bf
-  \Large Architekturbeschreibung\\
+  \Large Architekturbeschreibung\\ Data Colorado\\
   \vfill
   \end{center}
+  \centering
+  \includegraphics[width=0.4\textwidth]{UML/Logo.png}\\
   \end{minipage}
   \vfill
   \begin{minipage}[H]{\textwidth}
@@ -1439,7 +1441,7 @@ Dieses Paket wird gebraucht, da es vorgegeben ist.
   \label{fig:boat1}
 \end{center}
 \end{figure}
-Dieses Modul ist für die Erstellung und Verwaltung von Nutzern zuständig. Durch User Controller können z.B. neue Nutzer erstellt werden, oder die Daten von bestehenden Users verändert werden. Dafür greift Controller auf die Datenklasse User zu um diese Nutzer zu erstellen und verwalten. Um diese anschließend in der Datenbank abspeichern zu können, greift User Controller auf die UserDAO zu um die Benutzer in der Datenbank zu Speichern und Verwalten.
+Dieses Modul ist für die Erstellung und Verwaltung von Nutzern zuständig. Durch User Controller können z.B. neue Nutzer erstellt werden, oder die Daten von bestehenden Users verändert werden. Dafür greift Controller auf die Datenklasse User zu um diese Nutzer zu erstellen und verwalten. Um diese anschließend in der Datenbank abspeichern zu können, greift User Controller auf die UserDAO zu um die Benutzer in der Datenbank zu Speichern und Verwalten. In der Datenklasse von User wird zudem auch die eingestellte Sprache des Nutzern eingespeichert und nach Wunsch geändert.
 
 \newpage
 
@@ -1451,7 +1453,7 @@ Dieses Modul ist für die Erstellung und Verwaltung von Nutzern zuständig. Durc
   \label{fig:boat1}
 \end{center}
 \end{figure}
-
+Dieses Modul ist für die Erstellung von Prozessketten Vorlagen zuständig. Um eine neue Prozesskettenvorlage erstellen zu können, brauchen wir allerdings erst einmal Prozessschrittvorlagen aus welchen diese bestehen soll. Um nun eine Prozesskettenvorlage erstellen zu können muss der Controller Zugriff auf die Datenklasse von Prozesskettenvorlage haben. Nachdem eine neue Prozesskettenvorlage erstellt wurde, möchte man diese allerdings in der Datenbank speichern. Hierfür hat Controller auch Zugriff auf die DAO Klasse von Prozesskettenvorlage. Das gleiche gilt auch wenn man eine Prozesskettenvorlage bearbeiten oder löschen möchte. 
 \newpage
 
 \subsubsection{Auftrags Modul}
@@ -1463,8 +1465,31 @@ Dieses Modul ist für die Erstellung und Verwaltung von Nutzern zuständig. Durc
 \end{center}
 \end{figure}
 
+Nun kommen wir zu unserem Auftragsmodul. Aufträge sollen instanziierte Prozessketten sein. Daher benötigen wir, um einen Auftrag erstellen zu können, eine Prozesskettenvorlage aus welcher dieser erstellt wird. Ein Auftrag muss allerdings auch immer einen AuftragsLog haben in welchem alles mögliche wichtige geloggt wird. Ein Auftrag besteht allerdings aus Prozessschritten, welche er daher auch hat.
+Um nun Aufträge erstellen oder verwalten zu können, muss unser Auftragscontroller zugriff auf die Auftrags Datenklasse haben. Zusätzlich möchte man diese in der Datenbank einspeichern und verwalten können, wozu der Controller auch Zugriff auf die DAO Klasse von Auftrag hat.
 \newpage
 
+\subsubsection{Prozessschrittvorlage Modul}
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{UML/Modules/ProzessSchrittVorlage.pdf}
+  \caption{Prozessschrittvorlage Module}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
+Um Prozessschrittvorlagen erstellen zu können benötigen wir allerdings Prozessschrittvorlagen, aus welchen letztendlich Prozessschritte eines Auftrags erstellt werden. Hierfür dient das Modul Prozessschrittvorlage. Dieses Modul ist für die Erstellung und Bearbeitung von Prozessschrittvorlagen zuständig. Um nun Prozessschrittvorlagen erstellen zu können, benötigen wir erst einmal einen Prozessschrittzustandsautomat welcher den Zustand eines Prozessschritts darstellt. Dieser wird allerdings von einer Vorlage erstellt, welche in der Proezssschrittvorlage abgespeichert wird, wodurch der Prozessschritt der aus dieser Vorlage erstellt wird anschließend weiß welche zustände er haben kann. Um nun Prozessschrittvorlagen erstellen zu können muss unser Controller auf die Datenklasse Prozessschrittvorlage Zugriff haben. Um diese Vorlagen anschließend in der Datenbank verwalten zu können muss er auch Zugriff auf die DAO Klasse von Prozessschrittvorlage haben.
+\newpage
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{UML/Modules/ProzessSchrittVorlage.pdf}
+  \caption{Prozessschrittvorlage Module}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
+\newpage
 \section{Datensicht}
 \label{sec:datensicht}
 
