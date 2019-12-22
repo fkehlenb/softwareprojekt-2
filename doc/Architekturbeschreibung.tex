@@ -1429,6 +1429,8 @@ Dieses Paket wird gebraucht, da es vorgegeben ist.
 \end{center}
 \end{figure}
 
+Dieses Diagramm beschreibt die in unserem System verwendeten Services. Unser System soll z.B. bei der Erstellung von Benutzern E-mails versenden können, wozu wir das Email Modul haben. Zugleich soll unser System durch Apache Shiro gesichert sein, wodurch wir das Modul Apache Schiro haben. Wir möchten zur Datenverwaltung außerdem noch Deltaspike Data benutzen wodurch wir auch dieses Modul haben.  
+
 
 \newpage
 \subsection{Module}
@@ -1481,13 +1483,26 @@ Um nun Aufträge erstellen oder verwalten zu können, muss unser Auftragscontrol
 Um Prozessschrittvorlagen erstellen zu können benötigen wir allerdings Prozessschrittvorlagen, aus welchen letztendlich Prozessschritte eines Auftrags erstellt werden. Hierfür dient das Modul Prozessschrittvorlage. Dieses Modul ist für die Erstellung und Bearbeitung von Prozessschrittvorlagen zuständig. Um nun Prozessschrittvorlagen erstellen zu können, benötigen wir erst einmal einen Prozessschrittzustandsautomat welcher den Zustand eines Prozessschritts darstellt. Dieser wird allerdings von einer Vorlage erstellt, welche in der Proezssschrittvorlage abgespeichert wird, wodurch der Prozessschritt der aus dieser Vorlage erstellt wird anschließend weiß welche zustände er haben kann. Um nun Prozessschrittvorlagen erstellen zu können muss unser Controller auf die Datenklasse Prozessschrittvorlage Zugriff haben. Um diese Vorlagen anschließend in der Datenbank verwalten zu können muss er auch Zugriff auf die DAO Klasse von Prozessschrittvorlage haben.
 \newpage
 
+\subsubsection{Prozessschritt Modul}
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=\textwidth]{UML/Modules/ProzessSchrittVorlage.pdf}
-  \caption{Prozessschrittvorlage Module}
+ \includegraphics[width=\textwidth]{UML/Modules/ProzessSchritt.pdf}
+  \caption{Prozessschritt Module}
   \label{fig:boat1}
 \end{center}
 \end{figure}
+Nun möchte man ja vielleicht Prozessschritte erstellen. Ein Prozessschritt benötigt einen Prozessschrittszustandsautomat und einen Prozessschrittlog. Um nun Prozessschritte erstellen zu können muss unser Prozessschrittcontroller zugriff auf die Prozessschritt Datenklasse haben, und um diese anschließend in der Datenbank verwalten zu können brauch er auch zugriff auf ProzessschrittDAO.
+\newpage 
+
+\subsubsection{Träger Modul}
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{UML/Modules/Traeger.pdf}
+  \caption{Träger Module}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+Die Proben in unserem System werden in Trägern transportiert. Diese Träger benötigen einen Standort zu jeder Zeit und haben immer eine Art. Um nun diese Träger verwalten zu können braucht unser Controller Zugriff auf die Träger Datenklasse. Um diese dann in der Datenbank verwalten zu können brauch er ebenfalls Zugriff auf die TraegerDAO klasse.
 
 \newpage
 \section{Datensicht}
