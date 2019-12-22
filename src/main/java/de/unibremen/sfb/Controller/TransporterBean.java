@@ -2,14 +2,16 @@ package de.unibremen.sfb.Controller;
 
 import de.unibremen.sfb.Model.*;
 
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+import java.io.Serializable;
 import java.util.Set;
 
 /**
  * this bean manages the interaction of the gui with the backend system (for users who are transporters)
  */
-public class TransporterBean {
+public class TransporterBean implements Serializable {
 
-    //TODO bean properties
     /**
      * the user managed by this bean
      */
@@ -37,4 +39,21 @@ public class TransporterBean {
      * @param id the id of the sample
      */
     public void reportLostProbe(int id) {}
+
+    /**
+     * the empty constructor
+     */
+    public TransporterBean(){}
+
+    /**
+     * returns the transporter managed by this bean
+     * @return the user
+     */
+    public User getTransporter() { return transporter; }
+
+    /**
+     * sets the transporter managed by this bean
+     * @param t the user
+     */
+    public void setTransporter(User t) { transporter = t; }
 }

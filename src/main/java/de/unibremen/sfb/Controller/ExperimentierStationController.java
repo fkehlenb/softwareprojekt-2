@@ -1,8 +1,8 @@
 package de.unibremen.sfb.Controller;
 
-import de.unibremen.sfb.Model.ExperimentierStation;
-import de.unibremen.sfb.Model.ExperimentierStationZustand;
-import de.unibremen.sfb.Model.ProzessSchritt;
+import de.unibremen.sfb.Model.*;
+
+import java.util.Set;
 
 /**
  * this class manages communication with models of experimenting stations (ExperimentierStationen)
@@ -69,4 +69,21 @@ public class ExperimentierStationController {
      */
     public int getUsage() { return 0; }
 
+    /**
+     * sets the types carriers have to be in order to enter this experimenting station
+     * @param ta a set containing all carrier types for entry
+     */
+    public void setEingabe(Set<TraegerArt> ta) {}
+
+    /**
+     * sets the types carriers are when they exit this experimenting station
+     * @param ta a set containing all carrier types for exit
+     */
+    public void setAusgabe(Set<TraegerArt> ta) {}
+
+    /**
+     * sets the conditions for this experimenting station
+     * @param b a set containing all conditions
+     */
+    public void setBedingung(Set<Bedingung> b) {}
 }
