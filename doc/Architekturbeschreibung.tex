@@ -1389,6 +1389,7 @@ Diese Komponente ist verwunden mit der BusinessLogik, um die Request und Data Be
 \section{Modulsicht}
 
 In diesem Kapitel gehen wir genauer auf die in der konzeptionellen Sicht gezeigten Komponenten ein. Eine detaillierte Beschreibung der Klassen und ihrer Schnittstellen ist im Javadoc der Schnittstellenbeschreibung enthalten.
+Die Modularisierung ergibt sich aus den Strategien 11.2 und 15.1.
 
 \label{sec:modulsicht}
 \begin{figure}[H]
@@ -1435,7 +1436,18 @@ In dieser Sicht, im UserController wird
 Die Persistenzklassen sind für die persistierung von Daten zuständig. Sie erben alle von der abstrakten Klasse ObjectDAO. Diese Klasse implementiert den EntityManager, der für das Verwalten der Datenbankinformationen zuständig ist. Die verschiedenen Funktionen sollen zum Beispiel das Speichern und das Laden nach einem Neustart von Daten ermöglichen. Jedes Objekt, was für die Speicherung in der Datenbank relevant ist, hat eine Klasse, die von ObjectDAO erbt. ObjectDAO hat drei abstrakte Funktionen, die jeweils in den Klassen für die einzelnen Objekte implementiert werden. Zusätzlich gibt es in zu jeder Klasse die relevanten Get Funktionen, um Informationen aus diesen Klassen zu bekommen. Die Funktion persist(T) speichert Objekte in die Datenbank. Update() überschreibt eine vorherige Version dieses Objektes mit der neuen und remove() entfernt das Objekt.
 
 Hier wird das DAO-Pattern genutzt, wodurch die Programmlogik sich nicht an technische Deteils der Datenspeicherung halten muss. Datdurch ist ein flexibelerer Einsatz möglich. 
-Dieses Paket wird gebraucht, da es vorgegeben ist. 
+Dieses Paket wird gebraucht, da es vorgegeben ist. \\
+
+Einige Strategien, deren Umsetzung hier sichtbar ist und nicht in den Modulen detaillierter besprochen werden: \\
+In ProzessSchrittParameterController findet sich eine exportJSON Methode, die die Umsetzung von Strategie 4.2 darstellt. 
+Die Strategie 5.1 findet sich in den Methoden in den Klassen AuftragsLogController und ProzessSchrittLogController, durch die die einzelnen Daten der Protokolle einstellbar sind. Die Logs werden durch Methoden in AuftragController und ProzessSchrittController gesetzt. 
+Der Technologe kann durch die Methode prioSort die Aufträge automatisch nach Ihrer Priorität sortiert anzeigen lassen, was der Strategie 7.2 entspricht. 
+Die Strategie 10.2 zeigt sich hier vor allem durch Methoden des ProzessKettenAdministrators wie zum Beispiel setBedingung.
+Das lazy loading von Strategie 12.1 kann schlecht explizit in der Architektur gesehen werden. Das Laden der Proben wird über die Methoden getProben des Logistikers gemacht. 
+Der Technologe kann durch assignToAuftrag und getAuftrag mit den Transportaufträge umgehen. Mithilfe der Klasse TransportAufträge werden diese Aufträge gemanaged: Hier können unter anderem die Zustände gesetzt werden. Dadurch ist diese Klasse die Umsetzung der Strategie 13.1.
+Durch die Methode setEs ohne Parameter aus der Klasse ProzessSchrittVorlageController kann einem ProzessSchritt automatisch die beste ExperimentierStation zugeordnet werden. Das passiert unter anderem mithilfe der Bedingungen von Experimentierstationen, und den Eigenschaften von Proben. Dadurch ist die Strategie 14.2 umgesetzt. 
+Der Prozesskettenadmin kann einen Prozessschrittzustandsautomat setzen, was er mithilfe einer seperaten Klasse für diesen Zustandsautomaten(ProzessSchrittZustandsAutomat) macht. Das ist Strategie 19.3.
+
 }
 
  \begin{sidewaysfigure}
@@ -1467,7 +1479,7 @@ Dieses Diagramm beschreibt die in unserem System verwendeten Services. Unser Sys
   \label{fig:boat1}
 \end{center}
 \end{figure}
-Dieses Modul ist für die Erstellung und Verwaltung von Nutzern zuständig. Durch UserController können z.B. neue Nutzer erstellt werden, oder die Daten von bestehenden Users verändert werden. Dafür greift Controller auf die Datenklasse User zu, um diese Nutzer zu erstellen und verwalten. Um diese anschließend in der Datenbank abspeichern zu können, greift UserController auf die UserDAO zu um die Benutzer in der Datenbank zu speichern und verwalten. In der Datenklasse von User wird zudem auch die eingestellte Sprache des Nutzern eingespeichert und nach Wunsch geändert.
+Dieses Modul ist für die Erstellung und Verwaltung von Nutzern zuständig. Durch UserController können z.B. neue Nutzer erstellt werden, oder die Daten von bestehenden Users verändert werden. Dafür greift Controller auf die Datenklasse User zu, um diese Nutzer zu erstellen und verwalten. Um diese anschließend in der Datenbank abspeichern zu können, greift UserController auf die UserDAO zu, um die Benutzer in der Datenbank zu speichern und verwalten. In der Datenklasse von User wird zudem auch die eingestellte Sprache des Nutzern eingespeichert und nach Wunsch geändert.\\
 Die Beans für jeden einzelnen Nutzer werden für ein Umsetzen der Rollen mit Apache Shiro nach Strategie 2.1 gebraucht. 
 Die Umsetzung von Strategie 1.2 zeigt sich im UserController in den Methoden get/set/removeRole. 
 
@@ -1481,9 +1493,9 @@ Die Umsetzung von Strategie 1.2 zeigt sich im UserController in den Methoden get
   \label{fig:boat1}
 \end{center}
 \end{figure}
-Dieses Modul ist für die Erstellung von Prozesskettenvorlagen zuständig. Um eine neue Prozesskettenvorlage erstellen zu können, brauchen wir allerdings erst einmal Prozessschrittvorlagen, aus welchen diese bestehen soll. Um nun eine Prozesskettenvorlage erstellen zu können muss der Controller Zugriff auf die Datenklasse von Prozesskettenvorlage haben. Nachdem eine neue Prozesskettenvorlage erstellt wurde, möchte man diese allerdings in der Datenbank speichern. Hierfür hat Controller auch Zugriff auf die DAO Klasse von Prozesskettenvorlage. Das gleiche gilt auch wenn man eine Prozesskettenvorlage bearbeiten oder löschen möchte. 
+Dieses Modul ist für die Erstellung von Prozesskettenvorlagen zuständig. Um eine neue Prozesskettenvorlage erstellen zu können, brauchen wir allerdings erst einmal Prozessschrittvorlagen, aus welchen diese bestehen soll. Um nun eine Prozesskettenvorlage erstellen zu können, muss der Controller Zugriff auf die Datenklasse von Prozesskettenvorlage haben. Nachdem eine neue Prozesskettenvorlage erstellt wurde, möchte man diese allerdings in der Datenbank speichern. Hierfür hat Controller auch Zugriff auf die DAO Klasse von Prozesskettenvorlage. Das gleiche gilt auch wenn man eine Prozesskettenvorlage bearbeiten oder löschen möchte. \\
 %An den unterschiedlichen Controllern für ProzessKetten- sowie ProzessSchrittVorlagen und dem tatsächlichen ProzessSchritt/Auftrag sowie vor allem den Methoden, die in diesen vorhanden sind, sieht man die Umsetzung von Strategie 3.1.
-Hier wird Strategie 3.1 für die ProzessKetten umgesetzt.
+Hier wird Strategie 3.1 für die Prozessketten umgesetzt.
 \newpage
 
 \subsubsection{Auftrags Modul}
@@ -1496,7 +1508,8 @@ Hier wird Strategie 3.1 für die ProzessKetten umgesetzt.
 \end{figure}
 
 Nun kommen wir zu unserem Auftragsmodul. Aufträge sollen instanziierte Prozessketten sein. Daher benötigen wir, um einen Auftrag erstellen zu können, eine Prozesskettenvorlage aus welcher dieser erstellt wird. Ein Auftrag muss allerdings auch immer einen AuftragsLog haben in welchem alles mögliche wichtige geloggt wird. Ein Auftrag besteht allerdings aus Prozessschritten, welche er daher auch hat.
-Um nun Aufträge erstellen oder verwalten zu können, muss unser Auftragscontroller zugriff auf die Auftrags Datenklasse haben. Zusätzlich möchte man diese in der Datenbank einspeichern und verwalten können, wozu der Controller auch Zugriff auf die DAO Klasse von Auftrag hat.
+Um nun Aufträge erstellen oder verwalten zu können, muss unser Auftragscontroller Zugriff auf die Auftragsdatenklasse haben. Zusätzlich möchte man diese in der Datenbank einspeichern und verwalten können, wozu der Controller auch Zugriff auf die DAO Klasse von Auftrag hat. \\
+Der AuftragsLog beschreibt die Umsetzung der Strategie 5.1.
 \newpage
 
 \subsubsection{Prozessschrittvorlage Modul}
@@ -1508,7 +1521,7 @@ Um nun Aufträge erstellen oder verwalten zu können, muss unser Auftragscontrol
 \end{center}
 \end{figure}
 
-Um Prozessschrittvorlagen erstellen zu können benötigen wir allerdings Prozessschrittvorlagen, aus welchen letztendlich Prozessschritte eines Auftrags erstellt werden. Hierfür dient das Modul Prozessschrittvorlage. Dieses Modul ist für die Erstellung und Bearbeitung von Prozessschrittvorlagen zuständig. Um nun Prozessschrittvorlagen erstellen zu können, benötigen wir erst einmal einen Prozessschrittzustandsautomat welcher den Zustand eines Prozessschritts darstellt. Dieser wird allerdings von einer Vorlage erstellt, welche in der Proezssschrittvorlage abgespeichert wird, wodurch der Prozessschritt der aus dieser Vorlage erstellt wird anschließend weiß welche zustände er haben kann. Um nun Prozessschrittvorlagen erstellen zu können muss unser Controller auf die Datenklasse Prozessschrittvorlage Zugriff haben. Um diese Vorlagen anschließend in der Datenbank verwalten zu können muss er auch Zugriff auf die DAO Klasse von Prozessschrittvorlage haben.
+Um Prozessschrittvorlagen erstellen zu können, benötigen wir allerdings Prozessschrittvorlagen, aus welchen letztendlich Prozessschritte eines Auftrags erstellt werden. Hierfür dient das Modul Prozessschrittvorlage. Dieses Modul ist für die Erstellung und Bearbeitung von Prozessschrittvorlagen zuständig. Um nun Prozessschrittvorlagen erstellen zu können, benötigen wir erst einmal einen Prozessschrittzustandsautomat welcher den Zustand eines Prozessschritts darstellt. Dieser wird allerdings von einer Vorlage erstellt, welche in der Prozessschrittvorlage abgespeichert wird, wodurch der Prozessschritt, der aus dieser Vorlage erstellt wird, anschließend weiß welche zustände er haben kann. Um nun Prozessschrittvorlagen erstellen zu können, muss unser Controller auf die Datenklasse Prozessschrittvorlage Zugriff haben. Um diese Vorlagen anschließend in der Datenbank verwalten zu können, muss er auch Zugriff auf die DAO Klasse von Prozessschrittvorlage haben.\\
 Hier wird Strategie 3.1 für die Prozessschritte umgesetzt.
 \newpage
 
@@ -1520,7 +1533,8 @@ Hier wird Strategie 3.1 für die Prozessschritte umgesetzt.
   \label{fig:boat1}
 \end{center}
 \end{figure}
-Nun möchte man ja vielleicht Prozessschritte erstellen. Ein Prozessschritt benötigt einen Prozessschrittszustandsautomat und einen Prozessschrittlog. Um nun Prozessschritte erstellen zu können muss unser Prozessschrittcontroller zugriff auf die Prozessschritt Datenklasse haben, und um diese anschließend in der Datenbank verwalten zu können brauch er auch zugriff auf ProzessschrittDAO.
+Nun möchte man ja vielleicht Prozessschritte erstellen. Ein Prozessschritt benötigt einen Prozessschrittszustandsautomat und einen Prozessschrittlog. Um nun Prozessschritte erstellen zu können muss unser Prozessschrittcontroller Zugriff auf die Prozessschritt Datenklasse haben, und um diese anschließend in der Datenbank verwalten zu können braucht er auch Zugriff auf ProzessschrittDAO.\\
+
 \newpage 
 
 \subsubsection{Probe Modul}
@@ -1532,7 +1546,10 @@ Nun möchte man ja vielleicht Prozessschritte erstellen. Ein Prozessschritt ben�
 \end{center}
 \end{figure}
 
-Nun kommen wir zum Modul Probe. Die Proben in unserem System müssen erstellt und verwaltet werden können, wodurch der Probencontroller Zugriff auf die Proben Datenklasse haben muss. Außerdem muss man die Proben in der Datenbank auch verwalten können, wodurch der Probencontroller Zugriff auf ProbeDAO haben muss.
+Nun kommen wir zum Modul Probe. Die Proben in unserem System müssen erstellt und verwaltet werden können, wodurch der Probencontroller Zugriff auf die Proben Datenklasse haben muss. Außerdem muss man die Proben in der Datenbank auch verwalten können, wodurch der Probencontroller Zugriff auf ProbeDAO haben muss.\\
+Die Umsetzung der Strategie 8.1 zeigt sich vor allem dadurch, dass es keine Methoden oder andere Aspekte der Architektur gibt, die irgendwie Proben in Gruppen sortieren. Jede Probe hat eine ID. Des weiteren kann jede Probe durch Ihre ID identifiziert werden (so zum Beispiel in der Methode reportLostMethode des Technologen). 
+Durch set- und getArchiv in der Klasse ProbeController kann für eine Probe das Archiv gesetzt und zurückgegeben werden. Durch das Setzen des Archivs wird eine Probe archiviert. Es gibt außerdem die Klasse Archiv, die alle notwendigen Informationen speichert. Das ist unsere Umsetzung der Strategie 16.1.
+Mithilfe von addComment im ProbeController kann ein Pair aus Kommentar und Zeit einer Probe zugeordnet werden. Dadurch wird Strategie 20.3 umgesetzt. 
 
 \newpage
 \subsubsection{Träger Modul}
@@ -1543,7 +1560,8 @@ Nun kommen wir zum Modul Probe. Die Proben in unserem System müssen erstellt un
   \label{fig:boat1}
 \end{center}
 \end{figure}
-Die Proben in unserem System werden in Trägern transportiert. Diese Träger benötigen einen Standort zu jeder Zeit und haben immer eine Art. Um nun diese Träger verwalten zu können braucht unser Controller Zugriff auf die Träger Datenklasse. Um diese dann in der Datenbank verwalten zu können brauch er ebenfalls Zugriff auf die TraegerDAO klasse.
+Die Proben in unserem System werden in Trägern transportiert. Diese Träger benötigen einen Standort zu jeder Zeit und haben immer eine Art. Um nun diese Träger verwalten zu können braucht unser Controller Zugriff auf die Träger Datenklasse. Um diese dann in der Datenbank verwalten zu können, braucht er ebenfalls Zugriff auf die TraegerDAO klasse.\\
+Durch die Klasse TraegerArt wird Strategie 17.3 umgesetzt. \\
 
 \newpage
 \section{Datensicht}
