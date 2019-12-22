@@ -1398,6 +1398,15 @@ Diese Komponente ist verwunden mit der BusinessLogik, um die Request und Data Be
 
 In diesem Kapitel gehen wir genauer auf die in der konzeptionellen Sicht gezeigten Komponenten ein. Eine detaillierte Beschreibung der Klassen und ihrer Schnittstellen ist im Javadoc der Schnittstellenbeschreibung enthalten.
 Die Modularisierung ergibt sich aus den Strategien 11.2 und 15.1.
+Von folgenden Strategien sieht man hier die Umsetzungen, die werden aber nicht näher in den unten folgenden Modulen beschrieben: \\
+In ProzessSchrittParameterController findet sich eine exportJSON Methode, die die Umsetzung von Strategie 4.2 darstellt. 
+Die Strategie 5.1 findet sich in den Methoden in den Klassen AuftragsLogController und ProzessSchrittLogController, durch die die einzelnen Daten der Protokolle einstellbar sind. Die Logs werden durch Methoden in AuftragController und ProzessSchrittController gesetzt. 
+Der Technologe kann durch die Methode prioSort die Aufträge automatisch nach Ihrer Priorität sortiert anzeigen lassen, was der Strategie 7.2 entspricht. 
+Die Strategie 10.2 zeigt sich hier vor allem durch Methoden des ProzessKettenAdministrators wie zum Beispiel setBedingung.
+Das lazy loading von Strategie 12.1 kann schlecht explizit in der Architektur gesehen werden. Das Laden der Proben wird über die Methoden getProben des Logistikers gemacht. 
+Der Technologe kann durch assignToAuftrag und getAuftrag mit den Transportaufträge umgehen. Mithilfe der Klasse TransportAufträge werden diese Aufträge gemanaged: Hier können unter anderem die Zustände gesetzt werden. Dadurch ist diese Klasse die Umsetzung der Strategie 13.1.
+Durch die Methode setEs ohne Parameter aus der Klasse ProzessSchrittVorlageController kann einem ProzessSchritt automatisch die beste ExperimentierStation zugeordnet werden. Das passiert unter anderem mithilfe der Bedingungen von Experimentierstationen, und den Eigenschaften von Proben. Dadurch ist die Strategie 14.2 umgesetzt. 
+Der Prozesskettenadmin kann einen Prozessschrittzustandsautomat setzen, was er mithilfe einer seperaten Klasse für diesen Zustandsautomaten(ProzessSchrittZustandsAutomat) macht. Das ist Strategie 19.3.
 
 \label{sec:modulsicht}
 \begin{figure}[H]
@@ -1487,7 +1496,6 @@ Hier sieht man die Umsetzung der Strategie 1.2 anhand der Methoden setRole, und 
   \label{fig:boat1}
 \end{center}
 \end{figure}
-%An den unterschiedlichen Controllern für ProzessKetten- sowie ProzessSchrittVorlagen und dem tatsächlichen ProzessSchritt/Auftrag sowie vor allem den Methoden, die in diesen vorhanden sind, sieht man die Umsetzung von Strategie 3.1.
 Hier wird Strategie 3.1 für die Prozessketten umgesetzt. \\
 \newpage
 
