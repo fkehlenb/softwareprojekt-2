@@ -75,7 +75,7 @@ participant "ProzessSchrittZustandsAutomatVorlageController" as psza
 participant "auftraLogController" as aLog
 participant "BedingungController" as b
 
-  ==Erstellen Eines neuen Auftrages== 
+  ==Erstellen Eines neuen Auftrages==
 note over pkaB : pkAdmin befindet sich in der pkApp
 note over pkaB: pkAdmin wählt Vorlage
 pkaB -> pkv : editProzessKettenVorlage(pkv:ProzessKettenVorlage)
@@ -83,23 +83,28 @@ note over pkv : Alle ProzessSchrritteVorlage anzeigen
 pkv -> psv : getPSV()
 note over psv : pkAdmin setzt alle gewünschten Eigenschaften
 psv -> psv : setEs(es:Experimentierstation)
-psv -> psv : setZustaende(psz:Set<ProzessSchrittZustand>)
+psv -> psv : getZustaende()
 psv -> psv :  setEingabeTraeger(Set<Traegerart>)
 psv -> psv : setAusgabeTraeger(Set<Traegerart>)
 psv -> psv : setProzessSchrittZustandsAutomat(\npsza:ProzessSchrittZustandsAutomat)
 psv -> psv :  setProzessschrittArt(psa:ProzessSchrittArt)
-psv -> b :   setBedingung(bedingung:Pair<Set\n<ProzessSchrittParameter>\n,Set<QualitativeEigenschaft>>)
-b -> psv : add Parameters (TODO)
+psv -> psv :   setBedingung(bedingung:Pair<Set\n<ProzessSchrittParameter>\n,Set<QualitativeEigenschaft>>)
+psv -> b :  setProzessSchrittParameter(psp:Set<ProzessSchrittParameter>):
+psv <- b : getBedingung()
+psv -> b: setQualitativeEigenschaft(e:Set<QualitativeEigenschaft>):
+psv <- b: getBedingung()
 psv -> psv : setEs()
-psv -> pkv : get Bedinung
+psv -> pkv : setDauer(d:java.time.Duration):void
+pkv -> pkv: setAngeforderteProben(proben:\nSet<tPair<:eQualitativeEigenschaft, n:Int>>)
 pkv -> pkaB : checkPK(ProzessKette pk)
 pkaB -> auftrag : createAuftrag(ProzessKettenVorlage pkv)
 auftrag -> auftrag : setPrio(KEINE)
-note over auftrag : PkAdmin Kontrolliert den Auftrag 
-auftrag -> auftrag : setPKZ(FREIGEGEBEN)
-==Starten des Auftarges== 
-note over auftrag : der Logistiker hat alle Proben und Träger zugewissen   
-auftrag -> aLog : setPkset(GESTARTET)
+note over auftrag : PkAdmin Kontrolliert den Auftrag
+auftrag -> auftrag : setPKZ(FREIGEBEN)
+==Starten des Auftrages==
+note over auftrag : der Logistiker hat alle Proben und Träger zugewissen
+auftrag -> auftrag: checkProben(a:Auftrag)
+auftrag -> aLog : setPKZ(GESTARTET)
 aLog -> Auftrag : setStart(java.time.LocalDateTime)
 
 
@@ -331,6 +336,7 @@ class ProzessSchrittArt {
 
 class Auftrag {
   +pkID:int
+  +angeforderteProben: Set<Pair<QualitativeEigenschaft, Int>>
 }
 
 class AuftragsLog {
@@ -453,10 +459,10 @@ es -> es : setStatus(VEFÜGBAR)
 es -> pkv : popNextPS()
 note over pkv : Neheme dem erste Prozessschritt, der noch nicht begonen wurde
 ====
-pkv -> psv : get PSV() 
+pkv -> psv : get PSV()
 psv -> psv : getES()
-psv -> b : getProzessSchrittParameter 
-b -> psv : getBedingun() 
+psv -> b : getProzessSchrittParameter
+b -> psv : getBedingun()
 ====
 psv -> es : getES()
 es -> psv : getAuslastung
@@ -469,7 +475,7 @@ ps -> tr : setTransport()
 tr -> ps : setZustand(ABGEHOLT)
 ps -> ta : getEs()
 ta -> ps : setZustand(ABGELIEFERT)
-note over ps : Probe wurde abgelifert\nTechnologe begint 
+note over ps : Probe wurde abgelifert\nTechnologe begint
 ps -> ps : setZustand(IN_BEARBEITUNG)
 ps -> psv :  setPsLog(psl)
 psv -> ps : getProzessSchrittParameter()

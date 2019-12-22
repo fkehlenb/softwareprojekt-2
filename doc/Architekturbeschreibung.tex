@@ -1837,22 +1837,62 @@ Die nächsten Schritte sind optimal. Den es ist dem pkAdmin überlassen was er i
 der Vorlage ändern will. Es bietet sich hier an, manuell eine
 Experimentierstation zuzuweisen, ansonsten wird dies in dem \textbf{11. Schritt}
 ausgeführt.
+Es ist dem pkAdmin möglich sich den den ProzessSchrittZustandsAutomaten des
+ProzessSchrittes anzeigen zu lassen. Damit die ProzessSchrittVorlage sich
+nachher Experimentierstationen sich zuweisen kann setzt der pkAdmin die Eingabe
+und Ausgabe Träger für die ProzessSchrittVorlage. Nun kann der pkAdmin die
+ProzessSchrittArt setzten. Anmerkung: Die ProzessSchrittArten werden im voraus
+festgelegt.
 
+Wichtig für die Automatische Zuordnung der ProzessSchrittVorlage ist das setzen
+von Bedingungen. Bedingungen können entweder direkt in der ProzessSchrittVorlage
+generiert werden. Falls eine Bedingung nicht einer trivialen Bedingung entspricht
+ist es möglich das der BedingungsController diese aus Eigenschaften oder aus
+ProzessSchrittParameteren einem erzeugt. Diese werden dann an den
+BedingungsController gesendet, dieser gibt dann die korrekte Bedingung zurück.
+Jetzt kennt der ProzessSchrittVorlageController alle Bedingungen für den den
+ProzessSchritt. Die methode setES(), welche keine Parameter hat, ist dafür
+zuständig aus der Menge $a$ aller Experimentierstationen eine Teilmenge $b$ der
+Experimentierstationen, die den geforderten Bedingungen
+entsprechen zu bilden. Alle Experimentierstationen  $a \in b$ die der Bedingung
+entsprechen werden dann der ProzessSchrittVorlage zugeordnet
 
+Als letzes setzt der pkAdmin die geschätzte Dauer für die Durchführung des
+ProzessSchrittes. Jetzt verwaltet der ProzessKettenVorlageController wieder.
+Falls der pkAdmin jetzt weitere ProzesskettenVorlagen bearbeiten möchte, kann er
+dies nun tun.
 
-\subsection{Alt}
-Figure \ref{fig:pkErstellen} zeigt wie der Prozesskettenadministrator die Prozesskette erstellt. 
-Bei Schritt 18, schauen sie bitte in Graphik \ref{fig:logstikProbenPüftZuweisen}. 
+Sobald er die gesamte Prozesskette kontrolliert hat, lässt er die ProzessKette
+verifizieren. Hier wird überprüft, ob alle Experimentierstationen die benötigen
+Träger an und ausgeben. Weiter wird in dieser Methode überprüft, ob alle
+ProzessSchrittVorlagen Experimentierstationen zugewiesen bekommen haben. Falls
+dies nicht klappt, muss der pkAdmin die probleme in den ProzessSchrittVorlagen
+selber lösen. Dafür kann er die Randbedingungen des ProzessSchrittes ändern oder
+selber Experimentierstationen der ProzessSchrittVorlage zuweisen.
 
-Der Prozesskettenadministrator wählt aus den vorhandenen Vorlagen eine aus, damit erstellt er einen neuen Auftrag und legt für diesen alle Parameter fest.
-Falls die Randbedingungen der Kette stimmen, darf diese instanziiert werden. Beim Speichern des Auftrages mit der instanziierten Prozesskette werden diese auch persistiert.
+Der pkAdmin kann die angeforderten Proben setzen. Sobald die Verifizierung der
+Prozesskette erfolgt ist, kann er, falls gewollt, die Priorität ändern und dann
+den Zustand der ProzessKette zu FREIGEGEBEN ändern. Ab diesem Zeitpunkt
+erscheint in der App der Logistiker die Prozesskette.
 
 Jetzt erhält der Logistiker einen neuen Probenzuweisungsauftrag, falls die Anfrage genehmigt wurde, kann der PKAdmin nun die Prozesskette starten.
-Als naächstes ist es möglich die Eingabe und Ausgabe Träger zu setzen. Wenn
-diese gesetzt sind
 
-%In der Graphik \ref{fig:logstikProbenPüftZuweisen} erhält die Logistik eine Anfrage für die Probenverwaltung. Es muss nun vom System geprüft werden ob %Proben mit den gewünschten Materialeigenschaften im Lager sind. Das System gibt diese an die Logistik zurück. Werden die Proben dann von dem %Logistiker ausgewählt und genehmigt, so werden diese an den Auftrag übermittelt und persistiert. Die Genehmigung wird an die Prozesskettenverwaltungs-%Administrationsapp übermittelt.
+Hier ist beginnt ein neues Kapitel in unserem Sequenz Diagramm, nämmlich das
+Starten eines neuen Auftrages. Jetzt erhält der Logistiker einen neuen
+Probenzuweisungsauftrag, falls die Anfrage genehmigt wurde, kann der PKAdmin nun
+die Prozesskette starten.
 
+Um zu überprüfen ob genügend Proben zugewiesen worden sind, wird die Methode
+checkProben(a:Auftrag) ausgeführt. Hier wird kontrolliert, ob die Proben die dem
+Auftrag zugewiesen worden sind den entsprechen die angefordert sind. Jetzt kann
+mit der Methode setPKZ(GESTARTET) der Auftrag gestartet werden.
+
+
+In der Graphik \ref{fig:logstikProbenPüftZuweisen} erhält die Logistik eine
+Anfrage für die Probenverwaltung. Es muss nun vom System geprüft werden
+ob Proben mit den gewünschten Materialeigenschaften im Lager sind. Das System gibt diese an die Logistik zurück. Werden die Proben dann von dem Logistiker ausgewählt und genehmigt, so werden diese an den Auftrag übermittelt und persistiert.
+Diese Graphik wurde abstrakt gehalten, denn sie Betrifft den Logistiker und
+nicht den pkAdmin
 
 \subsection{ProzessSchritt Sequenzdiagramm}
 
