@@ -288,8 +288,8 @@ class "QuantitativeEigenschaft" as quantE {
 class "ProzessSchritt" as ps {
   +psID: int
   +uploaded: bool
-  +current: Experimentierstation
-  +ZustandsAutomat: String
+  +zustandsAutomat: ProzessSchrittZustandsAutomat
+  +zustand: String
   +station : Experimentierstation
 }
 
@@ -304,7 +304,7 @@ class ProzessSchrittZustandsAutomat {
 }
 
 class ProzessSchrittZustandsAutomatVorlage {
-   +zustände: Set<String>
+   +zustaende: Set<String>
 }
 
 class "ProzessSchrittVorlage" as psV {
