@@ -196,6 +196,8 @@ Diese Webapplikation soll also, in Stichpunkten, die folgenden Funktionen ermög
 
 Leser dieser Architekturbeschreibung sind hiermit also nicht nur die Mitarbeiter der SFB-Initiative, sondern gegeben falls auch der Endkunde, welcher die Benutzer des Systems verwalten kann.
 
+Im Folgenden wird oft an Stellen, wo natürlich User*innen gemeint sind, nur User geschrieben (und analog für beispielsweise die spezifischen Rollen der Benutzer*innen). \\
+
 \subsection{Zweck}
 
   { Diese Architekturbeschreibung beschreibt die Architektur von Farbiges SFB, eine digitale Software welche die Erstellung, Verwaltung und Durchführung von Prozessketten ermöglicht, mit wessen Hilfe neue Werkstoffeigenschaften gefunden werden sollen für den industriellen Gebrauch. Es beschreibt, wie das System von Farbiges SFB implementiert werden soll und wie seine Struktur aussehen wird. 
@@ -473,7 +475,7 @@ die Notation der Flexibilität hat die  Bedeutung :
 \hline
 \begin{tabular}[c]{@{}l@{}}Abge-\\ leitet\\aus\end{tabular} & Einflussfaktor                                                                        & \begin{tabular}[c]{@{}l@{}}Flexibilität und \\ Veränderlichkeit\end{tabular}                                                              & \begin{tabular}[c]{@{}l@{}}++/\\\\ - -\end{tabular} & Auswirkungen                                                                                                                                                                                                                              \\ \hline
 \multicolumn{5}{|l|}{T1.7: DeltaSpike Data}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     \\ \hline 
-                                            T1.5   P1.4             & \begin{tabular}[c]{@{}l@{}}Wir verwenden\\ DeltaSpike Data. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Große Flexibilität, dies ist \\keine Verpflichtung, sondern\\ eine Entscheidung unserer \\Gruppe. Nach Beginn\\ der Implementierung\\ besteht eine bedingte\\ Veränderlichkeit: Eventuell \\wären Änderungen zu\\ aufwendig.\end{tabular} & \begin{tabular}[c]{@{}l@{}}++/\\   o\end{tabular} & \begin{tabular}[c]{@{}l@{}} f\\\end{tabular} \\ \hline %TODO Folge
+                                            T1.5   P1.4             & \begin{tabular}[c]{@{}l@{}}Wir verwenden\\ DeltaSpike Data. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Große Flexibilität, dies ist \\keine Verpflichtung, sondern\\ eine Entscheidung unserer \\Gruppe. Nach Beginn\\ der Implementierung\\ besteht eine bedingte\\ Veränderlichkeit: Eventuell \\wären Änderungen zu\\ aufwendig.\end{tabular} & \begin{tabular}[c]{@{}l@{}}++/\\   o\end{tabular} & \begin{tabular}[c]{@{}l@{}} Unsere Architektur muss \\darauf ausgelegt sein, \\dass DeltaSpike Data \\benutzt wird. Darauf muss \\vor allem bei den \\Persistenzklassen geachtet\\ werden.\\\end{tabular}\\ \hline %TODO Folge
 \multicolumn{5}{|l|}{T1.8: Multiple Users}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Die Anwendung\\ muss von \\mehreren\\ Benutzern \\gleichzeitig\\ verwendbar sein.\end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit oder \\Flexibilität, da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}- -/\\   - -\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Anwendung\\ darf nicht von\\ gleichzeitiger \\Verwendung von\\ mehreren Nutzern\\ überfordert sein;\\ ebenfalls dürfen \\dadurch keine\\ Sicherheitslücken \\entstehen.\end{tabular} \\ \hline
 \multicolumn{5}{|l|}{P1: Produktfaktoren}
@@ -1374,6 +1376,15 @@ Datenmodel umzusetzen.
 
 In diesem Kapitel gehen wir genauer auf die in der konzeptionellen Sicht gezeigten Komponenten ein. Eine detaillierte Beschreibung der Klassen und ihrer Schnittstellen ist im Javadoc der Schnittstellenbeschreibung enthalten.
 Die Modularisierung ergibt sich aus den Strategien 11.2 und 15.1.
+Von folgenden Strategien sieht man hier die Umsetzungen, die werden aber nicht näher in den unten folgenden Modulen beschrieben: \\
+In ProzessSchrittParameterController findet sich eine exportJSON Methode, die die Umsetzung von Strategie 4.2 darstellt. 
+Die Strategie 5.1 findet sich in den Methoden in den Klassen AuftragsLogController und ProzessSchrittLogController, durch die die einzelnen Daten der Protokolle einstellbar sind. Die Logs werden durch Methoden in AuftragController und ProzessSchrittController gesetzt. 
+Der Technologe kann durch die Methode prioSort die Aufträge automatisch nach Ihrer Priorität sortiert anzeigen lassen, was der Strategie 7.2 entspricht. 
+Die Strategie 10.2 zeigt sich hier vor allem durch Methoden des ProzessKettenAdministrators wie zum Beispiel setBedingung.
+Das lazy loading von Strategie 12.1 kann schlecht explizit in der Architektur gesehen werden. Das Laden der Proben wird über die Methoden getProben des Logistikers gemacht. 
+Der Technologe kann durch assignToAuftrag und getAuftrag mit den Transportaufträge umgehen. Mithilfe der Klasse TransportAufträge werden diese Aufträge gemanaged: Hier können unter anderem die Zustände gesetzt werden. Dadurch ist diese Klasse die Umsetzung der Strategie 13.1.
+Durch die Methode setEs ohne Parameter aus der Klasse ProzessSchrittVorlageController kann einem ProzessSchritt automatisch die beste ExperimentierStation zugeordnet werden. Das passiert unter anderem mithilfe der Bedingungen von Experimentierstationen, und den Eigenschaften von Proben. Dadurch ist die Strategie 14.2 umgesetzt. 
+Der Prozesskettenadmin kann einen Prozessschrittzustandsautomat setzen, was er mithilfe einer seperaten Klasse für diesen Zustandsautomaten(ProzessSchrittZustandsAutomat) macht. Das ist Strategie 19.3.
 
 \label{sec:modulsicht}
 \begin{figure}[H]
@@ -1436,7 +1447,8 @@ Dieses Paket wird gebraucht, da es vorgegeben ist. \\
 \end{center}
 \end{figure}
 
-Dieses Diagramm beschreibt die in unserem System verwendeten Services. Unser System soll z. B. bei der Erstellung von Benutzern E-Mails versenden können, wozu wir das E-Mail Modul haben. Zugleich soll unser System durch Apache Shiro gesichert sein, wodurch wir das Modul Apache Shiro haben. Wir möchten zur Datenverwaltung außerdem noch Deltaspike Data benutzen, wodurch wir auch dieses Modul haben.  
+Dieses Diagramm beschreibt die in unserem System verwendeten Services. Unser System soll z. B. bei der Erstellung von Benutzern E-Mails versenden können, wozu wir das E-Mail Modul haben. Zugleich soll unser System durch Apache Shiro gesichert sein, wodurch wir das Modul Apache Shiro haben. Wir möchten zur Datenverwaltung außerdem noch Deltaspike Data benutzen, wodurch wir auch dieses Modul haben.  \\
+Hier werden unter anderem die Strategien 2.1 und 6.1 umgsetzt. \\
 
 
 \newpage
@@ -1450,19 +1462,19 @@ Dieses Diagramm beschreibt die in unserem System verwendeten Services. Unser Sys
   \label{fig:boat1}
 \end{center}
 \end{figure}
-Die Beans für jeden einzelnen Nutzer werden für ein Umsetzen der Rollen mit Apache Shiro nach Strategie 2.1 gebraucht. 
+Hier sieht man die Umsetzung der Strategie 1.2 anhand der Methoden setRole, und getRole, wobei letztere ein Set aus mehreren Rollen zurückgeben kann. \\
 
 \newpage
 
 \subsubsection{Prozesskettenvorlage Modul}
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=\textwidth]{UML/Modules/ProzesskettenVorlage.pdf}
+ \includegraphics[width=\textwidth]{UML/Modules/ProzessKettenVorlage.pdf}
   \caption{Prozess Ketten Vorlage Module}
   \label{fig:boat1}
 \end{center}
 \end{figure}
-%An den unterschiedlichen Controllern für ProzessKetten- sowie ProzessSchrittVorlagen und dem tatsächlichen ProzessSchritt/Auftrag sowie vor allem den Methoden, die in diesen vorhanden sind, sieht man die Umsetzung von Strategie 3.1.
+Hier wird Strategie 3.1 für die Prozessketten umgesetzt. \\
 \newpage
 
 \subsubsection{Auftrags Modul}
@@ -1480,19 +1492,20 @@ Um nun Aufträge erstellen oder verwalten zu können, muss unser Auftragscontrol
 \subsubsection{Prozessschrittvorlage Modul}
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=\textwidth]{UML/Modules/ProzessschrittVorlage.pdf}
+ \includegraphics[width=\textwidth]{UML/Modules/ProzessSchrittVorlage.pdf}
   \caption{Prozessschrittvorlage Module}
   \label{fig:boat1}
 \end{center}
 \end{figure}
 
 Um Prozessschrittvorlagen erstellen zu können, benötigen wir allerdings Prozessschrittvorlagen, aus welchen letztendlich Prozessschritte eines Auftrags erstellt werden. Hierfür dient das Modul Prozessschrittvorlage. Dieses Modul ist für die Erstellung und Bearbeitung von Prozessschrittvorlagen zuständig. Um nun Prozessschrittvorlagen erstellen zu können, benötigen wir erst einmal einen Prozessschrittzustandsautomat welcher den Zustand eines Prozessschritts darstellt. Dieser wird allerdings von einer Vorlage erstellt, welche in der Prozessschrittvorlage abgespeichert wird, wodurch der Prozessschritt, der aus dieser Vorlage erstellt wird, anschließend weiß welche zustände er haben kann. Um nun Prozessschrittvorlagen erstellen zu können, muss unser Controller auf die Datenklasse Prozessschrittvorlage Zugriff haben. Um diese Vorlagen anschließend in der Datenbank verwalten zu können, muss er auch Zugriff auf die DAO Klasse von Prozessschrittvorlage haben.\\
+Hier wird Strategie 3.1 für die Prozessschritte durchgesetzt. \\
 \newpage
 
 \subsubsection{Prozessschritt Modul}
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=\textwidth]{UML/Modules/Prozessschritt.pdf}
+ \includegraphics[width=\textwidth]{UML/Modules/ProzessSchritt.pdf}
   \caption{Prozessschritt Module}
   \label{fig:boat1}
 \end{center}
@@ -1521,6 +1534,7 @@ Die Umsetzung der Strategie 8.1 zeigt sich vor allem dadurch, dass es keine Meth
 \end{center}
 \end{figure}
 Die Proben in unserem System werden in Trägern transportiert. Diese Träger benötigen einen Standort zu jeder Zeit und haben immer eine Art. Um nun diese Träger verwalten zu können braucht unser Controller Zugriff auf die Träger Datenklasse. Um diese dann in der Datenbank verwalten zu können, braucht er ebenfalls Zugriff auf die TraegerDAO klasse.\\
+Strategie 17.3 wird hier umgesetzt. \\
 
 \newpage
 
@@ -1542,6 +1556,7 @@ Die Proben in unserem System werden in Trägern transportiert. Diese Träger ben
   \label{fig:boat1}
 \end{center}
 \end{figure}
+Hier wird die Strategie 19.3 umgesetzt. \\
 \newpage
 
 \subsubsection{Prozess Schritt Zustands Automat Modul}
@@ -1552,6 +1567,7 @@ Die Proben in unserem System werden in Trägern transportiert. Diese Träger ben
   \label{fig:boat1}
 \end{center}
 \end{figure}
+Hier wird Strategie 19.3 umgesetzt. \\
 \newpage
 
 \subsubsection{Bedingung Modul}
@@ -1562,6 +1578,7 @@ Die Proben in unserem System werden in Trägern transportiert. Diese Träger ben
   \label{fig:boat1}
 \end{center}
 \end{figure}
+Dies wird für die Umsetzung von Strategie 14.2 benutzt. \\
 \newpage
 
 \subsubsection{Prozess Schritt Log Modul}
@@ -1572,6 +1589,7 @@ Die Proben in unserem System werden in Trägern transportiert. Diese Träger ben
   \label{fig:boat1}
 \end{center}
 \end{figure}
+Hier wird Strategie 5.1 für die Prozessschritte umgesetzt. Die komplette Umsetzung besteht daraus, dass für jeden Prozessschritt ein Log erstellt wird, und für jeden Auftrag die Prozessschrittlogs und die Auftragslogs zusammen das Protokoll ergeben. \\
 \newpage
 
 \subsubsection{Transport Auftrag Modul}
@@ -1582,6 +1600,7 @@ Die Proben in unserem System werden in Trägern transportiert. Diese Träger ben
   \label{fig:boat1}
 \end{center}
 \end{figure}
+Hier setzen wir Strategie 13.1 um. \\
 \newpage
 
 \section{Datensicht}
@@ -1815,6 +1834,7 @@ Der SFB-Server stellt eine Verbindung über TCP/IP zu der
 Datenbank her, welche auf dem gleichen SFB Server läuft und eine Instanz der Datenbanksoftware H2 betreibt.
 }
 
+%%%%%%%%%
 \section[Zusammenhänge zwischen Anwendungsfällen und Architektur]{Zusammenhänge zwischen Anwendungsfällen und Architektur\sectionmark{Zusammenhänge AF u. Architektur}}
 \sectionmark{Zusammenhänge AF u. Architektur}
 \label{sec:anwendungsfaelle}
