@@ -48,19 +48,6 @@ public class ProzessSchrittController {
     public void setUploaded() {}
 
     /**
-     * Returns the current Zustand (status) of this ProzessSchritt
-     *
-     * @return the current Zustand
-     */
-    public String getZustand() { return ""; }
-
-    /**
-     * Sets the current Zustand (status) of this ProzessSchritt
-     *
-     */
-    public void setZustand() {}
-
-    /**
      * Returns the ExperimentierStationen at which this ProzessSchritt can be executed
      *
      * @return A set with all possible ExperimentierStationen
