@@ -1240,6 +1240,7 @@ Hier haben wir uns für die erste Strategie entschieden, weil die Anzahl an Arte
 	{\phantomsection}          
            \label{strategie:21.2} 
 	\textbf{Strategie 21.2: Als String:} Die Kommentare zu Proben werden als Strings gespeichert. \\
+	  \label{strategie:21.3} 
 	\textbf{Strategie 21.3: Als Tupel: (ausgewählt)} Die Kommentare werden als Tupel aus dem Kommentar und dem Zeitstempel gespeichert. \\
           \\ \hline
     \end{tabular}
@@ -1289,7 +1290,7 @@ Die Persistenz ist mit der BusinessLogik verbunden
 {%Korrekturvorschlag Samuel
 \textbf{BusinessLogik:} Die Businesslogik beinhaltet die Funktionalität des
 Systems. Sie nutzt die Schnittstellen Data von Persistence und nutzt die Update
-Schnittstelle von Model. Sie ergibt sich aus Strategie (15.1)~\ref{prob:15.1}.
+Schnittstelle von Model. Sie ergibt sich aus Strategie 15.1~\ref{strategie:15.1}.
 Wir nutzen die BusinessLogik um die Wünsche unseres Kunden zu erfüllen. Die
 BusinessLogik erlaubt es, dass Prozessketten geplant und durchgeführt werden
 können. Hier liegt also die eigentliche Funktionalität unseres Systems.
@@ -1307,25 +1308,25 @@ TODO: Kurzer Text zu jedem der Kontroller.
 In dem Modell liegen die Daten der User, Prozessketten, Proben sowie
 Daten und Vormerkungen des System. Model stellt ein Interface Update zur
 Verfügung, welches von Businesslogic und Persistence genutzt wird. Diese
-Komponente ergibt sich aus der Strategie (15.1)~\ref{prob:15.1}.\\
+Komponente ergibt sich aus der Strategie 15.1~\ref{strategie:15.1}.\\
 In dem Abschnitt \ref{sec:datensicht} nehmen wir unser Datenmodel genauer unter
 die Lupe und gehen auf die Strategien ein, welche wir versucht haben im
 Datenmodel umzusetzen.
 }
 
-\textbf{Model:} Hier liegen die Daten der User, Prozesskette , Proben sowie Daten und Vormerkungen des System. Diese Komponente ist mit der Controller und Persistenz verwundet, weil die Daten das Interfaces gezeigt werden, sind das an der Model implementieren. Diese Komponente ergibt sich aus der Strategie (15.1)~\ref{prob:15.1}. \\
+\textbf{Model:} Hier liegen die Daten der User, Prozesskette , Proben sowie Daten und Vormerkungen des System. Diese Komponente ist mit der Controller und Persistenz verwundet, weil die Daten das Interfaces gezeigt werden, sind das an der Model implementieren. Diese Komponente ergibt sich aus der Strategie 15.1~\ref{strategie:15.1}. \\
 
 {%Korrekturvorschlag Samuel
-\textbf{Interface:} Hier liegt unser User Interface, also die xhtml Website, in der die User mit dem System interagieren. Interface nutzt das Interface Lieferung von Controller. Die Komponente Interface bezieht sich auf Strategie 1.2 \ref{strategie:1.2}, weil jeder User eine unterschiedliche Oberfläche benutzt. Außerdem ergibt sich die Komponente aus der Strategie (15.1)~\ref{prob:15.1}. Interface ist mit einem Port verbunden. 
+\textbf{Interface:} Hier liegt unser User Interface, also die xhtml Website, in der die User mit dem System interagieren. Interface nutzt das Interface Lieferung von Controller. Die Komponente Interface bezieht sich auf Strategie 1.2 \ref{strategie:1.2}, weil jeder User eine unterschiedliche Oberfläche benutzt. Außerdem ergibt sich die Komponente aus der Strategie 15.1~\ref{strategie:15.1}. Interface ist mit einem Port verbunden. 
 }
 
-\textbf{Interface:} In diesem Teil liegt die User Interface, wo die User mit den System interagieren können. Diese Problem Karte beziehen sich aus Strategie 1.2, weil jede User hat ein unterschiedliche Oberfläche, mit wenn er mit des System interagieren kann. Außerdem ergibt sich aus die Strategie ~\ref{prob:15.1}(15.1). Diese Komponente ist verwunden mit der BusinessLogik, um die Request und Data Bearbeitung zu erreichen.\\
+\textbf{Interface:} In diesem Teil liegt die User Interface, wo die User mit den System interagieren können. Diese Problem Karte beziehen sich aus Strategie 1.2, weil jede User hat ein unterschiedliche Oberfläche, mit wenn er mit des System interagieren kann. Außerdem ergibt sich aus die Strategie 15.1~\ref{strategie:15.1}. Diese Komponente ist verwunden mit der BusinessLogik, um die Request und Data Bearbeitung zu erreichen.\\
 
 {%Korrekturvorschlag Samuel
-\textbf{Controller:} Controller nutzt das Interface Control von BusinessLogic und Control von Model. Controller stellt ein Interface Lieferung zur Verfügung. Durch Controller kann das Interface die unterschiedlichen Funktionen aus BusinessLogic oder Model erreichen. Es ergibt sich aus der Strategie (15.1) ~\ref{prob:15.1}.
+\textbf{Controller:} Controller nutzt das Interface Control von BusinessLogic und Control von Model. Controller stellt ein Interface Lieferung zur Verfügung. Durch Controller kann das Interface die unterschiedlichen Funktionen aus BusinessLogic oder Model erreichen. Es ergibt sich aus der Strategie 15.1 ~\ref{strategie:15.1}.
 }
 
-\textbf{Controller:} Hier sind die Petitionen mit den entsprechende Data zur anderen Model und die BusinessLogik abgeleitet. Mit diese Modul reagiert der Interface,  um die unterschiedlichen Funktionalität zu erreichen. Außerdem ergibt sich aus die Strategie ~\ref{sec:strategie151}.  \\
+\textbf{Controller:} Hier sind die Petitionen mit den entsprechende Data zur anderen Model und die BusinessLogik abgeleitet. Mit diese Modul reagiert der Interface,  um die unterschiedlichen Funktionalität zu erreichen. Außerdem ergibt sich aus die Strategie ~\ref{strategie:15.1}.  \\
 
 {%Korrekturvorschlag Samuel
 \textbf{REST:} Hier greift der REST-Client auf REST-Funktionen zu. Über einen Port verbindet er sich mit dem RESTClient. 
@@ -1345,11 +1346,15 @@ Datenmodel umzusetzen.
 \textbf{JDBC:} Durch diesen Anschluss ist die Verbindung zu der Datenbank erreichbar. Er erlaubt die Kommunikation zwischen Java und der in der H2 Datenbank laufenden Sprache.
 }
 
-\textbf{Interface:} In diesem Teil liegt die User Interface, wo die User mit den System interagieren können. Diese Problem Karte beziehen sich aus Strategie 1.2, weil jede User hat ein unterschiedliche Oberfläche, mit wenn er mit des System interagieren kann. Außerdem ergibt sich aus die Strategie 15.1: Kapselung des Datenhaltung \ref{strategie:15.1}.
+\textbf{Interface:} In diesem Teil liegt die User Interface, wo die User mit den System interagieren können. Diese Problem Karte beziehen sich aus Strategie 1.2~\ref{strategie:1.2}, weil jede User hat ein unterschiedliche Oberfläche, mit wenn er mit des System interagieren kann. Außerdem ergibt sich aus die Strategie 15.1~\ref{strategie:15.1}: Kapselung des Datenhaltung.
 Diese Komponente ist verwunden mit der BusinessLogik, um die Request und Data Bearbeitung zu erreichen.\\
-\textbf{Model:} Hier liegen die Daten der User, Prozesskette , Proben sowie Daten und Vormerkungen des System. Diese Komponente ist mit der Interface verwundet, weil die Daten das Interfaces gezeigt werden, sind das an der Model implementieren. Diese Komponente ergibt sich aus der  Strategie 15.1: Kapselung des Datenhaltung \ref{strategie:15.1} \\
+
+\textbf{Model:} Hier liegen die Daten der User, Prozesskette , Proben sowie Daten und Vormerkungen des System. Diese Komponente ist mit der Interface verwundet, weil die Daten das Interfaces gezeigt werden, sind das an der Model implementieren. Diese Komponente ergibt sich aus der  Strategie 15.1~\ref{strategie:15.1}: Kapselung des Datenhaltung. \\
+
 \textbf{Persistenz:} Hier liegt die Verbindungen zwischen das System und Datei an der Dateibase, Diese Komponente ist verantwortlich und die Speicherung und Schreibung Funktionen an der Dateibase. diese Komponente  ist getroffen an der Anwendung der verlangte Technologie.  \\
-\textbf{BusinessLogik:} In diese Teil liegt die Funktionalität des System, diese Teil ist verantwortlich die Interaktion zwischen die Modelle und die Bearbeitung ihre Data in die Persistenz Komponente. Hier sind die das gewuchtetes Verhalten des System implementiert. diese Schnittstelle ergibt sich aus der Strategie 15.1: Kapselung des Datenhaltung \ref{strategie:15.1} \\
+
+\textbf{BusinessLogik:} In diese Teil liegt die Funktionalität des System, diese Teil ist verantwortlich die Interaktion zwischen die Modelle und die Bearbeitung ihre Data in die Persistenz Komponente. Hier sind die das gewuchtetes Verhalten des System implementiert. diese Schnittstelle ergibt sich aus der Strategie 15.1~\ref{strategie:15.1}: Kapselung des Datenhaltung. \\
+
 \textbf{JDBC:} Durch diese Anschlüsse  ist die Verwindung mit der Dateibase erreichbar. diese Anschlüsse erlaubt die Kommunikation zwischen die Sprache Java und die Dateibase.  \\
 
 {%Korrekturvorschlag Samuel
@@ -1404,7 +1409,7 @@ In den nächsten Abschnitten werden die in der konzeptionellen Sicht gezeigten M
 \newpage
 \subsection{Pakete}
 In diesem Unterkapitel werden wir jedes Paket der Software detailliert modellieren und erklären.
-Wir fangen zudem erst einmal mit unserem Modeldiagramm an, welches die Relationen zwischen den Datenklassen zeigt. Dieses Diagramm ist eine verfeinerte Version der Datensicht, welche wir in Kapitel 6 modellieren und beschreiben. 
+Wir fangen zudem erst einmal mit unserem Modeldiagramm an, welches die Relationen zwischen den Datenklassen zeigt. Dieses Diagramm ist eine verfeinerte Version der Datensicht welche wir in Kapitel 6 modellieren und beschreiben. 
 \subsubsection{Model}
 Das folgende Diagramm beschreibt eine verfeinerte Version unserer Datensicht (siehe Kapitel 6). Dieses Diagramm beschreibt die Datenklassen unserer Software mit ihren Attributen und Relationen zueinander. Wie man sehen kann, ist es möglich, über den User an die meisten Module des Systems zu gelangen, allerdings kann auch auf die meisten Einzelmodule auch beliebig zugegriffen werden. Der User hat hierbei allerdings eine zentrale Rolle, da er z. B. Prozesskettenvorlagen erstellen kann, und diese nicht von außen erstellt werden können sollen. 
 \begin{sidewaysfigure} 
