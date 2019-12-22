@@ -1867,28 +1867,28 @@ Datenbank her, welche auf dem gleichen SFB Server läuft und eine Instanz der Da
   \label{fig:erstbenutzung.png}
 \end{figure}
 
-In diesem Anwendungsfall geht es darum zu zeigen, was passiert wenn sich ein
+In diesem Anwendungsfall geht es darum, zu zeigen, was passiert, wenn sich ein
 Benutzer anmeldet. Wir haben uns entschieden, die Sicherheit nicht selber zu
 implementieren, sondern Apache Shiro zu nutzen. Siehe Strategie 2.1 \ref{strategie:2.1}
 
 \subsubsection{Was ist Apache Shiro}
-Als erstes möchten wir einen Überblick über Apache Shiro geben, um dann anhand
+Als Erstes möchten wir einen Überblick über Apache Shiro geben, um dann anhand
 des Sequenzdiagrammes erläutern zu können, wie Apache Shiro mit unseren Schichten
 zusammenhängt. Apache Shiro kann ab jetzt auch nur als Shiro bezeichnet werden.
 
 Shiro ist ein sehr mächtiges und leistungsstarkes Java Security Framework,
-welches sich das Ziel gesetzt hat Entwicklern eine intuitive, jedoch auch
+welches sich das Ziel gesetzt hat, Entwicklern eine intuitive, jedoch auch
 umfassende Lösung für Authentifizierung, Autorisierung und Session-Management zu
 bieten. Shiro basiert auf einem soliden, Schnittstellengesteuerten Design und
-folgt Prinzipien der Objektorientierung.
+folgt den Prinzipien der Objektorientierung.
 
 Ein \emph{Subject} ist eine sicherheitsspezifische Sicht auf einen Nutzer
 unseres Programms. Dabei wird nicht zwischen einem menschlichen Nutzer und
 einem maschinellen unterschieden. Auch in der Sicherheitswelt ist der Begriff
 Subject eigentlich die anerkannte Nomenklatur. Die Session erlaubt es dem
-Nutzer, bestimmte Operationen durchzuführen. Es ist weiter möglich einer Session
+Nutzer, bestimmte Operationen durchzuführen. Es ist weiterhin möglich, einer Session
 weitere Attribute zu geben. Unsere Session ist eine Shiro-spezifische Instanz,
-welche das meiste davon bietet,  was uns auch eine reguläre HttpSession
+welche das meiste davon bietet, was uns auch eine reguläre HttpSession
 bietet. Der Vorteil der Session ist es, dass sie keine HTTP-Umgebung braucht.
 
 Bei uns wird die Session in einer Webapplikation umgesetzt, folglich basiert
@@ -1907,23 +1907,23 @@ FacesContext. Der Webbrowser wird auf die $login.xhml$ weitergeleitet. Dort ersc
 ein Login Formular \textbf{(Schritt 2)}, in dem der Nutzer seine Anmeldedaten
 eingeben kann \textbf{(Schritt 3)}. Das Formular wird vom Browser an unseren
 Server gesendet \textbf{(Schritt 4)}. Für die spätere Verarbeitung brauchen
-wir die Parameter, die es in dem Kontext der Anmeldung gab. Diese werden in
-\textbf{(Schritt 5)} an das Login Bean gesendet. Das Login Bean hat die Aufgabe,
+wir die Parameter, die es in dem Kontext der Anmeldung gab. Diese werden 
+in \textbf{Schritt 5} an das Login Bean gesendet. Das Login Bean hat die Aufgabe,
 weitere Sicherheitsfunktionen an Shiro zu delegieren. Dafür nutzen die Methode login
-der IndexBean. Die hat die Aufgabe, zu ermitteln in welchem Kontext die
+der IndexBean. Die hat die Aufgabe, zu ermitteln, in welchem Kontext die
 Login Anfrage gestellt wurde. Sobald dies ermittelt wurde, delegiert sie
-weiter an Shiro. \textbf{(Schritt 6)}. Um das Passwort aus der Datenbank zu lesen,
+weiter an Shiro \textbf{(Schritt 6)}. Um das Passwort aus der Datenbank zu lesen,
 nutzen wir die von Shiro bereitgestellte Methode \textbf{(Schritt 7)}. Die Datenbank
 liefert uns dann das Passwort. In diesem Sequenzdiagramm wurde abstrahiert, dass
 Passwörter gehashed und gesalted werden. Dies liegt daran, dass Shiro, falls so
 konfiguriert, dies im Hintergrund macht.
 
-Shiro verlangt ein Token für den Login. Der Token wird aus dem Passwort
-und dem Benutzernamen generiert. Das genierierte Token hat den Datentyp
-UserNameToken.  Das Token wir in \textbf{Schritt 9} generiert.
+Shiro verlangt ein Token für den Login. Das Token wird aus dem Passwort
+und dem Benutzernamen generiert. Das Genierierte Token hat den Datentyp
+UserNameToken.  Das Token wird in \textbf{Schritt 9} generiert.
 
 
-Ein schon angemeldeter Nutzer kann sich nicht nochmal anmelden. Daher müssen wir
+Ein schon angemeldeter Nutzer kann sich nicht noch mal anmelden. Daher müssen wir
 überprüfen, ob unser Subject anonym ist \textbf{Schritt 10}.
 
 Subjects können Sessions besitzen. Shiro holt und merkt sich die Session eines
@@ -1931,9 +1931,9 @@ Subjects in \textbf{Schritt 11 \& 12}. So haben wir nun ein Subject und seine Se
 Hiermit können wir nützliche Dinge tun, beispielsweise überprüfen, ob das
 Subject die benötigte Rolle hat. Unsere obige Subject Instanz repräsentiert
 den aktuellen Nutzer, aktuell ist unser Subject aber noch anonym. Um nicht mehr
-anonym zu sein muss sich ein Subject anmelden. Für den Anmeldeschritt führen wir
+anonym zu sein, muss sich ein Subject anmelden. Für den Anmeldeschritt führen wir
 ein Login mit unserem Token auf unserem aktuellen Nutzer aus \textbf{(Schritt
-  13)}. Nach der erfolgreichem Authentifizierung leiten wir den Nutzer auf den
+  13)}. Nach der erfolgreichen Authentifizierung leiten wir den Nutzer auf den
 ursprünglichen FacesContext zurück \textbf{(Schritt 14)}. Dafür Verwenden wir
 eine Weiterleitung, die den Pfad zu dem FacesContext kennt, das die Anmeldung
 gefordert hat.
@@ -1941,9 +1941,9 @@ gefordert hat.
 \subsubsection{Kleiner Ausschnitt zur Fehlerbehandlung}
 Bei dem Login können folgende Exceptions geworfen werden:
 \begin{itemize}
-  \item Shiro löst eine UnknownAccountException aus, falls es den Nutzer nicht gibt
+  \item Shiro löst eine UnknownAccountException aus, falls es den Nutzer nicht gibt.
   \item Shiro löst eine IncorrectCredentalException aus, falls das Token nicht
-  stimmt
+  stimmt.
   \item Falls das Konto des Users gesperrt ist, wird ein LockedAccountException
   ausgelöst. Das ist so in der Anwendung bisher nicht vorgesehen, und wird auch vorerst von uns nicht implementiert. Allerdings ist das eine Funktion, die grundsätzlich von Shiro geboten wird und somit auch eventuell von uns implementiert werden könnte.
 \end{itemize}
@@ -1957,55 +1957,55 @@ Bei dem Login können folgende Exceptions geworfen werden:
 \end{figure}
 
 In der Abb. \ref{fig:pkErstellen} wird der Ablauf gezeigt, wie ein
-ProzesskettenAdministrator eine Prozesskette erstellt, diese dann instanziert
+Prozesskettenadministrator eine Prozesskette erstellt, diese dann instanziiert
 und dann startet.
 
-Als pkApp  App bezeichnen wir den Teil der Webapplikation, der dem Prozesskettenadministrator
+Als pkApp bezeichnen wir den Teil der Webapplikation, der dem Prozesskettenadministrator
 das Verwalten der Prozessketten ermöglicht.
 
-Sobald der Prozesskettenadministrator der pkApp mitteilt, dass er gerne eine ProzesskettenVorlage
-bearbeiten würde führt die ProzesskettenadministratorBean die methode
+Sobald der Prozesskettenadministrator der pkApp mitteilt, dass er gerne eine Prozesskettenvorlage
+bearbeiten würde, führt die Prozesskettenadministratorbean die Methode
 $editProzesskettenVorlage(pkv:ProzesskettenVorlage)$ aus (\textbf{Schritt 1}).
-Alls nächstes sollen alle ProzessschrittVorlagen die einer ProzesskettenVorlage
-zugewiesen sind angezeigt werdne. Dafür führt der ProzesskettenController die
+Als Nächstes sollen alle Prozessschrittvorlagen, die einer Prozesskettenvorlage
+zugewiesen sind, angezeigt werden. Dafür führt der Prozesskettencontroller die
 Methode $getPSV()$ aus (\textbf{Schritt 2}).
 
-Die nächsten Schritte sind optimal. Den es ist dem Prozesskettenadministrator überlassen was er in
+Die nächsten Schritte sind optimal. Denn es ist dem Prozesskettenadministrator überlassen, was er in
 der Vorlage ändern will. Es bietet sich hier an, manuell eine
 Experimentierstation zuzuweisen, ansonsten wird dies in dem \textbf{11. Schritt}
 ausgeführt.
-Es ist dem Prozesskettenadministrator möglich sich den den ProzessschrittZustandsAutomaten des
-Prozessschrittes anzeigen zu lassen. Damit die ProzessschrittVorlage sich
-nachher Experimentierstationen sich zuweisen kann setzt der Prozesskettenadministrator die Eingabe
-und Ausgabe Träger für die ProzessschrittVorlage. Nun kann der Prozesskettenadministrator die
-ProzessschrittArt setzten. Anmerkung: Die ProzessschrittArten werden im voraus
+Es ist dem Prozesskettenadministrator möglich, sich den Prozessschrittzustandsautomaten des
+Prozessschrittes anzeigen zu lassen. Damit die Prozessschrittvorlage sich
+nachher Experimentierstationen zuweisen kann, setzt der Prozesskettenadministrator die Eingabe-
+und Ausgabeträger für die Prozessschrittvorlage fest. Nun kann der Prozesskettenadministrator die
+Prozessschrittart setzten. Anmerkung: Die Prozessschrittarten werden im Voraus
 festgelegt.
 
-Wichtig für die Automatische Zuordnung der ProzessschrittVorlage ist das setzen
-von Bedingungen. Bedingungen können entweder direkt in der ProzessschrittVorlage
-generiert werden. Falls eine Bedingung nicht einer trivialen Bedingung entspricht
-ist es möglich das der BedingungsController diese aus Eigenschaften oder aus
-ProzessschrittParameteren einem erzeugt. Diese werden dann an den
-BedingungsController gesendet, dieser gibt dann die korrekte Bedingung zurück.
-Jetzt kennt der ProzessschrittVorlageController alle Bedingungen für den den
-Prozessschritt. Die methode setES(), welche keine Parameter hat, ist dafür
+Wichtig für die automatische Zuordnung der Prozessschrittvorlage ist das Setzen
+von Bedingungen. Bedingungen können direkt in der Prozessschrittvorlage
+generiert werden. Falls eine Bedingung nicht einer trivialen Bedingung entspricht,
+ist es möglich, dass der Bedingungscontroller diese aus Eigenschaften oder aus
+Prozessschrittparametern einem erzeugt. Diese werden dann an den
+Bedingungscontroller gesendet. Dieser gibt dann die korrekte Bedingung zurück.
+Jetzt kennt der Prozessschrittvorlagencontroller alle Bedingungen für den
+Prozessschritt. Die Methode setES(), welche keine Parameter hat, ist dafür
 zuständig aus der Menge $a$ aller Experimentierstationen eine Teilmenge $b$ der
 Experimentierstationen, die den geforderten Bedingungen
-entsprechen zu bilden. Alle Experimentierstationen  $a \in b$ die der Bedingung
-entsprechen werden dann der ProzessschrittVorlage zugeordnet
+entsprechen zu bilden. Alle Experimentierstationen  $a \in b$, die der Bedingung
+entsprechen, werden dann der Prozessschrittvorlage zugeordnet
 
-Als letzes setzt der Prozesskettenadministrator die geschätzte Dauer für die Durchführung des
-Prozessschrittes. Jetzt verwaltet der ProzesskettenVorlageController wieder.
-Falls der Prozesskettenadministrator jetzt weitere ProzesskettenVorlagen bearbeiten möchte, kann er
+Als letztes setzt der Prozesskettenadministrator die geschätzte Dauer für die Durchführung des
+Prozessschrittes fest. Jetzt verwaltet der Prozesskettenvorlagecontroller wieder.
+Falls der Prozesskettenadministrator jetzt weitere Prozesskettenvorlagen bearbeiten möchte, kann er
 dies nun tun.
 
 Sobald er die gesamte Prozesskette kontrolliert hat, lässt er die Prozesskette
-verifizieren. Hier wird überprüft, ob alle Experimentierstationen die benötigen
-Träger an und ausgeben. Weiter wird in dieser Methode überprüft, ob alle
+verifizieren. Hier wird überprüft, ob alle Experimentierstationen die benötigten
+Träger annehmen und ausgeben. Weiter wird in dieser Methode überprüft, ob alle
 ProzessschrittVorlagen Experimentierstationen zugewiesen bekommen haben. Falls
-dies nicht klappt, muss der Prozesskettenadministrator die probleme in den ProzessschrittVorlagen
+dies nicht klappt, muss der Prozesskettenadministrator die Probleme in den Prozessschrittvorlagen
 selber lösen. Dafür kann er die Randbedingungen des Prozessschrittes ändern oder
-selber Experimentierstationen der ProzessschrittVorlage zuweisen.
+selber Experimentierstationen der Prozessschrittvorlage zuweisen.
 
 Der Prozesskettenadministrator kann die angeforderten Proben setzen. Sobald die Verifizierung der
 Prozesskette erfolgt ist, kann er, falls gewollt, die Priorität ändern und dann
@@ -2014,22 +2014,22 @@ erscheint in der App der Logistiker die Prozesskette.
 
 Jetzt erhält der Logistiker einen neuen Probenzuweisungsauftrag, falls die Anfrage genehmigt wurde, kann der Prozesskettenadministrator nun die Prozesskette starten.
 
-Hier ist beginnt ein neues Kapitel in unserem Sequenz Diagramm, nämmlich das
+Hier beginnt ein neues Kapitel in unserem Sequenzdiagramm, nämlich das
 Starten eines neuen Auftrages. Jetzt erhält der Logistiker einen neuen
 Probenzuweisungsauftrag, falls die Anfrage genehmigt wurde, kann der Prozesskettenadministrator nun
 die Prozesskette starten.
 
-Um zu überprüfen ob genügend Proben zugewiesen worden sind, wird die Methode
-checkProben(a:Auftrag) ausgeführt. Hier wird kontrolliert, ob die Proben die dem
-Auftrag zugewiesen worden sind den entsprechen die angefordert sind. Jetzt kann
-mit der Methode setPKZ(GESTARTET) der Auftrag gestartet werden.
+Um zu überprüfen, ob genügend Proben zugewiesen worden sind, wird die Methode
+checkProben(a:Auftrag) ausgeführt. Hier wird kontrolliert, ob die Proben, die dem
+Auftrag zugewiesen worden sind, entsprechend der Anforderungen sind. Jetzt kann der Auftrag
+mit der Methode setPKZ(GESTARTET) gestartet werden.
 
 
-In der Graphik \ref{fig:logstikProbenPüftZuweisen}
+In der Graphik \ref{fig:log}
 erhält die Logistik eine
 Anfrage für die Probenverwaltung. Es muss nun vom System geprüft werden
 ob Proben mit den gewünschten Materialeigenschaften im Lager sind. Das System gibt diese an die Logistik zurück. Werden die Proben dann von dem Logistiker ausgewählt und genehmigt, so werden diese an den Auftrag übermittelt und persistiert.
-Diese Graphik wurde abstrakt gehalten, denn sie Betrifft den Logistiker und
+Diese Graphik wurde abstrakt gehalten, denn sie betrifft den Logistiker und
 nicht den Prozesskettenadministrator
 
 \begin{figure}[]
