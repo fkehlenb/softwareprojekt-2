@@ -32,4 +32,7 @@ public class Auftrag{
     /** The job's state automaton */
     @NonNull
     public Enum<ProzessKettenZustandsAutomat> prozessKettenZustandsAutomat;
+
+    /** The user assigned to the job */
+    public User assigned;
 }

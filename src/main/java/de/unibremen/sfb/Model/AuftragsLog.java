@@ -1,20 +1,19 @@
 package de.unibremen.sfb.Model;
 
 import lombok.Data;
-import lombok.NonNull;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /** Job log data class */
 @Data
 public class AuftragsLog {
 
     /** Start date/time */
-    public LocalDate start;
+    public LocalDateTime start;
 
     /** End date/time */
-    public LocalDate beendet;
+    public LocalDateTime beendet;
 
     /** When the job was archived */
-    public LocalDate archiviert;
+    public LocalDateTime archiviert;
 }

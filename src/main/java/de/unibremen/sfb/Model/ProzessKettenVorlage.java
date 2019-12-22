@@ -15,5 +15,9 @@ public class ProzessKettenVorlage {
 
     /** The process chain template's process steps (as templates hence not yet instantiated) */
     @NonNull
-    public Set<ProzessSchrittVorlage> processSchrittVorlagen;
+    public Set<ProzessSchrittVorlage> prozessSchrittVorlagen;
+
+    /** The user who created this template */
+    @NonNull
+    public User creator;
 }

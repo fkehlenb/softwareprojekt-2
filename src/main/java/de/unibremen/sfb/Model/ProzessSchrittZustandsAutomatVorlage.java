@@ -12,4 +12,8 @@ public class ProzessSchrittZustandsAutomatVorlage {
     /** The states the process step automatons can be in */
     @NonNull
     public Set<String> zustaende;
+
+    /** The user who created this template */
+    @NonNull
+    public User creator;
 }

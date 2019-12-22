@@ -32,7 +32,11 @@ public class ProzessSchrittVorlage {
     @NonNull
     public Set<ExperimentierStation> stationen;
 
-    /** The process step template's state automaton */
+    /** The process step template's state automaton template */
     @NonNull
-    public ProzessSchrittZustandsAutomat zustandsAutomat;
+    public ProzessSchrittZustandsAutomatVorlage zustandsAutomat;
+
+    /** The user who created this template */
+    @NonNull
+    public User creator;
 }
