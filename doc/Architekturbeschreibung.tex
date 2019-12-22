@@ -1752,7 +1752,7 @@ Siehe Strategie 1.2 \ref{strategie:1.2}. Um dies in Shiro umzusetzen, benutzen w
 JdbcRealm. Mit JdbcRealm kann Shiro aus unserer Datenbank die benötigen
 Attribute und Rollen eines Nutzers laden
 
-\subsection{Erklärung des Diagramms}
+\subsubsection{Erklärung des Diagramms}
 Es kann vorkommen, dass ein Benutzer unseres Systems in einen Realm navigiert,
 der nur für bestimmte Rollen zugänglich ist \textbf{Schritt 1} Dies ist der Fall
 für den ersten Schritt unseres Sequenz Diagrammes. Dies passiert in einem
@@ -1791,7 +1791,7 @@ ursprünglichen zurück.  \textbf{Scrhitt 14}. Dafür Verwenden dafür nutzen wi
 eine Weiterleitung die den Pfad zu dem FacesContext kennt, die Anmeldung
 gefordert hat.
 
-\subsection{Kleiner Auschschnitt zur Fehlerbehandlung}
+\subsubsection{Kleiner Auschschnitt zur Fehlerbehandlung}
 Bei dem Login können folgende Exceptions geworfen werden:
 \begin{itemize}
   \item Shiro löst eine UnknownAccountException aus, falls es den Nutzer nicht gibt
@@ -1809,6 +1809,17 @@ Bei dem Login können folgende Exceptions geworfen werden:
   \label{fig:pkErstellen}
 \end{figure}
 
+In der Abb. \ref{fig:pkErstellen} wird der Ablauf gezeigt, wie ein
+ProzessKettenAdministrator eine ProzessKette erstellt, diese dann instanziert
+und dann startet.
+
+Als  App bezeichnen wir den Teil der Webapplikation, der
+
+
+
+
+
+\subsection{Alt}
 Figure \ref{fig:pkErstellen} zeigt wie der Prozesskettenadministrator die Prozesskette erstellt. 
 Bei Schritt 18, schauen sie bitte in Graphik \ref{fig:logstikProbenPüftZuweisen}. 
 
