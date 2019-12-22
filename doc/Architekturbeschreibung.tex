@@ -1212,6 +1212,7 @@ Hier haben wir uns für die erste Strategie entschieden, weil die Anzahl an Arte
 	{\phantomsection}          
            \label{strategie:21.2} 
 	\textbf{Strategie 21.2: Als String: (ausgewählt)} Die Kommentare zu Proben werden als Strings gespeichert. \\
+	  \label{strategie:21.3} 
 	\textbf{Strategie 21.3: Als Tupel: (ausgewählt)} Die Kommentare werden als Tupel aus dem Kommentar und dem Zeitstempel gespeichert. \\
           \\ \hline
     \end{tabular}
@@ -1586,71 +1587,71 @@ Klassen für die Vorlage und die Instanzen von den ProzessSchritten und ProzessK
 Hiermit setzen wir die Strategie 3.1 \ref{strategie:3.1}  um. Die ProzessSchritte sind somit abstrakt
 und können später auch in anderen Prozessketten wiederverwendet werden.
 
-Ein AuftragsLog enthält start und end Zeiten für die instanzierte Prozesskette.
-Diese Referentiert auch alle Prozesschritlogs welche in dem Auftrag enthalten
-sind. Aus diesen ist zu entnehmen, wann der einzelne Prozesschritt gestartet
+Ein AuftragsLog enthält Start- und Endzeiten für die instanziierte Prozesskette.
+Diese referenziert auch alle Prozesschrittlogs welche in dem Auftrag enthalten
+sind. Aus diesen ist zu entnehmen, wann der einzelne ProzessSchritt gestartet
 worden ist, in welchem Zustand dieser sich befand und wann er beendet worden
-ist. Falls später dann ein Prozesschritt betrachtet wird, enthält er die Logs
-und seine Prozesschritt Parameter. Die ProzessSchrittparameter lassen sich zu
-JSON serialisieren (Strategie 4.1) \ref{strategie:4.1} , der ProzesschrittLog sowie der Prozesschritt
-ansich sind auch serialisierbar. Jetzt ist es uns möglich ein Protokol
+ist. Falls später dann ein ProzessSchritt betrachtet wird, enthält er die Logs
+und seine ProzessSchrittParameter. Die ProzessSchrittParameter lassen sich zu
+JSON serialisieren (Strategie 4.1) \ref{strategie:4.1}, der ProzesschrittLog sowie der Prozesschritt
+selber sind auch serialisierbar. Jetzt ist es uns möglich, ein Protokoll
 der Prozesskette zu serialisieren.
 
 
 Eine Experimentierstation besteht aus einer eindeutig ID, einem Standort, der
-als String gespeichert wird sowie einer Enum die den Status der Station
-enthält. Jede der Experimentierstationen enthält eine Warteschlange, welche alle
-Prozesschritt Instanzen enthält, welche auf die Durchführung an dieser Station
-warten. Um in einer in die Warteschlange zugewiesen zu werden muss unser System
-folgendes tun. Einer ProzesschrittVorlage können Bedingungen hinzugefügt werden,
+als String gespeichert wird, sowie einer Enum, die den Status der Station
+enthält. Jede der Experimentierstationen enthält eine Warteschlange, die alle
+ProzessSchritt Instanzen enthält, welche auf die Durchführung an dieser Station
+warten. Um einer Warteschlange zugewiesen zu werden, muss unser System
+Folgendes tun: Einer ProzessSchrittVorlage können Bedingungen hinzugefügt werden,
 ein Beispiel wäre die Existenz einer Wärmebehandlung. Experimentierstationen
-können auch Parameter oder Eigenschaften zugewiesen werden.
-Aus dem Bedingungen der ProzesschrittVorlage ergibt sich die Menge an
+können auch Parametern oder Eigenschaften zugewiesen werden.
+Aus den Bedingungen der ProzessSchrittVorlage ergibt sich die Menge an
 Experimentierstationen, welche möglich sind. Für diese wird geschätzt, wie lange
-es dauert bis die bisherige Warteschlange beendet ist. Die Experimentierstation
-mit der geringsten Wartezeit wird dem Prozesschritt zugeteilt. Dies ist unsere
-Umsetzung von der Strategie 14.2 \ref{strategie:14.2} .
+es dauert, bis die bisherige Warteschlange beendet ist. Die Experimentierstation
+mit der geringsten Wartezeit wird dem ProzessSchritt zugeteilt. Dies ist unsere
+Umsetzung von der Strategie 14.2 \ref{strategie:14.2}.
 
 Zu einer Station können mehrere User vom Administrator zugewiesen
-werden. User, welche der Station zugeordnet sind haben die Möglichkeit den
-Zustand der Station zu erfragen und zu verändern. Hiermit wir die Strategie 6.1
-umgesetzt. Um diese Änderungen zu Persistieren Nutzen wir Deltaspike Data. Dafür
+werden. User, welche der Station zugeordnet sind, haben die Möglichkeit, den
+Zustand der Station zu erfragen und zu verändern. Hiermit haben wir die Strategie 6.1 \ref{strategie:6.1}.
+umgesetzt. Um diese Änderungen zu persistieren, nutzen wir Deltaspike Data. Dafür
 müssen wir einen EntityManager konfigurieren, der über CDI injected wird. Dies
 können wir mit dem EntityManagerProducer umsetzen. Für die Experimentierstation
-erstellen wir nun eine Repository Klasse. Mit der Querry Annotation ist es uns
-nun möglich SQL ähnliche Queries für unsere modellierten Klassen zu erstllen
+erstellen wir nun eine Repositoryklasse. Mit der Query Annotation ist es uns
+nun möglich, SQL ähnliche Queries für unsere modellierten Klassen zu erstellen.
 
 Jede der Proben enthält eine eindeutige ID, diese entspricht dem ID Schema,
 welches der Kunde schon in seiner jetzigen Datenbank nutzt. Kommentare und deren
-Zeitstempel werden als Pair gespeichert (Strategie 21.3)\ref{strategie:21.3}  und von den
+Zeitstempel werden als Pair gespeichert (Strategie 21.3) \ref{strategie:21.3}  und von den
 Useren bearbeitet. Somit kann jede Probe in dem System betrachtet werden.
 Dadurch, dass wir für jede Probe eine ID haben und sie einzeln in der Datenbank
-speichern wird Strategie 8.1 \ref{strategie:8.1} umgesetzt. Somit kann nachvollzogen werden, zu
-welchem Zeitpunkt sich eine Probbe wo und in welcher Prozessketten befunden hat.
-Weiter kann der Technologe durch das kommentieren einzelner Proben wichtige
+speichern, wird Strategie 8.1 \ref{strategie:8.1} umgesetzt. Somit kann nachvollzogen werden, zu
+welchem Zeitpunkt sich eine Probe wo und in welcher Prozesskette befunden hat.
+Weiter kann ein Technologe durch das Kommentieren einzelner Proben wichtige
 Informationen über eine Probe an seine Mitarbeiter weitergeben. Damit die Nutzer
-der Proben Verwaltung nicht unter langen Ladezeiten leiden, laden wir nur Proben
-aus der Datenbank, welche wir auch benötigen. Dies wird durch deltaspike data
+der Probenverwaltung nicht unter langen Ladezeiten leiden, laden wir nur Proben
+aus der Datenbank, welche wir auch benötigen. Dies wird durch Deltaspike Data
 und einem Query, der nur einen kleinen Ausschnitt aus der Datenbank lädt,
 realisiert. Wir nutzen also lazy loading und setzen damit die Strategie 12.1 \ref{strategie:12.1} um.
 
-Ein Träger enthält Referenzen zu alle Proben die in Ihm enthalten sind. Weiter
-hat der Träger ein Standort und eine ID. Träger ist eine assoziations Klasse von
-Auftrag und Prozesschritt (TOOD Warum Leo). Falls der Zustand eines
-Prozesschrittes sich verändert und Proben zwischen Experimentierstationen
-transportiert werden sollen, weisen wir ein Träger, falls nötig, dem neuen
-Schritt zu und setzen alle Proben in den Träger. Das Ziel, der aktueller
-Standort, die Proben und deren Träger können dann dem Transport als neuem
-Transport Auftrag zugewiesen werden. Der Transportauftrag ergibt sich impliziert
+Ein Träger enthält Referenzen zu alle Proben, die in ihm enthalten sind. Weiter
+hat der Träger ein Standort und eine ID. Träger ist eine Assoziationsklasse von
+Auftrag und ProzessSchritt (TODO Warum Leo). Falls sich der Zustand eines
+ProzessSchrittes verändert, und Proben zwischen Experimentierstationen
+transportiert werden sollen, weisen wir einem Träger, falls nötig, den neuen
+Schritt zu und setzen alle Proben in den Träger. Das Ziel, der aktuelle
+Standort, die Proben und deren Träger können dann dem Transport als neuen
+Transportauftrag zugewiesen werden. Der Transportauftrag ergibt sich impliziert
 aus dem Auftrag. Er wird dadurch realisiert, dass ein Transporteur nur die für
 ihn relevanten Informationen erhält.
 
-Falls ein Prozesschritt ein Transport Auftrag den Zustand freigeben hat, wird er
-allen Transportern angezeigt. Wenn er Transporteur diesen annimmt, wird der
-AuftragsZustand auf angenommen gesetzt. Jetzt verschwindet der Auftrag auch für
-die anderen Transporteure in der Transort Ansicht. Der Transporteur läuft nun
+Falls ein ProzessSchritt einen Transportauftrag und den Zustand freigeben hat, wird er
+allen Transporteuren angezeigt. Wenn der Transporteur diesen annimmt, wird der
+AuftragsZustand auf angenommen gesetzt. Jetzt verschwindet der Auftrag für
+die anderen Transporteure in der Transportansicht. Der Transporteur läuft nun
 los und erledigt den Auftrag, danach wird der AuftragsZustand auf abgegeben
-gesetzt. Der Transport erfährt in seiner Ansicht, wo die Proben sich befinden
+gesetzt. Der Transporteur erfährt in seiner Ansicht, wo die Proben sich befinden
 und was ihr nächstes Ziel ist. Er selber wird nicht persistiert. Dies ist unsere
 Umsetzung von der Strategie 13.1 \ref{strategie:13.1} 
 
