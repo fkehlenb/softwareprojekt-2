@@ -287,75 +287,76 @@ Im Kapitel 8 werden einige Anwendungsfälle dargestellt. Im abschließenden Kapi
 
 \section{Anwendungsfälle}
 
-In diesen Kapitel werden wir verschiedene Anwendungsszenarien abdecken, welche unsere Software erfüllen soll. Diese Szenarien werden wir als Ausgangs- und Vergleichspunkt für den Rest unserer Architektur benutzen. Hiermit kann am Ende geprüft werden, ob die Software alle Anforderungen erfüllt. 
+In diesem Kapitel werden wir verschiedene Anwendungsszenarien abdecken, welche unsere Software erfüllen soll. Diese Szenarien werden wir als Ausgangs- und Vergleichspunkt für den Rest unserer Architektur benutzen. Hiermit kann am Ende geprüft werden, ob die Software alle Anforderungen erfüllt. 
 
-\textbf{•}\subsection{Anmeldung am System (alle Benutzer)}
+\subsection{Anmeldung am System (alle Benutzer)}
 
-Der Benutzer wird mit einem Login-Fenster begrüßt an welchem er sich einloggen kann. Sollte es noch keinen Benutzer im System geben, so kann ein neuer Benutzer über ein Create-Account Knopf erstellt werden. Sollte er sein Passwort vergessen haben, so kann er mithilfe von einem Passwort Vergessen Knopf dieses zurücksetzen.
-Nach der Erstellung eines Benutzers wird dieser im Datenbanksystem eingespeichert, wodurch der System Administrator ihm nun eine Rolle einteilen kann.
-Der System Administrator befindet sich schon zu Anfang im System. Das heißt er muss seinen Benutzer nicht neu erstellen.
+Der Benutzer wird mit einem Login-Fenster begrüßt, an welchem er sich einloggen kann. Sollte es noch keinen Benutzer im System geben, so kann ein neuer Benutzer über ein Create-Account Knopf erstellt werden. Sollte er sein Passwort vergessen haben, so kann er mithilfe von einem Passwort Vergessen Knopf dieses zurücksetzen.
+Nach der Erstellung eines Benutzers wird dieser im Datenbanksystem eingespeichert, wodurch der Systemadministrator ihm nun eine Rolle einteilen kann.
+Der Systemadministrator befindet sich schon zu Anfang im System. Das heißt, er muss seinen Benutzer nicht neu erstellen.
 Nach einer erfolgreichen Anmeldung am System werden alle Benutzer mit einer Navigationstabelle begrüßt. Diese Tabelle beinhaltet die für den Benutzer spezifizierten Funktionalitäten.
 
 \subsection{Benutzer Verwaltung - System Administrator}
 
-Die Aufgabe des System Administrators ist es die Benutzer zu verwalten. Nach seiner Anmeldung am System wird dieser mit einer Tabelle begrüßt welche seine Optionen im System anzeigt. Nach druck auf den Knopf für Nutzerverwaltung wird er mit einer weiteren Tabelle begrüßt, welche alle Nutzer des Systems beinhaltet. Diese Tabelle hat sowohl einen sortierungs Knopf, als auch eine Suchbox, wodurch er die angezeigten Nutzer des Systems filtern kann.
-Jeder Nutzer hat einen Bearbeitungsknopf neben seinem Namen. Durch druck auf diesen Knopf öffnet sich ein weiteres Fenster, in dem der Systemadministrator alle Optionen zur Verwaltung des Nutzers hat. Hier kann er z.B. dessen Details ändern (Name, Vorname, usw...), seine Rolle im SFB (Technologe, Transporter, usw...), aber auch einen Löschung Knopf mit welchem er diesen Benutzer aus dem System entfernen kann. 
-Die Tabelle beinhaltet natürlich auch einen Add Knopf, wodurch der System Administrator neue Benutzer im System einfügen kann. 
+Die Aufgabe des Systemadministrators ist es, die Benutzer zu verwalten. Nach seiner Anmeldung am System wird dieser mit einer Tabelle begrüßt, welche seine Optionen im System anzeigt. Nach Druck auf den Knopf für Nutzerverwaltung wird er mit einer weiteren Tabelle begrüßt, welche alle Nutzer des Systems beinhaltet. Diese Tabelle hat sowohl einen Sortierungsknopf, als auch eine Suchbox, wodurch er die angezeigten Nutzer des Systems filtern kann.
+Jeder Nutzer hat einen Bearbeitungsknopf neben seinem Namen. Durch Druck auf diesen Knopf öffnet sich ein weiteres Fenster, in dem der Systemadministrator alle Optionen zur Verwaltung des Nutzers hat. Hier kann er z. B. dessen Details ändern (Name, Vorname, usw.), seine Rolle im SFB (Technologe, Transporter, usw.). Er hat aber auch einen Löschknopf, mit welchem er diesen Benutzer aus dem System entfernen kann. 
+Die Tabelle beinhaltet natürlich auch einen Add-Knopf, wodurch der Systemadministrator neue Benutzer in das System einfügen kann. 
 
 \subsection{Experimentierstationsverwaltung - System Administrator}
 
-Wir nehmen an der Administrator hätte sich schon im System angemeldet. In dem vor ihm stehendes Fenster sieht er unter der Benutzerverwaltung einen weiteren Knopf zur Experimentierstationsverwaltung. Durch druck auf diesen Knopf öffnet sich ein weiteres Fenster mit einer weiteren Tabelle welche alle im System enthaltenden Experimentierstationen beinhaltet.  Diese sind auch wieder mal in reihen der Tabelle eingeteilt. Jede Reihe hat rechts einen Knopf mit welchem der Administrator die zugehörige Experimentierstation verwalten kann, und daneben einen weiteren Knopf zur Löschung der Experimentierstation.
-Unten in der Tabelle befindet sich ein weiterer Knopf mit welchem er weitere Experimentierstationen einfügen kann.
-Bei normalen druck auf eine Experimentierstation werden Informationen über diese angezeigt, wie z.B. Standort und ob diese momentan in Benutzung ist. 
+Wir nehmen an, der Administrator hätte sich schon im System angemeldet. In dem ihm angezeigten Fenster sieht er unter der Benutzerverwaltung einen weiteren Knopf zur Experimentierstationsverwaltung. Durch Druck auf diesen Knopf öffnet sich ein weiteres Fenster mit einer weiteren Tabelle, welche alle im System enthaltenden Experimentierstationen beinhaltet. Diese sind auch wieder mal in Reihen der Tabelle eingeteilt. Jede Reihe hat rechts einen Knopf, mit welchem der Administrator die zugehörige Experimentierstation verwalten kann, und daneben einen weiteren Knopf zur Löschung der Experimentierstation.
+Unten in der Tabelle befindet sich ein weiterer Knopf, mit dem er weitere Experimentierstationen einfügen kann.
+Bei normalem Druck auf eine Experimentierstation werden Informationen über diese angezeigt, wie z. B. Standort und ob diese momentan in Benutzung ist. 
   
 \subsection{Prozesskettenverwaltung - Prozesskettenadministrator}
 
-Da die Aufgabe des Prozesskettenadministrators die Erstellung und Verwaltung von Prozessketten ist, wird dieser nach seiner Anmeldung am System mit einem Fenster begrüßt, wo er durch druck auf den Knopf zur Prozesskettenverwaltung mit einem weiteren Fenster begrüßt wird, welches alle Prozessketten des Systems enthält.
-Auch diese Tabelle kann durch eine Suchbox und weitere Kriterien wie z.B. Datum der Erstellung der Prozesskette filtriert werden.
-In dieser Tabelle sind alle Prozessketten die sich im System befinden, in reihen sortiert, sichtbar. An der Seite jeder noch nicht instanziierten Prozesskette ist ein Knopf um diese zu Bearbeiten. Durch druck auf den Bearbeitungsknopf kann der Prozesskettenadministrator die Schritte dieser Prozesskette bearbeiten. Hier kann er z.B. weitere Schritte der Prozesskette hinzufügen, oder schon existierende Schritte entfernen.
-Ein weiterer Knopf in der Tabelle erlaubt ihm eine Prozesskette zu starten. Sobald dieses getan ist, kann diese nicht mehr von ihm gestoppt werden.
-Die Tabelle beinhaltet auch einen Einfügungs-Knopf, durch welchen weitere Prozessketten erstellt werden können.
-Bei Erstellung einer Prozesskette wird diese auf Korrektheit überprüft. Sollte ein ProzessSchritt z.B. unrealistische Vorbedingungen haben, so wird dem Prozesskettenadministrator Bescheid gegeben, dass er diese Prozesskette im jetzigen Stand nicht erstellen kann.
-Bei der Erstellung von Prozessketten, welche aus verschiedenen ProzessSchritten besteht, muss der Prozesskettenadministrator natürlich auch diese ProzessSchritte erstellen. Bei der Erstellung von Prozessketten wird er also mit einem Fenster begrüßt in welchem er die ProzessSchritte der Prozesskette verwalten kann.
-Hier kann er z.B. einem ProzessSchritt Vorbedingungen geben, welche er in einem Vorbedingungsfeld eingeben kann. In einem weiteren Feld kann er die Experimentierstation dieses Schrittes zuordnen. Diese ProzessSchritte kann er so lange noch bearbeiten und verändern, bis die Prozesskette gestartet wird, durch den druck auf den Knopf zur Bearbeitung der Prozesskette.
-Sollte eine Prozesskette in Bearbeitung sein, so kann der Prozesskettenadministrator auf diese drücken um zu sehen bei welchem Schritt sie sich momentan befindet. Er kann außerdem auch alle schon abgelaufenen- und noch auszuführende-Schritte sehen.
+Da die Aufgabe des Prozesskettenadministrators die Erstellung und Verwaltung von Prozessketten ist, wird dieser nach seiner Anmeldung am System mit einem Fenster begrüßt, wo er durch Druck auf den Knopf zur Prozesskettenverwaltung mit einem weiteren Fenster begrüßt wird, welches alle Prozessketten des Systems enthält.
+Auch diese Tabelle kann durch eine Suchbox und weitere Kriterien wie z. B. Datum der Erstellung der Prozesskette filtriert werden.
+In dieser Tabelle sind alle Prozessketten, die sich im System befinden, in reihen sortiert sichtbar. An der Seite jeder noch nicht instanziierten Prozesskette ist ein Knopf, um diese zu bearbeiten. Durch Druck auf den Bearbeitungsknopf kann der Prozesskettenadministrator die Schritte dieser Prozesskette bearbeiten. Hier kann er z. B. weitere Schritte der Prozesskette hinzufügen, oder schon existierende Schritte entfernen.
+Ein weiterer Knopf in der Tabelle erlaubt ihm, eine Prozesskette zu starten. Sobald dieses getan ist, kann diese nicht mehr von ihm gestoppt werden.
+Die Tabelle beinhaltet auch einen Einfügungsknopf, durch welchen weitere Prozessketten erstellt werden können.
+Bei Erstellung einer Prozesskette wird diese auf Korrektheit überprüft. Sollte ein ProzessSchritt z. B. unrealistische Vorbedingungen haben, so wird dem Prozesskettenadministrator Bescheid gegeben, dass er diese Prozesskette im jetzigen Stand nicht erstellen kann.
+Bei der Erstellung von Prozessketten, welche aus verschiedenen ProzessSchritten besteht, muss der Prozesskettenadministrator natürlich auch diese ProzessSchritte erstellen. Bei der Erstellung von Prozessketten wird er also mit einem Fenster begrüßt, in welchem er die ProzessSchritte der Prozesskette verwalten kann.
+Hier kann er z. B. einem ProzessSchritt Vorbedingungen geben, welche er in einem Vorbedingungsfeld eingeben kann. In einem weiteren Feld kann er die Experimentierstation dieses Schrittes zuordnen. Diese ProzessSchritte kann er so lange noch bearbeiten und verändern, bis die Prozesskette gestartet wird, durch den Druck auf den Knopf zur Bearbeitung der Prozesskette.
+Sollte eine Prozesskette in Bearbeitung sein, so kann der Prozesskettenadministrator auf diese drücken, um zu sehen, bei welchem Schritt sie sich momentan befindet. Er kann außerdem auch alle schon abgelaufenen und noch auszuführende Schritte sehen.
  
 \subsection{Lagerübersicht - Logistiker}
 
-Nehmen wir an der Logistiker hätte sich im System schon angemeldet.
-In dem von ihm befindenden Fenster ist ein Knopf für Lagerübersicht. Durch druck auf diesen öffnet sich ein weiteres Fenster mit einer Tabelle welche alle sich im Lager befindenden Proben beinhaltet. Auch diese Tabelle kann durch Suchbox und weiteres filtriert werden. Sie beinhaltet aber auch eine Option zur Gruppierung der Proben nach Legierung, Wärmebehandlung und Stationen.
+Nehmen wir an, der Logistiker hätte sich im System schon angemeldet.
+In dem vor ihm befindlichen Fenster ist ein Knopf für die Lagerübersicht. Durch Druck auf diesen öffnet sich ein weiteres Fenster mit einer Tabelle, welche alle sich im Lager befindenden Proben beinhaltet. Auch diese Tabelle kann durch Suchbox und Weiteres filtriert werden. Sie beinhaltet aber auch eine Option zur Gruppierung der Proben nach Legierung, Wärmebehandlung und Stationen.
 
 \subsection{Proben mit Prozessketten assoziieren - Logistiker}
 
-Nach seinem Login findet der Logistiker in dem Begrüßungsfenster ein weiteren Knopf für Prozessketten. Hier kann er die verschiedenen Prozessketten sehen welche gerade ausgeführt werden und welche Proben sie benötigen. Durch eine schnelle suche mit z.B. der Suchbox im Lagerübersichtsfenster kann der Logistiker herausfinden, ob die benötigten Proben sich im Lager befinden. Es soll bei jeder Prozesskette auch einen automatisierten Suchknopf geben welcher diese Proben automatisch im Lager sucht.
-Befinden sich die Proben im Lager, so kann er die Proben der Prozesskette zuweisen. Sollte das nicht der Fall sein, so kann er auf einen Knopf neben der Prozesskette drücken, wodurch dem Prozesskettenadministrator Bescheid gegeben wird das die benötigten Proben nicht verfügbar sind.
+Nach seinem Login findet der Logistiker in dem Begrüßungsfenster einen weiteren Knopf für Prozessketten. Hier kann er die verschiedenen Prozessketten sehen welche gerade ausgeführt werden und welche Proben sie benötigen. Durch eine schnelle Suche mit z. B. der Suchbox im Lagerübersichtsfenster kann der Logistiker herausfinden, ob die benötigten Proben sich im Lager befinden. Es soll bei jeder Prozesskette auch einen automatisierten Suchknopf geben, welcher diese Proben automatisch im Lager sucht.
+Befinden sich die Proben im Lager, so kann er die Proben der Prozesskette zuweisen. Sollte das nicht der Fall sein, so kann er auf einen Knopf neben der Prozesskette drücken, wodurch dem Prozesskettenadministrator Bescheid gegeben wird, dass die benötigten Proben nicht verfügbar sind.
  
 \subsection{Prozessketten Starten/Stoppen - Logistiker}
 
-Sollten die benötigten Proben vom Letzten Absatz sich im Lager befinden, so kann der Logistiker durch einen weiteren Knopf eine noch nicht gestartete Prozesskette starten.
-Sollte aus welchem Grund auch immer eine Prozesskette gestoppt werden, so kann dieser auch diese stoppen.
+Sollten die benötigten Proben vom letzten Absatz sich im Lager befinden, so kann der Logistiker durch einen weiteren Knopf eine noch nicht gestartete Prozesskette starten.
+Sollte, aus welchem Grund auch immer, eine Prozesskette gestoppt werden, so kann dieser auch diese stoppen.
 
 \subsection{Zustand eines Auftrags angeben - Technologe}
 
-Nehmen wir an der Technologe hätte sich schon im System angemeldet. Er sieht vor sich ein Fenster mit einem Knopf für Aufträge. Durch druck auf diesen gelangt er zu einem weiteren Fenster in dem alle verfügbaren Aufträge als Reihen in einer Tabelle angezeigt werden. Hier kann er nun einen Auftrag annehmen, durch druck auf einen Knopf neben einem Auftrag, wodurch dieser Auftrag automatisch in den Zustand angenommen geht. Dieser Auftrag kann nun von keinem anderen Technologen mehr angenommen werden. Sobald der Technologe mit der Bearbeitung des Auftrags beginnt, muss er nur auf den Knopf für in-Bearbeitung drücken, wodurch dieser Auftrag nun automatisch in den Zustand in-Bearbeitung gelangt. Sobald der Technologe mit seiner Bearbeitung fertig ist, muss er nur auf einen Knopf drücken, wodurch der Auftrag nun als Bearbeitet gekennzeichnet wird. Sollte er nun diesen Auftrag weiterschicken möchten, so kann er dieses durch druck auf einen weiteren Knopf tun. Sobald der Technologe die Prozessparameter dieses Auftrags in der Datenbank hochgeladen hat, wird der Auftrag entweder automatisch auf in die DB hochgeladen gesetzt, oder manuell durch den Technologen. Dieses kommt drauf an ob der Technologe zum Hochladen der Daten den Knopf in diesem Auftrag verwendet hat, oder einen anderen.
+Nehmen wir an, der Technologe hätte sich schon im System angemeldet. Er sieht vor sich ein Fenster mit einem Knopf für Aufträge. Durch Druck auf diesen gelangt er zu einem weiteren Fenster, in dem alle verfügbaren Aufträge als Reihen in einer Tabelle angezeigt werden. Hier kann er nun einen Auftrag, durch Druck auf einen Knopf neben einem Auftrag, annehmen, wodurch dieser Auftrag automatisch in den Zustand angenommen geht. Dieser Auftrag kann nun von keinem anderen Technologen mehr angenommen werden. 
+Sobald der Technologe mit der Bearbeitung des Auftrags beginnt, muss er nur auf den Knopf für in-Bearbeitung drücken, wodurch dieser Auftrag nun automatisch in den Zustand in-Bearbeitung gelangt. Sobald der Technologe mit seiner Bearbeitung fertig ist, muss er nur auf einen Knopf drücken, wodurch der Auftrag nun als bearbeitet gekennzeichnet wird. Sollte er nun diesen Auftrag weiterschicken möchten, so kann er dies durch Druck auf einen weiteren Knopf tun. Sobald der Technologe die Prozessparameter dieses Auftrags in die Datenbank hochgeladen hat, wird der Auftrag entweder automatisch in der Datenbank auf hochgeladen gesetzt, oder manuell durch den Technologen. Dieses kommt drauf an, ob der Technologe zum Hochladen der Daten den Knopf in diesem Auftrag verwendet hat, oder einen anderen.
 
 \subsection{Aufnahme der Zeit in einem Auftrag - Technologe}
 
-Bei der Annahme eines Auftrags aus dem  vorherigen Absatz wird die jetzige Systemzeit aufgenommen und im Auftrag eingegeben. Das gleiche passiert auch bei den weiteren Schritten aus dem vorherigen Absatz.
-Sollte der Technologe allerdings an einem späteren Zeitpunkt diese Zeiten bearbeiten möchten, so kann er durch druck auf einen Bearbeitungsknopf neben dem Auftrag in der Tabelle die Zeiten manuell ändern.  
+Bei der Annahme eines Auftrags aus dem vorherigen Absatz wird die jetzige Systemzeit aufgenommen und im Auftrag eingegeben. Das Gleiche passiert auch bei den weiteren Schritten aus dem vorherigen Absatz.
+Sollte der Technologe allerdings an einem späteren Zeitpunkt diese Zeiten bearbeiten möchten, so kann er durch Druck auf einen Bearbeitungsknopf neben dem Auftrag in der Tabelle die Zeiten manuell ändern.  
 
 \subsection{Station Fehler Melden - Technologe}
 
-Sollte irgendetwas schiefgehen und eine Station fehlerhaft werden, so kann der Technologe, nach seiner Anmeldung im System, durch einen Knopf einen Station Fehler melden. Hierdurch wird das System auch die Fehlernachricht bekommen, und somit allen anderen Prozessketten welche diese Station benötigen darüber Bescheid geben. 
+Sollte irgendetwas schiefgehen und eine Station fehlerhaft werden, so kann der Technologe, nach seiner Anmeldung im System, durch einen Knopf einen Stationsfehler melden. Hierdurch wird das System auch die Fehlernachricht bekommen, und somit allen anderen Prozessketten, welche diese Station benötigen, darüber Bescheid geben. 
 
-\subsection{Proben Transportieren - Transporter}
+\subsection{Proben Transportieren - Transporteur}
 
-Nehmen wir an der Transporter hätte sich schon am System angemeldet. Er sieht ein Fenster mit einem Transportübersicht Knopf, welcher ein weiteres Fenster öffnet, mit allen Transportaufträgen als Reihen in einer Tabelle. Hier kann er, durch druck auf einen Auftrag sehen, wo diese Proben abgeholt werden müssen, und wo sie hin geliefert werden müssen. 
-Er kann durch Knopfdruck einen Auftrag annehmen, wodurch dieser als Annahme gekennzeichnet wird. Sobald er die Proben abgeholt hat, kann er durch Knopfdruck diesen Auftrag auf die Kennzeichnung Transport setzen. Sobald er die Proben zum korrekten Ort gebracht hat, kann er durch einen weiteren Knopfdruck diesen Auftrag als Ausgeliefert markieren.
+Nehmen wir an, der Transporter hätte sich schon am System angemeldet. Er sieht ein Fenster mit einem Transportübersicht-Knopf, welcher ein weiteres Fenster mit allen Transportaufträgen als Reihen in einer Tabelle öffnet. Hier kann er, durch Druck auf einen Auftrag sehen, wo diese Proben abgeholt werden müssen und wo sie hin geliefert werden müssen. 
+Er kann durch Knopfdruck einen Auftrag annehmen, wodurch dieser als Annahme gekennzeichnet wird. Sobald er die Proben abgeholt hat, kann er durch Knopfdruck diesen Auftrag auf die Kennzeichnung Transport setzen. Sobald er die Proben zum korrekten Ort gebracht hat, kann er durch einen weiteren Knopfdruck diesen Auftrag als ausgeliefert markieren.
 
-\subsection{Probenverlust Melden - Transporter}
+\subsection{Probenverlust Melden - Transporteur}
 
-Nachdem der Transporter den Transport aus dem vorherigen Abschnitt ausgeführt hat, kann er durch druck auf einen Knopf innerhalb der Auftragstabelle für jeden Auftrag Probenverlust angeben. Hierdurch wird der Auftrag automatisch auf den Zustand Verlust gesetzt.
+Nachdem der Transporteur den Transport aus dem vorherigen Abschnitt ausgeführt hat, kann er durch Druck auf einen Knopf innerhalb der Auftragstabelle für jeden Auftrag Probenverlust angeben. Hierdurch wird der Auftrag automatisch auf den Zustand Verlust gesetzt.
 
 
 \section{Globale Analyse}
@@ -1822,6 +1823,28 @@ Bei dem Login können folgende Exceptions geworfen werden:
   \label{fig:pkErstellen}
 \end{figure}
 
+In der Abb. \ref{fig:pkErstellen} wird der Ablauf gezeigt, wie ein
+ProzessKettenAdministrator eine ProzessKette erstellt, diese dann instanziert
+und dann startet.
+
+Als pkApp  App bezeichnen wir den Teil der Webapplikation, der dem pkAdmin
+das Verwalten der ProzessKetten ermöglicht.
+
+Sobald der pkAdmin der pkApp mitteilt, dass er gerne eine ProzesskettenVorlage
+bearbeiten würde führt die PKAdminBean die methode
+$editProzessKettenVorlage(pkv:ProzessKettenVorlage)$ aus (\textbf{Schritt 1}).
+Alls nächstes sollen alle ProzessSchrittVorlagen die einer ProzessKettenVorlage
+zugewiesen sind angezeigt werdne. Dafür führt der ProzessKettenController die
+Methode $getPSV()$ aus (\textbf{Schritt 2}).
+
+Die nächsten Schritte sind optimal. Den es ist dem pkAdmin überlassen was er in
+der Vorlage ändern will. Es bietet sich hier an, manuell eine
+Experimentierstation zuzuweisen, ansonsten wird dies in dem \textbf{11. Schritt}
+ausgeführt.
+
+
+
+\subsection{Alt}
 Figure \ref{fig:pkErstellen} zeigt wie der Prozesskettenadministrator die Prozesskette erstellt. 
 Bei Schritt 18, schauen sie bitte in Graphik \ref{fig:logstikProbenPüftZuweisen}. 
 
@@ -1829,7 +1852,8 @@ Der Prozesskettenadministrator wählt aus den vorhandenen Vorlagen eine aus, dam
 Falls die Randbedingungen der Kette stimmen, darf diese instanziiert werden. Beim Speichern des Auftrages mit der instanziierten Prozesskette werden diese auch persistiert.
 
 Jetzt erhält der Logistiker einen neuen Probenzuweisungsauftrag, falls die Anfrage genehmigt wurde, kann der PKAdmin nun die Prozesskette starten.
-
+Als naächstes ist es möglich die Eingabe und Ausgabe Träger zu setzen. Wenn
+diese gesetzt sind
 
 %In der Graphik \ref{fig:logstikProbenPüftZuweisen} erhält die Logistik eine Anfrage für die Probenverwaltung. Es muss nun vom System geprüft werden ob %Proben mit den gewünschten Materialeigenschaften im Lager sind. Das System gibt diese an die Logistik zurück. Werden die Proben dann von dem %Logistiker ausgewählt und genehmigt, so werden diese an den Auftrag übermittelt und persistiert. Die Genehmigung wird an die Prozesskettenverwaltungs-%Administrationsapp übermittelt.
 
