@@ -1,34 +1,38 @@
 package de.unibremen.sfb.Model;
 
 import lombok.Data;
+import lombok.NonNull;
 
 import java.time.Duration;
-import java.util.List;
+import java.util.Set;
 
+/** Data class for the process step templates */
 @Data
-/* Data class for the process step templates */
 public class ProzessSchrittVorlage {
 
     /** Process step template id */
+    @NonNull
     public int psVID;
 
-    /** Process step template states */
-    public List<String> zustaende;
-
     /** Duration of the process step template */
+    @NonNull
     public Duration dauer;
 
     /** Accepted container input types */
-    public List<TraegerArt> eingabeTraeger;
+    public Set<TraegerArt> eingabeTraeger;
 
     /** Accepted container output types */
-    public List<TraegerArt> ausgabeTraeger;
+    public Set<TraegerArt> ausgabeTraeger;
 
     /** The process step type */
-    public ProzessSchrittArt art;
+    @NonNull
+    public ProzessSchrittArt psArt;
 
     /** The experimenting stations accepted in the process step template */
-    public List<ExperimentierStation> stationen;
+    @NonNull
+    public Set<ExperimentierStation> stationen;
 
-    /* */
+    /** The process step template's state automaton */
+    @NonNull
+    public ProzessSchrittZustandsAutomat zustandsAutomat;
 }

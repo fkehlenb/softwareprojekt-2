@@ -7,7 +7,7 @@ import java.util.Set;
 
 /** Job data class */
 @Data
-public class Auftrag extends ProzessKettenVorlage{
+public class Auftrag{
 
     /** The job's id */
     @NonNull
@@ -15,7 +15,7 @@ public class Auftrag extends ProzessKettenVorlage{
 
     /** The process chain template this job was created from */
     @NonNull
-    public ProzessKettenVorlage vorlage = this;
+    public ProzessKettenVorlage vorlage;
 
     /** The job's priority */
     @NonNull
@@ -32,10 +32,4 @@ public class Auftrag extends ProzessKettenVorlage{
     /** The job's state automaton */
     @NonNull
     public Enum<ProzessKettenZustandsAutomat> prozessKettenZustandsAutomat;
-
-    /** Constructor with call to superclass */
-    public Auftrag(AuftragsLog log){
-        super();
-        this.log=log;
-    }
 }

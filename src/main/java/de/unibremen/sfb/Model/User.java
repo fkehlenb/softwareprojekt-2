@@ -1,16 +1,18 @@
 package de.unibremen.sfb.Model;
 
 import lombok.Data;
+import lombok.NonNull;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
+/** This class is used to create user objects */
 @Data
-/* This class is used to create user objects */
+@NonNull
 public class User {
 
     /** User's id  */
-    public final int id;
+    public int id;
 
     /** The user's name */
     public String vorname;
@@ -37,14 +39,8 @@ public class User {
     public Date erstellungsDatum;
 
     /** The role's of the user */
-    public List<Role> rollen;
+    public Set<Role> rollen;
 
     /** The experimenting stations a user is assigned to */
-    public List<ExperimentierStation> stationen;
-
-    /** Constructor for the user objects
-     * @param id - the user's unique identification number */
-    public User(int id){
-        this.id=id;
-    }
+    public Set<ExperimentierStation> stationen;
 }

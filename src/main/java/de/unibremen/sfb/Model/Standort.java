@@ -1,16 +1,13 @@
 package de.unibremen.sfb.Model;
 
 import lombok.Data;
+import lombok.NonNull;
 
-import java.util.List;
-
+/** The location data class */
 @Data
-/* The location data class */
 public class Standort {
 
     /** The location */
-    public String standort;
-
-    /** The containers in this location */
-    public List<Traeger> traeger;
+    @NonNull
+    public String ort;
 }
