@@ -1,4 +1,4 @@
-\documentclass[enabledeprecatedfontcommands,fontsize=12pt,paper=a4,twoside]{scrartcl}
+\documentclass[enabledeprecatedfontcommands,fontsize=12.1pt,paper=a4,twoside]{scrartcl}
 
 
 \newcommand{\grad}{\ensuremath{^{\circ}} }
@@ -1494,6 +1494,18 @@ Um Prozessschrittvorlagen erstellen zu können benötigen wir allerdings Prozess
 Nun möchte man ja vielleicht Prozessschritte erstellen. Ein Prozessschritt benötigt einen Prozessschrittszustandsautomat und einen Prozessschrittlog. Um nun Prozessschritte erstellen zu können muss unser Prozessschrittcontroller zugriff auf die Prozessschritt Datenklasse haben, und um diese anschließend in der Datenbank verwalten zu können brauch er auch zugriff auf ProzessschrittDAO.
 \newpage 
 
+\subsubsection{Probe Modul}
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{UML/Modules/PROBE.png}
+  \caption{Probe Module}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
+Nun kommen wir zum Modul Probe. Die Proben in unserem System müssen erstellt und verwaltet werden können, wodurch der Probencontroller Zugriff auf die Proben Datenklasse haben muss. Außerdem muss man die Proben in der Datenbank auch verwalten können, wodurch der Probencontroller Zugriff auf ProbeDAO haben muss.
+
+\newpage
 \subsubsection{Träger Modul}
 \begin{figure}[h!]
 \begin{center}
@@ -1749,7 +1761,7 @@ In diesem Anwendungsfall geht es darum zu zeigen, was passiert wenn sich ein
 Benutzer anmeldet. Wir haben uns entschieden, die Sicherheit nicht selber zu
 implementieren, sondern Apache Shiro zu nutzen. Siehe Strategie 2.1 \ref{strategie:2.1}
 
-\subsection{Was ist Apache Shiro}
+\subsubsection{Was ist Apache Shiro}
 Als erstes möchten wir einen Überblick über Apache Shiro geben, um dann anhand
 des Sequenzdiagrammes erläutern zu können, wie Apache Shiro mit unseren Schichten
 zusammenhängt. Apache Shiro kann ab jetzt auch nur als Shiro bezeichnet werden.
@@ -1777,7 +1789,7 @@ Siehe Strategie 1.2 \ref{strategie:1.2}. Um dies in Shiro umzusetzen, benutzen w
 JdbcRealm. Mit JdbcRealm kann Shiro aus unserer Datenbank die benötigen
 Attribute und Rollen eines Nutzers laden.
 
-\subsection{Erklärung des Diagramms}
+\subsubsection{Erklärung des Diagramms}
 Es kann vorkommen, dass ein Benutzer unseres Systems in einen Realm navigiert,
 der nur für bestimmte Rollen zugänglich ist \textbf{(Schritt 1)}. Dies ist der Fall
 für den ersten Schritt unseres Sequenzdiagrammes. Dies passiert in einem
@@ -1816,7 +1828,7 @@ ursprünglichen FacesContext zurück \textbf{(Schritt 14)}. Dafür Verwenden wir
 eine Weiterleitung, die den Pfad zu dem FacesContext kennt, das die Anmeldung
 gefordert hat.
 
-\subsection{Kleiner Ausschnitt zur Fehlerbehandlung}
+\subsubsection{Kleiner Ausschnitt zur Fehlerbehandlung}
 Bei dem Login können folgende Exceptions geworfen werden:
 \begin{itemize}
   \item Shiro löst eine UnknownAccountException aus, falls es den Nutzer nicht gibt
