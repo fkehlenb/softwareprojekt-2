@@ -73,6 +73,7 @@ participant "AuftragController" as auftrag
 participant "ProzessschrittVorlageController" as psv
 participant "ProzessSchrittZustandsAutomatVorlageController" as psza
 participant "auftraLogController" as aLog
+participant "BedingungController" as b
 
   ==Erstellen Eines neuen Auftrages== 
 note over pkaB : pkAdmin befindet sich in der pkApp
@@ -81,15 +82,14 @@ pkaB -> pkv : editProzessKettenVorlage(pkv:ProzessKettenVorlage)
 note over pkv : Alle ProzessSchrritteVorlage anzeigen
 pkv -> psv : getPSV()
 note over psv : pkAdmin setzt alle gewünschten Eigenschaften
-psv -> psv : setEs(es:Experimentierstation) TODO
+psv -> psv : setEs(es:Experimentierstation)
 psv -> psv : setZustaende(psz:Set<ProzessSchrittZustand>)
 psv -> psv :  setEingabeTraeger(Set<Traegerart>)
 psv -> psv : setAusgabeTraeger(Set<Traegerart>)
 psv -> psv : setProzessSchrittZustandsAutomat(\npsza:ProzessSchrittZustandsAutomat)
 psv -> psv :  setProzessschrittArt(psa:ProzessSchrittArt)
-psv -> b : add Bedinung (TODO) 
+psv -> b :   setBedingung(bedingung:Pair<Set\n<ProzessSchrittParameter>\n,Set<QualitativeEigenschaft>>)
 b -> psv : add Parameters (TODO)
-psv
 psv -> psv : setEs()
 psv -> pkv : get Bedinung
 pkv -> pkaB : checkPK(ProzessKette pk)
