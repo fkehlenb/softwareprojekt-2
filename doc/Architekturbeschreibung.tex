@@ -1035,7 +1035,9 @@ Hier haben wir uns für die erste Strategie entschieden, weil diese einfacher um
 	 P1.11: Transporte \\ 
         \hline
         \textbf{Strategien} \\
+	 \label{strategie:13.1}  
          \textbf{Strategie 13.1: Klasse mit Zuständen: (ausgewählt)} Es soll eine Klasse für die Transportaufträge geben. Der Transportauftrag kann unterschiedliche Zustände annehmen, es werden nur Transportaufträge dargestellt, die im entsprechenden Zustand sind. \\
+	 \label{strategie:13.2}  
 	\textbf{Strategie 13.2: Attribut:} Jeder Transportauftrag hat ein Boolean Attribut, das angibt, ob er schon abgeholt worden ist. \\  \hline
     \end{tabular}
     \caption{Nur ein Transporteur Problemkarte}
@@ -1240,6 +1242,7 @@ Hier haben wir uns für die erste Strategie entschieden, weil die Anzahl an Arte
 	{\phantomsection}          
            \label{strategie:21.2} 
 	\textbf{Strategie 21.2: Als String:} Die Kommentare zu Proben werden als Strings gespeichert. \\
+	  \label{strategie:21.3} 
 	\textbf{Strategie 21.3: Als Tupel: (ausgewählt)} Die Kommentare werden als Tupel aus dem Kommentar und dem Zeitstempel gespeichert. \\
           \\ \hline
     \end{tabular}
@@ -1260,19 +1263,16 @@ et al. um das zu entwerfende System zu beschreiben. Unser System ist eine
 Webapplikation die auf JSF basiert. Benutzer können mit ihren Endgeräten auf
 unser System zugreifen. Dafür stellen wir den Benutzen ein Web-Frontend
 zur Verfügung. Die Kommunikation vom JSF, unserem Framework, ist als
-Model-View-Controller System konzipiert worden. TODO text wie mvc umgesetz
+Model-View-Controller System konzipiert worden. Dieses spiegelt sich dadurch wieder, das der
+Benutzer nur auf die GUI zugreift, welche im Hintergrund einen Controller verwendet der die Logik im
+System ausführt. 
 
-  In der Konzeptionellen Sicht werden die Interaktionen von unserer Datenbank,
-dem Persistence Module, dem Model, der Buisnesslogik, den Controllern, den JSF
-Seiten sowie dem Rest-Modul zwischen den verschiedenen Komponenten der Software
-betrachtet. Die Funktionalität des Systems ist auf verschiedene Komponenten
-verteilt, die wir im Folgenden zeigen:\\
 }
 
 {%Korrekturvorschlag Samuel
 \textbf{H2:} Die Datenbanksoftware H2 wird genutzt um unser Modul zu
 Persistieren. Sie wird benutzt, da es es in den Anforderungen von uns gefordert
-wird. Unsere Datenbank kommuniziert über JDBC. TODO {DELTADATASPIKE}
+wird. Unsere Datenbank kommuniziert über JDBC. %TODO {DELTADATASPIKE}
 }
 
 {%Korrekturvorschlag Samuel
@@ -1289,13 +1289,14 @@ Die Persistenz ist mit der BusinessLogik verbunden
 {%Korrekturvorschlag Samuel
 \textbf{BusinessLogik:} Die Businesslogik beinhaltet die Funktionalität des
 Systems. Sie nutzt die Schnittstellen Data von Persistence und nutzt die Update
-Schnittstelle von Model. Sie ergibt sich aus Strategie (15.1)~\ref{prob:15.1}.
+Schnittstelle von Model. Sie ergibt sich aus Strategie 15.1~\ref{strategie:15.1}.
 Wir nutzen die BusinessLogik um die Wünsche unseres Kunden zu erfüllen. Die
 BusinessLogik erlaubt es, dass Prozessketten geplant und durchgeführt werden
 können. Hier liegt also die eigentliche Funktionalität unseres Systems.
 
-TODO: Kurzer Text zu jedem der Kontroller.
-
+Hierzu sind die Controller mit unserer GUI verknüpft. Sollte der User irgendeine Auswahl oder Eingabe in der GUI machen
+so werden die Daten direkt an den Controller übermittelt welcher dann die Logik ausführt, indem er mit den Datenklassen und 
+ihren Datenbank Klassen(DAO) verbunden ist, und somit vollen Zugriff auf die funktionalen Schnittstellen des Systems hat. 
 }
 
 {%Korrekturvorschlag Samuel
@@ -1307,25 +1308,25 @@ TODO: Kurzer Text zu jedem der Kontroller.
 In dem Modell liegen die Daten der User, Prozessketten, Proben sowie
 Daten und Vormerkungen des System. Model stellt ein Interface Update zur
 Verfügung, welches von Businesslogic und Persistence genutzt wird. Diese
-Komponente ergibt sich aus der Strategie (15.1)~\ref{prob:15.1}.\\
+Komponente ergibt sich aus der Strategie 15.1~\ref{strategie:15.1}.\\
 In dem Abschnitt \ref{sec:datensicht} nehmen wir unser Datenmodel genauer unter
 die Lupe und gehen auf die Strategien ein, welche wir versucht haben im
 Datenmodel umzusetzen.
 }
 
-\textbf{Model:} Hier liegen die Daten der User, Prozesskette , Proben sowie Daten und Vormerkungen des System. Diese Komponente ist mit der Controller und Persistenz verwundet, weil die Daten das Interfaces gezeigt werden, sind das an der Model implementieren. Diese Komponente ergibt sich aus der Strategie (15.1)~\ref{prob:15.1}. \\
+\textbf{Model:} Hier liegen die Daten der User, Prozesskette , Proben sowie Daten und Vormerkungen des System. Diese Komponente ist mit der Controller und Persistenz verwundet, weil die Daten das Interfaces gezeigt werden, sind das an der Model implementieren. Diese Komponente ergibt sich aus der Strategie 15.1~\ref{strategie:15.1}. \\
 
 {%Korrekturvorschlag Samuel
-\textbf{Interface:} Hier liegt unser User Interface, also die xhtml Website, in der die User mit dem System interagieren. Interface nutzt das Interface Lieferung von Controller. Die Komponente Interface bezieht sich auf Strategie 1.2 \ref{strategie:1.2}, weil jeder User eine unterschiedliche Oberfläche benutzt. Außerdem ergibt sich die Komponente aus der Strategie (15.1)~\ref{prob:15.1}. Interface ist mit einem Port verbunden. 
+\textbf{Interface:} Hier liegt unser User Interface, also die xhtml Website, in der die User mit dem System interagieren. Interface nutzt das Interface Lieferung von Controller. Die Komponente Interface bezieht sich auf Strategie 1.2 \ref{strategie:1.2}, weil jeder User eine unterschiedliche Oberfläche benutzt. Außerdem ergibt sich die Komponente aus der Strategie 15.1~\ref{strategie:15.1}. Interface ist mit einem Port verbunden. 
 }
 
-\textbf{Interface:} In diesem Teil liegt die User Interface, wo die User mit den System interagieren können. Diese Problem Karte beziehen sich aus Strategie 1.2, weil jede User hat ein unterschiedliche Oberfläche, mit wenn er mit des System interagieren kann. Außerdem ergibt sich aus die Strategie ~\ref{prob:15.1}(15.1). Diese Komponente ist verwunden mit der BusinessLogik, um die Request und Data Bearbeitung zu erreichen.\\
+\textbf{Interface:} In diesem Teil liegt die User Interface, wo die User mit den System interagieren können. Diese Problem Karte beziehen sich aus Strategie 1.2, weil jede User hat ein unterschiedliche Oberfläche, mit wenn er mit des System interagieren kann. Außerdem ergibt sich aus die Strategie 15.1~\ref{strategie:15.1}. Diese Komponente ist verwunden mit der BusinessLogik, um die Request und Data Bearbeitung zu erreichen.\\
 
 {%Korrekturvorschlag Samuel
-\textbf{Controller:} Controller nutzt das Interface Control von BusinessLogic und Control von Model. Controller stellt ein Interface Lieferung zur Verfügung. Durch Controller kann das Interface die unterschiedlichen Funktionen aus BusinessLogic oder Model erreichen. Es ergibt sich aus der Strategie (15.1) ~\ref{prob:15.1}.
+\textbf{Controller:} Controller nutzt das Interface Control von BusinessLogic und Control von Model. Controller stellt ein Interface Lieferung zur Verfügung. Durch Controller kann das Interface die unterschiedlichen Funktionen aus BusinessLogic oder Model erreichen. Es ergibt sich aus der Strategie 15.1 ~\ref{strategie:15.1}.
 }
 
-\textbf{Controller:} Hier sind die Petitionen mit den entsprechende Data zur anderen Model und die BusinessLogik abgeleitet. Mit diese Modul reagiert der Interface,  um die unterschiedlichen Funktionalität zu erreichen. Außerdem ergibt sich aus die Strategie ~\ref{sec:strategie151}.  \\
+\textbf{Controller:} Hier sind die Petitionen mit den entsprechende Data zur anderen Model und die BusinessLogik abgeleitet. Mit diese Modul reagiert der Interface,  um die unterschiedlichen Funktionalität zu erreichen. Außerdem ergibt sich aus die Strategie ~\ref{strategie:15.1}.  \\
 
 {%Korrekturvorschlag Samuel
 \textbf{REST:} Hier greift der REST-Client auf REST-Funktionen zu. Über einen Port verbindet er sich mit dem RESTClient. 
@@ -1345,11 +1346,15 @@ Datenmodel umzusetzen.
 \textbf{JDBC:} Durch diesen Anschluss ist die Verbindung zu der Datenbank erreichbar. Er erlaubt die Kommunikation zwischen Java und der in der H2 Datenbank laufenden Sprache.
 }
 
-\textbf{Interface:} In diesem Teil liegt die User Interface, wo die User mit den System interagieren können. Diese Problem Karte beziehen sich aus Strategie 1.2, weil jede User hat ein unterschiedliche Oberfläche, mit wenn er mit des System interagieren kann. Außerdem ergibt sich aus die Strategie 15.1: Kapselung des Datenhaltung \ref{strategie:15.1}.
+\textbf{Interface:} In diesem Teil liegt die User Interface, wo die User mit den System interagieren können. Diese Problem Karte beziehen sich aus Strategie 1.2~\ref{strategie:1.2}, weil jede User hat ein unterschiedliche Oberfläche, mit wenn er mit des System interagieren kann. Außerdem ergibt sich aus die Strategie 15.1~\ref{strategie:15.1}: Kapselung des Datenhaltung.
 Diese Komponente ist verwunden mit der BusinessLogik, um die Request und Data Bearbeitung zu erreichen.\\
-\textbf{Model:} Hier liegen die Daten der User, Prozesskette , Proben sowie Daten und Vormerkungen des System. Diese Komponente ist mit der Interface verwundet, weil die Daten das Interfaces gezeigt werden, sind das an der Model implementieren. Diese Komponente ergibt sich aus der  Strategie 15.1: Kapselung des Datenhaltung \ref{strategie:15.1} \\
+
+\textbf{Model:} Hier liegen die Daten der User, Prozesskette , Proben sowie Daten und Vormerkungen des System. Diese Komponente ist mit der Interface verwundet, weil die Daten das Interfaces gezeigt werden, sind das an der Model implementieren. Diese Komponente ergibt sich aus der  Strategie 15.1~\ref{strategie:15.1}: Kapselung des Datenhaltung. \\
+
 \textbf{Persistenz:} Hier liegt die Verbindungen zwischen das System und Datei an der Dateibase, Diese Komponente ist verantwortlich und die Speicherung und Schreibung Funktionen an der Dateibase. diese Komponente  ist getroffen an der Anwendung der verlangte Technologie.  \\
-\textbf{BusinessLogik:} In diese Teil liegt die Funktionalität des System, diese Teil ist verantwortlich die Interaktion zwischen die Modelle und die Bearbeitung ihre Data in die Persistenz Komponente. Hier sind die das gewuchtetes Verhalten des System implementiert. diese Schnittstelle ergibt sich aus der Strategie 15.1: Kapselung des Datenhaltung \ref{strategie:15.1} \\
+
+\textbf{BusinessLogik:} In diese Teil liegt die Funktionalität des System, diese Teil ist verantwortlich die Interaktion zwischen die Modelle und die Bearbeitung ihre Data in die Persistenz Komponente. Hier sind die das gewuchtetes Verhalten des System implementiert. diese Schnittstelle ergibt sich aus der Strategie 15.1~\ref{strategie:15.1}: Kapselung des Datenhaltung. \\
+
 \textbf{JDBC:} Durch diese Anschlüsse  ist die Verwindung mit der Dateibase erreichbar. diese Anschlüsse erlaubt die Kommunikation zwischen die Sprache Java und die Dateibase.  \\
 
 {%Korrekturvorschlag Samuel
@@ -1405,9 +1410,9 @@ In den nächsten Abschnitten werden die in der konzeptionellen Sicht gezeigten M
 \newpage
 \subsection{Pakete}
 In diesem Unterkapitel werden wir jedes Paket der Software detailliert modellieren und erklären.
-Wir fangen zudem erst einmal mit unserem Model Diagramm an, welches die Relationen zwischen den Datenklassen zeigt. Dieses Diagramm ist eine verfeinerte Version der Datensicht welche wir in Kapitel 6 modellieren und beschreiben. 
+Wir fangen zudem erst einmal mit unserem Modeldiagramm an, welches die Relationen zwischen den Datenklassen zeigt. Dieses Diagramm ist eine verfeinerte Version der Datensicht welche wir in Kapitel 6 modellieren und beschreiben. 
 \subsubsection{Model}
-Das folgende Diagramm beschreibt eine verfeinerte Version unserer Datensicht (siehe Kapitel 6). Dieses Diagramm beschreibt die Datenklassen unserer Software mit ihren Attributen und Relationen zueinander. Wie man sehen kann, ist es möglich über den User an die meisten Module des Systems zu gelangen, allerdings kann auch auf die meisten Einzelmodule auch beliebig zugegriffen werden. Der User hat hierbei allerdings eine zentrale Rolle, da er z.B. Prozess Ketten Vorlagen erstellen kann, und diese nicht von außen erstellt werden können sollen. 
+Das folgende Diagramm beschreibt eine verfeinerte Version unserer Datensicht (siehe Kapitel 6). Dieses Diagramm beschreibt die Datenklassen unserer Software mit ihren Attributen und Relationen zueinander. Wie man sehen kann, ist es möglich, über den User an die meisten Module des Systems zu gelangen, allerdings kann auch auf die meisten Einzelmodule auch beliebig zugegriffen werden. Der User hat hierbei allerdings eine zentrale Rolle, da er z. B. Prozesskettenvorlagen erstellen kann, und diese nicht von außen erstellt werden können sollen. 
 \begin{sidewaysfigure} 
 \begin{center}
  \includegraphics[width=\textwidth]{UML/Model51.pdf}
@@ -1420,7 +1425,6 @@ Das folgende Diagramm beschreibt eine verfeinerte Version unserer Datensicht (si
 
 \subsubsection{Controller}
 Nun möchten wir die Controller in unserem System betrachten. Diese Module sind für die Logik zuständig, welche von der WebUI ausgelöst wird. Möchte zudem z.B. ein Prozess Ketten Administrator eine Neue Prozess Ketten Vorlage erstellen, so darf die WebUI nicht direkt auf die Datenklassen verweise machen, sondern muss diese Instruktion erst einmal an einen Controller weitergeben welcher diese anschließend realisiert. Zudem haben diese Controller auch zugriff auf die Persistenz Klassen, welche wir zunächst betrachten werden, um Objekte die von einer Datenklasse durch den Controller erstellt wurden auch in der Datenbank abspeichern zu können. \\
-
 \begin{sidewaysfigure} 
 \begin{center}
  \includegraphics[width=\textwidth]{UML/Controller.pdf}
@@ -1429,25 +1433,13 @@ Nun möchten wir die Controller in unserem System betrachten. Diese Module sind 
 \end{center}
 \end{sidewaysfigure}
 \newpage
-In dieser Sicht, im UserController wird 
+
 \subsubsection{Persistence}
 
 {
-Die Persistenzklassen sind für die persistierung von Daten zuständig. Sie erben alle von der abstrakten Klasse ObjectDAO. Diese Klasse implementiert den EntityManager, der für das Verwalten der Datenbankinformationen zuständig ist. Die verschiedenen Funktionen sollen zum Beispiel das Speichern und das Laden nach einem Neustart von Daten ermöglichen. Jedes Objekt, was für die Speicherung in der Datenbank relevant ist, hat eine Klasse, die von ObjectDAO erbt. ObjectDAO hat drei abstrakte Funktionen, die jeweils in den Klassen für die einzelnen Objekte implementiert werden. Zusätzlich gibt es in zu jeder Klasse die relevanten Get Funktionen, um Informationen aus diesen Klassen zu bekommen. Die Funktion persist(T) speichert Objekte in die Datenbank. Update() überschreibt eine vorherige Version dieses Objektes mit der neuen und remove() entfernt das Objekt.
+Die Persistenzklassen sind für die Persistierung von Daten zuständig. Sie erben alle von der abstrakten Klasse ObjectDAO. Diese Klasse implementiert den EntityManager, der für das Verwalten der Datenbankinformationen zuständig ist. Die verschiedenen Funktionen sollen zum Beispiel das Speichern und das Laden nach einem Neustart von Daten ermöglichen. Jedes Objekt, was für die Speicherung in der Datenbank relevant ist, hat eine Klasse, die von ObjectDAO erbt. ObjectDAO hat drei abstrakte Funktionen, die jeweils in den Klassen für die einzelnen Objekte implementiert werden. Zusätzlich gibt es in zu jeder Klasse die relevanten Get Funktionen, um Informationen aus diesen Klassen zu bekommen. Die Funktion persist(T) speichert Objekte in die Datenbank. Update() überschreibt eine vorherige Version dieses Objektes mit der neuen und remove() entfernt das Objekt.
 
-Hier wird das DAO-Pattern genutzt, wodurch die Programmlogik sich nicht an technische Deteils der Datenspeicherung halten muss. Datdurch ist ein flexibelerer Einsatz möglich. 
 Dieses Paket wird gebraucht, da es vorgegeben ist. \\
-
-Einige Strategien, deren Umsetzung hier sichtbar ist und nicht in den Modulen detaillierter besprochen werden: \\
-In ProzessSchrittParameterController findet sich eine exportJSON Methode, die die Umsetzung von Strategie 4.2 darstellt. 
-Die Strategie 5.1 findet sich in den Methoden in den Klassen AuftragsLogController und ProzessSchrittLogController, durch die die einzelnen Daten der Protokolle einstellbar sind. Die Logs werden durch Methoden in AuftragController und ProzessSchrittController gesetzt. 
-Der Technologe kann durch die Methode prioSort die Aufträge automatisch nach Ihrer Priorität sortiert anzeigen lassen, was der Strategie 7.2 entspricht. 
-Die Strategie 10.2 zeigt sich hier vor allem durch Methoden des ProzessKettenAdministrators wie zum Beispiel setBedingung.
-Das lazy loading von Strategie 12.1 kann schlecht explizit in der Architektur gesehen werden. Das Laden der Proben wird über die Methoden getProben des Logistikers gemacht. 
-Der Technologe kann durch assignToAuftrag und getAuftrag mit den Transportaufträge umgehen. Mithilfe der Klasse TransportAufträge werden diese Aufträge gemanaged: Hier können unter anderem die Zustände gesetzt werden. Dadurch ist diese Klasse die Umsetzung der Strategie 13.1.
-Durch die Methode setEs ohne Parameter aus der Klasse ProzessSchrittVorlageController kann einem ProzessSchritt automatisch die beste ExperimentierStation zugeordnet werden. Das passiert unter anderem mithilfe der Bedingungen von Experimentierstationen, und den Eigenschaften von Proben. Dadurch ist die Strategie 14.2 umgesetzt. 
-Der Prozesskettenadmin kann einen Prozessschrittzustandsautomat setzen, was er mithilfe einer seperaten Klasse für diesen Zustandsautomaten(ProzessSchrittZustandsAutomat) macht. Das ist Strategie 19.3.
-
 }
 
  \begin{sidewaysfigure}
@@ -1465,7 +1457,7 @@ Der Prozesskettenadmin kann einen Prozessschrittzustandsautomat setzen, was er m
 \end{center}
 \end{figure}
 
-Dieses Diagramm beschreibt die in unserem System verwendeten Services. Unser System soll z.B. bei der Erstellung von Benutzern E-mails versenden können, wozu wir das Email Modul haben. Zugleich soll unser System durch Apache Shiro gesichert sein, wodurch wir das Modul Apache Schiro haben. Wir möchten zur Datenverwaltung außerdem noch Deltaspike Data benutzen wodurch wir auch dieses Modul haben.  
+Dieses Diagramm beschreibt die in unserem System verwendeten Services. Unser System soll z. B. bei der Erstellung von Benutzern E-Mails versenden können, wozu wir das E-Mail Modul haben. Zugleich soll unser System durch Apache Shiro gesichert sein, wodurch wir das Modul Apache Shiro haben. Wir möchten zur Datenverwaltung außerdem noch Deltaspike Data benutzen, wodurch wir auch dieses Modul haben.  
 
 
 \newpage
@@ -1479,9 +1471,7 @@ Dieses Diagramm beschreibt die in unserem System verwendeten Services. Unser Sys
   \label{fig:boat1}
 \end{center}
 \end{figure}
-Dieses Modul ist für die Erstellung und Verwaltung von Nutzern zuständig. Durch UserController können z.B. neue Nutzer erstellt werden, oder die Daten von bestehenden Users verändert werden. Dafür greift Controller auf die Datenklasse User zu, um diese Nutzer zu erstellen und verwalten. Um diese anschließend in der Datenbank abspeichern zu können, greift UserController auf die UserDAO zu, um die Benutzer in der Datenbank zu speichern und verwalten. In der Datenklasse von User wird zudem auch die eingestellte Sprache des Nutzern eingespeichert und nach Wunsch geändert.\\
 Die Beans für jeden einzelnen Nutzer werden für ein Umsetzen der Rollen mit Apache Shiro nach Strategie 2.1 gebraucht. 
-Die Umsetzung von Strategie 1.2 zeigt sich im UserController in den Methoden get/set/removeRole. 
 
 \newpage
 
@@ -1493,9 +1483,7 @@ Die Umsetzung von Strategie 1.2 zeigt sich im UserController in den Methoden get
   \label{fig:boat1}
 \end{center}
 \end{figure}
-Dieses Modul ist für die Erstellung von Prozesskettenvorlagen zuständig. Um eine neue Prozesskettenvorlage erstellen zu können, brauchen wir allerdings erst einmal Prozessschrittvorlagen, aus welchen diese bestehen soll. Um nun eine Prozesskettenvorlage erstellen zu können, muss der Controller Zugriff auf die Datenklasse von Prozesskettenvorlage haben. Nachdem eine neue Prozesskettenvorlage erstellt wurde, möchte man diese allerdings in der Datenbank speichern. Hierfür hat Controller auch Zugriff auf die DAO Klasse von Prozesskettenvorlage. Das gleiche gilt auch wenn man eine Prozesskettenvorlage bearbeiten oder löschen möchte. \\
 %An den unterschiedlichen Controllern für ProzessKetten- sowie ProzessSchrittVorlagen und dem tatsächlichen ProzessSchritt/Auftrag sowie vor allem den Methoden, die in diesen vorhanden sind, sieht man die Umsetzung von Strategie 3.1.
-Hier wird Strategie 3.1 für die Prozessketten umgesetzt.
 \newpage
 
 \subsubsection{Auftrags Modul}
@@ -1507,9 +1495,7 @@ Hier wird Strategie 3.1 für die Prozessketten umgesetzt.
 \end{center}
 \end{figure}
 
-Nun kommen wir zu unserem Auftragsmodul. Aufträge sollen instanziierte Prozessketten sein. Daher benötigen wir, um einen Auftrag erstellen zu können, eine Prozesskettenvorlage aus welcher dieser erstellt wird. Ein Auftrag muss allerdings auch immer einen AuftragsLog haben in welchem alles mögliche wichtige geloggt wird. Ein Auftrag besteht allerdings aus Prozessschritten, welche er daher auch hat.
 Um nun Aufträge erstellen oder verwalten zu können, muss unser Auftragscontroller Zugriff auf die Auftragsdatenklasse haben. Zusätzlich möchte man diese in der Datenbank einspeichern und verwalten können, wozu der Controller auch Zugriff auf die DAO Klasse von Auftrag hat. \\
-Der AuftragsLog beschreibt die Umsetzung der Strategie 5.1.
 \newpage
 
 \subsubsection{Prozessschrittvorlage Modul}
@@ -1522,7 +1508,6 @@ Der AuftragsLog beschreibt die Umsetzung der Strategie 5.1.
 \end{figure}
 
 Um Prozessschrittvorlagen erstellen zu können, benötigen wir allerdings Prozessschrittvorlagen, aus welchen letztendlich Prozessschritte eines Auftrags erstellt werden. Hierfür dient das Modul Prozessschrittvorlage. Dieses Modul ist für die Erstellung und Bearbeitung von Prozessschrittvorlagen zuständig. Um nun Prozessschrittvorlagen erstellen zu können, benötigen wir erst einmal einen Prozessschrittzustandsautomat welcher den Zustand eines Prozessschritts darstellt. Dieser wird allerdings von einer Vorlage erstellt, welche in der Prozessschrittvorlage abgespeichert wird, wodurch der Prozessschritt, der aus dieser Vorlage erstellt wird, anschließend weiß welche zustände er haben kann. Um nun Prozessschrittvorlagen erstellen zu können, muss unser Controller auf die Datenklasse Prozessschrittvorlage Zugriff haben. Um diese Vorlagen anschließend in der Datenbank verwalten zu können, muss er auch Zugriff auf die DAO Klasse von Prozessschrittvorlage haben.\\
-Hier wird Strategie 3.1 für die Prozessschritte umgesetzt.
 \newpage
 
 \subsubsection{Prozessschritt Modul}
@@ -1533,7 +1518,6 @@ Hier wird Strategie 3.1 für die Prozessschritte umgesetzt.
   \label{fig:boat1}
 \end{center}
 \end{figure}
-Nun möchte man ja vielleicht Prozessschritte erstellen. Ein Prozessschritt benötigt einen Prozessschrittszustandsautomat und einen Prozessschrittlog. Um nun Prozessschritte erstellen zu können muss unser Prozessschrittcontroller Zugriff auf die Prozessschritt Datenklasse haben, und um diese anschließend in der Datenbank verwalten zu können braucht er auch Zugriff auf ProzessschrittDAO.\\
 
 \newpage 
 
@@ -1546,10 +1530,7 @@ Nun möchte man ja vielleicht Prozessschritte erstellen. Ein Prozessschritt ben�
 \end{center}
 \end{figure}
 
-Nun kommen wir zum Modul Probe. Die Proben in unserem System müssen erstellt und verwaltet werden können, wodurch der Probencontroller Zugriff auf die Proben Datenklasse haben muss. Außerdem muss man die Proben in der Datenbank auch verwalten können, wodurch der Probencontroller Zugriff auf ProbeDAO haben muss.\\
 Die Umsetzung der Strategie 8.1 zeigt sich vor allem dadurch, dass es keine Methoden oder andere Aspekte der Architektur gibt, die irgendwie Proben in Gruppen sortieren. Jede Probe hat eine ID. Des weiteren kann jede Probe durch Ihre ID identifiziert werden (so zum Beispiel in der Methode reportLostMethode des Technologen). 
-Durch set- und getArchiv in der Klasse ProbeController kann für eine Probe das Archiv gesetzt und zurückgegeben werden. Durch das Setzen des Archivs wird eine Probe archiviert. Es gibt außerdem die Klasse Archiv, die alle notwendigen Informationen speichert. Das ist unsere Umsetzung der Strategie 16.1.
-Mithilfe von addComment im ProbeController kann ein Pair aus Kommentar und Zeit einer Probe zugeordnet werden. Dadurch wird Strategie 20.3 umgesetzt. 
 
 \newpage
 \subsubsection{Träger Modul}
@@ -1561,9 +1542,67 @@ Mithilfe von addComment im ProbeController kann ein Pair aus Kommentar und Zeit 
 \end{center}
 \end{figure}
 Die Proben in unserem System werden in Trägern transportiert. Diese Träger benötigen einen Standort zu jeder Zeit und haben immer eine Art. Um nun diese Träger verwalten zu können braucht unser Controller Zugriff auf die Träger Datenklasse. Um diese dann in der Datenbank verwalten zu können, braucht er ebenfalls Zugriff auf die TraegerDAO klasse.\\
-Durch die Klasse TraegerArt wird Strategie 17.3 umgesetzt. \\
 
+\subsubsection{Experimentier Station Modul}
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{UML/Modules/ExperimentierStation.pdf}
+  \caption{Experimentier Station Module}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
 \newpage
+
+\subsubsection{Prozess Schritt Zustands Automat Vorlage Modul}
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{UML/Modules/ProzessSchrittZustandsAutomatVorlage.pdf}
+  \caption{Prozess Schritt Zustands Automat Vorlage Module}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+\newpage
+
+\subsubsection{Prozess Schritt Zustands Automat Modul}
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{UML/Modules/ProzessSchritttZustandsAutomat.pdf}
+  \caption{Prozess Schritt Zustands Automat Module}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+\newpage
+
+\subsubsection{Bedingung Modul}
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{UML/Modules/Bedingung.pdf}
+  \caption{Bedingung Module}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+\newpage
+
+\subsubsection{Prozess Schritt Log Modul}
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{UML/Modules/ProzessSchrittLog.pdf}
+  \caption{Prozess Schritt Log Module}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+\newpage
+
+\subsubsection{Transport Auftrag Modul}
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{UML/Modules/TransportAuftrag.pdf}
+  \caption{Transport Auftrag Module}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+\newpage
+
 \section{Datensicht}
 \label{sec:datensicht}
 
@@ -1731,7 +1770,10 @@ Standort, die Proben und deren Träger können dann dem Transport als neuen
 Transportauftrag zugewiesen werden. Der Transportauftrag ergibt sich impliziert
 aus dem Auftrag. Er wird dadurch realisiert, dass ein Transporteur nur die für
 ihn relevanten Informationen erhält.
-
+Eine Prozessschrittvorlage hat einen Prozessschrittzustandsautomaten zugewiesen der alle Zustände enthält
+welche der Prozessschritt anschließend haben kann. Zudem hat jeder Prozessschritt einen Zustandsautomaten, welcher den Zustand
+des Prozessschritts speichert. Dieser Zustandsautomat kann einen beliebigen Zustand aus dem zur Prozessschrittvorlage zugewiesenem
+Prozessschritt Zustands Automat Vorlage haben. Grund hierfür ist die Anforderung von dynamischen Zuständen nach Strategie 19 \ref{strategie:19.1}.
 Falls ein Prozessschritt einen Transportauftrag und den Zustand freigeben hat, wird er
 allen Transporteuren angezeigt. Wenn der Transporteur diesen annimmt, wird der
 AuftragsZustand auf angenommen gesetzt. Jetzt verschwindet der Auftrag für
@@ -1970,8 +2012,18 @@ nicht den Prozesskettenadministrator
 
 \subsection{Prozessschritt Sequenzdiagramm}
 
+\begin{figure}[H]
+  \includegraphics[width=\linewidth]{UML/aw/ps.png}
+  \caption{Zyklus einer Prozessschrittes}
+  \label{fig:ps}
+\end{figure}
 
-
+In diesem Anwendungsfall geht es darum zu zeigen, wie ein Technologe
+Prozesschritte durchführt. Wir unterscheiden bei Prozessschritten zwischen dem
+Prozessschritt und der Vorlage. Im Model heißt die Instanz ProzessSchritt und
+die Vorlage heißt ProzessSchrittVorlage hiermit setzen wir die Strategie 3.1
+\ref{strategie:3.1} um. Vorgänge in einem Prozessschritt werden gelogt. Dafür
+benutzen wir
 
 %{\it In diesem Abschnitt sollen Sequenzdiagramme mit Beschreibung(!)
 %  für zwei bis drei von Euch ausgewählte
