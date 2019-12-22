@@ -19,7 +19,8 @@ public class ProzessSchrittVorlageController {
      * Returns the ExperimentierStationen at which this
      * ProzessSchrittVorlage could be executed once instantiated.
      *
-     * @return A set with every possible ExperimentierStation
+     * @param b a set with conditions for this station
+     * @return  A set with every possible ExperimentierStation
      */
     public Set<ExperimentierStation> getES(Set<Bedingung> b) { return null; }
 

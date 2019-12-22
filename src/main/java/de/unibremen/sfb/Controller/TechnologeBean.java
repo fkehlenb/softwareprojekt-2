@@ -29,6 +29,7 @@ public class TechnologeBean {
     /**
      * sets the state of a job
      * @param a the job
+     * @param zustand the new state
      */
     public void setAuftragsZustand(Auftrag a, Enum<ProzessKettenZustandsAutomat> zustand) {}
 
@@ -123,6 +124,7 @@ public class TechnologeBean {
     public void reportLostProbe(int id) {}
 
     /**
+     * creates and sends an error message
      * @param e error messsage
      */
     public void errorMessage(String e) {}
