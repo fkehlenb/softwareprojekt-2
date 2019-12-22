@@ -438,12 +438,11 @@ autonumber
 skinparam monochrome true
 
 actor "TechnologerBean" as te
-participant "ExperimentStation" as es
-participant "ProzessSchrittVorlage" as psv
+participant "ExperimentStationController" as es
+participant "ProzessSchrittVorlageController" as psv
 participant "ProzessKetteVorlageController" as pkv
-participant "ProzessSchritt" as ps
+participant "ProzessSchrittController" as ps
 participant "BedingungController" as b
-participant "ProzessSchrittParametterController" as psp
 participant "ProzessSchrittLogController" as psl
 participant "ProzessSchrittZustandsAutomatController" as psza
 participant "ProbeController" as p
@@ -461,12 +460,12 @@ psv -> psv : getES()
 psv -> b : getProzessSchrittParameter
 b -> psv : getBedingun()
 psv -> es : getES()
-es -> psv : getAuslastung
+es -> psv : getAuslastung TODO
 note over psv :  Die es mit der niedrigsten Auslastung wird ausgewählt
 psv -> es : setPsLog(ProzessSchrittLog psl)
 es -> ps : addNextPs()
 ps -> psl : setLog()
-psl -> ps:  setStart(t:java.time.LocalDateTime):void
+psl -> ps:  setBeendet(t:java.time.LocalDateTime):void
 
 ps -> tr : setZustand (WEITERGELEITET)
 tr -> ps : setZustand(ABGEHOLT)
@@ -479,10 +478,9 @@ psv -> ps : getProzessSchrittParameter()
 note over ps : Falls notig werden Eigenschaft den Proben hinzugefügt
 ps -> p : getID()
 p -> p : addComment(comment: Pair<java.time.LocalTimeDate, String)
-p -> p : setEigenschaften(e:QualitativeEigenschaft)
+p -> p : setEigenschaften(eigenschaft: Set<QualitativeEigenschaft)
 note over psza : Es ist mit Ps fertig
 p <- psza : setZustand(BEARBEITET)
-p -> : setEigenschaften(eigenschaft: Set<QualitativeEigenschaft)
 p -> psl: setBeendet(t: java.time.LocalDateTime)
 #+END_SRC
 
