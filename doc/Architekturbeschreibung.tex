@@ -1260,19 +1260,16 @@ et al. um das zu entwerfende System zu beschreiben. Unser System ist eine
 Webapplikation die auf JSF basiert. Benutzer können mit ihren Endgeräten auf
 unser System zugreifen. Dafür stellen wir den Benutzen ein Web-Frontend
 zur Verfügung. Die Kommunikation vom JSF, unserem Framework, ist als
-Model-View-Controller System konzipiert worden. TODO text wie mvc umgesetz
+Model-View-Controller System konzipiert worden. Dieses spiegelt sich dadurch wieder, das der
+Benutzer nur auf die GUI zugreift, welche im Hintergrund einen Controller verwendet der die Logik im
+System ausführt. 
 
-  In der Konzeptionellen Sicht werden die Interaktionen von unserer Datenbank,
-dem Persistence Module, dem Model, der Buisnesslogik, den Controllern, den JSF
-Seiten sowie dem Rest-Modul zwischen den verschiedenen Komponenten der Software
-betrachtet. Die Funktionalität des Systems ist auf verschiedene Komponenten
-verteilt, die wir im Folgenden zeigen:\\
 }
 
 {%Korrekturvorschlag Samuel
 \textbf{H2:} Die Datenbanksoftware H2 wird genutzt um unser Modul zu
 Persistieren. Sie wird benutzt, da es es in den Anforderungen von uns gefordert
-wird. Unsere Datenbank kommuniziert über JDBC. TODO {DELTADATASPIKE}
+wird. Unsere Datenbank kommuniziert über JDBC. %TODO {DELTADATASPIKE}
 }
 
 {%Korrekturvorschlag Samuel
@@ -1294,8 +1291,9 @@ Wir nutzen die BusinessLogik um die Wünsche unseres Kunden zu erfüllen. Die
 BusinessLogik erlaubt es, dass Prozessketten geplant und durchgeführt werden
 können. Hier liegt also die eigentliche Funktionalität unseres Systems.
 
-TODO: Kurzer Text zu jedem der Kontroller.
-
+Hierzu sind die Controller mit unserer GUI verknüpft. Sollte der User irgendeine Auswahl oder Eingabe in der GUI machen
+so werden die Daten direkt an den Controller übermittelt welcher dann die Logik ausführt, indem er mit den Datenklassen und 
+ihren Datenbank Klassen(DAO) verbunden ist, und somit vollen Zugriff auf die funktionalen Schnittstellen des Systems hat. 
 }
 
 {%Korrekturvorschlag Samuel
@@ -1538,8 +1536,68 @@ Nun kommen wir zum Modul Probe. Die Proben in unserem System müssen erstellt un
 \end{center}
 \end{figure}
 Die Proben in unserem System werden in Trägern transportiert. Diese Träger benötigen einen Standort zu jeder Zeit und haben immer eine Art. Um nun diese Träger verwalten zu können braucht unser Controller Zugriff auf die Träger Datenklasse. Um diese dann in der Datenbank verwalten zu können brauch er ebenfalls Zugriff auf die TraegerDAO klasse.
-
 \newpage
+
+\subsubsection{Experimentier Station Modul}
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{UML/Modules/ExperimentierStation.pdf}
+  \caption{Experimentier Station Module}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+\newpage
+
+\subsubsection{Prozess Schritt Zustands Automat Vorlage Modul}
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{UML/Modules/ProzessSchrittZustandsAutomatVorlage.pdf}
+  \caption{Prozess Schritt Zustands Automat Vorlage Module}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+\newpage
+
+\subsubsection{Prozess Schritt Zustands Automat Modul}
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{UML/Modules/ProzessSchritttZustandsAutomat.pdf}
+  \caption{Prozess Schritt Zustands Automat Module}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+\newpage
+
+\subsubsection{Bedingung Modul}
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{UML/Modules/Bedingung.pdf}
+  \caption{Bedingung Module}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+\newpage
+
+\subsubsection{Prozess Schritt Log Modul}
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{UML/Modules/ProzessSchrittLog.pdf}
+  \caption{Prozess Schritt Log Module}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+\newpage
+
+\subsubsection{Transport Auftrag Modul}
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{UML/Modules/TransportAuftrag.pdf}
+  \caption{Transport Auftrag Module}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+\newpage
+
 \section{Datensicht}
 \label{sec:datensicht}
 
