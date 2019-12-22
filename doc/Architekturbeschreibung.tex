@@ -1921,9 +1921,9 @@ gefordert hat.
 \subsubsection{Kleiner Ausschnitt zur Fehlerbehandlung}
 Bei dem Login können folgende Exceptions geworfen werden:
 \begin{itemize}
-  \item Shiro löst eine UnknownAccountException aus, falls es den Nutzer nicht gibt
+  \item Shiro löst eine UnknownAccountException aus, falls es den Nutzer nicht gibt.
   \item Shiro löst eine IncorrectCredentalException aus, falls das Token nicht
-  stimmt
+  stimmt.
   \item Falls das Konto des Users gesperrt ist, wird ein LockedAccountException
   ausgelöst. Das ist so in der Anwendung bisher nicht vorgesehen, und wird auch vorerst von uns nicht implementiert. Allerdings ist das eine Funktion, die grundsätzlich von Shiro geboten wird und somit auch eventuell von uns implementiert werden könnte.
 \end{itemize}
@@ -1937,55 +1937,55 @@ Bei dem Login können folgende Exceptions geworfen werden:
 \end{figure}
 
 In der Abb. \ref{fig:pkErstellen} wird der Ablauf gezeigt, wie ein
-ProzesskettenAdministrator eine Prozesskette erstellt, diese dann instanziert
+Prozesskettenadministrator eine Prozesskette erstellt, diese dann instanziiert
 und dann startet.
 
-Als pkApp  App bezeichnen wir den Teil der Webapplikation, der dem Prozesskettenadministrator
+Als pkApp bezeichnen wir den Teil der Webapplikation, der dem Prozesskettenadministrator
 das Verwalten der Prozessketten ermöglicht.
 
-Sobald der Prozesskettenadministrator der pkApp mitteilt, dass er gerne eine ProzesskettenVorlage
-bearbeiten würde führt die ProzesskettenadministratorBean die methode
+Sobald der Prozesskettenadministrator der pkApp mitteilt, dass er gerne eine Prozesskettenvorlage
+bearbeiten würde, führt die Prozesskettenadministratorbean die Methode
 $editProzesskettenVorlage(pkv:ProzesskettenVorlage)$ aus (\textbf{Schritt 1}).
-Alls nächstes sollen alle ProzessschrittVorlagen die einer ProzesskettenVorlage
-zugewiesen sind angezeigt werdne. Dafür führt der ProzesskettenController die
+Als Nächstes sollen alle Prozessschrittvorlagen, die einer Prozesskettenvorlage
+zugewiesen sind, angezeigt werden. Dafür führt der Prozesskettencontroller die
 Methode $getPSV()$ aus (\textbf{Schritt 2}).
 
-Die nächsten Schritte sind optimal. Den es ist dem Prozesskettenadministrator überlassen was er in
+Die nächsten Schritte sind optimal. Denn es ist dem Prozesskettenadministrator überlassen, was er in
 der Vorlage ändern will. Es bietet sich hier an, manuell eine
 Experimentierstation zuzuweisen, ansonsten wird dies in dem \textbf{11. Schritt}
 ausgeführt.
-Es ist dem Prozesskettenadministrator möglich sich den den ProzessschrittZustandsAutomaten des
-Prozessschrittes anzeigen zu lassen. Damit die ProzessschrittVorlage sich
-nachher Experimentierstationen sich zuweisen kann setzt der Prozesskettenadministrator die Eingabe
-und Ausgabe Träger für die ProzessschrittVorlage. Nun kann der Prozesskettenadministrator die
-ProzessschrittArt setzten. Anmerkung: Die ProzessschrittArten werden im voraus
+Es ist dem Prozesskettenadministrator möglich, sich den Prozessschrittzustandsautomaten des
+Prozessschrittes anzeigen zu lassen. Damit die Prozessschrittvorlage sich
+nachher Experimentierstationen zuweisen kann, setzt der Prozesskettenadministrator die Eingabe-
+und Ausgabeträger für die Prozessschrittvorlage fest. Nun kann der Prozesskettenadministrator die
+Prozessschrittart setzten. Anmerkung: Die Prozessschrittarten werden im Voraus
 festgelegt.
 
-Wichtig für die Automatische Zuordnung der ProzessschrittVorlage ist das setzen
-von Bedingungen. Bedingungen können entweder direkt in der ProzessschrittVorlage
-generiert werden. Falls eine Bedingung nicht einer trivialen Bedingung entspricht
-ist es möglich das der BedingungsController diese aus Eigenschaften oder aus
-ProzessschrittParameteren einem erzeugt. Diese werden dann an den
-BedingungsController gesendet, dieser gibt dann die korrekte Bedingung zurück.
-Jetzt kennt der ProzessschrittVorlageController alle Bedingungen für den den
-Prozessschritt. Die methode setES(), welche keine Parameter hat, ist dafür
+Wichtig für die automatische Zuordnung der Prozessschrittvorlage ist das Setzen
+von Bedingungen. Bedingungen können direkt in der Prozessschrittvorlage
+generiert werden. Falls eine Bedingung nicht einer trivialen Bedingung entspricht,
+ist es möglich, dass der Bedingungscontroller diese aus Eigenschaften oder aus
+Prozessschrittparametern einem erzeugt. Diese werden dann an den
+Bedingungscontroller gesendet. Dieser gibt dann die korrekte Bedingung zurück.
+Jetzt kennt der Prozessschrittvorlagencontroller alle Bedingungen für den
+Prozessschritt. Die Methode setES(), welche keine Parameter hat, ist dafür
 zuständig aus der Menge $a$ aller Experimentierstationen eine Teilmenge $b$ der
 Experimentierstationen, die den geforderten Bedingungen
-entsprechen zu bilden. Alle Experimentierstationen  $a \in b$ die der Bedingung
-entsprechen werden dann der ProzessschrittVorlage zugeordnet
+entsprechen zu bilden. Alle Experimentierstationen  $a \in b$, die der Bedingung
+entsprechen, werden dann der Prozessschrittvorlage zugeordnet
 
-Als letzes setzt der Prozesskettenadministrator die geschätzte Dauer für die Durchführung des
-Prozessschrittes. Jetzt verwaltet der ProzesskettenVorlageController wieder.
-Falls der Prozesskettenadministrator jetzt weitere ProzesskettenVorlagen bearbeiten möchte, kann er
+Als letztes setzt der Prozesskettenadministrator die geschätzte Dauer für die Durchführung des
+Prozessschrittes fest. Jetzt verwaltet der Prozesskettenvorlagecontroller wieder.
+Falls der Prozesskettenadministrator jetzt weitere Prozesskettenvorlagen bearbeiten möchte, kann er
 dies nun tun.
 
 Sobald er die gesamte Prozesskette kontrolliert hat, lässt er die Prozesskette
-verifizieren. Hier wird überprüft, ob alle Experimentierstationen die benötigen
-Träger an und ausgeben. Weiter wird in dieser Methode überprüft, ob alle
+verifizieren. Hier wird überprüft, ob alle Experimentierstationen die benötigten
+Träger annehmen und ausgeben. Weiter wird in dieser Methode überprüft, ob alle
 ProzessschrittVorlagen Experimentierstationen zugewiesen bekommen haben. Falls
-dies nicht klappt, muss der Prozesskettenadministrator die probleme in den ProzessschrittVorlagen
+dies nicht klappt, muss der Prozesskettenadministrator die Probleme in den Prozessschrittvorlagen
 selber lösen. Dafür kann er die Randbedingungen des Prozessschrittes ändern oder
-selber Experimentierstationen der ProzessschrittVorlage zuweisen.
+selber Experimentierstationen der Prozessschrittvorlage zuweisen.
 
 Der Prozesskettenadministrator kann die angeforderten Proben setzen. Sobald die Verifizierung der
 Prozesskette erfolgt ist, kann er, falls gewollt, die Priorität ändern und dann
@@ -1994,22 +1994,22 @@ erscheint in der App der Logistiker die Prozesskette.
 
 Jetzt erhält der Logistiker einen neuen Probenzuweisungsauftrag, falls die Anfrage genehmigt wurde, kann der Prozesskettenadministrator nun die Prozesskette starten.
 
-Hier ist beginnt ein neues Kapitel in unserem Sequenz Diagramm, nämmlich das
+Hier beginnt ein neues Kapitel in unserem Sequenzdiagramm, nämlich das
 Starten eines neuen Auftrages. Jetzt erhält der Logistiker einen neuen
 Probenzuweisungsauftrag, falls die Anfrage genehmigt wurde, kann der Prozesskettenadministrator nun
 die Prozesskette starten.
 
-Um zu überprüfen ob genügend Proben zugewiesen worden sind, wird die Methode
-checkProben(a:Auftrag) ausgeführt. Hier wird kontrolliert, ob die Proben die dem
-Auftrag zugewiesen worden sind den entsprechen die angefordert sind. Jetzt kann
-mit der Methode setPKZ(GESTARTET) der Auftrag gestartet werden.
+Um zu überprüfen, ob genügend Proben zugewiesen worden sind, wird die Methode
+checkProben(a:Auftrag) ausgeführt. Hier wird kontrolliert, ob die Proben, die dem
+Auftrag zugewiesen worden sind, entsprechend der Anforderungen sind. Jetzt kann der Auftrag
+mit der Methode setPKZ(GESTARTET) gestartet werden.
 
 
 In der Graphik \ref{fig:log}
 erhält die Logistik eine
 Anfrage für die Probenverwaltung. Es muss nun vom System geprüft werden
 ob Proben mit den gewünschten Materialeigenschaften im Lager sind. Das System gibt diese an die Logistik zurück. Werden die Proben dann von dem Logistiker ausgewählt und genehmigt, so werden diese an den Auftrag übermittelt und persistiert.
-Diese Graphik wurde abstrakt gehalten, denn sie Betrifft den Logistiker und
+Diese Graphik wurde abstrakt gehalten, denn sie betrifft den Logistiker und
 nicht den Prozesskettenadministrator
 
 \begin{figure}[]
