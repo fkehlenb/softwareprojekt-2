@@ -1190,6 +1190,7 @@ Hier haben wir uns für die erste Strategie entschieden. Weil die Anzahl der Zus
 	{\phantomsection}          
            \label{strategie:19.2} 
 	\textbf{Strategie 19.2: als Liste von Strings:} Die Zustände werden als String-Liste gespeichert. \\
+ 	  \label{strategie:19.3} 
 	\textbf{Strategie 19.3: als eigene Klasse (ausgewählt)} Die Zustände werden als eigene Klasse gespeichert. \\
           \\ \hline
     \end{tabular}
@@ -1773,7 +1774,7 @@ ihn relevanten Informationen erhält.
 Eine Prozessschrittvorlage hat einen Prozessschrittzustandsautomaten zugewiesen der alle Zustände enthält
 welche der Prozessschritt anschließend haben kann. Zudem hat jeder Prozessschritt einen Zustandsautomaten, welcher den Zustand
 des Prozessschritts speichert. Dieser Zustandsautomat kann einen beliebigen Zustand aus dem zur Prozessschrittvorlage zugewiesenem
-Prozessschritt Zustands Automat Vorlage haben. Grund hierfür ist die Anforderung von dynamischen Zuständen nach Strategie 19 \ref{strategie:19.1}.
+Prozessschritt Zustands Automat Vorlage haben. Grund hierfür ist die Anforderung von dynamischen Zuständen nach Strategie 19.3 \ref{strategie:19.3}.
 Falls ein Prozessschritt einen Transportauftrag und den Zustand freigeben hat, wird er
 allen Transporteuren angezeigt. Wenn der Transporteur diesen annimmt, wird der
 AuftragsZustand auf angenommen gesetzt. Jetzt verschwindet der Auftrag für
@@ -2004,7 +2005,8 @@ Auftrag zugewiesen worden sind den entsprechen die angefordert sind. Jetzt kann
 mit der Methode setPKZ(GESTARTET) der Auftrag gestartet werden.
 
 
-In der Graphik \ref{fig:logstikProbenPüftZuweisen} erhält die Logistik eine
+In der Graphik \ref{fig:logstikProbenPüftZuweisen}
+erhält die Logistik eine
 Anfrage für die Probenverwaltung. Es muss nun vom System geprüft werden
 ob Proben mit den gewünschten Materialeigenschaften im Lager sind. Das System gibt diese an die Logistik zurück. Werden die Proben dann von dem Logistiker ausgewählt und genehmigt, so werden diese an den Auftrag übermittelt und persistiert.
 Diese Graphik wurde abstrakt gehalten, denn sie Betrifft den Logistiker und
