@@ -1261,25 +1261,24 @@ Hier haben wir uns für die dritte Strategie entschieden, weil wir so ohne den A
 \label{sec:konzeptionell} { %Korrekturvorschlag Samuel
 In diesem Kapitel verwenden wir die Konzeptionelle Sicht nach Hofmeister
 et al. um das zu entwerfende System zu beschreiben. Unser System ist eine
-Webapplikation die auf JSF basiert. Benutzer können mit ihren Endgeräten auf
-unser System zugreifen. Dafür stellen wir den Benutzen ein Web-Frontend
+Webapplikation, die auf JSF basiert. Benutzer können mit ihren Endgeräten auf
+unser System zugreifen. Dafür stellen wir den Benutzern ein Web-Frontend
 zur Verfügung. Die Kommunikation vom JSF, unserem Framework, ist als
-Model-View-Controller System konzipiert worden. Dieses spiegelt sich dadurch wieder, das der
-Benutzer nur auf die GUI zugreift, welche im Hintergrund einen Controller verwendet der die Logik im
+Model-View-Controller System konzipiert worden. Dieses spiegelt sich dadurch wieder, dass der
+Benutzer nur auf die GUI zugreift, welche im Hintergrund einen Controller verwendet, der die Logik im
 System ausführt. 
-
 }
 
 {%Korrekturvorschlag Samuel
 \textbf{H2:} Die Datenbanksoftware H2 wird genutzt um unser Modul zu
-Persistieren. Sie wird benutzt, da es es in den Anforderungen von uns gefordert
-wird. Unsere Datenbank kommuniziert über JDBC. Zudem nutzen wir DeltaSpike data von Apache. Dies ist eine Menge von CDI-Erweiterungen, die es uns ermöglicht auf Entitäten und Klassen mit unserer JPA zugreifen zu können.
+persistieren. Sie wird benutzt, da es in den Anforderungen von uns gefordert
+wird. Unsere Datenbank kommuniziert über JDBC. Zudem nutzen wir DeltaSpike data von Apache. Dies ist eine Menge von CDI-Erweiterungen, die es uns ermöglicht, auf Entitäten und Klassen mit unserer JPA zugreifen zu können.
 }
 
 {%Korrekturvorschlag Samuel
 \textbf{Persistence:} Hier liegt die Verbindung zwischen dem System und der Datenbank. Die Persistenz ist dafür verantwortlich, dass die Datenbank auf
-dem akutellen Stand des laufendem Systems ist. Falls unser System Terminiert,
-müssen alle Daten persistiert bleiben und auch bei der nächsten Benutzung noch gespeichert sein. JPA ist eine java
+dem akutellen Stand des laufendem Systems ist. Falls unser System terminiert,
+müssen alle Daten persistiert bleiben und auch bei der nächsten Benutzung noch gespeichert sein. JPA ist eine Java
 Spezifikation, welche unter anderem von Hibernate umgesetzt wird. Unsere
 Konzeption sieht es vor, dass Hibernate impliziert die JPA mittels Deltaspike data umsetzt.
 Die Persistenz ist mit der BusinessLogic verbunden.
@@ -1288,25 +1287,24 @@ Die Persistenz ist mit der BusinessLogic verbunden.
 
 {%Korrekturvorschlag Samuel
 \textbf{BusinessLogic:} Die Businesslogic beinhaltet die Funktionalität des
-Systems. Sie nutzt die Schnittstellen Data von Persistence und nutzt die Update
-Schnittstelle von Model. Sie ergibt sich aus Strategie 15.1~(\ref{strategie:15.1}).
-Wir nutzen die BusinessLogic um die Wünsche unseres Kunden zu erfüllen. Die
-BusinessLogic erlaubt es, dass Prozessketten geplant und durchgeführt werden
-können. Hier liegt also die eigentliche Funktionalität unseres Systems. Alle Controller und Beans die Geschäfts-relevante Prozesse bearbeiten und mit diesen interagieren, werden von uns mit BusinessLogic benannt.
+Systems. Sie nutzt die Schnittstellen Data von Persistence und nutzt die Updateschnittstelle von Model. Sie ergibt sich aus Strategie 15.1~(\ref{strategie:15.1}).
+Wir nutzen die Businesslogic, um die Wünsche unseres Kunden zu erfüllen. Die
+Businesslogic erlaubt es, dass Prozessketten geplant und durchgeführt werden
+können. Hier liegt also die eigentliche Funktionalität unseres Systems. Alle Controller und Beans die Geschäftsrelevante Prozesse bearbeiten und mit diesen interagieren, werden von uns mit Businesslogic benannt.
 
-Hierzu sind die Controller mit unserer GUI verknüpft. Sollte der User irgendeine Auswahl oder Eingabe in der GUI machen
-so werden die Daten direkt an den Controller übermittelt welcher dann die Logik ausführt, indem er mit den Datenklassen und 
-ihren Datenbank Klassen(DAO) verbunden ist, und somit vollen Zugriff auf die funktionalen Schnittstellen des Systems hat. 
+Hierzu sind die Controller mit unserer GUI verknüpft. Sollte der User irgendeine Auswahl oder Eingabe in der GUI machen,
+so werden die Daten direkt an den Controller übermittelt, welcher dann die Logik ausführt, indem er mit den Datenklassen und 
+ihren Datenbankklassen(DAO) verbunden ist, und somit vollen Zugriff auf die funktionalen Schnittstellen des Systems hat. 
 }
 
 {%Korrekturvorschlag Samuel
   \textbf{Model:} Das Model unserer Datenbank beschreibt die logische Struktur
-  unserer Datenbank, hiermit wird fundamental bestimmt in welche Art auf die in
-  der Datenbank enthaltenen Daten zugriffen werden kann. Wir nutzen eine
+  unserer Datenbank, hiermit wird fundamental bestimmt, in welche Art auf die in
+  der Datenbank enthaltenen Daten zugegriffen werden kann. Wir nutzen eine
   relationale Datenbank, welche auf Tabellen basiert.
 
 In dem Modell liegen die Daten der User, Prozessketten, Proben sowie
-Daten und Vormerkungen des System. Model stellt ein Interface Update zur
+Daten und Vormerkungen des Systems. Model stellt ein Interface Update zur
 Verfügung, welches von Businesslogic und Persistence genutzt wird. Diese
 Komponente ergibt sich aus der Strategie 15.1~(\ref{strategie:15.1}).\\
 In dem Abschnitt \ref{sec:datensicht} nehmen wir unser Datenmodel genauer unter
@@ -1319,17 +1317,17 @@ Datenmodel umzusetzen.
 }
 
 {%Korrekturvorschlag Samuel
-\textbf{Controller:} Controller nutzt das Interface Control von BusinessLogic und Control von Model. Controller stellt ein Interface Lieferung zur Verfügung. Durch Controller kann das Interface die unterschiedlichen Funktionen aus BusinessLogic oder Model erreichen. Es ergibt sich aus der Strategie 15.1 ~(\ref{strategie:15.1}).
+\textbf{Controller:} Controller nutzt das Interface Control von Businesslogic und Control von Model. Controller stellt ein Interface Lieferung zur Verfügung. Durch Controller kann das Interface die unterschiedlichen Funktionen aus Businesslogic oder Model erreichen. Es ergibt sich aus der Strategie 15.1 ~(\ref{strategie:15.1}).
 }
 
 
 {%Korrekturvorschlag Samuel
-\textbf{REST:} Hier greift der REST-Client auf REST-Funktionen zu. Über einen Port verbindet er sich mit dem RESTClient. 
+\textbf{REST:} Hier greift der REST-Client auf REST-Funktionen zu. Über einen Port verbindet er sich mit dem REST-Client. 
 }
 
 
 {%Korrekturvorschlag Samuel
-\textbf{RESTClient:} Der RESTClient ist für die Kommunikation in einem System, das auf mehreren Systemen verteilt läuft. 
+\textbf{RESTClient:} Der REST-Client ist für die Kommunikation in einem System, das auf mehreren Systemen verteilt läuft. 
 }
 
 {%Korrekturvorschlag Samuel
@@ -1341,20 +1339,20 @@ Datenmodel umzusetzen.
 }
 
 {%Korrekturvorschlag Samuel
-\textbf{Data:} Data ist ein von Persistence zur Verfügung gestelltes Interface zur Kommunikation mit der BusinessLogic und den Controllern
+\textbf{Data:} Data ist ein von Persistence zur Verfügung gestelltes Interface zur Kommunikation mit der Businesslogic und den Controllern.
 }
 
 {%Korrekturvorschlag Samuel
-\textbf{Update:} Durch diesen Anschluss wird die Bearbeitung der Dateien an der Persistence ermöglicht. Er wird von Model zur Verfügung gestellt und von Persistence und BusinessLogic genutzt
+\textbf{Update:} Durch diesen Anschluss wird die Bearbeitung der Dateien an der Persistence ermöglicht. Er wird von Model zur Verfügung gestellt und von Persistence und Businesslogic genutzt.
 }
 
 
 {%Korrekturvorschlag Samuel
-\textbf{Control:} Durch diesen Anschluss bekommt der Controller seine geforderten Daten von BusinessLogic und Model. 
+\textbf{Control:} Durch diesen Anschluss bekommt der Controller seine geforderten Daten von Businesslogic und Model. 
 }
 
 {%Korrekturvorschlag Samuel
-\textbf{HTTPS/Request/Response:} Jede Interaktion mit dem System wird per HTTPS gemacht, also sind diese Anschlüsse verantwortlich für die verschiebung der Dateien von den Webbrowser und den RESTClient zu dem Server und umgekehrt.
+\textbf{HTTPS/Request/Response:} Jede Interaktion mit dem System wird per HTTPS gemacht, also sind diese Anschlüsse verantwortlich für die Verschiebung der Dateien von den Webbrowser und den REST-Client zu dem Server und umgekehrt.
 }
 
 \newpage
