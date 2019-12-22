@@ -2,12 +2,13 @@ package de.unibremen.sfb.Controller;
 
 import de.unibremen.sfb.Model.*;
 
+import java.io.Serializable;
 import java.util.Set;
 
 /**
  * this class manages the interaction between the gui and the backend system for users who are process chain administrators
  */
-public class PKAdminBean {
+public class PKAdminBean implements Serializable {
     /**
      * the user managed by this bean
      */
@@ -202,14 +203,35 @@ public class PKAdminBean {
     public void stopAuftrag(Auftrag a) {}
 
     /**
-     *
+     * displays the usage of an experimentation station
      */
     public void viewESUsage() {}
 
+    /**
+     * displays the usage of an experimentation station
+     * @param es the station of which the usage is to be displayed
+     */
     public void viewESUsage(ExperimentierStation es) {}
 
     /**
-     * exports something to json? // ps angeben
+     * exports something to json? // TODO ps angeben
      */
     public void exportJSON() {}
+
+    /**
+     * the empty constructor
+     */
+    public PKAdminBean() {}
+
+    /**
+     * returns the process chain administrator managed by this bean
+     * @return the user
+     */
+    public User getPkadmin() { return pkadmin; }
+
+    /**
+     * sets the process chain administrator managed by this bean
+     * @param pkadmin the user
+     */
+    public void setPkadmin(User pkadmin) { this.pkadmin = pkadmin; }
 }

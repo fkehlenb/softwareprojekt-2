@@ -5,9 +5,13 @@ import de.unibremen.sfb.Model.ExperimentierStation;
 import de.unibremen.sfb.Model.TraegerArt;
 import de.unibremen.sfb.Model.User;
 
+import java.io.Serializable;
 import java.util.Set;
 
-public class AdminBean {
+/**
+ * this class manages the interaction between the gui and the backend system in the case that the user is an admin
+ */
+public class AdminBean implements Serializable {
 
     /**
      * The user managed by this bean
@@ -102,5 +106,22 @@ public class AdminBean {
      * backs the system up
      */
     public void backup() {}
+
+    /**
+     * the emtpy constructor
+     */
+    public AdminBean() {}
+
+    /**
+     * returns the administrator managed by this bean
+     * @return the user
+     */
+    public User getAdmin() { return admin; }
+
+    /**
+     * sets the administrator managed by this bean
+     * @param admin the user
+     */
+    public void setUser(User admin) { this.admin = admin; }
 }
 
