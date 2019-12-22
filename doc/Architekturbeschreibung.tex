@@ -1395,7 +1395,8 @@ Das folgende Diagramm beschreibt eine verfeinerte Version unserer Datensicht (si
 
 
 \subsubsection{Controller}
-Nun möchten wir die Controller in unserem System betrachten. Diese Module sind für die Logik zuständig, welche von der WebUI ausgelöst wird. Möchte zudem z.B. ein Prozess Ketten Administrator eine Neue Prozess Ketten Vorlage erstellen, so darf die WebUI nicht direkt auf die Datenklassen verweise machen, sondern muss diese Instruktion erst einmal an einen Controller weitergeben welcher diese anschließend realisiert. Zudem haben diese Controller auch zugriff auf die Persistenz Klassen, welche wir zunächst betrachten werden, um Objekte die von einer Datenklasse durch den Controller erstellt wurden auch in der Datenbank abspeichern zu können.   
+Nun möchten wir die Controller in unserem System betrachten. Diese Module sind für die Logik zuständig, welche von der WebUI ausgelöst wird. Möchte zudem z.B. ein Prozess Ketten Administrator eine Neue Prozess Ketten Vorlage erstellen, so darf die WebUI nicht direkt auf die Datenklassen verweise machen, sondern muss diese Instruktion erst einmal an einen Controller weitergeben welcher diese anschließend realisiert. Zudem haben diese Controller auch zugriff auf die Persistenz Klassen, welche wir zunächst betrachten werden, um Objekte die von einer Datenklasse durch den Controller erstellt wurden auch in der Datenbank abspeichern zu können. \\
+
 \begin{sidewaysfigure} 
 \begin{center}
  \includegraphics[width=\textwidth]{UML/Controller.pdf}
@@ -1441,11 +1442,13 @@ Dieses Paket wird gebraucht, da es vorgegeben ist.
   \label{fig:boat1}
 \end{center}
 \end{figure}
-Dieses Modul ist für die Erstellung und Verwaltung von Nutzern zuständig. Durch User Controller können z.B. neue Nutzer erstellt werden, oder die Daten von bestehenden Users verändert werden. Dafür greift Controller auf die Datenklasse User zu um diese Nutzer zu erstellen und verwalten. Um diese anschließend in der Datenbank abspeichern zu können, greift User Controller auf die UserDAO zu um die Benutzer in der Datenbank zu Speichern und Verwalten. In der Datenklasse von User wird zudem auch die eingestellte Sprache des Nutzern eingespeichert und nach Wunsch geändert.
+Dieses Modul ist für die Erstellung und Verwaltung von Nutzern zuständig. Durch UserController können z.B. neue Nutzer erstellt werden, oder die Daten von bestehenden Users verändert werden. Dafür greift Controller auf die Datenklasse User zu, um diese Nutzer zu erstellen und verwalten. Um diese anschließend in der Datenbank abspeichern zu können, greift UserController auf die UserDAO zu um die Benutzer in der Datenbank zu speichern und verwalten. In der Datenklasse von User wird zudem auch die eingestellte Sprache des Nutzern eingespeichert und nach Wunsch geändert.
+Die Beans für jeden einzelnen Nutzer werden für ein Umsetzen der Rollen mit Apache Shiro nach Strategie 2.1 gebraucht. 
+Die Umsetzung von Strategie 1.2 zeigt sich im UserController in den Methoden get/set/removeRole. 
 
 \newpage
 
-\subsubsection{Prozess Ketten Vorlage Modul}
+\subsubsection{Prozesskettenvorlage Modul}
 \begin{figure}[h!]
 \begin{center}
  \includegraphics[width=\textwidth]{UML/Modules/ProzessKettenVorlage.pdf}
@@ -1453,7 +1456,9 @@ Dieses Modul ist für die Erstellung und Verwaltung von Nutzern zuständig. Durc
   \label{fig:boat1}
 \end{center}
 \end{figure}
-Dieses Modul ist für die Erstellung von Prozessketten Vorlagen zuständig. Um eine neue Prozesskettenvorlage erstellen zu können, brauchen wir allerdings erst einmal Prozessschrittvorlagen aus welchen diese bestehen soll. Um nun eine Prozesskettenvorlage erstellen zu können muss der Controller Zugriff auf die Datenklasse von Prozesskettenvorlage haben. Nachdem eine neue Prozesskettenvorlage erstellt wurde, möchte man diese allerdings in der Datenbank speichern. Hierfür hat Controller auch Zugriff auf die DAO Klasse von Prozesskettenvorlage. Das gleiche gilt auch wenn man eine Prozesskettenvorlage bearbeiten oder löschen möchte. 
+Dieses Modul ist für die Erstellung von Prozesskettenvorlagen zuständig. Um eine neue Prozesskettenvorlage erstellen zu können, brauchen wir allerdings erst einmal Prozessschrittvorlagen, aus welchen diese bestehen soll. Um nun eine Prozesskettenvorlage erstellen zu können muss der Controller Zugriff auf die Datenklasse von Prozesskettenvorlage haben. Nachdem eine neue Prozesskettenvorlage erstellt wurde, möchte man diese allerdings in der Datenbank speichern. Hierfür hat Controller auch Zugriff auf die DAO Klasse von Prozesskettenvorlage. Das gleiche gilt auch wenn man eine Prozesskettenvorlage bearbeiten oder löschen möchte. 
+%An den unterschiedlichen Controllern für ProzessKetten- sowie ProzessSchrittVorlagen und dem tatsächlichen ProzessSchritt/Auftrag sowie vor allem den Methoden, die in diesen vorhanden sind, sieht man die Umsetzung von Strategie 3.1.
+Hier wird Strategie 3.1 für die ProzessKetten umgesetzt.
 \newpage
 
 \subsubsection{Auftrags Modul}
@@ -1479,6 +1484,7 @@ Um nun Aufträge erstellen oder verwalten zu können, muss unser Auftragscontrol
 \end{figure}
 
 Um Prozessschrittvorlagen erstellen zu können benötigen wir allerdings Prozessschrittvorlagen, aus welchen letztendlich Prozessschritte eines Auftrags erstellt werden. Hierfür dient das Modul Prozessschrittvorlage. Dieses Modul ist für die Erstellung und Bearbeitung von Prozessschrittvorlagen zuständig. Um nun Prozessschrittvorlagen erstellen zu können, benötigen wir erst einmal einen Prozessschrittzustandsautomat welcher den Zustand eines Prozessschritts darstellt. Dieser wird allerdings von einer Vorlage erstellt, welche in der Proezssschrittvorlage abgespeichert wird, wodurch der Prozessschritt der aus dieser Vorlage erstellt wird anschließend weiß welche zustände er haben kann. Um nun Prozessschrittvorlagen erstellen zu können muss unser Controller auf die Datenklasse Prozessschrittvorlage Zugriff haben. Um diese Vorlagen anschließend in der Datenbank verwalten zu können muss er auch Zugriff auf die DAO Klasse von Prozessschrittvorlage haben.
+Hier wird Strategie 3.1 für die Prozessschritte umgesetzt.
 \newpage
 
 \begin{figure}[h!]
