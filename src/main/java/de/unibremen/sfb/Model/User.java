@@ -1,50 +1,63 @@
 package de.unibremen.sfb.Model;
 
 import lombok.Data;
+import lombok.NonNull;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
+/** This class is used to create user objects */
 @Data
-/* This class is used to create user objects */
 public class User {
 
     /** User's id  */
-    public final int id;
+    @NonNull
+    public int id;
 
     /** The user's name */
+    @NonNull
     public String vorname;
 
     /** The user's surname */
+    @NonNull
     public String nachname;
 
     /** User's email address */
+    @NonNull
     public String email;
 
     /** The user's phone number */
+    @NonNull
     public String telefonnummer;
 
     /** User's username */
+    @NonNull
     public String username;
 
     /** User's hashed password */
+    @NonNull
     public Byte[] password;
 
     /** Is the user verified? */
+    @NonNull
     public boolean wurdeVerifiziert;
 
     /** Creation date of the user object */
+    @NonNull
     public Date erstellungsDatum;
 
     /** The role's of the user */
-    public List<Role> rollen;
+    @NonNull
+    public Set<Role> rollen;
 
     /** The experimenting stations a user is assigned to */
-    public List<ExperimentierStation> stationen;
+    public Set<ExperimentierStation> stationen;
 
-    /** Constructor for the user objects
-     * @param id - the user's unique identification number */
-    public User(int id){
-        this.id=id;
-    }
+    /** The jobs a user has */
+    @NonNull
+    public Set<Auftrag> auftraege;
+
+    /** The User's language preference */
+    @NonNull
+    public String language;
 }

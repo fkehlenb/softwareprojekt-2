@@ -62,7 +62,7 @@ index -> browser: Zeige korrekte Seite an
 
 
 * PKAdmin erstellt eine Prozesskette
-#+BEGIN_SRC plantuml :file pkErstellen.png
+#+BEGIN_SRC plantuml :file aw/pkErstellen.png
 autonumber
 skinparam monochrome true
 
@@ -75,9 +75,9 @@ participant "ProzessSchrittZustandsAutomatVorlageController" as psza
 participant "auftraLogController" as aLog
 
   ==Erstellen Eines neuen Auftrages== 
-note over pkaB : Technologe ruf TechnologeApp auf
-note over pkaB: Techonologe wählt Vorlage
-pkaB -> pkv : addProzessKettenVorlage(pkv:ProzessKettenVorlage)
+note over pkaB : pkAdmin befindet sich in der pkApp
+note over pkaB: pkAdmin wählt Vorlage
+pkaB -> pkv : editProzessKettenVorlage(pkv:ProzessKettenVorlage)
 note over pkv : Alle ProzessSchrritteVorlage anzeigen
 pkv -> psv : getPSV()
 note over psv : Technologe setzt alle gewünschten Eigenschaften
@@ -104,7 +104,7 @@ aLog -> Auftrag : setStart(java.time.LocalDateTime)
 #+END_SRC
 
 #+RESULTS:
-[[file:pkErstellen.png]]
+[[file:aw/pkErstellen.png]]
 
 
 
@@ -288,9 +288,8 @@ class "QuantitativeEigenschaft" as quantE {
 class "ProzessSchritt" as ps {
   +psID: int
   +uploaded: bool
+  +current: Experimentierstation
   +zustandsAutomat: ProzessSchrittZustandsAutomat
-  +zustand: String
-  +station : Experimentierstation
 }
 
 class ProzessSchrittLog {
@@ -425,7 +424,7 @@ class "ExperimentierStation" as es {
 [[file:datenModel.png]]
 file:datenModel.png
 
-
+* Leben einer Prozesskette
 #+BEGIN_SRC plantuml :file ps.png
 autonumber
 skinparam monochrome true

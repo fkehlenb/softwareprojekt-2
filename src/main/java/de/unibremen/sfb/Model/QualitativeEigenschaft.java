@@ -1,19 +1,17 @@
 package de.unibremen.sfb.Model;
 
 import lombok.Data;
+import lombok.NonNull;
 
-import java.util.List;
-
+/** Data class for the qualitative descriptors */
 @Data
-/* Data class for the qualitative descriptors */
 public class QualitativeEigenschaft {
 
-    /** Descriptor name */
+    /** Qualitative descriptor name */
+    @NonNull
     public String name;
 
-    /** The samples that have this qualitative descriptor */
-    public List<Probe> proben;
-
-    /** The process parameters made out of the qualitative descriptor */
-    public List<ProzessSchrittParameter> parameter;
+    QualitativeEigenschaft(String s) {
+        name = s;
+    }
 }
