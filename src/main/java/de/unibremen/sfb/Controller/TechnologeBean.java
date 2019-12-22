@@ -2,12 +2,14 @@ package de.unibremen.sfb.Controller;
 
 import de.unibremen.sfb.Model.*;
 
+import javax.enterprise.context.SessionScoped;
+import java.io.Serializable;
 import java.util.Set;
 
 /**
  * this class manages the interaction of the gui with the backend system (for users who are technologists)
  */
-public class TechnologeBean {
+public class TechnologeBean implements Serializable {
 
     /**
      * the user managed by this bean
@@ -129,6 +131,24 @@ public class TechnologeBean {
      */
     public void errorMessage(String e) {}
 
+    /**
+     * the empty constructor
+     */
+    public TechnologeBean() {}
 
+    /**
+     * returns the technologist managed by this bean
+     * @return the user
+     */
+    public User getTechnologe() {
+        return technologe;
+    }
 
+    /**
+     * sets the technologist managed by this bean
+     * @param technologe the new user
+     */
+    public void setTechnologe(User technologe) {
+        this.technologe = technologe;
+    }
 }

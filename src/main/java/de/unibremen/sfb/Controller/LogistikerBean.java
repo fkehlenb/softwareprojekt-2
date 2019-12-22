@@ -2,12 +2,13 @@ package de.unibremen.sfb.Controller;
 
 import de.unibremen.sfb.Model.*;
 
+import java.io.Serializable;
 import java.util.Set;
 
 /**
  * this class manages the interaction between the gui and the backend system for users who are logistic experts
  */
-public class LogistikerBean {
+public class LogistikerBean implements Serializable {
 
     /**
      * the user managed by this bean
@@ -96,4 +97,21 @@ public class LogistikerBean {
      * @param a the job
      */
     public void zuordnen(Auftrag a) {}
+
+    /**
+     * the empty constructor
+     */
+    public LogistikerBean() {}
+
+    /**
+     * returns the logistic expert managed by this bean
+     * @return the user
+     */
+    public User getLogistiker() { return logistiker; }
+
+    /**
+     * sets the logistic expert managed by this bean
+     * @param logistiker the user
+     */
+    public void setLogistiker(User logistiker) { this.logistiker = logistiker; }
 }
