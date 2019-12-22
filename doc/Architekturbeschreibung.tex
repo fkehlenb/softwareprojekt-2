@@ -1847,28 +1847,28 @@ Datenbank her, welche auf dem gleichen SFB Server läuft und eine Instanz der Da
   \label{fig:erstbenutzung.png}
 \end{figure}
 
-In diesem Anwendungsfall geht es darum zu zeigen, was passiert wenn sich ein
+In diesem Anwendungsfall geht es darum, zu zeigen, was passiert, wenn sich ein
 Benutzer anmeldet. Wir haben uns entschieden, die Sicherheit nicht selber zu
 implementieren, sondern Apache Shiro zu nutzen. Siehe Strategie 2.1 \ref{strategie:2.1}
 
 \subsubsection{Was ist Apache Shiro}
-Als erstes möchten wir einen Überblick über Apache Shiro geben, um dann anhand
+Als Erstes möchten wir einen Überblick über Apache Shiro geben, um dann anhand
 des Sequenzdiagrammes erläutern zu können, wie Apache Shiro mit unseren Schichten
 zusammenhängt. Apache Shiro kann ab jetzt auch nur als Shiro bezeichnet werden.
 
 Shiro ist ein sehr mächtiges und leistungsstarkes Java Security Framework,
-welches sich das Ziel gesetzt hat Entwicklern eine intuitive, jedoch auch
+welches sich das Ziel gesetzt hat, Entwicklern eine intuitive, jedoch auch
 umfassende Lösung für Authentifizierung, Autorisierung und Session-Management zu
 bieten. Shiro basiert auf einem soliden, Schnittstellengesteuerten Design und
-folgt Prinzipien der Objektorientierung.
+folgt den Prinzipien der Objektorientierung.
 
 Ein \emph{Subject} ist eine sicherheitsspezifische Sicht auf einen Nutzer
 unseres Programms. Dabei wird nicht zwischen einem menschlichen Nutzer und
 einem maschinellen unterschieden. Auch in der Sicherheitswelt ist der Begriff
 Subject eigentlich die anerkannte Nomenklatur. Die Session erlaubt es dem
-Nutzer, bestimmte Operationen durchzuführen. Es ist weiter möglich einer Session
+Nutzer, bestimmte Operationen durchzuführen. Es ist weiterhin möglich, einer Session
 weitere Attribute zu geben. Unsere Session ist eine Shiro-spezifische Instanz,
-welche das meiste davon bietet,  was uns auch eine reguläre HttpSession
+welche das meiste davon bietet, was uns auch eine reguläre HttpSession
 bietet. Der Vorteil der Session ist es, dass sie keine HTTP-Umgebung braucht.
 
 Bei uns wird die Session in einer Webapplikation umgesetzt, folglich basiert
@@ -1887,23 +1887,23 @@ FacesContext. Der Webbrowser wird auf die $login.xhml$ weitergeleitet. Dort ersc
 ein Login Formular \textbf{(Schritt 2)}, in dem der Nutzer seine Anmeldedaten
 eingeben kann \textbf{(Schritt 3)}. Das Formular wird vom Browser an unseren
 Server gesendet \textbf{(Schritt 4)}. Für die spätere Verarbeitung brauchen
-wir die Parameter, die es in dem Kontext der Anmeldung gab. Diese werden in
-\textbf{(Schritt 5)} an das Login Bean gesendet. Das Login Bean hat die Aufgabe,
+wir die Parameter, die es in dem Kontext der Anmeldung gab. Diese werden 
+in \textbf{Schritt 5} an das Login Bean gesendet. Das Login Bean hat die Aufgabe,
 weitere Sicherheitsfunktionen an Shiro zu delegieren. Dafür nutzen die Methode login
-der IndexBean. Die hat die Aufgabe, zu ermitteln in welchem Kontext die
+der IndexBean. Die hat die Aufgabe, zu ermitteln, in welchem Kontext die
 Login Anfrage gestellt wurde. Sobald dies ermittelt wurde, delegiert sie
-weiter an Shiro. \textbf{(Schritt 6)}. Um das Passwort aus der Datenbank zu lesen,
+weiter an Shiro \textbf{(Schritt 6)}. Um das Passwort aus der Datenbank zu lesen,
 nutzen wir die von Shiro bereitgestellte Methode \textbf{(Schritt 7)}. Die Datenbank
 liefert uns dann das Passwort. In diesem Sequenzdiagramm wurde abstrahiert, dass
 Passwörter gehashed und gesalted werden. Dies liegt daran, dass Shiro, falls so
 konfiguriert, dies im Hintergrund macht.
 
-Shiro verlangt ein Token für den Login. Der Token wird aus dem Passwort
-und dem Benutzernamen generiert. Das genierierte Token hat den Datentyp
-UserNameToken.  Das Token wir in \textbf{Schritt 9} generiert.
+Shiro verlangt ein Token für den Login. Das Token wird aus dem Passwort
+und dem Benutzernamen generiert. Das Genierierte Token hat den Datentyp
+UserNameToken.  Das Token wird in \textbf{Schritt 9} generiert.
 
 
-Ein schon angemeldeter Nutzer kann sich nicht nochmal anmelden. Daher müssen wir
+Ein schon angemeldeter Nutzer kann sich nicht noch mal anmelden. Daher müssen wir
 überprüfen, ob unser Subject anonym ist \textbf{Schritt 10}.
 
 Subjects können Sessions besitzen. Shiro holt und merkt sich die Session eines
@@ -1911,9 +1911,9 @@ Subjects in \textbf{Schritt 11 \& 12}. So haben wir nun ein Subject und seine Se
 Hiermit können wir nützliche Dinge tun, beispielsweise überprüfen, ob das
 Subject die benötigte Rolle hat. Unsere obige Subject Instanz repräsentiert
 den aktuellen Nutzer, aktuell ist unser Subject aber noch anonym. Um nicht mehr
-anonym zu sein muss sich ein Subject anmelden. Für den Anmeldeschritt führen wir
+anonym zu sein, muss sich ein Subject anmelden. Für den Anmeldeschritt führen wir
 ein Login mit unserem Token auf unserem aktuellen Nutzer aus \textbf{(Schritt
-  13)}. Nach der erfolgreichem Authentifizierung leiten wir den Nutzer auf den
+  13)}. Nach der erfolgreichen Authentifizierung leiten wir den Nutzer auf den
 ursprünglichen FacesContext zurück \textbf{(Schritt 14)}. Dafür Verwenden wir
 eine Weiterleitung, die den Pfad zu dem FacesContext kennt, das die Anmeldung
 gefordert hat.
