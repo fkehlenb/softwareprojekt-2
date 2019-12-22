@@ -22,7 +22,7 @@ public class LogistikerBean {
 
     /**
      * creates a new carrier
-     * @return the new carrier //TODO wirklich so rum? mindest traegerart übergeben
+     * @return the new carrier
      */
     public Traeger createTraeger() { return null; }
 
@@ -86,7 +86,7 @@ public class LogistikerBean {
     public void refuseAuftrag(Auftrag a, String message) {}
 
     /**
-     * returns an error message //TODO: einfach irgendeine?
+     * returns an error message
      * @return the error message
      */
     public String errorMessage() { return null; }

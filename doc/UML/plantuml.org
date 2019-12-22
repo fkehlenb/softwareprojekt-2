@@ -80,16 +80,18 @@ note over pkaB: pkAdmin wählt Vorlage
 pkaB -> pkv : editProzessKettenVorlage(pkv:ProzessKettenVorlage)
 note over pkv : Alle ProzessSchrritteVorlage anzeigen
 pkv -> psv : getPSV()
-note over psv : Technologe setzt alle gewünschten Eigenschaften
-psv -> psv : setEs()
+note over psv : pkAdmin setzt alle gewünschten Eigenschaften
+psv -> psv : setEs(es:Experimentierstation) TODO
 psv -> psv : setZustaende(psz:Set<ProzessSchrittZustand>)
 psv -> psv :  setEingabeTraeger(Set<Traegerart>)
 psv -> psv : setAusgabeTraeger(Set<Traegerart>)
 psv -> psv : setProzessSchrittZustandsAutomat(\npsza:ProzessSchrittZustandsAutomat)
 psv -> psv :  setProzessschrittArt(psa:ProzessSchrittArt)
 psv -> b : add Bedinung (TODO) 
-b -> b : add Parameters (TODO)
-b -> pkv : get Bedinung
+b -> psv : add Parameters (TODO)
+psv
+psv -> psv : setEs()
+psv -> pkv : get Bedinung
 pkv -> pkaB : checkPK(ProzessKette pk)
 pkaB -> auftrag : createAuftrag(ProzessKettenVorlage pkv)
 auftrag -> auftrag : setPrio(KEINE)

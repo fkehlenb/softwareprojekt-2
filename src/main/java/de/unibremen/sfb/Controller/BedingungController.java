@@ -12,12 +12,12 @@ import java.util.Set;
 public class BedingungController {
 
     /**
-     * //TODO was
+     * the BedingungController managed by this class
      */
-    public ModuleLayer.Controller controller;
+    public BedingungController controller;
 
     /**
-     * sets the process step parameters for this condition //TODO
+     * sets the process step parameters for this condition
      * @param psz process step parameter
      */
     public void setPSZ(Set<ProzessSchrittParameter> psz) {}
@@ -41,10 +41,14 @@ public class BedingungController {
     public Set<QualitativeEigenschaft> getEigenschaften() { return null; }
 
     /**
-     * TODO
-     * @param bedingung TODO
+     * sets the process step parameters and properties for this condition
+     * @param bedingung a set containing the new parameters and conditions
      */
     public void setBedingung(Pair<Set<ProzessSchrittParameter>,Set<QualitativeEigenschaft>> bedingung) {}
 
+    /**
+     * returns all process step parameters and properties for this condition
+     * @return a set containing all parameters and properties
+     */
     public Pair<Set<ProzessSchrittParameter>,Set<QualitativeEigenschaft>> getBedingung() { return null; }
 }
