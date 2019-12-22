@@ -1548,42 +1548,41 @@ Hiermit setzen wir die Strategie 7.2 \ref{strategie:7.2} um.
 Es gibt zu Beginn drei Arten von ProzessSchrittArten: umformend, färbend und ermittelend. Diese sind vom Kunden vorgegeben und können im Nachhinein nach Belieben des Kunden erweitert werden.
 Diese wurden als Klasse mit einem Set von Strings modelliert, dies ist unsere Umsetzung der Strategie 20.2 \ref{strategie:20.2}.
 
-Ein ProzessSchritt ist eine instanzierte ProzessSchrittVorlage. Ihre Attribute
-sind eine Prozesschritt ID, ein Boolean uploaded, der auf True gesetzt wird,
+Ein ProzessSchritt ist eine instanziierte ProzessSchrittVorlage. Ihre Attribute
+sind eine ProzessSchritt-ID, ein Boolean uploaded, der auf True gesetzt wird,
 nachdem der Technologe die ProzessParameter in die externe Datenbank hochgeladen
 hat, current, welches eine Experimentierstation referenziert, falls es eine
-Experimentierstation gibt, wo aktuell dieser Prozesschritt durchläuft, der String zustandsAutomat, der den aktuellen Zustand aus dem ProzessSchrittZustandsAutomaten speichert. Ein Prozessschritt gehört zu einem Auftrag, ein Auftrag
+Experimentierstation gibt, wo aktuell dieser ProzessSchritt durchläuft, und ein String zustandsAutomat, der den aktuellen Zustand aus dem ProzessSchrittZustandsAutomaten speichert. Ein Prozessschritt gehört zu einem Auftrag, ein Auftrag
 kann aber viele ProzessSchritte enthalten.
 
-Ein ProzessSchrittZustand ist eine Liste von Zuständen. Der
-ProzessSchrittZustand kann vom pkAdmin erweitert um weitere Zustände erweitert
+Ein ProzessSchrittZustandsAutomat ist eine Liste von Zuständen. Der
+ProzessSchrittZustandsAutomat kann vom PkAdmin um weitere Zustände erweitert
 werden, wenn dieser nicht in Benutzung ist.
 
-Ein ProzessParameter hat einen Namen. Einer ProzesschrittVorlage Vorlage können
-Parameter zugewiesen werden. Bei falls der Prozesschritt ermittelnd ist, wird
-nachher die Eigenschaft, welche ermittelt wurde der Probe zugewiesen.
+Ein ProzessSchrittParameter hat einen Namen. Einer ProzessSchrittVorlage können
+Parameter zugewiesen werden. Falls der ProzessSchritt ermittelnd ist, wird
+nachher die Eigenschaft, welche ermittelt wurde, der Probe zugewiesen.
 
 JSON ist der aktuelle De-facto-Datenformat-Standard um Daten über APIs bereitzustellen. Das Java-Ökosystem bietet eine Reihe von Bibliotheken zur Erstellung von JSON aus Java-Objekten und umgekehrt (GSON, Jackson, etc.). Mit dem Release von Java EE 8 und der JSR-367 haben wir nun einen standardisierten Ansatz dafür: JSON-B.
 
-Um den Up/Download von den Parameter der Prozesschritte als JSON zu ermöglichen verwenden wir JSON-B. Hiermit setzen wir die Strategie 4.1 \ref{strategie:4.1}  um. Dafür stellen wir ein Interface
-bereit, dass es uns ermöglicht die Parameter der Prozesschritte zu serialiseren.
-Um mit externen Diensten zu kommunizieren werden für das serialisierte JSON
-Rest-Schnittstellen angeboten
+Um den Up/Download von den Parametern der ProzessSchritte als JSON zu ermöglichen verwenden wir JSON-B. Hiermit setzen wir die Strategie 4.1 \ref{strategie:4.1}  um. Dafür stellen wir ein Interface
+bereit, dass es uns ermöglicht die Parameter der ProzessSchritte zu serialisieren.
+Um mit externen Diensten zu kommunizieren, werden für das serialisierte JSON
+Rest-Schnittstellen angeboten.
 
-Eine ProzesskettenVorlage, hat eine eindeutige id. Aufträge besitzen
-Prioritäten. AuftragsPriorität ist bei uns eine Enum. Die Prioritäten sind fest
-und können im Nachhinein nicht mehr geändert werden.
+Eine ProzessKettenVorlage, hat eine eindeutige ID. Aufträge besitzen
+Prioritäten.
 
 
-Die Enum ProzesskettenZustandsautomat enthällt alle Zustände die eine Auftrag
-haben kann. Diese sind fest und können im nachhinein nicht mehr geändert werden.
+Die Enum ProzessKettenZustandsAutomat enthält alle Zustände, die ein Auftrag
+haben kann. Diese sind fest und können im Nachhinein nicht mehr geändert werden.
 Deshalb werden sie als Enum gespeichert. Hiermit wird die Strategie 18.1 umgesetzt.
 
-Ein Auftrag ist eine Instanz einer Prozesskettenvorlage.
+Ein Auftrag ist eine Instanz einer ProzessKettenVorlage.
 
-Wie oben erwähnt ist Auftrag eine Instanzierung von der Prozesskette, die
-ProzesschrittVorlage erstellt eine ProzessSchritt Objekt. Wir haben getrennte
-Klassen für die Vorlage und die Instanzen von den Prozesschritten und Prozessketten.
+Wie oben erwähnt, ist Auftrag eine Instanz von der ProzessKettenVorlage, die
+ProzessSchrittVorlage erstellt ein ProzessSchritt Objekt. Wir haben getrennte
+Klassen für die Vorlage und die Instanzen von den ProzessSchritten und ProzessKetten.
 Hiermit setzen wir die Strategie 3.1 \ref{strategie:3.1}  um. Die ProzessSchritte sind somit abstrakt
 und können später auch in anderen Prozessketten wiederverwendet werden.
 
