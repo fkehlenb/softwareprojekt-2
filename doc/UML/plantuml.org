@@ -446,8 +446,6 @@ participant "BedingungController" as b
 participant "ProzessSchrittParametterController" as psp
 participant "ProzessSchrittLogController" as psl
 participant "ProzessSchrittZustandsAutomatController" as psza
-participant "ProzessSchrittArtController" as psa
-participant "ProzessSchrittZustandsAutomatVorlageController" as pszav
 participant "ProbeController" as p
 participant "TranportAuftragController"  as ta
 participant "QualitativeEigenschafftenController" as qe
@@ -458,12 +456,10 @@ te -> es : getStationen()
 es -> es : setStatus(VEFÜGBAR)
 es -> pkv : popNextPS()
 note over pkv : Neheme dem erste Prozessschritt, der noch nicht begonen wurde
-====
 pkv -> psv : get PSV()
 psv -> psv : getES()
 psv -> b : getProzessSchrittParameter
 b -> psv : getBedingun()
-====
 psv -> es : getES()
 es -> psv : getAuslastung
 note over psv :  Die es mit der niedrigsten Auslastung wird ausgewählt
@@ -483,10 +479,11 @@ psv -> ps : getProzessSchrittParameter()
 note over ps : Falls notig werden Eigenschaft den Proben hinzugefügt
 ps -> p : getID()
 p -> p : addComment(comment: Pair<java.time.LocalTimeDate, String)
-p -> ps : setEigenschaften(e:QualitativeEigenschaft)
-note over ps : Es ist mit Ps fertig
-ps -> psl : setzustand(BEARBEITET)
-
+p -> p : setEigenschaften(e:QualitativeEigenschaft)
+note over psza : Es ist mit Ps fertig
+p <- psza : setZustand(BEARBEITET)
+p -> : setEigenschaften(eigenschaft: Set<QualitativeEigenschaft)
+p -> psl: setBeendet(t: java.time.LocalDateTime)
 #+END_SRC
 
 #+RESULTS:
