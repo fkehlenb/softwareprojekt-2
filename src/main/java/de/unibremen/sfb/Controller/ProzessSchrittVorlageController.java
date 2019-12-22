@@ -1,6 +1,7 @@
 package de.unibremen.sfb.Controller;
 
 import de.unibremen.sfb.Model.*;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.time.Duration;
 import java.util.Set;
@@ -156,8 +157,16 @@ public class ProzessSchrittVorlageController {
      * @return a Set of QualitativeEigenschaft
      */
     public Set<QualitativeEigenschaft> getEigenschaften(){return null;}
+
     /**
-     * set
+     * sets / assigns Eigenschaften
+     * @param qe a Set of QualitativeEigenschaft
      */
     public  void setEigenschaften(Set<QualitativeEigenschaft> qe){}
+
+    /**
+     * sets angeforderte Proben
+     * @param ap angeforderte Proben with amount
+     */
+    public void setAngeforderteProben(Set<Pair<QualitativeEigenschaft,Integer>> ap){}
 }
