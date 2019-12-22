@@ -2013,6 +2013,50 @@ die Vorlage heißt ProzessSchrittVorlage hiermit setzen wir die Strategie 3.1
 \ref{strategie:3.1} um. Vorgänge in einem Prozessschritt werden gelogt. Dafür
 benutzen wir
 
+
+Wir beginnen damit, dass ein Prozessschritt den Zustand BEARBEITET bekommen hat,
+diesen Prozesssschritt erhält die Bezeichnung $n-1$. Unsere erste Aufgabe ist
+es, dafür zu sorgen, dass in der Station von $n-1$ der nächste Prozesschritt an
+die Reihe kommt. Dafür muss als erster der TechnologenBean getStationen()
+ausführen. Wir kennen den Prozessschritt, daher wissen wir auch an welcher
+Station er ausgeführt wurde. Die Station an der Prozesschritt $n-1$ sich
+befindet erhält den Zustand VERFÜGBAR. Als nächstes wird der nächste
+Prozessschritt der sich in der Warteschlange befindet aus der Warteschlange
+entfernt.
+
+Bisher haben wir uns darum gekümmert, das die Station von dem ProzessSchritt
+$n-1$ bereit ist, mit dem nächsten Prozessschritt zu starten. Nun wollen wir uns
+darum kümmern, dass die der Prozessschritt an die richtige Experimentierstation
+gelangt. Wir haben uns dafür entschieden dass dieser Prozess automatisch
+geschieht. Um dies zu realisieren nimmt der ProzessKettenVorlageController sich
+alle Prozesskettenschritte die in der Prozesskettenvorlage enthalten sind. Hier
+wird der erste Prozesschritt ausgewählt, der noch nicht begonnen wurde. Als
+nächstes brauchen wir die Menge der Experimentierstationen die dem Prozesschritt
+zugewiesen worden sind. Auch hier überprüfen wir nochmal ob die
+Experimentierstationen für den Prozessschritt geeignet sind. Dafür holen wir uns
+mit mit dem ProzessSchrittVorlageController die Prozessschrittparameter und
+lassen diese vom BedingungsController diese als Bedingung zurückgeben. Wir sind
+uns jetzt sicher, dass die wir die korrekte Menge $a$ der Experimentierstationen
+haben an denen wir den Prozessschritt $n$ zuweisen können. Als nächstes wollen
+wir wissen welche der Experimentierstationen aus der Menge $n$ die am wenigsten
+ausgelastete ist. Der ExperimentierStationenController übernimmt für uns diese
+Aufgabe, dies wird mit getAuslastung realisiert. Die Auslastung ist eine
+Zeitdauer, aus der Menge der Auslastungen nehmen wir die Experimentierstation mit der
+geringsten Auslastung. Wir schreiben die Zuweisung in den Log der
+Prozessschrittes. Nun fügen wir den Prozessschritt $n$ in die Warteschlange der
+vorher ausgewählten Experimentierstation. Die Zuweisung an eine spezifische
+Experimentierstation wird auch in dem Log  von $n$ durch den
+ProzessSchrittLogController vermerkt.  Der Prozessschritt $n-1$ ist nun offiziel
+beendet, daher setzen wir den Zustand vom Prozessschritt $n-1$ auf
+WEITERGLEITET.
+
+Jetzt geht es darum, dass der Transporteur erkennt, dass er einen neuen
+Transportauftrag hat, um dies zu realisieren können wir schauen, ob es einen
+Prozessschritt $n$ gibt, der noch nicht begonnen wurde, aber schon zu einer
+Experimentierstation zugewiesen wurde. Sein Vorgänger $n-1$ muss außerdem
+den Zustand WEITERGLEITET haben. Wenn dies gilt, sehen alle Benutzer mit der
+
+
 %{\it In diesem Abschnitt sollen Sequenzdiagramme mit Beschreibung(!)
 %  für zwei bis drei von Euch ausgewählte
 %    Anwendungsfälle
