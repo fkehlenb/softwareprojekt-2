@@ -75,9 +75,9 @@ participant "ProzessSchrittZustandsAutomatVorlageController" as psza
 participant "auftraLogController" as aLog
 
   ==Erstellen Eines neuen Auftrages== 
-note over pkaB : pkAdmin ruf auf ProzessKettenApp
+note over pkaB : pkAdmin befindet sich in der pkApp
 note over pkaB: pkAdmin wählt Vorlage
-pkaB -> pkv : addProzessKettenVorlage(pkv:ProzessKettenVorlage)
+pkaB -> pkv : editProzessKettenVorlage(pkv:ProzessKettenVorlage)
 note over pkv : Alle ProzessSchrritteVorlage anzeigen
 pkv -> psv : getPSV()
 note over psv : Technologe setzt alle gewünschten Eigenschaften
@@ -247,7 +247,7 @@ class User {
   +username: String
   +password: Byte[]
   +wurdeVerifiziert: boolean
-  +erstellungsDatum: java.time.LocalTimeDate
+  +erstellungsDatum: java.time.LocalDateTime
   +lang: String
 }
 
@@ -289,8 +289,7 @@ class "ProzessSchritt" as ps {
   +psID: int
   +uploaded: bool
   +current: Experimentierstation
-  +ZustandsAutomat: String
-  +station : Experimentierstation
+  +zustandsAutomat: ProzessSchrittZustandsAutomat
 }
 
 class ProzessSchrittLog {
