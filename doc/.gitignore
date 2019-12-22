@@ -15,3 +15,4 @@
 
 #===Ignore PDF files===
 Architekturbeschreibung.pdf
+*.out.ps

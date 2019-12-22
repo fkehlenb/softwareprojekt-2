@@ -1813,6 +1813,28 @@ Bei dem Login können folgende Exceptions geworfen werden:
   \label{fig:pkErstellen}
 \end{figure}
 
+In der Abb. \ref{fig:pkErstellen} wird der Ablauf gezeigt, wie ein
+ProzessKettenAdministrator eine ProzessKette erstellt, diese dann instanziert
+und dann startet.
+
+Als pkApp  App bezeichnen wir den Teil der Webapplikation, der dem pkAdmin
+das Verwalten der ProzessKetten ermöglicht.
+
+Sobald der pkAdmin der pkApp mitteilt, dass er gerne eine ProzesskettenVorlage
+bearbeiten würde führt die PKAdminBean die methode
+$editProzessKettenVorlage(pkv:ProzessKettenVorlage)$ aus (\textbf{Schritt 1}).
+Alls nächstes sollen alle ProzessSchrittVorlagen die einer ProzessKettenVorlage
+zugewiesen sind angezeigt werdne. Dafür führt der ProzessKettenController die
+Methode $getPSV()$ aus (\textbf{Schritt 2}).
+
+Die nächsten Schritte sind optimal. Den es ist dem pkAdmin überlassen was er in
+der Vorlage ändern will. Es bietet sich hier an, manuell eine
+Experimentierstation zuzuweisen, ansonsten wird dies in dem \textbf{11. Schritt}
+ausgeführt.
+
+
+
+\subsection{Alt}
 Figure \ref{fig:pkErstellen} zeigt wie der Prozesskettenadministrator die Prozesskette erstellt. 
 Bei Schritt 18, schauen sie bitte in Graphik \ref{fig:logstikProbenPüftZuweisen}. 
 
@@ -1820,7 +1842,8 @@ Der Prozesskettenadministrator wählt aus den vorhandenen Vorlagen eine aus, dam
 Falls die Randbedingungen der Kette stimmen, darf diese instanziiert werden. Beim Speichern des Auftrages mit der instanziierten Prozesskette werden diese auch persistiert.
 
 Jetzt erhält der Logistiker einen neuen Probenzuweisungsauftrag, falls die Anfrage genehmigt wurde, kann der PKAdmin nun die Prozesskette starten.
-
+Als naächstes ist es möglich die Eingabe und Ausgabe Träger zu setzen. Wenn
+diese gesetzt sind
 
 %In der Graphik \ref{fig:logstikProbenPüftZuweisen} erhält die Logistik eine Anfrage für die Probenverwaltung. Es muss nun vom System geprüft werden ob %Proben mit den gewünschten Materialeigenschaften im Lager sind. Das System gibt diese an die Logistik zurück. Werden die Proben dann von dem %Logistiker ausgewählt und genehmigt, so werden diese an den Auftrag übermittelt und persistiert. Die Genehmigung wird an die Prozesskettenverwaltungs-%Administrationsapp übermittelt.
 
