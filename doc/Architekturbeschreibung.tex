@@ -847,6 +847,7 @@ Hier haben wir uns für die erste Strategie entschieden, da sich dadurch eine pr
             {\phantomsection}          
            \label{strategie:7.1}     
           \textbf{Strategie 7.1: Anzeige} Die Prioritäten der Prozessketten werden den Usern angezeigt, damit sie selber sehen, welche sie als erstes bearbeiten sollten. \\
+	 \label{strategie:7.2}
           \textbf{Strategie 7.2: Automatische Sortierung: (ausgewählt)} Es werden automatisch die Prozesskettenprioritäten analysiert und sortiert angezeigt. \\
           \\ \hline
     \end{tabular}
@@ -1182,10 +1183,10 @@ Hier haben wir uns für die zweite Strategie entschieden, weil die Zustände weg
           \textbf{Strategien} \\ \hline
           {\phantomsection}          
            \label{strategie:20.1} 
-	\textbf{Strategie 20.1: als Enum: (ausgewählt)} Die unterschiedlichen Arten werden als Enum dargestellt. \\
+	\textbf{Strategie 20.1: als Enum:} Die unterschiedlichen Arten werden als Enum dargestellt. \\
 	{\phantomsection}          
            \label{strategie:20.2} 
-	\textbf{Strategie 20.2: als String:} Für jede Vorlage wird in einem Stringattribut gespeichert, um welche Art es sich handelt. \\
+	\textbf{Strategie 20.2: als String: (ausgewählt)} Für jede Vorlage wird in einem Stringattribut gespeichert, um welche Art es sich handelt. \\
           \\ \hline
     \end{tabular}
     \caption{Arten an Prozessketten Problemkarte}
@@ -1480,73 +1481,72 @@ die Entstehung anhand der Strategien erläutert werden.
 
 {
 
-Alle Rollen die ein Nutzer annehmen kann, sind in einer Enum gepspeichert. Diese
+Alle Rollen, die ein Nutzer annehmen kann, sind in einer Enum gespeichert. Diese
 sind TECHNOLOGE, PKADMIN, TRANSPORT, LOGISTIKER und der ADMIN. Hiermit
 realisieren wir die Strategie 1.2 \ref{strategie:1.2}. Wir können somit mehrere Rollen für einen
-User speichern. Um die Datensicherheit zu gewährleisten haben wir uns für
-Apache Shiro entschieden. Hiermit können wir einzelnen Programmfunktionen nur
+User speichern. Um die Datensicherheit zu gewährleisten, haben wir uns für
+Apache Shiro entschieden. Hiermit können wir einzelne Programmfunktionen nur
 für bestimmte Rollen zulassen. Damit setzen wir die Strategie 2.1 \ref{strategie:2.1} um. Apache
-Shiro muss wissen welche Rollen zu welchen Usern gehören. Daher referenziert
+Shiro muss wissen, welche Rollen zu welchen Usern gehören. Daher referenziert
 User eine oder mehrere Rollen.
 
 
-Die User bestehen aus einer id, einem Vornamen, einem Nachnamen, einer Email,
-einer Telefonnummer, einer Kombination von seinem Passwort und seinem Usernamen.
-Der User erhält nach dem sein Konto erstellt wurde eine email, nachdem er seinen
-Account verifiziert, wird wurdeVerifiziert auf True gesetzt. Das Attribut
-Erstellungsdatum, speichert wann der Nutzer erstellt worden ist.
+Die User bestehen aus einer ID, einem Vornamen, einem Nachnamen, einer E-Mail-Adresse,
+einer Telefonnummer und einer Kombination von seinem Passwort und seinem Usernamen.
+Der User erhält, nach dem sein Konto erstellt wurde, eine E-Mail, mit der er sich verifizieren muss. Nachdem er seinen
+Account verifiziert hat, wird wurdeVerifiziert auf True gesetzt. Das Attribut
+Erstellungsdatum speichert, wann der Nutzer erstellt worden ist.
 
-Ein Standort enthält ein String in dem der Ort des Standorts steht.
+Ein Standort enthält ein String, in dem der Ort des Standorts steht.
 
-Ein Träger hat eine id, einen Standort. Falls er einem Auftrag zugewiesen ist,
-referenziert er auch diesen.
+Ein Träger hat eine ID und einen Standort. Falls er einem Auftrag zugewiesen ist,
+referenziert er diesen auch.
 
-Es gibt standardmässig die Trägerarten eingebettet, einzelnen und Glas. Diese sind in
-der Klasse Trägerart gespeichert. Die Information über die Trägerarten wird
-benötigt um in Erfahrung zu bringen, ob eine Experimentierstationen ein
+Es gibt standardmäßig die Trägerarten eingebettet, einzelne und Glas und diese können später nach Belieben des Kunden durch neue Trägerarten erweitert werden. Die Trägerarten sind in
+der Klasse Traegerart gespeichert. Die Information über die Trägerarten wird
+benötigt, um in Erfahrung zu bringen, ob eine Experimentierstation einen
 ProzessSchritt ausführen kann. Die ProzessSchrittVorlage hat als Attribut welche
-Träger sie annimmt und welche Träger sie ausgibt (eingabeTräger. ausgabeTräger).
+Träger sie annimmt und welche Träger sie ausgibt (eingabeTräger, ausgabeTräger).
 Siehe Strategie 17.3 \ref{strategie:17.3}.
 
-Wir haben das Archiv als eigenständig Klasse modelliert, so können wir im
-Nachhinein Proben, welche archiviert werden eine Referenz zu einer Instanz von
+Wir haben das Archiv als eigenständig Klasse modelliert. So können wir im
+Nachhinein Proben, welche archiviert werden, eine Referenz zu einer Instanz von
 Archiv geben. Falls es diese Referenz gibt, so können wir wissen, dass diese
-Probe Archiviert wurde. Dies wird in der Strategie 16.1 \ref{strategie:16.1} umgesetzt
+Probe archiviert wurde. Dies wird in der Strategie 16.1 \ref{strategie:16.1} umgesetzt.
 
-Es gibt Zwei Arten von Eigenschaften die wir modellieren. Die Qualitative
-Eigenschaft beschreibt ob das Objekt diese Eigenschaft hat. Sie hat also ein
-Namen, falls es eine Referenz dahin gibt, wissen wir dass das Objekt auch diese
+Es gibt zwei Arten von Eigenschaften, die wir modellieren. Die Qualitative
+Eigenschaft beschreibt, ob das Objekt diese Eigenschaft hat. Sie hat also ein
+Namen. Falls es eine Referenz dahin gibt, wissen wir, dass das Objekt auch diese
 Eigenschaft hat. Die Quantitative Eigenschaft ist eine Erweiterung der
 Qualitativen Eigenschaft. Sie enthält einen Wert und eine Einheit. Der Wert ist
 eine Zahl, welche von Java unterstützt wird. Für die Einheiten nutzen wir die SI
-Implementierung, welche die Java Laufzeit Bibliothek bereitstellt. Dies
-ermöglicht es unserem System mit Eigenschaften und Anforderungen umgehen zu
+Implementierung, welche die Java Laufzeit Bibliothek bereitstellt.
+Dies ermöglicht es unserem System, mit Eigenschaften und Anforderungen umgehen zu
 können. Es ist uns hiermit möglich, Proben mit spezifizierten Eigenschaften zu
 finden und diese dann bestimmten Klassen zuzuweisen. Für Experimentierstationen gelten
-Bedingungen, diese werden durch Eigenschaften oder Prozess-Parametern realisiert.
-Wir können festlegen, dass ein Prozesschritt nur ausgeführt werden kann, wenn
-ein vorheriger Prozesschritt eine Eigenschaft besitzt oder ein Parameter hat.
-Ein Logistiker kann in der Logistik Ansicht Proben auflisten, welche
+Bedingungen. Diese werden durch Eigenschaften oder Prozess-Parameter realisiert.
+Wir können festlegen, dass ein ProzessSchritt nur ausgeführt werden kann, wenn
+ein vorheriger ProzessSchritt eine Eigenschaft besitzt oder einen Parameter hat.
+Ein Logistiker kann in der Logistik-Ansicht Proben auflisten, welche
 einer Bedingung entsprechen. Hier haben wir die Strategie 10.2 \ref{strategie:10.2} umgesetzt.
 
-Eine ProzesschrittVorlage, enthält eine eindeutige ID, einen Zustandsautomaten
-(ProzessSchrittZustand) und die geschätzte Dauer für den ProzessSchritt.
-Strategie 19.2 \ref{strategie:19.2}  setzen wir um, indem wir die Zustände einer ProzessSchrittVorlage
+Eine ProzessSchrittVorlage enthält eine eindeutige ID, einen Zustandsautomaten
+(ProzessSchrittZustandsAutomat) und die geschätzte Dauer für den ProzessSchritt.
+Strategie 19.2 \ref{strategie:19.2} setzen wir um, indem wir die Zustände einer ProzessSchrittVorlage
 nicht als Enum speichern, sondern sie als Klasse modellieren.
-Das Attribut eingabeTräger ist Liste von Trägerarten die als Eingabe akzeptiert
-werden, die Liste der Trägerarten ausgabeTräger beschreibt welche Träger von
-diesem Prozesschritt ausgeben werden.
+Das Attribut eingabeTraeger ist Liste von Trägerarten, die als Eingabe akzeptiert
+werden. Die Liste der Trägerarten ausgabeTraeger beschreibt, welche Träger von
+diesem ProzessSchritt ausgegeben werden.
 
-Die enum AuftragsPriorität enthält die Prioritäten, welche eine Prozesskette
-haben kann. Falls ein Prozesschritt eine höhere Priorität hat, wird dieser vor
-dem Prozesschritt ausgeführt der eine geringere Priorität hat.  Somit kann dann
-automatisch bestimmt werden, welcher ProzessSchritt als nächstes an einer
-Experimentierstation ausgeführt wird unter Berücksichtigung der Priorität.
-Hiermit setzen wir die Strategie 7.2 \ref{strategie:7.2}  um.
+Die Enum AuftragsPriorität enthält die Prioritäten, welche eine Prozesskette
+haben kann. Falls ein ProzessSchritt eine höhere Priorität hat, wird dieser vor
+dem ProzessSchritt, der eine geringere Priorität hat, ausgeführt. Somit kann dann
+automatisch, unter Berücksichtigung der Priorität, bestimmt werden, welcher ProzessSchritt als Nächstes an einer
+Experimentierstation ausgeführt wird.
+Hiermit setzen wir die Strategie 7.2 \ref{strategie:7.2} um.
 
-Es gibt drei Arten von ProzessSchrittArten: umformend, färbend und ermittelend.
-Diese wurden als Enum modeliert, dies ist unsere Umsetzung der Strategie 20.1 \ref{strategie:20.1} 
-Diese sind vom Kunden Vorgeben und können nicht im Nachhinein geändert werden.
+Es gibt zu Beginn drei Arten von ProzessSchrittArten: umformend, färbend und ermittelend. Diese sind vom Kunden vorgegeben und können im Nachhinein nach Belieben des Kunden erweitert werden.
+Diese wurden als Klasse mit einem Set von Strings modeliert, dies ist unsere Umsetzung der Strategie 20.2 \ref{strategie:20.2}.
 
 Ein ProzessSchritt ist eine instanzierte ProzesschrittVorlage. Ihre Attribute
 sind, eine Prozesschritt ID, ein Boolean uploaded. Dieser wird auf True gesetzt,
