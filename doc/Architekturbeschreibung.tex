@@ -1712,6 +1712,16 @@ Datenbank her, welche auf dem gleichen SFB Server läuft und eine Instanz der Da
 \sectionmark{Zusammenhänge AF u. Architektur}
 \label{sec:anwendungsfaelle}
 
+Hinweis: die Methoden wurden in der UML Schreibweise übernommen, dies hat den
+Vorteil, dass diese nicht nur eine Variabel enthält, welche nicht weiter
+spezifiziert ist, sondern auch den Typ der Variabel enthält. Dies soll dem
+Leser ermöglichen schneller zu verstehen welche Variabel gemeint ist.
+
+
+Die SequenzDiagramme haben die Aufgabe den Zusammenhang der Anwendungsdiagramme
+und der Architektur zu verdeutlichen. Im folgendem Abschnitt stellen wir
+Anwendungsfälle vor und beschreiben diese mit Sequenzdiagrammen. Dabei gehen wir
+Schrittweise vor und erklären wie die Kommunikation stattfindet.
 
 \subsection{Login eines Benutzers}
 \begin{figure}[H]
@@ -1813,9 +1823,18 @@ In der Abb. \ref{fig:pkErstellen} wird der Ablauf gezeigt, wie ein
 ProzessKettenAdministrator eine ProzessKette erstellt, diese dann instanziert
 und dann startet.
 
-Als  App bezeichnen wir den Teil der Webapplikation, der
+Als pkApp  App bezeichnen wir den Teil der Webapplikation, der dem pkAdmin
+das Verwalten der ProzessKetten ermöglicht.
 
-
+Sobald der pkAdmin der pkApp mitteilt, dass er gerne eine ProzesskettenVorlage
+bearbeiten würde führt die PKAdminBean die methode
+$editProzessKettenVorlage(pkv:ProzessKettenVorlage)$ aus (\textbf{Schritt 1}).
+Alls nächstes sollen alle ProzessSchrittVorlagen die einer ProzessKettenVorlage
+zugewiesen sind angezeigt werdne. Dafür führt der ProzessKettenController die
+Methode $getPSV()$ aus (\textbf{Schritt 2}). Die nächsten Schritte sind optimal.
+Den es ist dem pkAdmin überlassen was er in der Vorlage ändern will. Es bietet
+sich hier an, manuell eine Experimentierstation zuzuweisen, ansonsten wird dies
+in dem 11. Schritt ausgeführt.
 
 
 
