@@ -1415,7 +1415,7 @@ Dieses Paket wird gebraucht, da es vorgegeben ist.
 }
 
  \begin{sidewaysfigure}
-  \caption{Persistenzmodelll für DataColorado}
+  \caption{Persistenzmodelll für FarbigesSFB}
   \centering
   \includegraphics[width=\textwidth]{UML/Persistence}
  \end{sidewaysfigure}
@@ -1674,7 +1674,7 @@ Umsetzung von der Strategie 13.1 \ref{strategie:13.1}
    
  \begin{sidewaysfigure}
    \includegraphics[width=\textwidth]{UML/datenModel}
-  \caption{Datenmodell für DataColorado}
+  \caption{Datenmodell für FarbigesSFB}
   \centering
  
 
@@ -1691,24 +1691,24 @@ Umsetzung von der Strategie 13.1 \ref{strategie:13.1}
 
 %%\includepdf[]{06Ausfuehrungssicht.pdf}
 \begin{figure}[H]
-\includegraphics[scale=0.5]{UML/06Ausfuehrungssicht.pdf}
+\includegraphics[width=\textwidth]{UML/06Ausfuehrungssicht.pdf}
  \caption{Ausführungssicht}
 \end{figure}
 
 
-{ Die Ausführungssicht von unserer Software (SWP2) ist in der obigen Abbildung
+{ Die Ausführungssicht von unserer Software (SFB-Farbig) ist in der obigen Abbildung
   7.1 modelliert.
 
 Beliebig viele Benutzer können via TCP/IP auf den SFB-Server zugreifen. Dies
 geschieht über eine Webapplikation, die im Internetbrowser eines PCs oder eines
 mobilen Endgeräts aufgerufen werden kann.
 
-Es ist auch möglich, dass ein Rest-Client sich mit unserem Server verbindet,
+Es ist auch möglich, dass ein REST-Client sich mit unserem Server verbindet,
 dieser verbindet sich dann an den REST-Endpunkt über den SFB-Server. Das Modul
 der Businesslogik führt die Befehle dann aus.
 
 Es gibt einen Anwendungsserver, welchen wir SFB-Server genannt haben, auf dem
-eine Instanz von Wildfly läuft. Auf dieser Wildflyinstanz wird der SWP2-Server
+eine Instanz von Wildfly läuft. Auf dieser Wildflyinstanz wird unser System (SFB-Farbig)
 mit allen dazugehörigen Modulen ausgeführt.
 
 Das Modul Persistence kommuniziert mit dem Modul Businesslogik aber auch
