@@ -196,6 +196,8 @@ Diese Webapplikation soll also, in Stichpunkten, die folgenden Funktionen ermög
 
 Leser dieser Architekturbeschreibung sind hiermit also nicht nur die Mitarbeiter der SFB-Initiative, sondern gegeben falls auch der Endkunde, welcher die Benutzer des Systems verwalten kann.
 
+Im Folgenden wird oft an Stellen, wo natürlich User*innen gemeint sind, nur User geschrieben (und analog für beispielsweise die spezifischen Rollen der Benutzer*innen). \\
+
 \subsection{Zweck}
 
   { Diese Architekturbeschreibung beschreibt die Architektur von Farbiges SFB, eine digitale Software welche die Erstellung, Verwaltung und Durchführung von Prozessketten ermöglicht, mit wessen Hilfe neue Werkstoffeigenschaften gefunden werden sollen für den industriellen Gebrauch. Es beschreibt, wie das System von Farbiges SFB implementiert werden soll und wie seine Struktur aussehen wird. 
@@ -237,8 +239,6 @@ Standort                                                        & Träger und Pr
 Transportauftragzustand \textbf{(TA-Zustand)}  & Ein Transportauftrag befindet sich im Zustand wartend oder er wurde schon geliefert.                                                                                                                                                                  \\ \hline
 Prozessschrittzustand \textbf{(PS-Zustand)}    & Ein Prozessschrittzustand hat entweder den Zustand angenommen, in Bearbeitung oder abgegeben.                                                                                                                                                         \\ \hline
 Upload in Datenbank                                             & Ein Technologe muss nach dem Ausführen eines Prozessschrittes die Prozessparameter in die Datenbank (DAVIS) hochladen.                                                                                                                                \\ \hline
-BusinessLogic & ein Sammelbegriff für alle Controller und Beans die Geschäfts-relevante Prozesse bearbeiten und mit diesen interagieren, werden von uns mit BusinessLogic benannt.
-\\ \hline
 \end{longtable}
 
 \begin{longtable}[c]{|p{7cm}|p{8cm}|}
@@ -367,6 +367,8 @@ Nachdem der Transporteur den Transport aus dem vorherigen Abschnitt ausgeführt 
 
 \label{sec:globale_analyse}
 
+{\it Hier werden Einflussfaktoren aufgezählt und bewertet sowie Strategien
+zum Umgang mit interferierenden Einflussfaktoren entwickelt.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Einflussfaktoren} \textbf{(Santiago)}
@@ -409,7 +411,7 @@ Nachdem der Transporteur den Transport aus dem vorherigen Abschnitt ausgeführt 
   %Problemkarten einfach referenzieren zu können.  }
   %%%%%%%%%%%%%%%%%%
 
-die Notation der Flexibilität hat die Bedeutung:
+die Notation der Flexibilität hat die  Bedeutung :
 \begin{itemize}
     \item - - : Keine Flexibilität
     \item - : schlechte, aber nicht komplett starre Flexibilität
@@ -471,7 +473,7 @@ die Notation der Flexibilität hat die Bedeutung:
 \hline
 \begin{tabular}[c]{@{}l@{}}Abge-\\ leitet\\aus\end{tabular} & Einflussfaktor                                                                        & \begin{tabular}[c]{@{}l@{}}Flexibilität und \\ Veränderlichkeit\end{tabular}                                                              & \begin{tabular}[c]{@{}l@{}}++/\\\\ - -\end{tabular} & Auswirkungen                                                                                                                                                                                                                              \\ \hline
 \multicolumn{5}{|l|}{T1.7: DeltaSpike Data}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     \\ \hline 
-                                            T1.5   P1.4             & \begin{tabular}[c]{@{}l@{}}Wir verwenden\\ DeltaSpike Data. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Große Flexibilität, dies ist \\keine Verpflichtung, sondern\\ eine Entscheidung unserer \\Gruppe. Nach Beginn\\ der Implementierung\\ besteht eine bedingte\\ Veränderlichkeit: Eventuell \\wären Änderungen zu\\ aufwendig.\end{tabular} & \begin{tabular}[c]{@{}l@{}}++/\\   o\end{tabular} & \begin{tabular}[c]{@{}l@{}} f\\\end{tabular} \\ \hline %TODO Folge
+                                            T1.5   P1.4             & \begin{tabular}[c]{@{}l@{}}Wir verwenden\\ DeltaSpike Data. \end{tabular}      & \begin{tabular}[c]{@{}l@{}}Große Flexibilität, dies ist \\keine Verpflichtung, sondern\\ eine Entscheidung unserer \\Gruppe. Nach Beginn\\ der Implementierung\\ besteht eine bedingte\\ Veränderlichkeit: Eventuell \\wären Änderungen zu\\ aufwendig.\end{tabular} & \begin{tabular}[c]{@{}l@{}}++/\\   o\end{tabular} & \begin{tabular}[c]{@{}l@{}} Unsere Architektur muss \\darauf ausgelegt sein, \\dass DeltaSpike Data \\benutzt wird. Darauf muss \\vor allem bei den \\Persistenzklassen geachtet\\ werden.\\\end{tabular}\\ \hline %TODO Folge
 \multicolumn{5}{|l|}{T1.8: Multiple Users}                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    \\ \hline
                                                           & \begin{tabular}[c]{@{}l@{}}Die Anwendung\\ muss von \\mehreren\\ Benutzern \\gleichzeitig\\ verwendbar sein.\end{tabular}      & \begin{tabular}[c]{@{}l@{}}Keine\\ Veränderlichkeit oder \\Flexibilität, da Teil der\\ Mindestanforderungen.\end{tabular} & \begin{tabular}[c]{@{}l@{}}- -/\\   - -\end{tabular} & \begin{tabular}[c]{@{}l@{}}Die Anwendung\\ darf nicht von\\ gleichzeitiger \\Verwendung von\\ mehreren Nutzern\\ überfordert sein;\\ ebenfalls dürfen \\dadurch keine\\ Sicherheitslücken \\entstehen.\end{tabular} \\ \hline
 \multicolumn{5}{|l|}{P1: Produktfaktoren}
@@ -1257,77 +1259,86 @@ Hier haben wir uns für die dritte Strategie entschieden, weil wir so ohne den A
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-\section{Konzeptionelle Sicht} 
+\section{Konzeptionelle Sicht}
 \label{sec:konzeptionell} { %Korrekturvorschlag Samuel
 In diesem Kapitel verwenden wir die Konzeptionelle Sicht nach Hofmeister
 et al. um das zu entwerfende System zu beschreiben. Unser System ist eine
-Webapplikation, die auf JSF basiert. Benutzer können mit ihren Endgeräten auf
-unser System zugreifen. Dafür stellen wir den Benutzern ein Web-Frontend
+Webapplikation die auf JSF basiert. Benutzer können mit ihren Endgeräten auf
+unser System zugreifen. Dafür stellen wir den Benutzen ein Web-Frontend
 zur Verfügung. Die Kommunikation vom JSF, unserem Framework, ist als
-Model-View-Controller System konzipiert worden. Dieses spiegelt sich dadurch wieder, dass der
-Benutzer nur auf die GUI zugreift, welche im Hintergrund einen Controller verwendet, der die Logik im
+Model-View-Controller System konzipiert worden. Dieses spiegelt sich dadurch wieder, das der
+Benutzer nur auf die GUI zugreift, welche im Hintergrund einen Controller verwendet der die Logik im
 System ausführt. 
+
 }
 
 {%Korrekturvorschlag Samuel
 \textbf{H2:} Die Datenbanksoftware H2 wird genutzt um unser Modul zu
-persistieren. Sie wird benutzt, da es in den Anforderungen von uns gefordert
-wird. Unsere Datenbank kommuniziert über JDBC. Zudem nutzen wir DeltaSpike data von Apache. Dies ist eine Menge von CDI-Erweiterungen, die es uns ermöglicht, auf Entitäten und Klassen mit unserer JPA zugreifen zu können.
+Persistieren. Sie wird benutzt, da es es in den Anforderungen von uns gefordert
+wird. Unsere Datenbank kommuniziert über JDBC. %TODO {DELTADATASPIKE}
 }
 
 {%Korrekturvorschlag Samuel
-\textbf{Persistence:} Hier liegt die Verbindung zwischen dem System und der Datenbank. Die Persistenz ist dafür verantwortlich, dass die Datenbank auf
-dem akutellen Stand des laufendem Systems ist. Falls unser System terminiert,
-müssen alle Daten persistiert bleiben und auch bei der nächsten Benutzung noch gespeichert sein. JPA ist eine Java
+\textbf{Persistence:} Hier liegt die Verbindung zwischen dem System und der
+Datei der Datenbank. Die Persistenz ist verantwortlich, dass die Datenbank auf
+dem akutellen Stand des laufendem Systems ist. Falls unser System Terminiert,
+müssen alle bei der nächsten Benutzung noch da sein. JPA ist eine java
 Spezifikation, welche unter anderem von Hibernate umgesetzt wird. Unsere
-Konzeption sieht es vor, dass Hibernate impliziert die JPA mittels Deltaspike data umsetzt.
-Die Persistenz ist mit der BusinessLogic verbunden.
+Konzeption sieht es vor, das Hibernate impliziert die JPA mittels deltaspike data umsetzt.
+Die Persistenz ist mit der BusinessLogik verbunden
 
 }
 
 {%Korrekturvorschlag Samuel
-\textbf{BusinessLogic:} Die Businesslogic beinhaltet die Funktionalität des
-Systems. Sie nutzt die Schnittstellen Data von Persistence und nutzt die Updateschnittstelle von Model. Sie ergibt sich aus Strategie 15.1~(\ref{strategie:15.1}).
-Wir nutzen die Businesslogic, um die Wünsche unseres Kunden zu erfüllen. Die
-Businesslogic erlaubt es, dass Prozessketten geplant und durchgeführt werden
-können. Hier liegt also die eigentliche Funktionalität unseres Systems. Alle Controller und Beans die Geschäftsrelevante Prozesse bearbeiten und mit diesen interagieren, werden von uns mit Businesslogic benannt.
+\textbf{BusinessLogik:} Die Businesslogik beinhaltet die Funktionalität des
+Systems. Sie nutzt die Schnittstellen Data von Persistence und nutzt die Update
+Schnittstelle von Model. Sie ergibt sich aus Strategie 15.1~\ref{strategie:15.1}.
+Wir nutzen die BusinessLogik um die Wünsche unseres Kunden zu erfüllen. Die
+BusinessLogik erlaubt es, dass Prozessketten geplant und durchgeführt werden
+können. Hier liegt also die eigentliche Funktionalität unseres Systems.
 
-Hierzu sind die Controller mit unserer GUI verknüpft. Sollte der User irgendeine Auswahl oder Eingabe in der GUI machen,
-so werden die Daten direkt an den Controller übermittelt, welcher dann die Logik ausführt, indem er mit den Datenklassen und 
-ihren Datenbankklassen(DAO) verbunden ist, und somit vollen Zugriff auf die funktionalen Schnittstellen des Systems hat. 
+Hierzu sind die Controller mit unserer GUI verknüpft. Sollte der User irgendeine Auswahl oder Eingabe in der GUI machen
+so werden die Daten direkt an den Controller übermittelt welcher dann die Logik ausführt, indem er mit den Datenklassen und 
+ihren Datenbank Klassen(DAO) verbunden ist, und somit vollen Zugriff auf die funktionalen Schnittstellen des Systems hat. 
 }
 
 {%Korrekturvorschlag Samuel
   \textbf{Model:} Das Model unserer Datenbank beschreibt die logische Struktur
-  unserer Datenbank, hiermit wird fundamental bestimmt, in welche Art auf die in
-  der Datenbank enthaltenen Daten zugegriffen werden kann. Wir nutzen eine
+  unserer Datenbank, hiermit wird fundamental bestimmt in welche Art auf die in
+  der Datenbank enthaltenen Daten zugriffen werden kann. Wir nutzen eine
   relationale Datenbank, welche auf Tabellen basiert.
 
 In dem Modell liegen die Daten der User, Prozessketten, Proben sowie
-Daten und Vormerkungen des Systems. Model stellt ein Interface Update zur
+Daten und Vormerkungen des System. Model stellt ein Interface Update zur
 Verfügung, welches von Businesslogic und Persistence genutzt wird. Diese
-Komponente ergibt sich aus der Strategie 15.1~(\ref{strategie:15.1}).\\
+Komponente ergibt sich aus der Strategie 15.1~\ref{strategie:15.1}.\\
 In dem Abschnitt \ref{sec:datensicht} nehmen wir unser Datenmodel genauer unter
 die Lupe und gehen auf die Strategien ein, welche wir versucht haben im
 Datenmodel umzusetzen.
 }
 
+\textbf{Model:} Hier liegen die Daten der User, Prozesskette , Proben sowie Daten und Vormerkungen des System. Diese Komponente ist mit der Controller und Persistenz verwundet, weil die Daten das Interfaces gezeigt werden, sind das an der Model implementieren. Diese Komponente ergibt sich aus der Strategie 15.1~\ref{strategie:15.1}. \\
+
 {%Korrekturvorschlag Samuel
-\textbf{Interface:} Hier liegt unser User Interface, also die xhtml Website, in der die User mit dem System interagieren. Interface nutzt das Interface Lieferung von Controller. Die Komponente Interface bezieht sich auf Strategie 1.2 (\ref{strategie:1.2}), weil jeder User eine unterschiedliche Oberfläche benutzt. Außerdem ergibt sich die Komponente aus der Strategie 15.1~(\ref{strategie:15.1}). Interface ist mit einem Port verbunden. 
+\textbf{Interface:} Hier liegt unser User Interface, also die xhtml Website, in der die User mit dem System interagieren. Interface nutzt das Interface Lieferung von Controller. Die Komponente Interface bezieht sich auf Strategie 1.2 \ref{strategie:1.2}, weil jeder User eine unterschiedliche Oberfläche benutzt. Außerdem ergibt sich die Komponente aus der Strategie 15.1~\ref{strategie:15.1}. Interface ist mit einem Port verbunden. 
 }
 
+\textbf{Interface:} In diesem Teil liegt die User Interface, wo die User mit den System interagieren können. Diese Problem Karte beziehen sich aus Strategie 1.2, weil jede User hat ein unterschiedliche Oberfläche, mit wenn er mit des System interagieren kann. Außerdem ergibt sich aus die Strategie 15.1~\ref{strategie:15.1}. Diese Komponente ist verwunden mit der BusinessLogik, um die Request und Data Bearbeitung zu erreichen.\\
+
 {%Korrekturvorschlag Samuel
-\textbf{Controller:} Controller nutzt das Interface Control von Businesslogic und Control von Model. Controller stellt ein Interface Lieferung zur Verfügung. Durch Controller kann das Interface die unterschiedlichen Funktionen aus Businesslogic oder Model erreichen. Es ergibt sich aus der Strategie 15.1 ~(\ref{strategie:15.1}).
+\textbf{Controller:} Controller nutzt das Interface Control von BusinessLogic und Control von Model. Controller stellt ein Interface Lieferung zur Verfügung. Durch Controller kann das Interface die unterschiedlichen Funktionen aus BusinessLogic oder Model erreichen. Es ergibt sich aus der Strategie 15.1 ~\ref{strategie:15.1}.
 }
 
+\textbf{Controller:} Hier sind die Petitionen mit den entsprechende Data zur anderen Model und die BusinessLogik abgeleitet. Mit diese Modul reagiert der Interface,  um die unterschiedlichen Funktionalität zu erreichen. Außerdem ergibt sich aus die Strategie ~\ref{strategie:15.1}.  \\
 
 {%Korrekturvorschlag Samuel
-\textbf{REST:} Hier greift der REST-Client auf REST-Funktionen zu. Über einen Port verbindet er sich mit dem REST-Client. 
+\textbf{REST:} Hier greift der REST-Client auf REST-Funktionen zu. Über einen Port verbindet er sich mit dem RESTClient. 
 }
 
+\textbf{Rest:} Hier sind die Implementierung Rest abgeleitet. \\
 
 {%Korrekturvorschlag Samuel
-\textbf{RESTClient:} Der REST-Client ist für die Kommunikation in einem System, das auf mehreren Systemen verteilt läuft. 
+\textbf{RESTClient:} Der RESTClient ist für die Kommunikation in einem System, das auf mehreren Systemen verteilt läuft. 
 }
 
 {%Korrekturvorschlag Samuel
@@ -1338,23 +1349,40 @@ Datenmodel umzusetzen.
 \textbf{JDBC:} Durch diesen Anschluss ist die Verbindung zu der Datenbank erreichbar. Er erlaubt die Kommunikation zwischen Java und der in der H2 Datenbank laufenden Sprache.
 }
 
-{%Korrekturvorschlag Samuel
-\textbf{Data:} Data ist ein von Persistence zur Verfügung gestelltes Interface zur Kommunikation mit der Businesslogic und den Controllern.
-}
+\textbf{Interface:} In diesem Teil liegt die User Interface, wo die User mit den System interagieren können. Diese Problem Karte beziehen sich aus Strategie 1.2~\ref{strategie:1.2}, weil jede User hat ein unterschiedliche Oberfläche, mit wenn er mit des System interagieren kann. Außerdem ergibt sich aus die Strategie 15.1~\ref{strategie:15.1}: Kapselung des Datenhaltung.
+Diese Komponente ist verwunden mit der BusinessLogik, um die Request und Data Bearbeitung zu erreichen.\\
+
+\textbf{Model:} Hier liegen die Daten der User, Prozesskette , Proben sowie Daten und Vormerkungen des System. Diese Komponente ist mit der Interface verwundet, weil die Daten das Interfaces gezeigt werden, sind das an der Model implementieren. Diese Komponente ergibt sich aus der  Strategie 15.1~\ref{strategie:15.1}: Kapselung des Datenhaltung. \\
+
+\textbf{Persistenz:} Hier liegt die Verbindungen zwischen das System und Datei an der Dateibase, Diese Komponente ist verantwortlich und die Speicherung und Schreibung Funktionen an der Dateibase. diese Komponente  ist getroffen an der Anwendung der verlangte Technologie.  \\
+
+\textbf{BusinessLogik:} In diese Teil liegt die Funktionalität des System, diese Teil ist verantwortlich die Interaktion zwischen die Modelle und die Bearbeitung ihre Data in die Persistenz Komponente. Hier sind die das gewuchtetes Verhalten des System implementiert. diese Schnittstelle ergibt sich aus der Strategie 15.1~\ref{strategie:15.1}: Kapselung des Datenhaltung. \\
+
+\textbf{JDBC:} Durch diese Anschlüsse  ist die Verwindung mit der Dateibase erreichbar. diese Anschlüsse erlaubt die Kommunikation zwischen die Sprache Java und die Dateibase.  \\
 
 {%Korrekturvorschlag Samuel
-\textbf{Update:} Durch diesen Anschluss wird die Bearbeitung der Dateien an der Persistence ermöglicht. Er wird von Model zur Verfügung gestellt und von Persistence und Businesslogic genutzt.
+\textbf{Data:} Data ist ein von Persistence zur Verfügung gestelltes Interface zur Kommunikation mit BusinessLogic
 }
 
+\textbf{Data:} Hier sind die Datei von der Komponente  zu der BusinessLogik  geliefert \\
 
 {%Korrekturvorschlag Samuel
-\textbf{Control:} Durch diesen Anschluss bekommt der Controller seine geforderten Daten von Businesslogic und Model. 
+\textbf{Update:} Durch diesen Anschluss wird die Bearbeitung der Dateien an der Persistence ermöglicht. Er wird von Model zur Verfügung gestellt und von Persistence und BusinessLogic genutzt
 }
+
+\textbf{Update:} durch diese Anschlüsse ist die Bearbeitung der Data an der Persistenz Komponente  möglich. diese Anschlüsse ist mit der Model Komponente und BusinessLogik verbindet.  \\
 
 {%Korrekturvorschlag Samuel
-\textbf{HTTPS/Request/Response:} Jede Interaktion mit dem System wird per HTTPS gemacht, also sind diese Anschlüsse verantwortlich für die Verschiebung der Dateien von den Webbrowser und den REST-Client zu dem Server und umgekehrt.
+\textbf{Control:} Durch diesen Anschluss bekommt der Controller seine geforderten Daten von BusinessLogic und Model. 
 }
 
+\textbf{Control:} durch diese Anschlüsse bekommt die Controller Komponente ihre entsprechende Daten durch die Geschäftsprozess und Modell.\\
+
+{%Korrekturvorschlag Samuel
+\textbf{HTTPS/Request/Response:} Jede Interaktion mit dem System wird per HTTPS gemacht, also sind diese Anschlüsse verantwortlich für die verschiebung der Dateien von den Webbrowser und den RESTClient zu dem Server und umgekehrt.
+}
+
+\textbf{HTTPS/Request/Response:} Jede  Interaktion mit den System wird durch HTTPS, gemacht zu werden. Infolgedessen ist diese Anschlüsse verantwortlich für die Ableitung der Data an der Web Browser und der REST client zu der Server.\\
 \newpage
 
 \begin{figure}[H]
@@ -1370,6 +1398,15 @@ Datenmodel umzusetzen.
 
 In diesem Kapitel gehen wir genauer auf die in der konzeptionellen Sicht gezeigten Komponenten ein. Eine detaillierte Beschreibung der Klassen und ihrer Schnittstellen ist im Javadoc der Schnittstellenbeschreibung enthalten.
 Die Modularisierung ergibt sich aus den Strategien 11.2 und 15.1.
+Von folgenden Strategien sieht man hier die Umsetzungen, die werden aber nicht näher in den unten folgenden Modulen beschrieben: \\
+In ProzessSchrittParameterController findet sich eine exportJSON Methode, die die Umsetzung von Strategie 4.2 darstellt. 
+Die Strategie 5.1 findet sich in den Methoden in den Klassen AuftragsLogController und ProzessSchrittLogController, durch die die einzelnen Daten der Protokolle einstellbar sind. Die Logs werden durch Methoden in AuftragController und ProzessSchrittController gesetzt. 
+Der Technologe kann durch die Methode prioSort die Aufträge automatisch nach Ihrer Priorität sortiert anzeigen lassen, was der Strategie 7.2 entspricht. 
+Die Strategie 10.2 zeigt sich hier vor allem durch Methoden des ProzessKettenAdministrators wie zum Beispiel setBedingung.
+Das lazy loading von Strategie 12.1 kann schlecht explizit in der Architektur gesehen werden. Das Laden der Proben wird über die Methoden getProben des Logistikers gemacht. 
+Der Technologe kann durch assignToAuftrag und getAuftrag mit den Transportaufträge umgehen. Mithilfe der Klasse TransportAufträge werden diese Aufträge gemanaged: Hier können unter anderem die Zustände gesetzt werden. Dadurch ist diese Klasse die Umsetzung der Strategie 13.1.
+Durch die Methode setEs ohne Parameter aus der Klasse ProzessSchrittVorlageController kann einem ProzessSchritt automatisch die beste ExperimentierStation zugeordnet werden. Das passiert unter anderem mithilfe der Bedingungen von Experimentierstationen, und den Eigenschaften von Proben. Dadurch ist die Strategie 14.2 umgesetzt. 
+Der Prozesskettenadmin kann einen Prozessschrittzustandsautomat setzen, was er mithilfe einer seperaten Klasse für diesen Zustandsautomaten(ProzessSchrittZustandsAutomat) macht. Das ist Strategie 19.3.
 
 \label{sec:modulsicht}
 \begin{figure}[H]
@@ -1432,7 +1469,8 @@ Dieses Paket wird gebraucht, da es vorgegeben ist. \\
 \end{center}
 \end{figure}
 
-Dieses Diagramm beschreibt die in unserem System verwendeten Services. Unser System soll z. B. bei der Erstellung von Benutzern E-Mails versenden können, wozu wir das E-Mail Modul haben. Zugleich soll unser System durch Apache Shiro gesichert sein, wodurch wir das Modul Apache Shiro haben. Wir möchten zur Datenverwaltung außerdem noch Deltaspike Data benutzen, wodurch wir auch dieses Modul haben.  
+Dieses Diagramm beschreibt die in unserem System verwendeten Services. Unser System soll z. B. bei der Erstellung von Benutzern E-Mails versenden können, wozu wir das E-Mail Modul haben. Zugleich soll unser System durch Apache Shiro gesichert sein, wodurch wir das Modul Apache Shiro haben. Wir möchten zur Datenverwaltung außerdem noch Deltaspike Data benutzen, wodurch wir auch dieses Modul haben.  \\
+Hier werden unter anderem die Strategien 2.1 und 6.1 umgsetzt. \\
 
 
 \newpage
@@ -1446,19 +1484,19 @@ Dieses Diagramm beschreibt die in unserem System verwendeten Services. Unser Sys
   \label{fig:boat1}
 \end{center}
 \end{figure}
-Die Beans für jeden einzelnen Nutzer werden für ein Umsetzen der Rollen mit Apache Shiro nach Strategie 2.1 gebraucht. 
+Hier sieht man die Umsetzung der Strategie 1.2 anhand der Methoden setRole, und getRole, wobei letztere ein Set aus mehreren Rollen zurückgeben kann. \\
 
 \newpage
 
 \subsubsection{Prozesskettenvorlage Modul}
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=\textwidth]{UML/Modules/ProzesskettenVorlage.pdf}
+ \includegraphics[width=\textwidth]{UML/Modules/ProzessKettenVorlage.pdf}
   \caption{Prozess Ketten Vorlage Module}
   \label{fig:boat1}
 \end{center}
 \end{figure}
-%An den unterschiedlichen Controllern für ProzessKetten- sowie ProzessSchrittVorlagen und dem tatsächlichen ProzessSchritt/Auftrag sowie vor allem den Methoden, die in diesen vorhanden sind, sieht man die Umsetzung von Strategie 3.1.
+Hier wird Strategie 3.1 für die Prozessketten umgesetzt. \\
 \newpage
 
 \subsubsection{Auftrags Modul}
@@ -1470,25 +1508,26 @@ Die Beans für jeden einzelnen Nutzer werden für ein Umsetzen der Rollen mit Ap
 \end{center}
 \end{figure}
 
-Um nun Aufträge erstellen oder verwalten zu können, muss unser Auftragscontroller Zugriff auf die Auftragsdatenklasse haben. Zusätzlich möchte man diese in der Datenbank einspeichern und verwalten können, wozu der Controller auch Zugriff auf die DAO Klasse von Auftrag hat. Dabei hat ein Auftrag immer eine eindeutige ID, wobei ein Auftrag bei Beginn keinen \textit{assigned user} benötigt um initialisiert zu werden, diese werden erst danach zugewiesen. \\
+Um nun Aufträge erstellen oder verwalten zu können, muss unser Auftragscontroller Zugriff auf die Auftragsdatenklasse haben. Zusätzlich möchte man diese in der Datenbank einspeichern und verwalten können, wozu der Controller auch Zugriff auf die DAO Klasse von Auftrag hat. \\
 \newpage
 
 \subsubsection{Prozessschrittvorlage Modul}
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=\textwidth]{UML/Modules/ProzessschrittVorlage.pdf}
+ \includegraphics[width=\textwidth]{UML/Modules/ProzessSchrittVorlage.pdf}
   \caption{Prozessschrittvorlage Module}
   \label{fig:boat1}
 \end{center}
 \end{figure}
 
 Um Prozessschrittvorlagen erstellen zu können, benötigen wir allerdings Prozessschrittvorlagen, aus welchen letztendlich Prozessschritte eines Auftrags erstellt werden. Hierfür dient das Modul Prozessschrittvorlage. Dieses Modul ist für die Erstellung und Bearbeitung von Prozessschrittvorlagen zuständig. Um nun Prozessschrittvorlagen erstellen zu können, benötigen wir erst einmal einen Prozessschrittzustandsautomat welcher den Zustand eines Prozessschritts darstellt. Dieser wird allerdings von einer Vorlage erstellt, welche in der Prozessschrittvorlage abgespeichert wird, wodurch der Prozessschritt, der aus dieser Vorlage erstellt wird, anschließend weiß welche zustände er haben kann. Um nun Prozessschrittvorlagen erstellen zu können, muss unser Controller auf die Datenklasse Prozessschrittvorlage Zugriff haben. Um diese Vorlagen anschließend in der Datenbank verwalten zu können, muss er auch Zugriff auf die DAO Klasse von Prozessschrittvorlage haben.\\
+Hier wird Strategie 3.1 für die Prozessschritte durchgesetzt. \\
 \newpage
 
 \subsubsection{Prozessschritt Modul}
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=\textwidth]{UML/Modules/Prozessschritt.pdf}
+ \includegraphics[width=\textwidth]{UML/Modules/ProzessSchritt.pdf}
   \caption{Prozessschritt Module}
   \label{fig:boat1}
 \end{center}
@@ -1517,8 +1556,7 @@ Die Umsetzung der Strategie 8.1 zeigt sich vor allem dadurch, dass es keine Meth
 \end{center}
 \end{figure}
 Die Proben in unserem System werden in Trägern transportiert. Diese Träger benötigen einen Standort zu jeder Zeit und haben immer eine Art. Um nun diese Träger verwalten zu können braucht unser Controller Zugriff auf die Träger Datenklasse. Um diese dann in der Datenbank verwalten zu können, braucht er ebenfalls Zugriff auf die TraegerDAO klasse.\\
-
-\newpage
+Strategie 17.3 wird hier umgesetzt. \\
 
 \subsubsection{Experimentier Station Modul}
 \begin{figure}[h!]
@@ -1528,6 +1566,9 @@ Die Proben in unserem System werden in Trägern transportiert. Diese Träger ben
   \label{fig:boat1}
 \end{center}
 \end{figure}
+
+Eine Experimentierstation besitzt Zustände, eine id und eine Warteschlange, 
+Der ExperimentierStationController kann die hat Getter und
 \newpage
 
 \subsubsection{Prozess Schritt Zustands Automat Vorlage Modul}
@@ -1538,6 +1579,7 @@ Die Proben in unserem System werden in Trägern transportiert. Diese Träger ben
   \label{fig:boat1}
 \end{center}
 \end{figure}
+Hier wird die Strategie 19.3 umgesetzt. \\
 \newpage
 
 \subsubsection{Prozess Schritt Zustands Automat Modul}
@@ -1548,6 +1590,7 @@ Die Proben in unserem System werden in Trägern transportiert. Diese Träger ben
   \label{fig:boat1}
 \end{center}
 \end{figure}
+Hier wird Strategie 19.3 umgesetzt. \\
 \newpage
 
 \subsubsection{Bedingung Modul}
@@ -1558,6 +1601,7 @@ Die Proben in unserem System werden in Trägern transportiert. Diese Träger ben
   \label{fig:boat1}
 \end{center}
 \end{figure}
+Dies wird für die Umsetzung von Strategie 14.2 benutzt. \\
 \newpage
 
 \subsubsection{Prozess Schritt Log Modul}
@@ -1568,6 +1612,7 @@ Die Proben in unserem System werden in Trägern transportiert. Diese Träger ben
   \label{fig:boat1}
 \end{center}
 \end{figure}
+Hier wird Strategie 5.1 für die Prozessschritte umgesetzt. Die komplette Umsetzung besteht daraus, dass für jeden Prozessschritt ein Log erstellt wird, und für jeden Auftrag die Prozessschrittlogs und die Auftragslogs zusammen das Protokoll ergeben. \\
 \newpage
 
 \subsubsection{Transport Auftrag Modul}
@@ -1578,6 +1623,7 @@ Die Proben in unserem System werden in Trägern transportiert. Diese Träger ben
   \label{fig:boat1}
 \end{center}
 \end{figure}
+Hier setzen wir Strategie 13.1 um. \\
 \newpage
 
 \section{Datensicht}
@@ -1783,16 +1829,14 @@ Umsetzung von der Strategie 13.1 \ref{strategie:13.1}
 
 
 %%\includepdf[]{06Ausfuehrungssicht.pdf}
-\begin{figure}[H] 
-
-\includegraphics[width=\textwidth]{UML/06Ausfuehrungssicht.pdf} 
- \caption{Ausführungssicht}\label{fig:ausfuhrungssicht}
-
+\begin{figure}[H]
+\includegraphics[width=\textwidth]{UML/06Ausfuehrungssicht.pdf}
+ \caption{Ausführungssicht}
 \end{figure}
 
 
 { Die Ausführungssicht von unserer Software (SFB-Farbig) ist in der obigen Abbildung
-  \ref{fig:ausfuhrungssicht} modelliert.
+  7.1 modelliert.
 
 Beliebig viele Benutzer können via TCP/IP auf den SFB-Server zugreifen. Dies
 geschieht über eine Webapplikation, die im Internetbrowser eines PCs oder eines
@@ -1813,6 +1857,7 @@ Der SFB-Server stellt eine Verbindung über TCP/IP zu der
 Datenbank her, welche auf dem gleichen SFB Server läuft und eine Instanz der Datenbanksoftware H2 betreibt.
 }
 
+%%%%%%%%%
 \section[Zusammenhänge zwischen Anwendungsfällen und Architektur]{Zusammenhänge zwischen Anwendungsfällen und Architektur\sectionmark{Zusammenhänge AF u. Architektur}}
 \sectionmark{Zusammenhänge AF u. Architektur}
 \label{sec:anwendungsfaelle}
@@ -1825,28 +1870,28 @@ Datenbank her, welche auf dem gleichen SFB Server läuft und eine Instanz der Da
   \label{fig:erstbenutzung.png}
 \end{figure}
 
-In diesem Anwendungsfall geht es darum, zu zeigen, was passiert, wenn sich ein
+In diesem Anwendungsfall geht es darum zu zeigen, was passiert wenn sich ein
 Benutzer anmeldet. Wir haben uns entschieden, die Sicherheit nicht selber zu
 implementieren, sondern Apache Shiro zu nutzen. Siehe Strategie 2.1 \ref{strategie:2.1}
 
 \subsubsection{Was ist Apache Shiro}
-Als Erstes möchten wir einen Überblick über Apache Shiro geben, um dann anhand
+Als erstes möchten wir einen Überblick über Apache Shiro geben, um dann anhand
 des Sequenzdiagrammes erläutern zu können, wie Apache Shiro mit unseren Schichten
 zusammenhängt. Apache Shiro kann ab jetzt auch nur als Shiro bezeichnet werden.
 
 Shiro ist ein sehr mächtiges und leistungsstarkes Java Security Framework,
-welches sich das Ziel gesetzt hat, Entwicklern eine intuitive, jedoch auch
+welches sich das Ziel gesetzt hat Entwicklern eine intuitive, jedoch auch
 umfassende Lösung für Authentifizierung, Autorisierung und Session-Management zu
 bieten. Shiro basiert auf einem soliden, Schnittstellengesteuerten Design und
-folgt den Prinzipien der Objektorientierung.
+folgt Prinzipien der Objektorientierung.
 
 Ein \emph{Subject} ist eine sicherheitsspezifische Sicht auf einen Nutzer
 unseres Programms. Dabei wird nicht zwischen einem menschlichen Nutzer und
 einem maschinellen unterschieden. Auch in der Sicherheitswelt ist der Begriff
 Subject eigentlich die anerkannte Nomenklatur. Die Session erlaubt es dem
-Nutzer, bestimmte Operationen durchzuführen. Es ist weiterhin möglich, einer Session
+Nutzer, bestimmte Operationen durchzuführen. Es ist weiter möglich einer Session
 weitere Attribute zu geben. Unsere Session ist eine Shiro-spezifische Instanz,
-welche das meiste davon bietet, was uns auch eine reguläre HttpSession
+welche das meiste davon bietet,  was uns auch eine reguläre HttpSession
 bietet. Der Vorteil der Session ist es, dass sie keine HTTP-Umgebung braucht.
 
 Bei uns wird die Session in einer Webapplikation umgesetzt, folglich basiert
@@ -1865,23 +1910,23 @@ FacesContext. Der Webbrowser wird auf die $login.xhml$ weitergeleitet. Dort ersc
 ein Login Formular \textbf{(Schritt 2)}, in dem der Nutzer seine Anmeldedaten
 eingeben kann \textbf{(Schritt 3)}. Das Formular wird vom Browser an unseren
 Server gesendet \textbf{(Schritt 4)}. Für die spätere Verarbeitung brauchen
-wir die Parameter, die es in dem Kontext der Anmeldung gab. Diese werden 
-in \textbf{Schritt 5} an das Login Bean gesendet. Das Login Bean hat die Aufgabe,
+wir die Parameter, die es in dem Kontext der Anmeldung gab. Diese werden in
+\textbf{(Schritt 5)} an das Login Bean gesendet. Das Login Bean hat die Aufgabe,
 weitere Sicherheitsfunktionen an Shiro zu delegieren. Dafür nutzen die Methode login
-der IndexBean. Die hat die Aufgabe, zu ermitteln, in welchem Kontext die
+der IndexBean. Die hat die Aufgabe, zu ermitteln in welchem Kontext die
 Login Anfrage gestellt wurde. Sobald dies ermittelt wurde, delegiert sie
-weiter an Shiro \textbf{(Schritt 6)}. Um das Passwort aus der Datenbank zu lesen,
+weiter an Shiro. \textbf{(Schritt 6)}. Um das Passwort aus der Datenbank zu lesen,
 nutzen wir die von Shiro bereitgestellte Methode \textbf{(Schritt 7)}. Die Datenbank
 liefert uns dann das Passwort. In diesem Sequenzdiagramm wurde abstrahiert, dass
 Passwörter gehashed und gesalted werden. Dies liegt daran, dass Shiro, falls so
 konfiguriert, dies im Hintergrund macht.
 
-Shiro verlangt ein Token für den Login. Das Token wird aus dem Passwort
-und dem Benutzernamen generiert. Das Genierierte Token hat den Datentyp
-UserNameToken.  Das Token wird in \textbf{Schritt 9} generiert.
+Shiro verlangt ein Token für den Login. Der Token wird aus dem Passwort
+und dem Benutzernamen generiert. Das genierierte Token hat den Datentyp
+UserNameToken.  Das Token wir in \textbf{Schritt 9} generiert.
 
 
-Ein schon angemeldeter Nutzer kann sich nicht noch mal anmelden. Daher müssen wir
+Ein schon angemeldeter Nutzer kann sich nicht nochmal anmelden. Daher müssen wir
 überprüfen, ob unser Subject anonym ist \textbf{Schritt 10}.
 
 Subjects können Sessions besitzen. Shiro holt und merkt sich die Session eines
@@ -1889,9 +1934,9 @@ Subjects in \textbf{Schritt 11 \& 12}. So haben wir nun ein Subject und seine Se
 Hiermit können wir nützliche Dinge tun, beispielsweise überprüfen, ob das
 Subject die benötigte Rolle hat. Unsere obige Subject Instanz repräsentiert
 den aktuellen Nutzer, aktuell ist unser Subject aber noch anonym. Um nicht mehr
-anonym zu sein, muss sich ein Subject anmelden. Für den Anmeldeschritt führen wir
+anonym zu sein muss sich ein Subject anmelden. Für den Anmeldeschritt führen wir
 ein Login mit unserem Token auf unserem aktuellen Nutzer aus \textbf{(Schritt
-  13)}. Nach der erfolgreichen Authentifizierung leiten wir den Nutzer auf den
+  13)}. Nach der erfolgreichem Authentifizierung leiten wir den Nutzer auf den
 ursprünglichen FacesContext zurück \textbf{(Schritt 14)}. Dafür Verwenden wir
 eine Weiterleitung, die den Pfad zu dem FacesContext kennt, das die Anmeldung
 gefordert hat.
@@ -1899,9 +1944,9 @@ gefordert hat.
 \subsubsection{Kleiner Ausschnitt zur Fehlerbehandlung}
 Bei dem Login können folgende Exceptions geworfen werden:
 \begin{itemize}
-  \item Shiro löst eine UnknownAccountException aus, falls es den Nutzer nicht gibt.
+  \item Shiro löst eine UnknownAccountException aus, falls es den Nutzer nicht gibt
   \item Shiro löst eine IncorrectCredentalException aus, falls das Token nicht
-  stimmt.
+  stimmt
   \item Falls das Konto des Users gesperrt ist, wird ein LockedAccountException
   ausgelöst. Das ist so in der Anwendung bisher nicht vorgesehen, und wird auch vorerst von uns nicht implementiert. Allerdings ist das eine Funktion, die grundsätzlich von Shiro geboten wird und somit auch eventuell von uns implementiert werden könnte.
 \end{itemize}
@@ -1915,55 +1960,55 @@ Bei dem Login können folgende Exceptions geworfen werden:
 \end{figure}
 
 In der Abb. \ref{fig:pkErstellen} wird der Ablauf gezeigt, wie ein
-Prozesskettenadministrator eine Prozesskette erstellt, diese dann instanziiert
+ProzesskettenAdministrator eine Prozesskette erstellt, diese dann instanziert
 und dann startet.
 
-Als pkApp bezeichnen wir den Teil der Webapplikation, der dem Prozesskettenadministrator
+Als pkApp  App bezeichnen wir den Teil der Webapplikation, der dem Prozesskettenadministrator
 das Verwalten der Prozessketten ermöglicht.
 
-Sobald der Prozesskettenadministrator der pkApp mitteilt, dass er gerne eine Prozesskettenvorlage
-bearbeiten würde, führt die Prozesskettenadministratorbean die Methode
+Sobald der Prozesskettenadministrator der pkApp mitteilt, dass er gerne eine ProzesskettenVorlage
+bearbeiten würde führt die ProzesskettenadministratorBean die methode
 $editProzesskettenVorlage(pkv:ProzesskettenVorlage)$ aus (\textbf{Schritt 1}).
-Als Nächstes sollen alle Prozessschrittvorlagen, die einer Prozesskettenvorlage
-zugewiesen sind, angezeigt werden. Dafür führt der Prozesskettencontroller die
+Alls nächstes sollen alle ProzessschrittVorlagen die einer ProzesskettenVorlage
+zugewiesen sind angezeigt werdne. Dafür führt der ProzesskettenController die
 Methode $getPSV()$ aus (\textbf{Schritt 2}).
 
-Die nächsten Schritte sind optimal. Denn es ist dem Prozesskettenadministrator überlassen, was er in
+Die nächsten Schritte sind optimal. Den es ist dem Prozesskettenadministrator überlassen was er in
 der Vorlage ändern will. Es bietet sich hier an, manuell eine
 Experimentierstation zuzuweisen, ansonsten wird dies in dem \textbf{11. Schritt}
 ausgeführt.
-Es ist dem Prozesskettenadministrator möglich, sich den Prozessschrittzustandsautomaten des
-Prozessschrittes anzeigen zu lassen. Damit die Prozessschrittvorlage sich
-nachher Experimentierstationen zuweisen kann, setzt der Prozesskettenadministrator die Eingabe-
-und Ausgabeträger für die Prozessschrittvorlage fest. Nun kann der Prozesskettenadministrator die
-Prozessschrittart setzten. Anmerkung: Die Prozessschrittarten werden im Voraus
+Es ist dem Prozesskettenadministrator möglich sich den den ProzessschrittZustandsAutomaten des
+Prozessschrittes anzeigen zu lassen. Damit die ProzessschrittVorlage sich
+nachher Experimentierstationen sich zuweisen kann setzt der Prozesskettenadministrator die Eingabe
+und Ausgabe Träger für die ProzessschrittVorlage. Nun kann der Prozesskettenadministrator die
+ProzessschrittArt setzten. Anmerkung: Die ProzessschrittArten werden im voraus
 festgelegt.
 
-Wichtig für die automatische Zuordnung der Prozessschrittvorlage ist das Setzen
-von Bedingungen. Bedingungen können direkt in der Prozessschrittvorlage
-generiert werden. Falls eine Bedingung nicht einer trivialen Bedingung entspricht,
-ist es möglich, dass der Bedingungscontroller diese aus Eigenschaften oder aus
-Prozessschrittparametern einem erzeugt. Diese werden dann an den
-Bedingungscontroller gesendet. Dieser gibt dann die korrekte Bedingung zurück.
-Jetzt kennt der Prozessschrittvorlagencontroller alle Bedingungen für den
-Prozessschritt. Die Methode setES(), welche keine Parameter hat, ist dafür
+Wichtig für die Automatische Zuordnung der ProzessschrittVorlage ist das setzen
+von Bedingungen. Bedingungen können entweder direkt in der ProzessschrittVorlage
+generiert werden. Falls eine Bedingung nicht einer trivialen Bedingung entspricht
+ist es möglich das der BedingungsController diese aus Eigenschaften oder aus
+ProzessschrittParameteren einem erzeugt. Diese werden dann an den
+BedingungsController gesendet, dieser gibt dann die korrekte Bedingung zurück.
+Jetzt kennt der ProzessschrittVorlageController alle Bedingungen für den den
+Prozessschritt. Die methode setES(), welche keine Parameter hat, ist dafür
 zuständig aus der Menge $a$ aller Experimentierstationen eine Teilmenge $b$ der
 Experimentierstationen, die den geforderten Bedingungen
-entsprechen zu bilden. Alle Experimentierstationen  $a \in b$, die der Bedingung
-entsprechen, werden dann der Prozessschrittvorlage zugeordnet
+entsprechen zu bilden. Alle Experimentierstationen  $a \in b$ die der Bedingung
+entsprechen werden dann der ProzessschrittVorlage zugeordnet
 
-Als letztes setzt der Prozesskettenadministrator die geschätzte Dauer für die Durchführung des
-Prozessschrittes fest. Jetzt verwaltet der Prozesskettenvorlagecontroller wieder.
-Falls der Prozesskettenadministrator jetzt weitere Prozesskettenvorlagen bearbeiten möchte, kann er
+Als letzes setzt der Prozesskettenadministrator die geschätzte Dauer für die Durchführung des
+Prozessschrittes. Jetzt verwaltet der ProzesskettenVorlageController wieder.
+Falls der Prozesskettenadministrator jetzt weitere ProzesskettenVorlagen bearbeiten möchte, kann er
 dies nun tun.
 
 Sobald er die gesamte Prozesskette kontrolliert hat, lässt er die Prozesskette
-verifizieren. Hier wird überprüft, ob alle Experimentierstationen die benötigten
-Träger annehmen und ausgeben. Weiter wird in dieser Methode überprüft, ob alle
+verifizieren. Hier wird überprüft, ob alle Experimentierstationen die benötigen
+Träger an und ausgeben. Weiter wird in dieser Methode überprüft, ob alle
 ProzessschrittVorlagen Experimentierstationen zugewiesen bekommen haben. Falls
-dies nicht klappt, muss der Prozesskettenadministrator die Probleme in den Prozessschrittvorlagen
+dies nicht klappt, muss der Prozesskettenadministrator die probleme in den ProzessschrittVorlagen
 selber lösen. Dafür kann er die Randbedingungen des Prozessschrittes ändern oder
-selber Experimentierstationen der Prozessschrittvorlage zuweisen.
+selber Experimentierstationen der ProzessschrittVorlage zuweisen.
 
 Der Prozesskettenadministrator kann die angeforderten Proben setzen. Sobald die Verifizierung der
 Prozesskette erfolgt ist, kann er, falls gewollt, die Priorität ändern und dann
@@ -1972,22 +2017,22 @@ erscheint in der App der Logistiker die Prozesskette.
 
 Jetzt erhält der Logistiker einen neuen Probenzuweisungsauftrag, falls die Anfrage genehmigt wurde, kann der Prozesskettenadministrator nun die Prozesskette starten.
 
-Hier beginnt ein neues Kapitel in unserem Sequenzdiagramm, nämlich das
+Hier ist beginnt ein neues Kapitel in unserem Sequenz Diagramm, nämmlich das
 Starten eines neuen Auftrages. Jetzt erhält der Logistiker einen neuen
 Probenzuweisungsauftrag, falls die Anfrage genehmigt wurde, kann der Prozesskettenadministrator nun
 die Prozesskette starten.
 
-Um zu überprüfen, ob genügend Proben zugewiesen worden sind, wird die Methode
-checkProben(a:Auftrag) ausgeführt. Hier wird kontrolliert, ob die Proben, die dem
-Auftrag zugewiesen worden sind, entsprechend der Anforderungen sind. Jetzt kann der Auftrag
-mit der Methode setPKZ(GESTARTET) gestartet werden.
+Um zu überprüfen ob genügend Proben zugewiesen worden sind, wird die Methode
+checkProben(a:Auftrag) ausgeführt. Hier wird kontrolliert, ob die Proben die dem
+Auftrag zugewiesen worden sind den entsprechen die angefordert sind. Jetzt kann
+mit der Methode setPKZ(GESTARTET) der Auftrag gestartet werden.
 
 
-In der Graphik \ref{fig:log}
+In der Graphik \ref{fig:logstikProbenPüftZuweisen}
 erhält die Logistik eine
 Anfrage für die Probenverwaltung. Es muss nun vom System geprüft werden
 ob Proben mit den gewünschten Materialeigenschaften im Lager sind. Das System gibt diese an die Logistik zurück. Werden die Proben dann von dem Logistiker ausgewählt und genehmigt, so werden diese an den Auftrag übermittelt und persistiert.
-Diese Graphik wurde abstrakt gehalten, denn sie betrifft den Logistiker und
+Diese Graphik wurde abstrakt gehalten, denn sie Betrifft den Logistiker und
 nicht den Prozesskettenadministrator
 
 \begin{figure}[]
@@ -2010,6 +2055,67 @@ Prozessschritt und der Vorlage. Im Model heißt die Instanz ProzessSchritt und
 die Vorlage heißt ProzessSchrittVorlage hiermit setzen wir die Strategie 3.1
 \ref{strategie:3.1} um. Vorgänge in einem Prozessschritt werden gelogt. Dafür
 benutzen wir
+
+
+Wir beginnen damit, dass ein Prozessschritt den Zustand BEARBEITET bekommen hat,
+diesen Prozesssschritt erhält die Bezeichnung $n-1$. Unsere erste Aufgabe ist
+es, dafür zu sorgen, dass in der Station von $n-1$ der nächste Prozesschritt an
+die Reihe kommt. Dafür muss als erster der TechnologenBean getStationen()
+ausführen. Wir kennen den Prozessschritt, daher wissen wir auch an welcher
+Station er ausgeführt wurde. Die Station an der Prozesschritt $n-1$ sich
+befindet erhält den Zustand VERFÜGBAR. Als nächstes wird der nächste
+Prozessschritt der sich in der Warteschlange befindet aus der Warteschlange
+entfernt.
+
+Bisher haben wir uns darum gekümmert, das die Station von dem ProzessSchritt
+$n-1$ bereit ist, mit dem nächsten Prozessschritt zu starten. Nun wollen wir uns
+darum kümmern, dass die der Prozessschritt an die richtige Experimentierstation
+gelangt. Wir haben uns dafür entschieden dass dieser Prozess automatisch
+geschieht. Um dies zu realisieren nimmt der ProzessKettenVorlageController sich
+alle Prozesskettenschritte die in der Prozesskettenvorlage enthalten sind. Hier
+wird der erste Prozesschritt ausgewählt, der noch nicht begonnen wurde. Als
+nächstes brauchen wir die Menge der Experimentierstationen die dem Prozesschritt
+zugewiesen worden sind. Auch hier überprüfen wir nochmal ob die
+Experimentierstationen für den Prozessschritt geeignet sind. Dafür holen wir uns
+mit mit dem ProzessSchrittVorlageController die Prozessschrittparameter und
+lassen diese vom BedingungsController diese als Bedingung zurückgeben. Wir sind
+uns jetzt sicher, dass die wir die korrekte Menge $a$ der Experimentierstationen
+haben an denen wir den Prozessschritt $n$ zuweisen können. Als nächstes wollen
+wir wissen welche der Experimentierstationen aus der Menge $n$ die am wenigsten
+ausgelastete ist. Der ExperimentierStationenController übernimmt für uns diese
+Aufgabe, dies wird mit getAuslastung realisiert. Die Auslastung ist eine
+Zeitdauer, aus der Menge der Auslastungen nehmen wir die Experimentierstation mit der
+geringsten Auslastung. Wir schreiben die Zuweisung in den Log der
+Prozessschrittes. Nun fügen wir den Prozessschritt $n$ in die Warteschlange der
+vorher ausgewählten Experimentierstation. Die Zuweisung an eine spezifische
+Experimentierstation wird auch in dem Log  von $n$ durch den
+ProzessSchrittLogController vermerkt.  Der Prozessschritt $n-1$ ist nun offiziell
+beendet, daher setzen wir den Zustand vom Prozessschritt $n-1$ auf
+WEITERGLEITET.
+
+Jetzt geht es darum, dass der Transporteur erkennt, dass er einen neuen
+Transportauftrag hat, um dies zu realisieren können wir schauen, ob es einen
+Prozessschritt $n$ gibt, der noch nicht begonnen wurde, aber schon zu einer
+Experimentierstation zugewiesen wurde. Sein Vorgänger $n-1$ muss außerdem
+den Zustand WEITERGLEITET haben. Wenn dies gilt, sehen alle Benutzer mit der
+Rolle Transport den Transportauftrag für die Probe $n$. Sobald der die Probe
+abgeholt wurde, wird der Zustand des Transportauftrages auf ABGEHOLT gesetzt.
+Sobald der Transporteur an der Experimentierstation angelangt ist wo
+Prozessschritt $n$ ausgeführt wird. Wird der Transportauftrag auf ABGELIEFERT
+gesetzt.
+
+Ab diesem Zeitpunkt beginnt der Technologe mit der Durchführung vom
+Prozessschritt $n$. Als erstes setzt er den Zustand von Prozessschritt $n$ auf
+IN\_BEARBEITUNG. Diese Zustandsänderung wird auch sofort im Log des
+Prozessschrittes $n$ vermerkt. Um zu wissen was zu tun ist, werden die
+Prozessparameter aus der Prozessschrittvorlage geladen. Es ist möglich, dass die
+Proben neue Eigenschaften durch den Prozessschritt erhalten haben. Falls dies
+der Fall ist müssen die alle Proben die im dem Träger waren, die vom Transport
+geliefert werden die neuen Eigenschaften erhalten. Hier ist es auch für den
+Technologen möglich Kommentare an die einzelnen Proben hinzuzuführen. Sobald
+alles Protokolliert wurde, setzt der Technologe den Zustand des Prozessschrittes
+auf BEARBEITET. Nun erfolgt das das erstellen der Log für den ProzessSchritt.
+Jetzt kann ein weiter Prozessschritt erfolgen.
 
 %{\it In diesem Abschnitt sollen Sequenzdiagramme mit Beschreibung(!)
 %  für zwei bis drei von Euch ausgewählte
