@@ -1,6 +1,7 @@
 package de.unibremen.sfb.Controller;
 
 import de.unibremen.sfb.Model.*;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -97,6 +98,13 @@ public class LogistikerBean implements Serializable {
      * @param a the job
      */
     public void zuordnen(Auftrag a) {}
+
+    /**
+     * get's specific samples and their amount
+     * @param a the job
+     * @return the Pair of samples with the amount.
+     */
+    public Set<Pair<QualitativeEigenschaft,Integer>> getAngeforderteProben(Auftrag a){return null;}
 
     /**
      * the empty constructor

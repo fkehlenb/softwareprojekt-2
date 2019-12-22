@@ -150,4 +150,14 @@ public class ProzessSchrittVorlageController {
      * @return a set containing all process step parameters of this template
      */
     public Set<ProzessSchrittParameter> getProzessSchrittParameter() { return null; }
+
+    /**
+     * gets propperties
+     * @return a Set of QualitativeEigenschaft
+     */
+    public Set<QualitativeEigenschaft> getEigenschaften(){return null;}
+    /**
+     * set
+     */
+    public  void setEigenschaften(Set<QualitativeEigenschaft> qe){}
 }
