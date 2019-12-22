@@ -1572,8 +1572,7 @@ bereit, dass es uns ermöglicht die Parameter der ProzessSchritte zu serialisier
 Um mit externen Diensten zu kommunizieren, werden für das serialisierte JSON
 Rest-Schnittstellen angeboten.
 
-Eine ProzessKettenVorlage, hat eine eindeutige ID. Aufträge besitzen
-Prioritäten.
+Eine ProzessKettenVorlage, hat eine eindeutige ID. 
 
 
 Die Enum ProzessKettenZustandsAutomat enthält alle Zustände, die ein Auftrag
@@ -1589,12 +1588,12 @@ Hiermit setzen wir die Strategie 3.1 \ref{strategie:3.1}  um. Die ProzessSchritt
 und können später auch in anderen Prozessketten wiederverwendet werden.
 
 Ein AuftragsLog enthält Start- und Endzeiten für die instanziierte Prozesskette.
-Diese referenziert auch alle Prozesschrittlogs welche in dem Auftrag enthalten
+Diese referenziert auch alle ProzessSchrittLogs welche in dem Auftrag enthalten
 sind. Aus diesen ist zu entnehmen, wann der einzelne ProzessSchritt gestartet
 worden ist, in welchem Zustand dieser sich befand und wann er beendet worden
 ist. Falls später dann ein ProzessSchritt betrachtet wird, enthält er die Logs
 und seine ProzessSchrittParameter. Die ProzessSchrittParameter lassen sich zu
-JSON serialisieren (Strategie 4.1) \ref{strategie:4.1}, der ProzesschrittLog sowie der Prozesschritt
+JSON serialisieren (Strategie 4.1) \ref{strategie:4.1}, der ProzessSchrittLog sowie der ProzessSchritt
 selber sind auch serialisierbar. Jetzt ist es uns möglich, ein Protokoll
 der Prozesskette zu serialisieren.
 
