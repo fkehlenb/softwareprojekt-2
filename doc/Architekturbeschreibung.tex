@@ -1,4 +1,4 @@
-\documentclass[enabledeprecatedfontcommands,fontsize=12pt,paper=a4,twoside]{scrartcl}
+\documentclass[enabledeprecatedfontcommands,fontsize=12.1pt,paper=a4,twoside]{scrartcl}
 
 
 \newcommand{\grad}{\ensuremath{^{\circ}} }
@@ -101,9 +101,11 @@
   \begin{center}
   \vspace{1cm}
   \bf
-  \Large Architekturbeschreibung\\
+  \Large Architekturbeschreibung\\ Data Colorado\\
   \vfill
   \end{center}
+  \centering
+  \includegraphics[width=0.4\textwidth]{UML/Logo.png}\\
   \end{minipage}
   \vfill
   \begin{minipage}[H]{\textwidth}
@@ -1413,7 +1415,7 @@ Dieses Paket wird gebraucht, da es vorgegeben ist.
 }
 
  \begin{sidewaysfigure}
-  \caption{Persistenzmodelll für DataColorado}
+  \caption{Persistenzmodelll für FarbigesSFB}
   \centering
   \includegraphics[width=\textwidth]{UML/Persistence}
  \end{sidewaysfigure}
@@ -1427,6 +1429,8 @@ Dieses Paket wird gebraucht, da es vorgegeben ist.
 \end{center}
 \end{figure}
 
+Dieses Diagramm beschreibt die in unserem System verwendeten Services. Unser System soll z.B. bei der Erstellung von Benutzern E-mails versenden können, wozu wir das Email Modul haben. Zugleich soll unser System durch Apache Shiro gesichert sein, wodurch wir das Modul Apache Schiro haben. Wir möchten zur Datenverwaltung außerdem noch Deltaspike Data benutzen wodurch wir auch dieses Modul haben.  
+
 
 \newpage
 \subsection{Module}
@@ -1439,7 +1443,7 @@ Dieses Paket wird gebraucht, da es vorgegeben ist.
   \label{fig:boat1}
 \end{center}
 \end{figure}
-Dieses Modul ist für die Erstellung und Verwaltung von Nutzern zuständig. Durch User Controller können z.B. neue Nutzer erstellt werden, oder die Daten von bestehenden Users verändert werden. Dafür greift Controller auf die Datenklasse User zu um diese Nutzer zu erstellen und verwalten. Um diese anschließend in der Datenbank abspeichern zu können, greift User Controller auf die UserDAO zu um die Benutzer in der Datenbank zu Speichern und Verwalten.
+Dieses Modul ist für die Erstellung und Verwaltung von Nutzern zuständig. Durch User Controller können z.B. neue Nutzer erstellt werden, oder die Daten von bestehenden Users verändert werden. Dafür greift Controller auf die Datenklasse User zu um diese Nutzer zu erstellen und verwalten. Um diese anschließend in der Datenbank abspeichern zu können, greift User Controller auf die UserDAO zu um die Benutzer in der Datenbank zu Speichern und Verwalten. In der Datenklasse von User wird zudem auch die eingestellte Sprache des Nutzern eingespeichert und nach Wunsch geändert.
 
 \newpage
 
@@ -1451,7 +1455,7 @@ Dieses Modul ist für die Erstellung und Verwaltung von Nutzern zuständig. Durc
   \label{fig:boat1}
 \end{center}
 \end{figure}
-
+Dieses Modul ist für die Erstellung von Prozessketten Vorlagen zuständig. Um eine neue Prozesskettenvorlage erstellen zu können, brauchen wir allerdings erst einmal Prozessschrittvorlagen aus welchen diese bestehen soll. Um nun eine Prozesskettenvorlage erstellen zu können muss der Controller Zugriff auf die Datenklasse von Prozesskettenvorlage haben. Nachdem eine neue Prozesskettenvorlage erstellt wurde, möchte man diese allerdings in der Datenbank speichern. Hierfür hat Controller auch Zugriff auf die DAO Klasse von Prozesskettenvorlage. Das gleiche gilt auch wenn man eine Prozesskettenvorlage bearbeiten oder löschen möchte. 
 \newpage
 
 \subsubsection{Auftrags Modul}
@@ -1463,8 +1467,56 @@ Dieses Modul ist für die Erstellung und Verwaltung von Nutzern zuständig. Durc
 \end{center}
 \end{figure}
 
+Nun kommen wir zu unserem Auftragsmodul. Aufträge sollen instanziierte Prozessketten sein. Daher benötigen wir, um einen Auftrag erstellen zu können, eine Prozesskettenvorlage aus welcher dieser erstellt wird. Ein Auftrag muss allerdings auch immer einen AuftragsLog haben in welchem alles mögliche wichtige geloggt wird. Ein Auftrag besteht allerdings aus Prozessschritten, welche er daher auch hat.
+Um nun Aufträge erstellen oder verwalten zu können, muss unser Auftragscontroller zugriff auf die Auftrags Datenklasse haben. Zusätzlich möchte man diese in der Datenbank einspeichern und verwalten können, wozu der Controller auch Zugriff auf die DAO Klasse von Auftrag hat.
 \newpage
 
+\subsubsection{Prozessschrittvorlage Modul}
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{UML/Modules/ProzessSchrittVorlage.pdf}
+  \caption{Prozessschrittvorlage Module}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
+Um Prozessschrittvorlagen erstellen zu können benötigen wir allerdings Prozessschrittvorlagen, aus welchen letztendlich Prozessschritte eines Auftrags erstellt werden. Hierfür dient das Modul Prozessschrittvorlage. Dieses Modul ist für die Erstellung und Bearbeitung von Prozessschrittvorlagen zuständig. Um nun Prozessschrittvorlagen erstellen zu können, benötigen wir erst einmal einen Prozessschrittzustandsautomat welcher den Zustand eines Prozessschritts darstellt. Dieser wird allerdings von einer Vorlage erstellt, welche in der Proezssschrittvorlage abgespeichert wird, wodurch der Prozessschritt der aus dieser Vorlage erstellt wird anschließend weiß welche zustände er haben kann. Um nun Prozessschrittvorlagen erstellen zu können muss unser Controller auf die Datenklasse Prozessschrittvorlage Zugriff haben. Um diese Vorlagen anschließend in der Datenbank verwalten zu können muss er auch Zugriff auf die DAO Klasse von Prozessschrittvorlage haben.
+\newpage
+
+\subsubsection{Prozessschritt Modul}
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{UML/Modules/ProzessSchritt.pdf}
+  \caption{Prozessschritt Module}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+Nun möchte man ja vielleicht Prozessschritte erstellen. Ein Prozessschritt benötigt einen Prozessschrittszustandsautomat und einen Prozessschrittlog. Um nun Prozessschritte erstellen zu können muss unser Prozessschrittcontroller zugriff auf die Prozessschritt Datenklasse haben, und um diese anschließend in der Datenbank verwalten zu können brauch er auch zugriff auf ProzessschrittDAO.
+\newpage 
+
+\subsubsection{Probe Modul}
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{UML/Modules/PROBE.png}
+  \caption{Probe Module}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
+Nun kommen wir zum Modul Probe. Die Proben in unserem System müssen erstellt und verwaltet werden können, wodurch der Probencontroller Zugriff auf die Proben Datenklasse haben muss. Außerdem muss man die Proben in der Datenbank auch verwalten können, wodurch der Probencontroller Zugriff auf ProbeDAO haben muss.
+
+\newpage
+\subsubsection{Träger Modul}
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{UML/Modules/Traeger.pdf}
+  \caption{Träger Module}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+Die Proben in unserem System werden in Trägern transportiert. Diese Träger benötigen einen Standort zu jeder Zeit und haben immer eine Art. Um nun diese Träger verwalten zu können braucht unser Controller Zugriff auf die Träger Datenklasse. Um diese dann in der Datenbank verwalten zu können brauch er ebenfalls Zugriff auf die TraegerDAO klasse.
+
+\newpage
 \section{Datensicht}
 \label{sec:datensicht}
 
@@ -1649,7 +1701,7 @@ Umsetzung von der Strategie 13.1 \ref{strategie:13.1}
    
  \begin{sidewaysfigure}
    \includegraphics[width=\textwidth]{UML/datenModel}
-  \caption{Datenmodell für DataColorado}
+  \caption{Datenmodell für FarbigesSFB}
   \centering
  
 
@@ -1666,24 +1718,24 @@ Umsetzung von der Strategie 13.1 \ref{strategie:13.1}
 
 %%\includepdf[]{06Ausfuehrungssicht.pdf}
 \begin{figure}[H]
-\includegraphics[scale=0.5]{UML/06Ausfuehrungssicht.pdf}
+\includegraphics[width=\textwidth]{UML/06Ausfuehrungssicht.pdf}
  \caption{Ausführungssicht}
 \end{figure}
 
 
-{ Die Ausführungssicht von unserer Software (SWP2) ist in der obigen Abbildung
+{ Die Ausführungssicht von unserer Software (SFB-Farbig) ist in der obigen Abbildung
   7.1 modelliert.
 
 Beliebig viele Benutzer können via TCP/IP auf den SFB-Server zugreifen. Dies
 geschieht über eine Webapplikation, die im Internetbrowser eines PCs oder eines
 mobilen Endgeräts aufgerufen werden kann.
 
-Es ist auch möglich, dass ein Rest-Client sich mit unserem Server verbindet,
+Es ist auch möglich, dass ein REST-Client sich mit unserem Server verbindet,
 dieser verbindet sich dann an den REST-Endpunkt über den SFB-Server. Das Modul
 der Businesslogik führt die Befehle dann aus.
 
 Es gibt einen Anwendungsserver, welchen wir SFB-Server genannt haben, auf dem
-eine Instanz von Wildfly läuft. Auf dieser Wildflyinstanz wird der SWP2-Server
+eine Instanz von Wildfly läuft. Auf dieser Wildflyinstanz wird unser System (SFB-Farbig)
 mit allen dazugehörigen Modulen ausgeführt.
 
 Das Modul Persistence kommuniziert mit dem Modul Businesslogik aber auch
@@ -1709,7 +1761,7 @@ In diesem Anwendungsfall geht es darum zu zeigen, was passiert wenn sich ein
 Benutzer anmeldet. Wir haben uns entschieden, die Sicherheit nicht selber zu
 implementieren, sondern Apache Shiro zu nutzen. Siehe Strategie 2.1 \ref{strategie:2.1}
 
-\subsection{Was ist Apache Shiro}
+\subsubsection{Was ist Apache Shiro}
 Als erstes möchten wir einen Überblick über Apache Shiro geben, um dann anhand
 des Sequenzdiagrammes erläutern zu können, wie Apache Shiro mit unseren Schichten
 zusammenhängt. Apache Shiro kann ab jetzt auch nur als Shiro bezeichnet werden.
@@ -1737,7 +1789,7 @@ Siehe Strategie 1.2 \ref{strategie:1.2}. Um dies in Shiro umzusetzen, benutzen w
 JdbcRealm. Mit JdbcRealm kann Shiro aus unserer Datenbank die benötigen
 Attribute und Rollen eines Nutzers laden.
 
-\subsection{Erklärung des Diagramms}
+\subsubsection{Erklärung des Diagramms}
 Es kann vorkommen, dass ein Benutzer unseres Systems in einen Realm navigiert,
 der nur für bestimmte Rollen zugänglich ist \textbf{(Schritt 1)}. Dies ist der Fall
 für den ersten Schritt unseres Sequenzdiagrammes. Dies passiert in einem
@@ -1776,7 +1828,7 @@ ursprünglichen FacesContext zurück \textbf{(Schritt 14)}. Dafür Verwenden wir
 eine Weiterleitung, die den Pfad zu dem FacesContext kennt, das die Anmeldung
 gefordert hat.
 
-\subsection{Kleiner Ausschnitt zur Fehlerbehandlung}
+\subsubsection{Kleiner Ausschnitt zur Fehlerbehandlung}
 Bei dem Login können folgende Exceptions geworfen werden:
 \begin{itemize}
   \item Shiro löst eine UnknownAccountException aus, falls es den Nutzer nicht gibt
@@ -1812,22 +1864,62 @@ Die nächsten Schritte sind optimal. Den es ist dem pkAdmin überlassen was er i
 der Vorlage ändern will. Es bietet sich hier an, manuell eine
 Experimentierstation zuzuweisen, ansonsten wird dies in dem \textbf{11. Schritt}
 ausgeführt.
+Es ist dem pkAdmin möglich sich den den ProzessSchrittZustandsAutomaten des
+ProzessSchrittes anzeigen zu lassen. Damit die ProzessSchrittVorlage sich
+nachher Experimentierstationen sich zuweisen kann setzt der pkAdmin die Eingabe
+und Ausgabe Träger für die ProzessSchrittVorlage. Nun kann der pkAdmin die
+ProzessSchrittArt setzten. Anmerkung: Die ProzessSchrittArten werden im voraus
+festgelegt.
 
+Wichtig für die Automatische Zuordnung der ProzessSchrittVorlage ist das setzen
+von Bedingungen. Bedingungen können entweder direkt in der ProzessSchrittVorlage
+generiert werden. Falls eine Bedingung nicht einer trivialen Bedingung entspricht
+ist es möglich das der BedingungsController diese aus Eigenschaften oder aus
+ProzessSchrittParameteren einem erzeugt. Diese werden dann an den
+BedingungsController gesendet, dieser gibt dann die korrekte Bedingung zurück.
+Jetzt kennt der ProzessSchrittVorlageController alle Bedingungen für den den
+ProzessSchritt. Die methode setES(), welche keine Parameter hat, ist dafür
+zuständig aus der Menge $a$ aller Experimentierstationen eine Teilmenge $b$ der
+Experimentierstationen, die den geforderten Bedingungen
+entsprechen zu bilden. Alle Experimentierstationen  $a \in b$ die der Bedingung
+entsprechen werden dann der ProzessSchrittVorlage zugeordnet
 
+Als letzes setzt der pkAdmin die geschätzte Dauer für die Durchführung des
+ProzessSchrittes. Jetzt verwaltet der ProzessKettenVorlageController wieder.
+Falls der pkAdmin jetzt weitere ProzesskettenVorlagen bearbeiten möchte, kann er
+dies nun tun.
 
-\subsection{Alt}
-Figure \ref{fig:pkErstellen} zeigt wie der Prozesskettenadministrator die Prozesskette erstellt. 
-Bei Schritt 18, schauen sie bitte in Graphik \ref{fig:logstikProbenPüftZuweisen}. 
+Sobald er die gesamte Prozesskette kontrolliert hat, lässt er die ProzessKette
+verifizieren. Hier wird überprüft, ob alle Experimentierstationen die benötigen
+Träger an und ausgeben. Weiter wird in dieser Methode überprüft, ob alle
+ProzessSchrittVorlagen Experimentierstationen zugewiesen bekommen haben. Falls
+dies nicht klappt, muss der pkAdmin die probleme in den ProzessSchrittVorlagen
+selber lösen. Dafür kann er die Randbedingungen des ProzessSchrittes ändern oder
+selber Experimentierstationen der ProzessSchrittVorlage zuweisen.
 
-Der Prozesskettenadministrator wählt aus den vorhandenen Vorlagen eine aus, damit erstellt er einen neuen Auftrag und legt für diesen alle Parameter fest.
-Falls die Randbedingungen der Kette stimmen, darf diese instanziiert werden. Beim Speichern des Auftrages mit der instanziierten Prozesskette werden diese auch persistiert.
+Der pkAdmin kann die angeforderten Proben setzen. Sobald die Verifizierung der
+Prozesskette erfolgt ist, kann er, falls gewollt, die Priorität ändern und dann
+den Zustand der ProzessKette zu FREIGEGEBEN ändern. Ab diesem Zeitpunkt
+erscheint in der App der Logistiker die Prozesskette.
 
 Jetzt erhält der Logistiker einen neuen Probenzuweisungsauftrag, falls die Anfrage genehmigt wurde, kann der PKAdmin nun die Prozesskette starten.
-Als naächstes ist es möglich die Eingabe und Ausgabe Träger zu setzen. Wenn
-diese gesetzt sind
 
-%In der Graphik \ref{fig:logstikProbenPüftZuweisen} erhält die Logistik eine Anfrage für die Probenverwaltung. Es muss nun vom System geprüft werden ob %Proben mit den gewünschten Materialeigenschaften im Lager sind. Das System gibt diese an die Logistik zurück. Werden die Proben dann von dem %Logistiker ausgewählt und genehmigt, so werden diese an den Auftrag übermittelt und persistiert. Die Genehmigung wird an die Prozesskettenverwaltungs-%Administrationsapp übermittelt.
+Hier ist beginnt ein neues Kapitel in unserem Sequenz Diagramm, nämmlich das
+Starten eines neuen Auftrages. Jetzt erhält der Logistiker einen neuen
+Probenzuweisungsauftrag, falls die Anfrage genehmigt wurde, kann der PKAdmin nun
+die Prozesskette starten.
 
+Um zu überprüfen ob genügend Proben zugewiesen worden sind, wird die Methode
+checkProben(a:Auftrag) ausgeführt. Hier wird kontrolliert, ob die Proben die dem
+Auftrag zugewiesen worden sind den entsprechen die angefordert sind. Jetzt kann
+mit der Methode setPKZ(GESTARTET) der Auftrag gestartet werden.
+
+
+In der Graphik \ref{fig:logstikProbenPüftZuweisen} erhält die Logistik eine
+Anfrage für die Probenverwaltung. Es muss nun vom System geprüft werden
+ob Proben mit den gewünschten Materialeigenschaften im Lager sind. Das System gibt diese an die Logistik zurück. Werden die Proben dann von dem Logistiker ausgewählt und genehmigt, so werden diese an den Auftrag übermittelt und persistiert.
+Diese Graphik wurde abstrakt gehalten, denn sie Betrifft den Logistiker und
+nicht den pkAdmin
 
 \subsection{ProzessSchritt Sequenzdiagramm}
 
