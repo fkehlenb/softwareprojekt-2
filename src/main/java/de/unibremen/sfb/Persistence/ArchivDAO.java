@@ -10,17 +10,40 @@ public class ArchivDAO extends ObjectDAO<Archiv> {
     /** Add an archive object to the database
      * @param a - the archive to add to the database
      * @throws DuplicateArchivException if the archive already exists in the database */
-    public void persist(Archiv a) throws DuplicateArchivException{}
+    public void persist(Archiv a) throws DuplicateArchivException{
+        if (a!=null) {
+            synchronized (Archiv.class) {
+                if (em.contains(a)) {
+                    throw new DuplicateArchivException();
+                }
+                em.persist(a);
+            }
+        }
+    }
 
     /** Update an existing archive in the database
      * @param a - the archive to update in the database
      * @throws ArchivNotFoundException if the archive couldn't be found in the database */
-    public void update(Archiv a) throws ArchivNotFoundException{}
+    public void update(Archiv a) throws ArchivNotFoundException{
+        if (a!=null){
+            if (!em.contains(a)){
+                throw new ArchivNotFoundException();
+            }
+            em.merge(a);
+        }
+    }
 
     /** Remove an existing archive from the database
      * @param a - the archive to remove from the database
      * @throws ArchivNotFoundException if the archive couldn't be found in the database */
-    public void remove(Archiv a) throws ArchivNotFoundException{}
+    public void remove(Archiv a) throws ArchivNotFoundException{
+        if (a!=null){
+            if (!em.contains(a)){
+                throw new ArchivNotFoundException();
+            }
+            em.remove(a);
+        }
+    }
 
     /** @return the class of archive */
     public Class<Archiv> get(){

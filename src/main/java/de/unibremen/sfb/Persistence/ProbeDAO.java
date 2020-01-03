@@ -12,17 +12,40 @@ public class ProbeDAO extends ObjectDAO<Probe> {
     /** Add a sample to the database
      * @param p - the sample to add to the database
      * @throws DuplicateProbeException if the sample already exists in the database */
-    public void persist(Probe p) throws DuplicateProbeException {}
+    public void persist(Probe p) throws DuplicateProbeException {
+        if (p!=null) {
+            synchronized (Probe.class) {
+                if (em.contains(p)) {
+                    throw new DuplicateProbeException();
+                }
+                em.persist(p);
+            }
+        }
+    }
 
     /** Update a sample in the database
      * @param p - the sample to update in the database
      * @throws ProbeNotFoundException if the sample couldn't be found in the database */
-    public void update(Probe p) throws ProbeNotFoundException{}
+    public void update(Probe p) throws ProbeNotFoundException{
+        if (p!=null){
+            if (!em.contains(p)){
+                throw new ProbeNotFoundException();
+            }
+            em.merge(p);
+        }
+    }
 
     /** Remove a sample from the database
      * @param p - the sample to be removed from the database
      * @throws ProbeNotFoundException if the sample couldn't be found in the database */
-    public void remove(Probe p) throws ProbeNotFoundException{}
+    public void remove(Probe p) throws ProbeNotFoundException{
+        if (p!=null){
+            if (!em.contains(p)){
+                throw new ProbeNotFoundException();
+            }
+            em.remove(p);
+        }
+    }
 
     /** @return the class of sample */
     public Class<Probe> get(){

@@ -14,17 +14,40 @@ public class AuftragDAO extends ObjectDAO<Auftrag> {
     /** Add a job to the database
      * @param a - the job object to add to the database
      * @throws DuplicateAuftragException if the job already exists in the database */
-    public void persist(Auftrag a) throws DuplicateAuftragException {}
+    public void persist(Auftrag a) throws DuplicateAuftragException {
+        if (a!=null){
+            synchronized (Auftrag.class){
+                if (em.contains(a)){
+                    throw new DuplicateAuftragException();
+                }
+                em.persist(a);
+            }
+        }
+    }
 
     /** Update a job in the database
      * @param a - the job object to update in the database
      * @throws AuftragNotFoundException if the job couldn't be found */
-    public void update(Auftrag a) throws AuftragNotFoundException{}
+    public void update(Auftrag a) throws AuftragNotFoundException{
+        if (a!=null){
+            if (!em.contains(a)){
+                throw new AuftragNotFoundException();
+            }
+            em.merge(a);
+        }
+    }
 
     /** Remove a job from the database
      * @param a - the job object to remove from the database
      * @throws AuftragNotFoundException if the job object couldn't be found in the database */
-    public void remove(Auftrag a) throws AuftragNotFoundException {}
+    public void remove(Auftrag a) throws AuftragNotFoundException {
+        if (a!=null){
+            if (!em.contains(a)){
+                throw new AuftragNotFoundException();
+            }
+            em.remove(a);
+        }
+    }
 
     /** @return the class of job */
     public Class<Auftrag> get(){

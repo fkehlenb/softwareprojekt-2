@@ -14,17 +14,40 @@ public class TraegerDAO extends ObjectDAO<Traeger> {
     /** Add a container to the database
      * @param t - the container to add to the database
      * @throws DuplicateTraegerException if the container already exists in the database */
-    public void persist(Traeger t) throws DuplicateTraegerException{}
+    public void persist(Traeger t) throws DuplicateTraegerException{
+        if (t!=null){
+            synchronized (Traeger.class){
+                if (em.contains(t)){
+                    throw new DuplicateTraegerException();
+                }
+                em.persist(t);
+            }
+        }
+    }
 
     /** Update a container in the database
      * @param t - the container to update in the database
      * @throws TraegerNotFoundException if the container cannot be found in the database */
-    public void update(Traeger t) throws TraegerNotFoundException{}
+    public void update(Traeger t) throws TraegerNotFoundException{
+        if (t!=null){
+            if (!em.contains(t)){
+                throw new TraegerNotFoundException();
+            }
+            em.merge(t);
+        }
+    }
 
     /** Remove a container from the database
      * @param t - the container to remove from the database
      * @throws TraegerNotFoundException if the container cannot be found in the database */
-    public void remove(Traeger t) throws TraegerNotFoundException{}
+    public void remove(Traeger t) throws TraegerNotFoundException{
+        if (t!=null){
+            if (!em.contains(t)){
+                throw new TraegerNotFoundException();
+            }
+            em.remove(t);
+        }
+    }
 
     /** @return the class of container */
     public Class<Traeger> get(){

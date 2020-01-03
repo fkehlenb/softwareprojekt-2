@@ -10,17 +10,40 @@ public class UserDAO extends ObjectDAO<User> {
     /** Add a user object to the database
      * @param u - the user object to add
      * @throws DuplicateUserException if the User already exists in the database */
-    public void persist(User u) throws DuplicateUserException {}
+    public void persist(User u) throws DuplicateUserException {
+        if (u!=null){
+            synchronized (User.class){
+                if (em.contains(u)){
+                    throw new DuplicateUserException();
+                }
+                em.persist(u);
+            }
+        }
+    }
 
     /** Update an existing user object in the database
      * @param u - the user object to update in the database
      * @throws UserNotFoundException if the user couldn't be found in the database */
-    public void update(User u) throws UserNotFoundException{}
+    public void update(User u) throws UserNotFoundException{
+        if (u!=null){
+            if (!em.contains(u)){
+                throw new UserNotFoundException();
+            }
+            em.merge(u);
+        }
+    }
 
     /** Remove a user object from the database
      * @param u - the user object to remove from the database
      * @throws UserNotFoundException if the user object couldn't be found*/
-    public void remove(User u) throws UserNotFoundException {}
+    public void remove(User u) throws UserNotFoundException {
+        if (u!=null){
+            if (!em.contains(u)){
+                throw new UserNotFoundException();
+            }
+            em.remove(u);
+        }
+    }
 
     /** @return the class of User */
     public Class<User> get(){

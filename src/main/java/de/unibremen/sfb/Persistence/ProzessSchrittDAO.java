@@ -12,23 +12,45 @@ public class ProzessSchrittDAO extends ObjectDAO<ProzessSchritt> {
     /** Add a process chain step to the database
      * @param ps - the process chain step to be added to the database
      * @throws DuplicateProzessSchrittException if the process chain step already exists in the database */
-    public void persist(ProzessSchritt ps) throws DuplicateProzessSchrittException {}
+    public void persist(ProzessSchritt ps) throws DuplicateProzessSchrittException {
+        if (ps!=null){
+            synchronized (ProzessSchritt.class){
+                if (em.contains(ps)){
+                    throw new DuplicateProzessSchrittException();
+                }
+                em.persist(ps);
+            }
+        }
+    }
 
     /** Update a process chain step in the database
      * @param ps - the process step to update in the database
      * @throws ProzessSchrittNotFoundException if the process chain step object couldn't be found */
-    public void update(ProzessSchritt ps) throws ProzessSchrittNotFoundException {}
+    public void update(ProzessSchritt ps) throws ProzessSchrittNotFoundException {
+        if (ps!=null){
+            if (!em.contains(ps)){
+                throw new ProzessSchrittNotFoundException();
+            }
+            em.merge(ps);
+        }
+    }
 
     /** Remove a process chain step from the database
      * @param ps - the process step object to remove from the database
      * @throws ProzessSchrittNotFoundException if the process chain step object couldn't be found */
-    public void remove(ProzessSchritt ps) throws ProzessSchrittNotFoundException{}
+    public void remove(ProzessSchritt ps) throws ProzessSchrittNotFoundException{
+        if (ps!=null){
+            if (!em.contains(ps)){
+                throw new ProzessSchrittNotFoundException();
+            }
+            em.remove(ps);
+        }
+    }
 
-    /** Fetch a process chain step object from the database
-     * @return the requested process chain step object
-     * @throws ProzessSchrittNotFoundException if the process chain step object couldn't be found */
-    public ProzessSchritt get() throws ProzessSchrittNotFoundException{
-        return null;
+    /** Get the class of process steps
+     * @return the class of Process Steps */
+    public Class<ProzessSchritt> get(){
+        return ProzessSchritt.class;
     }
 
     /** Fetch a process chain step matching a specific id from the database

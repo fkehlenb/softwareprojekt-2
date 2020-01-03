@@ -10,17 +10,40 @@ public class StandortDAO extends ObjectDAO<Standort> {
     /** Add a location object to the database
      * @param s - the location object to add to the database
      * @throws DuplicateStandortException if the location already exists in the database */
-    public void persist(Standort s) throws DuplicateStandortException {}
+    public void persist(Standort s) throws DuplicateStandortException {
+        if (s!=null){
+            synchronized (Standort.class){
+                if (em.contains(s)){
+                    throw new DuplicateStandortException();
+                }
+                em.persist(s);
+            }
+        }
+    }
 
     /** Update a location object in the database
      * @param s - the location to update in the database
      * @throws StandortNotFoundException if the location couldn't be found in the database */
-    public void update(Standort s) throws StandortNotFoundException{}
+    public void update(Standort s) throws StandortNotFoundException{
+        if (s!=null){
+            if (!em.contains(s)){
+                throw new StandortNotFoundException();
+            }
+            em.merge(s);
+        }
+    }
 
     /** Remove a location object from the database
      * @param s - the location object to remove from the database
      * @throws StandortNotFoundException if the location object couldn't be found in the database */
-    public void remove(Standort s) throws StandortNotFoundException{}
+    public void remove(Standort s) throws StandortNotFoundException{
+        if (s!=null){
+            if (!em.contains(s)){
+                throw new StandortNotFoundException();
+            }
+            em.remove(s);
+        }
+    }
 
     /** @return the class of location */
     public Class<Standort> get(){

@@ -10,17 +10,40 @@ public class ExperimentierStationDAO extends ObjectDAO<ExperimentierStation> {
     /** Add an experimenting station object to the database
      * @param es - the experimenting station to add to the database
      * @throws DuplicateExperimentierStationException if the experimenting station already exists in the database */
-    public void persist(ExperimentierStation es) throws DuplicateExperimentierStationException{}
+    public void persist(ExperimentierStation es) throws DuplicateExperimentierStationException{
+        if (es!=null){
+            synchronized (ExperimentierStation.class){
+                if (em.contains(es)){
+                    throw new DuplicateExperimentierStationException();
+                }
+            }
+            em.persist(es);
+        }
+    }
 
     /** Updates an existing experimenting station object in the database
      * @param es - the experimenting station to update in the database
      * @throws ExperimentierStationNotFoundException if the experimenting station couldn't be found in the database */
-    public void update(ExperimentierStation es) throws ExperimentierStationNotFoundException{}
+    public void update(ExperimentierStation es) throws ExperimentierStationNotFoundException{
+        if (es!=null){
+            if (!em.contains(es)){
+                throw new ExperimentierStationNotFoundException();
+            }
+            em.merge(es);
+        }
+    }
 
     /** Removes an existing experimenting station object from the database
      * @param es - the experimenting station to remove from the database
      * @throws ExperimentierStationNotFoundException if the experimenting station couldn't be found in the database */
-    public void remove(ExperimentierStation es) throws ExperimentierStationNotFoundException{}
+    public void remove(ExperimentierStation es) throws ExperimentierStationNotFoundException{
+        if (es!=null){
+            if (!em.contains(es)){
+                throw new ExperimentierStationNotFoundException();
+            }
+            em.remove(es);
+        }
+    }
 
     /** @return the class of experimenting stations */
     public Class<ExperimentierStation> get(){
