@@ -1,26 +1,40 @@
 package de.unibremen.sfb.Controller;
 
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 import java.io.Serializable;
 
 /**
  * this class manages the interaction between the gui and the backend system for the initial situation (the first page any visitor sees)
  */
+@SessionScoped
+@Named
 public class IndexBean implements Serializable {
 
     /**
      * username will be saved here once entered
      */
-    public String username;
+    String username;
 
     /**
      * password will be saved here once entered by user
      */
-    public String password;
+    String password;
 
     /**
      * login with the values in username and password
      */
-    public void login() {}
+    public void login() {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("technologe.xhtml");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
     /**
      * sets the language in which everything is supposed to be displayed
