@@ -10,27 +10,27 @@
 </h:head>
 
 <body background="background.png">
-<p:breadCrumb>
-    <p:menuitem value="Home" url="#"/>
-    <p:menuitem value="Login" url="#"/>
-</p:breadCrumb>
+<p:outputPanel>
+    <ui:insert name="header">
+        <ui:include src="/WEB-INF/common/header.xhtml"/>
+    </ui:insert>
 
-<div id="login" style="margin: 100px;">
-    <h:form>
-        <p:panelGrid columns="1">
-            <h1 style="color: cornflowerblue">Wilkommen zum SFB - Farbige Zustände!</h1>
-            <p>Um sich Einzuloggen, geben sie bitte ihre details ein!</p>
-            <h2 style="color: cornflowerblue">Login</h2>
-            <p:inputText placeholder="Username" required="true" requiredMessage="Bitte Benutzername angeben!"/>
-            <p:password placeholder="Password" required="true" requiredMessage="Bitte Passwort angeben!"/>
-            <p:commandButton ajax="false" value="Login" action="#{indexBean.login}" style="width: auto"/>
-            <p>Forgot password? <a href="_blank">Reset Password</a></p>
-            <p>New User? <a href="_blank">Register Now</a></p>
-        </p:panelGrid>
-    </h:form>
-</div>
+    <div id="login" style="margin: 100px;">
+        <h:form>
+            <p:panelGrid columns="1">
+                <h1 style="color: cornflowerblue">Wilkommen zum SFB - Farbige Zustände!</h1>
+                <p>Um sich Einzuloggen, geben sie bitte ihre details ein!</p>
+                <h2 style="color: cornflowerblue">Login</h2>
+                <p:inputText placeholder="Username" required="true" requiredMessage="Bitte Benutzername angeben!"/>
+                <p:password placeholder="Password" required="true" requiredMessage="Bitte Passwort angeben!"/>
+                <p:commandButton ajax="false" value="Login" action="#{indexBean.login}" style="width: auto"/>
+                <p>Forgot password? <a href="_blank">Reset Password</a></p>
+                <p>New User? <a href="_blank">Register Now</a></p>
+            </p:panelGrid>
+        </h:form>
+    </div>
 
-
+</p:outputPanel>
 </body>
 
 
