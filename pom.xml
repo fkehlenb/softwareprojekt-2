@@ -112,7 +112,41 @@
             <artifactId>shiro-web</artifactId>
             <version>${shiro.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.4.1</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- JSON-P API -->
+        <dependency>
+            <groupId>javax.json</groupId>
+            <artifactId>javax.json-api</artifactId>
+            <version>1.1</version>
+        </dependency>
 
+        <!-- JSON-P RI -->
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.json</artifactId>
+            <version>1.1</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- JSON-B API -->
+        <dependency>
+            <groupId>javax.json.bind</groupId>
+            <artifactId>javax.json.bind-api</artifactId>
+            <version>1.0.0-RC2</version>
+        </dependency>
+
+        <!-- Yasson (JSON-B RI) -->
+        <dependency>
+            <groupId>org.eclipse</groupId>
+            <artifactId>yasson</artifactId>
+            <version>1.0.0-RC1</version>
+            <scope>runtime</scope>
+        </dependency>
 
     </dependencies>
 
@@ -145,9 +179,9 @@
                             <!--   <artifactId>umldoclet</artifactId>                         -->
                             <!--    <version>2.0.7</version>/Uni/SWPNP/softwareprojekt-2/target-->
                             <!-- </docletArtifact>   -->
-                              <additionalOptions>
-                                  <!--<additionalOption>...</additionalOption>-->
-                        </additionalOptions>
+                            <additionalOptions>
+                                <!--<additionalOption>...</additionalOption>-->
+                            </additionalOptions>
                         </configuration>
                     </execution>
                 </executions>
