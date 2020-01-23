@@ -1,5 +1,6 @@
 package de.unibremen.sfb.controller;
 
+<<<<<<< HEAD:src/main/java/de/unibremen/sfb/controller/AdminBean.java
 import de.unibremen.sfb.model.Auftrag;
 import de.unibremen.sfb.model.ExperimentierStation;
 import de.unibremen.sfb.model.TraegerArt;
@@ -8,12 +9,21 @@ import de.unibremen.sfb.Model.Auftrag;
 import de.unibremen.sfb.Model.ExperimentierStation;
 import de.unibremen.sfb.Model.TraegerArt;
 import de.unibremen.sfb.Model.User;
+=======
+import de.unibremen.sfb.Exception.DuplicateUserException;
+import de.unibremen.sfb.Exception.UserNotFoundException;
+import de.unibremen.sfb.Model.*;
+import de.unibremen.sfb.Persistence.UserDAO;
+>>>>>>> adminBean persistence workin:src/main/java/de/unibremen/sfb/Controller/AdminBean.java
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -26,60 +36,83 @@ public class AdminBean implements Serializable {
     /**
      * The user managed by this bean
      */
-    @Getter
-    @Setter
+
+
     private User admin;
-    @Getter
-    @Setter
+
+    @Inject
+    private UserDAO userDAO;
+
+
     private String vorname;
-    @Getter
-    @Setter
+
     private String nachname;
-    @Getter
-    @Setter
+
     private String id;
-    @Getter
-    @Setter
+
     private String email;
-    @Getter
-    @Setter
+
     private String telefonNummer;
-    @Getter
-    @Setter
+
     private String userName;
-    @Getter
-    @Setter
+
     private String password;
-    @Getter
-    @Setter
+
     private String  wurdeVerifiziert;
-    @Getter
-    @Setter
+
     private String erstellungsDatum;
-    @Getter
-    @Setter
+
     private String rolle;
-    @Getter
-    @Setter
+
     private String language;
 
+    HashSet<Role> a = new HashSet<>();
     /**
      * Returns all users registered in this system
      * @return A set containing all users
      */
     public Set<User> getAllUser() { return null; }
 
+
     /**
      * Adds a new User to the System
-     * @param user the new user
+     *   the new user
      */
-    public void addUser(User user) {}
+    public void login() {
+        User user = new User();
+        try {
+        user.id = Integer.parseInt(id);
+        user.vorname = vorname;
+        user.nachname = nachname;
+        user.email = email;
+        user.telefonnummer = telefonNummer;
+        user.username = userName;
+        var pw = "12345678";
+        user.password = pw.getBytes();
+        user.wurdeVerifiziert = Boolean.parseBoolean(wurdeVerifiziert);
+        user.erstellungsDatum = new Date();
+        a.add(Role.TECHNOLOGE);
+        //user.rollen = a;
+        user.language = language;
+
+            userDAO.persist(user);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
     /**
      * edits a user that already exists
-     * @param user the user to be edited
+     *  user the user to be edited
      */
-    public void editUser(User user) {}
+    public String findUser() throws UserNotFoundException {
+        try {
+            return userDAO.getUserById(11).username;
+        }catch(Exception e){
+
+        }
+        return "Not Fonud";
+    }
 
     /**
      * deletes a user from the system
@@ -159,7 +192,7 @@ public class AdminBean implements Serializable {
 
     /**
      * returns the administrator managed by this bean
-     * @return the user
+     * @return the usern
      */
     public User getAdmin() { return admin; }
 
@@ -168,5 +201,99 @@ public class AdminBean implements Serializable {
      * @param admin the user
      */
     public void setUser(User admin) { this.admin = admin; }
+
+    public void setAdmin(User admin) {
+        this.admin = admin;
+    }
+
+
+
+    public String getVorname() {
+        return vorname;
+    }
+
+    public void setVorname(String vorname) {
+        this.vorname = vorname;
+    }
+
+    public String getNachname() {
+        return nachname;
+    }
+
+    public void setNachname(String nachname) {
+        this.nachname = nachname;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTelefonNummer() {
+        return telefonNummer;
+    }
+
+    public void setTelefonNummer(String telefonNummer) {
+        this.telefonNummer = telefonNummer;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getWurdeVerifiziert() {
+        return wurdeVerifiziert;
+    }
+
+    public void setWurdeVerifiziert(String wurdeVerifiziert) {
+        this.wurdeVerifiziert = wurdeVerifiziert;
+    }
+
+    public String getErstellungsDatum() {
+        return erstellungsDatum;
+    }
+
+    public void setErstellungsDatum(String erstellungsDatum) {
+        this.erstellungsDatum = erstellungsDatum;
+    }
+
+    public String getRolle() {
+        return rolle;
+    }
+
+    public void setRolle(String rolle) {
+        this.rolle = rolle;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
 }
 
