@@ -55,7 +55,7 @@ public class UserDAO extends ObjectDAO<User> {
      * @return the user object matching the user id
      * @throws UserNotFoundException if the user couldn't be found */
     public User getUserById(int id) throws UserNotFoundException{
-        return null;
+        return em.find(User.class,id);
     }
 
     /** Get a user object using the user's name
