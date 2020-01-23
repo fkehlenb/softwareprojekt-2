@@ -11,12 +11,15 @@ import java.util.Set;
 @Data
 public class Probe {
 
+    public Probe() {
+    // FIXME Warum alles public. wie genau zugreifen
+    }
+
     /** The sample's id */
     @NonNull
     public int probenID;
 
     /** Comment added to the sample and when it was added */
-    @NonNull
     public Pair<LocalDateTime,String> kommentar;
 
     /** The sample's state */
@@ -33,3 +36,4 @@ public class Probe {
     /** The container the sample is currently located in */
     public Traeger currentTraeger;
 }
+

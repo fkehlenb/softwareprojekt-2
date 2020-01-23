@@ -8,6 +8,13 @@ import java.util.Set;
 @Data
 public class TraegerArt {
 
-    /** List containing all container types */
+    /**
+     * List containing all container types
+     */
     public Set<String> arten;
+
+    public TraegerArt(Set<String> arten) {
+        this.arten = arten;
+    }
+
 }

@@ -10,4 +10,8 @@ public class Standort {
     /** The location */
     @NonNull
     public String ort;
+
+    public Standort(String hier) {
+
+    }
 }
