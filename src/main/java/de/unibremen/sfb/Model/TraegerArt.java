@@ -2,6 +2,7 @@ package de.unibremen.sfb.Model;
 
 import lombok.Data;
 
+import javax.persistence.Entity;
 import java.util.Set;
 
 /** This class is the data class for container types */

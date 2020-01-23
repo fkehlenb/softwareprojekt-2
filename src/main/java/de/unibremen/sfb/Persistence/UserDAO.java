@@ -55,7 +55,16 @@ public class UserDAO extends ObjectDAO<User> {
      * @return the user object matching the user id
      * @throws UserNotFoundException if the user couldn't be found */
     public User getUserById(int id) throws UserNotFoundException{
-        return null;
+        try{
+            User u = em.find(get(),id);
+            if (u==null){
+                throw new UserNotFoundException();
+            }
+            return u;
+        }
+        catch (Exception e){
+            throw new UserNotFoundException();
+        }
     }
 
     /** Get a user object using the user's name
@@ -63,7 +72,19 @@ public class UserDAO extends ObjectDAO<User> {
      * @return the user object whose name matches the given name
      * @throws UserNotFoundException if the user couldn't be found */
     public User getUserByName(String n) throws UserNotFoundException{
-        return null;
+        if(n == null || n.equals("")){
+            throw new UserNotFoundException();
+        }
+        try {
+            User u = (User) em.createNamedQuery("User.findByUsername",get()).setParameter("username",n).getSingleResult();
+            if (u==null){
+                throw new UserNotFoundException();
+            }
+            return u;
+        }
+        catch (Exception e){
+            throw new UserNotFoundException();
+        }
     }
 
     /** Get a user object using the user's email address
@@ -71,6 +92,18 @@ public class UserDAO extends ObjectDAO<User> {
      * @return the user object whose email matches the given email
      * @throws UserNotFoundException if the user couldn't be found */
     public User getUserByMail(String m) throws UserNotFoundException{
-        return null;
+        if (m == null || m.equals("")){
+            throw new UserNotFoundException();
+        }
+        try {
+            User u = (User) em.createNamedQuery("User.findByEmail",get()).setParameter("email",m).getSingleResult();
+            if (u==null){
+                throw new UserNotFoundException();
+            }
+            return u;
+        }
+        catch (Exception e){
+            throw new UserNotFoundException();
+        }
     }
 }

@@ -1,28 +1,43 @@
 package de.unibremen.sfb.Controller;
 
+import de.unibremen.sfb.Model.User;
+import de.unibremen.sfb.Persistence.UserDAO;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.jms.Message;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 
 /**
  * this class manages the interaction between the gui and the backend system for the initial situation (the first page any visitor sees)
  */
-@SessionScoped
+@RequestScoped
 @Named
 public class IndexBean implements Serializable {
 
     /**
      * username will be saved here once entered
      */
-    String username;
+    @Getter
+    @Setter
+    private String username;
 
     /**
      * password will be saved here once entered by user
      */
-    String password;
+    @Getter
+    @Setter
+    private String password;
+
+    @Inject
+    private UserDAO dao;
 
     /**
      * login with the values in username and password
@@ -31,7 +46,7 @@ public class IndexBean implements Serializable {
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("technologe.xhtml");
         }
-        catch (Exception e){
+        catch (Exception e) {
             e.printStackTrace();
         }
     }

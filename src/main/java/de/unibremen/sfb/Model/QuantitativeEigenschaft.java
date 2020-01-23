@@ -4,6 +4,9 @@ import lombok.Data;
 import lombok.NonNull;
 import si.uom.SI;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /** The quantitative descriptor data class */
 @Data
 public class QuantitativeEigenschaft extends QualitativeEigenschaft {

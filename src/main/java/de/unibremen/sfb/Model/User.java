@@ -3,15 +3,23 @@ package de.unibremen.sfb.Model;
 import lombok.Data;
 import lombok.NonNull;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
 
 /** This class is used to create user objects */
 @Data
+@Entity
+@NamedQueries({
+        @NamedQuery(name = "User.findById", query = "SELECT u from User u WHERE u.id = :id"),
+        @NamedQuery(name = "User.findByUsername", query = "SELECT u from User u WHERE u.username = :username"),
+        @NamedQuery(name = "User.findByEmail", query = "SELECT u from User u WHERE u.email = :email")
+})
 public class User {
 
     /** User's id  */
     @NonNull
+    @Id
     public int id;
 
     /** The user's name */
@@ -36,7 +44,7 @@ public class User {
 
     /** User's hashed password */
     @NonNull
-    public Byte[] password;
+    public byte[] password;
 
     /** Is the user verified? */
     @NonNull
@@ -48,16 +56,24 @@ public class User {
 
     /** The role's of the user */
     @NonNull
+    @OneToMany
     public Set<Role> rollen;
 
     /** The experimenting stations a user is assigned to */
+    @OneToMany
     public Set<ExperimentierStation> stationen;
 
     /** The jobs a user has */
     @NonNull
+    @OneToMany
     public Set<Auftrag> auftraege;
 
     /** The User's language preference */
     @NonNull
     public String language;
+
+    /** Empty Constructor */
+    public User(){
+        /* Required by jpa */
+    }
 }

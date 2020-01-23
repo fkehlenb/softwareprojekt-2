@@ -3,6 +3,8 @@ package de.unibremen.sfb.Model;
 import lombok.Data;
 import lombok.NonNull;
 
+import javax.persistence.Entity;
+
 /** Data class for process step state automatons */
 @Data
 public class ProzessSchrittZustandsAutomat {
