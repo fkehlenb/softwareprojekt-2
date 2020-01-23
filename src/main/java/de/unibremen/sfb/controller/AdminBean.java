@@ -5,18 +5,64 @@ import de.unibremen.sfb.model.ExperimentierStation;
 import de.unibremen.sfb.model.TraegerArt;
 import de.unibremen.sfb.model.User;
 
+import de.unibremen.sfb.model.Auftrag;
+import de.unibremen.sfb.model.ExperimentierStation;
+import de.unibremen.sfb.model.TraegerArt;
+import de.unibremen.sfb.model.User;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Set;
 
 /**
  * this class manages the interaction between the gui and the backend system in the case that the user is an admin
  */
+@Named
+@RequestScoped
 public class AdminBean implements Serializable {
 
     /**
      * The user managed by this bean
      */
-    public User admin;
+    @Getter
+    @Setter
+    private User admin;
+    @Getter
+    @Setter
+    private String vorname;
+    @Getter
+    @Setter
+    private String nachname;
+    @Getter
+    @Setter
+    private String id;
+    @Getter
+    @Setter
+    private String email;
+    @Getter
+    @Setter
+    private String telefonNummer;
+    @Getter
+    @Setter
+    private String userName;
+    @Getter
+    @Setter
+    private String password;
+    @Getter
+    @Setter
+    private String  wurdeVerifiziert;
+    @Getter
+    @Setter
+    private String erstellungsDatum;
+    @Getter
+    @Setter
+    private String rolle;
+    @Getter
+    @Setter
+    private String language;
 
     /**
      * Returns all users registered in this system
