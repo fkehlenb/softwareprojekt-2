@@ -1,4 +1,4 @@
-package de.unibremen.sfb.model;
+package de.unibremen.sfb.Model;
 
 import lombok.Data;
 import lombok.NonNull;
