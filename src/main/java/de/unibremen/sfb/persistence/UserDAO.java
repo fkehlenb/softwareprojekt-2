@@ -55,7 +55,6 @@ public class UserDAO extends ObjectDAO<User> {
      * @return the user object matching the user id
      * @throws UserNotFoundException if the user couldn't be found */
     public User getUserById(int id) throws UserNotFoundException{
-<<<<<<< HEAD:src/main/java/de/unibremen/sfb/persistence/UserDAO.java
         try{
             User u = em.find(get(),id);
             if (u==null){
@@ -66,9 +65,7 @@ public class UserDAO extends ObjectDAO<User> {
         catch (Exception e){
             throw new UserNotFoundException();
         }
-=======
-        return em.find(User.class,id);
->>>>>>> adminBean persistence workin:src/main/java/de/unibremen/sfb/Persistence/UserDAO.java
+
     }
 
     /** Get a user object using the user's name

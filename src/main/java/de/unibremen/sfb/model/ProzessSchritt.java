@@ -5,6 +5,7 @@ import lombok.NonNull;
 
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,6 +28,7 @@ public class ProzessSchritt {
 
     /**
     /** The experimenting station where the current process step is being carried out */
+    @OneToMany
     public ExperimentierStation current;
 
 

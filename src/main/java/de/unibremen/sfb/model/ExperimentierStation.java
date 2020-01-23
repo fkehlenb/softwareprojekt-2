@@ -30,12 +30,11 @@ public class ExperimentierStation {
 
     /** The station's status */
     @NonNull
-    @OneToMany
     public Enum<ExperimentierStationZustand> status;
 
     /** The queue currently being processed at the experimenting station */
     @NonNull
-    @OneToMany
+    @ManyToOne
     public Queue<ProzessSchritt> nextPS;
 
     /** Conditions for using an experimenting station */

@@ -1,20 +1,8 @@
 package de.unibremen.sfb.controller;
 
-<<<<<<< HEAD:src/main/java/de/unibremen/sfb/controller/AdminBean.java
-import de.unibremen.sfb.model.Auftrag;
-import de.unibremen.sfb.model.ExperimentierStation;
-import de.unibremen.sfb.model.TraegerArt;
-import de.unibremen.sfb.model.User;
-import de.unibremen.sfb.Model.Auftrag;
-import de.unibremen.sfb.Model.ExperimentierStation;
-import de.unibremen.sfb.Model.TraegerArt;
-import de.unibremen.sfb.Model.User;
-=======
-import de.unibremen.sfb.Exception.DuplicateUserException;
-import de.unibremen.sfb.Exception.UserNotFoundException;
-import de.unibremen.sfb.Model.*;
-import de.unibremen.sfb.Persistence.UserDAO;
->>>>>>> adminBean persistence workin:src/main/java/de/unibremen/sfb/Controller/AdminBean.java
+import de.unibremen.sfb.exception.UserNotFoundException;
+import de.unibremen.sfb.model.*;
+import de.unibremen.sfb.persistence.UserDAO;
 import lombok.Getter;
 import lombok.Setter;
 
