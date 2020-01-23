@@ -20,7 +20,7 @@ public class Probe {
     public int probenID;
 
     /** Comment added to the sample and when it was added */
-    public Pair<LocalDateTime,String> kommentar;
+    public Kommentar kommentar;
 
     /** The sample's state */
     @NonNull

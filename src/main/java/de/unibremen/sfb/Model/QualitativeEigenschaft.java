@@ -9,4 +9,8 @@ public class QualitativeEigenschaft {
 
     /** Qualitative descriptor name */
     public String name;
+
+    public QualitativeEigenschaft(String name) {
+        this.name = name;
+    }
 }

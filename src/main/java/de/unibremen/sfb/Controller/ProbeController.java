@@ -7,6 +7,9 @@ import java.util.Set;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
+
 /**
  * this class manages the interaction with models of samples (Proben)
  */
@@ -102,5 +105,15 @@ public class ProbeController {
      * @param eigenschaft a set containing all properties this sample is supposed to have
      */
     public void setEigenschaften(Set<QualitativeEigenschaft> eigenschaft) {}
+
+    /**
+     * Return the JSON Representation of a Probe
+     * @param probe the probe which should be converted
+     * @return json of the probe
+     */
+    public String getJSON(Probe probe) {
+        Jsonb jsonb = JsonbBuilder.create();
+        return jsonb.toJson(probe);
+    }
 
 }
