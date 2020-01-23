@@ -11,7 +11,7 @@ public class Standort {
     @NonNull
     public String ort;
 
-    public Standort(String hier) {
-
+    public Standort(String ort) {
+        this.ort = ort;
     }
 }

@@ -10,6 +10,8 @@ import java.util.Set;
 @Data
 public class User {
 
+    public User() {}
+
     /** User's id  */
     @NonNull
     public int id;
@@ -35,8 +37,7 @@ public class User {
     public String username;
 
     /** User's hashed password */
-    @NonNull
-    public Byte[] password;
+    public byte[] password;
 
     /** Is the user verified? */
     @NonNull
@@ -54,7 +55,6 @@ public class User {
     public Set<ExperimentierStation> stationen;
 
     /** The jobs a user has */
-    @NonNull
     public Set<Auftrag> auftraege;
 
     /** The User's language preference */

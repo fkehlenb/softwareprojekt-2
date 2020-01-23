@@ -27,7 +27,9 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap-theme.min.css">
     <style>
-        body{padding:0 20px;}
+        body {
+            padding: 0 20px;
+        }
     </style>
 </head>
 <body>
@@ -35,53 +37,54 @@
 <h1 style="color: cornflowerblue">Wilkommen zu den Farbigen Zuständen der Datacolorados!</h1>
 <p>Um sich Einzuloggen, geben sie bitte ihre details ein!</p>
 
-    <p>Hi <shiro:guest>Guest</shiro:guest><shiro:user>
-        <%
-            //This should never be done in a normal page and should exist in a proper MVC controller of some sort, but for this
-            //tutorial, we'll just pull out Stormpath Account data from Shiro's PrincipalCollection to reference in the
-            //<c:out/> tag next: FIXME
+<p>Hi <shiro:guest>Guest</shiro:guest><shiro:user>
+    <%
+        //This should never be done in a normal page and should exist in a proper MVC controller of some sort, but for this
+        //tutorial, we'll just pull out Stormpath Account data from Shiro's PrincipalCollection to reference in the
+        //<c:out/> tag next: FIXME
 
-            request.setAttribute("account", org.apache.shiro.SecurityUtils.getSubject().getPrincipals().oneByType(java.util.Map.class));
+        request.setAttribute("account", org.apache.shiro.SecurityUtils.getSubject().getPrincipals().oneByType(java.util.Map.class));
 
-        %>
-        <c:out value="${account.givenName}"/></shiro:user>!
-        ( <shiro:user><a href="<c:url value="/logout"/>">Log out</a></shiro:user>
-        <shiro:guest><a href="<c:url value="/login.jsp"/>">Log in</a></shiro:guest> )
-    </p>
+    %>
+    <c:out value="${account.givenName}"/></shiro:user>!
+    ( <shiro:user><a href="<c:url value="/logout"/>">Log out</a></shiro:user>
+    <shiro:guest><a href="<c:url value="/login.jsp"/>">Log in</a></shiro:guest> )
+</p>
 
-    <p>Willkommen auf der Homepage von SFB Farbige Zustande</p>
+<p>Willkommen auf der Homepage von SFB Farbige Zustande</p>
 
-    <shiro:authenticated><p>Besuchen sie ihr <a href="<c:url value="/account"/>">Profil</a>.</p></shiro:authenticated>
-    <shiro:notAuthenticated><p>Falls sie zugriff auf den gesicherten Bereich brauchen <a href="<c:url value="/account"/>">Anmelden</a></p></shiro:notAuthenticated>
+<shiro:authenticated><p>Besuchen sie ihr <a href="<c:url value="/account"/>">Profil</a>.</p></shiro:authenticated>
+<shiro:notAuthenticated><p>Falls sie zugriff auf den gesicherten Bereich brauchen <a href="<c:url value="/account"/>">Anmelden</a>
+</p></shiro:notAuthenticated>
 
-    <h2>Roles</h2>
+<h2>Roles</h2>
 
-    <p>Hier sind die Rollen die sie haben, sowie die Rollen die Sie nicht haben.</p>
+<p>Hier sind die Rollen die sie haben, sowie die Rollen die Sie nicht haben.</p>
 
-    <h3>Ihre Rollen:</h3>
+<h3>Ihre Rollen:</h3>
 
-    <p>
-        <shiro:hasRole name="Captains">Captains<br/></shiro:hasRole>
-        <shiro:hasRole name="Officers">Bad Guys<br/></shiro:hasRole>
-        <shiro:hasRole name="Enlisted">Enlisted<br/></shiro:hasRole>
-    </p>
+<p>
+    <shiro:hasRole name="Captains">Captains<br/></shiro:hasRole>
+    <shiro:hasRole name="Officers">Bad Guys<br/></shiro:hasRole>
+    <shiro:hasRole name="Enlisted">Enlisted<br/></shiro:hasRole>
+</p>
 
-    <h3>Rollen die Sie nicht haben:</h3>
+<h3>Rollen die Sie nicht haben:</h3>
 
-    <p>
-        <shiro:lacksRole name="Captains">Captains<br/></shiro:lacksRole>
-        <shiro:lacksRole name="Officers">Officers<br/></shiro:lacksRole>
-        <shiro:lacksRole name="Enlisted">Enlisted<br/></shiro:lacksRole>
-    </p>
+<p>
+    <shiro:lacksRole name="Captains">Captains<br/></shiro:lacksRole>
+    <shiro:lacksRole name="Officers">Officers<br/></shiro:lacksRole>
+    <shiro:lacksRole name="Enlisted">Enlisted<br/></shiro:lacksRole>
+</p>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://code.jquery.com/jquery.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+<![endif]-->
 </body>
 </html>
