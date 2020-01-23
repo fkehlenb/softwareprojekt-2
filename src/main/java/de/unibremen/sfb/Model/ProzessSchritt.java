@@ -3,6 +3,10 @@ package de.unibremen.sfb.Model;
 import lombok.Data;
 import lombok.NonNull;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
+
 /** Data class for process chain steps */
 @Data
 public class ProzessSchritt {
@@ -14,9 +18,10 @@ public class ProzessSchritt {
     /** Whether or not the process step has been uploaded */
     public boolean uploaded;
 
+    /**
     /** The experimenting station where the current process step is being carried out */
-    @NonNull
     public ExperimentierStation current;
+
 
     /** The state Automaton for the process step */
     @NonNull
@@ -27,7 +32,7 @@ public class ProzessSchritt {
 
     /** The process step's log */
     @NonNull
-    public ProzessSchrittLog prozessSchrittLog;
+    public Set<ProzessSchrittLog> prozessSchrittLog;
 
     /** The process step template the process step was created from */
     @NonNull
@@ -35,4 +40,19 @@ public class ProzessSchritt {
 
     /** The containers that are used in the process step */
     public Traeger traeger;
+
+    public ProzessSchritt(int psID, ProzessSchrittZustandsAutomat zustandsAutomat,
+                          ProzessSchrittVorlage prozessSchritVorlage,
+                          ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage) {
+        this.psID = psID;
+        this.zustandsAutomat = zustandsAutomat;
+        this.prozessSchrittVorlage = prozessSchritVorlage;
+        this.zustandsAutomat = new ProzessSchrittZustandsAutomat(prozessSchrittZustandsAutomatVorlage);
+        this.uploaded = false;
+        ProzessSchrittLog logStart = new ProzessSchrittLog("Angenommen");
+        this.prozessSchrittLog =  new HashSet<ProzessSchrittLog>();
+        this.prozessSchrittLog.add(logStart);
+
+
+    }
 }

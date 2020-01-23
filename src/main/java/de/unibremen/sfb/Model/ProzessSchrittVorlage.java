@@ -39,4 +39,18 @@ public class ProzessSchrittVorlage {
     /** The user who created this template */
     @NonNull
     public User creator;
+
+    public ProzessSchrittParameter prozessSchrittParameter;
+
+    public ProzessSchrittVorlage(int psVID, Duration dauer, ProzessSchrittArt psArt, Set<ExperimentierStation> stationen,
+                                 ProzessSchrittZustandsAutomatVorlage zustandsAutomat, User creator,
+                                 ProzessSchrittParameter prozessSchrittParameter) {
+        this.psVID = psVID;
+        this.dauer = dauer;
+        this.psArt = psArt;
+        this.stationen = stationen;
+        this.zustandsAutomat = zustandsAutomat;
+        this.creator = creator;
+        this.prozessSchrittParameter = prozessSchrittParameter;
+    }
 }

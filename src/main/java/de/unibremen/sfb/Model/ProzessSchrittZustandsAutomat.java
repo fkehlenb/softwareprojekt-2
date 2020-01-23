@@ -14,4 +14,10 @@ public class ProzessSchrittZustandsAutomat {
     /** The process step state automaton template the automaton was created from (containing all possible states) */
     @NonNull
     public ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage;
+
+    public ProzessSchrittZustandsAutomat(ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage) {
+        this.prozessSchrittZustandsAutomatVorlage = prozessSchrittZustandsAutomatVorlage;
+        this.current = "Angenommen";
+    }
+
 }
