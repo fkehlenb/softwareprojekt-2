@@ -54,7 +54,7 @@ public class User {
     public Set<ExperimentierStation> stationen;
 
     /** The jobs a user has */
-    @NonNull
+
     public Set<Auftrag> auftraege;
 
     /** The User's language preference */
