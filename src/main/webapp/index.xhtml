@@ -21,8 +21,8 @@
                 <h1 style="color: cornflowerblue">Wilkommen zum SFB - Farbige Zustände!</h1>
                 <p>Um sich Einzuloggen, geben sie bitte ihre details ein!</p>
                 <h2 style="color: cornflowerblue">Login</h2>
-                <p:inputText placeholder="Username" required="true" requiredMessage="Bitte Benutzername angeben!"/>
-                <p:password placeholder="Password" required="true" requiredMessage="Bitte Passwort angeben!"/>
+                <p:inputText placeholder="Username" value="#{indexBean.username}" required="true" requiredMessage="Bitte Benutzername angeben!"/>
+                <p:password placeholder="Password" value="#{indexBean.password}" required="true" requiredMessage="Bitte Passwort angeben!"/>
                 <p:commandButton ajax="false" value="Login" action="#{indexBean.login}" style="width: auto"/>
                 <p>Forgot password? <a href="_blank">Reset Password</a></p>
                 <p>New User? <a href="_blank">Register Now</a></p>
