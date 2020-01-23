@@ -1,9 +1,18 @@
 package de.unibremen.sfb.controller;
 
+<<<<<<< HEAD:src/main/java/de/unibremen/sfb/controller/AdminBean.java
+=======
+
+>>>>>>> newBranch:src/main/java/de/unibremen/sfb/Controller/AdminBean.java
 import de.unibremen.sfb.model.Auftrag;
 import de.unibremen.sfb.model.ExperimentierStation;
 import de.unibremen.sfb.model.TraegerArt;
 import de.unibremen.sfb.model.User;
+<<<<<<< HEAD:src/main/java/de/unibremen/sfb/controller/AdminBean.java
+=======
+import lombok.Getter;
+import lombok.Setter;
+>>>>>>> newBranch:src/main/java/de/unibremen/sfb/Controller/AdminBean.java
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;

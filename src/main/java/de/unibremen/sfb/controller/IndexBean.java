@@ -1,8 +1,11 @@
 package de.unibremen.sfb.controller;
+<<<<<<< HEAD:src/main/java/de/unibremen/sfb/controller/IndexBean.java
 
 import de.unibremen.sfb.persistence.UserDAO;
 import lombok.Getter;
 import lombok.Setter;
+=======
+>>>>>>> newBranch:src/main/java/de/unibremen/sfb/Controller/IndexBean.java
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
