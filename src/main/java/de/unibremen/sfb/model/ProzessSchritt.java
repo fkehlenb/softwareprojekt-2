@@ -3,15 +3,23 @@ package de.unibremen.sfb.model;
 import lombok.Data;
 import lombok.NonNull;
 
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import java.util.HashSet;
 import java.util.Set;
 
 /** Data class for process chain steps */
 @Data
+//TODO @Entity
+@NamedQueries({
+        @NamedQuery(name = "ProzessSchritt.getByEs",
+                query = "SELECT ps FROM ProzessSchritt ps WHERE ps.current = :experimentierStation")
+})
 public class ProzessSchritt {
 
     /** The process step id */
     @NonNull
+    //TODO @Id
     public int psID;
 
     /** Whether or not the process step has been uploaded */

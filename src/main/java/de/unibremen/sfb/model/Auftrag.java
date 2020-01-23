@@ -3,13 +3,17 @@ package de.unibremen.sfb.model;
 import lombok.Data;
 import lombok.NonNull;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.util.Set;
 
 /**
  * Job data class
  */
 @Data
+@Entity
 public class Auftrag {
 
     /**
@@ -23,6 +27,7 @@ public class Auftrag {
      * The process chain template this job was created from
      */
     @NonNull
+    @OneToOne
     public ProzessKettenVorlage vorlage;
 
     /**
@@ -35,12 +40,14 @@ public class Auftrag {
      * The job's process steps TODO hier ID
      */
     @NonNull
+    @OneToMany
     public Set<ProzessSchritt> prozessSchritte;
 
     /**
      * The job's log
      */
     @NonNull
+    @OneToOne
     public AuftragsLog log;
 
     /**
@@ -52,6 +59,7 @@ public class Auftrag {
     /**
      * The user assigned to the job
      */
+    @OneToOne
     public User assigned;
 
     public Auftrag(ProzessKettenVorlage vorlage, Enum<AuftragsPrioritaet> priority, AuftragsLog log) {

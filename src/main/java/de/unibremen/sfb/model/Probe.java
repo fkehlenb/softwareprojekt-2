@@ -4,18 +4,30 @@ import lombok.Data;
 import lombok.NonNull;
 import org.apache.commons.lang3.tuple.Pair;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import java.util.Set;
 
 /** Sample object data class */
 @Data
+@Entity
+@NamedQueries({
+        @NamedQuery(name = "Probe.getByLocation",
+                query = "SELECT p FROM Probe p WHERE p.standort = :standort"),
+        @NamedQuery(name = "Probe.getByTraeger",
+                query = "SELECT p FROM Probe p WHERE p.currentTraeger = :traeger")
+})
 public class Probe {
 
     public Probe() {
-    // FIXME Warum alles public. wie genau zugreifen
+        /* JPA */
     }
 
     /** The sample's id */
     @NonNull
+    @Id
     public int probenID;
 
     /** Comment added to the sample and when it was added */

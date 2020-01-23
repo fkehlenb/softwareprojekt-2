@@ -3,6 +3,7 @@ package de.unibremen.sfb.model;
 import lombok.Data;
 import lombok.NonNull;
 
+import javax.persistence.Entity;
 import java.time.LocalDateTime;
 
 /** Job log data class */
