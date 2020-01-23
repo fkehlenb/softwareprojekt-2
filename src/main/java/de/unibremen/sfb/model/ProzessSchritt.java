@@ -59,7 +59,7 @@ public class ProzessSchritt {
         this.zustandsAutomat = new ProzessSchrittZustandsAutomat(prozessSchrittZustandsAutomatVorlage);
         this.uploaded = false;
         ProzessSchrittLog logStart = new ProzessSchrittLog("Angenommen");
-        this.prozessSchrittLog =  new HashSet<ProzessSchrittLog>();
+        this.prozessSchrittLog = new HashSet<>();
         this.prozessSchrittLog.add(logStart);
 
 
