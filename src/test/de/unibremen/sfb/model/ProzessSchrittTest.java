@@ -39,4 +39,11 @@ class ProzessSchrittTest {
 
         System.out.println(jsonb.toJson(ps.prozessSchrittLog));
     }
+
+    @Test
+    String outputJSON() {
+        setUp();
+        Jsonb jsonb = JsonbBuilder.create();
+        return jsonb.toJson(ps);
+    }
 }

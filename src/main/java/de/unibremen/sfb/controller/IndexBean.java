@@ -1,5 +1,8 @@
 package de.unibremen.sfb.controller;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
+
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -14,26 +17,15 @@ import java.io.Serializable;
 @Named
 public class IndexBean implements Serializable {
 
-    /**
-     * username will be saved here once entered
-     */
-    String username;
+    // Define the Subject
+    private Subject subject = SecurityUtils.getSubject();
 
     /**
-     * password will be saved here once entered by user
+     * Return the Subject
+     * @return current Security Subject
      */
-    String password;
-
-    /**
-     * login with the values in username and password
-     */
-    public void login() {
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("technologe.xhtml");
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+    public Subject getSubject() {
+        return subject;
     }
 
     /**
@@ -53,27 +45,4 @@ public class IndexBean implements Serializable {
      */
     public IndexBean() {}
 
-    /**
-     * returns the username
-     * @return the username
-     */
-    public String getUsername() { return username; }
-
-    /**
-     * sets the username
-     * @param username the username
-     */
-    public void setUsername(String username) { this.username = username; }
-
-    /**
-     * returns the password
-     * @return the password
-     */
-    public String getPasswort() { return password; }
-
-    /**
-     * sets the password
-     * @param password the password
-     */
-    public void setPassword(String password) { this.password = password; }
 }

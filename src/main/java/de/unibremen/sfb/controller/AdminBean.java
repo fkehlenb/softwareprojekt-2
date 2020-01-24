@@ -6,6 +6,9 @@ import de.unibremen.sfb.model.TraegerArt;
 import de.unibremen.sfb.model.User;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.ConnectionBuilder;
+import java.sql.DriverManager;
 import java.util.Set;
 
 /**
@@ -105,7 +108,15 @@ public class AdminBean implements Serializable {
     /**
      * backs the system up
      */
-    public void backup() {}
+    public void backup() {
+        try {
+            Connection conn = DriverManager.getConnection("jdbc:h2fir:~/test", "sa", "");
+            conn.prepareStatement("BACKUP TO 'myFile.zip'").executeLargeUpdate();
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+
+    }
 
     /**
      * the emtpy constructor
