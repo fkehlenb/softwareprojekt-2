@@ -17,15 +17,19 @@
         <ui:include src="/WEB-INF/common/header.xhtml"/>
     </ui:insert>
 
-    <h1 style="color: cornflowerblue">Wilkommen zu den Farbigen Zuständen der Datacolorados!</h1>
+    <h1 style="color: cornflowerblue">Wilkommen zum Farbigen SFB!</h1>
     <p>Um sich Einzuloggen, geben sie bitte ihre details ein!</p>
     <p>Hi <shiro:guest>Guest</shiro:guest><shiro:user> <h:outputText value="#{indexBean.subject}"/> </shiro:user>!</p>
 
     <pre>
-    principal = <h:outputText value="#{indexBean.subject.principal}"/>
-    session = <h:outputText value="#{indexBean.subject.session}"/>
-    role user = <h:outputText value="#{indexBean.subject.hasRole('user')}"/>
-    role admin = <h:outputText value="#{indexBean.subject.hasRole('admin')}"/>
+        principal = <h:outputText value="#{indexBean.subject.principal}"/>
+        session = <h:outputText value="#{indexBean.subject.session}"/>
+        role user = <h:outputText value="#{indexBean.subject.hasRole('user')}"/>
+        role admin = <h:outputText value="#{indexBean.subject.hasRole('admin')}"/>
+        role pkAdmin = <h:outputText value="#{indexBean.subject.hasRole('pkAdmin')}"/>
+        role logistik = <h:outputText value="#{indexBean.subject.hasRole('logistik')}"/>
+        role technologe = <h:outputText value="#{indexBean.subject.hasRole('technologe')}"/>
+        role transport = <h:outputText value="#{indexBean.subject.hasRole('transport')}"/>
     </pre>
 
     <shiro:authenticated>Besuchen sie ihr <a href="./technologe.xhtml">Profil</a> </shiro:authenticated>
