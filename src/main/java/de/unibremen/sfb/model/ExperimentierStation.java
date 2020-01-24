@@ -1,7 +1,6 @@
 package de.unibremen.sfb.model;
 
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Queue;
@@ -16,28 +15,30 @@ import java.util.Set;
         @NamedQuery(name = "ExperimentierStation.getByStatus",
                 query = "SELECT es FROM ExperimentierStation es WHERE es.status = :status")
 })
+@RequiredArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ExperimentierStation {
 
     /** The station's id */
     @NonNull
     @Id
-    public int esID;
+    private int esID;
 
     /** The station's location */
     @NonNull
     @ManyToOne
-    public Standort standort;
+    private Standort standort;
 
     /** The station's status */
     @NonNull
-    public Enum<ExperimentierStationZustand> status;
+    private Enum<ExperimentierStationZustand> status;
 
+    //TODO
     /** The queue currently being processed at the experimenting station */
-    @NonNull
-    @ManyToOne
-    public Queue<ProzessSchritt> nextPS;
+//    @NonNull
+//    private Queue<ProzessSchritt> nextPS;
 
     /** Conditions for using an experimenting station */
     @OneToMany
-    public Set<Bedingung> bedingungen;
+    private Set<Bedingung> bedingungen;
 }

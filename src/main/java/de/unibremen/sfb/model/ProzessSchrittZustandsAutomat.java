@@ -1,25 +1,29 @@
 package de.unibremen.sfb.model;
 
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /** Data class for process step state automatons */
-@Data
+@Getter
+@Setter
+@Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor
 public class ProzessSchrittZustandsAutomat {
+
+    @Id @GeneratedValue
+    private int id;
 
     /** The state the automaton is currently in */
     @NonNull
-    public String current;
+    private String current;
 
     /** The process step state automaton template the automaton was created from (containing all possible states) */
     @NonNull
-    public ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage;
-
-    public ProzessSchrittZustandsAutomat(ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage) {
-        this.prozessSchrittZustandsAutomatVorlage = prozessSchrittZustandsAutomatVorlage;
-        this.current = "Angenommen";
-    }
-
+    @OneToOne
+    private ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage;
 }

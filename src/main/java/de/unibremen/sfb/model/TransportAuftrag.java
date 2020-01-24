@@ -1,15 +1,23 @@
 package de.unibremen.sfb.model;
 
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 /** The transport jobs' data class */
-@Data
+@Getter
+@Setter
+@Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor
 public class TransportAuftrag {
+
+    @Id @GeneratedValue
+    private int id;
 
     /** The transport job's current state */
     @NonNull
-    public Enum<TransportAuftragZustand> zustandsAutomat;
+    private Enum<TransportAuftragZustand> zustandsAutomat;
 }

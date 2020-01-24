@@ -1,11 +1,9 @@
 package de.unibremen.sfb.model;
 
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import java.util.Set;
+import javax.persistence.*;
+import java.util.List;
 
 /** Data class for the process chain templates */
 @Data
@@ -13,19 +11,23 @@ import java.util.Set;
         @NamedQuery(name = "PKV.getByUser",
                 query = "SELECT pkv FROM ProzessKettenVorlage pkv WHERE pkv.creator = :user")
 })
-//TODO @Entity
+@Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor
 public class ProzessKettenVorlage {
 
     /** The process chain template id */
-    //TODO @Id
+    @Id
     @NonNull
-    public int pkID;
+    private int pkID;
 
     /** The process chain template's process steps (as templates hence not yet instantiated) */
     @NonNull
-    public Set<ProzessSchrittVorlage> prozessSchrittVorlagen;
+    @OneToMany
+    private List<ProzessSchrittVorlage> prozessSchrittVorlagen;
 
     /** The user who created this template */
     @NonNull
-    public User creator;
+    @OneToOne
+    private User creator;
 }

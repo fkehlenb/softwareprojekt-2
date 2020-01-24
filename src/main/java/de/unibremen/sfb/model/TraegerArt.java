@@ -1,21 +1,23 @@
 package de.unibremen.sfb.model;
 
-import lombok.Data;
+import lombok.*;
 
-import javax.persistence.Entity;
-import java.util.Set;
+import javax.persistence.*;
+import java.util.List;
 
 /** This class is the data class for container types */
-@Data
+@Getter
+@Setter
+@Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TraegerArt {
+
+    @Id @GeneratedValue
+    private int id;
 
     /**
      * List containing all container types
      */
-    public Set<String> arten;
-
-    public TraegerArt(Set<String> arten) {
-        this.arten = arten;
-    }
-
+    @ElementCollection
+    private List<String> arten;
 }

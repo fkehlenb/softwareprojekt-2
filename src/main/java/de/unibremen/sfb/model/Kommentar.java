@@ -1,21 +1,25 @@
 package de.unibremen.sfb.model;
 
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
+@Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor
 public class Kommentar {
 
-    @NonNull
-    public LocalDateTime dateTime;
+    @Id @GeneratedValue
+    private int id;
 
     @NonNull
-    public String text;
+    private LocalDateTime dateTime;
 
-    public Kommentar(LocalDateTime dateTime, String text) {
-        this.dateTime = dateTime;
-        this.text = text;
-    }
+    @NonNull
+    private String text;
 }

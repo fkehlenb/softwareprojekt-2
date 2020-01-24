@@ -1,56 +1,56 @@
 package de.unibremen.sfb.model;
 
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 
+import javax.persistence.*;
 import java.time.Duration;
-import java.util.Set;
+import java.util.List;
 
 /** Data class for the process step templates */
 @Data
+@Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor
 public class ProzessSchrittVorlage {
 
     /** Process step template id */
     @NonNull
-    public int psVID;
+    @Id
+    private int psVID;
 
     /** Duration of the process step template */
     @NonNull
-    public Duration dauer;
+    private Duration dauer;
 
     /** Accepted container input types */
-    public Set<TraegerArt> eingabeTraeger;
+    @OneToMany
+    private List<TraegerArt> eingabeTraeger;
 
     /** Accepted container output types */
-    public Set<TraegerArt> ausgabeTraeger;
+    @OneToMany
+    private List<TraegerArt> ausgabeTraeger;
 
     /** The process step type */
     @NonNull
-    public ProzessSchrittArt psArt;
+    private ProzessSchrittArt psArt;
 
     /** The experimenting stations accepted in the process step template */
     @NonNull
-    public Set<ExperimentierStation> stationen;
+    @OneToMany
+    private List<ExperimentierStation> stationen;
 
     /** The process step template's state automaton template */
     @NonNull
-    public ProzessSchrittZustandsAutomatVorlage zustandsAutomat;
+    @OneToOne
+    private ProzessSchrittZustandsAutomatVorlage zustandsAutomat;
 
     /** The user who created this template */
     @NonNull
-    public User creator;
+    @OneToOne
+    private User creator;
 
-    public ProzessSchrittParameter prozessSchrittParameter;
-
-    public ProzessSchrittVorlage(int psVID, Duration dauer, ProzessSchrittArt psArt, Set<ExperimentierStation> stationen,
-                                 ProzessSchrittZustandsAutomatVorlage zustandsAutomat, User creator,
-                                 ProzessSchrittParameter prozessSchrittParameter) {
-        this.psVID = psVID;
-        this.dauer = dauer;
-        this.psArt = psArt;
-        this.stationen = stationen;
-        this.zustandsAutomat = zustandsAutomat;
-        this.creator = creator;
-        this.prozessSchrittParameter = prozessSchrittParameter;
-    }
+    /** The process step parameters */
+    @NonNull
+    @OneToOne
+    private ProzessSchrittParameter prozessSchrittParameter;
 }

@@ -1,12 +1,9 @@
 package de.unibremen.sfb.model;
 
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -14,6 +11,8 @@ import java.util.Set;
  */
 @Data
 @Entity
+@RequiredArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Auftrag {
 
     /**
@@ -21,51 +20,44 @@ public class Auftrag {
      */
     @NonNull
     @Id
-    public int pkID;
+    private int pkID;
 
     /**
      * The process chain template this job was created from
      */
     @NonNull
     @OneToOne
-    public ProzessKettenVorlage vorlage;
+    private ProzessKettenVorlage vorlage;
 
     /**
      * The job's priority
      */
     @NonNull
-    public Enum<AuftragsPrioritaet> priority;
+    private Enum<AuftragsPrioritaet> priority;
 
     /**
      * The job's process steps TODO hier ID
      */
     @NonNull
     @OneToMany
-    public Set<ProzessSchritt> prozessSchritte;
+    private List<ProzessSchritt> prozessSchritte;
 
     /**
      * The job's log
      */
     @NonNull
     @OneToOne
-    public AuftragsLog log;
+    private AuftragsLog log;
 
     /**
      * The job's state automaton
      */
     @NonNull
-    public Enum<ProzessKettenZustandsAutomat> prozessKettenZustandsAutomat;
+    private Enum<ProzessKettenZustandsAutomat> prozessKettenZustandsAutomat;
 
     /**
      * The user assigned to the job
      */
     @OneToOne
-    public User assigned;
-
-    public Auftrag(ProzessKettenVorlage vorlage, Enum<AuftragsPrioritaet> priority, AuftragsLog log) {
-        this.vorlage = vorlage;
-        this.priority = priority;
-        this.log = log;
-        this.prozessKettenZustandsAutomat = ProzessKettenZustandsAutomat.INSTANZIIERT;
-    }
+    private User assigned;
 }

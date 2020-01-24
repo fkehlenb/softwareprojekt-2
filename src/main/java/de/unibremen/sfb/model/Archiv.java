@@ -1,18 +1,26 @@
 package de.unibremen.sfb.model;
 
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
+@Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor
 /** Achive data class */
 public class Archiv {
 
+    @Id @GeneratedValue
+    private int id;
+
     /** The job that has been archived */
     @NonNull
-    public Auftrag auftrag;
+    @OneToOne
+    private Auftrag auftrag;
 
     /** The date the job has been archived */
-    public LocalDateTime datum;
+    private LocalDateTime datum;
 }

@@ -1,21 +1,24 @@
 package de.unibremen.sfb.model;
 
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 /** The location data class */
-@Data
+@Getter
+@Setter
+@Entity
+@RequiredArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Standort {
+
+    @Id @GeneratedValue
+    private int id;
 
     /** The location */
     @NonNull
-    @ManyToOne
-    public String ort;
-
-
-    public Standort(String ort) {
-        this.ort = ort;
-    }
+    private String ort;
 }

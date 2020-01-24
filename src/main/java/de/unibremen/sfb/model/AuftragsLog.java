@@ -1,29 +1,33 @@
 package de.unibremen.sfb.model;
 
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 /** Job log data class */
-@Data
+@Getter
+@Setter
+@Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor
 public class AuftragsLog {
 
-    /** Creation DAte */
+    @Id @GeneratedValue
+    private int id;
+
+    /** Creation Date */
     @NonNull
-    public LocalDateTime erstellt;
+    private LocalDateTime erstellt;
 
     /** Start date/time */
-    public LocalDateTime start;
+    private LocalDateTime start;
 
     /** End date/time */
-    public LocalDateTime beendet;
+    private LocalDateTime beendet;
 
     /** When the job was archived */
-    public LocalDateTime archiviert;
-
-    public AuftragsLog() {
-        this.erstellt = LocalDateTime.now();
-    }
+    private LocalDateTime archiviert;
 }

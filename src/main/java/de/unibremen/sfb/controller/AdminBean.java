@@ -12,6 +12,7 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -67,23 +68,22 @@ public class AdminBean implements Serializable {
      *   the new user
      */
     public void login() {
-        User user = new User();
+        User user = new User(Integer.parseInt(id),vorname,nachname,email,telefonNummer,userName,password.getBytes(),true,new Date(), List.of(Role.TECHNOLOGE),null,language);
         try {
-        user.id = Integer.parseInt(id);
-        user.vorname = vorname;
-        user.nachname = nachname;
-        user.email = email;
-        user.telefonnummer = telefonNummer;
-        user.username = userName;
-        var pw = "12345678";
-        user.password = pw.getBytes();
-        user.wurdeVerifiziert = Boolean.parseBoolean(wurdeVerifiziert);
-        user.erstellungsDatum = new Date();
-        a.add(Role.TECHNOLOGE);
-        //user.rollen = a;
-        user.language = language;
-
-            userDAO.persist(user);
+//        user.setId(Integer.parseInt(id));
+//        user.setVorname(vorname);
+//        user.setNachname(nachname);
+//        user.email = email;
+//        user.telefonnummer = telefonNummer;
+//        user.username = userName;
+//        var pw = "12345678";
+//        user.password = pw.getBytes();
+//        user.wurdeVerifiziert = Boolean.parseBoolean(wurdeVerifiziert);
+//        user.erstellungsDatum = new Date();
+//        a.add();
+//        //user.rollen = a;
+//        user.language = language;
+        userDAO.persist(user);
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -95,7 +95,7 @@ public class AdminBean implements Serializable {
      */
     public String findUser() throws UserNotFoundException {
         try {
-            return userDAO.getUserById(11).username;
+            return userDAO.getUserById(11).getUsername();
         }catch(Exception e){
 
         }

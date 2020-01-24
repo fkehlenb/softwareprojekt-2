@@ -55,6 +55,13 @@ public class ArchivDAO extends ObjectDAO<Archiv> {
      * @return the archive with an id matching the entered one
      * @throws ArchivNotFoundException if the archive couldn't be found in the database */
     public Archiv getObjById(int id) throws ArchivNotFoundException{
-        return null;
+        if (id==0){
+            throw new ArchivNotFoundException();
+        }
+        Archiv a = em.find(get(),id);
+        if (a==null){
+            throw new ArchivNotFoundException();
+        }
+        return a;
     }
 }

@@ -1,25 +1,29 @@
 package de.unibremen.sfb.model;
 
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 
+import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /** The process chain step parameter's data class  */
-@Data
+@Getter
+@Setter
+@Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor
 public class ProzessSchrittParameter {
+
+    @Id @GeneratedValue
+    private int id;
 
     /** The process step parameter's name */
     @NonNull
-    public String name;
+    private String name;
 
     /** The qualitative/quantitative descriptors creating this process step parameter */
     @NonNull
-    public Set<QualitativeEigenschaft> qualitativeEigenschaften;
-
-    public ProzessSchrittParameter(String name, HashSet<QualitativeEigenschaft> qualitativeEigenschaften) {
-        this.name = name;
-        this.qualitativeEigenschaften = qualitativeEigenschaften;
-    }
+    @ManyToMany
+    private List<QualitativeEigenschaft> qualitativeEigenschaften;
 }

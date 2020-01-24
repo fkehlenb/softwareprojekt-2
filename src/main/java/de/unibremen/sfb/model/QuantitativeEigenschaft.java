@@ -1,25 +1,24 @@
 package de.unibremen.sfb.model;
 
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 import si.uom.SI;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /** The quantitative descriptor data class */
-@Data
+@Getter
+@Setter
+@Entity
 public class QuantitativeEigenschaft extends QualitativeEigenschaft {
 
     /** The numeric quantitative value  */
     @NonNull
-    public Number wert;
+    private Number wert;
 
     /** The quantitative descriptor value's measuring unit */
-    @NonNull
-    public SI einheit;
-
-    public QuantitativeEigenschaft(String name) {
-        super(name);
-    }
+    //TODO
+//    @NonNull
+//    @Basic
+//    @OneToOne
+//    private SI einheit;
 }

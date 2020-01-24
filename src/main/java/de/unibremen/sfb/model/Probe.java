@@ -1,14 +1,9 @@
 package de.unibremen.sfb.model;
 
-import lombok.Data;
-import lombok.NonNull;
-import org.apache.commons.lang3.tuple.Pair;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import java.util.Set;
+import javax.persistence.*;
+import java.util.List;
 
 /** Sample object data class */
 @Data
@@ -19,32 +14,34 @@ import java.util.Set;
         @NamedQuery(name = "Probe.getByTraeger",
                 query = "SELECT p FROM Probe p WHERE p.currentTraeger = :traeger")
 })
+@RequiredArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Probe {
-
-    public Probe() {
-        /* JPA */
-    }
 
     /** The sample's id */
     @NonNull
     @Id
-    public int probenID;
+    private int probenID;
 
     /** Comment added to the sample and when it was added */
-    public Kommentar kommentar;
+    @OneToOne
+    private Kommentar kommentar;
 
     /** The sample's state */
     @NonNull
-    public Enum<ProbenZustand> zustand;
+    private Enum<ProbenZustand> zustand;
 
     /** The sample's location */
     @NonNull
-    public Standort standort;
+    @OneToOne
+    private Standort standort;
 
     /** The qualitative/quantitative descriptors of the sample */
-    public Set<QualitativeEigenschaft> qualitativeEigenschaften;
+    @OneToMany
+    private List<QualitativeEigenschaft> qualitativeEigenschaften;
 
     /** The container the sample is currently located in */
-    public Traeger currentTraeger;
+    @OneToOne
+    private Traeger currentTraeger;
 }
 
