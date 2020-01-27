@@ -6,9 +6,8 @@ import de.unibremen.sfb.model.TraegerArt;
 import de.unibremen.sfb.model.User;
 
 import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.ConnectionBuilder;
-import java.sql.DriverManager;
+import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 /**
@@ -108,14 +107,11 @@ public class AdminBean implements Serializable {
     /**
      * backs the system up
      */
-    public void backup() {
-        try {
-            Connection conn = DriverManager.getConnection("jdbc:h2fir:~/test", "sa", "");
-            conn.prepareStatement("BACKUP TO 'myFile.zip'").executeLargeUpdate();
-        } catch (Exception e) {
-            System.err.println(e);
-        }
-
+    public void backup() throws SQLException {
+        String sqlFilePath = "./Backup" + LocalDateTime.now().toString();
+        Connection conn = DriverManager.getConnection("jdbc:h2fir:~/test", "sa", "");
+        Statement stmt = conn.createStatement();
+        stmt.executeQuery(String.format("SCRIPT TO '%s'", sqlFilePath));
     }
 
     /**
@@ -135,4 +131,3 @@ public class AdminBean implements Serializable {
      */
     public void setUser(User admin) { this.admin = admin; }
 }
-

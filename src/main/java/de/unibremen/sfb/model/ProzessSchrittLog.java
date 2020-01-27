@@ -2,11 +2,13 @@ package de.unibremen.sfb.model;
 
 import lombok.Data;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 
 /** Data class for the process chain step log */
 @Data
+@RequiredArgsConstructor
 public class ProzessSchrittLog {
 
     /** The process step log's start time/date */
@@ -20,8 +22,4 @@ public class ProzessSchrittLog {
     @NonNull
     public String zustandsAutomat;
 
-    public ProzessSchrittLog(String zustand){
-        this.zustandsAutomat = zustand;
-        this.gestartet = LocalDateTime.now();
-    }
 }

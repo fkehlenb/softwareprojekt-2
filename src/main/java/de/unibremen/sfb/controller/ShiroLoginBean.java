@@ -1,16 +1,17 @@
-/**
+package de.unibremen.sfb.controller; /**
  * Very simple bean that authenticates the user via Apache Shiro, using JSF
  * @author Daniel Mascarenhas
  */
-package org.example.shiro.bean.security;
 
+
+import lombok.extern.java.Log;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.ejb.Stateless;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -19,10 +20,10 @@ import java.io.IOException;
 import java.io.Serializable;
 
 @Named
-@Stateless
-@ViewScoped
+@RequestScoped
+@Slf4j  // WICHTIG TODO nicht @Log sondern @slf4j
 public class ShiroLoginBean implements Serializable {
-    private static final Logger log = LoggerFactory.getLogger(ShiroLoginBean.class);
+//    private static final Logger log = LoggerFactory.getLogger(ShiroLoginBean.class);
 
     private String username;
     private String password;
@@ -34,6 +35,7 @@ public class ShiroLoginBean implements Serializable {
     /**
      * Try and authenticate the user
      */
+
     public void doLogin() {
         Subject subject = SecurityUtils.getSubject();
 
@@ -51,7 +53,7 @@ public class ShiroLoginBean implements Serializable {
         }
         catch (UnknownAccountException ex) {
             facesError("Unknown account");
-            log.error(ex.getMessage(), ex);
+            log.error("Something else is wrong here");
         }
         catch (IncorrectCredentialsException ex) {
             facesError("Wrong password");

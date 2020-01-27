@@ -11,7 +11,7 @@
     <h:form prependId="false">
         <h:panelGrid columns="2">
             <h:outputText value="Login:"/>
-            <p:inputText id="username" required="true" value="#{shiroLoginBean.username}"/>
+            <p:inputText id="username" required="true" value="#{shiroLoginBean.username}"/> <!-- Binding -->
 
             <h:outputText value="Password:"/>
             <p:password id="password" required="true" value="#{shiroLoginBean.password}"/>
@@ -20,7 +20,7 @@
             <p:selectBooleanCheckbox id="rememberMe" value="#{shiroLoginBean.rememberMe}"/>
 
             <h:outputText/>
-            <p:commandButton value="Login" action="#{shiroLoginBean.doLogin}" />
+            <p:commandButton value="Login" action="#{shiroLoginBean.doLogin}" />  <!-- hier wird dann benutzt -->
         </h:panelGrid>
 
         <p:messages id="messages" autoUpdate="true" closable="true" />

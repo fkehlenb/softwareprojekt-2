@@ -1,6 +1,8 @@
 package de.unibremen.sfb.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import java.util.ArrayList;
@@ -8,6 +10,8 @@ import java.util.List;
 
 /** Data class for the process step automaton templates */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProzessSchrittZustandsAutomatVorlage {
 
     /** The states the process step automatons can be in */
