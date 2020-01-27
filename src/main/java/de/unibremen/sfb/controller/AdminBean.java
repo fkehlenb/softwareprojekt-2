@@ -10,9 +10,13 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.Date;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -20,6 +24,8 @@ import java.util.Set;
  */
 @Named
 @RequestScoped
+@Getter
+@Setter
 public class AdminBean implements Serializable {
 
     /**
@@ -62,32 +68,11 @@ public class AdminBean implements Serializable {
      */
     public Set<User> getAllUser() { return null; }
 
-
     /**
      * Adds a new User to the System
-     *   the new user
+     * @param user the new user
      */
-    public void login() {
-        User user = new User(Integer.parseInt(id),vorname,nachname,email,telefonNummer,userName,password.getBytes(),true,new Date(), List.of(Role.TECHNOLOGE),null,language);
-        try {
-//        user.setId(Integer.parseInt(id));
-//        user.setVorname(vorname);
-//        user.setNachname(nachname);
-//        user.email = email;
-//        user.telefonnummer = telefonNummer;
-//        user.username = userName;
-//        var pw = "12345678";
-//        user.password = pw.getBytes();
-//        user.wurdeVerifiziert = Boolean.parseBoolean(wurdeVerifiziert);
-//        user.erstellungsDatum = new Date();
-//        a.add();
-//        //user.rollen = a;
-//        user.language = language;
-        userDAO.persist(user);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
+    public void addUser(User user) {}
 
     /**
      * edits a user that already exists
@@ -171,7 +156,12 @@ public class AdminBean implements Serializable {
     /**
      * backs the system up
      */
-    public void backup() {}
+    public void backup() throws SQLException {
+        String sqlFilePath = "./Backup" + LocalDateTime.now().toString();
+        Connection conn = DriverManager.getConnection("jdbc:h2fir:~/test", "sa", "");
+        Statement stmt = conn.createStatement();
+        stmt.executeQuery(String.format("SCRIPT TO '%s'", sqlFilePath));
+    }
 
     /**
      * the emtpy constructor
@@ -180,7 +170,7 @@ public class AdminBean implements Serializable {
 
     /**
      * returns the administrator managed by this bean
-     * @return the usern
+     * @return the user
      */
     public User getAdmin() { return admin; }
 
@@ -189,99 +179,5 @@ public class AdminBean implements Serializable {
      * @param admin the user
      */
     public void setUser(User admin) { this.admin = admin; }
-
-    public void setAdmin(User admin) {
-        this.admin = admin;
-    }
-
-
-
-    public String getVorname() {
-        return vorname;
-    }
-
-    public void setVorname(String vorname) {
-        this.vorname = vorname;
-    }
-
-    public String getNachname() {
-        return nachname;
-    }
-
-    public void setNachname(String nachname) {
-        this.nachname = nachname;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getTelefonNummer() {
-        return telefonNummer;
-    }
-
-    public void setTelefonNummer(String telefonNummer) {
-        this.telefonNummer = telefonNummer;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getWurdeVerifiziert() {
-        return wurdeVerifiziert;
-    }
-
-    public void setWurdeVerifiziert(String wurdeVerifiziert) {
-        this.wurdeVerifiziert = wurdeVerifiziert;
-    }
-
-    public String getErstellungsDatum() {
-        return erstellungsDatum;
-    }
-
-    public void setErstellungsDatum(String erstellungsDatum) {
-        this.erstellungsDatum = erstellungsDatum;
-    }
-
-    public String getRolle() {
-        return rolle;
-    }
-
-    public void setRolle(String rolle) {
-        this.rolle = rolle;
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
 }
 

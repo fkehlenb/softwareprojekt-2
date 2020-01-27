@@ -3,9 +3,7 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /** Data class for process chain steps */
 @Data
@@ -22,6 +20,7 @@ public class ProzessSchritt {
     @NonNull
     @Id
     private int psID;
+
 
     /** Whether or not the process step has been uploaded */
     private boolean uploaded;
@@ -54,4 +53,6 @@ public class ProzessSchritt {
     /** The containers that are used in the process step */
     @OneToOne
     private Traeger traeger;
+
+
 }

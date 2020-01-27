@@ -234,4 +234,9 @@ public class PKAdminBean implements Serializable {
      * @param pkadmin the user
      */
     public void setPkadmin(User pkadmin) { this.pkadmin = pkadmin; }
+
+    /**
+     * Export a chain
+     */
+
 }

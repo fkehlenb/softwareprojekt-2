@@ -1,10 +1,10 @@
 package de.unibremen.sfb.controller;
 
-import de.unibremen.sfb.persistence.UserDAO;
-import lombok.Getter;
-import lombok.Setter;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -13,37 +13,19 @@ import java.io.Serializable;
 /**
  * this class manages the interaction between the gui and the backend system for the initial situation (the first page any visitor sees)
  */
-@RequestScoped
+@SessionScoped
 @Named
 public class IndexBean implements Serializable {
 
-    /**
-     * username will be saved here once entered
-     */
-    @Getter
-    @Setter
-    private String username;
+    // Define the Subject
+    private Subject subject = SecurityUtils.getSubject();
 
     /**
-     * password will be saved here once entered by user
+     * Return the Subject
+     * @return current Security Subject
      */
-    @Getter
-    @Setter
-    private String password;
-
-    @Inject
-    private UserDAO dao;
-
-    /**
-     * login with the values in username and password
-     */
-    public void login() {
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("technologe.xhtml");
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+    public Subject getSubject() {
+        return subject;
     }
 
     /**
@@ -63,27 +45,4 @@ public class IndexBean implements Serializable {
      */
     public IndexBean() {}
 
-    /**
-     * returns the username
-     * @return the username
-     */
-    public String getUsername() { return username; }
-
-    /**
-     * sets the username
-     * @param username the username
-     */
-    public void setUsername(String username) { this.username = username; }
-
-    /**
-     * returns the password
-     * @return the password
-     */
-    public String getPasswort() { return password; }
-
-    /**
-     * sets the password
-     * @param password the password
-     */
-    public void setPassword(String password) { this.password = password; }
 }
