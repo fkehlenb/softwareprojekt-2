@@ -81,7 +81,7 @@ public class TraegerDAO extends ObjectDAO<Traeger> {
      * @throws StandortNotFoundException if the container couldn't be found in the database */
     public List<Traeger> getTraegerByLocation(Standort s) throws StandortNotFoundException{
         try {
-            List<Traeger> set = (List<Traeger>) em.createNamedQuery("Traeger.findByLoc",get()).setParameter("standort",s).getResultList();
+            List<Traeger> set = em.createNamedQuery("Traeger.findByLoc",get()).setParameter("standort",s).getResultList();
             if (set.isEmpty()){
                 throw new StandortNotFoundException();
             }

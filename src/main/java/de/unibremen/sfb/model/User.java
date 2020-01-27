@@ -3,10 +3,10 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * This class is used to create user objects
@@ -82,7 +82,7 @@ public class User {
      */
     @NonNull
     @ElementCollection
-    private List<Role> rollen;
+    private Set<Role> rollen;
 
     /**
      * The experimenting stations a user is assigned to

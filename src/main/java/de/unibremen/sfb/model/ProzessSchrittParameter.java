@@ -3,8 +3,6 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /** The process chain step parameter's data class  */
@@ -25,5 +23,5 @@ public class ProzessSchrittParameter {
     /** The qualitative/quantitative descriptors creating this process step parameter */
     @NonNull
     @ManyToMany
-    private List<QualitativeEigenschaft> qualitativeEigenschaften;
+    private Set<QualitativeEigenschaft> qualitativeEigenschaften;
 }

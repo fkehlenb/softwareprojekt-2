@@ -77,7 +77,7 @@ public class UserDAO extends ObjectDAO<User> {
             throw new UserNotFoundException();
         }
         try {
-            User u = (User) em.createNamedQuery("User.findByUsername",get()).setParameter("username",n).getSingleResult();
+            User u = em.createNamedQuery("User.findByUsername",get()).setParameter("username",n).getSingleResult();
             if (u==null){
                 throw new UserNotFoundException();
             }
@@ -97,7 +97,7 @@ public class UserDAO extends ObjectDAO<User> {
             throw new UserNotFoundException();
         }
         try {
-            User u = (User) em.createNamedQuery("User.findByEmail",get()).setParameter("email",m).getSingleResult();
+            User u = em.createNamedQuery("User.findByEmail",get()).setParameter("email",m).getSingleResult();
             if (u==null){
                 throw new UserNotFoundException();
             }

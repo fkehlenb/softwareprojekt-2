@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.Duration;
 import java.util.List;
+import java.util.Set;
 
 /** Data class for the process step templates */
 @Data
@@ -37,7 +38,7 @@ public class ProzessSchrittVorlage {
     /** The experimenting stations accepted in the process step template */
     @NonNull
     @OneToMany
-    private List<ExperimentierStation> stationen;
+    private Set<ExperimentierStation> stationen;
 
     /** The process step template's state automaton template */
     @NonNull

@@ -3,7 +3,7 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 /** Sample object data class */
 @Data
@@ -38,7 +38,7 @@ public class Probe {
 
     /** The qualitative/quantitative descriptors of the sample */
     @OneToMany
-    private List<QualitativeEigenschaft> qualitativeEigenschaften;
+    private Set<QualitativeEigenschaft> qualitativeEigenschaften;
 
     /** The container the sample is currently located in */
     @OneToOne

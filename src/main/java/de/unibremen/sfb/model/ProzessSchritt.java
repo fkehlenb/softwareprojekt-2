@@ -3,7 +3,7 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 /** Data class for process chain steps */
 @Data
@@ -26,7 +26,7 @@ public class ProzessSchritt {
     private boolean uploaded;
 
     /** The experimenting station where the current process step is being carried out */
-    @NonNull
+    //@NonNull TOOD Wann beginnt die Zuweisung?
     @OneToOne
     private ExperimentierStation current;
 
@@ -43,7 +43,7 @@ public class ProzessSchritt {
     /** The process step's log */
     @NonNull
     @OneToMany
-    private List<ProzessSchrittLog> prozessSchrittLog;
+    private Set<ProzessSchrittLog> prozessSchrittLog;
 
     /** The process step template the process step was created from */
     @NonNull

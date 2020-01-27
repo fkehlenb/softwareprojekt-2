@@ -3,7 +3,7 @@ package de.unibremen.sfb.controller;
 import de.unibremen.sfb.exception.UserNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.UserDAO;
-import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
@@ -19,7 +19,7 @@ import java.util.Set;
  */
 
 @RequestScoped
-@Log
+@Slf4j
 public class AdminBean implements Serializable {
 
     /**
@@ -31,6 +31,7 @@ public class AdminBean implements Serializable {
 
     @Inject
     private UserDAO userDAO;
+
 
     private String vorname;
 

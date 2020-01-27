@@ -24,12 +24,12 @@ class ProbeTest {
 
         Probe erste = new Probe();
         Standort a = new  Standort("Hier");
-        erste.probenID = 14;
-        erste.standort = a;
-        erste.kommentar = new Kommentar(LocalDateTime.now(), "Hallo Welt");
+        erste.setProbenID(14);
+        erste.setStandort(a);
+        erste.setKommentar(new Kommentar(LocalDateTime.now(), "Hallo Welt"));
         eigenschaften.add(new QualitativeEigenschaft("getestet"));
 
-        erste.qualitativeEigenschaften = eigenschaften;
+        erste.setQualitativeEigenschaften(eigenschaften);
 
 
         proben.add(erste);
