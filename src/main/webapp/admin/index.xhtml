@@ -1,19 +1,27 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 </h:head>
 <h:body>
-    <h1>admin</h1>
-    <h:outputLink value="../logout">logout</h:outputLink>
-    <pre>
-    subject = <h:outputText value="#{indexBean.subject}"/>
+    <ui:composition template="../template/common/layout.xhtml">
+        <ui:define name="content">
+
+
+            <h1>admin</h1>
+            <h:outputLink value="../logout">logout</h:outputLink>
+            <pre>
+
+
     principal = <h:outputText value="#{indexBean.subject.principal}"/>
     session = <h:outputText value="#{indexBean.subject.session}"/>
     role user = <h:outputText value="#{indexBean.subject.hasRole('user')}"/>
     role admin = <h:outputText value="#{indexBean.subject.hasRole('admin')}"/>
     </pre>
 
-    <p:editor value="&lt;b&gt;primefaces"/>
+            <p:editor value="&lt;b&gt;primefaces"/>
+
+        </ui:define>
+    </ui:composition>
 </h:body>
 </html>

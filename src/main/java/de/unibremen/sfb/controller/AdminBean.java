@@ -3,18 +3,10 @@ package de.unibremen.sfb.controller;
 import de.unibremen.sfb.exception.UserNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.UserDAO;
-import lombok.Getter;
-import lombok.Setter;
 
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 import java.io.Serializable;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,10 +14,8 @@ import java.util.Set;
 /**
  * this class manages the interaction between the gui and the backend system in the case that the user is an admin
  */
-@Named
-@RequestScoped
-@Getter
-@Setter
+
+@Slf4j
 public class AdminBean implements Serializable {
 
     /**
@@ -157,8 +147,10 @@ public class AdminBean implements Serializable {
      * backs the system up
      */
     public void backup() throws SQLException {
+        log.info("Trying to DB");
         String sqlFilePath = "./Backup" + LocalDateTime.now().toString();
-        Connection conn = DriverManager.getConnection("jdbc:h2fir:~/test", "sa", "");
+        Connection conn = DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
+        log.info("Connected to " + conn.toString());
         Statement stmt = conn.createStatement();
         stmt.executeQuery(String.format("SCRIPT TO '%s'", sqlFilePath));
     }
@@ -180,4 +172,3 @@ public class AdminBean implements Serializable {
      */
     public void setUser(User admin) { this.admin = admin; }
 }
-

@@ -3,27 +3,31 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
-<ui:insert name="header">
-    <ui:include src="/WEB-INF/common/header.xhtml"/>
-</ui:insert>
 
 <h:body>
-    <h:form prependId="false">
-        <h:panelGrid columns="2">
-            <h:outputText value="Login:"/>
-            <p:inputText id="username" required="true" value="#{shiroLoginBean.username}"/> <!-- Binding -->
 
-            <h:outputText value="Password:"/>
-            <p:password id="password" required="true" value="#{shiroLoginBean.password}"/>
+<!--https://github.com/danielmt/shiro-primefaces-example-->
+    <ui:composition template="template/common/layout.xhtml">
+        <ui:define name="content">
 
-            <h:outputText value="Remember me:"/>
-            <p:selectBooleanCheckbox id="rememberMe" value="#{shiroLoginBean.rememberMe}"/>
+            <h:form prependId="false">
+                <h:panelGrid columns="1">
+                    <h:outputText value="Um sich Einzuloggen, geben sie bitte ihre details ein!"/>
+                    <p:inputText id="username" required="true" value="#{shiroLoginBean.username}"/> <!-- Binding -->
 
-            <h:outputText/>
-            <p:commandButton value="Login" action="#{shiroLoginBean.doLogin}" />  <!-- hier wird dann benutzt -->
-        </h:panelGrid>
+                    <h:outputText value="Password:"/>
+                    <p:password id="password" required="true" value="#{shiroLoginBean.password}"/>
 
-        <p:messages id="messages" autoUpdate="true" closable="true" />
-    </h:form>
+                    <h:outputText value="Remember me:"/>
+                    <p:selectBooleanCheckbox id="rememberMe" value="#{shiroLoginBean.rememberMe}"/>
+
+                    <h:outputText/>
+                    <p:commandButton value="Login" action="#{shiroLoginBean.doLogin}"/>  <!-- hier wird dann benutzt -->
+                </h:panelGrid>
+                <p:messages id="messages" autoUpdate="true" closable="true"/>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
 </h:body>
 </html>
