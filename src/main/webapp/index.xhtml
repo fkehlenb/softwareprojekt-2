@@ -12,16 +12,15 @@
 
 <body>
 
-<p:outputPanel>
-    <ui:insert name="header">
-        <ui:include src="/WEB-INF/common/header.xhtml"/>
-    </ui:insert>
 
-    <h1 style="color: cornflowerblue">Wilkommen zum Farbigen SFB!</h1>
-    <p>Um sich Einzuloggen, geben sie bitte ihre details ein!</p>
-    <p>Hi <shiro:guest>Guest</shiro:guest><shiro:user> <h:outputText value="#{indexBean.subject}"/> </shiro:user>!</p>
+<ui:composition template="template/common/layout.xhtml">
+        <ui:define name="content">
+            <h1 style="color: cornflowerblue">Wilkommen zum Farbigen SFB!</h1>
+            <p>Um sich Einzuloggen, geben sie bitte ihre details ein!</p>
+            <p>Hi <shiro:guest>Guest</shiro:guest><shiro:user> <h:outputText value="#{indexBean.subject}"/>
+            </shiro:user>!</p>
+            <pre>
 
-    <pre>
         principal = <h:outputText value="#{indexBean.subject.principal}"/>
         session = <h:outputText value="#{indexBean.subject.session}"/>
         role user = <h:outputText value="#{indexBean.subject.hasRole('user')}"/>
@@ -32,11 +31,10 @@
         role transport = <h:outputText value="#{indexBean.subject.hasRole('transport')}"/>
     </pre>
 
-    <shiro:authenticated>Besuchen sie ihr <a href="./technologe.xhtml">Profil</a> </shiro:authenticated>
-    <shiro:notAuthenticated>Bitte hier <a href="./login.xhtml">Anmelden</a> </shiro:notAuthenticated>
-
-
-</p:outputPanel>
+            <shiro:authenticated>Besuchen sie ihr <a href="./technologe.xhtml">Profil</a> </shiro:authenticated>
+            <shiro:notAuthenticated>Bitte hier <a href="./login.xhtml">Anmelden</a> </shiro:notAuthenticated>
+        </ui:define>
+</ui:composition>
 </body>
 
 

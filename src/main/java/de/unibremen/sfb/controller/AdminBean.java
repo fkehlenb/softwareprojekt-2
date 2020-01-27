@@ -4,6 +4,7 @@ import de.unibremen.sfb.model.Auftrag;
 import de.unibremen.sfb.model.ExperimentierStation;
 import de.unibremen.sfb.model.TraegerArt;
 import de.unibremen.sfb.model.User;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
 import java.sql.*;
@@ -13,6 +14,7 @@ import java.util.Set;
 /**
  * this class manages the interaction between the gui and the backend system in the case that the user is an admin
  */
+@Slf4j
 public class AdminBean implements Serializable {
 
     /**
@@ -108,8 +110,10 @@ public class AdminBean implements Serializable {
      * backs the system up
      */
     public void backup() throws SQLException {
+        log.info("Trying to DB");
         String sqlFilePath = "./Backup" + LocalDateTime.now().toString();
-        Connection conn = DriverManager.getConnection("jdbc:h2fir:~/test", "sa", "");
+        Connection conn = DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
+        log.info("Connected to " + conn.toString());
         Statement stmt = conn.createStatement();
         stmt.executeQuery(String.format("SCRIPT TO '%s'", sqlFilePath));
     }

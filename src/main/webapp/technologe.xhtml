@@ -9,13 +9,16 @@
     <link rel="icon" href="background.png"/>
 </h:head>
 
-<body background="background.png">
-<p:breadCrumb>
-    <p:menuitem value="Home" url="#"/>
-</p:breadCrumb>
-<div style="margin-top: 10px; margin-bottom: 10px">
-    <p:panel>
-    </p:panel>
-</div>
+<body>
+<ui:composition template="template/common/layout.xhtml">
+
+
+<ui:define name="content">
+
+    <p:breadCrumb>
+        <p:menuitem value="Home" url="#"/>
+    </p:breadCrumb>
+
+</ui:define>
 </body>
 </html>
