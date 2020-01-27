@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
+import javax.json.bind.JsonbConfig;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,7 +16,12 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProbeTest {
-    Jsonb jsonb = JsonbBuilder.create();
+    // Create custom configuration with formatted output
+    JsonbConfig config = new JsonbConfig()
+            .withFormatting(true);
+
+    // Create Jsonb with custom configuration
+    Jsonb jsonb = JsonbBuilder.create(config);;
     List proben = new ArrayList();
     Set eigenschaften = new HashSet<QualitativeEigenschaft>();
 

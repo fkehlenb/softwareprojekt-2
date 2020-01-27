@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
+import javax.json.bind.JsonbConfig;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -18,7 +19,13 @@ class ProzessSchrittTest {
     ProzessSchritt ps;
     HashSet<Role> a = new HashSet<Role>();
     User tUser = new User();
-    Jsonb jsonb = JsonbBuilder.create();
+
+    // Create custom configuration with formatted output
+    JsonbConfig config = new JsonbConfig()
+            .withFormatting(true);
+
+    // Create Jsonb with custom configuration
+    Jsonb jsonb = JsonbBuilder.create(config);;
 
 
     @BeforeEach
