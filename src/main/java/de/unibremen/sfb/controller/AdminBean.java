@@ -5,9 +5,12 @@ import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.UserDAO;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.annotation.ManagedBean;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.io.Serializable;
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -18,6 +21,7 @@ import java.util.Set;
  * this class manages the interaction between the gui and the backend system in the case that the user is an admin
  */
 
+@Named
 @RequestScoped
 @Slf4j
 public class AdminBean implements Serializable {

@@ -41,6 +41,11 @@ ALL TAGS ABOVE THIS LINE WILL BE REMOVED BY JSF
                         <p:menuitem value="Prozesskette" url="#"/>
                         <p:menuitem value="PS Automat" url="#"/>
                     </shiro:hasRole>
+
+                    <shiro:hasRole name="admin">
+                        <p:menuitem value="Nutzer" url="/admin/addUser.xhtml"/>
+                        <p:menuitem value="Backup" url="admin/createBackup.xhtml"/>
+                    </shiro:hasRole>
                 </p:submenu>
                 <p:menuitem value="Open" url="#"/>
                 <p:separator/>
