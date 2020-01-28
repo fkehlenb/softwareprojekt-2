@@ -55,6 +55,16 @@ public class ProzessKettenVorlageDAO extends ObjectDAO<ProzessKettenVorlage> {
      * @return the job template matching the given id
      * @throws ProzessKettenVorlageNotFoundException if the job template couldn't be found */
     public ProzessKettenVorlage getObjById(int id) throws ProzessKettenVorlageNotFoundException{
-        return null;
+        try {
+            ProzessKettenVorlage pkv = em.find(get(),id);
+            if (pkv==null){
+                throw new ProzessKettenVorlageNotFoundException();
+            }
+            return pkv;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new ProzessKettenVorlageNotFoundException();
+        }
     }
 }

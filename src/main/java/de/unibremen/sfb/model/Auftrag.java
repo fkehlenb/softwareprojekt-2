@@ -25,7 +25,7 @@ public class Auftrag {
      * The process chain template this job was created from
      */
     @NonNull
-    @ManyToOne
+    @OneToOne
     private ProzessKettenVorlage vorlage;
 
     /**

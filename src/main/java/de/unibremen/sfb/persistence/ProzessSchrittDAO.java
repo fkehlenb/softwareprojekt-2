@@ -58,18 +58,30 @@ public class ProzessSchrittDAO extends ObjectDAO<ProzessSchritt> {
      * @return the process chain step matching the given id
      * @throws ProzessSchrittNotFoundException if the process chain step couldn't be found */
     public ProzessSchritt getObjById(int id) throws ProzessSchrittNotFoundException{
-        return null;
+        try{
+            ProzessSchritt ps = em.find(get(),id);
+            if (ps==null){
+                throw new ProzessSchrittNotFoundException();
+            }
+            return ps;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new ProzessSchrittNotFoundException();
+        }
     }
 
     /** Get the station where a given process chain step is being carried out
      * @return the experimenting station where a process chain step is being carried out */
-    public ExperimentierStation getES(){
-        return null;
-    }
+//    public ExperimentierStation getES(){
+//        return null;
+//    }
+
+    //========== NUTZLOSE FUNKTIONEN ==========
 
     /** Get the job which a given process chain step belongs to
      * @return the job which a given process chain step belongs to */
-    public Auftrag getAuftrag(){
-        return null;
-    }
+//    public Auftrag getAuftrag(){
+//        return null;
+//    }
 }

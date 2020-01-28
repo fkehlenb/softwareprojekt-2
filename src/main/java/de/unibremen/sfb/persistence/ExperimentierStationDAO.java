@@ -55,6 +55,16 @@ public class ExperimentierStationDAO extends ObjectDAO<ExperimentierStation> {
      * @return the experimenting station object which's id matches the entered one
      * @throws ExperimentierStationNotFoundException if the experimenting station couldn't be found in the database */
     public ExperimentierStation getObjById(int id) throws ExperimentierStationNotFoundException{
-        return null;
+        try{
+            ExperimentierStation es = em.find(get(),id);
+            if (es==null){
+                throw new ExperimentierStationNotFoundException();
+            }
+            return es;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new ExperimentierStationNotFoundException();
+        }
     }
 }

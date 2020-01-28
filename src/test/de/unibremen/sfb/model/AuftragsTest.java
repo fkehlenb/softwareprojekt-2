@@ -64,7 +64,7 @@ class AuftragsTest {
         // PkVorlage Setup
         List<ProzessSchrittVorlage> psListe = new ArrayList<>();
         psListe.add(prozessSchrittVorlage);
-        pkv = new ProzessKettenVorlage(99, psListe, tUser);
+        pkv = new ProzessKettenVorlage(99, psListe);
 
         // Auftrag Setup
 

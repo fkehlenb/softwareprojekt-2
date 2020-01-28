@@ -58,6 +58,16 @@ public class ProzessSchrittVorlageDAO extends ObjectDAO<ProzessSchrittVorlage> {
      * @return the process chain step template matching the given id
      * @throws ProzessSchrittVorlageNotFoundException if the process chain step template couldn't be found */
     public ProzessSchrittVorlage getObjById(int id) throws ProzessSchrittVorlageNotFoundException{
-        return null;
+        try {
+            ProzessSchrittVorlage psv = em.find(get(),id);
+            if (psv==null){
+                throw new ProzessSchrittVorlageNotFoundException();
+            }
+            return psv;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new ProzessSchrittVorlageNotFoundException();
+        }
     }
 }
