@@ -64,17 +64,11 @@ public class AuftragDAO extends ObjectDAO<Auftrag> {
         return null;
     }
 
-    /** Get the user object of a user belonging to a specific job object
-     * @return the user belonging to a specific job object
+    /** Get the jobs of a specific user
+     * @param u - the user whose jobs to get
+     * @return the jobs belonging to a user
      * @throws AuftragNotFoundException if the job couldn't be found */
-    public User getUser() throws AuftragNotFoundException{
-        return null;
-    }
-
-    /** Get the process chain steps of a specific job object
-     * @return the process chain steps of a specific job
-     * @throws AuftragNotFoundException if the job couldn't be found */
-    public List<ProzessSchritt> getPS() throws AuftragNotFoundException{
+    public List<Auftrag> getAuftragByUser(User u) throws AuftragNotFoundException{
         return null;
     }
 }

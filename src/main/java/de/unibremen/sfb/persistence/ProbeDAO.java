@@ -6,6 +6,8 @@ import de.unibremen.sfb.model.Probe;
 import de.unibremen.sfb.model.Standort;
 import de.unibremen.sfb.model.Traeger;
 
+import java.util.List;
+
 /** This class handles the samples in the database */
 public class ProbeDAO extends ObjectDAO<Probe> {
 
@@ -57,20 +59,52 @@ public class ProbeDAO extends ObjectDAO<Probe> {
      * @return the sample which's id matches the given one
      * @throws ProbeNotFoundException if the sample couldn't be found in the database */
     public Probe getObjById(int id) throws ProbeNotFoundException{
-        return null;
+        try {
+            Probe p = em.find(get(),id);
+            if (p==null){
+                throw new ProbeNotFoundException();
+            }
+            return p;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new ProbeNotFoundException();
+        }
     }
 
-    /** Get a sample's location
-     * @return the sample's location
+    /** Get samples by location
+     * @param s - the location which's samples to get
+     * @return the samples in a specific location
      * @throws ProbeNotFoundException if the sample couldn't be found in the database */
-    public Standort getLocation() throws ProbeNotFoundException{
-        return null;
+    public List<Probe> getProbenByLocation(Standort s) throws ProbeNotFoundException{
+        try {
+            List<Probe> proben = em.createNamedQuery("Probe.getByLocation",get()).setParameter("standort",s).getResultList();
+            if (proben.isEmpty()){
+                throw new ProbeNotFoundException();
+            }
+            return proben;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new ProbeNotFoundException();
+        }
     }
 
-    /** Get the container in which a sample is located
-     * @return the container in which the sample is located
+    /** Get the samples in a container
+     * @param t - the container which's samples to get
+     * @return the samples from the container
      * @throws ProbeNotFoundException if the sample couldn't be found in the database */
-    public Traeger getTraeger() throws ProbeNotFoundException{
-        return null;
+    public List<Probe> getProbenByTraeger(Traeger t) throws ProbeNotFoundException{
+        try{
+            List<Probe> proben = em.createNamedQuery("Probe.getByTraeger",get()).setParameter("traeger",t).getResultList();
+            if (proben.isEmpty()){
+                throw new ProbeNotFoundException();
+            }
+            return proben;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new ProbeNotFoundException();
+        }
     }
 }

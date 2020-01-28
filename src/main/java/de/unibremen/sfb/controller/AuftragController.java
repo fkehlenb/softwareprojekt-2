@@ -40,6 +40,7 @@ public class AuftragController {
      */
     public AuftragsLog getLog() { return null; }
 
+
     /**
      * sets the protocol of this Auftrag
      *

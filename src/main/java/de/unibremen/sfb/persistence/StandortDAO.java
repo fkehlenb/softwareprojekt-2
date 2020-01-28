@@ -55,6 +55,16 @@ public class StandortDAO extends ObjectDAO<Standort> {
      * @param id - Die ID des Standortes
      * @throws StandortNotFoundException if the location object couldn't be found in the database */
     public Standort getObjById(int id) throws StandortNotFoundException{
-        return null;
+        try{
+            Standort s = em.find(get(),id);
+            if (s==null){
+                throw new StandortNotFoundException();
+            }
+            return s;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new StandortNotFoundException();
+        }
     }
 }
