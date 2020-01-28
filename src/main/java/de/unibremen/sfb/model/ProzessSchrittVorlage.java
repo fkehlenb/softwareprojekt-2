@@ -46,12 +46,11 @@ public class ProzessSchrittVorlage {
     private ProzessSchrittZustandsAutomatVorlage zustandsAutomat;
 
     /** The user who created this template */
-    @NonNull
     @OneToOne
     private User creator;
 
     /** The process step parameters */
     @NonNull
-    @OneToOne
-    private ProzessSchrittParameter prozessSchrittParameter;
+    @ManyToMany
+    private Set<ProzessSchrittParameter> prozessSchrittParameter;
 }

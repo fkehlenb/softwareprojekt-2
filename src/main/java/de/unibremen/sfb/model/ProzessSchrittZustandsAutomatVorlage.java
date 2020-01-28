@@ -9,7 +9,6 @@ import java.util.List;
 /** Data class for the process step automaton templates */
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class ProzessSchrittZustandsAutomatVorlage {
 
@@ -22,12 +21,10 @@ public class ProzessSchrittZustandsAutomatVorlage {
     private List<String> zustaende;
 
     /** The user who created this template */
-    @NonNull
     @ManyToOne
     public User creator;
 
-    public ProzessSchrittZustandsAutomatVorlage(User user) {
-        this.creator = user;
+    public ProzessSchrittZustandsAutomatVorlage() {
         this.zustaende = new ArrayList<>();
         zustaende.add("Angenommen");
         zustaende.add("In Bearbeitung");
