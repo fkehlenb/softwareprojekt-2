@@ -88,7 +88,7 @@ public class User {
      * The experimenting stations a user is assigned to
      */
     @ManyToMany
-    private List<ExperimentierStation> stationen;
+    private Set<ExperimentierStation> stationen;
 
     /**
      * The jobs a user has

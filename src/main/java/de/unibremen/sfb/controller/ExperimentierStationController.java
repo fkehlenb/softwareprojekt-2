@@ -1,7 +1,10 @@
 package de.unibremen.sfb.controller;
 
+import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
 import de.unibremen.sfb.model.*;
+import de.unibremen.sfb.persistence.ExperimentierStationDAO;
 
+import javax.inject.Inject;
 import java.util.Set;
 
 /**
@@ -10,6 +13,9 @@ import java.util.Set;
 public class ExperimentierStationController {
 
     public ExperimentierStation experimenteristation;
+
+    @Inject
+    private ExperimentierStationDAO experimentierStationDAO;
 
     /**
      * returns the ID of this station
@@ -86,4 +92,18 @@ public class ExperimentierStationController {
      * @param b a set containing all conditions
      */
     public void setBedingung(Set<Bedingung> b) {}
+
+    /**
+     * reports an experimenting station as broken
+     * @param es the broken experimenting station
+     */
+    public void reportBroken(ExperimentierStation es) {
+        es.setStatus(ExperimentierStationZustand.KAPUTT);
+        try {
+            experimentierStationDAO.update(es);
+        }
+        catch(ExperimentierStationNotFoundException e) {
+
+        }
+    }
 }

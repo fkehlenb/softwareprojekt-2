@@ -1,9 +1,11 @@
 package de.unibremen.sfb.controller;
 
+import de.unibremen.sfb.model.Auftrag;
 import de.unibremen.sfb.model.Role;
 import de.unibremen.sfb.model.User;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -147,5 +149,6 @@ public class UserController {
      * @param l the new language
      */
     public void setDefaultLanguage(String l) {}
+
 
 }

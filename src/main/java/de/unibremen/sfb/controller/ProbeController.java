@@ -1,12 +1,15 @@
 package de.unibremen.sfb.controller;
 
+import de.unibremen.sfb.exception.ProbeNotFoundException;
 import de.unibremen.sfb.model.*;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 
+import de.unibremen.sfb.persistence.ProbeDAO;
 import org.apache.commons.lang3.tuple.Pair;
 
+import javax.inject.Inject;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 
@@ -19,6 +22,9 @@ public class ProbeController {
      * the Probe managed by a controller instance
      */
     public Probe probe;
+
+    @Inject
+    ProbeDAO probeDAO;
 
     /**
      * Sets the ID of this Probe.
@@ -116,4 +122,65 @@ public class ProbeController {
         return jsonb.toJson(probe);
     }
 
+    /**
+     * creates a new sample
+     * @param id the id for the new sample
+     */
+    public void createNewProbe(String id) {
+
+    }
+
+    /**
+     * sets a comment for a sample
+     * @param p the sample for which the new comment is
+     * @param k the comment
+     */
+    public void setKommentarForProbe(Probe p, Kommentar k) {
+        p.setKommentar(k);
+        try{
+            probeDAO.update(p);
+        }
+        catch(ProbeNotFoundException e) {
+
+        }
+    }
+
+    /**
+     * sets the state of a sample
+     * @param p the sample
+     * @param z the new state
+     */
+    public void setZustandForProbe(Probe p, ProbenZustand z) {
+        p.setZustand(z);
+        try {
+            probeDAO.update(p);
+        }
+        catch(ProbeNotFoundException e) {
+
+        }
+    }
+
+    /**
+     * retrieves the sample with the id from the database
+     * @param id the id of the requested sample
+     * @return a sample, or null, if the sample does not exist
+     */
+    public Probe getProbeById(int id) { //TODO sollte die id nicht String sein?
+        try {
+            return probeDAO.getObjById(id);
+        }
+        catch(ProbeNotFoundException e) {
+
+        }
+        return null;
+    }
+
+    /**
+     * retrieves the comment of a sample
+     * @param p the sample
+     * @return the comment
+     */
+    public Kommentar getKommentarForProbe(Probe p) {
+        return p.getKommentar();
+    }
 }
