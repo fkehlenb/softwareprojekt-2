@@ -1,5 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 <h:head>
@@ -20,9 +21,30 @@
 
                             <h:panelGrid columns="2" cellpadding="10">
                                 <p:outputLabel for="parameter" value="Parameter: " />
-                                <p:selectManyMenu id="parameter"
-                                                  value="#{PSVErstellenBean.verfügbareParameter}"
-                                                  converter="pro"
+                                <p:selectOneMenu id="parameter"
+                                                  value="#{psvErstellenBean.verfügbareParameter}"
+                                                  converter="prozessSchrittParameterConverter" effect="fade"
+                                                  var="parameter" style="width: 172px" filter="true" filterMatchMode="startsWith">
+                                    <f:selectItems value="#{psvErstellenBean.verfügbareParameter}"
+                                                   var="parameter" itemLabel="#{parameter.id}"
+                                                   itemValue="#{parameter}" />
+                                    <p:column>
+                                        <h:outputText value="#{parameter.name}" />
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{parameter.id}" />
+                                    </p:column>
+                                </p:selectOneMenu>
+
+                                <p:outputLabel for="art" value="ProzessSchritt Art:" />
+                                <p:selectOneButton id="art"
+                                                   value="#{psvErstellenBean.psArt}" required="true">
+                                    <f:selectItem itemLabel="Umformend" itemValue="Umformend" />
+                                    <f:selectItem itemLabel="Färbend" itemValue="Färbend" />
+                                    <f:selectItem itemLabel="Ermittelnd" itemValue="Ermittelnd" />
+                                </p:selectOneButton>
+
+
                             </h:panelGrid>
                         </h:form>
                     </p:panelGrid>

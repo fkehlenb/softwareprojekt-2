@@ -59,8 +59,7 @@ class AuftragsTest {
 
         // ProzessSchrittVorlage Setuo
         ProzessSchrittVorlage prozessSchrittVorlage = new ProzessSchrittVorlage(99, Duration.ofMinutes(42),
-                ProzessSchrittArt.ERMITTELND, new HashSet<ExperimentierStation>(), new ProzessSchrittZustandsAutomatVorlage(),parameters);
-
+                "Ermittlend", new HashSet<ExperimentierStation>(), new ProzessSchrittZustandsAutomatVorlage(),parameters);
 
         // PkVorlage Setup
         List<ProzessSchrittVorlage> psListe = new ArrayList<>();

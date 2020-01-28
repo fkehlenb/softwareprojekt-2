@@ -14,13 +14,13 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import java.time.Duration;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@Named
+@Named("psvErstellenBean")
 @RequestScoped
 @Getter
 @Setter
@@ -39,12 +39,12 @@ public class PSVErstellenBean {
     private List<TraegerArt> ausgabeTraeger;
 
     @NonNull
-    private ProzessSchrittArt psArt;
+    private String psArt;
 
     private Set<ExperimentierStation> stationen;
 
     @NonNull
-    private ProzessSchrittZustandsAutomatVorlage zustandsAutomat;
+    private ProzessSchrittZustandsAutomatVorlage zustandsAutomatenVorlage;
 
     @NonNull
     private Set<ProzessSchrittParameter> prozessSchrittParameters;
@@ -74,7 +74,9 @@ public class PSVErstellenBean {
     }
 
     public String erstellePSV() {
-        ProzessSchrittVorlage psv = new ProzessSchrittVorlage(psVID, dauer, psArt, stationen, zustandsAutomat, prozessSchrittParameters);
+        Set<ExperimentierStation> esSet = new HashSet<>(); // FIXME Automatische Zuweisung
+        // FIXME ID Generation
+        ProzessSchrittVorlage psv = new ProzessSchrittVorlage(55 ,dauer, psArt, stationen, zustandsAutomatenVorlage, prozessSchrittParameters);
 
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Erfolg", "Prozessschrittvorlage:  " + psv.getPsVID() +
