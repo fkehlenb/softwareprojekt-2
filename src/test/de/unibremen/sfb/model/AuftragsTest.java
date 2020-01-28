@@ -10,10 +10,7 @@ import javax.json.bind.JsonbConfig;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -55,13 +52,14 @@ class AuftragsTest {
         HashSet<QualitativeEigenschaft> e = new HashSet<>(); // TODO add eigenschaften
 
         // PS Parameter
-        ProzessSchrittParameter prozessSchrittParameter = new ProzessSchrittParameter("Testen", e);
+        Set<ProzessSchrittParameter> parameters = new HashSet<ProzessSchrittParameter>();
+        parameters.add(new ProzessSchrittParameter("Testen", e));
 
         // Stationen
 
         // ProzessSchrittVorlage Setuo
         ProzessSchrittVorlage prozessSchrittVorlage = new ProzessSchrittVorlage(99, Duration.ofMinutes(42),
-                ProzessSchrittArt.ERMITTELND, new HashSet<ExperimentierStation>(), new ProzessSchrittZustandsAutomatVorlage(), prozessSchrittParameter);
+                ProzessSchrittArt.ERMITTELND, new HashSet<ExperimentierStation>(), new ProzessSchrittZustandsAutomatVorlage(),parameters);
 
 
         // PkVorlage Setup

@@ -5,26 +5,28 @@ import de.unibremen.sfb.model.ProzessSchrittVorlage;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Singleton
 /**
- * Service f
- *
+ * Service für ProzessSchrittVorlagen
+ * Anwendungsfall: Bearbeiten einer Vorlage oder hinzufügen einer ProzessSchrittVorlage in einer ProzessKettenVorlage
  */
 public class ProzessSchrittVorlageService {
-    private List<ProzessSchrittVorlage> vorlagen;
+    private Set<ProzessSchrittVorlage> vorlagen;
 
     @PostConstruct
     public void init() {
         this.vorlagen = erstelleStandartVorlagen();
     }
 
-    private List<ProzessSchrittVorlage> erstelleStandartVorlagen() {
-        return new ArrayList<>();
+    private Set<ProzessSchrittVorlage> erstelleStandartVorlagen() {
+        return new HashSet<>();
     }
 
-    public List<ProzessSchrittVorlage> getProzessSchrittVorlagen() {
+    public Set<ProzessSchrittVorlage> getProzessSchrittVorlagen() {
         return vorlagen;
     }
 

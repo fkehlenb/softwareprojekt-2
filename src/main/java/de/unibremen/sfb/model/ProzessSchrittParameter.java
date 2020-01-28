@@ -14,7 +14,7 @@ import java.util.Set;
 public class ProzessSchrittParameter {
 
     @Id @GeneratedValue
-    private int id;
+    private Integer id;
 
     /** The process step parameter's name */
     @NonNull
