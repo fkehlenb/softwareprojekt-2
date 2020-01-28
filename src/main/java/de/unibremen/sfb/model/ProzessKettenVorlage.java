@@ -28,6 +28,6 @@ public class ProzessKettenVorlage {
 
     /** The user who created this template */
     @NonNull
-    @OneToOne
+    @ManyToOne
     private User creator;
 }

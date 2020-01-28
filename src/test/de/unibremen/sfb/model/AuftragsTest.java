@@ -51,14 +51,17 @@ class AuftragsTest {
         tUser.setRollen(a);
         tUser.setLanguage("DEUTSCH");
 
-        // ProzessSchrittVorlage Setuo
-        HashSet<ProzessSchrittLog> logs = new HashSet<>();
-        logs.add(new ProzessSchrittLog(LocalDateTime.now(), "INSTANZIERT"));
+        // Eigenschaften
         HashSet<QualitativeEigenschaft> e = new HashSet<>(); // TODO add eigenschaften
+
+        // PS Parameter
         ProzessSchrittParameter prozessSchrittParameter = new ProzessSchrittParameter("Testen", e);
+
+        // Stationen
+
+        // ProzessSchrittVorlage Setuo
         ProzessSchrittVorlage prozessSchrittVorlage = new ProzessSchrittVorlage(99, Duration.ofMinutes(42),
-                ProzessSchrittArt.ERMITTELND, new HashSet<ExperimentierStation>(), (new ProzessSchrittZustandsAutomatVorlage(tUser)),
-                tUser, prozessSchrittParameter);
+                ProzessSchrittArt.ERMITTELND, new HashSet<ExperimentierStation>(), new ProzessSchrittZustandsAutomatVorlage(), prozessSchrittParameter);
 
 
         // PkVorlage Setup
@@ -67,13 +70,14 @@ class AuftragsTest {
         pkv = new ProzessKettenVorlage(99, psListe, tUser);
 
         // Auftrag Setup
-
         AuftragsLog aLog = new AuftragsLog();
         aLog.setErstellt(LocalDateTime.now()); ;
         pk = new Auftrag(420, pkv, AuftragsPrioritaet.HOCH, new ArrayList<ProzessSchritt>(), aLog , ProzessKettenZustandsAutomat.INSTANZIIERT);
 
         // PS Setup
         ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat();
+        HashSet<ProzessSchrittLog> logs = new HashSet<>();
+        logs.add(new ProzessSchrittLog(LocalDateTime.now(), "INSTANZIERT"));
         ps = new ProzessSchritt(42, prozessSchrittZustandsAutomat, logs , prozessSchrittVorlage);
 
         // PS aufuellen
