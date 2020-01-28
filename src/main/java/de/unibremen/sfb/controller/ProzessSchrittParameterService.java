@@ -1,7 +1,9 @@
 package de.unibremen.sfb.controller;
 
+import com.github.javafaker.Faker;
 import de.unibremen.sfb.model.ProzessSchrittParameter;
 import de.unibremen.sfb.model.QualitativeEigenschaft;
+import de.unibremen.sfb.model.QuantitativeEigenschaft;
 import lombok.Getter;
 
 import javax.annotation.PostConstruct;
@@ -25,9 +27,15 @@ public class ProzessSchrittParameterService {
 
     private Set<ProzessSchrittParameter> createDefaultParameter() {
         Set<ProzessSchrittParameter> ergebnis = new HashSet<ProzessSchrittParameter>();
-        HashSet<QualitativeEigenschaft> eigenschaften = new HashSet<>();
-        eigenschaften.add(new QualitativeEigenschaft("Default Eigenschaft"));
-        ergebnis.add(new ProzessSchrittParameter("Testen", eigenschaften));
+
+        for (int i = 0; i < 100; i++) {
+            Faker faker = new Faker();
+            HashSet<QualitativeEigenschaft> eigenschaften = new HashSet<>();
+            eigenschaften.add(new QualitativeEigenschaft(faker.lordOfTheRings().location()));
+            eigenschaften.add(new QuantitativeEigenschaft(faker.funnyName().name(), faker.number().randomNumber()));
+            ergebnis.add(new ProzessSchrittParameter(faker.funnyName().name(), eigenschaften));
+        }
+
         return ergebnis;
     }
 
@@ -43,9 +51,9 @@ public class ProzessSchrittParameterService {
         this.parameterSet.remove(parameter);
     }
 
-    public ProzessSchrittParameter findByParameterId(String parameterId) {
+    public ProzessSchrittParameter findByName(String name) {
         // FIXME Use String as ID or convert to String
-        return this.parameterSet.stream().filter(c -> c.getId().equals(parameterId)).findFirst().orElse(null);
+        return this.parameterSet.stream().filter(c -> c.getId().equals(name)).findFirst().orElse(null);
     }
 
 

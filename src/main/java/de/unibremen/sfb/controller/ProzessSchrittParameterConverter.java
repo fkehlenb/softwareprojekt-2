@@ -16,13 +16,20 @@ public class ProzessSchrittParameterConverter implements Converter<ProzessSchrit
     private ProzessSchrittParameterService prozessSchrittParameterService;
 
     @Override
+    public String toString() {
+        return "ProzessSchrittParameterConverter{" +
+                "prozessSchrittParameterConverter" + prozessSchrittParameterService +
+                '}';
+    }
+
+    @Override
     public String getAsString(FacesContext context, UIComponent component, ProzessSchrittParameter prozessSchrittParameter) {
 
         if (prozessSchrittParameter == null) {
             return "";
         }
 
-        return Integer.toString(prozessSchrittParameter.getId());
+        return prozessSchrittParameter.getName();
     }
 
     @Override
@@ -30,7 +37,7 @@ public class ProzessSchrittParameterConverter implements Converter<ProzessSchrit
         if (value == null || value.isEmpty()) {
             return null;
         }
-        return prozessSchrittParameterService.findByParameterId(value);
+        return prozessSchrittParameterService.findByName(value);
     }
 
 }
