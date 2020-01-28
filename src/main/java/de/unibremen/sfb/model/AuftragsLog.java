@@ -30,4 +30,5 @@ public class AuftragsLog {
 
     /** When the job was archived */
     private LocalDateTime archiviert;
+
 }

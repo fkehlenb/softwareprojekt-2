@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @NamedQueries({
         @NamedQuery(name = "PKV.getByUser",
-                query = "SELECT pkv FROM ProzessKettenVorlage pkv WHERE pkv.creator = :user")
+                query = "SELECT pkv FROM ProzessKettenVorlage pkv WHERE pkv.creator = :user") // FIXME Tutorgespraech Marcel meinte PK sind unabhaengig von Erstllern
 })
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
