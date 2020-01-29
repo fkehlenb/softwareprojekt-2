@@ -1,9 +1,9 @@
 package de.unibremen.sfb.boundary;
 
-import de.unibremen.sfb.controller.ExperimentierStationService;
-import de.unibremen.sfb.controller.ProzessSchrittParameterService;
-import de.unibremen.sfb.controller.ProzessSchrittVorlageService;
-import de.unibremen.sfb.controller.QualitativeEigenschaftService;
+import de.unibremen.sfb.service.ExperimentierStationService;
+import de.unibremen.sfb.service.ProzessSchrittParameterService;
+import de.unibremen.sfb.service.ProzessSchrittVorlageService;
+import de.unibremen.sfb.service.QualitativeEigenschaftService;
 import de.unibremen.sfb.model.*;
 import lombok.Getter;
 import lombok.NonNull;

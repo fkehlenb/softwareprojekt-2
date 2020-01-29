@@ -1,4 +1,4 @@
-package de.unibremen.sfb.controller;
+package de.unibremen.sfb.service;
 
 import com.github.javafaker.Faker;
 import de.unibremen.sfb.model.ProzessSchrittParameter;

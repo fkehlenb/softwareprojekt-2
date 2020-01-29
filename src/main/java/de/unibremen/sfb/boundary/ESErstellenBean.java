@@ -1,12 +1,11 @@
 package de.unibremen.sfb.boundary;
 
-import de.unibremen.sfb.controller.StandortService;
-import de.unibremen.sfb.controller.UserService;
+import de.unibremen.sfb.service.StandortService;
+import de.unibremen.sfb.service.UserService;
 import de.unibremen.sfb.model.ExperimentierStation;
 import de.unibremen.sfb.model.ExperimentierStationZustand;
 import de.unibremen.sfb.model.Standort;
 import de.unibremen.sfb.model.User;
-import lombok.Generated;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
