@@ -33,7 +33,7 @@ public class ProzessSchrittParameterService {
             HashSet<QualitativeEigenschaft> eigenschaften = new HashSet<>();
             eigenschaften.add(new QualitativeEigenschaft(faker.lordOfTheRings().location()));
             eigenschaften.add(new QuantitativeEigenschaft(faker.funnyName().name(), faker.number().randomNumber()));
-            ergebnis.add(new ProzessSchrittParameter(faker.funnyName().name(), eigenschaften));
+            ergebnis.add(new ProzessSchrittParameter(faker.lordOfTheRings().location(), eigenschaften));
         }
 
         return ergebnis;
