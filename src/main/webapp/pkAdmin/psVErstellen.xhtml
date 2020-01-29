@@ -21,20 +21,20 @@
 
                             <h:panelGrid columns="2" cellpadding="10">
                                 <p:outputLabel for="parameter" value="Parameter: " />
-                                <p:selectOneMenu id="parameter"
+                                <p:selectManyMenu id="parameter"
                                                   value="#{psvErstellenBean.verfügbareParameter}"
                                                   converter="prozessSchrittParameterConverter" effect="fade"
                                                   var="parameter" style="width: 172px" filter="true" filterMatchMode="startsWith">
                                     <f:selectItems value="#{psvErstellenBean.verfügbareParameter}"
                                                    var="parameter" itemLabel="#{parameter.name}"
-                                                   itemValue="#{parameter}" />
+                                                   itemValue="#{parameter}"  />
                                     <p:column>
                                         <h:outputText value="#{parameter.name}" />
                                     </p:column>
                                     <p:column>
                                         <h:outputText value="#{parameter.id}" />
                                     </p:column>
-                                </p:selectOneMenu>
+                                </p:selectManyMenu>
 
                                 <p:outputLabel for="art" value="ProzessSchritt Art:" />
                                 <p:selectOneButton id="art"
