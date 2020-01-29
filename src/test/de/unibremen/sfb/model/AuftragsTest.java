@@ -41,7 +41,7 @@ class AuftragsTest {
         var pw = "12345678";
         tUser.setPassword(pw.getBytes());
         tUser.setWurdeVerifiziert(false);
-        tUser.setErstellungsDatum(new Date());
+        tUser.setErstellungsDatum(LocalDateTime.now());
         a.add(Role.TRANSPORT);
         a.add(Role.TECHNOLOGE);
         a.add(Role.LOGISTIKER);
@@ -64,7 +64,7 @@ class AuftragsTest {
         // PkVorlage Setup
         List<ProzessSchrittVorlage> psListe = new ArrayList<>();
         psListe.add(prozessSchrittVorlage);
-        pkv = new ProzessKettenVorlage(99, psListe);
+        pkv = new ProzessKettenVorlage(99, psListe, tUser);
 
         // Auftrag Setup
         AuftragsLog aLog = new AuftragsLog();

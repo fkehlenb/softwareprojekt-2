@@ -10,6 +10,8 @@
     <ui:composition template="template/common/layout.xhtml">
         <ui:define name="content">
 
+            <div class="ui-g-2"></div>
+            <div class="ui-g-8">
             <h:form prependId="false">
                 <h:panelGrid columns="1">
                     <h:outputText value="Um sich Einzuloggen, geben sie bitte ihre details ein!"/>
@@ -26,6 +28,9 @@
                 </h:panelGrid>
                 <p:messages id="messages" autoUpdate="true" closable="true"/>
             </h:form>
+
+            </div>
+            <div class="ui-g-2"></div>
         </ui:define>
 
     </ui:composition>

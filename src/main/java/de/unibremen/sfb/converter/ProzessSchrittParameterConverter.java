@@ -1,4 +1,4 @@
-package de.unibremen.sfb.controller;
+package de.unibremen.sfb.converter;
 
 import de.unibremen.sfb.model.ProzessSchrittParameter;
 import de.unibremen.sfb.service.ProzessSchrittParameterService;

@@ -9,7 +9,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor()
 @RequiredArgsConstructor
 public class ProzessSchrittParameter {
 
