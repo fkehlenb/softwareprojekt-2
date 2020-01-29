@@ -30,7 +30,7 @@ public class PSVErstellenBean {
     private  int psVID;
 
     @NonNull
-    private Duration dauer;
+    private String dauer;
 
     @NonNull
     private List<TraegerArt> eingabeTraeger;
@@ -75,8 +75,9 @@ public class PSVErstellenBean {
 
     public String erstellePSV() {
         Set<ExperimentierStation> esSet = new HashSet<>(); // FIXME Automatische Zuweisung
+        esSet.add(new ExperimentierStation(9999, new Standort("Keller"), ExperimentierStationZustand.VERFUEGBAR));
         // FIXME ID Generation
-        ProzessSchrittVorlage psv = new ProzessSchrittVorlage(55 ,dauer, psArt, stationen, zustandsAutomatenVorlage, prozessSchrittParameters);
+        ProzessSchrittVorlage psv = new ProzessSchrittVorlage(55 ,Duration.ofHours(Long.parseLong(dauer)), psArt, esSet, zustandsAutomatenVorlage, prozessSchrittParameters);
 
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Erfolg", "Prozessschrittvorlage:  " + psv.getPsVID() +

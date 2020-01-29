@@ -26,7 +26,7 @@
                                                   converter="prozessSchrittParameterConverter" effect="fade"
                                                   var="parameter" style="width: 172px" filter="true" filterMatchMode="startsWith">
                                     <f:selectItems value="#{psvErstellenBean.verfügbareParameter}"
-                                                   var="parameter" itemLabel="#{parameter.id}"
+                                                   var="parameter" itemLabel="#{parameter.name}"
                                                    itemValue="#{parameter}" />
                                     <p:column>
                                         <h:outputText value="#{parameter.name}" />
@@ -43,6 +43,10 @@
                                     <f:selectItem itemLabel="Färbend" itemValue="Färbend" />
                                     <f:selectItem itemLabel="Ermittelnd" itemValue="Ermittelnd" />
                                 </p:selectOneButton>
+
+                                <p:outputLabel for="dauer" value=" Dauer: " />
+                                <p:inputMask id="dauer" value="#{psvErstellenBean.dauer}"
+                                             required="true" mask="9999999" />
 
 
                             </h:panelGrid>

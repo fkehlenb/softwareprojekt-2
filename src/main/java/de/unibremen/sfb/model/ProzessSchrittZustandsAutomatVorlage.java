@@ -8,7 +8,7 @@ import java.util.List;
 
 /** Data class for the process step automaton templates */
 @Getter
-@Setter
+@RequiredArgsConstructor
 @Entity
 public class ProzessSchrittZustandsAutomatVorlage {
 
@@ -23,6 +23,9 @@ public class ProzessSchrittZustandsAutomatVorlage {
     /** The user who created this template */
     @ManyToOne
     public User creator;
+
+    @NonNull
+    private String name;
 
     public ProzessSchrittZustandsAutomatVorlage() {
         this.zustaende = new ArrayList<>();
