@@ -23,7 +23,6 @@ import java.util.Set;
 @Named("psvErstellenBean")
 @RequestScoped
 @Getter
-@Setter
 public class PSVErstellenBean {
 
     @NotEmpty
@@ -75,7 +74,7 @@ public class PSVErstellenBean {
 
     public String erstellePSV() {
         Set<ExperimentierStation> esSet = new HashSet<>(); // FIXME Automatische Zuweisung
-        esSet.add(new ExperimentierStation(9999, new Standort("Keller"), ExperimentierStationZustand.VERFUEGBAR));
+        esSet.add(new ExperimentierStation(9999, new Standort("Keller"), "Test Station", ExperimentierStationZustand.VERFUEGBAR, new HashSet<User>()));
         // FIXME ID Generation
         ProzessSchrittVorlage psv = new ProzessSchrittVorlage(55 ,Duration.ofHours(Long.parseLong(dauer)), psArt, esSet, zustandsAutomatenVorlage, prozessSchrittParameters);
 

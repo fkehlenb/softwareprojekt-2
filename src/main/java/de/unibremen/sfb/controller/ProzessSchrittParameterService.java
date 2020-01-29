@@ -53,7 +53,7 @@ public class ProzessSchrittParameterService {
 
     public ProzessSchrittParameter findByName(String name) {
         // FIXME Use String as ID or convert to String
-        return this.parameterSet.stream().filter(c -> c.getId().equals(name)).findFirst().orElse(null);
+        return this.parameterSet.stream().filter(c -> c.getName().equals(name)).findFirst().orElse(null);
     }
 
 

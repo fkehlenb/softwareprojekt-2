@@ -41,7 +41,7 @@ class AuftragsTest {
         var pw = "12345678";
         tUser.setPassword(pw.getBytes());
         tUser.setWurdeVerifiziert(false);
-        tUser.setErstellungsDatum(new Date());
+        tUser.setErstellungsDatum(LocalDateTime.now());
         a.add(Role.TRANSPORT);
         a.add(Role.TECHNOLOGE);
         a.add(Role.LOGISTIKER);

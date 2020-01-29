@@ -28,6 +28,9 @@ public class ExperimentierStation {
     @ManyToOne
     private Standort standort;
 
+    @NonNull
+    private String name;
+
     /** The station's status */
     @NonNull
     private Enum<ExperimentierStationZustand> status;
@@ -40,4 +43,8 @@ public class ExperimentierStation {
     /** Conditions for using an experimenting station */
     @OneToMany
     private Set<Bedingung> bedingungen;
+
+    @NonNull
+    @ManyToMany
+    private Set<User> benutzer;
 }
