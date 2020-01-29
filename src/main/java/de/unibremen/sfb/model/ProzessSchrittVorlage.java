@@ -16,6 +16,7 @@ public class ProzessSchrittVorlage {
 
     /** Process step template id */
     @Id
+    @Generated
     @NonNull
     private int psVID;
 
