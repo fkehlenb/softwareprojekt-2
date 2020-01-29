@@ -10,10 +10,7 @@ import javax.json.bind.JsonbConfig;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -51,29 +48,33 @@ class AuftragsTest {
         tUser.setRollen(a);
         tUser.setLanguage("DEUTSCH");
 
-        // ProzessSchrittVorlage Setuo
-        HashSet<ProzessSchrittLog> logs = new HashSet<>();
-        logs.add(new ProzessSchrittLog(LocalDateTime.now(), "INSTANZIERT"));
+        // Eigenschaften
         HashSet<QualitativeEigenschaft> e = new HashSet<>(); // TODO add eigenschaften
-        ProzessSchrittParameter prozessSchrittParameter = new ProzessSchrittParameter("Testen", e);
-        ProzessSchrittVorlage prozessSchrittVorlage = new ProzessSchrittVorlage(99, Duration.ofMinutes(42),
-                ProzessSchrittArt.ERMITTELND, new HashSet<ExperimentierStation>(), (new ProzessSchrittZustandsAutomatVorlage(tUser)),
-                tUser, prozessSchrittParameter);
 
+        // PS Parameter
+        Set<ProzessSchrittParameter> parameters = new HashSet<ProzessSchrittParameter>();
+        parameters.add(new ProzessSchrittParameter("Testen", e));
+
+        // Stationen
+
+        // ProzessSchrittVorlage Setuo
+        ProzessSchrittVorlage prozessSchrittVorlage = new ProzessSchrittVorlage(99, Duration.ofMinutes(42),
+                "Ermittlend", new HashSet<ExperimentierStation>(), new ProzessSchrittZustandsAutomatVorlage(),parameters);
 
         // PkVorlage Setup
         List<ProzessSchrittVorlage> psListe = new ArrayList<>();
         psListe.add(prozessSchrittVorlage);
-        pkv = new ProzessKettenVorlage(99, psListe);
+        pkv = new ProzessKettenVorlage(99, psListe, tUser);
 
         // Auftrag Setup
-
         AuftragsLog aLog = new AuftragsLog();
         aLog.setErstellt(LocalDateTime.now()); ;
         pk = new Auftrag(420, pkv, AuftragsPrioritaet.HOCH, new ArrayList<ProzessSchritt>(), aLog , ProzessKettenZustandsAutomat.INSTANZIIERT);
 
         // PS Setup
         ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat();
+        HashSet<ProzessSchrittLog> logs = new HashSet<>();
+        logs.add(new ProzessSchrittLog(LocalDateTime.now(), "INSTANZIERT"));
         ps = new ProzessSchritt(42, prozessSchrittZustandsAutomat, logs , prozessSchrittVorlage);
 
         // PS aufuellen

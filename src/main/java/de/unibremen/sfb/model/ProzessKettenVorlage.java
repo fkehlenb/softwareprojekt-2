@@ -21,4 +21,9 @@ public class ProzessKettenVorlage {
     @NonNull
     @OneToMany
     private List<ProzessSchrittVorlage> prozessSchrittVorlagen;
+
+    /** The user who created this template */
+    @NonNull
+    @ManyToOne
+    private User creator;
 }

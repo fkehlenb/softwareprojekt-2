@@ -15,8 +15,9 @@ import java.util.Set;
 public class ProzessSchrittVorlage {
 
     /** Process step template id */
-    @NonNull
     @Id
+    @Generated
+    @NonNull
     private int psVID;
 
     /** Duration of the process step template */
@@ -33,7 +34,7 @@ public class ProzessSchrittVorlage {
 
     /** The process step type */
     @NonNull
-    private ProzessSchrittArt psArt;
+    private String psArt;
 
     /** The experimenting stations accepted in the process step template */
     @NonNull
@@ -46,12 +47,11 @@ public class ProzessSchrittVorlage {
     private ProzessSchrittZustandsAutomatVorlage zustandsAutomat;
 
     /** The user who created this template */
-    @NonNull
     @OneToOne
     private User creator;
 
     /** The process step parameters */
     @NonNull
-    @OneToOne
-    private ProzessSchrittParameter prozessSchrittParameter;
+    @ManyToMany
+    private Set<ProzessSchrittParameter> prozessSchrittParameter;
 }
