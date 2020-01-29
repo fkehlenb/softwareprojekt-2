@@ -1,5 +1,6 @@
 package de.unibremen.sfb.boundary;
 
+import de.unibremen.sfb.controller.ExperimentierStationService;
 import de.unibremen.sfb.controller.ProzessSchrittParameterService;
 import de.unibremen.sfb.controller.ProzessSchrittVorlageService;
 import de.unibremen.sfb.controller.QualitativeEigenschaftService;
@@ -7,6 +8,7 @@ import de.unibremen.sfb.model.*;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import lombok.extern.java.Log;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -16,13 +18,15 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotEmpty;
 import java.time.Duration;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 @Named("psvErstellenBean")
 @RequestScoped
 @Getter
+@Setter
+@Log
 public class PSVErstellenBean {
 
     @NotEmpty
@@ -46,12 +50,16 @@ public class PSVErstellenBean {
     private ProzessSchrittZustandsAutomatVorlage zustandsAutomatenVorlage;
 
     @NonNull
-    private Set<ProzessSchrittParameter> prozessSchrittParameters;
+    private Set<ProzessSchrittParameter> ausgewählteProzessSchrittParameter;
+
+    @NonNull
+    private Set<ExperimentierStation> ausgewählteStationen;
 
     // Wir benötigen die Parameter und Eigenschaften um diese dann auszuwählen
     private Set<ProzessSchrittParameter> verfügbareParameter;
     private Set<QualitativeEigenschaft> verfügbareEigenschaften;
     private Set<ProzessSchrittVorlage> verfügbarePSV;
+    private Set<ExperimentierStation> verfügbareStationen;
 
     @Inject
     private ProzessSchrittVorlageService prozessSchrittVorlageService;
@@ -62,6 +70,9 @@ public class PSVErstellenBean {
     @Inject
     private QualitativeEigenschaftService qualitativeEigenschaftService;
 
+    @Inject
+    private ExperimentierStationService experimentierStationService;
+
     @PostConstruct
     /**
      * Hier werden aus der Persitenz die benötigten Daten Geladen
@@ -70,13 +81,18 @@ public class PSVErstellenBean {
         verfügbareParameter = prozessSchrittParameterService.getPSP();
         verfügbareEigenschaften = qualitativeEigenschaftService.getEigenschaften(); // Hier weiter einschränken
         verfügbarePSV = prozessSchrittVorlageService.getProzessSchrittVorlagen();
+        verfügbareStationen = experimentierStationService.getEsSet();
     }
 
     public String erstellePSV() {
-        Set<ExperimentierStation> esSet = new HashSet<>(); // FIXME Automatische Zuweisung
-        esSet.add(new ExperimentierStation(9999, new Standort("Keller"), "Test Station", ExperimentierStationZustand.VERFUEGBAR, new HashSet<User>()));
         // FIXME ID Generation
-        ProzessSchrittVorlage psv = new ProzessSchrittVorlage(55 ,Duration.ofHours(Long.parseLong(dauer)), psArt, esSet, zustandsAutomatenVorlage, prozessSchrittParameters);
+        log.info("Erstelle Prozessschritt");
+        // FIXME Add this
+        List<String> z = new ArrayList();
+        z.add("Kapput");
+
+        ProzessSchrittVorlage psv = new ProzessSchrittVorlage(55 ,Duration.ofHours(Long.parseLong(dauer)), psArt,
+                ausgewählteStationen, new ProzessSchrittZustandsAutomatVorlage(z, "Platzhalter"), ausgewählteProzessSchrittParameter);
 
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Erfolg", "Prozessschrittvorlage:  " + psv.getPsVID() +

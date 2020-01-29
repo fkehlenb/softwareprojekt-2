@@ -15,7 +15,7 @@ import java.util.Set;
                 query = "SELECT es FROM ExperimentierStation es WHERE es.status = :status")
 })
 @RequiredArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class ExperimentierStation {
 
     /** The station's id */
