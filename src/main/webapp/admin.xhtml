@@ -46,57 +46,9 @@
             <p:commandButton action="#{adminBean.addUser}" value="Spichern"/>
         </h:panelGrid>
 
-        <p:dialog widgetVar="dlg" modal="true" resizable="false" header="Values" showEffect="fade">
-            <p:panelGrid id="display" columns="2" columnClasses="label,value">
-                <h:outputText value="id: "/>
-                <h:outputText id="idValue" value="#{adminBean.id}"/>
-
-                <h:outputText value="vorname: "/>
-                <h:outputText id="vornameValue" value="#{adminBean.vorname}"/>
-
-                <h:outputText value="nachname: "/>
-                <h:outputText id="nachnameValue" value="#{adminBean.nachname}"/>
-
-                <h:outputText value="email: "/>
-                <h:outputText id="emailValue" value="#{adminBean.email}"/>
-
-                <h:outputText value="telefon: "/>
-                <h:outputText id="ssnValue" value="#{adminBean.telefonNummer}"/>
-
-                <h:outputText value="userName: "/>
-                <h:outputText id="userNameValue" value="#{adminBean.userName}"/>
-
-                <h:outputText value="wurdeVerifiziert: "/>
-                <h:outputText id="wurdeVerifiziertValue" value="#{adminBean.wurdeVerifiziert}"/>
-
-                <h:outputText value="language: "/>
-                <h:outputText id="languageValue" value="#{adminBean.language}"/>
-
-            </p:panelGrid>
-        </p:dialog>
-    </h:form>
-    <h:form>
-
-        <p:dataTable var="car" value="#{adminBean.}">
-            <p:column headerText="Id">
-                <h:outputText value="#{car.id}" />
-            </p:column>
-
-            <p:column headerText="Year">
-                <h:outputText value="#{car.year}" />
-            </p:column>
-
-            <p:column headerText="Brand">
-                <h:outputText value="#{car.brand}" />
-            </p:column>
-
-            <p:column headerText="Color">
-                <h:outputText value="#{car.color}" />
-            </p:column>
-        </p:dataTable>a
-
     </h:form>
 </p:outputPanel>
+<h:outputText  value="#{adminBean.findUser()}"/>
 </body>
 </html>
 
