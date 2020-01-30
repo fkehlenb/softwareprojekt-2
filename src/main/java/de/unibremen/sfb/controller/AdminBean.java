@@ -115,7 +115,7 @@ public class AdminBean implements Serializable {
      */
     public String findUser() throws UserNotFoundException {
         try {
-            return userDAO.getUserById(12).getUsername();
+            return userDAO.getUserById(11).getUsername();
         }catch(Exception e){
 
         }
