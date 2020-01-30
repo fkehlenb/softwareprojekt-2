@@ -14,7 +14,9 @@
 
 
 <ui:composition template="template/common/layout.xhtml">
-        <ui:define name="content">
+    <ui:define name="content">
+        <div class="ui-g-2"></div>
+        <div class="ui-g-8">
             <h1 style="color: cornflowerblue">Wilkommen zum Farbigen SFB!</h1>
             <p>Um sich Einzuloggen, geben sie bitte ihre details ein!</p>
             <p>Hi <shiro:guest>Guest</shiro:guest><shiro:user> <h:outputText value="#{indexBean.subject}"/>
@@ -29,11 +31,15 @@
         role logistik = <h:outputText value="#{indexBean.subject.hasRole('logistik')}"/>
         role technologe = <h:outputText value="#{indexBean.subject.hasRole('technologe')}"/>
         role transport = <h:outputText value="#{indexBean.subject.hasRole('transport')}"/>
-    </pre>
+            </pre>
 
-            <shiro:authenticated>Besuchen sie ihr <a href="technologe/technologe.index.xhtml">Profil</a> </shiro:authenticated>
+            <shiro:authenticated>Besuchen sie ihr <a href="technologe/technologe.index.xhtml">Profil</a>
+            </shiro:authenticated>
             <shiro:notAuthenticated>Bitte hier <a href="./login.xhtml">Anmelden</a> </shiro:notAuthenticated>
-        </ui:define>
+
+        </div>
+        <div class="ui-g-2"></div>
+    </ui:define>
 </ui:composition>
 </body>
 

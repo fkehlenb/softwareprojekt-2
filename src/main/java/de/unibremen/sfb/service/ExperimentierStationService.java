@@ -6,11 +6,13 @@ import de.unibremen.sfb.model.ExperimentierStation;
 import de.unibremen.sfb.model.ExperimentierStationZustand;
 import de.unibremen.sfb.model.Standort;
 import de.unibremen.sfb.model.User;
+import de.unibremen.sfb.persistence.ExperimentierStationDAO;
 import lombok.Getter;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.inject.Inject;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,6 +22,9 @@ import java.util.Set;
 @Singleton
 public class ExperimentierStationService {
     private Set<ExperimentierStation> esSet;
+
+    @Inject
+    private ExperimentierStationDAO esDao;
 
     @PostConstruct
     public void init() {
