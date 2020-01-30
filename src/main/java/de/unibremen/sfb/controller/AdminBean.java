@@ -19,6 +19,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -120,6 +121,15 @@ public class AdminBean implements Serializable {
         return "Not Fonud";
     }
 
+
+    public List<User> findUsers() throws UserNotFoundException {
+        try {
+            return userDAO.getAll();
+        }catch(Exception e){
+
+        }
+        return null;
+    }
     /**
      * deletes a user from the system
      * @param user the user to be deleted
