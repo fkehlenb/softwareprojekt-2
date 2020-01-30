@@ -18,7 +18,6 @@ import java.sql.*;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.Properties;
 import java.util.Set;
 
 /**
@@ -197,7 +196,6 @@ public class AdminBean implements Serializable {
         log.info("Connected to " + conn.toString());
         Statement stmt = conn.createStatement();
         stmt.executeQuery(String.format("SCRIPT TO '%s'", sqlFilePath));
-
     }
 
     /**
