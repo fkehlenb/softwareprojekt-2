@@ -4,6 +4,8 @@ import de.unibremen.sfb.exception.DuplicateExperimentierStationException;
 import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
 import de.unibremen.sfb.model.ExperimentierStation;
 
+import java.util.List;
+
 /** This class handles the experimenting station objects in the database */
 public class ExperimentierStationDAO extends ObjectDAO<ExperimentierStation> {
 
@@ -65,6 +67,20 @@ public class ExperimentierStationDAO extends ObjectDAO<ExperimentierStation> {
         catch (Exception e){
             e.printStackTrace();
             throw new ExperimentierStationNotFoundException();
+        }
+    }
+
+    public List<ExperimentierStation> getAll(){
+        try {
+            List<ExperimentierStation> es = em.createQuery("SELECT ExperimentierStation FROM ExperimentierStation es",get()).getResultList();
+            if (es.isEmpty()){
+                throw new Exception();
+            }
+            return es;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new IllegalArgumentException();
         }
     }
 }
