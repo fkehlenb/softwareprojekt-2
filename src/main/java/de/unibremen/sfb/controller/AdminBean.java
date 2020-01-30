@@ -9,8 +9,10 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -37,9 +39,10 @@ public class AdminBean implements Serializable {
 
 
     private User admin;
-
     @Inject
-    private UserDAO userDAO;
+    private UserController userController;
+    //@Inject
+    //private UserDAO userDAO;
 
     @Getter
     @Setter
@@ -104,7 +107,7 @@ public class AdminBean implements Serializable {
         b.setRollen(rol);
 
         b.setLanguage(language);
-        userDAO.persist(b);
+        userController.addUser(b);
 
     }
 
@@ -112,29 +115,46 @@ public class AdminBean implements Serializable {
      * edits a user that already exists
      *  user the user to be edited
      */
-    public String findUser() throws UserNotFoundException {
+    /*public String findUser() throws UserNotFoundException {
         try {
             return userDAO.getUserById(11).getUsername();
         }catch(Exception e){
 
         }
         return "Not Fonud";
-    }
+    }*/
 
 
     public List<User> findUsers() throws UserNotFoundException {
         try {
-            return userDAO.getAll();
+            return userController.getAll();
         }catch(Exception e){
 
         }
         return null;
     }
+
+
     /**
      * deletes a user from the system
-     * @param user the user to be deleted
+     *  the user to be deleted
      */
-    public void deleteUser(User user) {}
+    public void deleteUser(String idu) throws UserNotFoundException {
+        int idUser = Integer.parseInt(idu);
+        System.out.println(idUser);
+        List<User> users = userController.getAll();
+        for (User u : users){
+            System.out.println(u.getId());
+        }
+        try {
+            //User u = ;
+           // System.out.println(":::::::::USER ID:::::::::"+u.getId()+":::::::::USER ID:::::::::");
+            userController.removeUser(idUser);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
     /**
      * adds a carrier type
