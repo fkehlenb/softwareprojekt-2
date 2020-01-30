@@ -87,7 +87,7 @@ public class AdminBean implements Serializable {
      */
     public void addUser() throws  DuplicateUserException {
         String sDate1="31/12/1998";
-        Date date1=  new java.sql.Date(sDate1.hashCode());
+        Date date1=  new Date(sDate1.hashCode());
         Set<Role> rol=new HashSet<>();
         rol.add(Role.TECHNOLOGE);
         User b=new User();
