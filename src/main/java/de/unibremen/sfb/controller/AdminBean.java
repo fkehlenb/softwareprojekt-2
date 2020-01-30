@@ -83,7 +83,7 @@ public class AdminBean implements Serializable {
 
     /**
      * Adds a new User to the System
-     * @ user  the new user
+     *  the new user
      */
     public void addUser() throws  DuplicateUserException {
         String sDate1="31/12/1998";
