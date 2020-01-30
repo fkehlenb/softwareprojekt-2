@@ -3,6 +3,7 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -75,7 +76,7 @@ public class User {
      * Creation date of the user object
      */
     @NonNull
-    private Date erstellungsDatum;
+    private LocalDateTime erstellungsDatum;
 
     /**
      * The role's of the user

@@ -192,10 +192,10 @@ public class AdminBean implements Serializable {
     public  void backup() throws SQLException {
         log.info("Trying to DB");
         String sqlFilePath = "./Backup" + LocalDateTime.now().toString();
-        Connection conn = DriverManager.getConnection("jdbc:h2:./swp2", "swp2", "swp2");
-        log.info("Connected to " + conn.toString());
-        Statement stmt = conn.createStatement();
-        stmt.executeQuery(String.format("SCRIPT TO '%s'", sqlFilePath));
+//        Connection conn = DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
+//        log.info("Connected to " + conn.toString());
+//        Statement stmt = conn.createStatement();
+//        stmt.executeQuery(String.format("SCRIPT TO '%s'", sqlFilePath));
     }
 
     /**
