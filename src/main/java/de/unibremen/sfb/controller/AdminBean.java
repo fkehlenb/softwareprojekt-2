@@ -16,6 +16,7 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.sql.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -86,8 +87,7 @@ public class AdminBean implements Serializable {
      *  the new user
      */
     public void addUser() throws  DuplicateUserException {
-        String sDate1="31/12/1998";
-        Date date1=  new Date(sDate1.hashCode());
+        LocalDateTime date1=   LocalDateTime.now();
         Set<Role> rol=new HashSet<>();
         rol.add(Role.TECHNOLOGE);
         User b=new User();
