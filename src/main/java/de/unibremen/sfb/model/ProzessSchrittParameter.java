@@ -9,12 +9,12 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor()
 @RequiredArgsConstructor
 public class ProzessSchrittParameter {
 
     @Id @GeneratedValue
-    private int id;
+    private String id;
 
     /** The process step parameter's name */
     @NonNull

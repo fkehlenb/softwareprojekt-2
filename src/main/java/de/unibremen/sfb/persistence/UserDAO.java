@@ -4,6 +4,9 @@ import de.unibremen.sfb.exception.DuplicateUserException;
 import de.unibremen.sfb.exception.UserNotFoundException;
 import de.unibremen.sfb.model.User;
 
+import java.util.List;
+import javax.persistence.EntityManager;
+
 /** This class handles the users in the database */
 public class UserDAO extends ObjectDAO<User> {
 
@@ -106,5 +109,22 @@ public class UserDAO extends ObjectDAO<User> {
         catch (Exception e){
             throw new UserNotFoundException();
         }
+    }
+
+    public List<User> getAll() throws IllegalArgumentException {
+        try {
+            List<User> users = em.createQuery("SELECT User FROM User", get()).getResultList();
+            if (users.isEmpty()) {
+                throw new IllegalArgumentException("List is empty");
+            }
+            return users;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException();
+        }
+    }
+
+    public EntityManager getCurrent(){
+        return em;
     }
 }
