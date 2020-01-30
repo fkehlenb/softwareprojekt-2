@@ -20,7 +20,7 @@ import java.util.Set;
         @NamedQuery(name = "User.findByEmail", query = "SELECT u from User u WHERE u.email = :email")
 })
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class User {
 
     /**

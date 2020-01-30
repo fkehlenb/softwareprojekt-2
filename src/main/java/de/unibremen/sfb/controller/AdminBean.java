@@ -1,18 +1,22 @@
 package de.unibremen.sfb.controller;
 
+import de.unibremen.sfb.exception.DuplicateUserException;
 import de.unibremen.sfb.exception.UserNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.UserDAO;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.annotation.ManagedBean;
+
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.view.ViewScoped;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.sql.*;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -36,29 +40,41 @@ public class AdminBean implements Serializable {
     @Inject
     private UserDAO userDAO;
 
-
+    @Getter
+    @Setter
     private String vorname;
-
+    @Getter
+    @Setter
     private String nachname;
-
+    @Getter
+    @Setter
     private String id;
-
+    @Getter
+    @Setter
     private String email;
-
+    @Getter
+    @Setter
     private String telefonNummer;
-
+    @Getter
+    @Setter
     private String userName;
-
+    @Getter
+    @Setter
     private String password;
-
+    @Getter
+    @Setter
     private String  wurdeVerifiziert;
-
+    @Getter
+    @Setter
     private String erstellungsDatum;
-
+    @Getter
+    @Setter
     private String rolle;
-
+    @Getter
+    @Setter
     private String language;
-
+    @Getter
+    @Setter
     HashSet<Role> a = new HashSet<>();
     /**
      * Returns all users registered in this system
@@ -68,9 +84,28 @@ public class AdminBean implements Serializable {
 
     /**
      * Adds a new User to the System
-     * @param user the new user
+     *  the new user
      */
-    public void addUser(User user) {}
+    public void addUser() throws  DuplicateUserException {
+        LocalDateTime date1=   LocalDateTime.now();
+        Set<Role> rol=new HashSet<>();
+        rol.add(Role.TECHNOLOGE);
+        User b=new User();
+        b.setId(Integer.parseInt(id));
+        b.setVorname(vorname);
+        b.setNachname(nachname);
+        b.setEmail(email);
+        b.setTelefonnummer(telefonNummer);
+        b.setUsername(userName);
+        b.setPassword(password.getBytes());
+        b.setWurdeVerifiziert(true);
+        b.setErstellungsDatum(date1);
+        b.setRollen(rol);
+
+        b.setLanguage(language);
+        userDAO.persist(b);
+
+    }
 
     /**
      * edits a user that already exists
@@ -154,7 +189,7 @@ public class AdminBean implements Serializable {
     /**
      * backs the system up
      */
-    public void backup() throws SQLException {
+    public  void backup() throws SQLException {
         log.info("Trying to DB");
         String sqlFilePath = "./Backup" + LocalDateTime.now().toString();
 //        Connection conn = DriverManager.getConnection("jdbc:h2:~/test", "sa", "");

@@ -82,6 +82,7 @@
             <version>1.3.1</version>
         </dependency>
 
+
         <!-- https://mvnrepository.com/artifact/nl.talsmasoftware/umldoclet -->
         <dependency>
             <groupId>nl.talsmasoftware</groupId>
@@ -172,6 +173,12 @@
             <version>1.4.200</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.200</version>
+            <scope>compile</scope>
+        </dependency>
 
 
     </dependencies>
@@ -199,14 +206,7 @@
                             <goal>jar</goal>
                         </goals>
                         <configuration>
-                            <!-- <doclet>nl.talsmasoftware.umldoclet.UMLDoclet</doclet>    -->
-                            <!-- <docletArtifact>                                               -->
-                            <!--   <groupId>nl.talsmasoftware</groupId>                       -->
-                            <!--   <artifactId>umldoclet</artifactId>                         -->
-                            <!--    <version>2.0.7</version>/Uni/SWPNP/softwareprojekt-2/target-->
-                            <!-- </docletArtifact>   -->
                             <additionalOptions>
-                                <!--<additionalOption>...</additionalOption>-->
                             </additionalOptions>
                         </configuration>
                     </execution>
