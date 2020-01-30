@@ -8,18 +8,17 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.annotation.ManagedBean;
+
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.view.ViewScoped;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.sql.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Properties;
 import java.util.Set;
 
 /**
@@ -191,14 +190,15 @@ public class AdminBean implements Serializable {
     /**
      * backs the system up
      */
-   /* public void backup() throws SQLException {
+    public  void backup() throws SQLException {
         log.info("Trying to DB");
         String sqlFilePath = "./Backup" + LocalDateTime.now().toString();
-        Connection conn = DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
+        Connection conn = DriverManager.getConnection("jdbc:h2:./swp2", "swp2", "swp2");
         log.info("Connected to " + conn.toString());
         Statement stmt = conn.createStatement();
         stmt.executeQuery(String.format("SCRIPT TO '%s'", sqlFilePath));
-    }*/
+
+    }
 
     /**
      * the emtpy constructor
