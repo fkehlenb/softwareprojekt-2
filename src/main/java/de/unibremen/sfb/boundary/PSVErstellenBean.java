@@ -1,5 +1,7 @@
 package de.unibremen.sfb.boundary;
 
+import de.unibremen.sfb.exception.DuplicateProzessSchrittVorlageException;
+import de.unibremen.sfb.persistence.ProzessSchrittVorlageDAO;
 import de.unibremen.sfb.service.ExperimentierStationService;
 import de.unibremen.sfb.service.ProzessSchrittParameterService;
 import de.unibremen.sfb.service.ProzessSchrittVorlageService;
@@ -73,6 +75,9 @@ public class PSVErstellenBean {
     @Inject
     private ExperimentierStationService experimentierStationService;
 
+    @Inject
+    private ProzessSchrittVorlageDAO prozessSchrittVorlageDAO;
+
     @PostConstruct
     /**
      * Hier werden aus der Persitenz die benötigten Daten Geladen
@@ -93,7 +98,11 @@ public class PSVErstellenBean {
 
         ProzessSchrittVorlage psv = new ProzessSchrittVorlage(55 ,Duration.ofHours(Long.parseLong(dauer)), psArt,
                 ausgewählteStationen, new ProzessSchrittZustandsAutomatVorlage(z, "Platzhalter"), ausgewählteProzessSchrittParameter);
-
+        try {
+            prozessSchrittVorlageDAO.persist(psv);
+        } catch (DuplicateProzessSchrittVorlageException e) {
+            e.printStackTrace();
+        }
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Erfolg", "Prozessschrittvorlage:  " + psv.getPsVID() +
                 "erfolgreich erstellt"));
