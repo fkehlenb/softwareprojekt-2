@@ -1,13 +1,9 @@
 package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.model.Auftrag;
-import de.unibremen.sfb.model.ProzessSchrittParameter;
 import de.unibremen.sfb.model.Role;
 import de.unibremen.sfb.model.User;
 import lombok.Getter;
-import net.sourceforge.plantuml.ugraphic.UScale;
-import org.apache.shiro.crypto.hash.Hash;
-
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import java.time.LocalDateTime;
