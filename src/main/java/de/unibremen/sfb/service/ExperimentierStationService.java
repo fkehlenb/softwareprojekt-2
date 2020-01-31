@@ -14,6 +14,7 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -21,7 +22,7 @@ import java.util.Set;
 @Getter
 @Singleton
 public class ExperimentierStationService {
-    private Set<ExperimentierStation> esSet;
+    private List<ExperimentierStation> esSet;
 
     @Inject
     private ExperimentierStationDAO esDao;
@@ -29,18 +30,7 @@ public class ExperimentierStationService {
     @PostConstruct
     public void init() {
         // TODO Load from DB
-        this.esSet= createDefaultStation();
-    }
-
-    private Set<ExperimentierStation> createDefaultStation() {
-        Set<ExperimentierStation> ergebnis = new HashSet<ExperimentierStation>();
-
-        for (int i = 0; i < 20; i++) {
-            Faker faker = new Faker();
-            ergebnis.add(new ExperimentierStation(faker.random().nextInt(0, 500), new Standort(faker.lordOfTheRings().location()),
-                    faker.lordOfTheRings().character(), ExperimentierStationZustand.VERFUEGBAR, new HashSet<User>()));
-        }
-        return ergebnis;
+        this.esSet= esDao.getAll();
     }
 
 
