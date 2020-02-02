@@ -30,7 +30,7 @@ public class TraegerDAO extends ObjectDAO<Traeger> {
     }
 
     /** Update a container in the database
-     * @param t - the container to update in the database
+     * @param t - the container to update in the databasegit
      * @throws TraegerNotFoundException if the container cannot be found in the database */
     public void update(Traeger t) throws TraegerNotFoundException{
         if (t!=null){

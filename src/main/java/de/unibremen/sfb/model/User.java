@@ -3,6 +3,7 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.Set;
         @NamedQuery(name = "User.findByEmail", query = "SELECT u from User u WHERE u.email = :email")
 })
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class User {
 
     /**
@@ -75,7 +76,7 @@ public class User {
      * Creation date of the user object
      */
     @NonNull
-    private Date erstellungsDatum;
+    private LocalDateTime erstellungsDatum;
 
     /**
      * The role's of the user

@@ -3,7 +3,10 @@ package de.unibremen.sfb.controller;
 import de.unibremen.sfb.model.Auftrag;
 import de.unibremen.sfb.model.Role;
 import de.unibremen.sfb.model.User;
+import de.unibremen.sfb.persistence.UserDAO;
 
+import javax.inject.Inject;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -11,7 +14,31 @@ import java.util.Set;
 /**
  * this class manages the interaction with models of users
  */
-public class UserController {
+public class UserController implements Serializable {
+
+    @Inject
+    private UserDAO userDAO;
+
+    public void addUser(User u){
+        try {
+            userDAO.persist(u);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void removeUser(int id){
+        try {
+            userDAO.remove(userDAO.getUserById(id));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public List<User> getAll(){
+        return userDAO.getAll();
+    }
 
     /**
      * the user managed by this controller
