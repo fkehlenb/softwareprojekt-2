@@ -1,33 +1,26 @@
 package de.unibremen.sfb.service;
 
-import de.unibremen.sfb.model.ProzessSchrittParameter;
 import de.unibremen.sfb.model.Standort;
-import de.unibremen.sfb.model.User;
+import de.unibremen.sfb.persistence.StandortDAO;
 import lombok.Getter;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
-import java.util.HashSet;
+import javax.inject.Inject;
 import java.util.List;
-import java.util.Set;
 
 @Singleton
 @Getter
 public class StandortService {
-    private Set<Standort> standorte;
+    private List<Standort> standorte;
+
+    @Inject
+    StandortDAO standortDAO;
 
     @PostConstruct
     public void init() {
         // FIXME Load from db
-        this.standorte = createDefaulStandort();
-    }
-
-    private Set<Standort> createDefaulStandort() {
-        // FIXME Load from DB
-        Standort s = new Standort("Test Standort");
-        Set<Standort> ergebnis = new HashSet<>();
-        ergebnis.add(s);
-        return ergebnis;
+        this.standorte = standortDAO.getAll();
     }
 
     public void addStandort(Standort standort) {
