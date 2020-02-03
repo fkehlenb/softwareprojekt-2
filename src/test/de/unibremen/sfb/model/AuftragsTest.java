@@ -18,7 +18,7 @@ class AuftragsTest {
     ProzessSchritt ps;
     Auftrag pk;
     ProzessKettenVorlage pkv;
-    HashSet<Role> a = new HashSet<Role>();
+    List<Role> a = new ArrayList<Role>();
     User tUser = new User();
 
     // Create custom configuration with formatted output

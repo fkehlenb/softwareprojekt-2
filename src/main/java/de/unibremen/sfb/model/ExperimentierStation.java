@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.inject.Named;
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 /** Experimenting stations data class */
@@ -44,9 +45,9 @@ public class ExperimentierStation {
 
     /** Conditions for using an experimenting station */
     @OneToMany
-    private Set<Bedingung> bedingungen;
+    private List<Bedingung> bedingungen;
 
     @NonNull
     @ManyToMany
-    private Set<User> benutzer;
+    private List<User> benutzer;
 }

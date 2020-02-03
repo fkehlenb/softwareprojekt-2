@@ -54,9 +54,9 @@ public class UserDAO extends ObjectDAO<User> {
      */
     public void remove(User u) throws UserNotFoundException {
         if (u != null) {
-            if (!em.contains(u)) {
+            /*if (!em.contains(u)) {
                 throw new UserNotFoundException();
-            }
+            }*/
             em.remove(u);
         }
     }
@@ -76,16 +76,11 @@ public class UserDAO extends ObjectDAO<User> {
      * @throws UserNotFoundException if the user couldn't be found
      */
     public User getUserById(int id) throws UserNotFoundException {
-        try {
-            User u = em.find(get(), id);
-            if (u == null) {
-                throw new UserNotFoundException();
-            }
-            return u;
-        }
-        catch (Exception e){
+        User u = em.find(get(), id);
+        if (u == null) {
             throw new UserNotFoundException();
         }
+        return u;
     }
 
     /**
@@ -96,19 +91,18 @@ public class UserDAO extends ObjectDAO<User> {
      * @throws UserNotFoundException if the user couldn't be found
      */
     public User getUserByName(String n) throws UserNotFoundException {
-        try {
-            if (n == null || n.isBlank()) {
-                throw new UserNotFoundException();
-            }
-            User u = em.createNamedQuery("User.findByUsername", get()).setParameter("username", n).getSingleResult();
-            if (u == null) {
-                throw new UserNotFoundException();
-            }
-            return u;
-        }
-        catch (Exception e){
+        return getUser(n, "User.findByUsername", "username");
+    }
+
+    private User getUser(String n, String s, String username) throws UserNotFoundException {
+        if (n == null || n.isBlank()) {
             throw new UserNotFoundException();
         }
+        User u = em.createNamedQuery(s, get()).setParameter(username, n).getSingleResult();
+        if (u == null) {
+            throw new UserNotFoundException();
+        }
+        return u;
     }
 
     /**
@@ -119,19 +113,7 @@ public class UserDAO extends ObjectDAO<User> {
      * @throws UserNotFoundException if the user couldn't be found
      */
     public User getUserByMail(String m) throws UserNotFoundException {
-        try {
-            if (m == null || m.isBlank()) {
-                throw new UserNotFoundException();
-            }
-            User u = em.createNamedQuery("User.findByEmail", get()).setParameter("email", m).getSingleResult();
-            if (u == null) {
-                throw new UserNotFoundException();
-            }
-            return u;
-        }
-        catch (Exception e){
-            throw new UserNotFoundException();
-        }
+        return getUser(m, "User.findByEmail", "email");
     }
 
     /**
@@ -139,16 +121,8 @@ public class UserDAO extends ObjectDAO<User> {
      * @return all users in the database
      * @throws IllegalArgumentException if the list is empty
      */
-    public List<User> getAll() throws IllegalArgumentException {
-        try {
-            List<User> users = em.createNamedQuery("User.getAll", get()).getResultList();
-            if (users.isEmpty()) {
-                throw new IllegalArgumentException("List is empty");
-            }
-            return users;
-        }
-        catch (Exception e){
-            throw new IllegalArgumentException();
-        }
+    public List<User> getAll() {
+        return this.em.createQuery("SELECT u FROM User u", User.class).getResultList();
     }
+
 }

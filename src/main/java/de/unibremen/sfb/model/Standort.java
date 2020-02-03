@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /** The location data class */
@@ -14,7 +15,8 @@ import javax.persistence.Id;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Standort {
 
-    @Id @GeneratedValue
+    @Id  @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NonNull
     private int id;
 
     /** The location */

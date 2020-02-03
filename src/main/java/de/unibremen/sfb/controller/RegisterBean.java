@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -90,7 +91,7 @@ public class RegisterBean implements Serializable {
                     e.printStackTrace();
                 }
                 if (u != null) {
-                    //Error
+                    facesError("Zu dieser Email existiert schon ein Benutzer!");
                     throw new Exception("GET USER BY MAIL");
                 }
                 try {
@@ -99,7 +100,7 @@ public class RegisterBean implements Serializable {
                     e.printStackTrace();
                 }
                 if (u != null) {
-                    //Error
+                    facesError("Dieser Benutzername ist leider schon vergeben!");
                     throw new Exception("GET USER BY NAME");
                 }
                 List<Auftrag> auftrags = new ArrayList<>();
@@ -110,7 +111,7 @@ public class RegisterBean implements Serializable {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
                 System.out.println("REDIRECTED SUCCESSFULLY");
             } else {
-                // Error
+                facesError("Passwords dont match!");
                 throw new Exception("FAILED YOU MOTHERFUCKER!");
             }
         } catch (Exception e) {
@@ -136,6 +137,14 @@ public class RegisterBean implements Serializable {
      */
     private boolean passwordsMatch(String a, String b) {
         return a.equals(b);
+    }
+
+    /**
+     * Adds a new SEVERITY_ERROR FacesMessage for the ui
+     * @param message Error Message
+     */
+    private void facesError(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
     }
 
 }
