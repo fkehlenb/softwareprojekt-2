@@ -177,5 +177,4 @@ public class UserController implements Serializable {
      */
     public void setDefaultLanguage(String l) {}
 
-
 }

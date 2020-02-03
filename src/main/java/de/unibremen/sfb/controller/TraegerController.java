@@ -5,6 +5,7 @@ import de.unibremen.sfb.model.TraegerArt;
 import de.unibremen.sfb.model.Standort;
 import de.unibremen.sfb.model.Probe;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -85,4 +86,8 @@ public class TraegerController {
      * @return A Set containing all Proben in this Traeger
      */
     public Set<Probe> getProben() { return null; }
+
+    public List<Probe> getProben(Traeger t) {
+        return t.getProben();
+    }
 }

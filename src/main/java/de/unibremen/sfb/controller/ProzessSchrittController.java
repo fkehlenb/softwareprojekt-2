@@ -1,13 +1,9 @@
 package de.unibremen.sfb.controller;
 
 
-import de.unibremen.sfb.model.Auftrag;
-import de.unibremen.sfb.model.ExperimentierStation;
-import de.unibremen.sfb.model.ProzessSchritt;
-import de.unibremen.sfb.model.ProzessKettenVorlage;
-import de.unibremen.sfb.model.ProzessSchrittLog;
-import de.unibremen.sfb.model.TransportAuftrag;
+import de.unibremen.sfb.model.*;
 
+import javax.inject.Inject;
 import java.util.Set;
 
 /**
@@ -20,12 +16,19 @@ public class ProzessSchrittController {
      */
     public ProzessSchritt ps;
 
+    @Inject
+    AuftragController auftragController;
+
     /**
      * Sets the Auftrag wo which this ProzessSchritt belongs
      *
      * @param a The new Auftrag to which this ProzessSchritt should belong
      */
-    public void setAuftrag(Auftrag a){}
+    public void setAuftrag(Auftrag a){
+        if(a!=null) {
+            auftragController.addPStoAuftrag(a, ps);
+        }
+    }
 
     /**
      * Returns the Auftrag to which this ProzessSchritt belongs
@@ -88,4 +91,9 @@ public class ProzessSchrittController {
      * @return the TransportAuftrag
      */
     public TransportAuftrag getTransportAuftrag() { return null; }
+
+    public Traeger getTraeger(ProzessSchritt ps) {
+        return ps.getTraeger();
+
+    }
 }

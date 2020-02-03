@@ -1,5 +1,6 @@
 package de.unibremen.sfb.controller;
 
+import de.unibremen.sfb.exception.DuplicateProbeException;
 import de.unibremen.sfb.exception.ProbeNotFoundException;
 import de.unibremen.sfb.model.*;
 
@@ -32,7 +33,20 @@ public class ProbeController {
      *
      * @param id the new ID
      */
-    public void setID(String id) {}
+    public void setID(String id) {
+        /*try {
+            // probeDAO.getProbeById(id); //TODO sollte Probenid nicht String sein?
+        }
+        catch(ProbeNotFoundException e) {
+            //probe.setProbenID(id); //TODO Probenid string?
+            try {
+                probeDAO.update(probe);
+            }
+            catch(ProbeNotFoundException b) {
+
+            }
+        }**/
+    }
 
     /**
      * Returns the ID of this Probe
@@ -48,7 +62,15 @@ public class ProbeController {
      *
      * @param p A pair consisting of the timestamp and the comment text.
      */
-    public void addComment(Pair<LocalDateTime,String> p) {}
+    public void addComment(Pair<LocalDateTime,String> p) {
+        probe.setKommentar(new Kommentar(p.getLeft(), p.getRight()));
+        try {
+            probeDAO.update(probe);
+        }
+        catch(ProbeNotFoundException e) {
+
+        }
+    }
 
     /**
      * Returns the Probenkommentar (comment about this Probe) to this Probe.
@@ -56,7 +78,7 @@ public class ProbeController {
      *
      * @return A pair consisting of the timestamp and the comment text
      */
-    public Pair<LocalDateTime,String> getComment() { return null; }
+    public Kommentar getComment() { return probe.getKommentar(); }
 
     /**
      * Sets the Zustand (state) of this Probe
@@ -64,34 +86,52 @@ public class ProbeController {
      *
      * @param pz the new state of this Probe
      */
-    public void setZustand(ProbenZustand pz) { }
+    public void setZustand(ProbenZustand pz) {
+        probe.setZustand(pz);
+        try {
+            probeDAO.update(probe);
+        }
+        catch(ProbeNotFoundException e) {
+
+        }
+    }
 
     /**
      * returns the current Zustand (state) of this Probe
      * Possible values are: Kaputt(broken), Verloren(lost), Vorhanden(available).
      * @return the current Zustand
      */
-    public ProbenZustand getZustand() { return null; }
+    public ProbenZustand getZustand() { return probe.getZustand(); }
 
     /**
      * Sets the Standort (location) at which the Probe currently is.
      *
      * @param s the new location
      */
-    public void setStandort(Standort s) {}
+    public void setStandort(Standort s) {
+        if(s!=null) {
+            probe.setStandort(s);
+            try {
+                probeDAO.update(probe);
+            }
+            catch(ProbeNotFoundException e) {}
+        }
+    }
 
     /**
      * Returns the Standort (location) at which the Probe currently is
      *
      * @return the location
      */
-    public Standort getStandort() { return null; }
+    public Standort getStandort() { return probe.getStandort(); }
 
     /**
      * Sets an Archiv (archive) for this Probe (and thus archives it)
      * @param a the new archive
      */
-    public void setArchiv(Archiv a) {}
+    public void setArchiv(Archiv a) {
+        //TODO warum hier archiv? warum nicht bei auftrag?
+    }
 
     /**
      * Returns the Archiv (archive) for this Probe
@@ -104,13 +144,23 @@ public class ProbeController {
      * @return a set containing all properties of this sample
      *
      */
-    public Set<QualitativeEigenschaft> getEigenschaften() { return null; }
+    public Set<QualitativeEigenschaft> getEigenschaften() {
+        return probe.getQualitativeEigenschaften();
+    }
 
     /**
      *sets the properties of this sample
      * @param eigenschaft a set containing all properties this sample is supposed to have
      */
-    public void setEigenschaften(Set<QualitativeEigenschaft> eigenschaft) {}
+    public void setEigenschaften(Set<QualitativeEigenschaft> eigenschaft) {
+        if(eigenschaft != null) {
+            probe.setQualitativeEigenschaften(eigenschaft);
+            try {
+                probeDAO.update(probe);
+            }
+            catch(ProbeNotFoundException e) {}
+        }
+    }
 
     /**
      * Return the JSON Representation of a Probe
@@ -126,8 +176,15 @@ public class ProbeController {
      * creates a new sample
      * @param id the id for the new sample
      */
-    public void createNewProbe(String id) {
+    public void createNewProbe(String id, Standort s) {
 
+            Probe p = new Probe(0, ProbenZustand.VORHANDEN, s); //id
+            try {
+                probeDAO.persist(p);
+            }
+            catch(DuplicateProbeException f) {
+
+            }
     }
 
     /**

@@ -29,7 +29,7 @@ public class Probe {
 
     /** The sample's state */
     @NonNull
-    private Enum<ProbenZustand> zustand;
+    private ProbenZustand zustand;
 
     /** The sample's location */
     @NonNull

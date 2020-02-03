@@ -9,10 +9,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * this class manages the interaction of the gui with the backend system (for users who are technologists)
@@ -33,6 +30,12 @@ public class TechnologeBean implements Serializable {
     @Inject
     private ProbeController probeController;
 
+    @Inject
+    private ProzessSchrittController prozessSchrittController;
+
+    @Inject
+    private TraegerController traegerController;
+
     /**
      * returns the experimentation stations this user is assigned to
      * @return a set containing all stations this user is assigned to
@@ -45,7 +48,15 @@ public class TechnologeBean implements Serializable {
      * returns the assignments currently available for this user
      * @return a set containing all availabe jobs
      */
-    public Set<Auftrag> getAuftrag() { return null; }
+    public Set<Auftrag> getAuftrag() {
+        Set<ExperimentierStation> stations = getStationen();
+        Set<Auftrag> result = new HashSet<>();
+        for(ExperimentierStation s : stations) {
+           // Queue<ProzessSchritt> q = esController.getQueue(s);
+            // auftrag from prozessschritt, this in queue
+        } //TODO
+        return result;
+    }
 
     /**
      * sets the state of a job
@@ -88,32 +99,60 @@ public class TechnologeBean implements Serializable {
      * @param id the sample id of the new sample
      */
     public void createUrformend(String id) {
-        probeController.createNewProbe(id);
+        probeController.createNewProbe(id, null); //TODO
         //TODO keine Eigenschaften für neue Probe?
     }
 
     /**
-     * adds a comment to a process step
+     * adds a comment to all samples of a process step
      * @param ps the process step
      * @param c the comment
      */
     public void addComment(ProzessSchritt ps, String c) {
-        //TODO sollen Kommentare in ProzessSchritt hinzugefügt werden?
+        if(ps == null || c.equals("")) {
+            errorMessage("Input for addComment failed");
+        }
+        else {
+            List<Probe> samples = traegerController.getProben(prozessSchrittController.getTraeger(ps));
+            for (Probe p : samples) {
+                addProbenComment(p, c);
+            }
+        }
     }
 
     /**
-     * edits a comment which belongs to a process step
+     * edits a comment which belongs to all samples of a process step
      * @param ps the process step the comments belongs to
      * @param c the comment
      */
-    public void editComment(ProzessSchritt ps, String c) {}
+    public void editComment(ProzessSchritt ps, String c) {
+        if(ps == null || c.equals("")) {
+            errorMessage("Input for editComment failed");
+        }
+        else {
+            List<Probe> samples = traegerController.getProben(prozessSchrittController.getTraeger(ps));
+            for(Probe p : samples) {
+                editProbenComment(p, c);
+            }
+        }
+    }
 
     /**
-     * deletes a comment belonging to a process step
+     * deletes a comment belonging to the samples of a process step
      * @param ps the process step
      * @param c the comment
      */
-    public void deleteComment(ProzessSchritt ps, String c) {}
+    public void deleteComment(ProzessSchritt ps, String c) {
+        if(ps == null || c.equals("")) {
+            errorMessage("Input for deleteComment failed");
+        }
+        else {
+            List<Probe> samples = traegerController.getProben(prozessSchrittController.getTraeger(ps));
+            for(Probe p : samples) {
+                deleteProbenComment(p, c);
+            }
+        }
+    }
 
     /**
      * adds a comment to a sample
@@ -168,7 +207,9 @@ public class TechnologeBean implements Serializable {
      * returns all samples to which the user has not yet uploaded data
      * @return a set containing all those samples
      */
-    public Set<Probe> viewToBeUploaded() { return null; }
+    public Set<Probe> viewToBeUploaded() {
+        return null;
+    }
 
     /**
      * uploads a sample
@@ -204,7 +245,9 @@ public class TechnologeBean implements Serializable {
      * creates and sends an error message
      * @param e error messsage
      */
-    public void errorMessage(String e) {}
+    public void errorMessage(String e) {
+
+    }
 
     /**
      * the empty constructor
