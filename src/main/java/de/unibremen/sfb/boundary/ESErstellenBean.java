@@ -37,7 +37,7 @@ public class ESErstellenBean {
     private Standort standort;
 
     @NotEmpty
-    private Set<User> ausgewählteBenutzer;
+    private List<User> ausgewählteBenutzer;
 
     @NonNull
     private String name;

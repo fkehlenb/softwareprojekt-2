@@ -83,16 +83,16 @@ public class InitialDataFiller {
         return ergebnis;
     }
 
-    private Set<User> createDefaultUsers() {
+    private List<User> createDefaultUsers() {
         Faker f = new Faker(new Locale("de"));
 
         // User Setup
-        Set<Role> a = new HashSet<>();
+        List<Role> a = new ArrayList<>();
         a.add(Role.TECHNOLOGE);
         User testUser = new User(UUID.randomUUID().hashCode(), "Default", "Technologe", "l@g.c", f.phoneNumber().cellPhone(),
                 "t,", "12345678".getBytes(), true, LocalDateTime.now(),
                 a, new ArrayList<Auftrag>(), "DEUTSCH");
-        Set users = new HashSet<>();
+        List users = new ArrayList<>();
 
         // Add to user Lost
         users.add(testUser);
