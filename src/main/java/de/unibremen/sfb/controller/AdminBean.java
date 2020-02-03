@@ -39,8 +39,6 @@ public class AdminBean implements Serializable {
     /**
      * The user managed by this bean
      */
-
-
     private User admin;
     @Inject
     private UserController userController;
@@ -139,16 +137,6 @@ public class AdminBean implements Serializable {
      * edits a user that already exists
      *  user the user to be edited
      */
-    /*public String findUser() throws UserNotFoundException {
-        try {
-            return userDAO.getUserById(11).getUsername();
-        }catch(Exception e){
-
-        }
-        return "Not Fonud";
-    }*/
-
-
     public List<User> findUsers() throws UserNotFoundException {
         try {
             return userController.getAll();
