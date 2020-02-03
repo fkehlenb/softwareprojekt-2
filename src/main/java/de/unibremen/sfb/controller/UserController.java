@@ -28,6 +28,15 @@ public class UserController implements Serializable {
         }
     }
 
+    public void update(User u){
+        try {
+            userDAO.update(u);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
      public User getUserByID(int id) throws UserNotFoundException {
 
         return userDAO.getUserById(id);

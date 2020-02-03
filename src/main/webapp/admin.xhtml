@@ -3,7 +3,6 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <h:head>
@@ -12,35 +11,47 @@
 </h:head>
 
 <body>
+<h1>ERZEUG USER FORMULAR</h1>
 <p:outputPanel>
     <h:form>
         <h:panelGrid columns="2" cellpadding="5">
             <p:outputLabel for="id" value="id: "/>
-            <p:inputMask id="id" value="#{adminBean.id}" mask="99"/>
+            <p:inputText id="id" value="#{adminBean.id}" placeholder="ID"/>
 
             <p:outputLabel for="vorname" value="vorname:"/>
-            <p:inputMask id="vorname" value="#{adminBean.vorname}" mask="**"/>
+            <p:inputText id="vorname" value="#{adminBean.vorname}" placeholder="Vorname"/>
 
             <p:outputLabel for="nachname" value="nachname:"/>
-            <p:inputMask id="nachname" value="#{adminBean.nachname}" mask="**"/>
+            <p:inputText id="nachname" value="#{adminBean.nachname}" placeholder="Nachname"/>
 
             <p:outputLabel for="email" value="email:"/>
-            <p:inputMask id="email" value="#{adminBean.email}" mask="**"/>
-
+            <p:inputText id="email" value="#{adminBean.email}" placeholder="Email">
+                <f:validateRegex
+                        pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
+            </p:inputText>
             <p:outputLabel for="telefon" value="telefon:"/>
-            <p:inputMask id="telefon" value="#{adminBean.telefonNummer}" mask="**"/>
+            <p:inputMask id="telefon" value="#{adminBean.telefonNummer}" mask="(999) 9999-9999" placeholder="Telefon"/>
 
             <p:outputLabel for="userName" value="userName: "/>
-            <p:inputMask id="userName" value="#{adminBean.userName}" mask="**"/>
+            <p:inputText id="userName" value="#{adminBean.userName}" placeholder="User Name"/>
 
             <p:outputLabel for="password" value="password: "/>
-            <p:inputMask id="password" value="#{adminBean.password}" mask="****"/>
+            <p:inputText id="password" value="#{adminBean.password}" placeholder="password"/>
 
-            <p:outputLabel for="wurdeVerifiziert" value="wurdeVerifiziert: "/>
-            <p:inputMask id="wurdeVerifiziert" value="#{adminBean.wurdeVerifiziert}" mask="true"/>
+            <h:outputText value=" wurdeVerifiziert: "/>
+            <p:selectBooleanButton id="value1" value="#{adminBean.wurdeVerifiziert}" onLabel="Yes" offLabel="No"
+                                   style="width:60px"/>
 
-            <p:outputLabel for="language" value="language: "/>
-            <p:inputMask id="language" value="#{adminBean.language}" mask="**"/>
+            <p:outputLabel for="@next" value="Basic:"/>
+            <p:selectOneMenu id="console" value="#{adminBean.language}" style="width:200px">
+                <f:selectItem itemLabel="Select Sprache" itemValue="Deutsch"/>
+                <f:selectItem itemLabel="Deutsch" itemValue="Deutsch"/>
+                <f:selectItem itemLabel="Englisch" itemValue="Englisch"/>
+                <f:facet name="footer">
+                    <p:separator/>
+                    <h:outputText value="Sprachen" style="font-weight:bold;"/>
+                </f:facet>
+            </p:selectOneMenu>
 
             <p:commandButton value="Reset" type="reset"/>
             <p:commandButton action="#{adminBean.addUser}" value="Spichern"/>
@@ -49,28 +60,52 @@
     </h:form>
 </p:outputPanel>
 
+    <h1>LISTE USERS</h1>
+
 <p:dataTable var="user" value="#{adminBean.findUsers()}">
     <p:column headerText="Id">
-        <h:outputText value="#{user.id}" />
+        <h:outputText value="#{user.id}"/>
     </p:column>
 
     <p:column headerText="Nachname">
-        <h:outputText value="#{user.nachname}" />
+        <h:outputText value="#{user.nachname}"/>
     </p:column>
 
     <p:column headerText="Vorname">
-        <h:outputText value="#{user.vorname}" />
+        <h:outputText value="#{user.vorname}"/>
     </p:column>
-
+    <p:column headerText="Email">
+        <h:outputText value="#{user.email}"/>
+    </p:column>
     <p:column headerText="Telefonnummer">
-        <h:outputText value="#{user.telefonnummer}" />
+        <h:outputText value="#{user.telefonnummer}"/>
+    </p:column>
+    <p:column headerText="User Name">
+        <h:outputText value="#{user.username}"/>
+    </p:column>
+    <p:column headerText="WurdeVerifiziert">
+        <h:outputText value="#{user.wurdeVerifiziert}"/>
+    </p:column>
+    <p:column headerText="Sprache">
+        <h:outputText value="#{user.language}"/>
     </p:column>
     <p:column headerText="Remove">
         <h:form>
-        <h:commandButton action="#{adminBean.deleteUser(user.id)}" value="Erase"/>
+            <div align="center">
+            <h:commandButton action="#{adminBean.deleteUser(user.id)}" value="ERASE" />
+            </div>
+        </h:form>
+    </p:column>
+    <p:column headerText="Edit">
+        <h:form>
+            <div align="center">
+            <h:commandButton action="#{adminBean.adminEditUser(user.id)}" value="EDIT" />
+            </div>
         </h:form>
     </p:column>
 </p:dataTable>
+
+
 </body>
 </html>
 
