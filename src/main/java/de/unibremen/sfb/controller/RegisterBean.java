@@ -103,7 +103,7 @@ public class RegisterBean implements Serializable {
                     throw new Exception("GET USER BY NAME");
                 }
                 List<Auftrag> auftrags = new ArrayList<>();
-                u = new User(idGenerator(), vorname, nachname, email, phoneNumber, username, password.getBytes(), false, LocalDateTime.now(), List.of(Role.USER), auftrags, "DE");
+                u = new User(idGenerator(), vorname, nachname, email, phoneNumber, username, password.getBytes(), false, LocalDateTime.now(), new ArrayList<>(), auftrags, "DE");
                 userDAO.persist(u);
 
                 //TODO redirect and send email

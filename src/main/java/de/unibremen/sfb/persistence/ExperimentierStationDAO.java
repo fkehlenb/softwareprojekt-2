@@ -91,10 +91,6 @@ public class ExperimentierStationDAO extends ObjectDAO<ExperimentierStation> {
      * @throws IllegalArgumentException if the list is empty
      */
     public List<ExperimentierStation> getAll() throws IllegalArgumentException {
-        List<ExperimentierStation> es = em.createNamedQuery("ExperimentierStation.getAll", get()).getResultList();
-        if (es.isEmpty()) {
-            throw new IllegalArgumentException();
-        }
-        return es;
+        return em.createNamedQuery("ExperimentierStation.getAll", get()).getResultList();
     }
 }

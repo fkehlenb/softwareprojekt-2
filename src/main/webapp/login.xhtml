@@ -3,36 +3,66 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
-
-<h:body>
+<head></head>
+<body background="background.png">
 
 <!--https://github.com/danielmt/shiro-primefaces-example-->
-    <ui:composition template="template/common/layout.xhtml">
-        <ui:define name="content">
+<ui:composition template="template/common/layout.xhtml">
+    <ui:define name="content">
 
-            <div class="ui-g-2"></div>
-            <div class="ui-g-8">
+        <div class="ui-g-2"></div>
+        <div class="ui-g-8">
             <h:form prependId="false">
-                <h:panelGrid columns="1">
-                    <h:outputText value="Um sich Einzuloggen, geben sie bitte ihre details ein!"/>
-                    <p:inputText id="username" required="true" value="#{shiroLoginBean.username}"/> <!-- Binding -->
-
-                    <h:outputText value="Password:"/>
-                    <p:password id="password" required="true" value="#{shiroLoginBean.password}"/>
-
-                    <h:outputText value="Remember me:"/>
-                    <p:selectBooleanCheckbox id="rememberMe" value="#{shiroLoginBean.rememberMe}"/>
-
-                    <h:outputText/>
-                    <p:commandButton value="Login" action="#{shiroLoginBean.doLogin}"/>  <!-- hier wird dann benutzt -->
-                </h:panelGrid>
+                <p:panelGrid columns="2">
+                    <p:row>
+                        <p:column colspan="1">
+                            <h1 style="color: cornflowerblue">Wilkommen zum Farbigen SFB!</h1>
+                        </p:column>
+                        <p:column colspan="1">
+                            <p>Bitte geben Sie ihre Login-Details an!</p>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="1">
+                            <h:outputText value="Username:"/>
+                        </p:column>
+                        <p:column colspan="1">
+                            <p:inputText id="username" required="true"
+                                         placeholder="Username" value="#{shiroLoginBean.username}"
+                                         requiredMessage="Bitte Username eingeben!"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="1">
+                            <h:outputText value="Password:"/>
+                        </p:column>
+                        <p:column colspan="1">
+                            <p:password id="password" required="true" placeholder="Password"
+                                        requiredMessage="Bitte Passwort angeben!" value="#{shiroLoginBean.password}"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="1">
+                            <h:outputText value="Remember me:"/>
+                        </p:column>
+                        <p:column colspan="1">
+                            <p:selectBooleanCheckbox id="rememberMe" value="#{shiroLoginBean.rememberMe}"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="1"/>
+                        <p:column colspan="1">
+                            <p:commandButton value="Login" action="#{shiroLoginBean.doLogin}"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
                 <p:messages id="messages" autoUpdate="true" closable="true"/>
             </h:form>
 
-            </div>
-            <div class="ui-g-2"></div>
-        </ui:define>
+        </div>
+        <div class="ui-g-2"></div>
+    </ui:define>
 
-    </ui:composition>
-</h:body>
+</ui:composition>
+</body>
 </html>
