@@ -15,6 +15,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.sql.*;
 
@@ -30,6 +31,7 @@ import java.util.Set;
 
 @Named
 @RequestScoped
+@Transactional
 @Slf4j
 public class AdminBean implements Serializable {
 
@@ -141,15 +143,17 @@ public class AdminBean implements Serializable {
      */
     public void deleteUser(String idu) throws UserNotFoundException {
         int idUser = Integer.parseInt(idu);
-        System.out.println(idUser);
+        System.out.println("ID:::::::"+idUser);
         List<User> users = userController.getAll();
-        for (User u : users){
+        /*for (User u : users){
             System.out.println(u.getId());
-        }
+        }*/
         try {
             //User u = ;
            // System.out.println(":::::::::USER ID:::::::::"+u.getId()+":::::::::USER ID:::::::::");
-            userController.removeUser(idUser);
+           // userController.removeUser(idUser);
+              System.out.println("YO ME VOY A ELIMINAR:::!!"+userController.getUserByID(idUser).getUsername());
+              userController.removeUser(idUser);
         }
         catch (Exception e){
             e.printStackTrace();
