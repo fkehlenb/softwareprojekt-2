@@ -48,12 +48,13 @@ public class AuftragController {
      */
     public void setLog(AuftragsLog al) {
         if(al != null) {
+            AuftragsLog temp = getLog();
             auftrag.setLog(al);
             try {
                 auftragDAO.update(auftrag);
             }
             catch(AuftragNotFoundException e) {
-
+                auftrag.setLog(temp);
             }
         }
     }
@@ -72,12 +73,13 @@ public class AuftragController {
      *                  Abgebrochen (canceled), Durchgeführt (carried out)
      */
     public void setPKZ() {
+        ProzessKettenZustandsAutomat temp = getPKZ();
         auftrag.setProzessKettenZustandsAutomat(null); //TODO
         try {
             auftragDAO.update(auftrag);
         }
         catch(AuftragNotFoundException e) {
-
+            auftrag.setProzessKettenZustandsAutomat(temp);
         }
     }
 
@@ -87,12 +89,13 @@ public class AuftragController {
      * @param z the new state
      */
     public void setPKZforAuftrag(Auftrag a, ProzessKettenZustandsAutomat z) {
+        ProzessKettenZustandsAutomat temp = a.getProzessKettenZustandsAutomat();
         a.setProzessKettenZustandsAutomat(z);
         try {
             auftragDAO.update(a);
         }
         catch(AuftragNotFoundException e) {
-
+            a.setProzessKettenZustandsAutomat(temp);
         }
     }
 
@@ -118,7 +121,7 @@ public class AuftragController {
             auftragDAO.update(auftrag);
         }
         catch(AuftragNotFoundException e) {
-
+            auftrag.setPriority(p);
         }
 
     }
@@ -139,9 +142,10 @@ public class AuftragController {
     }
 
     public void addPStoAuftrag(Auftrag a, ProzessSchritt ps) {
+        List<ProzessSchritt> temp = getPS();
         List<ProzessSchritt> schritte = new LinkedList<>();
-        if(getPS() != null) {
-            schritte = getPS();
+        if(temp!=null) {
+            schritte = temp;
         }
         schritte.add(ps);
         a.setProzessSchritte(schritte);
@@ -149,7 +153,7 @@ public class AuftragController {
             auftragDAO.update(a);
         }
         catch(AuftragNotFoundException e) {
-
+            a.setProzessSchritte(temp);
         }
     }
 

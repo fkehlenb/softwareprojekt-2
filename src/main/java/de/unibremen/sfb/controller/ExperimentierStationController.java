@@ -39,12 +39,13 @@ public class ExperimentierStationController {
      */
     public void setStatus(ExperimentierStationZustand esz) {
         if(esz != null) {
+            ExperimentierStationZustand temp = getStatus();
             experimenteristation.setStatus(esz);
             try {
                 experimentierStationDAO.update(experimenteristation);
             }
             catch(ExperimentierStationNotFoundException e) {
-
+                experimenteristation.setStatus(temp);
             }
         }
 
@@ -109,12 +110,13 @@ public class ExperimentierStationController {
      */
     public void setBedingung(Set<Bedingung> b) {
         if(b != null) {
+            Set<Bedingung> temp = experimenteristation.getBedingungen();
             experimenteristation.setBedingungen(b);
             try {
                 experimentierStationDAO.update(experimenteristation);
             }
             catch(ExperimentierStationNotFoundException e) {
-
+                experimenteristation.setBedingungen(temp);
             }
         }
     }

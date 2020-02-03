@@ -6,7 +6,7 @@ import java.util.Set;
 /**
  * this class manages the interaction with models of process chain types (ProzessKettenArt)
  */
-public class ProzessSchrittArtController {
+public class ProzessSchrittArtController { //TODO ProzessSchrittArt Enum oder nicht?
 
     /**
      * the ProzessSchrittArt managed by an instance of this controller

@@ -25,13 +25,13 @@ public class ProbeController {
     public Probe probe;
 
     @Inject
-    ProbeDAO probeDAO;
+    private ProbeDAO probeDAO;
 
     /**
      * Sets the ID of this Probe.
      * Proben-IDs are of the format: [A-Z][0-9][0-9].[0-9]+(.[0-9]+)+
      *
-     * @param id the new ID
+     * @param id the new ID //TODO testen ob id richtiges format!
      */
     public void setID(String id) {
         /*try {
@@ -63,12 +63,13 @@ public class ProbeController {
      * @param p A pair consisting of the timestamp and the comment text.
      */
     public void addComment(Pair<LocalDateTime,String> p) {
+        Kommentar temp = getComment();
         probe.setKommentar(new Kommentar(p.getLeft(), p.getRight()));
         try {
             probeDAO.update(probe);
         }
         catch(ProbeNotFoundException e) {
-
+            probe.setKommentar(temp);
         }
     }
 
@@ -87,12 +88,13 @@ public class ProbeController {
      * @param pz the new state of this Probe
      */
     public void setZustand(ProbenZustand pz) {
+        ProbenZustand temp = getZustand();
         probe.setZustand(pz);
         try {
             probeDAO.update(probe);
         }
         catch(ProbeNotFoundException e) {
-
+            probe.setZustand(temp);
         }
     }
 
@@ -110,11 +112,14 @@ public class ProbeController {
      */
     public void setStandort(Standort s) {
         if(s!=null) {
+            Standort temp = getStandort();
             probe.setStandort(s);
             try {
                 probeDAO.update(probe);
             }
-            catch(ProbeNotFoundException e) {}
+            catch(ProbeNotFoundException e) {
+                probe.setStandort(temp);
+            }
         }
     }
 
@@ -154,11 +159,14 @@ public class ProbeController {
      */
     public void setEigenschaften(Set<QualitativeEigenschaft> eigenschaft) {
         if(eigenschaft != null) {
+            Set<QualitativeEigenschaft> temp = getEigenschaften();
             probe.setQualitativeEigenschaften(eigenschaft);
             try {
                 probeDAO.update(probe);
             }
-            catch(ProbeNotFoundException e) {}
+            catch(ProbeNotFoundException e) {
+                probe.setQualitativeEigenschaften(temp);
+            }
         }
     }
 
@@ -177,14 +185,13 @@ public class ProbeController {
      * @param id the id for the new sample
      */
     public void createNewProbe(String id, Standort s) {
+        Probe p = new Probe(0, ProbenZustand.VORHANDEN, s); //id
+        try {
+            probeDAO.persist(p);
+        }
+        catch(DuplicateProbeException f) {
 
-            Probe p = new Probe(0, ProbenZustand.VORHANDEN, s); //id
-            try {
-                probeDAO.persist(p);
-            }
-            catch(DuplicateProbeException f) {
-
-            }
+        }
     }
 
     /**
@@ -193,12 +200,14 @@ public class ProbeController {
      * @param k the comment
      */
     public void setKommentarForProbe(Probe p, Kommentar k) {
-        p.setKommentar(k);
-        try{
-            probeDAO.update(p);
-        }
-        catch(ProbeNotFoundException e) {
-
+        if(p!=null && k!=null) {
+            Kommentar temp = p.getKommentar();
+            p.setKommentar(k);
+            try {
+                probeDAO.update(p);
+            } catch (ProbeNotFoundException e) {
+                p.setKommentar(temp);
+            }
         }
     }
 
@@ -208,12 +217,14 @@ public class ProbeController {
      * @param z the new state
      */
     public void setZustandForProbe(Probe p, ProbenZustand z) {
-        p.setZustand(z);
-        try {
-            probeDAO.update(p);
-        }
-        catch(ProbeNotFoundException e) {
-
+        if(p!=null && z!=null) {
+            ProbenZustand temp = p.getZustand();
+            p.setZustand(z);
+            try {
+                probeDAO.update(p);
+            } catch (ProbeNotFoundException e) {
+                p.setZustand(temp);
+            }
         }
     }
 

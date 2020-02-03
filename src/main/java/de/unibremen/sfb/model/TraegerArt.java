@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 /** This class is the data class for container types */
 @Getter
@@ -19,5 +20,5 @@ public class TraegerArt {
      * List containing all container types
      */
     @ElementCollection
-    private List<String> arten;
+    private Set<String> arten;
 }

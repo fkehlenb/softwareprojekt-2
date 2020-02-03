@@ -43,7 +43,7 @@ public class ProzessSchrittController {
      * Returns if the data to this ProzessSchritt (process step) was already uploaded by a user
      * @return True if the data was uploaded, False if not
      */
-    public boolean uploaded() { return true; }
+    public boolean uploaded() { return false; }
 
     /**
      * Sets if the data to this ProzessSchritt was uploaded
@@ -56,7 +56,7 @@ public class ProzessSchrittController {
      * @return A set with all possible ExperimentierStationen
      */
     public Set<ExperimentierStation> getES(){
-        return null;
+        return ps.getProzessSchrittVorlage().getStationen();
     }
 
     /**
@@ -71,7 +71,9 @@ public class ProzessSchrittController {
      *
      * @param psl The new protocol
      */
-    public void setPSLog(ProzessSchrittLog psl) {}
+    public void setPSLog(ProzessSchrittLog psl) {
+        //log set oder so?
+    }
 
     /**
      * Returns the protocol of this ProzessSchritt which was created up until this point.
@@ -90,10 +92,14 @@ public class ProzessSchrittController {
      * Returns the TransportAuftrag (transportation assignment), if there is one for this ProzessSchritt
      * @return the TransportAuftrag
      */
-    public TransportAuftrag getTransportAuftrag() { return null; }
+    public TransportAuftrag getTransportAuftrag() { return ps.getTransportAuftrag(); }
 
+    /**
+     * returns the Traeger which is currently assigned to a prozessSchritt
+     * @param ps the prozessSchritt
+     * @return the Traeger
+     */
     public Traeger getTraeger(ProzessSchritt ps) {
         return ps.getTraeger();
-
     }
 }
