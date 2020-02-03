@@ -27,12 +27,14 @@ public class ProzessSchrittLogController {
      */
     public void setStart(LocalDateTime t) {
         if(t!=null) {
+            LocalDateTime temp = getStart();
             pslog.setGestartet(t);
             try {
                 pslDAO.update(pslog);
             }
             catch(ProzessSchrittLogNotFoundException e) {
-                //TODO was machen? Error ausgeben?
+                pslog.setGestartet(temp);
+                e.printStackTrace();
             }
         }
     }
@@ -58,6 +60,7 @@ public class ProzessSchrittLogController {
             }
             catch(ProzessSchrittLogNotFoundException e) {
                 pslog.setGeendet(s);
+                e.printStackTrace();
             }
         }
     }

@@ -42,14 +42,16 @@ public class ProzessSchrittVorlageController {
      */
     public void setES(ExperimentierStation es) {
         if(es!=null) {
-            Set<ExperimentierStation> set = psv.getStationen();
+            Set<ExperimentierStation> temp = psv.getStationen();
+            Set<ExperimentierStation> set = temp;
             set.add(es);
             psv.setStationen(set);
             try {
                 psvDAO.update(psv);
             }
             catch(ProzessSchrittVorlageNotFoundException e) {
-
+                e.printStackTrace();
+                psv.setStationen(temp);
             }
         }
     }
@@ -75,7 +77,7 @@ public class ProzessSchrittVorlageController {
                 psvDAO.update(psv);
             }
             catch(ProzessSchrittVorlageNotFoundException f) {
-
+                f.printStackTrace();
             }
         }
     }
@@ -142,12 +144,14 @@ public class ProzessSchrittVorlageController {
      */
     public void setDauer(Duration d) {
         if(d!=null && !d.isNegative() && !d.isZero()) {
+            Duration temp = getDauer();
             psv.setDauer(d);
             try {
                 psvDAO.update(psv);
             }
             catch(ProzessSchrittVorlageNotFoundException e) {
-
+                e.printStackTrace();
+                psv.setDauer(temp);
             }
         }
     }

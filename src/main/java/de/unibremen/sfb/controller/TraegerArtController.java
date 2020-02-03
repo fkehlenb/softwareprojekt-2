@@ -35,6 +35,7 @@ public class TraegerArtController {
             }
             catch(TraegerArtNotFoundException e) {
                 traegerart.setArten(temp);
+                e.printStackTrace();
             }
         }
     }

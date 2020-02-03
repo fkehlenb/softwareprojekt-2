@@ -45,6 +45,7 @@ public class TraegerController {
             }
             catch(TraegerNotFoundException f) {
                 traeger.setId(temp);
+                f.printStackTrace();
             }
         }
 
@@ -105,6 +106,7 @@ public class TraegerController {
             }
             catch(TraegerNotFoundException e) {
                 traeger.setStandort(temp);
+                e.printStackTrace();
             }
         }
     }
@@ -130,6 +132,7 @@ public class TraegerController {
             }
             catch(TraegerNotFoundException e) {
                 traeger.setProben(temp);
+                e.printStackTrace();
             }
         }
 

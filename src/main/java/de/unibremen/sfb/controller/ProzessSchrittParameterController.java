@@ -35,6 +35,7 @@ public class ProzessSchrittParameterController {
             }
             catch(ProzessSchrittParameterNotFoundException e) {
                 psp.setName(temp);
+                e.printStackTrace();
             }
         }
     }
@@ -65,6 +66,7 @@ public class ProzessSchrittParameterController {
             }
             catch(ProzessSchrittParameterNotFoundException e) {
                 psp.setQualitativeEigenschaften(temp);
+                e.printStackTrace();
             }
         }
     }

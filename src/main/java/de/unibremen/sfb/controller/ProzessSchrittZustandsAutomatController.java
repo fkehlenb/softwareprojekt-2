@@ -31,6 +31,7 @@ public class ProzessSchrittZustandsAutomatController {
             }
             catch(ProzessSchrittZustandsAutomatNotFoundException e) {
                 psza.setCurrent(t);
+                e.printStackTrace();
             }
         }
     }

@@ -70,6 +70,7 @@ public class ProbeController {
         }
         catch(ProbeNotFoundException e) {
             probe.setKommentar(temp);
+            e.printStackTrace();
         }
     }
 
@@ -95,6 +96,7 @@ public class ProbeController {
         }
         catch(ProbeNotFoundException e) {
             probe.setZustand(temp);
+            e.printStackTrace();
         }
     }
 
@@ -119,6 +121,7 @@ public class ProbeController {
             }
             catch(ProbeNotFoundException e) {
                 probe.setStandort(temp);
+                e.printStackTrace();
             }
         }
     }
@@ -166,6 +169,7 @@ public class ProbeController {
             }
             catch(ProbeNotFoundException e) {
                 probe.setQualitativeEigenschaften(temp);
+                e.printStackTrace();
             }
         }
     }
@@ -190,7 +194,7 @@ public class ProbeController {
             probeDAO.persist(p);
         }
         catch(DuplicateProbeException f) {
-
+            f.printStackTrace();
         }
     }
 
@@ -207,6 +211,7 @@ public class ProbeController {
                 probeDAO.update(p);
             } catch (ProbeNotFoundException e) {
                 p.setKommentar(temp);
+                e.printStackTrace();
             }
         }
     }
@@ -224,6 +229,7 @@ public class ProbeController {
                 probeDAO.update(p);
             } catch (ProbeNotFoundException e) {
                 p.setZustand(temp);
+                e.printStackTrace();
             }
         }
     }
@@ -238,7 +244,7 @@ public class ProbeController {
             return probeDAO.getObjById(id);
         }
         catch(ProbeNotFoundException e) {
-
+            e.printStackTrace();
         }
         return null;
     }

@@ -46,6 +46,7 @@ public class ExperimentierStationController {
             }
             catch(ExperimentierStationNotFoundException e) {
                 experimenteristation.setStatus(temp);
+                e.printStackTrace();
             }
         }
 
@@ -117,6 +118,7 @@ public class ExperimentierStationController {
             }
             catch(ExperimentierStationNotFoundException e) {
                 experimenteristation.setBedingungen(temp);
+                e.printStackTrace();
             }
         }
     }
@@ -126,12 +128,14 @@ public class ExperimentierStationController {
      * @param es the broken experimenting station
      */
     public void reportBroken(ExperimentierStation es) {
+        ExperimentierStationZustand temp = es.getStatus();
         es.setStatus(ExperimentierStationZustand.KAPUTT);
         try {
             experimentierStationDAO.update(es);
         }
         catch(ExperimentierStationNotFoundException e) {
-
+            es.setStatus(temp);
+            e.printStackTrace();
         }
     }
 

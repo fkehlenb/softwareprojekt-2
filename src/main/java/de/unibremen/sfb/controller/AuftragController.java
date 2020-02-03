@@ -55,6 +55,7 @@ public class AuftragController {
             }
             catch(AuftragNotFoundException e) {
                 auftrag.setLog(temp);
+                e.printStackTrace();
             }
         }
     }
@@ -80,6 +81,7 @@ public class AuftragController {
         }
         catch(AuftragNotFoundException e) {
             auftrag.setProzessKettenZustandsAutomat(temp);
+            e.printStackTrace();
         }
     }
 
@@ -96,6 +98,7 @@ public class AuftragController {
         }
         catch(AuftragNotFoundException e) {
             a.setProzessKettenZustandsAutomat(temp);
+            e.printStackTrace();
         }
     }
 
@@ -122,6 +125,7 @@ public class AuftragController {
         }
         catch(AuftragNotFoundException e) {
             auftrag.setPriority(p);
+            e.printStackTrace();
         }
 
     }
@@ -154,6 +158,7 @@ public class AuftragController {
         }
         catch(AuftragNotFoundException e) {
             a.setProzessSchritte(temp);
+            e.printStackTrace();
         }
     }
 
@@ -217,6 +222,7 @@ public class AuftragController {
                 return 0;
             }
             catch(AuftragNotFoundException e) {
+                e.printStackTrace();
                 return -1;
             }
             //TODO autrag aus queue entfernen
