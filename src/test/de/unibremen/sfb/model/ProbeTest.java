@@ -8,10 +8,7 @@ import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbConfig;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,7 +26,7 @@ class ProbeTest {
     void setUp() {
 
         Probe erste = new Probe();
-        Standort a = new  Standort("Hier");
+        Standort a = new  Standort(UUID.randomUUID().hashCode(), "Hier");
         erste.setProbenID(14);
         erste.setStandort(a);
         erste.setKommentar(new Kommentar(LocalDateTime.now(), "Hallo Welt"));
