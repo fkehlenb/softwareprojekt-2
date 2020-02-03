@@ -16,6 +16,8 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.Transactional;
+import java.io.IOException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
 import java.io.IOException;
@@ -32,18 +34,15 @@ import java.util.Set;
 /**
  * this class manages the interaction between the gui and the backend system in the case that the user is an admin
  */
-
+@Transactional
 @Named
 @RequestScoped
-@Transactional
 @Slf4j
 public class AdminBean implements Serializable {
 
     /**
      * The user managed by this bean
      */
-
-
     private User admin;
     @Inject
     private UserController userController;
@@ -148,17 +147,6 @@ public class AdminBean implements Serializable {
         return null;
     }
 
-    public User findUser(String id){
-        int idInt= Integer.parseInt(id);
-        System.out.println(id);
-        try {
-            return userController.getUserByID(idInt);
-        }catch(Exception e){
-
-        }
-        return null;
-    }
-
 
     /**
      * deletes a user from the system
@@ -167,12 +155,13 @@ public class AdminBean implements Serializable {
     public void deleteUser(String idu) throws UserNotFoundException {
         int idUser = Integer.parseInt(idu);
         try {
-              userController.removeUser(idUser);
+            userController.removeUser(idUser);
         }
         catch (Exception e){
             e.printStackTrace();
         }
     }
+
 
     /**
      * adds a carrier type
