@@ -52,9 +52,9 @@ public class UserDAO extends ObjectDAO<User> {
      */
     public void remove(User u) throws UserNotFoundException {
         if (u != null) {
-            if (!em.contains(u)) {
+            /*if (!em.contains(u)) {
                 throw new UserNotFoundException();
-            }
+            }*/
             em.remove(u);
         }
     }
