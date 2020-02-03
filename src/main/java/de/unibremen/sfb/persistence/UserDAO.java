@@ -120,7 +120,7 @@ public class UserDAO extends ObjectDAO<User> {
     /**
      * Get a list of all users in the database
      * @return all users in the database
-     * @throws IllegalArgumentException - if the list is empty
+     * @throws IllegalArgumentException if the list is empty
      */
     public List<User> getAll() throws IllegalArgumentException {
         List<User> users = em.createNamedQuery("User.getAll", get()).getResultList();
