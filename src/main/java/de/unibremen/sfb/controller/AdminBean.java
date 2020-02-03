@@ -13,13 +13,18 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.transaction.Transactional;
+import java.io.IOException;
 import java.io.Serializable;
 import java.sql.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,6 +35,7 @@ import java.util.Set;
 
 @Named
 @RequestScoped
+@Transactional
 @Slf4j
 public class AdminBean implements Serializable {
 
@@ -41,9 +47,6 @@ public class AdminBean implements Serializable {
     private User admin;
     @Inject
     private UserController userController;
-    //@Inject
-    //private UserDAO userDAO;
-
     @Getter
     @Setter
     private String vorname;
@@ -67,7 +70,7 @@ public class AdminBean implements Serializable {
     private String password;
     @Getter
     @Setter
-    private String  wurdeVerifiziert;
+    private Boolean  wurdeVerifiziert;
     @Getter
     @Setter
     private String erstellungsDatum;
@@ -90,24 +93,45 @@ public class AdminBean implements Serializable {
      * Adds a new User to the System
      *  the new user
      */
-    public void addUser() throws  DuplicateUserException {
-        LocalDateTime date1=   LocalDateTime.now();
-        Set<Role> rol=new HashSet<>();
-        rol.add(Role.TECHNOLOGE);
-        User b=new User();
-        b.setId(Integer.parseInt(id));
-        b.setVorname(vorname);
-        b.setNachname(nachname);
-        b.setEmail(email);
-        b.setTelefonnummer(telefonNummer);
-        b.setUsername(userName);
-        b.setPassword(password.getBytes());
-        b.setWurdeVerifiziert(true);
-        b.setErstellungsDatum(date1);
-        b.setRollen(rol);
+    public void addUser() throws DuplicateUserException, UserNotFoundException {
 
-        b.setLanguage(language);
-        userController.addUser(b);
+        LocalDateTime date1=   LocalDateTime.now();
+        List<Role> rol=new ArrayList<>();
+        rol.add(Role.TECHNOLOGE);
+        try{
+            User b =userController.getUserByID(Integer.parseInt(id));
+            b.setVorname(vorname);
+            b.setNachname(nachname);
+            b.setEmail(email);
+            b.setTelefonnummer(telefonNummer);
+            b.setUsername(userName);
+            b.setPassword(password.getBytes());
+            b.setWurdeVerifiziert(wurdeVerifiziert);
+            b.setErstellungsDatum(date1);
+            b.setRollen(rol);
+            b.setLanguage(language);
+            userController.update(b);
+        }catch (Exception e){
+            User b=new User();
+            b.setId(Integer.parseInt(id));
+            b.setVorname(vorname);
+            b.setNachname(nachname);
+            b.setEmail(email);
+            b.setTelefonnummer(telefonNummer);
+            b.setUsername(userName);
+            b.setPassword(password.getBytes());
+            b.setWurdeVerifiziert(wurdeVerifiziert);
+            b.setErstellungsDatum(date1);
+            b.setRollen(rol);
+            b.setLanguage(language);
+            userController.addUser(b);
+        }
+
+
+    }
+
+    public void adminEditUser(String id) throws IOException {
+        this.id= id;
 
     }
 
@@ -115,19 +139,20 @@ public class AdminBean implements Serializable {
      * edits a user that already exists
      *  user the user to be edited
      */
-    /*public String findUser() throws UserNotFoundException {
-        try {
-            return userDAO.getUserById(11).getUsername();
-        }catch(Exception e){
-
-        }
-        return "Not Fonud";
-    }*/
-
-
     public List<User> findUsers() throws UserNotFoundException {
         try {
             return userController.getAll();
+        }catch(Exception e){
+
+        }
+        return null;
+    }
+
+    public User findUser(String id){
+        int idInt= Integer.parseInt(id);
+        System.out.println(id);
+        try {
+            return userController.getUserByID(idInt);
         }catch(Exception e){
 
         }
@@ -141,15 +166,8 @@ public class AdminBean implements Serializable {
      */
     public void deleteUser(String idu) throws UserNotFoundException {
         int idUser = Integer.parseInt(idu);
-        System.out.println(idUser);
-        List<User> users = userController.getAll();
-        for (User u : users){
-            System.out.println(u.getId());
-        }
         try {
-            //User u = ;
-           // System.out.println(":::::::::USER ID:::::::::"+u.getId()+":::::::::USER ID:::::::::");
-            userController.removeUser(idUser);
+              userController.removeUser(idUser);
         }
         catch (Exception e){
             e.printStackTrace();

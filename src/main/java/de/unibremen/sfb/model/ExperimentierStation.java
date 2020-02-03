@@ -2,8 +2,9 @@ package de.unibremen.sfb.model;
 
 import lombok.*;
 
+import javax.inject.Named;
 import javax.persistence.*;
-import java.util.Queue;
+import java.util.List;
 import java.util.Set;
 
 /** Experimenting stations data class */
@@ -13,7 +14,8 @@ import java.util.Set;
         @NamedQuery(name = "ExperimentierStation.findAllInLocation",
                 query = "SELECT es FROM ExperimentierStation es WHERE es.standort = :standort"),
         @NamedQuery(name = "ExperimentierStation.getByStatus",
-                query = "SELECT es FROM ExperimentierStation es WHERE es.status = :status")
+                query = "SELECT es FROM ExperimentierStation es WHERE es.status = :status"),
+        @NamedQuery(name = "ExperimentierStation.getAll", query = "SELECT es FROM ExperimentierStation es")
 })
 @RequiredArgsConstructor
 @NoArgsConstructor
@@ -43,9 +45,9 @@ public class ExperimentierStation {
 
     /** Conditions for using an experimenting station */
     @OneToMany
-    private Set<Bedingung> bedingungen;
+    private List<Bedingung> bedingungen;
 
     @NonNull
     @ManyToMany
-    private Set<User> benutzer;
+    private List<User> benutzer;
 }

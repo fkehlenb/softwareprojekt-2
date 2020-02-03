@@ -17,7 +17,8 @@ import java.util.Set;
 @NamedQueries({
         @NamedQuery(name = "User.findById", query = "SELECT u from User u WHERE u.id = :id"),
         @NamedQuery(name = "User.findByUsername", query = "SELECT u from User u WHERE u.username = :username"),
-        @NamedQuery(name = "User.findByEmail", query = "SELECT u from User u WHERE u.email = :email")
+        @NamedQuery(name = "User.findByEmail", query = "SELECT u from User u WHERE u.email = :email"),
+        @NamedQuery(name = "User.getAll", query = "SELECT u FROM User u")
 })
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
@@ -28,6 +29,7 @@ public class User {
      */
     @Id
     @NonNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     /**
@@ -83,7 +85,7 @@ public class User {
      */
     @NonNull
     @ElementCollection
-    private Set<Role> rollen;
+    private List<Role> rollen;
 
     /**
      * The experimenting stations a user is assigned to

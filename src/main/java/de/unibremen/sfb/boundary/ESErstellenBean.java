@@ -20,6 +20,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 import java.util.Set;
 
 @Named("esErstellenBean")
@@ -36,13 +37,13 @@ public class ESErstellenBean {
     private Standort standort;
 
     @NotEmpty
-    private Set<User> ausgewählteBenutzer;
+    private List<User> ausgewählteBenutzer;
 
     @NonNull
     private String name;
 
-    private Set<User> availableUsers;
-    private Set<Standort>  verfügbareStandorte;
+    private List<User> availableUsers;
+    private List<Standort> verfügbareStandorte;
 
 
     @Inject
@@ -60,7 +61,8 @@ public class ESErstellenBean {
         verfügbareStandorte = standortService.getStandorte();
     }
 
-    public String createES() throws DuplicateExperimentierStationException {
+    public String createES() throws DuplicateExperimentierStationException
+    {
         log.info("Erstelle neue Experimentierstation:"  + standort.toString() + name);
         ExperimentierStation experimentierStation = new ExperimentierStation(id, standort, name, ExperimentierStationZustand.VERFUEGBAR, ausgewählteBenutzer);
         esDao.persist(experimentierStation);

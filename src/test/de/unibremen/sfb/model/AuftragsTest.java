@@ -18,7 +18,7 @@ class AuftragsTest {
     ProzessSchritt ps;
     Auftrag pk;
     ProzessKettenVorlage pkv;
-    HashSet<Role> a = new HashSet<Role>();
+    List<Role> a = new ArrayList<Role>();
     User tUser = new User();
 
     // Create custom configuration with formatted output
@@ -52,14 +52,15 @@ class AuftragsTest {
         HashSet<QualitativeEigenschaft> e = new HashSet<>(); // TODO add eigenschaften
 
         // PS Parameter
-        Set<ProzessSchrittParameter> parameters = new HashSet<ProzessSchrittParameter>();
+        List<ProzessSchrittParameter> parameters = new ArrayList<>() {
+        };
         parameters.add(new ProzessSchrittParameter("Testen", e));
 
         // Stationen
 
         // ProzessSchrittVorlage Setuo
         ProzessSchrittVorlage prozessSchrittVorlage = new ProzessSchrittVorlage(99, Duration.ofMinutes(42),
-                "Ermittlend", new HashSet<ExperimentierStation>(), new ProzessSchrittZustandsAutomatVorlage(),parameters);
+                "Ermittlend", new ArrayList<ExperimentierStation>(), new ProzessSchrittZustandsAutomatVorlage(),parameters);
 
         // PkVorlage Setup
         List<ProzessSchrittVorlage> psListe = new ArrayList<>();

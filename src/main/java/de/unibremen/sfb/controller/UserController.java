@@ -1,6 +1,6 @@
 package de.unibremen.sfb.controller;
 
-import de.unibremen.sfb.model.Auftrag;
+import de.unibremen.sfb.exception.UserNotFoundException;
 import de.unibremen.sfb.model.Role;
 import de.unibremen.sfb.model.User;
 import de.unibremen.sfb.persistence.UserDAO;
@@ -28,9 +28,26 @@ public class UserController implements Serializable {
         }
     }
 
-    public void removeUser(int id){
+    public void update(User u){
         try {
-            userDAO.remove(userDAO.getUserById(id));
+            userDAO.update(u);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+     public User getUserByID(int id) throws UserNotFoundException {
+
+        return userDAO.getUserById(id);
+
+     }
+    public void removeUser(int id) throws UserNotFoundException {
+        User user=getUserByID(id);
+
+        try {
+            //userDAO.update(user);
+            userDAO.remove(user);
         }
         catch (Exception e){
             e.printStackTrace();

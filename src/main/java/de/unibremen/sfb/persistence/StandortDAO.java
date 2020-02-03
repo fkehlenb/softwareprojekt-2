@@ -2,7 +2,10 @@ package de.unibremen.sfb.persistence;
 
 import de.unibremen.sfb.exception.DuplicateStandortException;
 import de.unibremen.sfb.exception.StandortNotFoundException;
+import de.unibremen.sfb.model.ExperimentierStation;
 import de.unibremen.sfb.model.Standort;
+
+import java.util.List;
 
 /** This class handles the location objects in the database*/
 public class StandortDAO extends ObjectDAO<Standort> {
@@ -65,6 +68,20 @@ public class StandortDAO extends ObjectDAO<Standort> {
         catch (Exception e){
             e.printStackTrace();
             throw new StandortNotFoundException();
+        }
+    }
+
+    public List<Standort> getAll(){
+        try {
+            List<Standort> es = em.createQuery("SELECT Standort FROM Standort es",get()).getResultList();
+            if (es.isEmpty()){
+                throw new Exception();
+            }
+            return es;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new IllegalArgumentException();
         }
     }
 }
