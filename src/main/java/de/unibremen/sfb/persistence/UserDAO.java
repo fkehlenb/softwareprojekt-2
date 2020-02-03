@@ -2,10 +2,12 @@ package de.unibremen.sfb.persistence;
 
 import de.unibremen.sfb.exception.DuplicateUserException;
 import de.unibremen.sfb.exception.UserNotFoundException;
+import de.unibremen.sfb.model.Standort;
 import de.unibremen.sfb.model.User;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import java.util.List;
 
 /**
  * This class handles the users in the database
@@ -74,11 +76,16 @@ public class UserDAO extends ObjectDAO<User> {
      * @throws UserNotFoundException if the user couldn't be found
      */
     public User getUserById(int id) throws UserNotFoundException {
-        User u = em.find(get(), id);
-        if (u == null) {
+        try {
+            User u = em.find(get(), id);
+            if (u == null) {
+                throw new UserNotFoundException();
+            }
+            return u;
+        }
+        catch (Exception e){
             throw new UserNotFoundException();
         }
-        return u;
     }
 
     /**
@@ -89,14 +96,19 @@ public class UserDAO extends ObjectDAO<User> {
      * @throws UserNotFoundException if the user couldn't be found
      */
     public User getUserByName(String n) throws UserNotFoundException {
-        if (n == null || n.isBlank()) {
+        try {
+            if (n == null || n.isBlank()) {
+                throw new UserNotFoundException();
+            }
+            User u = em.createNamedQuery("User.findByUsername", get()).setParameter("username", n).getSingleResult();
+            if (u == null) {
+                throw new UserNotFoundException();
+            }
+            return u;
+        }
+        catch (Exception e){
             throw new UserNotFoundException();
         }
-        User u = em.createNamedQuery("User.findByUsername", get()).setParameter("username", n).getSingleResult();
-        if (u == null) {
-            throw new UserNotFoundException();
-        }
-        return u;
     }
 
     /**
@@ -107,26 +119,36 @@ public class UserDAO extends ObjectDAO<User> {
      * @throws UserNotFoundException if the user couldn't be found
      */
     public User getUserByMail(String m) throws UserNotFoundException {
-        if (m == null || m.isBlank()) {
+        try {
+            if (m == null || m.isBlank()) {
+                throw new UserNotFoundException();
+            }
+            User u = em.createNamedQuery("User.findByEmail", get()).setParameter("email", m).getSingleResult();
+            if (u == null) {
+                throw new UserNotFoundException();
+            }
+            return u;
+        }
+        catch (Exception e){
             throw new UserNotFoundException();
         }
-        User u = em.createNamedQuery("User.findByEmail", get()).setParameter("email", m).getSingleResult();
-        if (u == null) {
-            throw new UserNotFoundException();
-        }
-        return u;
     }
 
     /**
      * Get a list of all users in the database
      * @return all users in the database
-     * @throws IllegalArgumentException - if the list is empty
+     * @throws IllegalArgumentException if the list is empty
      */
     public List<User> getAll() throws IllegalArgumentException {
-        List<User> users = em.createNamedQuery("User.getAll", get()).getResultList();
-        if (users.isEmpty()) {
-            throw new IllegalArgumentException("List is empty");
+        try {
+            List<User> users = em.createNamedQuery("User.getAll", get()).getResultList();
+            if (users.isEmpty()) {
+                throw new IllegalArgumentException("List is empty");
+            }
+            return users;
         }
-        return users;
+        catch (Exception e){
+            throw new IllegalArgumentException();
+        }
     }
 }

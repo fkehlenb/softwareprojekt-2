@@ -2,6 +2,7 @@ package de.unibremen.sfb.model;
 
 import lombok.*;
 
+import javax.inject.Named;
 import javax.persistence.*;
 import java.util.Set;
 
@@ -12,7 +13,8 @@ import java.util.Set;
         @NamedQuery(name = "ExperimentierStation.findAllInLocation",
                 query = "SELECT es FROM ExperimentierStation es WHERE es.standort = :standort"),
         @NamedQuery(name = "ExperimentierStation.getByStatus",
-                query = "SELECT es FROM ExperimentierStation es WHERE es.status = :status")
+                query = "SELECT es FROM ExperimentierStation es WHERE es.status = :status"),
+        @NamedQuery(name = "ExperimentierStation.getAll", query = "SELECT es FROM ExperimentierStation es")
 })
 @RequiredArgsConstructor
 @NoArgsConstructor

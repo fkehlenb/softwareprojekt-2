@@ -21,22 +21,9 @@
             <p>Um sich Einzuloggen, geben sie bitte ihre details ein!</p>
             <p>Hi <shiro:guest>Guest</shiro:guest><shiro:user> <h:outputText value="#{indexBean.subject}"/>
             </shiro:user>!</p>
-            <pre>
-
-        principal = <h:outputText value="#{indexBean.subject.principal}"/>
-        session = <h:outputText value="#{indexBean.subject.session}"/>
-        role user = <h:outputText value="#{indexBean.subject.hasRole('user')}"/>
-        role admin = <h:outputText value="#{indexBean.subject.hasRole('admin')}"/>
-        role pkAdmin = <h:outputText value="#{indexBean.subject.hasRole('pkAdmin')}"/>
-        role logistik = <h:outputText value="#{indexBean.subject.hasRole('logistik')}"/>
-        role technologe = <h:outputText value="#{indexBean.subject.hasRole('technologe')}"/>
-        role transport = <h:outputText value="#{indexBean.subject.hasRole('transport')}"/>
-            </pre>
-
-            <shiro:authenticated>Besuchen sie ihr <a href="technologe/technologe.index.xhtml">Profil</a>
+            <shiro:authenticated>Besuchen sie ihr <a href="account">Profil</a>
             </shiro:authenticated>
             <shiro:notAuthenticated>Bitte hier <a href="./login.xhtml">Anmelden</a> </shiro:notAuthenticated>
-
         </div>
         <div class="ui-g-2"></div>
     </ui:define>

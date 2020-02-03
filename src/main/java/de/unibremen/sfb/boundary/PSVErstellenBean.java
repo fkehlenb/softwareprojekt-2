@@ -1,5 +1,7 @@
 package de.unibremen.sfb.boundary;
 
+import de.unibremen.sfb.exception.DuplicateProzessSchrittVorlageException;
+import de.unibremen.sfb.persistence.ProzessSchrittVorlageDAO;
 import de.unibremen.sfb.service.ExperimentierStationService;
 import de.unibremen.sfb.service.ProzessSchrittParameterService;
 import de.unibremen.sfb.service.ProzessSchrittVorlageService;
@@ -30,7 +32,7 @@ import java.util.Set;
 public class PSVErstellenBean {
 
     @NotEmpty
-    private  int psVID;
+    private int psVID;
 
     @NonNull
     private String dauer;
@@ -44,19 +46,19 @@ public class PSVErstellenBean {
     @NonNull
     private String psArt;
 
-    private Set<ExperimentierStation> stationen;
+    private List<ExperimentierStation> stationen;
 
     @NonNull
     private ProzessSchrittZustandsAutomatVorlage zustandsAutomatenVorlage;
 
     @NonNull
-    private Set<ProzessSchrittParameter> ausgewählteProzessSchrittParameter;
+    private List<ProzessSchrittParameter> ausgewählteProzessSchrittParameter;
 
     @NonNull
-    private Set<ExperimentierStation> ausgewählteStationen;
+    private List<ExperimentierStation> ausgewählteStationen;
 
     // Wir benötigen die Parameter und Eigenschaften um diese dann auszuwählen
-    private Set<ProzessSchrittParameter> verfügbareParameter;
+    private List<ProzessSchrittParameter> verfügbareParameter;
     private Set<QualitativeEigenschaft> verfügbareEigenschaften;
     private Set<ProzessSchrittVorlage> verfügbarePSV;
     private Set<ExperimentierStation> verfügbareStationen;
@@ -65,13 +67,16 @@ public class PSVErstellenBean {
     private ProzessSchrittVorlageService prozessSchrittVorlageService;
 
     @Inject
-    private  ProzessSchrittParameterService prozessSchrittParameterService;
+    private ProzessSchrittParameterService prozessSchrittParameterService;
 
     @Inject
     private QualitativeEigenschaftService qualitativeEigenschaftService;
 
     @Inject
     private ExperimentierStationService experimentierStationService;
+
+    @Inject
+    private ProzessSchrittVorlageDAO prozessSchrittVorlageDAO;
 
     @PostConstruct
     /**
@@ -80,8 +85,8 @@ public class PSVErstellenBean {
     public void init() {
         verfügbareParameter = prozessSchrittParameterService.getPSP();
         verfügbareEigenschaften = qualitativeEigenschaftService.getEigenschaften(); // Hier weiter einschränken
-        verfügbarePSV = prozessSchrittVorlageService.getProzessSchrittVorlagen();
-        verfügbareStationen = experimentierStationService.getEsSet();
+        verfügbarePSV =  prozessSchrittVorlageService.getProzessSchrittVorlagen();
+        verfügbareStationen = (Set<ExperimentierStation>) experimentierStationService.getEsSet();
     }
 
     public String erstellePSV() {
@@ -91,9 +96,13 @@ public class PSVErstellenBean {
         List<String> z = new ArrayList();
         z.add("Kapput");
 
-        ProzessSchrittVorlage psv = new ProzessSchrittVorlage(55 ,Duration.ofHours(Long.parseLong(dauer)), psArt,
+        ProzessSchrittVorlage psv = new ProzessSchrittVorlage(55, Duration.ofHours(Long.parseLong(dauer)), psArt,
                 ausgewählteStationen, new ProzessSchrittZustandsAutomatVorlage(z, "Platzhalter"), ausgewählteProzessSchrittParameter);
-
+        try {
+            prozessSchrittVorlageDAO.persist(psv);
+        } catch (DuplicateProzessSchrittVorlageException e) {
+            e.printStackTrace();
+        }
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Erfolg", "Prozessschrittvorlage:  " + psv.getPsVID() +
                 "erfolgreich erstellt"));

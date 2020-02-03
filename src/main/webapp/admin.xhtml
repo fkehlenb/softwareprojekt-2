@@ -3,7 +3,6 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <h:head>
@@ -11,7 +10,8 @@
     <link rel="icon" href="background.png"/>
 </h:head>
 
-<body><h1>ERZEUG USER FORMULAR</h1>
+<body>
+<h1>ERZEUG USER FORMULAR</h1>
 <p:outputPanel>
     <h:form>
         <h:panelGrid columns="2" cellpadding="5">
@@ -60,8 +60,7 @@
     </h:form>
 </p:outputPanel>
 
-
-<h1>LISTE USERS</h1>
+    <h1>LISTE USERS</h1>
 
 <p:dataTable var="user" value="#{adminBean.findUsers()}">
     <p:column headerText="Id">
@@ -93,14 +92,14 @@
     <p:column headerText="Remove">
         <h:form>
             <div align="center">
-                <h:commandButton action="#{adminBean.deleteUser(user.id)}" value="ERASE" />
+            <h:commandButton action="#{adminBean.deleteUser(user.id)}" value="ERASE" />
             </div>
         </h:form>
     </p:column>
     <p:column headerText="Edit">
         <h:form>
             <div align="center">
-                <h:commandButton action="#{adminBean.adminEditUser(user.id)}" value="EDIT" />
+            <h:commandButton action="#{adminBean.adminEditUser(user.id)}" value="EDIT" />
             </div>
         </h:form>
     </p:column>

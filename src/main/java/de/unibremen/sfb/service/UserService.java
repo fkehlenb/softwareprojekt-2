@@ -4,6 +4,7 @@ import de.unibremen.sfb.model.Auftrag;
 import de.unibremen.sfb.model.ProzessSchrittParameter;
 import de.unibremen.sfb.model.Role;
 import de.unibremen.sfb.model.User;
+import de.unibremen.sfb.persistence.ExperimentierStationDAO;
 import lombok.Getter;
 import net.sourceforge.plantuml.ugraphic.UScale;
 import org.apache.shiro.crypto.hash.Hash;
@@ -12,12 +13,13 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import java.time.LocalDateTime;
 import java.util.*;
-
+import javax.inject.Inject;
 @Singleton
 @Getter
 public class UserService {
-    private Set<User> users;
+    private List<User> users;
 
+/*
     @PostConstruct
     public void init() {
         // FIXME Load from db
@@ -42,5 +44,5 @@ public class UserService {
     public User findByName(String name) {
         // FIXME Use String as ID or convert to String
         return this.users.stream().filter(c -> c.getNachname().equals(name)).findFirst().orElse(null);
-    }
+    }*/
 }

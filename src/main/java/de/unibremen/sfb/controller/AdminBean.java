@@ -13,8 +13,12 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.Transactional;
+import java.io.IOException;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.io.Serializable;
@@ -42,9 +46,6 @@ public class AdminBean implements Serializable {
     private User admin;
     @Inject
     private UserController userController;
-    //@Inject
-    //private UserDAO userDAO;
-
     @Getter
     @Setter
     private String vorname;
