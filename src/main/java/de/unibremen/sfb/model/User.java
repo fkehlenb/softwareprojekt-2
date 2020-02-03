@@ -17,7 +17,8 @@ import java.util.Set;
 @NamedQueries({
         @NamedQuery(name = "User.findById", query = "SELECT u from User u WHERE u.id = :id"),
         @NamedQuery(name = "User.findByUsername", query = "SELECT u from User u WHERE u.username = :username"),
-        @NamedQuery(name = "User.findByEmail", query = "SELECT u from User u WHERE u.email = :email")
+        @NamedQuery(name = "User.findByEmail", query = "SELECT u from User u WHERE u.email = :email"),
+        @NamedQuery(name = "User.getAll", query = "SELECT u FROM User u")
 })
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
