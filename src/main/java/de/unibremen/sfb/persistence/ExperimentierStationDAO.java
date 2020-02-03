@@ -71,16 +71,10 @@ public class ExperimentierStationDAO extends ObjectDAO<ExperimentierStation> {
     }
 
     public List<ExperimentierStation> getAll(){
-        try {
-            List<ExperimentierStation> es = em.createQuery("SELECT ExperimentierStation FROM ExperimentierStation es",get()).getResultList();
-            if (es.isEmpty()){
-                throw new Exception();
-            }
+
+            List<ExperimentierStation> es = em.createQuery("SELECT es FROM ExperimentierStation es",get())
+                    .setMaxResults(1000).getResultList();
             return es;
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            throw new IllegalArgumentException();
-        }
+
     }
 }

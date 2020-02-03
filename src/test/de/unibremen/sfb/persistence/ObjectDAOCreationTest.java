@@ -5,6 +5,7 @@ import de.unibremen.sfb.exception.DuplicateExperimentierStationException;
 import de.unibremen.sfb.exception.DuplicateStandortException;
 import de.unibremen.sfb.exception.DuplicateUserException;
 import de.unibremen.sfb.model.*;
+import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
 import java.time.LocalDateTime;
@@ -14,7 +15,6 @@ import java.util.Set;
 
 class ObjectDAOCreationTest
 {
-
     @Inject
     private StandortDAO standortDAO;
 
@@ -27,6 +27,7 @@ class ObjectDAOCreationTest
     @Inject
     private User testUser;
 
+    @Test
     public void createMockDate() {
         // Standort
 
@@ -52,12 +53,13 @@ class ObjectDAOCreationTest
         Standort s = new Standort("Test Standort");
         Set<Standort> ergebnis = new HashSet<>();
         try {
+
             standortDAO.persist(s);
         } catch (DuplicateStandortException e) {
             e.printStackTrace();
         }
-        ergebnis.add(s);
 
+        ergebnis.add(s);
         return ergebnis;
     }
 
