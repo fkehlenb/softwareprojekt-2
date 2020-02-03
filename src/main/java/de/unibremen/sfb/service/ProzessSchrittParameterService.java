@@ -9,15 +9,16 @@ import lombok.Getter;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 
 @Startup
 @Getter
 @Singleton
 public class ProzessSchrittParameterService {
-    private Set<ProzessSchrittParameter> parameterSet;
+    private List<ProzessSchrittParameter> parameterSet;
 
     @PostConstruct
     public void init() {
@@ -25,8 +26,8 @@ public class ProzessSchrittParameterService {
         this.parameterSet = createDefaultParameter();
     }
 
-    private Set<ProzessSchrittParameter> createDefaultParameter() {
-        Set<ProzessSchrittParameter> ergebnis = new HashSet<ProzessSchrittParameter>();
+    private List<ProzessSchrittParameter> createDefaultParameter() {
+        List<ProzessSchrittParameter> ergebnis = new ArrayList<>();
 
         for (int i = 0; i < 100; i++) {
             Faker faker = new Faker();
@@ -39,7 +40,7 @@ public class ProzessSchrittParameterService {
         return ergebnis;
     }
 
-    public Set<ProzessSchrittParameter> getPSP() {
+    public List<ProzessSchrittParameter> getPSP() {
         return parameterSet;
     }
 
