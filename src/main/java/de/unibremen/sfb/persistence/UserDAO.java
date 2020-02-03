@@ -111,6 +111,7 @@ public class UserDAO extends ObjectDAO<User> {
         }
     }
 
+    /** Get a list of all users in the database */
     public List<User> getAll() throws IllegalArgumentException {
         try {
             List<User> users = em.createQuery("SELECT User FROM User", get()).getResultList();
