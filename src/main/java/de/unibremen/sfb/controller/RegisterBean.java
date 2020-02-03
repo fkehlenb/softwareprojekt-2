@@ -1,132 +1,141 @@
 package de.unibremen.sfb.controller;
 
+import de.unibremen.sfb.model.Auftrag;
+import de.unibremen.sfb.model.Role;
+import de.unibremen.sfb.model.User;
+import de.unibremen.sfb.persistence.UserDAO;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.transaction.Transactional;
+import javax.validation.constraints.Email;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * this class manages the interaction between the gui and the backend system for situations in which a new user is registered
+ * This bean manages the signup webpage
  */
+@Named
+@RequestScoped
+@Transactional
 public class RegisterBean implements Serializable {
 
     /**
-     * the username of the new user
+     * The user's name
      */
-    public String username;
+    @Getter
+    @Setter
+    private String vorname;
     /**
-     * the first name of the new user
+     * The user's surname
      */
-    public String name;
+    @Getter
+    @Setter
+    private String nachname;
     /**
-     * the surname of the new user
+     * The user's username
      */
-    public String surname;
+    @Getter
+    @Setter
+    private String username;
     /**
-     * the email address of the new user
+     * The user's password
      */
-    public String email;
+    @Getter
+    @Setter
+    private String password;
     /**
-     * the password of the new user
+     * The user's password confirmation
      */
-    public String password;
+    @Getter
+    @Setter
+    private String passwordConfirmation;
+    /**
+     * The user's email
+     */
+    @Getter
+    @Setter
+    @Email
+    private String email;
+    /**
+     * The user's phone number
+     */
+    @Getter
+    @Setter
+    private String phoneNumber;
 
     /**
-     * registers the new user in the data base
+     * UserDAO for database communications
      */
-    public void register() {}
+    @Inject
+    private UserDAO userDAO;
 
     /**
-     * sets the language of the new user
-     * @param l the language
+     * Redirect after successful checks
      */
-    public void setLanguage(String l) {}
+    public void signup() {
+        try {
+            if (passwordsMatch(password, passwordConfirmation)) {
+                User u = null;
+                try {
+                    u = userDAO.getUserByMail(email);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+                if (u != null) {
+                    //Error
+                    throw new Exception("GET USER BY MAIL");
+                }
+                try {
+                    u = userDAO.getUserByName(username);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                if (u != null) {
+                    //Error
+                    throw new Exception("GET USER BY NAME");
+                }
+                List<Auftrag> auftrags = new ArrayList<>();
+                u = new User(idGenerator(), vorname, nachname, email, phoneNumber, username, password.getBytes(), false, LocalDateTime.now(), List.of(Role.USER), auftrags, "DE");
+                userDAO.persist(u);
 
-    /**
-     * returns the language everything is currently displayed in
-     * @return the language
-     */
-    public String getCurrentLanguage() { return null; }
-
-    /**
-     * the empty constructor
-     */
-    public RegisterBean() {}
-
-    /**
-     * returns the username
-     * @return the username
-     */
-    public String getUsername() {
-        return username;
+                //TODO redirect and send email
+                FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+                System.out.println("REDIRECTED SUCCESSFULLY");
+            } else {
+                // Error
+                throw new Exception("FAILED YOU MOTHERFUCKER!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
-     * sets the username
-     * @param username the new username
+     * Generates a new user id
+     *
+     * @return a new user id
      */
-    public void setUsername(String username) {
-        this.username = username;
+    private int idGenerator() {
+        return 0;
     }
 
     /**
-     * returns the name
-     * @return the name
+     * Check password matches
+     *
+     * @param a - the first entered password
+     * @param b - the second entered password
+     * @return a == b
      */
-    public String getName() {
-        return name;
+    private boolean passwordsMatch(String a, String b) {
+        return a.equals(b);
     }
 
-    /**
-     * sets the name
-     * @param name the new name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * returns the surname
-     * @return the surname
-     */
-    public String getSurname() {
-        return surname;
-    }
-
-    /**
-     * sets the surname
-     * @param surname the new surname
-     */
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    /**
-     * returns the email address
-     * @return the email address
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * sets the email address
-     * @param email the new email address
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
-     * returns the password
-     * @return the password
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * sets the password
-     * @param password the new password
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

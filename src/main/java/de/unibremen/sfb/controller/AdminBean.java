@@ -21,6 +21,7 @@ import java.sql.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -94,7 +95,7 @@ public class AdminBean implements Serializable {
      */
     public void addUser() throws  DuplicateUserException {
         LocalDateTime date1=   LocalDateTime.now();
-        Set<Role> rol=new HashSet<>();
+        List<Role> rol=new ArrayList<>();
         rol.add(Role.TECHNOLOGE);
         User b=new User();
         b.setId(Integer.parseInt(id));

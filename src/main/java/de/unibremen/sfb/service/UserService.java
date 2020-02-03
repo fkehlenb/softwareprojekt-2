@@ -26,7 +26,7 @@ public class UserService {
 
     private Set<User> createDefaultUser() {
         // User Setup
-        Set<Role> a = new HashSet<>();
+        List<Role> a = new ArrayList<>();
         User tUser = new User(0, "Default", "Loser", "l@g.c", "110",
                 "kev,", "12345678".getBytes(), true, LocalDateTime.now(),
                 a, new ArrayList<Auftrag>(), "DEUTSCH");
