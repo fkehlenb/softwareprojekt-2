@@ -38,13 +38,23 @@
             <p:outputLabel for="password" value="password: "/>
             <p:inputText id="password" value="#{adminBean.password}" placeholder="password"/>
 
+
+            <p:selectBooleanCheckbox value="#{adminBean.TECHNOLOGER}" itemLabel="TECNOLOGER">
+                <p:ajax event="change" global="false" />
+                    </p:selectBooleanCheckbox>
+            <p:selectBooleanCheckbox value="#{adminBean.ADMINTATOR}" itemLabel="ADMINTATOR"/>
+            <p:selectBooleanCheckbox value="#{adminBean.PKADMINOR}" itemLabel="PKADMINOR"/>
+            <p:selectBooleanCheckbox value="#{adminBean.LOGISTIKERKER}" itemLabel="LOGISTIKERKER"/>
+            <p:selectBooleanCheckbox value="#{adminBean.TRANSPORTER}" itemLabel="TRANSPORTER"/>
+            <br/>
+
+
             <h:outputText value=" wurdeVerifiziert: "/>
             <p:selectBooleanButton id="value1" value="#{adminBean.wurdeVerifiziert}" onLabel="Yes" offLabel="No"
                                    style="width:60px"/>
 
             <p:outputLabel for="@next" value="Basic:"/>
             <p:selectOneMenu id="console" value="#{adminBean.language}" style="width:200px">
-                <f:selectItem itemLabel="Select Sprache" itemValue="Deutsch"/>
                 <f:selectItem itemLabel="Deutsch" itemValue="Deutsch"/>
                 <f:selectItem itemLabel="Englisch" itemValue="Englisch"/>
                 <f:facet name="footer">
@@ -59,6 +69,7 @@
 
     </h:form>
 </p:outputPanel>
+<br/>
 
     <h1>LISTE USERS</h1>
 
@@ -104,6 +115,7 @@
         </h:form>
     </p:column>
 </p:dataTable>
+
 
 </body>
 </html>
