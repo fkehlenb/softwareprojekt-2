@@ -37,7 +37,7 @@
 
                         <p:column filterBy="#{standort.ort}"
                                   headerText="Standort ID" filterMatchMode="contains">
-                            <h:outputText value="#{standort.id}" />
+                            <h:outputText value="#{standort.ort}" />
                         </p:column>
 
                         <f:facet name="footer">
@@ -50,7 +50,7 @@
 
 
                     <p:contextMenu for="standortList">
-                        <p:menuitem value="View selected" update="multistandortDetail"
+                        <p:menuitem value="View selected" update="multiStandortDetail"
                                     icon="pi pi-search" oncomplete="PF('multistandortDialog').show()" />
                         <p:menuitem value="Delete selected" update="standortList"
                                     icon="pi pi-times" action="#{sListBean.deleteStandorte}" />
