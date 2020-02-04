@@ -33,7 +33,7 @@ public class InitialDataFiller {
     @PostConstruct
     public void init() {
 
-        if (userService.containsUserWithEmail("admin@sfb.de")) {
+        if (!userService.containsUserWithEmail("admin@sfb.de")) {
 
             log.info("Storing inital Data");
 
