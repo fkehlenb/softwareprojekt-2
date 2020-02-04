@@ -128,5 +128,4 @@ public class UserDAO extends ObjectDAO<User> {
             return new ArrayList<>();
         }
     }
-
 }
