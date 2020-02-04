@@ -17,6 +17,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
 import java.io.IOException;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.transaction.Transactional;
+import java.io.IOException;
 import java.io.Serializable;
 import java.sql.*;
 
@@ -44,9 +47,6 @@ public class AdminBean implements Serializable {
     private User admin;
     @Inject
     private UserController userController;
-    //@Inject
-    //private UserDAO userDAO;
-
     @Getter
     @Setter
     private String vorname;
@@ -74,9 +74,7 @@ public class AdminBean implements Serializable {
     @Getter
     @Setter
     private String erstellungsDatum;
-    @Getter
-    @Setter
-    private String rolle;
+
     @Getter
     @Setter
     private String language;
@@ -108,6 +106,7 @@ public class AdminBean implements Serializable {
         LocalDateTime date1=   LocalDateTime.now();
 
         if(TECHNOLOGER) {rol.add(Role.TECHNOLOGE);
+
         }
         if(PKADMINOR) {rol.add(Role.PKADMIN);
         }
@@ -117,6 +116,7 @@ public class AdminBean implements Serializable {
         }
         if(ADMINTATOR) {rol.add(Role.ADMIN);
         }
+
         try{
             User b =userController.getUserByID(Integer.parseInt(id));
             b.setVorname(vorname);
@@ -149,8 +149,7 @@ public class AdminBean implements Serializable {
 
     }
 
-
-    public void adminEditUser(String id) throws UserNotFoundException {
+    public void adminEditUser(String id) throws IOException,UserNotFoundException {
         this.id= id;
         User user = userController.getUserByID(Integer.parseInt(id));
         this.TECHNOLOGER=user.getRollen().contains(Role.TECHNOLOGE);
@@ -175,17 +174,7 @@ public class AdminBean implements Serializable {
      * edits a user that already exists
      *  user the user to be edited
      */
-    /*public String findUser() throws UserNotFoundException {
-        try {
-            return userDAO.getUserById(11).getUsername();
-        }catch(Exception e){
-
-        }
-        return "Not Fonud";
-    }*/
-
-
-    public List<User> findUsers() {
+    public List<User> findUsers() throws UserNotFoundException {
         try {
             return userController.getAll();
         }catch(Exception e){
