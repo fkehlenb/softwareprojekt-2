@@ -14,7 +14,8 @@ import javax.persistence.Id;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Standort {
 
-    @Id @GeneratedValue
+    @Id
+    @NonNull
     private int id;
 
     /** The location */

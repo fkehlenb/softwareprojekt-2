@@ -84,7 +84,7 @@ public class User {
      */
     @NonNull
     @ElementCollection
-    private Set<Role> rollen;
+    private List<Role> rollen;
 
     /**
      * The experimenting stations a user is assigned to

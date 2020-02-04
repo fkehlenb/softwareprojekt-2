@@ -23,6 +23,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Named("psvErstellenBean")
 @RequestScoped
@@ -96,7 +97,7 @@ public class PSVErstellenBean {
         List<String> z = new ArrayList();
         z.add("Kapput");
 
-        ProzessSchrittVorlage psv = new ProzessSchrittVorlage(55, Duration.ofHours(Long.parseLong(dauer)), psArt,
+        ProzessSchrittVorlage psv = new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), Duration.ofHours(Long.parseLong(dauer)), psArt,
                 ausgewählteStationen, new ProzessSchrittZustandsAutomatVorlage(z, "Platzhalter"), ausgewählteProzessSchrittParameter);
         try {
             prozessSchrittVorlageDAO.persist(psv);

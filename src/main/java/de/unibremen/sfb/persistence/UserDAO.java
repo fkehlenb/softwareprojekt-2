@@ -132,17 +132,4 @@ public class UserDAO extends ObjectDAO<User> {
         return users;
     }
 
-    public List<User> getAll(){
-        try {
-            List<User> es = em.createQuery("SELECT User FROM User es",get()).getResultList();
-            if (es.isEmpty()){
-                throw new Exception();
-            }
-            return es;
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            throw new IllegalArgumentException();
-        }
-    }
 }

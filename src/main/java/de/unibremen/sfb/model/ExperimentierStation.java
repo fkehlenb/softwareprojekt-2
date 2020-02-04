@@ -3,6 +3,7 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 /** Experimenting stations data class */
@@ -46,5 +47,5 @@ public class ExperimentierStation {
 
     @NonNull
     @ManyToMany
-    private Set<User> benutzer;
+    private List<User> benutzer;
 }
