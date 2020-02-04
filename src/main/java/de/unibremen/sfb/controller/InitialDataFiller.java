@@ -12,13 +12,17 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.*;
 
 @Startup
 @Singleton
+@Transactional
 @Slf4j
 public class InitialDataFiller {
+    int limit = 5;
+    private  List<Standort>  standorte;
  
 
     @PersistenceContext
@@ -31,49 +35,44 @@ public class InitialDataFiller {
 
         for (Standort s :
                 createDefaulStandort()) {
-            em.persist(s);
             log.info("Trying to  persist Standort " + s.toString());
+//            em.persist(s);
+
         }
 
         // Experimentierstaation
         for (ExperimentierStation s :
                 createDefaultStation()) {
-            em.persist(s);
             log.info("Trying to persist Station " + s.getName());
+//            em.persist(s);
         }
 
         // User
         for (User user :
                 createDefaultUsers()) {
-            em.persist(user);
             log.info("Trying to persist User" + user.getNachname());
+//            em.persist(user);
         }
 
 
     }
 
 
-    private Set<Standort> createDefaulStandort() {
-        // FIXME Load from DB
-        Standort s = new Standort(UUID.randomUUID().hashCode(),"Test Standort");
-        Set<Standort> ergebnis = new HashSet<>();
-        ergebnis.add(s);
-        log.info("Setting up Default Standort");
-        return ergebnis;
+    private List<Standort> createDefaulStandort() {
+
+        standorte = new ArrayList<>();
+
+        for (int i = 0; i < limit; i++) {
+            Standort s =  new Standort(UUID.randomUUID().hashCode(), "Station " + i) ;
+            log.info("Persisiting Experimentierstation " + i);
+            standorte.add(s);
+        }
+        return  standorte;
     }
 
 
     private Set<ExperimentierStation> createDefaultStation() {
         Set<ExperimentierStation> ergebnis = new HashSet<ExperimentierStation>();
-
-        int limit = 5;
-        List<Standort>  standorte = new ArrayList<>();
-
-        for (int i = 0; i < limit; i++) {
-           Standort s =  new Standort(UUID.randomUUID().hashCode(), "Station " + i) ;
-           log.info("Persisiting Experimentierstation " + i);
-           em.persist(s);
-        }
 
         for (int i = 0; i < limit; i++) {
             Faker faker = new Faker();
