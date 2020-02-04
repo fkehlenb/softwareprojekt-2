@@ -18,6 +18,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * This bean manages the signup webpage
@@ -103,10 +104,8 @@ public class RegisterBean implements Serializable {
                     facesError("Dieser Benutzername ist leider schon vergeben!");
                     throw new Exception("GET USER BY NAME");
                 }
-                List<Auftrag> auftrags = new ArrayList<>();
-                u = new User(idGenerator(), vorname, nachname, email, phoneNumber, username, password.getBytes(), false, LocalDateTime.now(), new ArrayList<>(), auftrags, "DE");
-                userDAO.persist(u);
-
+                u = new User();
+                userDAO.persist(new User(UUID.randomUUID().hashCode(), vorname, nachname, email, phoneNumber, username, password.getBytes(), false, LocalDateTime.now(), List.of(Role.ADMIN), new ArrayList<>(), "DE"));
                 //TODO redirect and send email
                 FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
                 System.out.println("REDIRECTED SUCCESSFULLY");
@@ -125,7 +124,7 @@ public class RegisterBean implements Serializable {
      * @return a new user id
      */
     private int idGenerator() {
-        return 0;
+        return UUID.randomUUID().hashCode();
     }
 
     /**
