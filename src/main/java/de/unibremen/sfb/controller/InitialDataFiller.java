@@ -15,12 +15,12 @@ import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
 import java.util.*;
 
-@Startup
-@Singleton
-@Slf4j
+//@Startup
+//@Singleton
+//@Slf4j
 public class InitialDataFiller {
  
-
+/* konflik to inizializieren detached instanz commetiert by Rey
     @PersistenceContext
     private EntityManager em;
 
@@ -135,5 +135,5 @@ public class InitialDataFiller {
 
 
         return users;
-    }
+    }*/
 }
