@@ -5,11 +5,13 @@ import de.unibremen.sfb.exception.DuplicateExperimentierStationException;
 import de.unibremen.sfb.exception.DuplicateStandortException;
 import de.unibremen.sfb.exception.DuplicateUserException;
 import de.unibremen.sfb.model.*;
+import de.unibremen.sfb.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
@@ -22,37 +24,46 @@ public class InitialDataFiller {
 
     List<User> users;
 
+    @Inject
+    UserService userService;
+
     @PersistenceContext(name = "sfb")
     private EntityManager em;
 
     @PostConstruct
     public void init() {
-        log.info("Storing inital Data");
 
-        // User
-        for (User user :
-                createDefaultUsers()) {
-            em.persist(user);
-            log.info("Trying to persist User" + user.getNachname());
-        }
+        if (userService.containsUserWithEmail("admin@sfb.de")) {
 
-        // Prozess Parameter
-        for (ProzessSchrittParameter psp :
-                createDefaultParameter()) {
-            em.persist(psp);
-        }
+            log.info("Storing inital Data");
 
-        for (Standort s :
-                createDefaulStandort()) {
-            em.persist(s);
-            log.info("Trying to  persist Standort " + s.toString());
-        }
+            // User
+            for (User user :
+                    createDefaultUsers()) {
+                em.persist(user);
+                log.info("Trying to persist User" + user.getNachname());
+            }
 
-        // Experimentierstaation
-        for (ExperimentierStation s :
-                createDefaultStation()) {
-            em.persist(s);
-            log.info("Trying to persist Station " + s.getName());
+            // Prozess Parameter
+            for (ProzessSchrittParameter psp :
+                    createDefaultParameter()) {
+                em.persist(psp);
+            }
+
+            for (Standort s :
+                    createDefaulStandort()) {
+                em.persist(s);
+                log.info("Trying to  persist Standort " + s.toString());
+            }
+
+            // Experimentierstaation
+            for (ExperimentierStation s :
+                    createDefaultStation()) {
+                em.persist(s);
+                log.info("Trying to persist Station " + s.getName());
+            }
+        } else {
+            log.info("Daten wurden nicht erstellt");
         }
 
 
@@ -134,7 +145,7 @@ public class InitialDataFiller {
 
         a.clear();
         a.add(Role.ADMIN);
-        testUser = new User(UUID.randomUUID().hashCode(), "Default", "Logistik", "l@g.c", f.phoneNumber().cellPhone(),
+        testUser = new User(UUID.randomUUID().hashCode(), "Default", "Logistik", "admin@sfb.de", f.phoneNumber().cellPhone(),
                 "pk,", "12345678".getBytes(), true, LocalDateTime.now(),
                 a, new ArrayList<Auftrag>(), "DEUTSCH");
         // Add to user Lost
