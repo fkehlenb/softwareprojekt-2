@@ -22,6 +22,7 @@ import javax.inject.Named;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Named("esErstellenBean")
 @Getter
@@ -64,7 +65,7 @@ public class ESErstellenBean {
     public String createES() throws DuplicateExperimentierStationException
     {
         log.info("Erstelle neue Experimentierstation: "  + standort.toString() + name);
-        ExperimentierStation experimentierStation = new ExperimentierStation(id, standort, name, ExperimentierStationZustand.VERFUEGBAR, ausgewählteBenutzer);
+        ExperimentierStation experimentierStation = new ExperimentierStation(UUID.randomUUID().hashCode(), standort, name, ExperimentierStationZustand.VERFUEGBAR, ausgewählteBenutzer);
 
         log.info("Persisting Experimentierstation: "  + standort.toString() + name);
 //        esDao.persist(experimentierStation);
