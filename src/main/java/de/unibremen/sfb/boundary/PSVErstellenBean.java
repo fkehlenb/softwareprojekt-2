@@ -1,9 +1,7 @@
 package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.exception.DuplicateProzessSchrittVorlageException;
-import de.unibremen.sfb.exception.DuplicateProzessSchrittZustandsAutomatVorlageException;
 import de.unibremen.sfb.persistence.ProzessSchrittVorlageDAO;
-import de.unibremen.sfb.persistence.ProzessSchrittZustandsAutomatVorlageDAO;
 import de.unibremen.sfb.service.ExperimentierStationService;
 import de.unibremen.sfb.service.ProzessSchrittParameterService;
 import de.unibremen.sfb.service.ProzessSchrittVorlageService;
@@ -80,9 +78,6 @@ public class PSVErstellenBean {
     @Inject
     private ProzessSchrittVorlageDAO prozessSchrittVorlageDAO;
 
-    @Inject
-    ProzessSchrittZustandsAutomatVorlageDAO prozessSchrittZustandsAutomatVorlageDAO;
-
     @PostConstruct
     /**
      * Hier werden aus der Persitenz die benötigten Daten Geladen
@@ -90,26 +85,24 @@ public class PSVErstellenBean {
     public void init() {
         verfügbareParameter = prozessSchrittParameterService.getPSP();
         verfügbareEigenschaften = qualitativeEigenschaftService.getEigenschaften(); // Hier weiter einschränken
-        verfügbarePSV =  prozessSchrittVorlageService.getProzessSchrittVorlagen();
-        verfügbareStationen =  experimentierStationService.getEsSet();
+        verfügbarePSV = prozessSchrittVorlageService.getProzessSchrittVorlagen();
+        verfügbareStationen = experimentierStationService.getEsSet();
     }
 
-    public String erstellePSV() throws DuplicateProzessSchrittZustandsAutomatVorlageException {
+    public String erstellePSV() {
         // FIXME ID Generation
         log.info("Erstelle Prozessschritt");
         // FIXME Add this
         List<String> z = new ArrayList();
         z.add("Kapput");
 
-        ProzessSchrittZustandsAutomatVorlage v =  new ProzessSchrittZustandsAutomatVorlage(z, "Platzhalter");
-        prozessSchrittZustandsAutomatVorlageDAO.persist(v);
         ProzessSchrittVorlage psv = new ProzessSchrittVorlage(55, Duration.ofHours(Long.parseLong(dauer)), psArt,
-                ausgewählteStationen, v, ausgewählteProzessSchrittParameter);
-        try {
-            prozessSchrittVorlageDAO.persist(psv);
-        } catch (DuplicateProzessSchrittVorlageException e) {
-            e.printStackTrace();
-        }
+                ausgewählteStationen, new ProzessSchrittZustandsAutomatVorlage(z, "Platzhalter"), ausgewählteProzessSchrittParameter);
+//        try {
+//            prozessSchrittVorlageDAO.persist(psv);
+//        } catch (DuplicateProzessSchrittVorlageException e) {
+//            e.printStackTrace();
+//        }
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Erfolg", "Prozessschrittvorlage:  " + psv.getPsVID() +
                 "erfolgreich erstellt"));

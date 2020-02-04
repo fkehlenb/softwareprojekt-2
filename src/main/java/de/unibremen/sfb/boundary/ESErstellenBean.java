@@ -63,9 +63,12 @@ public class ESErstellenBean {
 
     public String createES() throws DuplicateExperimentierStationException
     {
-        log.info("Erstelle neue Experimentierstation:"  + standort.toString() + name);
+        log.info("Erstelle neue Experimentierstation: "  + standort.toString() + name);
         ExperimentierStation experimentierStation = new ExperimentierStation(id, standort, name, ExperimentierStationZustand.VERFUEGBAR, ausgewählteBenutzer);
-        esDao.persist(experimentierStation);
+
+        log.info("Persisting Experimentierstation: "  + standort.toString() + name);
+//        esDao.persist(experimentierStation);
+
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Erfolg", "Experimentierstation:  " + experimentierStation.toString() +
                 "erfolgreich erstellt"));
