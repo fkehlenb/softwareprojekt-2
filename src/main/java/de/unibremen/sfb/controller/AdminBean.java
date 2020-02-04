@@ -25,10 +25,7 @@ import java.sql.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * this class manages the interaction between the gui and the backend system in the case that the user is an admin
@@ -118,7 +115,7 @@ public class AdminBean implements Serializable {
         }
 
         try{
-            User b =userController.getUserByID(Integer.parseInt(id));
+            User b =userController.getUserByID(UUID.randomUUID().hashCode());
             b.setVorname(vorname);
             b.setNachname(nachname);
             b.setEmail(email);
@@ -129,10 +126,11 @@ public class AdminBean implements Serializable {
             b.setErstellungsDatum(date1);
             b.setRollen(rol);
             b.setLanguage(language);
+            b.setAuftraege(new ArrayList<>());
             userController.update(b);
         }catch (Exception e){
             User b=new User();
-            b.setId(Integer.parseInt(id));
+            b.setId(UUID.randomUUID().hashCode());
             b.setVorname(vorname);
             b.setNachname(nachname);
             b.setEmail(email);
