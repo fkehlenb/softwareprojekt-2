@@ -73,7 +73,7 @@ public class StandortDAO extends ObjectDAO<Standort> {
 
     public List<Standort> getAll(){
         try {
-            List<Standort> es = em.createQuery("SELECT Standort FROM Standort es",get()).getResultList();
+            List<Standort> es = em.createQuery("SELECT es FROM Standort es",get()).getResultList();
             if (es.isEmpty()){
                 throw new Exception();
             }

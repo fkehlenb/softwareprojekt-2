@@ -12,10 +12,10 @@ import javax.persistence.Id;
 @Setter
 @Entity
 @RequiredArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor()
 public class Standort {
 
-    @Id  @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     @NonNull
     private int id;
 
