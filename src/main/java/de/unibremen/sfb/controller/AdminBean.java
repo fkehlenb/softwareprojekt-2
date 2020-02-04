@@ -16,7 +16,10 @@ import javax.inject.Named;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -260,12 +263,13 @@ public class AdminBean implements Serializable {
      * backs the system up
      */
     public  void backup() throws SQLException {
-        log.info("Trying to DB");
+        log.info("Trying to connect with DB");
         String sqlFilePath = "./Backup" + LocalDateTime.now().toString();
-//        Connection conn = DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
-//        log.info("Connected to " + conn.toString());
-//        Statement stmt = conn.createStatement();
-//        stmt.executeQuery(String.format("SCRIPT TO '%s'", sqlFilePath));
+        Connection conn = DriverManager.getConnection("jdbc:h2:./swp2", "swp", "swp");
+        log.info("Connected to " + conn.toString());
+        Statement stmt = conn.createStatement();
+        log.info("Executing: SCRIPT TO " + sqlFilePath);
+        stmt.executeQuery(String.format("SCRIPT TO '%s'", sqlFilePath));
     }
 
     /**
