@@ -23,9 +23,10 @@ import java.util.*;
 public class InitialDataFiller {
     int limit = 5;
     private  List<Standort>  standorte;
- 
 
-    @PersistenceContext
+
+
+    @PersistenceContext(name = "sfb")
     private EntityManager em;
 
     @PostConstruct
@@ -36,7 +37,7 @@ public class InitialDataFiller {
         for (Standort s :
                 createDefaulStandort()) {
             log.info("Trying to  persist Standort " + s.toString());
-//            em.persist(s);
+            em.persist(s);
 
         }
 
@@ -44,14 +45,14 @@ public class InitialDataFiller {
         for (ExperimentierStation s :
                 createDefaultStation()) {
             log.info("Trying to persist Station " + s.getName());
-//            em.persist(s);
+            em.persist(s);
         }
 
         // User
         for (User user :
                 createDefaultUsers()) {
             log.info("Trying to persist User" + user.getNachname());
-//            em.persist(user);
+            em.persist(user);
         }
 
 

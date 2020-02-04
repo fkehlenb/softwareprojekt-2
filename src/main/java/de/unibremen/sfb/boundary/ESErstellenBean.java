@@ -68,7 +68,7 @@ public class ESErstellenBean {
         ExperimentierStation experimentierStation = new ExperimentierStation(UUID.randomUUID().hashCode(), standort, name, ExperimentierStationZustand.VERFUEGBAR, ausgewählteBenutzer);
 
         log.info("Persisting Experimentierstation: "  + standort.toString() + name);
-//        esDao.persist(experimentierStation);
+        esDao.persist(experimentierStation);
 
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Erfolg", "Experimentierstation:  " + experimentierStation.toString() +
