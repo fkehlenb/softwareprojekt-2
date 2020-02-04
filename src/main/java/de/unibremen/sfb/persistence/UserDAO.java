@@ -5,6 +5,7 @@ import de.unibremen.sfb.exception.UserNotFoundException;
 import de.unibremen.sfb.model.Standort;
 import de.unibremen.sfb.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -91,18 +92,12 @@ public class UserDAO extends ObjectDAO<User> {
      * @throws UserNotFoundException if the user couldn't be found
      */
     public User getUserByName(String n) throws UserNotFoundException {
-        return getUser(n, "User.findByUsername", "username");
-    }
-
-    private User getUser(String n, String s, String username) throws UserNotFoundException {
-        if (n == null || n.isBlank()) {
+        try {
+            return em.createNamedQuery("User.findByUsername",get()).setParameter("username",n).getSingleResult();
+        }
+        catch (Exception e){
             throw new UserNotFoundException();
         }
-        User u = em.createNamedQuery(s, get()).setParameter(username, n).getSingleResult();
-        if (u == null) {
-            throw new UserNotFoundException();
-        }
-        return u;
     }
 
     /**
@@ -113,16 +108,24 @@ public class UserDAO extends ObjectDAO<User> {
      * @throws UserNotFoundException if the user couldn't be found
      */
     public User getUserByMail(String m) throws UserNotFoundException {
-        return getUser(m, "User.findByEmail", "email");
+        try {
+            return em.createNamedQuery("User.findByEmail",get()).setParameter("email",m).getSingleResult();
+        }
+        catch (Exception e){
+            throw new UserNotFoundException();
+        }
     }
 
     /**
      * Get a list of all users in the database
      * @return all users in the database
-     * @throws IllegalArgumentException if the list is empty
      */
     public List<User> getAll() {
-        return em.createNamedQuery("User.getAll",get()).getResultList();
+        try {
+            return em.createNamedQuery("User.getAll", get()).getResultList();
+        }
+        catch (Exception e){
+            return new ArrayList<>();
+        }
     }
-
 }
