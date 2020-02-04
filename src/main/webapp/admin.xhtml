@@ -3,7 +3,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <h:head>
@@ -11,7 +11,8 @@
     <link rel="icon" href="background.png"/>
 </h:head>
 
-<body><h1>ERZEUG USER FORMULAR</h1>
+<body>
+<h1>ERZEUG USER FORMULAR</h1>
 <p:outputPanel>
     <h:form>
         <h:panelGrid columns="2" cellpadding="5">
@@ -38,13 +39,23 @@
             <p:outputLabel for="password" value="password: "/>
             <p:inputText id="password" value="#{adminBean.password}" placeholder="password"/>
 
+
+            <p:selectBooleanCheckbox value="#{adminBean.TECHNOLOGER}" itemLabel="TECNOLOGER">
+                <p:ajax event="change" global="false" />
+            </p:selectBooleanCheckbox>
+            <p:selectBooleanCheckbox value="#{adminBean.ADMINTATOR}" itemLabel="ADMINTATOR"/>
+            <p:selectBooleanCheckbox value="#{adminBean.PKADMINOR}" itemLabel="PKADMINOR"/>
+            <p:selectBooleanCheckbox value="#{adminBean.LOGISTIKERKER}" itemLabel="LOGISTIKERKER"/>
+            <p:selectBooleanCheckbox value="#{adminBean.TRANSPORTER}" itemLabel="TRANSPORTER"/>
+            <br/>
+
+
             <h:outputText value=" wurdeVerifiziert: "/>
             <p:selectBooleanButton id="value1" value="#{adminBean.wurdeVerifiziert}" onLabel="Yes" offLabel="No"
                                    style="width:60px"/>
 
             <p:outputLabel for="@next" value="Basic:"/>
             <p:selectOneMenu id="console" value="#{adminBean.language}" style="width:200px">
-                <f:selectItem itemLabel="Select Sprache" itemValue="Deutsch"/>
                 <f:selectItem itemLabel="Deutsch" itemValue="Deutsch"/>
                 <f:selectItem itemLabel="Englisch" itemValue="Englisch"/>
                 <f:facet name="footer">
@@ -59,6 +70,8 @@
 
     </h:form>
 </p:outputPanel>
+<br/>
+
 
 
 <h1>LISTE USERS</h1>

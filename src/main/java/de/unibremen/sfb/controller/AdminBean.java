@@ -82,22 +82,41 @@ public class AdminBean implements Serializable {
     private String language;
     @Getter
     @Setter
-    HashSet<Role> a = new HashSet<>();
+    List<Role> rol = new ArrayList<>();
+    @Getter
+    @Setter
+    private boolean TECHNOLOGER;
+    @Getter
+    @Setter
+    private boolean PKADMINOR;
+    @Getter
+    @Setter
+    private boolean TRANSPORTER;
+    @Getter
+    @Setter
+    private boolean LOGISTIKERKER;
+    @Getter
+    @Setter
+    private boolean ADMINTATOR;
+
     /**
      * Returns all users registered in this system
-     * @return A set containing all users
+     * A set containing all users
      */
-    public Set<User> getAllUser() { return null; }
-
-    /**
-     * Adds a new User to the System
-     *  the new user
-     */
-    public void addUser() throws DuplicateUserException, UserNotFoundException {
+    public void addUser() {
 
         LocalDateTime date1=   LocalDateTime.now();
-        List<Role> rol=new ArrayList<>();
-        rol.add(Role.TECHNOLOGE);
+
+        if(TECHNOLOGER) {rol.add(Role.TECHNOLOGE);
+        }
+        if(PKADMINOR) {rol.add(Role.PKADMIN);
+        }
+        if(TRANSPORTER) {rol.add(Role.TRANSPORT);
+        }
+        if(LOGISTIKERKER) {rol.add(Role.LOGISTIKER);
+        }
+        if(ADMINTATOR) {rol.add(Role.ADMIN);
+        }
         try{
             User b =userController.getUserByID(Integer.parseInt(id));
             b.setVorname(vorname);
@@ -130,10 +149,27 @@ public class AdminBean implements Serializable {
 
     }
 
-    public void adminEditUser(String id) throws IOException {
-        this.id= id;
 
+    public void adminEditUser(String id) throws UserNotFoundException {
+        this.id= id;
+        User user = userController.getUserByID(Integer.parseInt(id));
+        this.TECHNOLOGER=user.getRollen().contains(Role.TECHNOLOGE);
+        this.PKADMINOR=user.getRollen().contains(Role.PKADMIN);
+        this.TRANSPORTER=user.getRollen().contains(Role.TRANSPORT);
+        this.LOGISTIKERKER=user.getRollen().contains(Role.LOGISTIKER);
+        this.ADMINTATOR=user.getRollen().contains(Role.ADMIN);
+
+        this.vorname=user.getVorname();
+        this.nachname=user.getNachname();
+        this.email=user.getEmail();
+        this.telefonNummer=user.getTelefonnummer();
+        this.userName=user.getUsername();
+        this.password=new String(user.getPassword());
+        this.wurdeVerifiziert = user.isWurdeVerifiziert();
+        this.language = user.getLanguage();
     }
+
+
 
     /**
      * edits a user that already exists
@@ -149,11 +185,11 @@ public class AdminBean implements Serializable {
     }*/
 
 
-    public List<User> findUsers() throws UserNotFoundException {
+    public List<User> findUsers() {
         try {
             return userController.getAll();
         }catch(Exception e){
-
+            e.printStackTrace();
         }
         return null;
     }
@@ -163,7 +199,7 @@ public class AdminBean implements Serializable {
      * deletes a user from the system
      *  the user to be deleted
      */
-    public void deleteUser(String idu) throws UserNotFoundException {
+    public void deleteUser(String idu)  {
         int idUser = Integer.parseInt(idu);
         try {
             userController.removeUser(idUser);
