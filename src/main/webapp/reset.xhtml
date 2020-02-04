@@ -34,13 +34,13 @@
                 </p:column>
                 <p:column colspan="1">
                     <p:inputText placeholder="Username" required="true" requiredMessage="Bitte Username eingeben!"
-                                 id="username"/>
+                                 value="#{resetBean.username}"/>
                 </p:column>
             </p:row>
             <p:row>
                 <p:column colspan="1"/>
                 <p:column colspan="1">
-                    <p:commandButton value="Reset Password" update="form"/>
+                    <p:commandButton value="Reset Password" action="#{resetBean.resetByUsername}" update="form"/>
                 </p:column>
             </p:row>
         </p:panelGrid>
@@ -62,13 +62,14 @@
                     <h:outputText value="Email:"/>
                 </p:column>
                 <p:column colspan="1">
-                    <p:inputText placeholder="Email" required="true" requiredMessage="Bitte Email eingeben!"/>
+                    <p:inputText placeholder="Email" required="true" requiredMessage="Bitte Email eingeben!"
+                                 value="#{resetBean.email}"/>
                 </p:column>
             </p:row>
             <p:row>
                 <p:column colspan="1"/>
                 <p:column colspan="1">
-                    <p:commandButton value="Reset Password" update="form2"/>
+                    <p:commandButton value="Reset Password" action="#{resetBean.resetByEmail}" update="form2"/>
                 </p:column>
             </p:row>
         </p:panelGrid>

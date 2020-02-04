@@ -4,6 +4,7 @@ import de.unibremen.sfb.model.Auftrag;
 import de.unibremen.sfb.model.Role;
 import de.unibremen.sfb.model.User;
 import de.unibremen.sfb.persistence.UserDAO;
+import de.unibremen.sfb.service.UserService;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -73,10 +74,10 @@ public class RegisterBean implements Serializable {
     private String phoneNumber;
 
     /**
-     * UserDAO for database communications
+     * UserService
      */
     @Inject
-    private UserDAO userDAO;
+    private UserService userService;
 
     /**
      * Redirect after successful checks
@@ -87,7 +88,7 @@ public class RegisterBean implements Serializable {
                 User u = null;
                 int i=0;
                 try {
-                    u = userDAO.getUserByMail(email);
+                    u = userService.getUserByEmail(email);
                 }
                 catch (Exception e){
                     //e.printStackTrace();
@@ -103,7 +104,7 @@ public class RegisterBean implements Serializable {
                     throw new IllegalArgumentException();
                 }
                 try {
-                    u = userDAO.getUserByName(username);
+                    u = userService.getUserByUsername(username);
                 } catch (Exception e) {
                     //e.printStackTrace();
                 }
@@ -117,7 +118,7 @@ public class RegisterBean implements Serializable {
                 if (i!=0){
                     throw new IllegalArgumentException("USER ALREADY EXISTS!");
                 }
-                userDAO.persist(new User(UUID.randomUUID().hashCode(), vorname, nachname, email, phoneNumber, username, password.getBytes(), false, LocalDateTime.now(), List.of(Role.ADMIN), new ArrayList<>(), "DE"));
+                userService.addUser(new User(UUID.randomUUID().hashCode(), vorname, nachname, email, phoneNumber, username, password.getBytes(), false, LocalDateTime.now(), List.of(Role.ADMIN), new ArrayList<>(), "DE"));
                 //TODO redirect and send email
                 FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
                 System.out.println("REDIRECTED SUCCESSFULLY");
