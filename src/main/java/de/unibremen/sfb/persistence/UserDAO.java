@@ -54,9 +54,9 @@ public class UserDAO extends ObjectDAO<User> {
      */
     public void remove(User u) throws UserNotFoundException {
         if (u != null) {
-            /*if (!em.contains(u)) {
+            if (!em.contains(u)) {
                 throw new UserNotFoundException();
-            }*/
+            }
             em.remove(u);
         }
     }
@@ -122,7 +122,7 @@ public class UserDAO extends ObjectDAO<User> {
      * @throws IllegalArgumentException if the list is empty
      */
     public List<User> getAll() {
-        return this.em.createQuery("SELECT u FROM User u", User.class).getResultList();
+        return em.createNamedQuery("User.getAll",get()).getResultList();
     }
 
 }
