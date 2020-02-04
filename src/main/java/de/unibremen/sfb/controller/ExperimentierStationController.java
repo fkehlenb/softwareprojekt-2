@@ -5,6 +5,7 @@ import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.ExperimentierStationDAO;
 
 import javax.inject.Inject;
+import java.util.List;
 import java.util.Set;
 import java.util.Queue;
 
@@ -109,9 +110,9 @@ public class ExperimentierStationController {
      * sets the conditions for this experimenting station
      * @param b a set containing all conditions
      */
-    public void setBedingung(Set<Bedingung> b) {
+    public void setBedingung(List<Bedingung> b) {
         if(b != null) {
-            Set<Bedingung> temp = experimenteristation.getBedingungen();
+            List<Bedingung> temp = experimenteristation.getBedingungen();
             experimenteristation.setBedingungen(b);
             try {
                 experimentierStationDAO.update(experimenteristation);

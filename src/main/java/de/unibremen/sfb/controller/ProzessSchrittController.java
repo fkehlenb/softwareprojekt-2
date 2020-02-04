@@ -4,6 +4,7 @@ package de.unibremen.sfb.controller;
 import de.unibremen.sfb.model.*;
 
 import javax.inject.Inject;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -55,7 +56,7 @@ public class ProzessSchrittController {
      *
      * @return A set with all possible ExperimentierStationen
      */
-    public Set<ExperimentierStation> getES(){
+    public List<ExperimentierStation> getES(){
         return ps.getProzessSchrittVorlage().getStationen();
     }
 

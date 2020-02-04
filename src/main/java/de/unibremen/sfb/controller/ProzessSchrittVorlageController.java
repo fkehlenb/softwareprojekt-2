@@ -7,6 +7,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import javax.inject.Inject;
 import java.time.Duration;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -32,7 +33,7 @@ public class ProzessSchrittVorlageController {
      * @param b a set with conditions for this station
      * @return  A set with every possible ExperimentierStation
      */
-    public Set<ExperimentierStation> getES(Set<Bedingung> b) { return psv.getStationen(); } //TODO automatisch finden mit bedingungen?
+    public List<ExperimentierStation> getES(Set<Bedingung> b) { return psv.getStationen(); } //TODO automatisch finden mit bedingungen?
 
     /**
      * Adds a ExperimentierStation to the ExperimentierStationen
@@ -42,8 +43,8 @@ public class ProzessSchrittVorlageController {
      */
     public void setES(ExperimentierStation es) {
         if(es!=null) {
-            Set<ExperimentierStation> temp = psv.getStationen();
-            Set<ExperimentierStation> set = temp;
+            List<ExperimentierStation> temp = psv.getStationen();
+            List<ExperimentierStation> set = temp;
             set.add(es);
             psv.setStationen(set);
             try {
