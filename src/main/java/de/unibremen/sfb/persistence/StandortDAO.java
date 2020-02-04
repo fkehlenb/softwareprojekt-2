@@ -5,6 +5,7 @@ import de.unibremen.sfb.exception.StandortNotFoundException;
 import de.unibremen.sfb.model.ExperimentierStation;
 import de.unibremen.sfb.model.Standort;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /** This class handles the location objects in the database*/
@@ -75,12 +76,12 @@ public class StandortDAO extends ObjectDAO<Standort> {
         try {
             List<Standort> es = em.createQuery("SELECT es FROM Standort es",get()).getResultList();
             if (es.isEmpty()){
-                throw new Exception();
+                return new ArrayList<Standort>();
             }
             return es;
         }
         catch (Exception e){
-            e.printStackTrace();
+//            e.printStackTrace();
             throw new IllegalArgumentException();
         }
     }
