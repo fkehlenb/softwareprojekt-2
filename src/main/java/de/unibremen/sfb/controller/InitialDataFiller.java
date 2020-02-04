@@ -15,19 +15,32 @@ import javax.persistence.PersistenceContext;
 import java.time.LocalDateTime;
 import java.util.*;
 
-//@Startup
-//@Singleton
-//@Slf4j
+@Startup
+@Singleton
+@Slf4j
 public class InitialDataFiller {
- 
-/* konflik to inizializieren detached instanz commetiert by Rey
-    @PersistenceContext
+
+    List<User> users;
+
+    @PersistenceContext(name = "sfb")
     private EntityManager em;
 
     @PostConstruct
     public void init() {
         log.info("Storing inital Data");
 
+        // User
+        for (User user :
+                createDefaultUsers()) {
+            em.persist(user);
+            log.info("Trying to persist User" + user.getNachname());
+        }
+
+        // Prozess Parameter
+        for (ProzessSchrittParameter psp :
+                createDefaultParameter()) {
+            em.persist(psp);
+        }
 
         for (Standort s :
                 createDefaulStandort()) {
@@ -42,21 +55,14 @@ public class InitialDataFiller {
             log.info("Trying to persist Station " + s.getName());
         }
 
-        // User
-        for (User user :
-                createDefaultUsers()) {
-            em.persist(user);
-            log.info("Trying to persist User" + user.getNachname());
-        }
-
 
     }
 
 
-    private Set<Standort> createDefaulStandort() {
+    private List<Standort> createDefaulStandort() {
         // FIXME Load from DB
         Standort s = new Standort(UUID.randomUUID().hashCode(),"Test Standort");
-        Set<Standort> ergebnis = new HashSet<>();
+        List<Standort> ergebnis = new ArrayList<>();
         ergebnis.add(s);
         log.info("Setting up Default Standort");
         return ergebnis;
@@ -70,15 +76,16 @@ public class InitialDataFiller {
         List<Standort>  standorte = new ArrayList<>();
 
         for (int i = 0; i < limit; i++) {
-           Standort s =  new Standort(UUID.randomUUID().hashCode(), "Station " + i) ;
-           log.info("Persisiting Experimentierstation " + i);
-           em.persist(s);
+            Standort s =  new Standort(UUID.randomUUID().hashCode(), "Station " + i) ;
+            standorte.add(s);
+            log.info("Persisiting Experimentierstation " + i);
+            em.persist(s);
         }
 
         for (int i = 0; i < limit; i++) {
             Faker faker = new Faker();
             ergebnis.add(new ExperimentierStation(UUID.randomUUID().hashCode(), standorte.get(i),
-                    faker.lordOfTheRings().location(), ExperimentierStationZustand.VERFUEGBAR, createDefaultUsers()));
+                    faker.lordOfTheRings().location(), ExperimentierStationZustand.VERFUEGBAR, users));
         }
         return ergebnis;
     }
@@ -92,7 +99,7 @@ public class InitialDataFiller {
         User testUser = new User(UUID.randomUUID().hashCode(), "Default", "Technologe", "l@g.c", f.phoneNumber().cellPhone(),
                 "t,", "12345678".getBytes(), true, LocalDateTime.now(),
                 a, new ArrayList<Auftrag>(), "DEUTSCH");
-        List users = new ArrayList<>();
+        users = new ArrayList<>();
 
         // Add to user Lost
         users.add(testUser);
@@ -135,5 +142,18 @@ public class InitialDataFiller {
 
 
         return users;
-    }*/
+    }
+
+    private List<ProzessSchrittParameter> createDefaultParameter() {
+        List<ProzessSchrittParameter> ergebnis = new ArrayList<>();
+
+        for (int i = 0; i < 100; i++) {
+            Faker faker = new Faker();
+            HashSet<QualitativeEigenschaft> eigenschaften = new HashSet<>();
+            ergebnis.add(new ProzessSchrittParameter( UUID.randomUUID().hashCode(), faker.lordOfTheRings().location(), eigenschaften));
+
+        }
+
+        return ergebnis;
+    }
 }

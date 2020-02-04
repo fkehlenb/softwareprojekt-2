@@ -13,7 +13,6 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
@@ -43,6 +42,8 @@ public class AdminBean implements Serializable {
     /**
      * The user managed by this bean
      */
+
+
     private User admin;
     @Inject
     private UserController userController;
@@ -79,7 +80,6 @@ public class AdminBean implements Serializable {
     private String language;
     @Getter
     @Setter
-
     List<Role> rol = new ArrayList<>();
     @Getter
     @Setter
@@ -89,7 +89,6 @@ public class AdminBean implements Serializable {
     private boolean PKADMINOR;
     @Getter
     @Setter
-
     private boolean TRANSPORTER;
     @Getter
     @Setter
@@ -97,7 +96,6 @@ public class AdminBean implements Serializable {
     @Getter
     @Setter
     private boolean ADMINTATOR;
-
 
     /**
      * Returns all users registered in this system
@@ -151,10 +149,7 @@ public class AdminBean implements Serializable {
 
     }
 
-
-
-    public void adminEditUser(String id) throws UserNotFoundException {
-
+    public void adminEditUser(String id) throws IOException,UserNotFoundException {
         this.id= id;
         User user = userController.getUserByID(Integer.parseInt(id));
         this.TECHNOLOGER=user.getRollen().contains(Role.TECHNOLOGE);
@@ -179,19 +174,7 @@ public class AdminBean implements Serializable {
      * edits a user that already exists
      *  user the user to be edited
      */
-
-    /*public String findUser() throws UserNotFoundException {
-        try {
-            return userDAO.getUserById(11).getUsername();
-        }catch(Exception e){
-
-        }
-        return "Not Fonud";
-    }*/
-
-
-    public List<User> findUsers() {
-
+    public List<User> findUsers() throws UserNotFoundException {
         try {
             return userController.getAll();
         }catch(Exception e){

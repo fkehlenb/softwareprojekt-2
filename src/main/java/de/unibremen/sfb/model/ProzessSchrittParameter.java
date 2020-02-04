@@ -13,8 +13,9 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class ProzessSchrittParameter {
 
-    @Id @GeneratedValue
-    private String id;
+    @Id
+    @NonNull
+    private int id;
 
     /** The process step parameter's name */
     @NonNull

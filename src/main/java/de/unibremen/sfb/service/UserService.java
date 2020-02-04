@@ -1,48 +1,167 @@
 package de.unibremen.sfb.service;
 
-import de.unibremen.sfb.model.Auftrag;
-import de.unibremen.sfb.model.ProzessSchrittParameter;
-import de.unibremen.sfb.model.Role;
+import de.unibremen.sfb.exception.DuplicateUserException;
+import de.unibremen.sfb.exception.UserNotFoundException;
 import de.unibremen.sfb.model.User;
-import de.unibremen.sfb.persistence.ExperimentierStationDAO;
+import de.unibremen.sfb.persistence.UserDAO;
 import lombok.Getter;
-import net.sourceforge.plantuml.ugraphic.UScale;
-import org.apache.shiro.crypto.hash.Hash;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
-import java.time.LocalDateTime;
+import java.io.Serializable;
 import java.util.*;
 import javax.inject.Inject;
+import javax.inject.Named;
+import javax.transaction.Transactional;
+
 @Singleton
 @Getter
-public class UserService {
+@Transactional
+public class UserService implements Serializable {
+
+    /**
+     * UserDAO for user management in database
+     */
+    @Inject
+    private UserDAO userDAO;
+
+    /**
+     * List of all users in the system
+     */
     private List<User> users;
 
-/*
+    /**
+     * Initializer
+     */
     @PostConstruct
     public void init() {
-        // FIXME Load from db
-        this.users = createDefaultUser();
+        users = userDAO.getAll();
     }
 
-    private Set<User> createDefaultUser() {
-        // User Setup
-        List<Role> a = new ArrayList<>();
-        User tUser = new User(0, "Default", "Loser", "l@g.c", "110",
-                "kev,", "12345678".getBytes(), true, LocalDateTime.now(),
-                a, new ArrayList<Auftrag>(), "DEUTSCH");
-        users = new HashSet<>();
-        users.add(tUser);
-        return users;
+    /**
+     * Add a new user to the system
+     *
+     * @param u - the user to add
+     * @throws DuplicateUserException if the user already exists in the database
+     */
+    public void addUser(User u) throws DuplicateUserException {
+        userDAO.persist(u);
     }
 
-    public void addUser(User user) {
-        this.users.add(user);
+    /**
+     * Get a user using his id
+     *
+     * @param id - the user's id
+     * @return the user object with a matching id
+     * @throws UserNotFoundException if the id has no registered user in the database
+     */
+    public User getUserById(int id) throws UserNotFoundException {
+        return userDAO.getUserById(id);
     }
 
-    public User findByName(String name) {
-        // FIXME Use String as ID or convert to String
-        return this.users.stream().filter(c -> c.getNachname().equals(name)).findFirst().orElse(null);
-    }*/
+    /**
+     * Get a user using his username
+     *
+     * @param username - the user's username
+     * @return the user object which's username matches the entered one
+     * @throws UserNotFoundException if the username has no registered user in the database
+     */
+    public User getUserByUsername(String username) throws UserNotFoundException {
+        return userDAO.getUserByName(username);
+    }
+
+    /**
+     * Get a user using his email address
+     *
+     * @param email - the user's email address
+     * @return the user object which's email matches the entered one
+     * @throws UserNotFoundException if the email has no registered user in the database
+     */
+    public User getUserByEmail(String email) throws UserNotFoundException {
+        return userDAO.getUserByMail(email);
+    }
+
+    /**
+     * Get all users from the database
+     *
+     * @return a list of all users in the database
+     */
+    public List<User> getAll() {
+        return userDAO.getAll();
+    }
+
+    /** Check if a user exists in the database
+     * @param u - the user to check
+     * @return user exists in database? */
+    public boolean containsUser(User u) throws UserNotFoundException{
+        try {
+            userDAO.getUserById(u.getId());
+            return true;
+        }
+        // On fail the dao will throw an exception
+        catch (Exception e){
+            return false;
+        }
+    }
+
+    /** Check if a username has a user registered in the database
+     * @param username - the username to check
+     * @return user exists in database? */
+    public boolean containsUserWithUsername(String username){
+        try {
+            getUserByUsername(username);
+            return true;
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+
+    /** Check if an email address has a user registered in the database
+     * @param email - the email address to check
+     * @return the user exists in the database? */
+    public boolean containsUserWithEmail(String email){
+        try{
+            getUserByEmail(email);
+            return true;
+        }
+        catch (Exception e){
+            return false;
+        }
+    }
+
+    /** Update a user in the database
+     * @param u - the user to update in the database
+     * @throws UserNotFoundException if the user couldn't be found in the database */
+    public void updateUser(User u) throws UserNotFoundException{
+        userDAO.update(u);
+    }
+
+    /** Remove a user from the database
+     * @param u - the user to remove from the database
+     * @throws UserNotFoundException if the user couldn't be found in the database */
+    public void removeUser(User u) throws UserNotFoundException{
+        userDAO.remove(u);
+    }
+
+    /** Remove a user from the database using his id
+     * @param id - the user's id
+     * @throws UserNotFoundException if the id has no registered user in the database */
+    public void removeUserById(int id) throws UserNotFoundException{
+        userDAO.remove(getUserById(id));
+    }
+
+    /** Remove a user from the database using his username
+     * @param username - the user's username
+     * @throws UserNotFoundException if the username has no registered user in the database */
+    public void removeUserByUsername(String username) throws UserNotFoundException{
+        userDAO.remove(getUserByUsername(username));
+    }
+
+    /** Remove a user from the database using his email address
+     * @param email - the user's email address
+     * @throws UserNotFoundException if the email address has no registered user in the database */
+    public void removeUserByMail(String email) throws UserNotFoundException{
+        userDAO.remove(getUserByEmail(email));
+    }
 }
