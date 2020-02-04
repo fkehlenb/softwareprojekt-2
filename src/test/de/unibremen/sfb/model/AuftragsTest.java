@@ -54,7 +54,7 @@ class AuftragsTest {
         // PS Parameter
         List<ProzessSchrittParameter> parameters = new ArrayList<>() {
         };
-        parameters.add(new ProzessSchrittParameter("Testen", e));
+        parameters.add(new ProzessSchrittParameter(UUID.randomUUID().hashCode(), "Testen", e));
 
         // Stationen
 
