@@ -9,59 +9,63 @@
 </h:head>
 <body background="background.png">
 <ui:include src="/template/common/header.xhtml"/>
-<h:form prependId="false">
-    <p:panelGrid style="margin-left: 200px; margin-top: 80px; box-shadow: black; ">
-        <p:row>
-            <p:column colspan="2">
-                <h1 style="color: cornflowerblue">Wilkommen zum SFB - Farbige Zustände!</h1>
-                <p>Um sich Einzuloggen, geben sie bitte ihre details ein!</p>
-            </p:column>
-        </p:row>
-        <p:row>
-            <p:column colspan="1">
-                <h:outputText value="Username:"/>
-            </p:column>
-            <p:column colspan="1">
-                <p:inputText id="username" required="true"
-                             placeholder="Username" value="#{shiroLoginBean.username}"
-                             requiredMessage="Bitte Username eingeben!"/>
-            </p:column>
-        </p:row>
-        <p:row>
-            <p:column colspan="1">
-                <h:outputText value="Password:"/>
-            </p:column>
-            <p:column colspan="1">
-                <p:password id="password" required="true" placeholder="Password"
-                            requiredMessage="Bitte Passwort angeben!" value="#{shiroLoginBean.password}"/>
-            </p:column>
-        </p:row>
-        <p:row>
-            <p:column colspan="1">
-                <h:outputText value="Remember me:"/>
-            </p:column>
-            <p:column colspan="1">
-                <p:selectBooleanCheckbox id="rememberMe" value="#{shiroLoginBean.rememberMe}"/>
-            </p:column>
-        </p:row>
-        <p:row>
-            <p:column colspan="1"/>
-            <p:column colspan="1">
-                <p:commandButton value="Login" action="#{shiroLoginBean.doLogin}" style="width: 100px"/>
-            </p:column>
-        </p:row>
-        <p:row>
-            <p:column colspan="2">
-                <p>Forgot password? <a href="_blank">Reset Password</a></p>
-            </p:column>
-        </p:row>
-        <p:row>
-            <p:column colspan="2">
-                <p>New User? <a href="register.xhtml">Register Now</a></p>
-            </p:column>
-        </p:row>
-    </p:panelGrid>
-    <p:messages id="messages" autoUpdate="true" closable="true"/>
-</h:form>
+<div style="margin-left: 200px; margin-top: 80px; box-shadow: black; ">
+    <h:form prependId="false" id="form">
+        <p:messages id="msgs" showDetail="false" closable="true" style="width: 550px">
+            <p:autoUpdate/>
+        </p:messages>
+        <p:panelGrid>
+            <p:row>
+                <p:column colspan="2">
+                    <h1 style="color: cornflowerblue">Wilkommen zum SFB - Farbige Zustände!</h1>
+                    <p>Um sich Einzuloggen, geben sie bitte ihre details ein!</p>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column colspan="1">
+                    <h:outputText value="Username:"/>
+                </p:column>
+                <p:column colspan="1">
+                    <p:inputText id="username" required="true"
+                                 placeholder="Username" value="#{shiroLoginBean.username}"
+                                 requiredMessage="Bitte Username eingeben!"/>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column colspan="1">
+                    <h:outputText value="Password:"/>
+                </p:column>
+                <p:column colspan="1">
+                    <p:password id="password" required="true" placeholder="Password"
+                                requiredMessage="Bitte Passwort angeben!" value="#{shiroLoginBean.password}"/>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column colspan="1">
+                    <h:outputText value="Remember me:"/>
+                </p:column>
+                <p:column colspan="1">
+                    <p:selectBooleanCheckbox id="rememberMe" value="#{shiroLoginBean.rememberMe}"/>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column colspan="1"/>
+                <p:column colspan="1">
+                    <p:commandButton value="Login" action="#{shiroLoginBean.doLogin}" style="width: 100px" update="form"/>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column colspan="2">
+                    <p>Forgot password? <a href="reset.xhtml">Reset Password</a></p>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column colspan="2">
+                    <p>New User? <a href="register.xhtml">Register Now</a></p>
+                </p:column>
+            </p:row>
+        </p:panelGrid>
+    </h:form>
+</div>
 </body>
 </html>

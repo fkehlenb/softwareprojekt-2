@@ -85,26 +85,38 @@ public class RegisterBean implements Serializable {
         try {
             if (passwordsMatch(password, passwordConfirmation)) {
                 User u = null;
+                int i=0;
                 try {
                     u = userDAO.getUserByMail(email);
                 }
                 catch (Exception e){
-                    e.printStackTrace();
+                    //e.printStackTrace();
                 }
-                if (u != null) {
+                try {
+                    i = u.getId();
                     facesError("Zu dieser Email existiert schon ein Benutzer!");
-                    throw new Exception("GET USER BY MAIL");
+                }
+                catch (Exception e){
+                    // e.printStackTrace();
+                }
+                if (i!=0){
+                    throw new IllegalArgumentException();
                 }
                 try {
                     u = userDAO.getUserByName(username);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
                 }
-                if (u != null) {
+                try {
+                    i = u.getId();
                     facesError("Dieser Benutzername ist leider schon vergeben!");
-                    throw new Exception("GET USER BY NAME");
                 }
-                u = new User();
+                catch (Exception e){
+                    //e.printStackTrace();
+                }
+                if (i!=0){
+                    throw new IllegalArgumentException("USER ALREADY EXISTS!");
+                }
                 userDAO.persist(new User(UUID.randomUUID().hashCode(), vorname, nachname, email, phoneNumber, username, password.getBytes(), false, LocalDateTime.now(), List.of(Role.ADMIN), new ArrayList<>(), "DE"));
                 //TODO redirect and send email
                 FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
@@ -114,7 +126,7 @@ public class RegisterBean implements Serializable {
                 throw new Exception("FAILED YOU MOTHERFUCKER!");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
     }
 
