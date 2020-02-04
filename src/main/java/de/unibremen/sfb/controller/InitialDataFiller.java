@@ -91,7 +91,7 @@ public class InitialDataFiller {
         a.add(Role.TECHNOLOGE);
         User testUser = new User(UUID.randomUUID().hashCode(), "Default", "Technologe", "l@g.c", f.phoneNumber().cellPhone(),
                 "t,", "12345678".getBytes(), true, LocalDateTime.now(),
-                a, new ArrayList<Auftrag>(), "DEUTSCH");
+                a, new ArrayList<Auftrag>(), "DE");
         List users = new ArrayList<>();
 
         // Add to user Lost
