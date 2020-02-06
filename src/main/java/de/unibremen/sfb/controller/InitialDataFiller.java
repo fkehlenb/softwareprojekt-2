@@ -2,6 +2,7 @@ package de.unibremen.sfb.controller;
 
 import com.github.javafaker.Faker;
 import de.unibremen.sfb.model.*;
+import de.unibremen.sfb.persistence.AuftragDAO;
 import de.unibremen.sfb.persistence.StandortDAO;
 import de.unibremen.sfb.persistence.UserDAO;
 import de.unibremen.sfb.service.ZustandsService;
@@ -34,6 +35,7 @@ public class InitialDataFiller {
     private ProzessSchritt ps;
     private Auftrag pk;
     private ProzessKettenVorlage pkv;
+    private List<QualitativeEigenschaft> qualitativeEigenschaftList;
 
     @Inject
     UserDAO userDAO;
@@ -43,6 +45,10 @@ public class InitialDataFiller {
 
     @Inject
     ZustandsService zustandsService;
+
+    @Inject
+    AuftragDAO auftragDAO;
+
 
     @PersistenceContext
     private EntityManager em;
@@ -78,6 +84,77 @@ public class InitialDataFiller {
                 log.info("Trying to persist Station " + s.getName());
                 em.persist(s);
             }
+            // Experimentierstaation, requires Standort
+            for (ExperimentierStation s :
+                    createDefaultStation()) {
+                log.info("Trying to persist Station " + s.getName());
+                em.persist(s);
+            }
+            /**
+             * persis von QualitativeEigenschaft durch die Variebln qualitativeEigenschaftList
+             * */
+            qualitativeEigenschaftList=getQualitativeEigenschaften();
+            for (QualitativeEigenschaft qE :qualitativeEigenschaftList
+                   ) {
+                log.info("Trying to Persist Qualität Eingenschaft " + qE.getName());
+                em.persist(qE);
+            }
+                // PS Parameter
+                List<ProzessSchrittParameter> parameters = new ArrayList<>();
+                parameters.add(new ProzessSchrittParameter(UUID.randomUUID().hashCode(), "Getestet",qualitativeEigenschaftList ));
+
+            for (ProzessSchrittParameter psp: parameters
+                 ) {
+                log.info("Trying ti persist ProzessSchrittParameter "+psp.getName());
+                em.persist(psp);
+            }
+
+            // Erstelle die Liste aus den Parametern
+            List<ProzessSchrittVorlage> psListe = getProzessSchrittVorlages(parameters);
+            for (ProzessSchrittVorlage pSV :
+                    psListe) {
+                log.info("Trying to persist ProzessSchrittVorlage "+pSV.toString());
+                em.persist(pSV);
+            }
+            pkv = new ProzessKettenVorlage(99, psListe, testUser);
+                log.info("Try to persist ProzessSchrittVorlage "+ pkv.getPkID());
+                em.persist(pkv);
+
+            // Auftrag Setup
+            AuftragsLog aLog = new AuftragsLog(LocalDateTime.now());
+            aLog.setErstellt(LocalDateTime.now());
+            em.persist(aLog);
+            log.info("Try to persist AuftragsLog "+ aLog.toString());
+            pk = new Auftrag(420, pkv, AuftragsPrioritaet.HOCH, new ArrayList<ProzessSchritt>(), aLog , ProzessKettenZustandsAutomat.INSTANZIIERT);
+
+
+            // PSAV Setup
+            ProzessSchrittZustandsAutomatVorlage psza = new ProzessSchrittZustandsAutomatVorlage(zustandsService.getPsZustaende(),
+                    zustandsService.getPsZustaende().get(0));
+            log.info("Try to persist ProzessSchrittZustandsAutomatVorlage "+ psza.toString());
+            em.persist(psza);
+            // PS Setup
+            ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat("ERSTELLT", psza);
+            log.info("Try to persist ProzessSchrittZustandsAutomat "+ prozessSchrittZustandsAutomat.toString());
+            em.persist(prozessSchrittZustandsAutomat);
+
+            ArrayList<ProzessSchrittLog> logs = new ArrayList<>();
+            logs.add(new ProzessSchrittLog(LocalDateTime.now(), "INSTANZIERT"));
+            for (ProzessSchrittLog pSL:
+                 logs) {
+                log.info("Try to persist TESTlogs "+pSL.getGestartet().toString());
+                em.persist(pSL);
+            }
+
+
+
+            ps = new ProzessSchritt(42, prozessSchrittZustandsAutomat, logs , psListe.get(0));
+            log.info("Try to persist TEST ProzessSchritt "+ps.getPsID());
+            em.persist(ps);
+            // PS aufuellen
+            pk.getProzessSchritte().add(ps);
+            log.info("Try to persist TEST ProzessKette "+pk.getPkID());
+            em.persist(pk);
 
 
         } else {
@@ -183,34 +260,9 @@ public class InitialDataFiller {
 
 
     private void setUpAuftrag() {
-        List<QualitativeEigenschaft> e = getQualitativeEigenschaften();
-
-        // PS Parameter
-        List<ProzessSchrittParameter> parameters = new ArrayList<>();
-        parameters.add(new ProzessSchrittParameter(UUID.randomUUID().hashCode(), "Getestet", e));
-
-        // Erstelle die Liste aus den Parametern
-        List<ProzessSchrittVorlage> psListe = getProzessSchrittVorlages(parameters);
-        pkv = new ProzessKettenVorlage(99, psListe, testUser);
-
-        // Auftrag Setup
-        AuftragsLog aLog = new AuftragsLog(LocalDateTime.now());
-        aLog.setErstellt(LocalDateTime.now()); ;
-        pk = new Auftrag(420, pkv, AuftragsPrioritaet.HOCH, new ArrayList<ProzessSchritt>(), aLog , ProzessKettenZustandsAutomat.INSTANZIIERT);
 
 
-        // PSAV Setup
-        ProzessSchrittZustandsAutomatVorlage psza = new ProzessSchrittZustandsAutomatVorlage(zustandsService.getPsZustaende(),
-                zustandsService.getPsZustaende().get(0));
 
-        // PS Setup
-        ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat("ERSTELLT", psza);
-        HashSet<ProzessSchrittLog> logs = new HashSet<>();
-        logs.add(new ProzessSchrittLog(LocalDateTime.now(), "INSTANZIERT"));
-        ps = new ProzessSchritt(42, prozessSchrittZustandsAutomat, logs , getProzessSchrittVorlage(parameters));
-
-        // PS aufuellen
-        pk.getProzessSchritte().add(ps);
     }
 
     private List<ProzessSchrittVorlage> getProzessSchrittVorlages(List<ProzessSchrittParameter> parameters) {
@@ -222,8 +274,11 @@ public class InitialDataFiller {
 
     private ProzessSchrittVorlage getProzessSchrittVorlage(List<ProzessSchrittParameter> parameters) {
         // ProzessSchrittVorlage Setup
+        ProzessSchrittZustandsAutomatVorlage v = new ProzessSchrittZustandsAutomatVorlage(
+                zustandsService.getPsZustaende(), "Test pszvav");
+        em.persist(v);
         ProzessSchrittVorlage psv = new ProzessSchrittVorlage(99, Duration.ofMinutes(42),
-                "Ermittlend", experimentierStations, new ProzessSchrittZustandsAutomatVorlage(),parameters);
+                "Ermittlend", experimentierStations, v,parameters);
         return  psv;
     }
 

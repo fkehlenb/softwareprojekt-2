@@ -3,6 +3,7 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 /** Data class for process chain steps */
@@ -43,7 +44,7 @@ public class ProzessSchritt {
     /** The process step's log */
     @NonNull
     @OneToMany
-    private Set<ProzessSchrittLog> prozessSchrittLog;
+    private List<ProzessSchrittLog> prozessSchrittLog;
 
     /** The process step template the process step was created from */
     @NonNull
