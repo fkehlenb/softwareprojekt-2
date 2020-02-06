@@ -39,8 +39,6 @@ public class AdminBean implements Serializable {
     @Inject
     private UserDAO userDAO;
 
-
-
     @Getter
     @Setter
     private String vorname;
@@ -65,10 +63,6 @@ public class AdminBean implements Serializable {
     @Getter
     @Setter
     private Boolean  wurdeVerifiziert;
-    @Getter
-    @Setter
-    private String erstellungsDatum;
-
     @Getter
     @Setter
     private String language;
@@ -96,7 +90,12 @@ public class AdminBean implements Serializable {
      * A set containing all users
      */
     public void addUser() throws DuplicateUserException {
-        String idOld = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idx");
+        String idOld="";
+        try {
+             idOld = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idx");
+        }catch (Exception e){
+           e.printStackTrace();
+        }
 
         LocalDateTime date1=   LocalDateTime.now();
 
