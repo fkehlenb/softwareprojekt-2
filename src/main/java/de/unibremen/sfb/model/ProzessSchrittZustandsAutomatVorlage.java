@@ -10,6 +10,7 @@ import java.util.List;
 @Getter
 @RequiredArgsConstructor
 @Entity
+@NoArgsConstructor()
 public class ProzessSchrittZustandsAutomatVorlage {
 
     @Id @GeneratedValue
@@ -26,12 +27,4 @@ public class ProzessSchrittZustandsAutomatVorlage {
 
     @NonNull
     private String name;
-
-    public ProzessSchrittZustandsAutomatVorlage() {
-        this.zustaende = new ArrayList<>();
-        zustaende.add("Angenommen");
-        zustaende.add("In Bearbeitung");
-        zustaende.add("Bearbeitet");
-        zustaende.add("Weitergeleitet");
-    }
 }

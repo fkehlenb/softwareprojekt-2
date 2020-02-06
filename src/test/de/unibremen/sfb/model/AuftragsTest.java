@@ -49,7 +49,7 @@ class AuftragsTest {
         tUser.setLanguage("DEUTSCH");
 
         // Eigenschaften
-        HashSet<QualitativeEigenschaft> e = new HashSet<>(); // TODO add eigenschaften
+        List<QualitativeEigenschaft> e = new ArrayList<>(); // TODO add eigenschaften
 
         // PS Parameter
         List<ProzessSchrittParameter> parameters = new ArrayList<>() {
