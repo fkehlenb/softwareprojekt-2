@@ -12,6 +12,23 @@
 
             <div class="ui-g-2"></div>
             <div class="ui-g-8">
+                <h1 style="text-align: center">Neue Experimentierstation erstellen</h1>
+                <p:panel id="psv" header="Daten Eingeben"
+                         style="margin-bottom: 20px">
+                    <h:form><html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+
+    <ui:composition template="/template/common/layout.xhtml">
+        <ui:define name="content">
+
+            <div class="ui-g-2"></div>
+            <div class="ui-g-8">
                     <h1 style="text-align: center">Neue Experimentierstation erstellen</h1>
                     <p:panel id="psv" header="Daten Eingeben"
                              style="margin-bottom: 20px">
@@ -30,7 +47,7 @@
                                                       var="user" style="width: 172px" filter="true"
                                                       filterMatchMode="startsWith">
                                         <f:selectItems value="#{esErstellenBean.availableUsers}"
-                                                       var="user" itemLabel="#{user.username}"
+                                                       var="user" itemLabel="#{user.nachname}"
                                                        itemValue="#{user}" required="true"/>
                                         <p:column>
                                             <h:outputText value="#{user.vorname}"/>
@@ -63,6 +80,61 @@
                                                  update="@form"/>
                             </h:form>
                     </p:panel>
+            </div>
+            <div class="ui-g-2"></div>
+
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
+
+                        <p:growl id="msgs" showDetail="true" sticky="true"/>
+
+                        <p:outputLabel for="name" value="Name:"/>
+                        <p:inputText id="name" value="#{esErstellenBean.name}"
+                                     required="true"/>
+
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <p:outputLabel for="user" value="Benutzer: "/>
+                            <p:selectManyMenu id="user"
+                                              value="#{esErstellenBean.ausgewählteBenutzer}"
+                                              converter="userConverter" effect="fade"
+                                              var="user" style="width: 172px" filter="true"
+                                              filterMatchMode="startsWith">
+                                <f:selectItems value="#{esErstellenBean.availableUsers}"
+                                               var="user" itemLabel="#{user.nachname}"
+                                               itemValue="#{user}" required="true"/>
+                                <p:column>
+                                    <h:outputText value="#{user.vorname}"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{user.nachname}"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{user.username}"/>
+                                </p:column>
+                            </p:selectManyMenu>
+
+                            <p:outputLabel for="standort" value="Standort: "/>
+                            <p:selectOneMenu id="standort"
+                                             value="#{esErstellenBean.standort}"
+                                             converter="standortConverter" effect="fade"
+                                             var="standort" style="width: 172px" filter="true"
+                                             filterMatchMode="startsWith">
+                                <f:selectItems value="#{esErstellenBean.verfügbareStandorte}"
+                                               var="standort" itemLabel="#{standort.ort}"
+                                               itemValue="#{standort}" required="true"/>
+                                <p:column>
+                                    <h:outputText value="#{standort.ort}"/>
+                                </p:column>
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                        <p:commandButton value="Reset" type="reset"/>
+                        <p:commandButton value="Erstellen"
+                                         action="#{esErstellenBean.createES}" icon="pi pi-check"
+                                         update="@form"/>
+                    </h:form>
+                </p:panel>
             </div>
             <div class="ui-g-2"></div>
 
