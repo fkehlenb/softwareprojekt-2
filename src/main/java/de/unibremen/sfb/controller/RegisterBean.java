@@ -4,6 +4,7 @@ import de.unibremen.sfb.model.Auftrag;
 import de.unibremen.sfb.model.Role;
 import de.unibremen.sfb.model.User;
 import de.unibremen.sfb.persistence.UserDAO;
+import de.unibremen.sfb.service.UserService;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,6 +19,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * This bean manages the signup webpage
@@ -72,10 +74,10 @@ public class RegisterBean implements Serializable {
     private String phoneNumber;
 
     /**
-     * UserDAO for database communications
+     * UserService
      */
     @Inject
-    private UserDAO userDAO;
+    private UserService userService;
 
     /**
      * Redirect after successful checks
@@ -84,29 +86,39 @@ public class RegisterBean implements Serializable {
         try {
             if (passwordsMatch(password, passwordConfirmation)) {
                 User u = null;
+                int i=0;
                 try {
-                    u = userDAO.getUserByMail(email);
+                    u = userService.getUserByEmail(email);
                 }
                 catch (Exception e){
-                    e.printStackTrace();
-                }
-                if (u != null) {
-                    facesError("Zu dieser Email existiert schon ein Benutzer!");
-                    throw new Exception("GET USER BY MAIL");
+                    //e.printStackTrace();
                 }
                 try {
-                    u = userDAO.getUserByName(username);
+                    i = u.getId();
+                    facesError("Zu dieser Email existiert schon ein Benutzer!");
+                }
+                catch (Exception e){
+                    // e.printStackTrace();
+                }
+                if (i!=0){
+                    throw new IllegalArgumentException();
+                }
+                try {
+                    u = userService.getUserByUsername(username);
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
                 }
-                if (u != null) {
+                try {
+                    i = u.getId();
                     facesError("Dieser Benutzername ist leider schon vergeben!");
-                    throw new Exception("GET USER BY NAME");
                 }
-                List<Auftrag> auftrags = new ArrayList<>();
-                u = new User(idGenerator(), vorname, nachname, email, phoneNumber, username, password.getBytes(), false, LocalDateTime.now(), new ArrayList<>(), auftrags, "DE");
-                userDAO.persist(u);
-
+                catch (Exception e){
+                    //e.printStackTrace();
+                }
+                if (i!=0){
+                    throw new IllegalArgumentException("USER ALREADY EXISTS!");
+                }
+                userService.addUser(new User(UUID.randomUUID().hashCode(), vorname, nachname, email, phoneNumber, username, password.getBytes(), false, LocalDateTime.now(), List.of(Role.ADMIN), new ArrayList<>(), "DE"));
                 //TODO redirect and send email
                 FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
                 System.out.println("REDIRECTED SUCCESSFULLY");
@@ -115,7 +127,7 @@ public class RegisterBean implements Serializable {
                 throw new Exception("FAILED YOU MOTHERFUCKER!");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
     }
 
@@ -125,7 +137,7 @@ public class RegisterBean implements Serializable {
      * @return a new user id
      */
     private int idGenerator() {
-        return 0;
+        return UUID.randomUUID().hashCode();
     }
 
     /**
