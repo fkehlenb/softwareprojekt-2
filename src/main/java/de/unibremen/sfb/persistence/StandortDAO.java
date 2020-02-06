@@ -4,11 +4,13 @@ import de.unibremen.sfb.exception.DuplicateStandortException;
 import de.unibremen.sfb.exception.StandortNotFoundException;
 import de.unibremen.sfb.model.ExperimentierStation;
 import de.unibremen.sfb.model.Standort;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /** This class handles the location objects in the database*/
+@Slf4j
 public class StandortDAO extends ObjectDAO<Standort> {
 
     /** Add a location object to the database
@@ -76,6 +78,7 @@ public class StandortDAO extends ObjectDAO<Standort> {
         try {
             List<Standort> es = em.createQuery("SELECT es FROM Standort es",get()).getResultList();
             if (es.isEmpty()){
+                log.info("No Standorte Found");
                 return new ArrayList<Standort>();
             }
             return es;
