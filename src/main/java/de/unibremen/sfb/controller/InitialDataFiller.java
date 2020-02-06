@@ -2,6 +2,7 @@ package de.unibremen.sfb.controller;
 
 import com.github.javafaker.Faker;
 import de.unibremen.sfb.model.*;
+import de.unibremen.sfb.persistence.StandortDAO;
 import de.unibremen.sfb.persistence.UserDAO;
 import de.unibremen.sfb.service.ZustandsService;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +37,9 @@ public class InitialDataFiller {
 
     @Inject
     UserDAO userDAO;
+
+    @Inject
+    StandortDAO standortDAO;
 
     @Inject
     ZustandsService zustandsService;
@@ -95,6 +99,8 @@ public class InitialDataFiller {
             log.info("Persisiting Experimentierstation " + i);
             standorte.add(s);
         }
+
+
         return  standorte;
     }
 
