@@ -74,7 +74,7 @@ class AuftragsTest {
 
         // PS Setup
         ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat();
-        HashSet<ProzessSchrittLog> logs = new HashSet<>();
+        List<ProzessSchrittLog> logs = new ArrayList<>();
         logs.add(new ProzessSchrittLog(LocalDateTime.now(), "INSTANZIERT"));
         ps = new ProzessSchritt(42, prozessSchrittZustandsAutomat, logs , prozessSchrittVorlage);
 
