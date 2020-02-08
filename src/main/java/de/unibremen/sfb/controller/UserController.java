@@ -28,6 +28,12 @@ public class UserController implements Serializable {
         }
     }
 
+    public User getUserByID(int id) throws UserNotFoundException {
+
+        return userDAO.getUserById(id);
+
+    }
+
     public void update(User u){
         try {
             userDAO.update(u);
@@ -37,17 +43,9 @@ public class UserController implements Serializable {
         }
     }
 
-     public User getUserByID(int id) throws UserNotFoundException {
-
-        return userDAO.getUserById(id);
-
-     }
-    public void removeUser(int id) throws UserNotFoundException {
-        User user=getUserByID(id);
-
+    public void removeUser(int id){
         try {
-            //userDAO.update(user);
-            userDAO.remove(user);
+            userDAO.remove(userDAO.getUserById(id));
         }
         catch (Exception e){
             e.printStackTrace();

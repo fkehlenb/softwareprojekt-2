@@ -4,6 +4,9 @@ import de.unibremen.sfb.exception.DuplicateProzessSchrittParameterException;
 import de.unibremen.sfb.exception.ProzessSchrittParameterNotFoundException;
 import de.unibremen.sfb.model.ProzessSchrittParameter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /** This class handles the process parameters in the database */
 public class ProzessSchrittParameterDAO extends ObjectDAO<ProzessSchrittParameter> {
 
@@ -48,5 +51,16 @@ public class ProzessSchrittParameterDAO extends ObjectDAO<ProzessSchrittParamete
     /** @return the class of process parameters */
     public Class<ProzessSchrittParameter> get(){
         return ProzessSchrittParameter.class;
+    }
+
+    /** @return all process parameters
+     * @return empty ArrayList if there are none */
+    public List<ProzessSchrittParameter> getAll(){
+        try {
+            return em.createQuery("SELECT psp FROM ProzessSchrittParameter psp", get()).getResultList();
+        }
+        catch (Exception e){
+            return new ArrayList<>();
+        }
     }
 }

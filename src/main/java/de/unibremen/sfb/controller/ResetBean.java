@@ -1,30 +1,76 @@
 package de.unibremen.sfb.controller;
 
+import de.unibremen.sfb.model.User;
+import de.unibremen.sfb.service.UserService;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.transaction.Transactional;
 import java.io.Serializable;
 
 /**
  * this class manages the interaction of the gui with the backend system (for situations in which the user is attempting to reset their password)
  */
+@Named
+@RequestScoped
+@Transactional
 public class ResetBean implements Serializable {
 
     /**
      * the username of the user to be reset
      */
-    public String username;
+    @Getter
+    @Setter
+    private String username;
     /**
      * the email address of the user to be reset
      */
-    public String email;
+    @Getter
+    @Setter
+    private String email;
+
+    /** User controller */
+    @Inject
+    private UserService userService;
 
     /**
      * resets the user after finding him via his username
      */
-    public void resetByUsername() {}
+    public void resetByUsername() {
+        try {
+            User u = userService.getUserByUsername(getUsername());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            facesError("Kein Benutzer mit diesem Benutzername gefunden!");
+        }
+    }
+
+    /**
+     * Adds a new SEVERITY_ERROR FacesMessage for the ui
+     * @param message Error Message
+     */
+    private void facesError(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+    }
 
     /**
      * resets the user after finding him via his email
      */
-    public void resetByEmail() {}
+    public void resetByEmail() {
+        try {
+            User u = userService.getUserByEmail(getEmail());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            facesError("Kein Benutzer mit dieser Email Adresse gefunden!");
+        }
+    }
 
     /**
      * sets the language in which everything is displayed for this user
@@ -42,36 +88,4 @@ public class ResetBean implements Serializable {
      * the empty constructor
      */
     public ResetBean() {}
-
-    /**
-     * returns the username
-     * @return the username
-     */
-    public String getUsername() {
-        return username;
-    }
-
-    /**
-     * sets the username
-     * @param username the new username
-     */
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    /**
-     * returns the email address
-     * @return the email address
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * sets the email address
-     * @param email the new email address
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }

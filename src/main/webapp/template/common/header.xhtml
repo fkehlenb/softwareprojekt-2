@@ -43,7 +43,8 @@ ALL TAGS ABOVE THIS LINE WILL BE REMOVED BY JSF
                     </shiro:hasRole>
 
                     <shiro:hasRole name="admin">
-                        <p:menuitem value="Nutzer" url="/admin/addUser.xhtml"/>
+                        <p:menuitem value="Nutzer" url="/admin/"/>
+                        <p:menuitem value="Standorte" url="/admin/standorte.xhtml"/>
                         <p:menuitem value="Backup" url="/admin/createBackup.xhtml"/>
                     </shiro:hasRole>
                 </p:submenu>

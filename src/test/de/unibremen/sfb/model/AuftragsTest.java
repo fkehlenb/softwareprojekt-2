@@ -49,12 +49,12 @@ class AuftragsTest {
         tUser.setLanguage("DEUTSCH");
 
         // Eigenschaften
-        HashSet<QualitativeEigenschaft> e = new HashSet<>(); // TODO add eigenschaften
+        List<QualitativeEigenschaft> e = new ArrayList<>(); // TODO add eigenschaften
 
         // PS Parameter
         List<ProzessSchrittParameter> parameters = new ArrayList<>() {
         };
-        parameters.add(new ProzessSchrittParameter("Testen", e));
+        parameters.add(new ProzessSchrittParameter(UUID.randomUUID().hashCode(), "Testen", e));
 
         // Stationen
 
@@ -74,7 +74,7 @@ class AuftragsTest {
 
         // PS Setup
         ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat();
-        HashSet<ProzessSchrittLog> logs = new HashSet<>();
+        List<ProzessSchrittLog> logs = new ArrayList<>();
         logs.add(new ProzessSchrittLog(LocalDateTime.now(), "INSTANZIERT"));
         ps = new ProzessSchritt(42, prozessSchrittZustandsAutomat, logs , prozessSchrittVorlage);
 

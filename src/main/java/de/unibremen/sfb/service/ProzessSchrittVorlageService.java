@@ -16,7 +16,7 @@ import java.util.Set;
  */
 
 public class ProzessSchrittVorlageService {
-    private Set<ProzessSchrittVorlage> vorlagen;
+    private List<ProzessSchrittVorlage> vorlagen;
 
     @PostConstruct
     public void init() {
@@ -24,11 +24,11 @@ public class ProzessSchrittVorlageService {
     }
 
     // FIXME Add Default
-    private Set<ProzessSchrittVorlage> erstelleStandartVorlagen() {
-        return new HashSet<>();
+    private List<ProzessSchrittVorlage> erstelleStandartVorlagen() {
+        return new ArrayList<>();
     }
 
-    public Set<ProzessSchrittVorlage> getProzessSchrittVorlagen() {
+    public List<ProzessSchrittVorlage> getProzessSchrittVorlagen() {
         return vorlagen;
     }
 

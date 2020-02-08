@@ -4,11 +4,13 @@ import com.github.javafaker.Faker;
 import de.unibremen.sfb.model.ProzessSchrittParameter;
 import de.unibremen.sfb.model.QualitativeEigenschaft;
 import de.unibremen.sfb.model.QuantitativeEigenschaft;
+import de.unibremen.sfb.persistence.ProzessSchrittParameterDAO;
 import lombok.Getter;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -20,25 +22,16 @@ import java.util.List;
 public class ProzessSchrittParameterService {
     private List<ProzessSchrittParameter> parameterSet;
 
+    @Inject
+    ProzessSchrittParameterDAO prozessSchrittParameterDAO;
+
     @PostConstruct
     public void init() {
         // TODO Load from DB
-        this.parameterSet = createDefaultParameter();
+//        this.parameterSet = prozessSchrittParameterDAO.getAll();
     }
 
-    private List<ProzessSchrittParameter> createDefaultParameter() {
-        List<ProzessSchrittParameter> ergebnis = new ArrayList<>();
 
-        for (int i = 0; i < 100; i++) {
-            Faker faker = new Faker();
-            HashSet<QualitativeEigenschaft> eigenschaften = new HashSet<>();
-            eigenschaften.add(new QualitativeEigenschaft(faker.lordOfTheRings().location()));
-            eigenschaften.add(new QuantitativeEigenschaft(faker.funnyName().name(), faker.number().randomNumber()));
-            ergebnis.add(new ProzessSchrittParameter(faker.lordOfTheRings().location(), eigenschaften));
-        }
-
-        return ergebnis;
-    }
 
     public List<ProzessSchrittParameter> getPSP() {
         return parameterSet;

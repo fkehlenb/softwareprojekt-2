@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @Entity
 @RequiredArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 public class Auftrag {
 
     /**

@@ -23,6 +23,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Named("psvErstellenBean")
 @RequestScoped
@@ -59,9 +60,9 @@ public class PSVErstellenBean {
 
     // Wir benötigen die Parameter und Eigenschaften um diese dann auszuwählen
     private List<ProzessSchrittParameter> verfügbareParameter;
-    private Set<QualitativeEigenschaft> verfügbareEigenschaften;
-    private Set<ProzessSchrittVorlage> verfügbarePSV;
-    private Set<ExperimentierStation> verfügbareStationen;
+    private List<QualitativeEigenschaft> verfügbareEigenschaften;
+    private List<ProzessSchrittVorlage> verfügbarePSV;
+    private List<ExperimentierStation> verfügbareStationen;
 
     @Inject
     private ProzessSchrittVorlageService prozessSchrittVorlageService;
@@ -85,8 +86,8 @@ public class PSVErstellenBean {
     public void init() {
         verfügbareParameter = prozessSchrittParameterService.getPSP();
         verfügbareEigenschaften = qualitativeEigenschaftService.getEigenschaften(); // Hier weiter einschränken
-        verfügbarePSV =  prozessSchrittVorlageService.getProzessSchrittVorlagen();
-        verfügbareStationen = (Set<ExperimentierStation>) experimentierStationService.getEsSet();
+        verfügbarePSV = prozessSchrittVorlageService.getProzessSchrittVorlagen();
+        verfügbareStationen = experimentierStationService.getEsSet();
     }
 
     public String erstellePSV() {
@@ -96,13 +97,13 @@ public class PSVErstellenBean {
         List<String> z = new ArrayList();
         z.add("Kapput");
 
-        ProzessSchrittVorlage psv = new ProzessSchrittVorlage(55, Duration.ofHours(Long.parseLong(dauer)), psArt,
+        ProzessSchrittVorlage psv = new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), Duration.ofHours(Long.parseLong(dauer)), psArt,
                 ausgewählteStationen, new ProzessSchrittZustandsAutomatVorlage(z, "Platzhalter"), ausgewählteProzessSchrittParameter);
-        try {
-            prozessSchrittVorlageDAO.persist(psv);
-        } catch (DuplicateProzessSchrittVorlageException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            prozessSchrittVorlageDAO.persist(psv);
+//        } catch (DuplicateProzessSchrittVorlageException e) {
+//            e.printStackTrace();
+//        }
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Erfolg", "Prozessschrittvorlage:  " + psv.getPsVID() +
                 "erfolgreich erstellt"));
