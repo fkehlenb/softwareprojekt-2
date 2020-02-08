@@ -6,6 +6,7 @@ import de.unibremen.sfb.model.QualitativeEigenschaft;
 import de.unibremen.sfb.persistence.ProzessSchrittParameterDAO;
 
 import javax.inject.Inject;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -51,7 +52,7 @@ public class ProzessSchrittParameterController {
      * returns all properties this process step parameter corresponds to
      * @return a set containing all properties of this process step paramter
      */
-    public Set<QualitativeEigenschaft> getEigenschaften() { return psp.getQualitativeEigenschaften(); }
+    public List<QualitativeEigenschaft> getEigenschaften() { return psp.getQualitativeEigenschaften(); }
 
     /**
      * sets the properties this process step parameter corresponds to
@@ -59,8 +60,8 @@ public class ProzessSchrittParameterController {
      */
     public void setEigenschaften(Set<QualitativeEigenschaft> eigenschaft) {
         if(eigenschaft!=null) {
-            Set<QualitativeEigenschaft> temp = getEigenschaften();
-            psp.setQualitativeEigenschaften(eigenschaft);
+            List<QualitativeEigenschaft> temp = getEigenschaften();
+            //psp.setQualitativeEigenschaften(eigenschaft);
             try {
                 pspDAO.update(psp);
             }
