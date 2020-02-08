@@ -14,10 +14,21 @@
 
 
 <ui:define name="content">
+    <div class="ui-g-2"></div>
+    <div class="ui-g-8">
 
-    <p:breadCrumb>
-        <p:menuitem value="Home" url="#"/>
-    </p:breadCrumb>
+    <h1>AUFTRÄGE</h1>
+
+    <p:dataTable var="auftrag" value="#{technologeBean.getJobs()}">
+        <p:column headerText="Id">
+            <h:outputText value="#{auftrag.pkID}"/>
+        </p:column>
+        <p:column headerText="Priorität">
+            <h:outputText value="#{auftrag.priority}"/>
+        </p:column>
+    </p:dataTable>
+    </div>
+
 
 </ui:define>
 </ui:composition>

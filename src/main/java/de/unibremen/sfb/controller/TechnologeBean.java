@@ -5,8 +5,10 @@ import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.AuftragDAO;
 import de.unibremen.sfb.persistence.ProbeDAO;
 
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -14,12 +16,14 @@ import java.util.*;
 /**
  * this class manages the interaction of the gui with the backend system (for users who are technologists)
  */
+@Named
+@RequestScoped
 public class TechnologeBean implements Serializable {
 
     /**
      * the user managed by this bean
      */
-    public User technologe;
+    private User technologe;
 
     @Inject
     private AuftragController auftragController;
@@ -41,8 +45,43 @@ public class TechnologeBean implements Serializable {
      * @return a set containing all stations this user is assigned to
      */
     public Set<ExperimentierStation> getStationen() {
-        return technologe.getStationen();
+        Standort b = new Standort();
+        b.setId(0);
+        b.setOrt("asdjvb");
+        Set<ExperimentierStation> r = new HashSet<>();
+        ExperimentierStation s = new ExperimentierStation();
+        s.setEsID(1);
+        s.setName("sakdjv");
+        s.setStandort(b);
+        s.setStatus(ExperimentierStationZustand.VERFUEGBAR);
+        ExperimentierStation t = new ExperimentierStation();
+        t.setEsID(2);
+        t.setName("ipajwirf");
+        t.setStandort(b);
+        t.setStatus(ExperimentierStationZustand.VERFUEGBAR);
+
+        r.add(s);
+        r.add(t);
+        return r; //technologe.getStationen(); //TODO nur für testzwecke
     } //TODO List oder Set?
+
+    /**
+     * return the jobs this technologe is currently assigned to
+     * @return a list containing all jobs
+     */
+    public List<Auftrag> getJobs() {
+        //return technologe.getAuftraege();
+        List<Auftrag> r = new LinkedList<>();
+        Auftrag a = new Auftrag();
+        a.setPkID(1);
+        a.setPriority(AuftragsPrioritaet.ETWAS);
+        r.add(a);
+        Auftrag b = new Auftrag();
+        b.setPriority(AuftragsPrioritaet.SEHR_HOCH);
+        b.setPkID(6);
+        r.add(b); //TODO sind nur test
+        return r;
+    }
 
     /**
      * returns the assignments currently available for this user
@@ -171,7 +210,7 @@ public class TechnologeBean implements Serializable {
      */
     public void editProbenComment(Probe p, String c) {
         if(p==null || c.equals("")) {
-            errorMessage("the inputs are not valid"); //TODO sprache
+            errorMessage("the inputs are not valid");
         }
         else {
             Kommentar findK = probeController.getKommentarForProbe(p);
@@ -191,14 +230,14 @@ public class TechnologeBean implements Serializable {
      */
     public void deleteProbenComment(Probe p, String c) {
         if(p==null || c.equals("")) {
-            errorMessage("The inputs are not valid"); //TODO sprache
+            errorMessage("The inputs are not valid");
         }
         else {
             Kommentar k = p.getKommentar();
             if (k != null && k.getText().equals(c)) {
                 probeController.setKommentarForProbe(p, null);
             } else {
-                errorMessage("There was an error while trying to delete the comment"); //TODO sprache
+                errorMessage("There was an error while trying to delete the comment");
             }
         }
     }
