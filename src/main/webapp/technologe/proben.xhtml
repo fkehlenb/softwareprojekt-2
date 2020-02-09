@@ -10,36 +10,38 @@
 </h:head>
 
 <body>
-    <ui:composition template="../template/common/layout.xhtml">
-
-
-        <ui:define name="content">
-            <div class="ui-g-2"></div>
+<ui:composition template="../template/common/layout.xhtml">
+    <ui:define name="content">
+        <div class="ui-g-2"></div>
             <div class="ui-g-8">
 
-                <h1> EXPERIMENTIERSTATIONEN </h1>
+                <h1> PROBEN </h1>
 
-                <p:dataTable var="station" value="#{technologeBean.getStationen()}">
+                <p:dataTable var="probe" value="#{technologeBean.getSamples()}">
                     <p:column headerText="Id">
-                        <h:outputText value="#{station.esID}"/>
+                        <h:outputText value="#{probe.probenID}"/>
+                    </p:column>
+                    <p:column headerText="Zustand">
+                        <h:outputText value="#{probe.zustand}"/>
                     </p:column>
                     <p:column headerText="Standort">
-                        <h:outputText value="#{station.standort.ort}"/>
+                        <h:outputText value="#{probe.standort}"/>
                     </p:column>
-                    <p:column headerText="Status">
-                        <h:outputText value="#{station.status}"/>
+                    <p:column headerText="Träger-ID">
+                        <h:outputText value="#{probe.currentTraeger.id}"/>
                     </p:column>
-                    <p:column headerText="Name">
-                        <h:outputText value="#{station.name}"/>
+                    <p:column headerText="Kommentar">
+                        <h:outputText value="#{probe.kommentar}"/>
                     </p:column>
-                    <p:column headerText="Als kaputt melden">
+                    <p:column headerText="Kommentar löschen">
                         <h:form>
                             <div align="center">
-                                <h:commandButton action="#{technologeBean.reportBroken(station)}" value="REPORT"/>
+                                <h:commandButton action="#{technologeBean.deleteProbenComment(probe, probe.kommentar)}" value="Delete"/>
                             </div>
                         </h:form>
                     </p:column>
                 </p:dataTable>
+
 
             </div>
         </ui:define>

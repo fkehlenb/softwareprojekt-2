@@ -19,7 +19,7 @@
 
     <h1>AUFTRÄGE</h1>
 
-    <p:dataTable var="auftrag" value="#{technologeBean.getJobs()}">
+    <p:dataTable var="auftrag" value="#{technologeBean.prioSort(technologeBean.getJobs())}">
         <p:column headerText="Id">
             <h:outputText value="#{auftrag.pkID}"/>
         </p:column>

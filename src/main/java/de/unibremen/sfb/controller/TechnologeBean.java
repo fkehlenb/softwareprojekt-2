@@ -84,6 +84,18 @@ public class TechnologeBean implements Serializable {
     }
 
     /**
+     * return all samples of the jobs the technologe is currently assigned to
+     * @return a list containing all samples
+     */
+    public List<Probe> getSamples() {
+        return null;
+        //brauche Methode für prozessSchritte.
+        //eigentlich mehr sinn getJobs umzuschreiben
+
+        //dann kann ich daraus die träger, von denen die proben
+    }
+
+    /**
      * returns the assignments currently available for this user
      * @return a set containing all availabe jobs
      */
@@ -105,6 +117,7 @@ public class TechnologeBean implements Serializable {
     public void setAuftragsZustand(Auftrag a, ProzessKettenZustandsAutomat zustand) {
         auftragController.setPKZforAuftrag(a, zustand);
     }
+    //TODO hier Auftrag im sinne von Technologen Arbeits Auftrag? Also Zustand ProzessSchritt
 
     /**
      * reports an experimentation station as broken
@@ -129,8 +142,9 @@ public class TechnologeBean implements Serializable {
      * sorts a list of jobs by their priority
      * @param prio a set containing all jobs to be sorted
      */
-    public void prioSort(List<Auftrag> prio) {
+    public List<Auftrag> prioSort(List<Auftrag> prio) {
         prio = auftragController.mergeSort(prio);
+        return prio;
     }
 
     /**

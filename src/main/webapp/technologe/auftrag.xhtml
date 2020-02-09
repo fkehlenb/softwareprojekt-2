@@ -11,36 +11,24 @@
 
 <body>
     <ui:composition template="../template/common/layout.xhtml">
-
-
         <ui:define name="content">
             <div class="ui-g-2"></div>
             <div class="ui-g-8">
 
-                <h1> EXPERIMENTIERSTATIONEN </h1>
+                <h1>VERFÜGBARE AUFTRÄGE</h1>
 
-                <p:dataTable var="station" value="#{technologeBean.getStationen()}">
+                <p:dataTable var="auftrag" value="#{technologeBean.getAuftrag()}">
                     <p:column headerText="Id">
-                        <h:outputText value="#{station.esID}"/>
+                        <h:outputText value="#{auftrag.pkID}"/>
                     </p:column>
-                    <p:column headerText="Standort">
-                        <h:outputText value="#{station.standort.ort}"/>
-                    </p:column>
-                    <p:column headerText="Status">
-                        <h:outputText value="#{station.status}"/>
-                    </p:column>
-                    <p:column headerText="Name">
-                        <h:outputText value="#{station.name}"/>
-                    </p:column>
-                    <p:column headerText="Als kaputt melden">
+                    <p:column headerText="Zuordnen">
                         <h:form>
                             <div align="center">
-                                <h:commandButton action="#{technologeBean.reportBroken(station)}" value="REPORT"/>
+                                <h:commandButton action="#{technologeBean.assignToAuftrag(auftrag)}" value="Assign"/>
                             </div>
                         </h:form>
                     </p:column>
                 </p:dataTable>
-
             </div>
         </ui:define>
     </ui:composition>
