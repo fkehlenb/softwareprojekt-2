@@ -10,7 +10,6 @@ import de.unibremen.sfb.model.Traeger;
 import de.unibremen.sfb.model.TraegerArt;
 
 import java.util.List;
-import java.util.Set;
 
 /** This class handles the containers in the database */
 public class TraegerDAO extends ObjectDAO<Traeger> {

@@ -4,16 +4,13 @@ package de.unibremen.sfb.controller; /**
  */
 
 
-import lombok.extern.java.Log;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.ejb.Stateless;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import java.io.IOException;

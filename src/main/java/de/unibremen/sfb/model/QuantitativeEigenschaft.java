@@ -1,7 +1,6 @@
 package de.unibremen.sfb.model;
 
 import lombok.*;
-import si.uom.SI;
 
 import javax.persistence.*;
 

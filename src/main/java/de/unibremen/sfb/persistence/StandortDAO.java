@@ -2,7 +2,6 @@ package de.unibremen.sfb.persistence;
 
 import de.unibremen.sfb.exception.DuplicateStandortException;
 import de.unibremen.sfb.exception.StandortNotFoundException;
-import de.unibremen.sfb.model.ExperimentierStation;
 import de.unibremen.sfb.model.Standort;
 import lombok.extern.slf4j.Slf4j;
 

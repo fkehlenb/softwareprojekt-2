@@ -3,7 +3,6 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /** Data class for the process step automaton templates */

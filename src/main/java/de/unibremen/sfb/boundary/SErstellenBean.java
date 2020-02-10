@@ -2,7 +2,6 @@ package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.exception.DuplicateStandortException;
 import de.unibremen.sfb.model.Standort;
-import de.unibremen.sfb.persistence.ExperimentierStationDAO;
 import de.unibremen.sfb.persistence.StandortDAO;
 import lombok.Getter;
 import lombok.NonNull;

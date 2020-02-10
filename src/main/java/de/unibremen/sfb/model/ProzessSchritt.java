@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 /** Data class for process chain steps */
 @Data

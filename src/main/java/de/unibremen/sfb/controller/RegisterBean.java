@@ -1,9 +1,7 @@
 package de.unibremen.sfb.controller;
 
-import de.unibremen.sfb.model.Auftrag;
 import de.unibremen.sfb.model.Role;
 import de.unibremen.sfb.model.User;
-import de.unibremen.sfb.persistence.UserDAO;
 import de.unibremen.sfb.service.UserService;
 import lombok.Getter;
 import lombok.Setter;

@@ -22,7 +22,6 @@ import javax.validation.constraints.NotEmpty;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Named("psvErstellenBean")
@@ -91,9 +90,8 @@ public class PSVErstellenBean {
     }
 
     public String erstellePSV() {
-        // FIXME ID Generation
         log.info("Erstelle Prozessschritt");
-        // FIXME Add this
+        // FIXME Add Service for Zustaende
         List<String> z = new ArrayList();
         z.add("Kapput");
 
