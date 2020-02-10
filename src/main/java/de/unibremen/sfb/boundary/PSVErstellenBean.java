@@ -99,11 +99,11 @@ public class PSVErstellenBean {
 
         ProzessSchrittVorlage psv = new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), Duration.ofHours(Long.parseLong(dauer)), psArt,
                 ausgewählteStationen, new ProzessSchrittZustandsAutomatVorlage(z, "Platzhalter"), ausgewählteProzessSchrittParameter);
-//        try {
-//            prozessSchrittVorlageDAO.persist(psv);
-//        } catch (DuplicateProzessSchrittVorlageException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            prozessSchrittVorlageDAO.persist(psv);
+        } catch (DuplicateProzessSchrittVorlageException e) {
+            e.printStackTrace();
+        }
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Erfolg", "Prozessschrittvorlage:  " + psv.getPsVID() +
                 "erfolgreich erstellt"));

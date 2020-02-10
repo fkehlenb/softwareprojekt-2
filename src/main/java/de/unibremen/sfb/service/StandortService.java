@@ -35,6 +35,4 @@ public class StandortService {
         // FIXME Use String as ID or convert to String
         return this.standorte.stream().filter(c -> c.getOrt().equals(standort)).findFirst().orElse(null);
     }
-
-
 }
