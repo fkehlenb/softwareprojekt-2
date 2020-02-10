@@ -101,4 +101,8 @@ public class User {
      */
     @NonNull
     private String language;
+
+    public String toString() {
+        return vorname + nachname;
+    }
 }
