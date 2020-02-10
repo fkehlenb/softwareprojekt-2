@@ -2,8 +2,6 @@ package de.unibremen.sfb.persistence;
 
 import de.unibremen.sfb.exception.DuplicateProzessSchrittException;
 import de.unibremen.sfb.exception.ProzessSchrittNotFoundException;
-import de.unibremen.sfb.model.Auftrag;
-import de.unibremen.sfb.model.ExperimentierStation;
 import de.unibremen.sfb.model.ProzessSchritt;
 
 /** This class handles the instantiated process chain steps in the database */

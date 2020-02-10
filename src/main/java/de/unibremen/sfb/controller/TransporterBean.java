@@ -2,8 +2,6 @@ package de.unibremen.sfb.controller;
 
 import de.unibremen.sfb.model.*;
 
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.Set;
 

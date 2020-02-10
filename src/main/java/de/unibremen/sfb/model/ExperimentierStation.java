@@ -2,10 +2,8 @@ package de.unibremen.sfb.model;
 
 import lombok.*;
 
-import javax.inject.Named;
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 /** Experimenting stations data class */
 @Data

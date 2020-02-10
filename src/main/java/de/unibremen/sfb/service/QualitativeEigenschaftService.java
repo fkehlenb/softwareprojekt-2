@@ -1,21 +1,26 @@
 package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.model.QualitativeEigenschaft;
+import de.unibremen.sfb.persistence.QualitativeEigenschaftDAO;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
+import javax.inject.Inject;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Singleton
 public class QualitativeEigenschaftService {
     private List<QualitativeEigenschaft> eigenschaften;
 
+    @Inject
+    QualitativeEigenschaftDAO qeDAO;
+
     @PostConstruct
+    // FIXME
     public void init() {
-        this.eigenschaften = ladeEigenschaften();
+//        this.eigenschaften = qeDAO.getAll();
+    this.eigenschaften = ladeEigenschaften();
     }
 
     private List<QualitativeEigenschaft> ladeEigenschaften() {
