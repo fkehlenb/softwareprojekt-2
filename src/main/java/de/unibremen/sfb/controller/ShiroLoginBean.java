@@ -32,7 +32,6 @@ public class ShiroLoginBean implements Serializable {
     /**
      * Try and authenticate the user
      */
-
     public void doLogin() {
         Subject subject = SecurityUtils.getSubject();
 
@@ -43,7 +42,7 @@ public class ShiroLoginBean implements Serializable {
 
             if (subject.hasRole("admin")) {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("admin/index.xhtml");
-            }
+            } //FIXME other Roles
             else {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
             }

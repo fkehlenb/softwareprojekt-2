@@ -16,12 +16,12 @@
         <div style="margin-left: 200px; margin-top: 80px; box-shadow: black">
             <p:panelGrid columns="1">
                 <h1 style="color: cornflowerblue">Wilkommen zum SFB - Farbige Zustände!</h1>
-                <p>Hier geht es zum <a href="login.xhtml">Login</a> </p>
+                <p>Hier geht es zum <a href="/login.xhtml">Login</a> </p>
             </p:panelGrid>
         </div>
 
 
-        <!--ui:composition template="template/common/layout.xhtml">
+        <ui:composition template="template/common/layout.xhtml">
         <ui:define name="content">
             <div class="ui-g-2"></div>
             <div class="ui-g-8">
@@ -29,66 +29,13 @@
                 <p>Um sich Einzuloggen, geben sie bitte ihre details ein!</p>
                 <p>Hi <shiro:guest>Guest</shiro:guest><shiro:user> <h:outputText value="#{indexBean.subject}"/>
             </shiro:user>!</p>
-            <shiro:authenticated>Besuchen sie ihr <a href="account">Profil</a>
+            <shiro:authenticated>Besuchen sie ihr <a href="/account">Profil</a>
             </shiro:authenticated>
-            <shiro:notAuthenticated>Bitte hier <a href="./login.xhtml">Anmelden</a> </shiro:notAuthenticated>
+            <shiro:notAuthenticated>Bitte hier <a href="/login.xhtml">Anmelden</a> </shiro:notAuthenticated>
         </div>
         <div class="ui-g-2"></div>
         </ui:define>
-    </ui:composition-->
-    <h:form>
-        <h:commandLink action="#{auftrag.listSetup}" value="Show All Auftrag Items"/>
-    </h:form>
-    <h:form>
-        <h:commandLink action="#{auftragsLog.listSetup}" value="Show All AuftragsLog Items"/>
-    </h:form>
-    <h:form>
-        <h:commandLink action="#{experimentierStation.listSetup}" value="Show All ExperimentierStation Items"/>
-    </h:form>
-    <h:form>
-        <h:commandLink action="#{prozessKettenVorlage.listSetup}" value="Show All ProzessKettenVorlage Items"/>
-    </h:form>
-    <h:form>
-        <h:commandLink action="#{prozessSchritt.listSetup}" value="Show All ProzessSchritt Items"/>
-    </h:form>
-    <h:form>
-        <h:commandLink action="#{prozessSchrittVorlage.listSetup}" value="Show All ProzessSchrittVorlage Items"/>
-    </h:form>
-    <h:form>
-        <h:commandLink action="#{prozessSchrittZustandsAutomat.listSetup}" value="Show All ProzessSchrittZustandsAutomat Items"/>
-    </h:form>
-    <h:form>
-        <h:commandLink action="#{prozessSchrittZustandsAutomatVorlage.listSetup}" value="Show All ProzessSchrittZustandsAutomatVorlage Items"/>
-    </h:form>
-    <h:form>
-        <h:commandLink action="#{standort.listSetup}" value="Show All Standort Items"/>
-    </h:form>
-    <h:form>
-        <h:commandLink action="#{traeger.listSetup}" value="Show All Traeger Items"/>
-    </h:form>
-    <h:form>
-        <h:commandLink action="#{traegerArt.listSetup}" value="Show All TraegerArt Items"/>
-    </h:form>
-    <h:form>
-        <h:commandLink action="#{transportAuftrag.listSetup}" value="Show All TransportAuftrag Items"/>
-    </h:form>
-    <h:form>
-        <h:commandLink action="#{user.listSetup}" value="Show All User Items"/>
-    </h:form>
+    </ui:composition>
+
 </body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </html>
