@@ -4,6 +4,8 @@ import de.unibremen.sfb.exception.DuplicateQualitativeEigenschaftException;
 import de.unibremen.sfb.exception.QualitativeEigenschaftNotFoundException;
 import de.unibremen.sfb.model.QualitativeEigenschaft;
 
+import java.util.List;
+
 import java.util.ArrayList;
 import java.util.List;
 
