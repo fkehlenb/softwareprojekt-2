@@ -81,7 +81,7 @@ public class AdminBean implements Serializable {
      * A set containing all users
      */
     public void addUser() throws DuplicateUserException {
-        // TODO NO SESSION MAP
+
         String idOld = "";
         try {
              idOld = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idx");
@@ -155,7 +155,7 @@ public class AdminBean implements Serializable {
      */
     public List<User> findUsers() throws UserNotFoundException {
         try {
-            // TODO userservice not dao
+
             return userService.getAll();
         } catch (Exception e) {
             e.printStackTrace();
@@ -173,7 +173,7 @@ public class AdminBean implements Serializable {
     public void deleteUser(String idu) throws UserNotFoundException {
         int idUser = Integer.parseInt(idu);
         try {
-            //TODO user service
+
             userService.removeUser(userService.getUserById(idUser));
         } catch (Exception e) {
             e.printStackTrace();
@@ -186,7 +186,9 @@ public class AdminBean implements Serializable {
      *
      * @param ta the new carrier type
      */
-    public void addTraegerArt(TraegerArt ta) {}
+    public void addTraegerArt(TraegerArt ta) {
+
+    }
 
     /**
      * edits a carrier type
