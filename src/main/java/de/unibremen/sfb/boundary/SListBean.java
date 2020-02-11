@@ -42,7 +42,7 @@ public class SListBean implements Serializable {
         for (Standort s :
                 selectedStandorte) {
             log.info("Loesche Standort " + s.getOrt());
-            this.standortService.löscheStandort(s);
+            this.standortService.loescheStandort(s);
             try {
                 standortDAO.remove(s);
             } catch (StandortNotFoundException e) {
