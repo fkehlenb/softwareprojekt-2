@@ -60,8 +60,9 @@ public class PSVErstellenBean {
     // Wir benötigen die Parameter und Eigenschaften um diese dann auszuwählen
     private List<ProzessSchrittParameter> verfügbareParameter;
     private List<QualitativeEigenschaft> verfügbareEigenschaften;
-    private List<ProzessSchrittVorlage> verfügbarePSV;
     private List<ExperimentierStation> verfügbareStationen;
+    private List<ProzessSchrittVorlage> verfügbarePSV;
+
 
     @Inject
     private ProzessSchrittVorlageService prozessSchrittVorlageService;

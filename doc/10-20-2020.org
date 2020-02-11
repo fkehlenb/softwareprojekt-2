@@ -25,3 +25,10 @@ Idee lade aus Service
 * Termine
 
 * Wer macht AW fuer minimal Working System
+
+* Standalone XML
+
+* BACKUP
+Wir benutzen
+
+script mit drop and create

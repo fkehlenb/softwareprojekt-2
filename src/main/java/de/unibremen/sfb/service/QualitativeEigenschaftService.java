@@ -20,14 +20,14 @@ public class QualitativeEigenschaftService {
     // FIXME
     public void init() {
 //        this.eigenschaften = qeDAO.getAll();
-    this.eigenschaften = ladeEigenschaften();
+          this.eigenschaften = ladeEigenschaften();
     }
 
+
+
     private List<QualitativeEigenschaft> ladeEigenschaften() {
-        // FIXME Connect to DB
-        List<QualitativeEigenschaft> ergebnis = new ArrayList<>();
-        ergebnis.add(new QualitativeEigenschaft("Default Eigenschaft"));
-        return ergebnis;
+        // return qeDAO.getAll();
+        return new ArrayList<>();
     }
 
     public List<QualitativeEigenschaft> getEigenschaften() {
@@ -37,5 +37,4 @@ public class QualitativeEigenschaftService {
     public void addEigenschaft(QualitativeEigenschaft qualitativeEigenschaft) {
         this.eigenschaften.add(qualitativeEigenschaft);
     }
-
 }

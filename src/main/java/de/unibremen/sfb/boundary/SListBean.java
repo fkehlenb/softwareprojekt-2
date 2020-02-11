@@ -1,5 +1,6 @@
 package de.unibremen.sfb.boundary;
 
+import de.unibremen.sfb.exception.StandortNotFoundException;
 import de.unibremen.sfb.model.Standort;
 import de.unibremen.sfb.persistence.StandortDAO;
 import de.unibremen.sfb.service.StandortService;
@@ -42,11 +43,18 @@ public class SListBean implements Serializable {
                 selectedStandorte) {
             log.info("Loesche Standort " + s.getOrt());
             this.standortService.löscheStandort(s);
+            try {
+                standortDAO.remove(s);
+            } catch (StandortNotFoundException e) {
+                e.printStackTrace();
+                // FIXME Fehler an das Front end
+            }
 
             if (filteredStandorte != null) {
                 this.filteredStandorte.remove(s);
             }
             this.standorte = standortService.getStandorte();
         }
+        standorte = standortDAO.getAll();
     }
 }
