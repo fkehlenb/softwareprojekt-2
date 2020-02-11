@@ -1,0 +1,27 @@
+#+TITLE: 10-20-2020
+
+
+* Bug with adding Location
+only appears after redeploy. On own Branch does not happen
+
+* Bug with adding ES
+client Side validation broken, after merge to master
+
+* ER Digramm has to many relations with User
+Adjust Model to reflect Data Modell
+
+* Prozessschritt Art als Enum oder String?
+
+* Persitence has missing Quantitative Eigenschaften
+add annotations
+
+* Vorlagen und Zustands Service
+Idee lade aus Service
+
+* In der Persitence QualitativeEigenschaftDAO fehlt getall()
+
+* Schritte in dieser Woche
+
+* Termine
+
+* Wer macht AW fuer minimal Working System

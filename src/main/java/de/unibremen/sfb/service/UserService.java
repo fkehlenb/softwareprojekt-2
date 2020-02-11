@@ -11,7 +11,6 @@ import javax.ejb.Singleton;
 import java.io.Serializable;
 import java.util.*;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.transaction.Transactional;
 
 @Singleton

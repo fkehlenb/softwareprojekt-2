@@ -3,8 +3,6 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /** The location data class */

@@ -1,11 +1,7 @@
 package de.unibremen.sfb.service;
 
 
-import com.github.javafaker.Faker;
 import de.unibremen.sfb.model.ExperimentierStation;
-import de.unibremen.sfb.model.ExperimentierStationZustand;
-import de.unibremen.sfb.model.Standort;
-import de.unibremen.sfb.model.User;
 import de.unibremen.sfb.persistence.ExperimentierStationDAO;
 import lombok.Getter;
 
@@ -13,9 +9,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 
 @Startup
@@ -29,7 +23,6 @@ public class ExperimentierStationService {
 
     @PostConstruct
     public void init() {
-        // TODO Load from DB
         this.esSet= esDao.getAll();
     }
 

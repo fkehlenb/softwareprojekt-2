@@ -3,7 +3,6 @@ package de.unibremen.sfb.persistence;
 import de.unibremen.sfb.exception.AuftragNotFoundException;
 import de.unibremen.sfb.exception.DuplicateAuftragException;
 import de.unibremen.sfb.model.Auftrag;
-import de.unibremen.sfb.model.ProzessSchritt;
 import de.unibremen.sfb.model.User;
 
 import java.util.List;

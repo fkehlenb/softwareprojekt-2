@@ -5,37 +5,37 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:shiro="http://shiro.apache.org/tags"
       xmlns:of="http://omnifaces.org/functions">
-<h:head>
-    <title>SFB - Farbige Zustände</title>
-    <link rel="icon" href="background.png"/>
-</h:head>
+    <h:head>
+        <title>SFB - Farbige Zustände</title>
+        <link rel="stylesheet" type="text/css" href="//" />
+        <link rel="icon" href="background.png"/>
+    </h:head>
 
-<body background="background.png">
-<ui:include src="/template/common/header.xhtml"/>
-<div style="margin-left: 200px; margin-top: 80px; box-shadow: black">
-    <p:panelGrid columns="1">
-        <h1 style="color: cornflowerblue">Wilkommen zum SFB - Farbige Zustände!</h1>
-        <p>Hier geht es zum <a href="login.xhtml">Login</a> </p>
-    </p:panelGrid>
-</div>
+    <body background="background.png">
+        <ui:include src="/template/common/header.xhtml"/>
+        <div style="margin-left: 200px; margin-top: 80px; box-shadow: black">
+            <p:panelGrid columns="1">
+                <h1 style="color: cornflowerblue">Wilkommen zum SFB - Farbige Zustände!</h1>
+                <p>Hier geht es zum <a href="/login.xhtml">Login</a> </p>
+            </p:panelGrid>
+        </div>
 
 
-<!--ui:composition template="template/common/layout.xhtml">
-    <ui:define name="content">
-        <div class="ui-g-2"></div>
-        <div class="ui-g-8">
-            <h1 style="color: cornflowerblue">Wilkommen zum Farbigen SFB!</h1>
-            <p>Um sich Einzuloggen, geben sie bitte ihre details ein!</p>
-            <p>Hi <shiro:guest>Guest</shiro:guest><shiro:user> <h:outputText value="#{indexBean.subject}"/>
+        <ui:composition template="template/common/layout.xhtml">
+        <ui:define name="content">
+            <div class="ui-g-2"></div>
+            <div class="ui-g-8">
+                <h1 style="color: cornflowerblue">Wilkommen zum Farbigen SFB!</h1>
+                <p>Um sich Einzuloggen, geben sie bitte ihre details ein!</p>
+                <p>Hi <shiro:guest>Guest</shiro:guest><shiro:user> <h:outputText value="#{indexBean.subject}"/>
             </shiro:user>!</p>
-            <shiro:authenticated>Besuchen sie ihr <a href="account">Profil</a>
+            <shiro:authenticated>Besuchen sie ihr <a href="/account">Profil</a>
             </shiro:authenticated>
-            <shiro:notAuthenticated>Bitte hier <a href="./login.xhtml">Anmelden</a> </shiro:notAuthenticated>
+            <shiro:notAuthenticated>Bitte hier <a href="/login.xhtml">Anmelden</a> </shiro:notAuthenticated>
         </div>
         <div class="ui-g-2"></div>
-    </ui:define>
-</ui:composition-->
+        </ui:define>
+    </ui:composition>
+
 </body>
-
-
 </html>

@@ -2,12 +2,9 @@ package de.unibremen.sfb.persistence;
 
 import de.unibremen.sfb.exception.DuplicateUserException;
 import de.unibremen.sfb.exception.UserNotFoundException;
-import de.unibremen.sfb.model.Standort;
 import de.unibremen.sfb.model.User;
 
 import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.EntityManager;
 import java.util.List;
 
 /**

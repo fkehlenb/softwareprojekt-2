@@ -1,9 +1,6 @@
 package de.unibremen.sfb.service;
 
-import com.github.javafaker.Faker;
 import de.unibremen.sfb.model.ProzessSchrittParameter;
-import de.unibremen.sfb.model.QualitativeEigenschaft;
-import de.unibremen.sfb.model.QuantitativeEigenschaft;
 import de.unibremen.sfb.persistence.ProzessSchrittParameterDAO;
 import lombok.Getter;
 
@@ -11,8 +8,6 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 
@@ -27,8 +22,7 @@ public class ProzessSchrittParameterService {
 
     @PostConstruct
     public void init() {
-        // TODO Load from DB
-//        this.parameterSet = prozessSchrittParameterDAO.getAll();
+       this.parameterSet = prozessSchrittParameterDAO.getAll();
     }
 
 
