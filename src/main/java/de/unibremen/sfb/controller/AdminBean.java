@@ -113,7 +113,7 @@ public class AdminBean implements Serializable {
         }
         if(ADMINTATOR) {rol.add(Role.ADMIN);
         }
-
+        //TODO code vereinfachen
         try{
             User b =userDAO.getUserById(Integer.parseInt(idOld));
             b.setVorname(vorname);
