@@ -47,7 +47,7 @@
                                                       var="user" style="width: 172px" filter="true"
                                                       filterMatchMode="startsWith">
                                         <f:selectItems value="#{esErstellenBean.availableUsers}"
-                                                       var="user" itemLabel="#{user.nachname}"
+                                                       var="user" itemLabel="#{user}"
                                                        itemValue="#{user}" required="true"/>
                                         <p:column>
                                             <h:outputText value="#{user.vorname}"/>

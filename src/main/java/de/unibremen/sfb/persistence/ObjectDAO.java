@@ -3,11 +3,12 @@ package de.unibremen.sfb.persistence;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.io.Serializable;
 
 /** This class is the template database handler for its children
  * It handles the connection to the database using the EntityManager em*/
 @Transactional
-public abstract class ObjectDAO<T> {
+public abstract class ObjectDAO<T>  implements Serializable {
 
     @PersistenceContext(unitName = "sfb")
     protected EntityManager em;

@@ -5,6 +5,7 @@ import de.unibremen.sfb.exception.ProbeNotFoundException;
 import de.unibremen.sfb.model.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 import de.unibremen.sfb.persistence.ProbeDAO;
@@ -34,15 +35,8 @@ public class ProbeController {
      * @param id the new ID //TODO testen ob id richtiges format!
      */
     public void setID(String id) {
-        /*try {
-            // probeDAO.getProbeById(id); //TODO sollte Probenid nicht String sein?
-        }
-        catch(ProbeNotFoundException e) {
-            //probe.setProbenID(id); //TODO Probenid string?
-            try {
-                probeDAO.update(probe);
-            }
-            catch(ProbeNotFoundException b) {
+        probe.setProbenID(id);
+    }
 
             }
         }**/
@@ -54,7 +48,9 @@ public class ProbeController {
      *
      * @return the Proben-ID
      */
-    public String getID() { return null; }
+    public String getID() {
+        return probe.getProbenID();
+    }
 
     /**
      * Adds a ProbenKommentar (comment about this Probe) to this Probe.
@@ -63,15 +59,7 @@ public class ProbeController {
      * @param p A pair consisting of the timestamp and the comment text.
      */
     public void addComment(Pair<LocalDateTime,String> p) {
-        Kommentar temp = getComment();
-        probe.setKommentar(new Kommentar(p.getLeft(), p.getRight()));
-        try {
-            probeDAO.update(probe);
-        }
-        catch(ProbeNotFoundException e) {
-            probe.setKommentar(temp);
-            e.printStackTrace();
-        }
+        //TODO
     }
 
     /**
@@ -89,15 +77,7 @@ public class ProbeController {
      * @param pz the new state of this Probe
      */
     public void setZustand(ProbenZustand pz) {
-        ProbenZustand temp = getZustand();
         probe.setZustand(pz);
-        try {
-            probeDAO.update(probe);
-        }
-        catch(ProbeNotFoundException e) {
-            probe.setZustand(temp);
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -105,7 +85,9 @@ public class ProbeController {
      * Possible values are: Kaputt(broken), Verloren(lost), Vorhanden(available).
      * @return the current Zustand
      */
-    public ProbenZustand getZustand() { return probe.getZustand(); }
+    public Enum<ProbenZustand> getZustand() {
+        return probe.getZustand();
+    }
 
     /**
      * Sets the Standort (location) at which the Probe currently is.
@@ -113,17 +95,7 @@ public class ProbeController {
      * @param s the new location
      */
     public void setStandort(Standort s) {
-        if(s!=null) {
-            Standort temp = getStandort();
-            probe.setStandort(s);
-            try {
-                probeDAO.update(probe);
-            }
-            catch(ProbeNotFoundException e) {
-                probe.setStandort(temp);
-                e.printStackTrace();
-            }
-        }
+        probe.setStandort(s);
     }
 
     /**
@@ -131,14 +103,16 @@ public class ProbeController {
      *
      * @return the location
      */
-    public Standort getStandort() { return probe.getStandort(); }
+    public Standort getStandort() {
+        return probe.getStandort();
+    }
 
     /**
      * Sets an Archiv (archive) for this Probe (and thus archives it)
      * @param a the new archive
      */
     public void setArchiv(Archiv a) {
-        //TODO warum hier archiv? warum nicht bei auftrag?
+        //TODO
     }
 
     /**
@@ -152,7 +126,7 @@ public class ProbeController {
      * @return a set containing all properties of this sample
      *
      */
-    public Set<QualitativeEigenschaft> getEigenschaften() {
+    public List<QualitativeEigenschaft> getEigenschaften() {
         return probe.getQualitativeEigenschaften();
     }
 
@@ -160,18 +134,8 @@ public class ProbeController {
      *sets the properties of this sample
      * @param eigenschaft a set containing all properties this sample is supposed to have
      */
-    public void setEigenschaften(Set<QualitativeEigenschaft> eigenschaft) {
-        if(eigenschaft != null) {
-            Set<QualitativeEigenschaft> temp = getEigenschaften();
-            probe.setQualitativeEigenschaften(eigenschaft);
-            try {
-                probeDAO.update(probe);
-            }
-            catch(ProbeNotFoundException e) {
-                probe.setQualitativeEigenschaften(temp);
-                e.printStackTrace();
-            }
-        }
+    public void setEigenschaften(List<QualitativeEigenschaft> eigenschaft) {
+        probe.setQualitativeEigenschaften(eigenschaft);
     }
 
     /**

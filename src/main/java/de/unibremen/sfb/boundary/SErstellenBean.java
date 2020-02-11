@@ -11,16 +11,18 @@ import lombok.extern.slf4j.Slf4j;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.Serializable;
 import java.util.UUID;
 
 @Named("sErstellenBean")
 @Getter
 @Setter
 @Slf4j
-@RequestScoped
-public class SErstellenBean {
+@ViewScoped
+public class SErstellenBean implements Serializable {
 
     @Inject
     StandortDAO sDao;

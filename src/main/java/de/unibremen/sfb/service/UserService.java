@@ -13,7 +13,6 @@ import java.util.*;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
-@Singleton
 @Getter
 @Transactional
 public class UserService implements Serializable {

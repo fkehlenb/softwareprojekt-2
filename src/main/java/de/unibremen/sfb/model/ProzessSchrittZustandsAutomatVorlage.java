@@ -20,9 +20,9 @@ public class ProzessSchrittZustandsAutomatVorlage {
     @ElementCollection
     private List<String> zustaende;
 
-    /** The user who created this template */
-    @ManyToOne
-    public User creator;
+//    /** The user who created this template */
+//    @ManyToOne
+//    public User creator;
 
     @NonNull
     private String name;
