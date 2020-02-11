@@ -10,7 +10,7 @@
     <link rel="icon" href="../background.png"/>
 </h:head>
 
-<body background="../background.png">
+<body>
 <h1>ERZEUG USER FORMULAR</h1>
 <p:outputPanel>
     <h:form>
@@ -32,20 +32,20 @@
             <p:outputLabel for="telefon" value="telefon:"/>
             <p:inputMask id="telefon" value="#{adminBean.telefonNummer}" mask="(999) 9999-9999" placeholder="Telefon"/>
 
-            <p:outputLabel for="username" value="username: "/>
-            <p:inputText id="userName" value="#{adminBean.username}" placeholder="User Name"/>
+            <p:outputLabel for="userName" value="userName: "/>
+            <p:inputText id="userName" value="#{adminBean.userName}" placeholder="User Name"/>
 
             <p:outputLabel for="password" value="password: "/>
             <p:inputText id="password" value="#{adminBean.password}" placeholder="password"/>
 
 
-            <p:selectBooleanCheckbox value="#{adminBean.technologe}" itemLabel="TECNOLOGER">
+            <p:selectBooleanCheckbox value="#{adminBean.technologer}" itemLabel="TECNOLOGER">
                 <p:ajax event="change" global="false" />
             </p:selectBooleanCheckbox>
-            <p:selectBooleanCheckbox value="#{adminBean.ADMINTATOR}" itemLabel="ADMINTATOR"/>
-            <p:selectBooleanCheckbox value="#{adminBean.pkadmin}" itemLabel="PKADMINOR"/>
-            <p:selectBooleanCheckbox value="#{adminBean.LOGISTIKERKER}" itemLabel="LOGISTIKERKER"/>
-            <p:selectBooleanCheckbox value="#{adminBean.TRANSPORTER}" itemLabel="TRANSPORTER"/>
+            <p:selectBooleanCheckbox value="#{adminBean.admintator}" itemLabel="ADMINTATOR"/>
+            <p:selectBooleanCheckbox value="#{adminBean.pkadminor}" itemLabel="PKADMINOR"/>
+            <p:selectBooleanCheckbox value="#{adminBean.logistikerker}" itemLabel="LOGISTIKERKER"/>
+            <p:selectBooleanCheckbox value="#{adminBean.transporter}" itemLabel="TRANSPORTER"/>
             <br/>
 
 
