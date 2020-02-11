@@ -1,4 +1,4 @@
-package de.unibremen.sfb.controller;
+package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.model.Role;
 import de.unibremen.sfb.model.User;
