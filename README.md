@@ -13,7 +13,8 @@
 
 <h1>===== Anforderungen =====</h1>
 
-<h2>Done in Green, otherwise in Red</h2>
+<h2>Fertiges wird durchgestrichen!</h2>
+
 <div style="color: red">
 <h4 id="rollen">Rollen</h4>
 <p>Die folgenden Rollen sind vorzusehen:</p>
