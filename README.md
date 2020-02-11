@@ -17,13 +17,16 @@
 
 <div style="color: red">
 <h4 id="rollen">Rollen</h4>
+
 <p>Die folgenden Rollen sind vorzusehen:</p>
 <ul>
+<strike>
 <li>Administrator: Verwaltet Nutzer, Experimentierstationen und Berechtigung. </li>
 <li>Prozesskettenplaner: Legt Prozessschritte an und verwaltet Prozessketten.</li>
 <li>Logistiker: Verwaltet das Probenlager und -archiv.</li>
 <li>Transporteur: Transportiert Proben zwischen Stationen und dem Lager (<strong>O«Transporteur»</strong>)</li>
 <li>Technologe: Hat Übersicht über seine Arbeitsaufträge.</li>
+</strike>
 </ul>
 <h4 id="anforderungen">Anforderungen</h4>
 <h5 id="administrator">Administrator</h5>
