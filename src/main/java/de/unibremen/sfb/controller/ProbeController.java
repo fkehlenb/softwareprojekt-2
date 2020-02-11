@@ -3,6 +3,7 @@ package de.unibremen.sfb.controller;
 import de.unibremen.sfb.model.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -26,7 +27,9 @@ public class ProbeController {
      *
      * @param id the new ID
      */
-    public void setID(String id) {}
+    public void setID(String id) {
+        probe.setProbenID(id);
+    }
 
     /**
      * Returns the ID of this Probe
@@ -34,7 +37,9 @@ public class ProbeController {
      *
      * @return the Proben-ID
      */
-    public String getID() { return null; }
+    public String getID() {
+        return probe.getProbenID();
+    }
 
     /**
      * Adds a ProbenKommentar (comment about this Probe) to this Probe.
@@ -42,7 +47,9 @@ public class ProbeController {
      *
      * @param p A pair consisting of the timestamp and the comment text.
      */
-    public void addComment(Pair<LocalDateTime,String> p) {}
+    public void addComment(Pair<LocalDateTime,String> p) {
+        //TODO
+    }
 
     /**
      * Returns the Probenkommentar (comment about this Probe) to this Probe.
@@ -58,34 +65,44 @@ public class ProbeController {
      *
      * @param pz the new state of this Probe
      */
-    public void setZustand(ProbenZustand pz) { }
+    public void setZustand(ProbenZustand pz) {
+        probe.setZustand(pz);
+    }
 
     /**
      * returns the current Zustand (state) of this Probe
      * Possible values are: Kaputt(broken), Verloren(lost), Vorhanden(available).
      * @return the current Zustand
      */
-    public ProbenZustand getZustand() { return null; }
+    public Enum<ProbenZustand> getZustand() {
+        return probe.getZustand();
+    }
 
     /**
      * Sets the Standort (location) at which the Probe currently is.
      *
      * @param s the new location
      */
-    public void setStandort(Standort s) {}
+    public void setStandort(Standort s) {
+        probe.setStandort(s);
+    }
 
     /**
      * Returns the Standort (location) at which the Probe currently is
      *
      * @return the location
      */
-    public Standort getStandort() { return null; }
+    public Standort getStandort() {
+        return probe.getStandort();
+    }
 
     /**
      * Sets an Archiv (archive) for this Probe (and thus archives it)
      * @param a the new archive
      */
-    public void setArchiv(Archiv a) {}
+    public void setArchiv(Archiv a) {
+        //TODO
+    }
 
     /**
      * Returns the Archiv (archive) for this Probe
@@ -98,13 +115,17 @@ public class ProbeController {
      * @return a set containing all properties of this sample
      *
      */
-    public Set<QualitativeEigenschaft> getEigenschaften() { return null; }
+    public List<QualitativeEigenschaft> getEigenschaften() {
+        return probe.getQualitativeEigenschaften();
+    }
 
     /**
      *sets the properties of this sample
      * @param eigenschaft a set containing all properties this sample is supposed to have
      */
-    public void setEigenschaften(Set<QualitativeEigenschaft> eigenschaft) {}
+    public void setEigenschaften(List<QualitativeEigenschaft> eigenschaft) {
+        probe.setQualitativeEigenschaften(eigenschaft);
+    }
 
     /**
      * Return the JSON Representation of a Probe
