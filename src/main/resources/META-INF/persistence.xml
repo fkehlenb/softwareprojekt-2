@@ -5,8 +5,7 @@
 
     <persistence-unit name="sfb" transaction-type="JTA">
         <jta-data-source>java:/swp2</jta-data-source>
-        <class>de.unibremen.sfb.model.User</class>
-        <class>de.unibremen.sfb.model.Archiv</class>
+
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:h2:./swp2;DB_CLOSE_ON_EXIT=FALSE;" />
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
