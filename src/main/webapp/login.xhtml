@@ -11,9 +11,7 @@
 <ui:include src="/template/common/header.xhtml"/>
 <div style="margin-left: 200px; margin-top: 80px; box-shadow: black; ">
     <h:form prependId="false" id="form">
-        <p:messages id="msgs" showDetail="false" closable="true" style="width: 550px">
-            <p:autoUpdate/>
-        </p:messages>
+        <p:growl id="growl" showDetail="true" sticky="true"/>
         <p:panelGrid>
             <p:row>
                 <p:column colspan="2">
@@ -45,7 +43,7 @@
                     <h:outputText value="Remember me:"/>
                 </p:column>
                 <p:column colspan="1">
-                    <p:selectBooleanCheckbox id="rememberMe" value="#{shiroLoginBean.rememberMe}"/>
+                    <p:toggleSwitch id="rememberMe" value="#{shiroLoginBean.rememberMe}"/>
                 </p:column>
             </p:row>
             <p:row>

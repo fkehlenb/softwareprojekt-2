@@ -5,6 +5,7 @@ import de.unibremen.sfb.model.User;
 import de.unibremen.sfb.service.UserService;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.shiro.authc.credential.PasswordMatcher;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -116,7 +117,8 @@ public class RegisterBean implements Serializable {
                 if (i!=0){
                     throw new IllegalArgumentException("USER ALREADY EXISTS!");
                 }
-                userService.addUser(new User(UUID.randomUUID().hashCode(), vorname, nachname, email, phoneNumber, username, password.getBytes(), false, LocalDateTime.now(), List.of(Role.ADMIN), new ArrayList<>(), "DE"));
+                PasswordMatcher matcher = new PasswordMatcher();
+                userService.addUser(new User(UUID.randomUUID().hashCode(), vorname, nachname, email, phoneNumber, username, matcher.getPasswordService().encryptPassword(password), false, LocalDateTime.now(), List.of(Role.ADMIN), new ArrayList<>(), "DE"));
                 //TODO redirect and send email
                 FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
                 System.out.println("REDIRECTED SUCCESSFULLY");

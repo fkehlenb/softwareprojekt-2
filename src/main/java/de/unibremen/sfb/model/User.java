@@ -3,6 +3,7 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.ws.rs.Path;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -62,7 +63,7 @@ public class User {
      * User's hashed password
      */
     @NonNull
-    private byte[] password;
+    private String password;
 
     /**
      * Is the user verified?

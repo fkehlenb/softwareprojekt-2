@@ -18,6 +18,7 @@ import javax.transaction.Transactional;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
+import org.apache.shiro.authc.credential.PasswordMatcher;
 
 /**
  * This Class is run when the Server is deployed. Its purpose is to pupulate all web Views
@@ -206,12 +207,13 @@ public class InitialDataFiller {
      */
     private List<User> createDefaultUsers() {
         Faker f = new Faker(new Locale("de"));
+        PasswordMatcher matcher = new PasswordMatcher();
 
         // User Setup
         List<Role> a = new ArrayList<>();
         a.add(Role.TECHNOLOGE);
         testUser = new User(UUID.randomUUID().hashCode(), "Default", "Technologe", "l@g.c", f.phoneNumber().cellPhone(),
-                "t,", "12345678".getBytes(), true, LocalDateTime.now(),
+                "t,", matcher.getPasswordService().encryptPassword("12345678"), true, LocalDateTime.now(),
                 a, new ArrayList<Auftrag>(), "DEUTSCH");
         List users = new ArrayList<>();
 
@@ -222,7 +224,7 @@ public class InitialDataFiller {
         a.clear();
         a.add(Role.PKADMIN);
         testUser = new User(UUID.randomUUID().hashCode(), "Default", "PKAdmin", "l@g.c", f.phoneNumber().cellPhone(),
-                "pk,", "12345678".getBytes(), true, LocalDateTime.now(),
+                "pk,", matcher.getPasswordService().encryptPassword("12345678"), true, LocalDateTime.now(),
                 a, new ArrayList<Auftrag>(), "DEUTSCH");
         // Add to user Lost
 
@@ -231,7 +233,7 @@ public class InitialDataFiller {
         a.clear();
         a.add(Role.TRANSPORT);
         testUser = new User(UUID.randomUUID().hashCode(), "Default", "Transport", "l@g.c", f.phoneNumber().cellPhone(),
-                "pk,", "12345678".getBytes(), true, LocalDateTime.now(),
+                "pk,", matcher.getPasswordService().encryptPassword("12345678"), true, LocalDateTime.now(),
                 a, new ArrayList<Auftrag>(), "DEUTSCH");
 
         // Add to user Lost
@@ -240,7 +242,7 @@ public class InitialDataFiller {
         a.clear();
         a.add(Role.LOGISTIKER);
         testUser = new User(UUID.randomUUID().hashCode(), "Default", "Logistik", "l@g.c", f.phoneNumber().cellPhone(),
-                "pk,", "12345678".getBytes(), true, LocalDateTime.now(),
+                "pk,", matcher.getPasswordService().encryptPassword("12345678"), true, LocalDateTime.now(),
                 a, new ArrayList<Auftrag>(), "DEUTSCH");
 
         // Add to user Lost
@@ -249,7 +251,7 @@ public class InitialDataFiller {
         a.clear();
         a.add(Role.ADMIN);
         testUser = new User(UUID.randomUUID().hashCode(), "Default", "Logistik", "l@g.c", f.phoneNumber().cellPhone(),
-                "pk,", "12345678".getBytes(), true, LocalDateTime.now(),
+                "pk,", matcher.getPasswordService().encryptPassword("12345678"), true, LocalDateTime.now(),
                 a, new ArrayList<Auftrag>(), "DEUTSCH");
         // Add to user Lost
         users.add(testUser);
