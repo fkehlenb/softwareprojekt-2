@@ -4,8 +4,6 @@ import de.unibremen.sfb.exception.DuplicateQualitativeEigenschaftException;
 import de.unibremen.sfb.exception.QualitativeEigenschaftNotFoundException;
 import de.unibremen.sfb.model.QualitativeEigenschaft;
 
-import java.util.List;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,14 +53,24 @@ public class QualitativeEigenschaftDAO extends ObjectDAO<QualitativeEigenschaft>
         return QualitativeEigenschaft.class;
     }
 
-    /** @return a list of all qualitative descriptors in the system */
-    public List<QualitativeEigenschaft> getAll() throws IllegalArgumentException{
+    /**
+     * @return a list of all qualitative descriptors in the system
+     */
+    public List<QualitativeEigenschaft> getAll() throws IllegalArgumentException {
         try {
-            List<QualitativeEigenschaft> list = em.createQuery("SELECT q FROM QualitativeEigenschaft q",get()).getResultList();
-            return list.isEmpty()?new ArrayList<>():list;
-        }
-        catch (Exception e){
+            List<QualitativeEigenschaft> list = em.createQuery("SELECT q FROM QualitativeEigenschaft q", get()).getResultList();
+            return list.isEmpty() ? new ArrayList<>() : list;
+        } catch (Exception e) {
             throw new IllegalArgumentException("failed!");
+        }
+    }
+
+    public QualitativeEigenschaft getQlEById(int QlEId) {
+        try {
+            return em.find(QualitativeEigenschaft.class, QlEId);
+        } catch (Exception e) {
+
+            throw new IllegalArgumentException("QualitativeEigenschaft not found");
         }
     }
 }

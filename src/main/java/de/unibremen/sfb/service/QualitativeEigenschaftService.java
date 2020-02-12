@@ -1,40 +1,69 @@
 package de.unibremen.sfb.service;
 
+import de.unibremen.sfb.exception.DuplicateQualitativeEigenschaftException;
+import de.unibremen.sfb.exception.QualitativeEigenschaftNotFoundException;
 import de.unibremen.sfb.model.QualitativeEigenschaft;
 import de.unibremen.sfb.persistence.QualitativeEigenschaftDAO;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
 import javax.inject.Inject;
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.List;
 
-@Singleton
-public class QualitativeEigenschaftService {
-    private List<QualitativeEigenschaft> eigenschaften;
+@Setter
+@Getter
+@Slf4j
+public class QualitativeEigenschaftService implements Serializable {
+    List<QualitativeEigenschaft> eigenschaften;
 
     @Inject
     QualitativeEigenschaftDAO qeDAO;
 
     @PostConstruct
-    // FIXME
     public void init() {
-//        this.eigenschaften = qeDAO.getAll();
-          this.eigenschaften = ladeEigenschaften();
+        eigenschaften = qeDAO.getAll();
     }
 
-
-
-    private List<QualitativeEigenschaft> ladeEigenschaften() {
-        // return qeDAO.getAll();
-        return new ArrayList<>();
+    public void addQualitativeEigenschaft(QualitativeEigenschaft qualitativeEigenschaft) throws DuplicateQualitativeEigenschaftException {
+        try {
+            log.info("Trying Persis QualitativeEigenschaft");
+            qeDAO.persist(qualitativeEigenschaft);
+        } catch (Exception e) {
+            log.info("FAILED Persis QualitativeEigenschaft");
+        }
     }
 
-    public List<QualitativeEigenschaft> getEigenschaften() {
-        return eigenschaften;
+    public List<QualitativeEigenschaft> getAllQualitativeEigenschaften() {
+        try {
+            log.info("Trying QualitativeEigenschaft Methode = getAll");
+            return qeDAO.getAll();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
-    public void addEigenschaft(QualitativeEigenschaft qualitativeEigenschaft) {
-        this.eigenschaften.add(qualitativeEigenschaft);
+    public void remove(QualitativeEigenschaft qualitativeEigenschaft) throws QualitativeEigenschaftNotFoundException {
+        try {
+            log.info("Trying QualitativeEigenschaft Methode = remove");
+            qeDAO.remove(qualitativeEigenschaft);
+        } catch (Exception e) {
+            log.info("FAILED QualitativeEigenschaft Methode = remove");
+        }
+    }
+
+    public void edit(QualitativeEigenschaft qualitativeEigenschaft) throws QualitativeEigenschaftNotFoundException {
+        try {
+            log.info("Trying QualitativeEigenschaft Methode = edit");
+            qeDAO.update(qualitativeEigenschaft);
+        } catch (Exception e) {
+            log.info("FAILED QualitativeEigenschaft Methode = edit");
+        }
+    }
+
+    public QualitativeEigenschaft getQlEById(int id) throws QualitativeEigenschaftNotFoundException {
+        return qeDAO.getQlEById(id);
     }
 }

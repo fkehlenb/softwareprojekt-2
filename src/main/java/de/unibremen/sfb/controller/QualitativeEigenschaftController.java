@@ -6,10 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -44,7 +41,7 @@ public class QualitativeEigenschaftController {
      * @return the property name
      */
     public List<QualitativeEigenschaft> getEigenschaft() {
-        List<QualitativeEigenschaft> qualitativeEigenschafts =qualitativeEigenschaftDAO.getAll();
+        List<QualitativeEigenschaft> qualitativeEigenschafts = qualitativeEigenschaftDAO.getAll();
         return qualitativeEigenschafts;
     }
 }
