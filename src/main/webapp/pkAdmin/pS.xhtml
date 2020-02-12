@@ -16,24 +16,22 @@
     <ui:define name="content">
         <div class="ui-g-2"></div>
         <div class="ui-g-8">
-            <h1>Qualitative Eingeschaft Formular</h1>
+            <h2>Qualitative Eingeschaft Formular</h2>
             <p:outputPanel>
                 <h:form>
                     <h:panelGrid columns="2" cellpadding="5">
                         <p:outputLabel for="vorname" value="vorname:"/>
                         <p:inputText id="vorname" value="#{qlEBean.nameQualitativeEigenschaft}" placeholder="name"/>
                         <p:commandButton value="Reset" type="reset"/>
-                        <p:commandButton action="#{qlEBean.addQualitativeEigenschaft()}" value="Spichern"/>
+                        <p:commandButton ajax="false" action="#{qlEBean.addQualitativeEigenschaft()}" value="Spichern"/>
                     </h:panelGrid>
-
                 </h:form>
             </p:outputPanel>
             <br/>
-            <h1>LISTE Qualitative Eingeschaft </h1>
+            <h2>List Qualitative Eingeschaft </h2>
             <p:dataTable id="tbl"  var="qlE" value="#{qlEBean.findAll()}"
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                          paginator="true" rows="5" style="margin-bottom:20px">
-
                 <p:column headerText="Id">
                     <h:outputText value="#{qlE.id}"/>
                 </p:column>
@@ -44,14 +42,14 @@
                     <h:form>
                         <div align="center">
                             <h:inputText value="#{qlEBean.nameQualitativeEigenschaft}" placeholder=""/>
-                            <h:commandButton action="#{qlEBean.editQlE(qlE.id)}" value="Edit"/>
+                            <p:commandButton ajax="false"  action="#{qlEBean.editQlE(qlE.id)}" value="Edit" icon="pi pi-pencil"/>
                         </div>
                     </h:form>
                 </p:column>
                 <p:column headerText="Remove">
                     <h:form>
                         <div align="center">
-                            <p:button action="#{qlEBean.deleteQlE(qlE.id)}" value="ERASE"/>
+                            <p:commandButton ajax="false"  action="#{qlEBean.deleteQlE(qlE.id)}" value="ERASE" icon="pi pi-trash"/>
                         </div>
                     </h:form>
                 </p:column>

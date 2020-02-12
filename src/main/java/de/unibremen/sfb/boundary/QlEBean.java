@@ -30,6 +30,7 @@ public class QlEBean implements Serializable {
         QualitativeEigenschaft qualitativeEigenschaft = new QualitativeEigenschaft(nameQualitativeEigenschaft);
         qualitativeEigenschaft.setId(UUID.randomUUID().hashCode());
         qualitativeEigenschaftService.addQualitativeEigenschaft(qualitativeEigenschaft);
+        nameQualitativeEigenschaft=null;
     }
 
     public List<QualitativeEigenschaft> findAll() {

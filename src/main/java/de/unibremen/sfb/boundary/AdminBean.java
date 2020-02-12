@@ -135,6 +135,7 @@ public class AdminBean implements Serializable {
     public void adminEditUser(String id) throws UserNotFoundException {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idx", id);
         User user = userService.getUserById(Integer.parseInt(id));
+        this.id=id;
         this.technologer =user.getRollen().contains(Role.TECHNOLOGE);
         this.pkadminor =user.getRollen().contains(Role.PKADMIN);
         this.transporter =user.getRollen().contains(Role.TRANSPORT);
