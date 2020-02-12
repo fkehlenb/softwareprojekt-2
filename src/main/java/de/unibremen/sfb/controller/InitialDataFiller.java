@@ -287,7 +287,9 @@ public class InitialDataFiller {
     private List<QualitativeEigenschaft> getQualitativeEigenschaften() {
         // Eigenschaften
         qualEigenschaften = new ArrayList<>();
-        qualEigenschaften.add(new QualitativeEigenschaft("Test Eigenschaft"));
+        QualitativeEigenschaft q1=new QualitativeEigenschaft("Test Eigenschaft");
+        q1.setId(UUID.randomUUID().hashCode());
+        qualEigenschaften.add(q1);
         return  qualEigenschaften;
     }
 }

@@ -4,7 +4,6 @@ package de.unibremen.sfb.boundary;
 import de.unibremen.sfb.exception.DuplicateUserException;
 import de.unibremen.sfb.exception.UserNotFoundException;
 import de.unibremen.sfb.model.*;
-import de.unibremen.sfb.persistence.UserDAO;
 import de.unibremen.sfb.service.UserService;
 import lombok.Getter;
 import lombok.Setter;
@@ -114,7 +113,10 @@ public class AdminBean implements Serializable {
             b.setAuftraege(new ArrayList<>());
             userService.updateUser(b);
         }catch (Exception e){
-            User b=new User();
+            /*User b=new User(UUID.randomUUID().hashCode(),vorname,nachname,email,telefonNummer,
+                    userName,matcher.getPasswordService().encryptPassword(password),wurdeVerifiziert,date1
+                    ,rol,language);*/
+            User b = new User();
             b.setId(UUID.randomUUID().hashCode());
             b.setVorname(vorname);
             b.setNachname(nachname);
@@ -133,6 +135,7 @@ public class AdminBean implements Serializable {
     public void adminEditUser(String id) throws UserNotFoundException {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idx", id);
         User user = userService.getUserById(Integer.parseInt(id));
+        this.id=id;
         this.technologer =user.getRollen().contains(Role.TECHNOLOGE);
         this.pkadminor =user.getRollen().contains(Role.PKADMIN);
         this.transporter =user.getRollen().contains(Role.TRANSPORT);

@@ -8,17 +8,23 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 /** Data class for the qualitative descriptors */
-@Getter
-@Setter
+@Data
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@RequiredArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 @NamedQueries({
         @NamedQuery(name = "QualitativeEigenschaft.getAll", query = "SELECT q FROM QualitativeEigenschaft q")
 })
 public class QualitativeEigenschaft {
 
-    /** Qualitative descriptor name */
-    @Id @NonNull
+    /**
+     * ID descriptor
+     */
+    @Id
+    private int id;
+    /**
+     * Qualitative descriptor name
+     */
+    @NonNull
     private String name;
 }
