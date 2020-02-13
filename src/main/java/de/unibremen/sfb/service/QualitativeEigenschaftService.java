@@ -17,17 +17,22 @@ import java.util.List;
 @Getter
 @Slf4j
 public class QualitativeEigenschaftService implements Serializable {
-    List<QualitativeEigenschaft> eigenschaften;
 
+    /** List of all qualitative descriptors in the database */
+    private List<QualitativeEigenschaft> eigenschaften;
+
+    /** The DAO */
     @Inject
-    QualitativeEigenschaftDAO qeDAO;
+    private QualitativeEigenschaftDAO qeDAO;
 
+    /** Init on start */
     @PostConstruct
     public void init() {
         eigenschaften = qeDAO.getAll();
     }
 
-    public void addQualitativeEigenschaft(QualitativeEigenschaft qualitativeEigenschaft) throws DuplicateQualitativeEigenschaftException {
+    /** Add a new qualitative descriptor */
+    public void addQualitativeEigenschaft(QualitativeEigenschaft qualitativeEigenschaft) {
         try {
             log.info("Trying Persis QualitativeEigenschaft");
             qeDAO.persist(qualitativeEigenschaft);
@@ -36,16 +41,19 @@ public class QualitativeEigenschaftService implements Serializable {
         }
     }
 
+    /** Get all qualitative descriptors from the database */
     public List<QualitativeEigenschaft> getAllQualitativeEigenschaften() {
         try {
             log.info("Trying QualitativeEigenschaft Methode = getAll");
             return qeDAO.getAll();
         } catch (Exception e) {
+            //TODO LOG
             return null;
         }
     }
 
-    public void remove(QualitativeEigenschaft qualitativeEigenschaft) throws QualitativeEigenschaftNotFoundException {
+    /** Remove a qualitative descriptor from the database */
+    public void remove(QualitativeEigenschaft qualitativeEigenschaft) {
         try {
             log.info("Trying QualitativeEigenschaft Methode = remove");
             qeDAO.remove(qualitativeEigenschaft);
@@ -54,7 +62,8 @@ public class QualitativeEigenschaftService implements Serializable {
         }
     }
 
-    public void edit(QualitativeEigenschaft qualitativeEigenschaft) throws QualitativeEigenschaftNotFoundException {
+    /** Edit a qualitative descriptor in the database */
+    public void edit(QualitativeEigenschaft qualitativeEigenschaft) {
         try {
             log.info("Trying QualitativeEigenschaft Methode = edit");
             qeDAO.update(qualitativeEigenschaft);
@@ -63,7 +72,8 @@ public class QualitativeEigenschaftService implements Serializable {
         }
     }
 
-    public QualitativeEigenschaft getQlEById(int id) throws QualitativeEigenschaftNotFoundException {
+    /** Get a qualitative descriptor using its id */
+    public QualitativeEigenschaft getQlEById(int id) {
         return qeDAO.getQlEById(id);
     }
 }

@@ -14,7 +14,6 @@ import java.util.List;
 
 @Startup
 @Getter
-@Singleton
 public class ExperimentierStationService {
     private List<ExperimentierStation> esSet;
 
@@ -31,7 +30,7 @@ public class ExperimentierStationService {
         this.esSet.add(experimentierStation);
     }
 
-    public void löscheES(ExperimentierStation experimentierStationr) {
+    public void loescheES(ExperimentierStation experimentierStationr) {
         this.esSet.remove(experimentierStationr);
     }
 

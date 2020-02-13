@@ -21,7 +21,6 @@ public class StandortService {
     /** Init is called on startup */
     @PostConstruct
     public void init() {
-        // FIXME Load from db
         standorte = standortDAO.getAll();
     }
 
@@ -37,7 +36,7 @@ public class StandortService {
 
     /** Find a standort based on ts location */
     public Standort findByStandort(String standort) {
-        // qFIXME Use String as ID or convert to String
+        // TODO qFIXME Use String as ID or convert to String
         return this.standorte.stream().filter(c -> c.getOrt().equals(standort)).findFirst().orElse(null);
     }
 }
