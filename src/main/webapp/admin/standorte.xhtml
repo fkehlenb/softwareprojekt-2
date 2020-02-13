@@ -9,74 +9,86 @@
 
     <ui:composition template="/template/common/layout.xhtml">
         <ui:define name="content">
-            <div class="ui-g-2"></div>
             <div class="ui-g-8">
                 <h1 style="text-align: center">Standorte</h1>
-                
-                <h:form id="standortListForm">
-                    <p:dataTable widgetVar="standortList" id="standortList"
-                                 value="#{sListBean.standorte}" var="standort"
-                                 filteredValue="#{sListBean.filteredStandorte}"
-                                 rowKey="#{standort.id}"
-                                 selection="#{sListBean.selectedStandorte}"
-                                 resizableColumns="true" rows="10" paginator="true"
-                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                 rowsPerPageTemplate="5,10,15">
 
+                <style type="text/css">
+                    .ui-row-editor .ui-row-editor-pencil {
+                        margin-left:8px;
+                    }
+                </style>
+
+
+                <h:form id="form">
+                    <p:growl id="msgs" showDetail="true"/>
+
+                    <p:dataTable id="standorts1" var="standort" value="#{dtEditView.standorte}" editable="true" style="margin-bottom:20px">
                         <f:facet name="header">
-                            <p:outputPanel>
-                                <h:outputText value="Search all fields: " />
-                                <p:inputText id="globalFilter"
-                                             onkeyup="PF('standortList').filter()" style="width:150px"
-                                             placeholder="Enter keyword" />
-                            </p:outputPanel>
+                            Row Editing
                         </f:facet>
 
-                        <p:column selectionMode="multiple"
-                                  style="width:16px;text-align:center" />
+                        <p:ajax event="rowEdit" listener="#{dtEditView.onRowEdit}" update=":form:msgs" />
+                        <p:ajax event="rowEditCancel" listener="#{dtEditView.onRowCancel}" update=":form:msgs" />
 
-                        <p:column filterBy="#{standort.ort}"
-                                  headerText="Standort Ort" filterMatchMode="contains">
-                            <h:outputText value="#{standort.ort}" />
-                        </p:column>
-                        <p:column filterBy="#{standort.id}"
-                                  headerText="Standort ID" filterMatchMode="contains">
-                            <h:outputText value="#{standort.id}" />
+                        <p:column headerText="Id">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{standort.id}" /></f:facet>
+                                <f:facet name="input"><p:inputText id="modelInput" value="#{standort.id}" style="width:100%"/></f:facet>
+                            </p:cellEditor>
                         </p:column>
 
-                        <f:facet name="footer">
-                            <p:commandButton process="standortList"
-                                             update="standortListForm:multiStandortDetail"
-                                             icon="pi pi-search" value="View" />
+                        <p:column headerText="Year">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{standort.ort}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{standort.ort}" style="width:100%" label="Year"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        x
+                        <p:column style="width:35px">
+                            <p:rowEditor />
+                        </p:column>
+                    </p:dataTable>
+
+                    <p:dataTable id="standorts2" var="standort" value="#{dtEditView.standorte}" editable="true" editMode="cell" widgetVar="cellStandorts">
+                        <f:facet name="header">
+                            Cell Editing with Click and RightClick
                         </f:facet>
+
+                        <p:ajax event="cellEdit" listener="#{dtEditView.onCellEdit}" update=":form:msgs" />
+
+                        <p:column headerText="Id">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{standort.id}" /></f:facet>
+                                <f:facet name="input"><p:inputText id="modelInput" value="#{standort.id}" style="width:96%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Year">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{standort.ort}" /></f:facet>
+                                <f:facet name="input"><p:inputText value="#{standort.ort}" style="width:96%" label="Year"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Brand">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{standort.ort}" /></f:facet>
+                                <f:facet name="input">
+                                    <h:selectOneMenu value="#{standort}" style="width:100%">
+                                        <f:selectItems value="#{dtEditView.standorte}" var="man" itemLabel="#{man}" itemValue="#{man}" />
+                                    </h:selectOneMenu>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
 
                     </p:dataTable>
 
-
-                    <p:contextMenu for="standortList">
-                        <p:menuitem value="View selected" update="multiStandortDetail"
-                                    icon="pi pi-search" oncomplete="PF('multistandortDialog').show()" />
-                        <p:menuitem value="Delete selected" update="standortList"
-                                    icon="pi pi-times" action="#{sListBean.deleteStandorte}" />
+                    <p:contextMenu for="standorts2" widgetVar="cMenu">
+                        <p:menuitem value="Edit Cell" icon="pi pi-search" onclick="PF('cellStandorts').showCellEditor();return false;"/>
+                        <p:menuitem value="Hide Menu" icon="pi pi-times" onclick="PF('cMenu').hide()"/>
                     </p:contextMenu>
-
-
-                    <p:dialog header="Selected Standorte"
-                              widgetVar="multiStandortDialog" modal="true" showEffect="fade"
-                              hideEffect="fade" resizable="true" width="450">
-                        <p:outputPanel id="multiStandortDetail" style="text-align:center;">
-                            <ui:repeat value="#{sListBean.selectedStandorte}"
-                                       var="standort">
-                                <h:outputText
-                                        value="#{standort.id}"
-                                        style="display:block" />
-                                <h:outputText
-                                        value="#{standort.ort}"
-                                        style="display:block" />
-                            </ui:repeat>
-                        </p:outputPanel>
-                    </p:dialog>
                 </h:form>
+
             </div>
             <div class="ui-g-2"></div>
         </ui:define>

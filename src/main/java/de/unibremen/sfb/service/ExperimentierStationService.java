@@ -22,7 +22,11 @@ public class ExperimentierStationService {
 
     @PostConstruct
     public void init() {
-        this.esSet= esDao.getAll();
+        this.esSet= getStandortListe();
+    }
+
+    private List<ExperimentierStation> getStandortListe() {
+        return esDao.getAll();
     }
 
 
