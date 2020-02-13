@@ -3,37 +3,40 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html
         xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"
 >
 
 <h:head>
-    <h:outputStylesheet name="style.css" library="css" />
+    <h:outputStylesheet name="style.css" library="css"/>
 </h:head>
 
 <body>
 
-    <div id="page">
 
-        <div id="header">
-            <ui:insert name="header" >
-                <ui:include src="/template/common/header.xhtml" />
-            </ui:insert>
-        </div>
+<div id="page">
 
-
-        <div class="ui-g" id="content">
-            <ui:insert name="content" >
-                <ui:include src="/template/common/content.xhtml" />
-            </ui:insert>
-        </div>
-
-        <div id="footer">
-            <ui:insert name="footer" >
-                <ui:include src="/template/common/footer.xhtml" />
-            </ui:insert>
-        </div>
-
+    <div id="header">
+        <ui:insert name="header">
+            <ui:include src="/template/common/header.xhtml"/>
+        </ui:insert>
     </div>
+
+
+    <div class="ui-g" id="content">
+        <ui:insert name="content">
+            <ui:include src="/template/common/content.xhtml"/>
+        </ui:insert>
+    </div>
+
+    <div id="footer">
+        <ui:insert name="footer">
+            <ui:include src="/template/common/footer.xhtml"/>
+            <p:growl></p:growl>
+        </ui:insert>
+    </div>
+
+</div>
 
 </body>
 </html>
