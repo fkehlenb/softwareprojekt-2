@@ -23,17 +23,16 @@
                         <h:panelGrid columns="2" cellpadding="5">
                             <p:outputLabel for="namePS" value="name:"/>
                             <p:inputText id="namePS" value="#{pspBean.name}"
-                                         placeholder="name"/>
-
+                                         placeholder="name" required="true"/>
                             <p:commandButton ajax="false" action="#{pspBean.add()}"
-                                             value="Erzeugen"/>
+                                             value="Erzeugen" />
                         </h:panelGrid>
                     </h:form>
                 </p:outputPanel>
             </div>
             <br/>
             <div id="GewahltQuantEingenschatenList">
-                <h2>List Quantitavite Eingeschaft zu Wählen</h2>
+                <h2>List Gewalte Qualitavite Eingeschaft </h2>
                 <p:dataTable id="GewahltQuantEingenschatenTabele" var="qlEG" value="#{pspBean.qlEGewahlt()}"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                              paginator="true" rows="5" style="margin-bottom:20px">
@@ -47,7 +46,7 @@
             </div>
             <br/>
             <div id="VerfugbarQuantEingenschatenList">
-                <h2>List Quantitavite Eingeschaft zu Wählen</h2>
+                <h2>List Qualitavite Eingeschaft zu Wählen</h2>
                 <p:dataTable id="VerfugbarQuantEingenschatenTabele" var="qlE" value="#{pspBean.qlE()}"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                              paginator="true" rows="5" style="margin-bottom:20px">

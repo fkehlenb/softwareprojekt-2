@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Startup;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -19,14 +20,13 @@ import java.util.List;
 @Getter
 @Transactional
 @Slf4j
-public class ProzessSchrittParameterService {
+public class ProzessSchrittParameterService implements Serializable {
 
 
-    //////// Santiago Implementierung ////////
-//////////////////////////////////////////
+
     @Inject
     ProzessSchrittParameterDAO prozessSchrittParameterDAO;
-    //////////// Liam Implementierung ////////
+    //////////// Liam Implementierung ////
 //////////////////////////////////////////
     private List<ProzessSchrittParameter> parameterList;
 
@@ -42,7 +42,7 @@ public class ProzessSchrittParameterService {
         return p.getQualitativeEigenschaften();
     }
 
-    public void löscheParameter(ProzessSchrittParameter parameter) {
+    public void loscheParameter(ProzessSchrittParameter parameter) {
         this.parameterList.remove(parameter);
     }
 
@@ -56,6 +56,8 @@ public class ProzessSchrittParameterService {
         this.parameterList = prozessSchrittParameterDAO.getAll();
     }
 
+    //////// Santiago Implementierung ////
+//////////////////////////////////////////
     public void addProcessSP(ProzessSchrittParameter prozessSchrittParameter) {
         try {
             log.info("Trying persist ProzessSchrittParameterDAO Class=ProzessSchrittParameterService");
@@ -64,7 +66,6 @@ public class ProzessSchrittParameterService {
             log.info("error persist ProzessSchrittParameterDAO Class=ProzessSchrittParameterService");
         }
     }
-
     public List<ProzessSchrittParameter> getAll() {
         try {
             log.info("Trying get all ProzessSchrittParameterDAO Class=ProzessSchrittParameterService");

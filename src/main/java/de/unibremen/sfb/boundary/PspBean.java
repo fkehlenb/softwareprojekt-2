@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
@@ -21,7 +22,7 @@ import java.util.UUID;
 
 @Transactional
 @Named
-@RequestScoped
+@ViewScoped
 @Slf4j
 @Setter
 @Getter
@@ -36,7 +37,7 @@ public class PspBean implements Serializable {
 
     private String name;
 
-
+    List<QualitativeEigenschaft> qualitativeEigenschafts = new ArrayList<>();
 
 
 
@@ -54,6 +55,7 @@ public class PspBean implements Serializable {
             prozessSchrittParameter.setQualitativeEigenschaften(qualitativeEigenschafts);
             prozessSchrittParameterService.addProcessSP(prozessSchrittParameter);
             log.info("Trying to persist der ProzzesSchritt"+prozessSchrittParameter.getName());
+            resetVariables();
             return "pS?faces-redirect=true";
         } catch (Exception e) {
             log.info("Fail to persist der ProzzesSchritt");
@@ -63,11 +65,14 @@ public class PspBean implements Serializable {
     }
 
     public void select(String idqE) {
-        List<QualitativeEigenschaft> qualitativeEigenschafts = new ArrayList<>();
+
         qualitativeEigenschafts.add(qualitativeEigenschaftService.getQlEById(Integer.parseInt(idqE)));
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("qualitativeEigenschaftList",qualitativeEigenschafts);
     }
-
+    public void resetVariables(){
+        List<QualitativeEigenschaft> qualitativeEigenschafts = new ArrayList<>();
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("qualitativeEigenschaftList",qualitativeEigenschafts);
+    }
     public List<QualitativeEigenschaft> qlEGewahlt() {
         try {
             return (List<QualitativeEigenschaft>) FacesContext.getCurrentInstance().
