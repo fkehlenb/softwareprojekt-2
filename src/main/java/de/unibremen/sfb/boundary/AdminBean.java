@@ -82,25 +82,10 @@ public class AdminBean implements Serializable {
      * A set containing all users
      */
     public void addUser() throws DuplicateUserException {
-        String  idOld="";
-
-        try {
-            idOld = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idx");
-        }catch (Exception e){
-           e.printStackTrace();
-        }
         LocalDateTime date1=   LocalDateTime.now();
-        if(technologer) {rol.add(Role.TECHNOLOGE);
-        }
-        if(pkadminor) {rol.add(Role.PKADMIN);
-        }
-        if(transporter) {rol.add(Role.TRANSPORT);
-        }
-        if(logistikerker) {rol.add(Role.LOGISTIKER);
-        }
-        if(admintator) {rol.add(Role.ADMIN);
-        }
+        builtRollenList();
         try{
+            String idOld = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idx");
             User user = userService.getUserById(Integer.parseInt(idOld));
             user.setVorname(vorname);
             user.setNachname(nachname);
@@ -114,11 +99,15 @@ public class AdminBean implements Serializable {
             user.setLanguage(language);
             user.setAuftraege(new ArrayList<>());
             userService.updateUser(user);
+            String id="";
+
+            resetVariables();
         }catch (Exception e){
             User user=new User(UUID.randomUUID().hashCode(),vorname,nachname,email,telefonNummer,
                     userName,matcher.getPasswordService().encryptPassword(password),wurdeVerifiziert,date1
                     ,rol,auftrags,language);
             userService.addUser(user);
+            resetVariables();
         }
     }
 
@@ -141,8 +130,50 @@ public class AdminBean implements Serializable {
         this.wurdeVerifiziert = user.isWurdeVerifiziert();
         this.language = user.getLanguage();
     }
+    /**
+     * resetVariables in the Frontend when a new user is added
+     */
+    public void resetVariables(){
+        this.technologer=false;
+        this.pkadminor=false;
+        this.transporter=false;
+        this.logistikerker=false;
+        this.admintator=false;
+        this.id=null;
+        this.vorname=null;
+        this.nachname=null;
+        this.email=null;
+        this.telefonNummer=null;
+        this.userName=null;
+        this.password=null;
+        this.wurdeVerifiziert=false;
+        this.rol=null;
+        this.auftrags=null;
+        this.language=null;
+        //Control Variable for the Process -> Edit -> Add User
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idx", id);
+    }
 
-
+    /**
+     * Help method for the List Roles to built
+     */
+    public void builtRollenList(){
+        if(technologer) {
+            rol.add(Role.TECHNOLOGE);
+        }
+        if(pkadminor) {
+            rol.add(Role.PKADMIN);
+        }
+        if(transporter) {
+            rol.add(Role.TRANSPORT);
+        }
+        if(logistikerker) {
+            rol.add(Role.LOGISTIKER);
+        }
+        if(admintator) {
+            rol.add(Role.ADMIN);
+        }
+    }
     /**
      * edits a user that already exists
      * user the user to be edited
