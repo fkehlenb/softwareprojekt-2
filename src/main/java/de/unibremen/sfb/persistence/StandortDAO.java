@@ -78,7 +78,7 @@ public class StandortDAO extends ObjectDAO<Standort> {
             List<Standort> es = em.createQuery("SELECT es FROM Standort es",get()).getResultList();
             if (es.isEmpty()){
                 log.info("No Standorte Found");
-                return new ArrayList<Standort>();
+                return new ArrayList<>();
             }
             return es;
         }

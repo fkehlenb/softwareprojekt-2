@@ -38,6 +38,7 @@ public class ProzessSchrittZustandsAutomatVorlageService {
         return automatenVorlagen;
     }
 
+    /** Add a new process step template */
     public void addVorlage(ProzessSchrittZustandsAutomatVorlage ProzessSchrittZustandsAutomatVorlage) {
         this.automatenVorlagen.add(ProzessSchrittZustandsAutomatVorlage);
     }

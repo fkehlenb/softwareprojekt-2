@@ -12,13 +12,17 @@ import java.util.List;
 @ApplicationScoped
 @Getter
 public class ZustandsService {
+
+    /** Process step states */
     private List<String> psZustaende = new ArrayList<>();
+
+    /** Process chain states */
     private List<String> pkZustaende = new ArrayList<>();
 
-    @PostConstruct
     /**
      * Hier werden die die Standart Zustaende erstellt
      */
+    @PostConstruct
     public void init() {
         psZustaende.add("Angenommen");
         psZustaende.add("In Bearbeitung");
