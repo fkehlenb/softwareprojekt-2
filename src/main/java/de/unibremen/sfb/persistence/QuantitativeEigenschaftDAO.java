@@ -2,7 +2,10 @@ package de.unibremen.sfb.persistence;
 
 import de.unibremen.sfb.exception.DuplicateQuantitativeEigenschaftException;
 import de.unibremen.sfb.exception.QuantitativeEingenschaftNotFoundException;
+import de.unibremen.sfb.model.QualitativeEigenschaft;
 import de.unibremen.sfb.model.QuantitativeEigenschaft;
+
+import java.util.List;
 
 /** This class handles the quantitative descriptor objects in the database */
 public class QuantitativeEigenschaftDAO extends ObjectDAO<QuantitativeEigenschaft> {
@@ -44,9 +47,27 @@ public class QuantitativeEigenschaftDAO extends ObjectDAO<QuantitativeEigenschaf
             em.remove(q);
         }
     }
+    /** Return a List quantitative descriptor object from the database
+     * @throws IllegalArgumentException if the quantitative descriptor couldn't be found in the database */
+    public List<QuantitativeEigenschaft> getAll(){
+        try {
+            return em.createQuery("SELECT q FROM QuantitativeEigenschaft q", get()).getResultList();
+        }catch (Exception e){
+            throw new IllegalArgumentException("QuantitativeEigenschaft not found");
+        }
+    }
 
+    public QuantitativeEigenschaft findQnEById(int QnEById){
+        try {
+            return em.find(QuantitativeEigenschaft.class, QnEById);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("QuantitativeEigenschaft not found");
+        }
+    }
     /** @return the class of Quantitative descriptors */
     public Class<QuantitativeEigenschaft> get(){
         return QuantitativeEigenschaft.class;
     }
+
+
 }

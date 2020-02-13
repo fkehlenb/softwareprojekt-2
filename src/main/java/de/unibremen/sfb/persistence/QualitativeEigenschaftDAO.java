@@ -58,7 +58,7 @@ public class QualitativeEigenschaftDAO extends ObjectDAO<QualitativeEigenschaft>
      */
     public List<QualitativeEigenschaft> getAll() throws IllegalArgumentException {
         try {
-            List<QualitativeEigenschaft> list = em.createQuery("SELECT q FROM QualitativeEigenschaft q", get()).getResultList();
+            List<QualitativeEigenschaft> list = em.createQuery("SELECT q FROM QualitativeEigenschaft q WHERE NOT EXISTS (select qn FROM QuantitativeEigenschaft qn  where qn.id = q.id)", get()).getResultList();
             return list.isEmpty() ? new ArrayList<>() : list;
         } catch (Exception e) {
             throw new IllegalArgumentException("failed!");
@@ -69,7 +69,6 @@ public class QualitativeEigenschaftDAO extends ObjectDAO<QualitativeEigenschaft>
         try {
             return em.find(QualitativeEigenschaft.class, QlEId);
         } catch (Exception e) {
-
             throw new IllegalArgumentException("QualitativeEigenschaft not found");
         }
     }

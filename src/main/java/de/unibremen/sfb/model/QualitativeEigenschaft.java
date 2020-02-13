@@ -15,6 +15,7 @@ import javax.persistence.NamedQuery;
 @NamedQueries({
         @NamedQuery(name = "QualitativeEigenschaft.getAll", query = "SELECT q FROM QualitativeEigenschaft q")
 })
+
 public class QualitativeEigenschaft {
 
     /**
