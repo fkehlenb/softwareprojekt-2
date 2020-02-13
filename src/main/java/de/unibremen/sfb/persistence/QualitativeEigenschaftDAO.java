@@ -52,11 +52,21 @@ public class QualitativeEigenschaftDAO extends ObjectDAO<QualitativeEigenschaft>
     public Class<QualitativeEigenschaft> get(){
         return QualitativeEigenschaft.class;
     }
-
     /**
-     * @return a list of all qualitative descriptors in the system
+     * @return a list of all qualitative descriptors in the database
      */
     public List<QualitativeEigenschaft> getAll() throws IllegalArgumentException {
+        try {
+            List<QualitativeEigenschaft> list = em.createQuery("SELECT q FROM QualitativeEigenschaft q", get()).getResultList();
+            return list.isEmpty() ? new ArrayList<>() : list;
+        } catch (Exception e) {
+            throw new IllegalArgumentException("failed!");
+        }
+    }
+    /**
+     * @return a list of all qualitative descriptors in the system without Quantitative
+     */
+    public List<QualitativeEigenschaft> getAllQlEminusQnE() throws IllegalArgumentException {
         try {
             List<QualitativeEigenschaft> list = em.createQuery("SELECT q FROM QualitativeEigenschaft q WHERE NOT EXISTS (select qn FROM QuantitativeEigenschaft qn  where qn.id = q.id)", get()).getResultList();
             return list.isEmpty() ? new ArrayList<>() : list;

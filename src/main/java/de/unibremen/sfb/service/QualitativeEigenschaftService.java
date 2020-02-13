@@ -45,7 +45,7 @@ public class QualitativeEigenschaftService implements Serializable {
     public List<QualitativeEigenschaft> getAllQualitativeEigenschaften() {
         try {
             log.info("Trying QualitativeEigenschaft Methode = getAll");
-            return qeDAO.getAll();
+            return qeDAO.getAllQlEminusQnE();
         } catch (Exception e) {
             //TODO LOG
             return null;
