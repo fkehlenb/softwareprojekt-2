@@ -58,7 +58,9 @@ public class AdminBean implements Serializable {
 
     private String language;
 
-    List<Role> rol = new ArrayList<>();
+    private List<Role> rol = new ArrayList<>();
+
+    private List<Auftrag> auftrags = new ArrayList<>();
 
     private boolean technologer;
 
@@ -80,10 +82,10 @@ public class AdminBean implements Serializable {
      * A set containing all users
      */
     public void addUser() throws DuplicateUserException {
+        String  idOld="";
 
-        String idOld = "";
         try {
-             idOld = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idx");
+            idOld = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idx");
         }catch (Exception e){
            e.printStackTrace();
         }
@@ -99,36 +101,24 @@ public class AdminBean implements Serializable {
         if(admintator) {rol.add(Role.ADMIN);
         }
         try{
-            User b = userService.getUserById(Integer.parseInt(idOld));
-            b.setVorname(vorname);
-            b.setNachname(nachname);
-            b.setEmail(email);
-            b.setTelefonnummer(telefonNummer);
-            b.setUsername(userName);
-            b.setPassword(matcher.getPasswordService().encryptPassword(password));
-            b.setWurdeVerifiziert(wurdeVerifiziert);
-            b.setErstellungsDatum(date1);
-            b.setRollen(rol);
-            b.setLanguage(language);
-            b.setAuftraege(new ArrayList<>());
-            userService.updateUser(b);
+            User user = userService.getUserById(Integer.parseInt(idOld));
+            user.setVorname(vorname);
+            user.setNachname(nachname);
+            user.setEmail(email);
+            user.setTelefonnummer(telefonNummer);
+            user.setUsername(userName);
+            user.setPassword(matcher.getPasswordService().encryptPassword(password));
+            user.setWurdeVerifiziert(wurdeVerifiziert);
+            user.setErstellungsDatum(date1);
+            user.setRollen(rol);
+            user.setLanguage(language);
+            user.setAuftraege(new ArrayList<>());
+            userService.updateUser(user);
         }catch (Exception e){
-            /*User b=new User(UUID.randomUUID().hashCode(),vorname,nachname,email,telefonNummer,
+            User user=new User(UUID.randomUUID().hashCode(),vorname,nachname,email,telefonNummer,
                     userName,matcher.getPasswordService().encryptPassword(password),wurdeVerifiziert,date1
-                    ,rol,language);*/
-            User b = new User();
-            b.setId(UUID.randomUUID().hashCode());
-            b.setVorname(vorname);
-            b.setNachname(nachname);
-            b.setEmail(email);
-            b.setTelefonnummer(telefonNummer);
-            b.setUsername(userName);
-            b.setPassword(matcher.getPasswordService().encryptPassword(password));
-            b.setWurdeVerifiziert(wurdeVerifiziert);
-            b.setErstellungsDatum(date1);
-            b.setRollen(rol);
-            b.setLanguage(language);
-            userService.addUser(b);
+                    ,rol,auftrags,language);
+            userService.addUser(user);
         }
     }
 
@@ -158,7 +148,6 @@ public class AdminBean implements Serializable {
      */
     public List<User> findUsers() throws UserNotFoundException {
         try {
-
             return userService.getAll();
         } catch (Exception e) {
             e.printStackTrace();
@@ -176,7 +165,6 @@ public class AdminBean implements Serializable {
     public void deleteUser(String idu) throws UserNotFoundException {
         int idUser = Integer.parseInt(idu);
         try {
-
             userService.removeUser(userService.getUserById(idUser));
         } catch (Exception e) {
             e.printStackTrace();
@@ -258,7 +246,6 @@ public class AdminBean implements Serializable {
         log.info("Trying to connect with DB");
         String sqlFilePath = "./Backup" + LocalDateTime.now().toString();
         //em.createNativeQuery(String.format("SCRIPT TO '%s'", sqlFilePath)).executeUpdate();
-
 
     }
     /**
