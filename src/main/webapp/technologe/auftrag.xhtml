@@ -15,28 +15,39 @@
             <div class="ui-g-2"></div>
             <div class="ui-g-8">
 
-                <h1>VERFÜGBARE AUFTRÄGE</h1>
+                <h:body style="background: url('../background.png')">
+                    <h:form style="background-color: white; margin-top: 100px; width: 650px">
+                        <h:panelGrid columns="1">
+                            <p:row>
+                                <h1 style="color: cornflowerblue">Verfügbare Aufträge</h1>
+                            </p:row>
 
-                <p:dataTable var="auftrag" value="#{technologeBean.getAuftrag()}">
-                    <p:column headerText="Id">
-                        <h:outputText value="#{auftrag.psID}"/>
-                    </p:column>
-                    <p:column headerText="Station">
-                        <h:outputText value="#{auftrag.current.esID}"/>
-                    </p:column>
-                    <p:column headerText="Zustand">
-                        <h:outputText value="#{auftrag.zustandsAutomat.current}"/>
-                    </p:column>
-                    <p:column headerText="Zuordnen">
-                        <h:form>
-                            <div align="center">
-                                <h:commandButton action="#{technologeBean.assignToAuftrag(auftrag)}" value="Assign"/>
-                            </div>
-                        </h:form>
-                    </p:column>
-                </p:dataTable>
+                            <p:dataTable var="auftrag" value="#{technologeBean.getAuftrag()}">
+                                <p:column headerText="Id">
+                                    <h:outputText value="#{auftrag.psID}"/>
+                                </p:column>
+                                <p:column headerText="Station">
+                                    <h:outputText value="#{auftrag.current.esID}"/>
+                                </p:column>
+                                <p:column headerText="Zustand">
+                                    <h:outputText value="#{auftrag.zustandsAutomat.current}"/>
+                                </p:column>
+                                <p:column headerText="Zuordnen">
+                                    <h:form>
+                                        <div align="center">
+                                            <h:commandButton action="#{technologeBean.assignToAuftrag(auftrag)}" value="Assign"/>
+                                        </div>
+                                    </h:form>
+                                </p:column>
+                            </p:dataTable>
+                        </h:panelGrid>
+                    </h:form>
+                </h:body>
+
+
             </div>
         </ui:define>
     </ui:composition>
 </body>
 </html>
+

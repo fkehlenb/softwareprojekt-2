@@ -17,32 +17,42 @@
             <div class="ui-g-2"></div>
             <div class="ui-g-8">
 
-                <h1> EXPERIMENTIERSTATIONEN </h1>
+                <h:body style="background: url('../background.png')">
+                    <h:form style="background-color: white; margin-top: 100px; width: 650px">
+                        <h:panelGrid columns="1">
+                            <p:row>
+                                <h1 style="color: cornflowerblue">Experimentierstationen</h1>
+                            </p:row>
 
-                <p:dataTable var="station" value="#{technologeBean.getStationen()}">
-                    <p:column headerText="Id">
-                        <h:outputText value="#{station.esID}"/>
-                    </p:column>
-                    <p:column headerText="Standort">
-                        <h:outputText value="#{station.standort.ort}"/>
-                    </p:column>
-                    <p:column headerText="Status">
-                        <h:outputText value="#{station.status}"/>
-                    </p:column>
-                    <p:column headerText="Name">
-                        <h:outputText value="#{station.name}"/>
-                    </p:column>
-                    <p:column headerText="Als kaputt melden">
-                        <h:form>
-                            <div align="center">
-                                <h:commandButton action="#{technologeBean.reportBroken(station)}" value="REPORT"/>
-                            </div>
-                        </h:form>
-                    </p:column>
-                </p:dataTable>
+                            <p:dataTable var="station" value="#{technologeBean.getStationen()}">
+                                <p:column headerText="Id">
+                                    <h:outputText value="#{station.esID}"/>
+                                </p:column>
+                                <p:column headerText="Standort">
+                                    <h:outputText value="#{station.standort.ort}"/>
+                                </p:column>
+                                <p:column headerText="Status">
+                                    <h:outputText value="#{station.status}"/>
+                                </p:column>
+                                <p:column headerText="Name">
+                                    <h:outputText value="#{station.name}"/>
+                                </p:column>
+                                <p:column headerText="Als kaputt melden">
+                                    <h:form>
+                                        <div align="center">
+                                            <h:commandButton action="#{technologeBean.reportBroken(station)}" value="REPORT"/>
+                                        </div>
+                                    </h:form>
+                                </p:column>
+                            </p:dataTable>
+                        </h:panelGrid>
+                    </h:form>
+                </h:body>
+
 
             </div>
         </ui:define>
     </ui:composition>
 </body>
 </html>
+

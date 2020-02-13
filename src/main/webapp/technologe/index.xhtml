@@ -16,34 +16,40 @@
 <ui:define name="content">
     <div class="ui-g-2"></div>
     <div class="ui-g-8">
+        <h:body style="background: url('../background.png')">
+            <h:form style="background-color: white; margin-top: 100px; width: 650px">
+                <h:panelGrid columns="1">
+                    <p:row>
+                        <h1 style="color: cornflowerblue">Ihre aktuellen Aufträge</h1>
+                    </p:row>
 
-    <h1>AUFTRÄGE</h1>
-
-    <p:dataTable var="auftrag" value="#{technologeBean.getJobs()}">
-        <p:column headerText="Id">
-            <h:outputText value="#{auftrag.psID}"/>
-        </p:column>
-        <p:column headerText="Station">
-            <h:outputText value="#{auftrag.current.esID}"/>
-        </p:column>
-        <p:column headerText="Status">
-            <h:outputText value="#{auftrag.zustandsAutomat.current}"/>
-        </p:column>
-        <p:column headerText="Träger">
-            <h:outputText value="#{auftrag.traeger}"/>
-        </p:column>
-        <p:column headerText="Auswählen">
-            <h:form>
-                <div align="center">
-                    <h:commandButton value="Choose" action="#{technologeBean.singleview(auftrag)}" />
-                </div>
+                    <p:dataTable var="auftrag" value="#{technologeBean.getJobs()}">
+                        <p:column headerText="Id">
+                            <h:outputText value="#{auftrag.psID}"/>
+                        </p:column>
+                        <p:column headerText="Station">
+                            <h:outputText value="#{auftrag.current.esID}"/>
+                        </p:column>
+                        <p:column headerText="Status">
+                            <h:outputText value="#{auftrag.zustandsAutomat.current}"/>
+                        </p:column>
+                        <p:column headerText="Träger">
+                            <h:outputText value="#{auftrag.traeger}"/>
+                        </p:column>
+                        <p:column headerText="Auswählen">
+                            <h:form>
+                                <div align="center">
+                                    <h:commandButton value="Choose" action="#{technologeBean.singleview(auftrag)}" />
+                                </div>
+                            </h:form>
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGrid>
             </h:form>
-        </p:column>
-    </p:dataTable>
+        </h:body>
     </div>
-
-
 </ui:define>
 </ui:composition>
 </body>
 </html>
+
