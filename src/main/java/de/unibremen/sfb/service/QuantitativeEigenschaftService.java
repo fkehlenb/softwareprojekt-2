@@ -19,9 +19,12 @@ import java.util.List;
 @Getter
 @Slf4j
 public class QuantitativeEigenschaftService implements Serializable {
-    @Inject
-    QuantitativeEigenschaftDAO qneDAO;
 
+    /** The DAO */
+    @Inject
+    private QuantitativeEigenschaftDAO qneDAO;
+
+    /** Add a new quantitative descriptor */
     public void addQuantitativeEigenschaft(QuantitativeEigenschaft quantitativeEigenschaft) {
         try {
             log.info("Trying Persis QuantitativeEigenschaft");
@@ -31,15 +34,18 @@ public class QuantitativeEigenschaftService implements Serializable {
         }
     }
 
+    /** Get all quantitative descriptors in the database */
     public List<QuantitativeEigenschaft> getAllQuantitativeEigenschaften() {
         try {
             log.info("Trying QuantitativeEigenschaft Methode = getAll");
             return qneDAO.getAll();
         } catch (Exception e) {
+            //TODO LOG
             return null;
         }
     }
 
+    /** Remove a quantitative descriptor from the database */
     public void remove(QuantitativeEigenschaft quantitativeEigenschaft) {
         try {
             log.info("Trying QuantitativeEigenschaft Methode = remove");
@@ -49,6 +55,7 @@ public class QuantitativeEigenschaftService implements Serializable {
         }
     }
 
+    /** Edit a quantitative descriptor in the database */
     public void edit(QuantitativeEigenschaft quantitativeEigenschaft)  {
         try {
             log.info("Trying QuantitativeEigenschaft Methode = edit");
@@ -58,6 +65,7 @@ public class QuantitativeEigenschaftService implements Serializable {
         }
     }
 
+    /** Get a quantitative descriptor using its id*/
     public QuantitativeEigenschaft getQlEById(int parseInt) {
         return qneDAO.findQnEById(parseInt);
     }

@@ -68,7 +68,7 @@ public class StandortService implements Serializable {
 
     /** Find a standort based on ts location */
     public Standort findByStandort(String standort) {
-        // qFIXME Use String as ID or convert to String
+        // TODO qFIXME Use String as ID or convert to String
         return this.standorte.stream().filter(c -> c.getOrt().equals(standort)).findFirst().orElse(null);
     }
 
