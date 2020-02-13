@@ -22,12 +22,16 @@
         </ui:insert>
     </div>
 
+    <ui:include src="/template/common/hamburgerMenu.xhtml"/>
+    <div class="ui-g-2"></div>
 
-    <div class="ui-g" id="content">
+    <div class="ui-g-8" id="content">
         <ui:insert name="content">
             <ui:include src="/template/common/content.xhtml"/>
         </ui:insert>
     </div>
+
+    <div class="ui-g-2"></div>
 
     <div id="footer">
         <ui:insert name="footer">
