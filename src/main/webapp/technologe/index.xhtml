@@ -14,10 +14,34 @@
 
 
 <ui:define name="content">
+    <div class="ui-g-2"></div>
+    <div class="ui-g-8">
 
-    <p:breadCrumb>
-        <p:menuitem value="Home" url="#"/>
-    </p:breadCrumb>
+    <h1>AUFTRÄGE</h1>
+
+    <p:dataTable var="auftrag" value="#{technologeBean.getJobs()}">
+        <p:column headerText="Id">
+            <h:outputText value="#{auftrag.psID}"/>
+        </p:column>
+        <p:column headerText="Station">
+            <h:outputText value="#{auftrag.current.esID}"/>
+        </p:column>
+        <p:column headerText="Status">
+            <h:outputText value="#{auftrag.zustandsAutomat.current}"/>
+        </p:column>
+        <p:column headerText="Träger">
+            <h:outputText value="#{auftrag.traeger}"/>
+        </p:column>
+        <p:column headerText="Auswählen">
+            <h:form>
+                <div align="center">
+                    <h:commandButton value="Choose" action="#{technologeBean.singleview(auftrag)}" />
+                </div>
+            </h:form>
+        </p:column>
+    </p:dataTable>
+    </div>
+
 
 </ui:define>
 </ui:composition>
