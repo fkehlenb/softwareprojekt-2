@@ -22,8 +22,8 @@
                     <p:outputPanel>
                         <h:form>
                             <h:panelGrid columns="2" cellpadding="5">
-                                <p:outputLabel for="vorname" value="vorname:"/>
-                                <p:inputText id="vorname" value="#{qlEBean.nameQualitativeEigenschaft}"
+                                <p:outputLabel for="nameQl" value="name:"/>
+                                <p:inputText id="nameQl" value="#{qlEBean.nameQualitativeEigenschaft}"
                                              placeholder="name"/>
                                 <p:commandButton value="Reset" type="reset"/>
                                 <p:commandButton ajax="false" action="#{qlEBean.addQualitativeEigenschaft()}"

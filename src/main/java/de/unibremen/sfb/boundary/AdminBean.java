@@ -187,10 +187,8 @@ public class AdminBean implements Serializable {
         return null;
     }
 
-
     /**
      * Deletes a user using his id
-     *
      * @param idu - the user's id
      * @throws UserNotFoundException if the user couldn't be found in the database
      */
