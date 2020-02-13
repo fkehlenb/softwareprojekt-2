@@ -15,9 +15,9 @@
             </p:growl>
             <p:panelMenu>
                 <p:submenu label="Navigation" id="navigation">
-                    <p:menuitem id="Home" value="Home" icon="pi pi-home"/>
+                    <p:menuitem id="Home" value="Home" icon="pi pi-home" url="../../index.xhtml"/>
                     <p:menuitem id="Account" value="Accout" icon="pi pi-briefcase"/>
-                    <p:menuitem id="Logout" value="Logout" icon="pi pi-times"/>
+                    <p:menuitem id="Logout" value="Logout" icon="pi pi-times" url="../../login.xhtml"/>
                 </p:submenu>
             </p:panelMenu>
             <!--shiro:hasRole name="pkAdmin"-->
@@ -25,7 +25,7 @@
                 <p:submenu label="Menu" id="Menu">
 
                     <p:submenu label="Administrator Tools" id="AdminTools">
-                        <p:menuitem value="Nutzer Verwalten"/>
+                        <p:menuitem value="Nutzer Verwalten" url="../../admin/index.xhtml"/>
                         <p:menuitem value="Experimentierstationen Verwalten"/>
                         <p:menuitem value="Globale Einstellungen"/>
                         <p:menuitem value="Backup"/>

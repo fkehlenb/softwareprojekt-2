@@ -122,6 +122,7 @@ public class AdminBean implements Serializable {
         }
     }
 
+    //TODO SHOW ERROR WHEN USER COULDNT BE UPDATED OR DELETED!
     public void adminEditUser(String id) throws UserNotFoundException {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idx", id);
         User user = userService.getUserById(Integer.parseInt(id));
