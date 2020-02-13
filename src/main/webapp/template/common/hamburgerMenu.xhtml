@@ -1,0 +1,72 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:shiro="http://shiro.apache.org/tags">
+<h:head>
+    <title>hamburgerMenu</title>
+</h:head>
+<body>
+<ui:composition>
+    <div id="Hamburger" style="float: left; width: 300px; margin-left: 10px; margin-right: 20px;">
+        <h:form>
+            <p:growl>
+                <p:autoUpdate/>
+            </p:growl>
+            <p:panelMenu>
+                <p:submenu label="Navigation" id="navigation">
+                    <p:menuitem id="Home" value="Home" icon="pi pi-home"/>
+                    <p:menuitem id="Account" value="Accout" icon="pi pi-briefcase"/>
+                    <p:menuitem id="Logout" value="Logout" icon="pi pi-times"/>
+                </p:submenu>
+            </p:panelMenu>
+            <!--shiro:hasRole name="pkAdmin"-->
+            <p:panelMenu>
+                <p:submenu label="Menu" id="Menu">
+
+                    <p:submenu label="Administrator Tools" id="AdminTools">
+                        <p:menuitem value="Nutzer Verwalten"/>
+                        <p:menuitem value="Experimentierstationen Verwalten"/>
+                        <p:menuitem value="Globale Einstellungen"/>
+                        <p:menuitem value="Backup"/>
+                    </p:submenu>
+
+                    <p:submenu label="Prozesskettenplaner Tools" id="pkverwaltungsTools">
+                        <p:menuitem value="Prozessschritt Verwaltung"/>
+                        <p:menuitem value="Ablaufsverwaltung"/>
+                        <p:menuitem value="Prozessketten Verwalten"/>
+                        <p:menuitem value="Aufträge Verwalten"/>
+                        <p:menuitem value="Arbeitsauslastung"/>
+                        <p:menuitem value="JSON Export"/>
+                    </p:submenu>
+
+                    <p:submenu label="Tansport Tools" id="transportTools">
+                        <p:menuitem value="Aufträge"/>
+                        <p:menuitem value="Probenverlust Melden"/>
+                    </p:submenu>
+
+                    <p:submenu label="Logistik Tools">
+                        <p:menuitem value="Trägerübersicht"/>
+                        <p:menuitem value="Aufträgsübersicht"/>
+                        <p:menuitem value="Probenübersicht"/>
+                        <p:menuitem value="Archivübersicht"/>
+                        <p:menuitem value="Probenstandortsübericht"/>
+                    </p:submenu>
+
+                    <p:submenu label="Technologen Tools">
+                        <p:menuitem value="Meine Experimentierstationen"/>
+                        <p:menuitem value="Meine Aufträge"/>
+                        <p:menuitem value="Angekündigte Aufträge"/>
+                        <p:menuitem value="Auftragszustand"/>
+                        <p:menuitem value="Proben und Upload"/>
+                        <p:menuitem value="Kapputte Station Melden"/>
+                        <p:menuitem value="Probenverlust Melden"/>
+                    </p:submenu>
+                </p:submenu>
+            </p:panelMenu>
+            <!--/shiro:hasRole-->
+        </h:form>
+    </div>
+</ui:composition>
+</body>
+</html>

@@ -7,7 +7,6 @@ import de.unibremen.sfb.persistence.UserDAO;
 import lombok.Getter;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
 import java.io.Serializable;
 import java.util.*;
 import javax.inject.Inject;
