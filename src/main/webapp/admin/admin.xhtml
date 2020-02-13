@@ -3,121 +3,132 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
     <title>SFB - Farbige Zustände</title>
     <link rel="icon" href="../background.png"/>
 </h:head>
 
 <body>
-<h1>ERZEUG USER FORMULAR</h1>
-<p:outputPanel>
-    <h:form>
-        <h:panelGrid columns="2" cellpadding="5">
-            id:
-            <p:outputLabel id="id" value="#{adminBean.id}" />
+<ui:composition template="/template/common/layout.xhtml">
+    <ui:define name="content">
+        <div class="ui-g-2"></div>
+        <div class="ui-g-8">
+            <div>
+                <h1>ERZEUG USER FORMULAR</h1>
+                <p:outputPanel>
+                    <h:form>
+                        <h:panelGrid columns="2" cellpadding="5">
+                            id:
+                            <p:outputLabel id="id" value="#{adminBean.id}"/>
 
-            <p:outputLabel for="vorname" value="vorname:"/>
-            <p:inputText id="vorname" value="#{adminBean.vorname}" placeholder="Vorname"/>
+                            <p:outputLabel for="vorname" value="vorname:"/>
+                            <p:inputText id="vorname" value="#{adminBean.vorname}" placeholder="Vorname"/>
 
-            <p:outputLabel for="nachname" value="nachname:"/>
-            <p:inputText id="nachname" value="#{adminBean.nachname}" placeholder="Nachname"/>
+                            <p:outputLabel for="nachname" value="nachname:"/>
+                            <p:inputText id="nachname" value="#{adminBean.nachname}" placeholder="Nachname"/>
 
-            <p:outputLabel for="email" value="email:"/>
-            <p:inputText id="email" value="#{adminBean.email}" placeholder="Email">
-                <f:validateRegex
-                        pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
-            </p:inputText>
-            <p:outputLabel for="telefon" value="telefon:"/>
-            <p:inputMask id="telefon" value="#{adminBean.telefonNummer}" mask="(999) 9999-9999" placeholder="Telefon"/>
+                            <p:outputLabel for="email" value="email:"/>
+                            <p:inputText id="email" value="#{adminBean.email}" placeholder="Email">
+                                <f:validateRegex
+                                        pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
+                            </p:inputText>
+                            <p:outputLabel for="telefon" value="telefon:"/>
+                            <p:inputMask id="telefon" value="#{adminBean.telefonNummer}" mask="(999) 9999-9999"
+                                         placeholder="Telefon"/>
 
-            <p:outputLabel for="userName" value="userName: "/>
-            <p:inputText id="userName" value="#{adminBean.userName}" placeholder="User Name"/>
+                            <p:outputLabel for="userName" value="userName: "/>
+                            <p:inputText id="userName" value="#{adminBean.userName}" placeholder="User Name"/>
 
-            <p:outputLabel for="password" value="password: "/>
-            <p:inputText id="password" value="#{adminBean.password}" placeholder="password"/>
+                            <p:outputLabel for="password" value="password: "/>
+                            <p:inputText id="password" value="#{adminBean.password}" placeholder="password"/>
 
 
-            <p:selectBooleanCheckbox value="#{adminBean.TECHNOLOGER}" itemLabel="TECNOLOGER">
-                <p:ajax event="change" global="false" />
-            </p:selectBooleanCheckbox>
-            <p:selectBooleanCheckbox value="#{adminBean.ADMINTATOR}" itemLabel="ADMINTATOR"/>
-            <p:selectBooleanCheckbox value="#{adminBean.PKADMINOR}" itemLabel="PKADMINOR"/>
-            <p:selectBooleanCheckbox value="#{adminBean.LOGISTIKERKER}" itemLabel="LOGISTIKERKER"/>
-            <p:selectBooleanCheckbox value="#{adminBean.TRANSPORTER}" itemLabel="TRANSPORTER"/>
+                            <p:selectBooleanCheckbox value="#{adminBean.technologer}" itemLabel="TECNOLOGER">
+                                <p:ajax event="change" global="false"/>
+                            </p:selectBooleanCheckbox>
+                            <p:selectBooleanCheckbox value="#{adminBean.admintator}" itemLabel="ADMINTATOR"/>
+                            <p:selectBooleanCheckbox value="#{adminBean.pkadminor}" itemLabel="PKADMINOR"/>
+                            <p:selectBooleanCheckbox value="#{adminBean.logistikerker}" itemLabel="LOGISTIKERKER"/>
+                            <p:selectBooleanCheckbox value="#{adminBean.transporter}" itemLabel="TRANSPORTER"/>
+                            <br/>
+
+
+                            <h:outputText value=" wurdeVerifiziert: "/>
+                            <p:selectBooleanButton id="value1" value="#{adminBean.wurdeVerifiziert}" onLabel="Yes"
+                                                   offLabel="No"
+                                                   style="width:60px"/>
+
+                            <p:outputLabel for="@next" value="Basic:"/>
+                            <p:selectOneMenu id="console" value="#{adminBean.language}" style="width:200px">
+                                <f:selectItem itemLabel="Deutsch" itemValue="Deutsch"/>
+                                <f:selectItem itemLabel="Englisch" itemValue="Englisch"/>
+                                <f:facet name="footer">
+                                    <p:separator/>
+                                    <h:outputText value="Sprachen" style="font-weight:bold;"/>
+                                </f:facet>
+                            </p:selectOneMenu>
+
+                            <p:commandButton value="Reset" type="reset"/>
+                            <p:commandButton action="#{adminBean.addUser}" value="Spichern"/>
+                        </h:panelGrid>
+
+                    </h:form>
+                </p:outputPanel>
+            </div>
             <br/>
+            <div>
+                <h1>LISTE USERS</h1>
+                <p:dataTable id="t" var="user" value="#{adminBean.findUsers()}"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                             paginator="true" rows="5" style="margin-bottom:20px">
 
-
-            <h:outputText value=" wurdeVerifiziert: "/>
-            <p:selectBooleanButton id="value1" value="#{adminBean.wurdeVerifiziert}" onLabel="Yes" offLabel="No"
-                                   style="width:60px"/>
-
-            <p:outputLabel for="@next" value="Basic:"/>
-            <p:selectOneMenu id="console" value="#{adminBean.language}" style="width:200px">
-                <f:selectItem itemLabel="Deutsch" itemValue="Deutsch"/>
-                <f:selectItem itemLabel="Englisch" itemValue="Englisch"/>
-                <f:facet name="footer">
-                    <p:separator/>
-                    <h:outputText value="Sprachen" style="font-weight:bold;"/>
-                </f:facet>
-            </p:selectOneMenu>
-
-            <p:commandButton value="Reset" type="reset"/>
-            <p:commandButton action="#{adminBean.addUser}" value="Spichern"/>
-        </h:panelGrid>
-
-    </h:form>
-</p:outputPanel>
-<br/>
-
-
-
-<h1>LISTE USERS</h1>
-
-<p:dataTable var="user" value="#{adminBean.findUsers()}">
-    <p:column headerText="Id">
-        <h:outputText value="#{user.id}"/>
-    </p:column>
-
-    <p:column headerText="Nachname">
-        <h:outputText value="#{user.nachname}"/>
-    </p:column>
-
-    <p:column headerText="Vorname">
-        <h:outputText value="#{user.vorname}"/>
-    </p:column>
-    <p:column headerText="Email">
-        <h:outputText value="#{user.email}"/>
-    </p:column>
-    <p:column headerText="Telefonnummer">
-        <h:outputText value="#{user.telefonnummer}"/>
-    </p:column>
-    <p:column headerText="User Name">
-        <h:outputText value="#{user.username}"/>
-    </p:column>
-    <p:column headerText="WurdeVerifiziert">
-        <h:outputText value="#{user.wurdeVerifiziert}"/>
-    </p:column>
-    <p:column headerText="Sprache">
-        <h:outputText value="#{user.language}"/>
-    </p:column>
-    <p:column headerText="Remove">
-        <h:form>
-            <div align="center">
-                <h:commandButton action="#{adminBean.deleteUser(user.id)}" value="ERASE" />
+                    <p:column headerText="Id">
+                        <h:outputText value="#{user.id}"/>
+                    </p:column>
+                    <p:column headerText="Nachname">
+                        <h:outputText value="#{user.nachname}"/>
+                    </p:column>
+                    <p:column headerText="Vorname">
+                        <h:outputText value="#{user.vorname}"/>
+                    </p:column>
+                    <p:column headerText="Email">
+                        <h:outputText value="#{user.email}"/>
+                    </p:column>
+                    <p:column headerText="Telefonnummer">
+                        <h:outputText value="#{user.telefonnummer}"/>
+                    </p:column>
+                    <p:column headerText="User Name">
+                        <h:outputText value="#{user.username}"/>
+                    </p:column>
+                    <p:column headerText="WurdeVerifiziert">
+                        <h:outputText value="#{user.wurdeVerifiziert}"/>
+                    </p:column>
+                    <p:column headerText="Sprache">
+                        <h:outputText value="#{user.language}"/>
+                    </p:column>
+                    <p:column headerText="Remove">
+                        <h:form>
+                            <div align="center">
+                                <h:commandButton action="#{adminBean.deleteUser(user.id)}" value="ERASE"/>
+                            </div>
+                        </h:form>
+                    </p:column>
+                    <p:column headerText="Edit">
+                        <h:form>
+                            <div align="center">
+                                <h:commandButton action="#{adminBean.adminEditUser(user.id)}" value="EDIT"/>
+                            </div>
+                        </h:form>
+                    </p:column>
+                </p:dataTable>
             </div>
-        </h:form>
-    </p:column>
-    <p:column headerText="Edit">
-        <h:form>
-            <div align="center">
-                <h:commandButton action="#{adminBean.adminEditUser(user.id)}" value="EDIT" />
-            </div>
-        </h:form>
-    </p:column>
-</p:dataTable>
-
+        </div>
+        <div class="ui-g-2"></div>
+    </ui:define>
+</ui:composition>
 </body>
 </html>
 

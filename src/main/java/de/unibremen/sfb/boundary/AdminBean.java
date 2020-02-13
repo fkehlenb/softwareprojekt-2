@@ -1,13 +1,14 @@
-package de.unibremen.sfb.controller;
+package de.unibremen.sfb.boundary;
 
 
 import de.unibremen.sfb.exception.DuplicateUserException;
 import de.unibremen.sfb.exception.UserNotFoundException;
 import de.unibremen.sfb.model.*;
-import de.unibremen.sfb.persistence.UserDAO;
+import de.unibremen.sfb.service.UserService;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authc.credential.PasswordMatcher;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -15,10 +16,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
 import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,129 +30,107 @@ import java.util.UUID;
 @Named
 @RequestScoped
 @Slf4j
+@Setter
+@Getter
 public class AdminBean implements Serializable {
 
     /**
-     * The user managed by this bean
+     * UserService
      */
-
     @Inject
-    private UserDAO userDAO;
+    private UserService userService;
 
-    @Getter
-    @Setter
     private String vorname;
-    @Getter
-    @Setter
+
     private String nachname;
-    @Getter
-    @Setter
+
     private String id;
-    @Getter
-    @Setter
+
     private String email;
-    @Getter
-    @Setter
+
     private String telefonNummer;
-    @Getter
-    @Setter
+
     private String userName;
-    @Getter
-    @Setter
+
     private String password;
-    @Getter
-    @Setter
+
     private Boolean  wurdeVerifiziert;
-    @Getter
-    @Setter
+
     private String language;
-    @Getter
-    @Setter
-    List<Role> rol = new ArrayList<>();
-    @Getter
-    @Setter
-    private boolean TECHNOLOGER;
-    @Getter
-    @Setter
-    private boolean PKADMINOR;
-    @Getter
-    @Setter
-    private boolean TRANSPORTER;
-    @Getter
-    @Setter
-    private boolean LOGISTIKERKER;
-    @Getter
-    @Setter
-    private boolean ADMINTATOR;
+
+    private List<Role> rol = new ArrayList<>();
+
+    private List<Auftrag> auftrags = new ArrayList<>();
+
+    private boolean technologer;
+
+    private boolean pkadminor;
+
+    private boolean transporter;
+
+    private boolean logistikerker;
+
+    private boolean admintator;
+
+    /**
+     * Shiro password matcher for password encryption
+     */
+    private PasswordMatcher matcher = new PasswordMatcher();
 
     /**
      * Returns all users registered in this system
      * A set containing all users
      */
     public void addUser() throws DuplicateUserException {
-        String idOld="";
+        String  idOld="";
+
         try {
-             idOld = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idx");
+            idOld = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idx");
         }catch (Exception e){
            e.printStackTrace();
         }
-
         LocalDateTime date1=   LocalDateTime.now();
-
-        if(TECHNOLOGER) {rol.add(Role.TECHNOLOGE);
-
+        if(technologer) {rol.add(Role.TECHNOLOGE);
         }
-        if(PKADMINOR) {rol.add(Role.PKADMIN);
+        if(pkadminor) {rol.add(Role.PKADMIN);
         }
-        if(TRANSPORTER) {rol.add(Role.TRANSPORT);
+        if(transporter) {rol.add(Role.TRANSPORT);
         }
-        if(LOGISTIKERKER) {rol.add(Role.LOGISTIKER);
+        if(logistikerker) {rol.add(Role.LOGISTIKER);
         }
-        if(ADMINTATOR) {rol.add(Role.ADMIN);
+        if(admintator) {rol.add(Role.ADMIN);
         }
-        //TODO code vereinfachen
         try{
-            User b =userDAO.getUserById(Integer.parseInt(idOld));
-            b.setVorname(vorname);
-            b.setNachname(nachname);
-            b.setEmail(email);
-            b.setTelefonnummer(telefonNummer);
-            b.setUsername(userName);
-            b.setPassword(password.getBytes());
-            b.setWurdeVerifiziert(wurdeVerifiziert);
-            b.setErstellungsDatum(date1);
-            b.setRollen(rol);
-            b.setLanguage(language);
-            b.setAuftraege(new ArrayList<>());
-            userDAO.update(b);
+            User user = userService.getUserById(Integer.parseInt(idOld));
+            user.setVorname(vorname);
+            user.setNachname(nachname);
+            user.setEmail(email);
+            user.setTelefonnummer(telefonNummer);
+            user.setUsername(userName);
+            user.setPassword(matcher.getPasswordService().encryptPassword(password));
+            user.setWurdeVerifiziert(wurdeVerifiziert);
+            user.setErstellungsDatum(date1);
+            user.setRollen(rol);
+            user.setLanguage(language);
+            user.setAuftraege(new ArrayList<>());
+            userService.updateUser(user);
         }catch (Exception e){
-            User b=new User();
-            b.setId(UUID.randomUUID().hashCode());
-            b.setVorname(vorname);
-            b.setNachname(nachname);
-            b.setEmail(email);
-            b.setTelefonnummer(telefonNummer);
-            b.setUsername(userName);
-            b.setPassword(password.getBytes());
-            b.setWurdeVerifiziert(wurdeVerifiziert);
-            b.setErstellungsDatum(date1);
-            b.setRollen(rol);
-            b.setLanguage(language);
-            userDAO.persist(b);
+            User user=new User(UUID.randomUUID().hashCode(),vorname,nachname,email,telefonNummer,
+                    userName,matcher.getPasswordService().encryptPassword(password),wurdeVerifiziert,date1
+                    ,rol,auftrags,language);
+            userService.addUser(user);
         }
-
-
     }
 
     public void adminEditUser(String id) throws UserNotFoundException {
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idx",id);
-
-        User user = userDAO.getUserById(Integer.parseInt(id));
-        this.TECHNOLOGER=user.getRollen().contains(Role.TECHNOLOGE);
-        this.PKADMINOR=user.getRollen().contains(Role.PKADMIN);
-        this.TRANSPORTER=user.getRollen().contains(Role.TRANSPORT);
-        this.LOGISTIKERKER=user.getRollen().contains(Role.LOGISTIKER);
-        this.ADMINTATOR=user.getRollen().contains(Role.ADMIN);
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idx", id);
+        User user = userService.getUserById(Integer.parseInt(id));
+        this.id=id;
+        this.technologer =user.getRollen().contains(Role.TECHNOLOGE);
+        this.pkadminor =user.getRollen().contains(Role.PKADMIN);
+        this.transporter =user.getRollen().contains(Role.TRANSPORT);
+        this.logistikerker =user.getRollen().contains(Role.LOGISTIKER);
+        this.admintator =user.getRollen().contains(Role.ADMIN);
         this.vorname=user.getVorname();
         this.nachname=user.getNachname();
         this.email=user.getEmail();
@@ -166,15 +142,14 @@ public class AdminBean implements Serializable {
     }
 
 
-
     /**
      * edits a user that already exists
-     *  user the user to be edited
+     * user the user to be edited
      */
     public List<User> findUsers() throws UserNotFoundException {
         try {
-            return userDAO.getAll();
-        }catch(Exception e){
+            return userService.getAll();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -182,16 +157,16 @@ public class AdminBean implements Serializable {
 
 
     /**
-     * deletes a user from the system
-     *  the user to be deleted
+     * Deletes a user using his id
+     *
+     * @param idu - the user's id
+     * @throws UserNotFoundException if the user couldn't be found in the database
      */
-    public void deleteUser(String idu)  {
+    public void deleteUser(String idu) throws UserNotFoundException {
         int idUser = Integer.parseInt(idu);
         try {
-
-            userDAO.remove(userDAO.getUserById(idUser));
-        }
-        catch (Exception e){
+            userService.removeUser(userService.getUserById(idUser));
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -199,9 +174,12 @@ public class AdminBean implements Serializable {
 
     /**
      * adds a carrier type
+     *
      * @param ta the new carrier type
      */
-    public void addTraegerArt(TraegerArt ta) {}
+    public void addTraegerArt(TraegerArt ta) {
+
+    }
 
     /**
      * edits a carrier type
@@ -249,27 +227,27 @@ public class AdminBean implements Serializable {
      * returns all experimentation stations existing
      * @return a set containing all stations
      */
-    public Set<ExperimentierStation> getES()  { return null; }
+    public Set<ExperimentierStation> getES() {
+        return null;
+    }
 
     /**
      * edits the time of a job
+     *
      * @param a the job
      */
-    public void editAuftragTime(Auftrag a) {}
+    public void editAuftragTime(Auftrag a) {
+    }
 
     /**
      * backs the system up
      */
-    public  void backup() throws SQLException {
+    public void backup() throws SQLException {
         log.info("Trying to connect with DB");
         String sqlFilePath = "./Backup" + LocalDateTime.now().toString();
-        Connection conn = DriverManager.getConnection("jdbc:h2:./swp2", "swp", "swp");
-        log.info("Connected to " + conn.toString());
-        Statement stmt = conn.createStatement();
-        log.info("Executing: SCRIPT TO " + sqlFilePath);
-        stmt.executeQuery(String.format("SCRIPT TO '%s'", sqlFilePath));
-    }
+        //em.createNativeQuery(String.format("SCRIPT TO '%s'", sqlFilePath)).executeUpdate();
 
+    }
     /**
      * the emtpy constructor
      */

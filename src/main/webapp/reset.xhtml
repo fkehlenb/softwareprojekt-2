@@ -13,9 +13,9 @@
 <body background="background.png">
 <ui:include src="/template/common/header.xhtml"/>
 <div style="margin-left: 200px; margin-top: 80px; margin-bottom: 50px; box-shadow: black; margin-right: 200px">
-    <p:messages id="msgs" showDetail="false" closable="true" style="width: auto">
+    <p:growl id="growl" showDetail="true" sticky="true">
         <p:autoUpdate/>
-    </p:messages>
+    </p:growl>
     <h:form id="form">
         <p:panelGrid>
             <p:row>

@@ -19,15 +19,15 @@ class ProbeTest {
 
     // Create Jsonb with custom configuration
     Jsonb jsonb = JsonbBuilder.create(config);;
-    List proben = new ArrayList();
-    Set eigenschaften = new HashSet<QualitativeEigenschaft>();
+    List<Probe> proben = new ArrayList();
+    List<QualitativeEigenschaft> eigenschaften = new ArrayList();
 
     @BeforeEach
     void setUp() {
 
         Probe erste = new Probe();
         Standort a = new  Standort(UUID.randomUUID().hashCode(), "Hier");
-        erste.setProbenID(14);
+        erste.setProbenID("14");
         erste.setStandort(a);
         erste.setKommentar(new Kommentar(LocalDateTime.now(), "Hallo Welt"));
         eigenschaften.add(new QualitativeEigenschaft("getestet"));

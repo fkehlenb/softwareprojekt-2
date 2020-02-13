@@ -1,5 +1,6 @@
 package de.unibremen.sfb.model;
 
+import org.apache.shiro.authc.credential.PasswordMatcher;
 import org.apache.shiro.crypto.hash.Hash;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,7 +40,8 @@ class AuftragsTest {
         tUser.setTelefonnummer("+49 112");
         tUser.setUsername("kev");
         var pw = "12345678";
-        tUser.setPassword(pw.getBytes());
+        PasswordMatcher matcher = new PasswordMatcher();
+        tUser.setPassword(matcher.getPasswordService().encryptPassword(pw));
         tUser.setWurdeVerifiziert(false);
         tUser.setErstellungsDatum(LocalDateTime.now());
         a.add(Role.TRANSPORT);

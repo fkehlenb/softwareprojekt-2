@@ -2,13 +2,14 @@ package de.unibremen.sfb.controller;
 
 import de.unibremen.sfb.model.*;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * this class manages the interaction with models of assignments (Auftraege)
  */
 public class AuftragController {
 
+    /** The current job */
     public Auftrag auftrag;
 
     /**
@@ -16,21 +17,27 @@ public class AuftragController {
      *
      * @return the ID
      */
-    public int getID() { return 0; }
+    public int getID() {
+        return auftrag.getPkID();
+    }
 
     /**
      * return the ProzessKettenVorlage which was used to instantiate this Auftrag
      *
      * @return the ProzessKettenVorlage
      */
-    public ProzessKettenVorlage getPKV() { return null; }
+    public ProzessKettenVorlage getPKV() {
+        return auftrag.getVorlage();
+    }
 
     /**
      * return the protocol of this Auftrag that was created thus far
      *
      * @return the protocol
      */
-    public AuftragsLog getLog() { return null; }
+    public AuftragsLog getLog() {
+        return auftrag.getLog();
+    }
 
 
     /**
@@ -38,7 +45,9 @@ public class AuftragController {
      *
      * @param al the new protocol
      */
-    public void setLog(AuftragsLog al) { }
+    public void setLog(AuftragsLog al) {
+        auftrag.setLog(al);
+    }
 
     /**
      * returns the current Zustand (state) of this Auftrag
@@ -46,29 +55,39 @@ public class AuftragController {
      *                  Abgebrochen (canceled), Durchgeführt (carried out)
      * @return the current Zustand
      */
-    public ProzessKettenZustandsAutomat getPKZ() { return null; }
+    public Enum<ProzessKettenZustandsAutomat> getPKZ() {
+        return auftrag.getProzessKettenZustandsAutomat();
+    }
 
     /**
      * sets the current Zustand (state) of this Auftrag
      * possible values: Instanziiert (instantiated), Freigegeben (enabled), Gestartet (started),
      *                  Abgebrochen (canceled), Durchgeführt (carried out)
      */
-    public void setPKZ() {}
+    public void setPKZ(Enum<ProzessKettenZustandsAutomat> pkz) {
+        auftrag.setProzessKettenZustandsAutomat(pkz);
+    }
 
     /**
      * returns the current Prioritaet (priority) of this Auftrag
      * @return the current Prioritaet
      */
-    public AuftragsPrioritaet getPrio() { return null; }
+    public Enum<AuftragsPrioritaet> getPrio() {
+        return auftrag.getPriority();
+    }
 
     /**
      * sets the current Priorität (priority) of this Auftrag
      */
-    public void setPrio() {}
+    public void setPrio(Enum<AuftragsPrioritaet> prio) {
+        auftrag.setPriority(prio);
+    }
 
     /**
      * returns the ProzessSchritte which the Auftrag consists of
      * @return a Set containing all ProzessSchritt
      */
-    public Set<ProzessSchritt> getPS() { return null; }
+    public List<ProzessSchritt> getPS() {
+        return auftrag.getProzessSchritte();
+    }
 }

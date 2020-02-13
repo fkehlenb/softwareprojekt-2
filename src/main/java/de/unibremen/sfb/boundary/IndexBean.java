@@ -1,4 +1,4 @@
-package de.unibremen.sfb.controller;
+package de.unibremen.sfb.boundary;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;

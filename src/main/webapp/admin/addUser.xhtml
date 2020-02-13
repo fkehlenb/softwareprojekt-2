@@ -28,7 +28,7 @@
                 <p:inputMask id="telefon" value="#{adminBean.telefonNummer}" mask="********"/>
 
                 <p:outputLabel for="userName" value="userName: "/>
-                <p:inputMask id="userName" value="#{adminBean.userName}" mask="********"/>
+                <p:inputMask id="userName" value="#{adminBean.username}" mask="********"/>
 
                 <p:outputLabel for="wurdeVerifiziert" value="wurdeVerifiziert: "/>
                 <p:inputMask id="wurdeVerifiziert" value="#{adminBean.wurdeVerifiziert}" mask="true"/>
@@ -59,7 +59,7 @@
 
 
                     <h:outputText value="userName: "/>
-                    <h:outputText id="userNameValue" value="#{adminBean.userName}"/>
+                    <h:outputText id="userNameValue" value="#{adminBean.username}"/>
 
                     <h:outputText value="wurdeVerifiziert: "/>
                     <h:outputText id="wurdeVerifiziertValue" value="#{adminBean.wurdeVerifiziert}"/>

@@ -19,26 +19,34 @@ public class ArchivController {
      *
      * @param a The new Auftrag
      */
-    public void setAuftrag(Auftrag a) {}
+    public void setAuftrag(Auftrag a) {
+        archiv.setAuftrag(a);
+    }
 
     /**
      * returns the Auftrag which is archived with this archive
      *
      * @return the Auftrag
      */
-    public Auftrag getAuftrag() { return null; }
+    public Auftrag getAuftrag() {
+        return archiv.getAuftrag();
+    }
 
     /**
      * Sets the time at which the Auftrag was archived
      *
      * @param d the new timestamp
      */
-    public void setDatum(LocalDateTime d) {}
+    public void setDatum(LocalDateTime d) {
+        archiv.setDatum(d);
+    }
 
     /**
      * Returns the time at which the Auftrag was archived
      *
      * @return The timestamp
      */
-    public LocalDateTime getDatum() { return null; }
+    public LocalDateTime getDatum() {
+        return archiv.getDatum();
+    }
 }

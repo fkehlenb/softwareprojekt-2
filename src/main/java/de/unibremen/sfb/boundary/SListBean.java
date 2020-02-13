@@ -6,7 +6,9 @@ import de.unibremen.sfb.persistence.StandortDAO;
 import de.unibremen.sfb.service.StandortService;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.XSlf4j;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -38,11 +40,13 @@ public class SListBean implements Serializable {
         standorte = standortDAO.getAll();
     }
 
+
+
     public void deleteStandorte() {
         for (Standort s :
                 selectedStandorte) {
             log.info("Loesche Standort " + s.getOrt());
-            this.standortService.löscheStandort(s);
+            this.standortService.loescheStandort(s);
             try {
                 standortDAO.remove(s);
             } catch (StandortNotFoundException e) {
@@ -57,4 +61,11 @@ public class SListBean implements Serializable {
         }
         standorte = standortDAO.getAll();
     }
+
+
+
+    public void onCellEdit() {
+
+    }
+
 }
