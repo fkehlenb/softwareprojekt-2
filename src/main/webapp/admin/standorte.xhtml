@@ -73,7 +73,7 @@
 
                         <p:column headerText="Brand">
                             <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{standort.}" /></f:facet>
+                                <f:facet name="output"><h:outputText value="#{standort.ort}" /></f:facet>
                                 <f:facet name="input">
                                     <h:selectOneMenu value="#{standort}" style="width:100%">
                                         <f:selectItems value="#{dtEditView.standorte}" var="man" itemLabel="#{man}" itemValue="#{man}" />
