@@ -40,7 +40,7 @@ public class PspBean implements Serializable {
 
 
 
-    public String creationLink() throws DuplicateProzessSchrittParameterException {
+    public String creationLink() {
         return "pSCreation?faces-redirect=true";
     }
 
@@ -58,6 +58,7 @@ public class PspBean implements Serializable {
         } catch (Exception e) {
             log.info("Fail to persist der ProzzesSchritt");
             return "Not posible Creation";
+
         }
     }
 
@@ -69,9 +70,9 @@ public class PspBean implements Serializable {
 
     public List<QualitativeEigenschaft> qlEGewahlt() {
         try {
-            List<QualitativeEigenschaft> qualitativeEigenschafts = (List<QualitativeEigenschaft>) FacesContext.getCurrentInstance().
+            return (List<QualitativeEigenschaft>) FacesContext.getCurrentInstance().
                     getExternalContext().getSessionMap().get("qualitativeEigenschaftList");
-            return qualitativeEigenschafts;
+
         } catch (Exception e) {
             return null;
         }
