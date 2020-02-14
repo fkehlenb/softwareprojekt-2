@@ -40,22 +40,19 @@ public class PspBean implements Serializable {
     List<QualitativeEigenschaft> qualitativeEigenschafts = new ArrayList<>();
 
 
-
     public String creationLink() {
         return "pSCreation?faces-redirect=true";
     }
 
     public String add() {
         try {
-            List<QualitativeEigenschaft> qualitativeEigenschafts = (List<QualitativeEigenschaft>) FacesContext.getCurrentInstance().
-                    getExternalContext().getSessionMap().get("qualitativeEigenschaftList");
             ProzessSchrittParameter prozessSchrittParameter = new ProzessSchrittParameter();
             prozessSchrittParameter.setId(UUID.randomUUID().hashCode());
             prozessSchrittParameter.setName(name);
             prozessSchrittParameter.setQualitativeEigenschaften(qualitativeEigenschafts);
             prozessSchrittParameterService.addProcessSP(prozessSchrittParameter);
             log.info("Trying to persist der ProzzesSchritt"+prozessSchrittParameter.getName());
-            resetVariables();
+
             return "pS?faces-redirect=true";
         } catch (Exception e) {
             log.info("Fail to persist der ProzzesSchritt");
@@ -65,19 +62,12 @@ public class PspBean implements Serializable {
     }
 
     public void select(String idqE) {
-
         qualitativeEigenschafts.add(qualitativeEigenschaftService.getQlEById(Integer.parseInt(idqE)));
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("qualitativeEigenschaftList",qualitativeEigenschafts);
     }
-    public void resetVariables(){
-        List<QualitativeEigenschaft> qualitativeEigenschafts = new ArrayList<>();
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("qualitativeEigenschaftList",qualitativeEigenschafts);
-    }
+
     public List<QualitativeEigenschaft> qlEGewahlt() {
         try {
-            return (List<QualitativeEigenschaft>) FacesContext.getCurrentInstance().
-                    getExternalContext().getSessionMap().get("qualitativeEigenschaftList");
-
+           return qualitativeEigenschafts;
         } catch (Exception e) {
             return null;
         }
