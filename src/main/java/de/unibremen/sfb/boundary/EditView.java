@@ -32,6 +32,9 @@ public class EditView implements Serializable {
     private List<Standort> standorte;
 
     @Inject
+    private StandortService standortService;
+
+    @Inject
     private StandortDAO standortDAO;
 
     @PostConstruct
@@ -40,29 +43,28 @@ public class EditView implements Serializable {
     }
 
     public List<Standort> getStandorte() {
-        standorte= standortDAO.getAll();
-        return standorte;
+        return standortDAO.getAll();
     }
 
 
 
     public void onRowEdit(RowEditEvent event) {
-        Standort s = null;
-
-        try {
-            s = (Standort) event.getObject();
-            standortDAO.persist(s);
-        } catch (Exception e) {
-                log.error("Not correct Type");
-        }
-        FacesMessage msg = new FacesMessage("Standort Edited", s.getOrt());
+//                Standort s = standortService.findById(((Standort) event.getOldValue()).getId());
+//
+//        try {
+//            s.setOrt(event.getNewValue());
+//            standortDAO.update(s);
+//        } catch (Exception e) {
+//            log.error("Not correct Type");
+//        }
+        FacesMessage msg = new FacesMessage("Standort Edited", event.getObject().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
 
 
     public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Edit Cancelled", event.getObject().toString()); // potentiel fix me id
+        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Standort) event.getObject()).getOrt());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
@@ -70,14 +72,7 @@ public class EditView implements Serializable {
         Object oldValue = event.getOldValue();
         Object newValue = event.getNewValue();
 
-
-        if (newValue != null && !newValue.equals(oldValue)) {
-            try {
-                standortDAO.persist( (Standort) newValue);
-            } catch (DuplicateStandortException e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Standort konnte nicht gespeichert werden", null));
-                e.printStackTrace();
-            }
+        if(newValue != null && !newValue.equals(oldValue)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }

@@ -10,87 +10,61 @@
     <ui:composition template="/template/common/layout.xhtml">
         <ui:define name="content">
             <div class="ui-g-8">
-                <h1 style="text-align: center">Standorte</h1>
+            <h1 style="text-align: center">Standorte</h1>
 
-                <style type="text/css">
-                    .ui-row-editor .ui-row-editor-pencil {
-                        margin-left:8px;
-                    }
-                </style>
+            <style type="text/css">
+                .ui-row-editor .ui-row-editor-pencil {
+                    margin-left: 8px;
+                }
+            </style>
+
+            <style type="text/css">
+                .ui-row-editor .ui-row-editor-pencil {
+                    margin-left: 8px;
+                }
+            </style>
 
 
-                <h:form id="form">
-                    <p:growl id="msgs" showDetail="true"/>
+            <h:form id="form">
+                <p:growl id="msgs" showDetail="true"/>
 
-                    <p:dataTable id="standorts1" var="standort" value="#{dtEditView.standorte}" editable="true" style="margin-bottom:20px">
-                        <f:facet name="header">
-                            Row Editing
-                        </f:facet>
+                <p:dataTable id="standorte"
+                             var="standort"
+                             value="#{dtEditView.standorte}"
+                             paginator="true"
+                             editable="true"
+                             editMode="cell" widgetVar="cellStandorte"
+                             rowEditListener="#{dtEditView.rowEditListener}">
+                    <f:facet name="header">
+                        Cell Editing with Click and RightClick
+                    </f:facet>
 
-                        <p:ajax event="rowEdit" listener="#{dtEditView.onRowEdit}" update=":form:msgs" />
-                        <p:ajax event="rowEditCancel" listener="#{dtEditView.onRowCancel}" update=":form:msgs" />
+                    <p:ajax event="cellEdit" listener="#{dtEditView.onCellEdit}" update=":form:msgs"/>
 
-                        <p:column headerText="Id">
-                            <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{standort.id}" /></f:facet>
-                                <f:facet name="input"><p:inputText id="modelInput" value="#{standort.id}" style="width:100%"/></f:facet>
-                            </p:cellEditor>
-                        </p:column>
+                    <p:column headerText="Id">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{standort.id}"/></f:facet>
+                            <f:facet name="input"><p:inputText id="modelInput" value="#{standort.id}"
+                                                               style="width:96%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
 
-                        <p:column headerText="Year">
-                            <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{standort.ort}" /></f:facet>
-                                <f:facet name="input"><p:inputText value="#{standort.ort}" style="width:100%" label="Year"/></f:facet>
-                            </p:cellEditor>
-                        </p:column>
-                        x
-                        <p:column style="width:35px">
-                            <p:rowEditor />
-                        </p:column>
-                    </p:dataTable>
+                    <p:column headerText="Year">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{standort.ort}"/></f:facet>
+                            <f:facet name="input"><p:inputText value="#{standort.ort}" style="width:96%" label="Year"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                <p:contextMenu for="standorte" widgetVar="cMenu">
+                    <p:menuitem value="Edit Cell" icon="pi pi-search"
+                                onclick="PF('cellStandorte').showCellEditor();return false;"/>
+                    <p:menuitem value="Hide Menu" icon="pi pi-times" onclick="PF('cMenu').hide()"/>
+                </p:contextMenu>
 
-                    <p:dataTable id="standorts2" var="standort" value="#{dtEditView.standorte}" editable="true" editMode="cell" widgetVar="cellStandorts">
-                        <f:facet name="header">
-                            Cell Editing with Click and RightClick
-                        </f:facet>
-
-                        <p:ajax event="cellEdit" listener="#{dtEditView.onCellEdit}" update=":form:msgs" />
-
-                        <p:column headerText="Id">
-                            <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{standort.id}" /></f:facet>
-                                <f:facet name="input"><p:inputText id="modelInput" value="#{standort.id}" style="width:96%"/></f:facet>
-                            </p:cellEditor>
-                        </p:column>
-
-                        <p:column headerText="Year">
-                            <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{standort.ort}" /></f:facet>
-                                <f:facet name="input"><p:inputText value="#{standort.ort}" style="width:96%" label="Year"/></f:facet>
-                            </p:cellEditor>
-                        </p:column>
-
-                        <p:column headerText="Brand">
-                            <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{standort.ort}" /></f:facet>
-                                <f:facet name="input">
-                                    <h:selectOneMenu value="#{standort}" style="width:100%">
-                                        <f:selectItems value="#{dtEditView.standorte}" var="man" itemLabel="#{man}" itemValue="#{man}" />
-                                    </h:selectOneMenu>
-                                </f:facet>
-                            </p:cellEditor>
-                        </p:column>
-
-                    </p:dataTable>
-
-                    <p:contextMenu for="standorts2" widgetVar="cMenu">
-                        <p:menuitem value="Edit Cell" icon="pi pi-search" onclick="PF('cellStandorts').showCellEditor();return false;"/>
-                        <p:menuitem value="Hide Menu" icon="pi pi-times" onclick="PF('cMenu').hide()"/>
-                    </p:contextMenu>
-                </h:form>
-
+                </p:dataTable>
+            </h:form>
             </div>
-            <div class="ui-g-2"></div>
+
         </ui:define>
     </ui:composition>
 </h:body>

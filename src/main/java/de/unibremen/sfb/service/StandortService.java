@@ -3,6 +3,7 @@ package de.unibremen.sfb.service;
 import de.unibremen.sfb.model.Standort;
 import de.unibremen.sfb.persistence.StandortDAO;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -15,8 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Singleton
-@Named
+@Setter
 public class StandortService implements Serializable {
 
     /** The dao for the locations */
@@ -67,11 +67,14 @@ public class StandortService implements Serializable {
     }
 
     /** Find a standort based on ts location */
-    public Standort findByStandort(String standort) {
+    public Standort findByLocation(String standort) {
         // TODO qFIXME Use String as ID or convert to String
         return this.standorte.stream().filter(c -> c.getOrt().equals(standort)).findFirst().orElse(null);
     }
-
+    public Standort findById(int Id) {
+        // TODO qFIXME Use String as ID or convert to String
+        return this.standorte.stream().filter(c -> c.getId() == (Id)).findFirst().orElse(null);
+    }
     /**
      * Adds a new SEVERITY_ERROR FacesMessage for the ui
      * @param message Error Message

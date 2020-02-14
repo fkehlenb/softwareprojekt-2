@@ -38,6 +38,6 @@ public class StandortConverter implements Converter<Standort> {
         if (value == null || value.isEmpty()) {
             return null;
         }
-        return standortService.findByStandort(value);
+        return standortService.findByLocation(value);
     }
 }
