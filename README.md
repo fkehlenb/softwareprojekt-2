@@ -1,4 +1,11 @@
 # Softwareprojekt-2
+Leo: Admin und 'Persistence
+Aaron: Technologe
+Stantiago / Liam : PkAdmin
+Samuel: Transport
+Fabian: Logistiker
+
+
 <h5> Website can be found under http://127.0.0.1:8080/Softwareprojekt2-1.0-SNAPSHOT/ <h5>
 
 <h1>==========Change Log==========</h1>
