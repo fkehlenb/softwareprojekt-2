@@ -40,37 +40,85 @@ public class AdminBean implements Serializable {
     @Inject
     private UserService userService;
 
+    /**
+     * The user's name
+     */
     private String vorname;
 
+    /**
+     * The user's surname
+     */
     private String nachname;
 
+    /**
+     * The user's id
+     */
     private String id;
 
+    /**
+     * The user's email address
+     */
     private String email;
 
+    /**
+     * The user's phone number
+     */
     private String telefonNummer;
 
+    /**
+     * The user's username
+     */
     private String userName;
 
+    /**
+     * The user's password
+     */
     private String password;
 
-    private Boolean  wurdeVerifiziert;
+    /**
+     * Whether the user is verified or not
+     */
+    private Boolean wurdeVerifiziert;
 
+    /**
+     * The user's language
+     */
     private String language;
 
-    private List<Role> rol = new ArrayList<>();
+    /**
+     * The roles the user has in the system
+     */
+    private List<Role> rollen = new ArrayList<>();
 
+    /**
+     * The jobs the user has in the system
+     */
     private List<Auftrag> auftrags = new ArrayList<>();
 
-    private boolean technologer;
+    /**
+     * If the user is a technologe
+     */
+    private boolean technologe;
 
-    private boolean pkadminor;
+    /**
+     * If the user is a process chain admin
+     */
+    private boolean pkAdministrator;
 
+    /**
+     * If the user is a transporter
+     */
     private boolean transporter;
 
-    private boolean logistikerker;
+    /**
+     * If the user is a logistiker
+     */
+    private boolean logistiker;
 
-    private boolean admintator;
+    /**
+     * If the user is an administrator
+     */
+    private boolean administrator;
 
     /**
      * Shiro password matcher for password encryption
@@ -82,9 +130,9 @@ public class AdminBean implements Serializable {
      * A set containing all users
      */
     public void addUser() throws DuplicateUserException {
-        LocalDateTime date1=   LocalDateTime.now();
+        LocalDateTime date1 = LocalDateTime.now();
         builtRollenList();
-        try{
+        try {
             String idOld = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idx");
             User user = userService.getUserById(Integer.parseInt(idOld));
             user.setVorname(vorname);
@@ -95,17 +143,17 @@ public class AdminBean implements Serializable {
             user.setPassword(matcher.getPasswordService().encryptPassword(password));
             user.setWurdeVerifiziert(wurdeVerifiziert);
             user.setErstellungsDatum(date1);
-            user.setRollen(rol);
+            user.setRollen(rollen);
             user.setLanguage(language);
             user.setAuftraege(new ArrayList<>());
             userService.updateUser(user);
-            String id="";
+            String id = "";
 
             resetVariables();
-        }catch (Exception e){
-            User user=new User(UUID.randomUUID().hashCode(),vorname,nachname,email,telefonNummer,
-                    userName,matcher.getPasswordService().encryptPassword(password),wurdeVerifiziert,date1
-                    ,rol,auftrags,language);
+        } catch (Exception e) {
+            User user = new User(UUID.randomUUID().hashCode(), vorname, nachname, email, telefonNummer,
+                    userName, matcher.getPasswordService().encryptPassword(password), wurdeVerifiziert, date1
+                    , rollen, auftrags, language);
             userService.addUser(user);
             resetVariables();
         }
@@ -115,41 +163,42 @@ public class AdminBean implements Serializable {
     public void adminEditUser(String id) throws UserNotFoundException {
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idx", id);
         User user = userService.getUserById(Integer.parseInt(id));
-        this.id=id;
-        this.technologer =user.getRollen().contains(Role.TECHNOLOGE);
-        this.pkadminor =user.getRollen().contains(Role.PKADMIN);
-        this.transporter =user.getRollen().contains(Role.TRANSPORT);
-        this.logistikerker =user.getRollen().contains(Role.LOGISTIKER);
-        this.admintator =user.getRollen().contains(Role.ADMIN);
-        this.vorname=user.getVorname();
-        this.nachname=user.getNachname();
-        this.email=user.getEmail();
-        this.telefonNummer=user.getTelefonnummer();
-        this.userName=user.getUsername();
-        this.password=new String(user.getPassword());
+        this.id = id;
+        this.technologe = user.getRollen().contains(Role.TECHNOLOGE);
+        this.pkAdministrator = user.getRollen().contains(Role.PKADMIN);
+        this.transporter = user.getRollen().contains(Role.TRANSPORT);
+        this.logistiker = user.getRollen().contains(Role.LOGISTIKER);
+        this.administrator = user.getRollen().contains(Role.ADMIN);
+        this.vorname = user.getVorname();
+        this.nachname = user.getNachname();
+        this.email = user.getEmail();
+        this.telefonNummer = user.getTelefonnummer();
+        this.userName = user.getUsername();
+        this.password = new String(user.getPassword());
         this.wurdeVerifiziert = user.isWurdeVerifiziert();
         this.language = user.getLanguage();
     }
+
     /**
      * resetVariables in the Frontend when a new user is added
      */
-    public void resetVariables(){
-        this.technologer=false;
-        this.pkadminor=false;
-        this.transporter=false;
-        this.logistikerker=false;
-        this.admintator=false;
-        this.id=null;
-        this.vorname=null;
-        this.nachname=null;
-        this.email=null;
-        this.telefonNummer=null;
-        this.userName=null;
-        this.password=null;
-        this.wurdeVerifiziert=false;
-        this.rol=null;
-        this.auftrags=null;
-        this.language=null;
+    public void resetVariables() {
+        this.technologe = false;
+        this.pkAdministrator = false;
+        this.transporter = false;
+        this.logistiker = false;
+        this.administrator = false;
+        this.id = null;
+        this.vorname = null;
+        this.nachname = null;
+        this.email = null;
+        this.telefonNummer = null;
+        this.userName = null;
+        this.password = null;
+        this.wurdeVerifiziert = false;
+        this.rollen = null;
+        this.auftrags = null;
+        this.language = null;
         //Control Variable for the Process -> Edit -> Add User
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idx", id);
     }
@@ -157,23 +206,24 @@ public class AdminBean implements Serializable {
     /**
      * Help method for the List Roles to built
      */
-    public void builtRollenList(){
-        if(technologer) {
-            rol.add(Role.TECHNOLOGE);
+    public void builtRollenList() {
+        if (technologe) {
+            rollen.add(Role.TECHNOLOGE);
         }
-        if(pkadminor) {
-            rol.add(Role.PKADMIN);
+        if (pkAdministrator) {
+            rollen.add(Role.PKADMIN);
         }
-        if(transporter) {
-            rol.add(Role.TRANSPORT);
+        if (transporter) {
+            rollen.add(Role.TRANSPORT);
         }
-        if(logistikerker) {
-            rol.add(Role.LOGISTIKER);
+        if (logistiker) {
+            rollen.add(Role.LOGISTIKER);
         }
-        if(admintator) {
-            rol.add(Role.ADMIN);
+        if (administrator) {
+            rollen.add(Role.ADMIN);
         }
     }
+
     /**
      * edits a user that already exists
      * user the user to be edited
@@ -186,7 +236,6 @@ public class AdminBean implements Serializable {
         }
         return null;
     }
-
 
     /**
      * Deletes a user using his id
@@ -215,48 +264,62 @@ public class AdminBean implements Serializable {
 
     /**
      * edits a carrier type
+     *
      * @param ta the carrier type to be edited
      */
-    public void editTraegerArt(TraegerArt ta) {}
+    public void editTraegerArt(TraegerArt ta) {
+    }
 
     /**
      * deletes a carrier type
+     *
      * @param ta the carrier type to be deleted
      */
-    public void deleteTraegerArt(TraegerArt ta) {}
+    public void deleteTraegerArt(TraegerArt ta) {
+    }
 
     /**
      * adds a new experimentation station
+     *
      * @param es the new station
      */
-    public void addStation(ExperimentierStation es) {}
+    public void addStation(ExperimentierStation es) {
+    }
 
     /**
      * edits a experimentation station that already exists
+     *
      * @param es the station to be edited
      */
-    public void editStation(ExperimentierStation es) {}
+    public void editStation(ExperimentierStation es) {
+    }
 
     /**
      * deletes a station
+     *
      * @param es the station to be edited
      */
-    public void deleteStation(ExperimentierStation es) {}
+    public void deleteStation(ExperimentierStation es) {
+    }
 
     /**
      * assigns a user to a station
+     *
      * @param us the user
      * @param es the station
      */
-    public void userToStation(User us, ExperimentierStation es) {}
+    public void userToStation(User us, ExperimentierStation es) {
+    }
 
     /**
      * generates a regestration mail that is supposed to be sent out to new users
      */
-    public void generateRegestrationMail()  {}
+    public void generateRegestrationMail() {
+    }
 
     /**
      * returns all experimentation stations existing
+     *
      * @return a set containing all stations
      */
     public Set<ExperimentierStation> getES() {
@@ -280,9 +343,11 @@ public class AdminBean implements Serializable {
         //em.createNativeQuery(String.format("SCRIPT TO '%s'", sqlFilePath)).executeUpdate();
 
     }
+
     /**
      * the emtpy constructor
      */
-    public AdminBean() {}
+    public AdminBean() {
+    }
 
 }

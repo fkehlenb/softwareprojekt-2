@@ -1,7 +1,6 @@
 package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.exception.DuplicateQualitativeEigenschaftException;
-import de.unibremen.sfb.exception.QualitativeEigenschaftNotFoundException;
 import de.unibremen.sfb.model.QualitativeEigenschaft;
 import de.unibremen.sfb.model.QuantitativeEigenschaft;
 import de.unibremen.sfb.service.QualitativeEigenschaftService;
@@ -83,15 +82,23 @@ public class QlEBean implements Serializable {
             quantitativeEigenschaft.setName(nameQuantitativeEigenschaft);
             quantitativeEigenschaft.setWert(Integer.parseInt(numberQuantitativeEigenschaft));
             quantitativeEigenschaftService.edit(quantitativeEigenschaft);
-        }catch (Exception e){
+        } catch (Exception e) {
             QuantitativeEigenschaft quantitativeEigenschaft = new QuantitativeEigenschaft();
             quantitativeEigenschaft.setName(nameQuantitativeEigenschaft);
             quantitativeEigenschaft.setId(UUID.randomUUID().hashCode());
             quantitativeEigenschaft.setWert(Integer.parseInt(numberQuantitativeEigenschaft));
             quantitativeEigenschaftService.addQuantitativeEigenschaft(quantitativeEigenschaft);
         }
-        nameQuantitativeEigenschaft=null;
-        numberQuantitativeEigenschaft=null;
+        resetvariables();
+    }
+
+    public void resetvariables() {
+        nameQualitativeEigenschaft = null;
+        nameQuantitativeEigenschaft = null;
+        numberQuantitativeEigenschaft = null;
+        //Control Vairablle
+        String IdQnE = "";
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("IdQnE", IdQnE);
     }
 
     public List<QuantitativeEigenschaft> findAllQuan() {

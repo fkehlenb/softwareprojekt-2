@@ -2,15 +2,17 @@ package de.unibremen.sfb.model;
 
 import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import java.util.List;
 
 /** The process chain step parameter's data class  */
 @Getter
 @Setter
 @Entity
-@NoArgsConstructor()
-@RequiredArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 public class ProzessSchrittParameter {
 
     @Id
