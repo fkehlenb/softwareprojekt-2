@@ -48,7 +48,7 @@ public class EditView implements Serializable {
 
 
 
-    public void onRowEdit(RowEditEvent event) {
+    public void onRowEdit(RowEditEvent<Standort> event) {
 //                Standort s = standortService.findById(((Standort) event.getOldValue()).getId());
 //
 //        try {
@@ -63,7 +63,7 @@ public class EditView implements Serializable {
 
 
 
-    public void onRowCancel(RowEditEvent event) {
+    public void onRowCancel(RowEditEvent<Standort> event) {
         FacesMessage msg = new FacesMessage("Edit Cancelled", ((Standort) event.getObject()).getOrt());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
