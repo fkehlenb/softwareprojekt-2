@@ -2,13 +2,12 @@ package de.unibremen.sfb.boundary;
 
 
 import de.unibremen.sfb.exception.DuplicateUserException;
-import de.unibremen.sfb.exception.UserNotFoundException;
 import de.unibremen.sfb.model.*;
+import de.unibremen.sfb.service.ExperimentierStationService;
 import de.unibremen.sfb.service.TraegerArtService;
 import de.unibremen.sfb.service.UserService;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.credential.PasswordMatcher;
 
@@ -45,6 +44,10 @@ public class AdminBean implements Serializable {
     /** TragerArt Service */
     @Inject
     private TraegerArtService traegerArtService;
+
+    /** Experimenting Station Service */
+    @Inject
+    private ExperimentierStationService experimentierStationService;
 
     /** The user's name */
     private String vorname;
@@ -293,7 +296,9 @@ public class AdminBean implements Serializable {
      * adds a new experimentation station
      * @param es the new station
      */
-    public void addStation(ExperimentierStation es) {}
+    public void addStation(ExperimentierStation es) {
+
+    }
 
     /**
      * edits a experimentation station that already exists
