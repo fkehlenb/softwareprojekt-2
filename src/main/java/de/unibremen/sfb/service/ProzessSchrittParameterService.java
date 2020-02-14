@@ -22,8 +22,6 @@ import java.util.List;
 @Slf4j
 public class ProzessSchrittParameterService implements Serializable {
 
-
-
     @Inject
     ProzessSchrittParameterDAO prozessSchrittParameterDAO;
     //////////// Liam Implementierung ////
