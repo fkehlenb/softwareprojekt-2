@@ -4,6 +4,9 @@ import de.unibremen.sfb.exception.DuplicateTraegerArtException;
 import de.unibremen.sfb.exception.TraegerArtNotFoundException;
 import de.unibremen.sfb.model.TraegerArt;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /** This class manages the container type objects in the database */
 public class TraegerArtDAO extends ObjectDAO<TraegerArt> {
 
@@ -48,5 +51,43 @@ public class TraegerArtDAO extends ObjectDAO<TraegerArt> {
     /** @return the class of containerType */
     public Class<TraegerArt> get(){
         return TraegerArt.class;
+    }
+
+    /** Get all container types from the database
+     * @return a list of all container types in the database */
+    public List<TraegerArt> getAll(){
+        List<TraegerArt> arten = new ArrayList<>();
+        try {
+            arten = em.createQuery("SELECT art FROM TraegerArt art",get()).getResultList();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return arten;
+    }
+
+    /** Get a container type by name
+     * @param taName - the container name
+     * @throws TraegerArtNotFoundException if the container type couldn't be found in the database */
+    public TraegerArt getByName(String taName) throws TraegerArtNotFoundException{
+        try {
+            return (TraegerArt) em.createQuery("SELECT ta FROM TraegerArt ta WHERE ta.art = :taName").getSingleResult();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new TraegerArtNotFoundException();
+        }
+    }
+
+    /** Get a container type by id
+     * @param id - the container type id
+     * @throws TraegerArtNotFoundException if the container type couldn't be found in the database */
+    public TraegerArt getById(int id) throws TraegerArtNotFoundException{
+        try {
+            return em.find(get(),id);
+        }
+        catch (Exception e){
+            throw new TraegerArtNotFoundException();
+        }
     }
 }

@@ -17,7 +17,7 @@
                 <p:submenu label="Navigation" id="navigation">
                     <p:menuitem id="Home" value="Home" icon="pi pi-home" url="../../index.xhtml"/>
                     <p:menuitem id="Account" value="Accout" icon="pi pi-briefcase"/>
-                    <p:menuitem id="Logout" value="Logout" icon="pi pi-times" url="../../login.xhtml"/>
+                    <p:menuitem id="Logout" value="Logout" icon="pi pi-times" url="../../logout"/>
                 </p:submenu>
             </p:panelMenu>
             <!--shiro:hasRole name="pkAdmin"-->
@@ -26,7 +26,7 @@
 
                     <p:submenu label="Administrator Tools" id="AdminTools">
                         <p:menuitem value="Nutzer Verwalten" url="../../admin/index.xhtml"/>
-                        <p:menuitem value="Experimentierstationen Verwalten"/>
+                        <p:menuitem value="Experimentierstationen Verwalten" url="../../admin/experimentierStationVerwaltung.xhtml"/>
                         <p:menuitem value="Globale Einstellungen"/>
                         <p:menuitem value="Backup"/>
                     </p:submenu>
