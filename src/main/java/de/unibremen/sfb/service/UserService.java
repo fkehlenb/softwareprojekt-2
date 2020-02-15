@@ -1,8 +1,11 @@
 package de.unibremen.sfb.service;
 
+import de.unibremen.sfb.exception.AuftragNotFoundException;
 import de.unibremen.sfb.exception.DuplicateUserException;
 import de.unibremen.sfb.exception.UserNotFoundException;
+import de.unibremen.sfb.model.Auftrag;
 import de.unibremen.sfb.model.User;
+import de.unibremen.sfb.persistence.AuftragDAO;
 import de.unibremen.sfb.persistence.UserDAO;
 import lombok.Getter;
 
@@ -21,6 +24,7 @@ public class UserService implements Serializable {
      */
     @Inject
     private UserDAO userDAO;
+
 
     /**
      * List of all users in the system

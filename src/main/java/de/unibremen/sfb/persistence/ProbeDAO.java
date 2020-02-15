@@ -88,6 +88,26 @@ public class ProbeDAO extends ObjectDAO<Probe> {
     }
 
     /**
+     * Use a sample id (String type) to get a specific sample
+     *
+     * @param id the id of the requested sample
+     * @return the sample which's id matches the given one
+     * @throws ProbeNotFoundException if the sample couldn't be found in the database
+     */
+    public Probe getObjById(String id) throws ProbeNotFoundException {
+        try {
+            Probe p = em.find(get(), id);
+            if (p == null) {
+                throw new ProbeNotFoundException();
+            }
+            return p;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ProbeNotFoundException();
+        }
+    }
+
+    /**
      * Get samples by location
      *
      * @param s - the location which's samples to get

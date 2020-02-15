@@ -10,6 +10,7 @@ import de.unibremen.sfb.persistence.AuftragDAO;
 import de.unibremen.sfb.persistence.ExperimentierStationDAO;
 import de.unibremen.sfb.persistence.ProbeDAO;
 import de.unibremen.sfb.persistence.UserDAO;
+import de.unibremen.sfb.service.*;
 import lombok.Getter;
 
 import javax.enterprise.context.RequestScoped;
@@ -36,13 +37,16 @@ public class TechnologeBean implements Serializable {
     private User technologe;
 
     @Inject
-    private AuftragDAO auftragDAO;
+    private ExperimentierStationService esService;
 
     @Inject
-    private ExperimentierStationDAO esDAO;
+    private ProbeService probeService;
 
     @Inject
-    private ProbeDAO probeDAO;
+    private UserService userService;
+
+    @Inject
+    private AuftragService auftragService;
 
     @Inject
     private ProbeController probeController;
@@ -76,12 +80,9 @@ public class TechnologeBean implements Serializable {
             errorMessage("invalid input");
         }
         else {
-            Enum<ProzessKettenZustandsAutomat> temp = a.getProzessKettenZustandsAutomat();
-            a.setProzessKettenZustandsAutomat(zustand);
             try {
-                auftragDAO.update(a);
+                auftragService.setAuftragsZustand(a, zustand);
             } catch (AuftragNotFoundException e) {
-                a.setProzessKettenZustandsAutomat(temp);
                 e.printStackTrace();
             }
         }
@@ -96,13 +97,10 @@ public class TechnologeBean implements Serializable {
             errorMessage("invalid input");
         }
         else {
-            Enum<ExperimentierStationZustand> temp = es.getStatus();
-            es.setStatus(ExperimentierStationZustand.KAPUTT);
             try {
-                esDAO.update(es);
+                esService.setZustand(es, ExperimentierStationZustand.KAPUTT);
             } catch (ExperimentierStationNotFoundException e) {
                 e.printStackTrace();
-                es.setStatus(temp);
             }
         }
     }
@@ -112,17 +110,14 @@ public class TechnologeBean implements Serializable {
      * @param a the job
      */
     public void assignToAuftrag(Auftrag a) {
-        if(a == null) {
+        if(a==null) {
             errorMessage("invalid input");
         }
         else {
-            User temp = a.getAssigned();
-            a.setAssigned(technologe);
             try {
-                auftragDAO.update(a);
+                auftragService.assignToAuftrag(technologe, a);
             } catch (AuftragNotFoundException e) {
                 e.printStackTrace();
-                a.setAssigned(temp);
             }
         }
     }
@@ -200,14 +195,10 @@ public class TechnologeBean implements Serializable {
             errorMessage("invalid input");
         }
         else {
-            Kommentar k = p.getKommentar();
-            p.setKommentar(new Kommentar(LocalDateTime.now(), c));
             try {
-                probeDAO.update(p);
-            }
-            catch(ProbeNotFoundException e) {
+                probeService.addProbenComment(p, c);
+            } catch (ProbeNotFoundException e) {
                 e.printStackTrace();
-                p.setKommentar(k);
             }
         }
     }
@@ -222,14 +213,11 @@ public class TechnologeBean implements Serializable {
             errorMessage("invalid input");
         }
         else {
-            Kommentar k = p.getKommentar();
-            p.setKommentar(k);
             try {
-                probeDAO.update(p);
+                probeService.editProbenComment(p, c);
             }
             catch(ProbeNotFoundException e) {
                 e.printStackTrace();
-                p.setKommentar(k);
             }
         }
     }
@@ -244,14 +232,11 @@ public class TechnologeBean implements Serializable {
             errorMessage("invalid input");
         }
         else {
-            Kommentar k = p.getKommentar();
-            p.setKommentar(null);
             try {
-                probeDAO.update(p);
+                probeService.deleteProbenComment(p, c);
             }
             catch(ProbeNotFoundException e) {
                 e.printStackTrace();
-                p.setKommentar(k);
             }
         }
     }
@@ -281,14 +266,17 @@ public class TechnologeBean implements Serializable {
      * @param id the id of the sample to be reported
      */
     public void reportLostProbe(String id) {
-        Probe p = null;
-        try {
-            p = probeDAO.getObjById(0); //TODO in DAO id als string
+        if(id==null) {
+            errorMessage("invalid input");
         }
-        catch(ProbeNotFoundException e) {
-            e.printStackTrace();
+        else {
+            try {
+                reportLostProbe(probeService.getProbeById(id));
+            } catch (ProbeNotFoundException e) {
+                e.printStackTrace();
+            }
         }
-        reportLostProbe(p);
+
     }
 
     /**
