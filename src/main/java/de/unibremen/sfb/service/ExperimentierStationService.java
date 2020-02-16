@@ -9,12 +9,12 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
+import java.io.Serializable;
 import java.util.List;
 
 
 @Startup
-@Getter
-public class ExperimentierStationService {
+public class ExperimentierStationService implements Serializable {
     private List<ExperimentierStation> esSet;
 
     @Inject
@@ -22,10 +22,10 @@ public class ExperimentierStationService {
 
     @PostConstruct
     public void init() {
-        this.esSet= getStandortListe();
+        this.esSet= esDao.getAll();
     }
 
-    private List<ExperimentierStation> getStandortListe() {
+    public  List<ExperimentierStation> getESListe() {
         return esDao.getAll();
     }
 

@@ -23,7 +23,7 @@ import java.util.UUID;
 @Named
 @RequestScoped
 @Slf4j
-@Data
+@Data   // Warum Data
 public class QlEBean implements Serializable {
 
     @Inject

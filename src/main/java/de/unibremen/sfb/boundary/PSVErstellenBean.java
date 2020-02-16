@@ -1,11 +1,8 @@
 package de.unibremen.sfb.boundary;
 
-import de.unibremen.sfb.exception.DuplicateProzessSchrittVorlageException;
+import de.unibremen.sfb.persistence.ExperimentierStationDAO;
 import de.unibremen.sfb.persistence.ProzessSchrittVorlageDAO;
-import de.unibremen.sfb.service.ExperimentierStationService;
-import de.unibremen.sfb.service.ProzessSchrittParameterService;
-import de.unibremen.sfb.service.ProzessSchrittVorlageService;
-import de.unibremen.sfb.service.QualitativeEigenschaftService;
+import de.unibremen.sfb.service.*;
 import de.unibremen.sfb.model.*;
 import lombok.Getter;
 import lombok.NonNull;
@@ -13,23 +10,25 @@ import lombok.Setter;
 import lombok.extern.java.Log;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+
 @Named("psvErstellenBean")
-@RequestScoped
+@SessionScoped
 @Getter
 @Setter
 @Log
-public class PSVErstellenBean {
+public class PSVErstellenBean implements Serializable {
 
     @NotEmpty
     private int psVID;
@@ -77,6 +76,12 @@ public class PSVErstellenBean {
     private ExperimentierStationService experimentierStationService;
 
     @Inject
+    ZustandsService  zustandsService;
+
+    @Inject
+    private ExperimentierStationDAO esDAO;
+
+    @Inject
     private ProzessSchrittVorlageDAO prozessSchrittVorlageDAO;
 
     @PostConstruct
@@ -87,7 +92,9 @@ public class PSVErstellenBean {
         verfügbareParameter = prozessSchrittParameterService.getPSP();
         verfügbareEigenschaften = qualitativeEigenschaftService.getEigenschaften(); // Hier weiter einschränken
         verfügbarePSV = prozessSchrittVorlageService.getProzessSchrittVorlagen();
-        verfügbareStationen = experimentierStationService.getEsSet();
+//        verfügbareStationen = experimentierStationService.getESListe();
+        verfügbareStationen = esDAO.getAll();
+        zustandsService.getPsZustaende();
     }
 
     public String erstellePSV() {
@@ -95,14 +102,11 @@ public class PSVErstellenBean {
         // FIXME Add Service for Zustaende
         List<String> z = new ArrayList();
         z.add("Kapput");
+        // FIXME Wehre is es, persist auf  de.unibremen.sfb.model.ProzessSchrittVorlage.zustandsAutomat -> de.unibremen.sfb.model.ProzessSchrittZustandsAutomatVorlage
 
         ProzessSchrittVorlage psv = new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), Duration.ofHours(Long.parseLong(dauer)), psArt,
                 ausgewählteStationen, new ProzessSchrittZustandsAutomatVorlage(z, "Platzhalter"), ausgewählteProzessSchrittParameter);
-        try {
-            prozessSchrittVorlageDAO.persist(psv);
-        } catch (DuplicateProzessSchrittVorlageException e) {
-            e.printStackTrace();
-        }
+        prozessSchrittVorlageService.persist(psv);
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Erfolg", "Prozessschrittvorlage:  " + psv.getPsVID() +
                 "erfolgreich erstellt"));

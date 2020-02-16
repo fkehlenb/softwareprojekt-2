@@ -16,7 +16,7 @@
                             <h:form>
                                 <p:growl id="msgs" showDetail="true" sticky="true"/>
 
-                                <h:panelGrid columns="2" cellpadding="10">
+                                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" columnClasses="label, value">
                                     <p:outputLabel for="parameter" value="Parameter: "/>
                                     <p:selectManyMenu id="parameter"
                                                       value="#{psvErstellenBean.ausgewählteProzessSchrittParameter}"
@@ -24,7 +24,8 @@
                                                       var="parameter" style="width: 172px" filter="true"
                                                       filterMatchMode="startsWith">
                                         <f:selectItems value="#{psvErstellenBean.verfügbareParameter}"
-                                                       var="parameter" itemLabel="#{parameter.name}"
+                                                       var="parameter"
+                                                       itemLabel="#{parameter.name}"
                                                        itemValue="#{parameter}"/>
                                         <p:column>
                                             <h:outputText value="#{parameter.name}"/>
@@ -53,11 +54,11 @@
                                                      var="experimentierStation" style="width: 172px" filter="true"
                                                      filterMatchMode="startsWith">
                                         <f:selectItems value="#{psvErstellenBean.verfügbareStationen}"
-                                                       var="experimentierStation" itemLabel="#{experimentierStation.standort}"
-                                                       itemValue="#{experimentierStation}" required="true"/>
-                                        <p:column>
-                                            <h:outputText value="#{experimentierStation.standort}"/>
-                                        </p:column>
+                                                       var="experimentierStation"
+                                                       itemLabel="#{experimentierStation.standort.ort}"
+                                                       itemValue="#{experimentierStation}"
+                                                       />
+
                                     </p:selectManyMenu>
                                 </h:panelGrid>
 
