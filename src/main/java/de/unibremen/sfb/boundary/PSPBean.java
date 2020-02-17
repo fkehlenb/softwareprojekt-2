@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Transactional
-@Named
+@Named("dtPSPBean")
 @ViewScoped
 @Slf4j
 @Setter

@@ -15,6 +15,9 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -34,6 +37,9 @@ import java.util.UUID;
 @Setter
 @Getter
 public class AdminBean implements Serializable {
+
+    @PersistenceContext
+    EntityManager em;
 
     /**
      * UserService
@@ -447,8 +453,9 @@ public class AdminBean implements Serializable {
      */
     public void backup() throws SQLException {
         log.info("Trying to connect with DB");
-        String sqlFilePath = "./Backup" + LocalDateTime.now().toString();
-        //em.createNativeQuery(String.format("SCRIPT TO '%s'", sqlFilePath)).executeUpdate();
+        String sqlFilePath = "./Backup_" + LocalDateTime.now() + ".txt".toString();
+        Query q = em.createNativeQuery(String.format("SCRIPT TO '%s'", sqlFilePath));
+        log.info(q.getResultList().toString());
 
     }
 
