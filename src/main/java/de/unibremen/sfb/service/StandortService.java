@@ -1,5 +1,6 @@
 package de.unibremen.sfb.service;
 
+import de.unibremen.sfb.exception.StandortNotFoundException;
 import de.unibremen.sfb.model.Standort;
 import de.unibremen.sfb.persistence.StandortDAO;
 import lombok.Getter;
@@ -64,6 +65,11 @@ public class StandortService implements Serializable {
     /** Remove a location */
     public void loescheStandort(Standort standort) {
         this.standorte.remove(standort);
+        try {
+            standortDAO.remove(standort);
+        } catch (StandortNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     /** Find a standort based on ts location */

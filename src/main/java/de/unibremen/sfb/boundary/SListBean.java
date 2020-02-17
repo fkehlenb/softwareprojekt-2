@@ -6,15 +6,16 @@ import de.unibremen.sfb.persistence.StandortDAO;
 import de.unibremen.sfb.service.StandortService;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
-import lombok.extern.slf4j.XSlf4j;
+import org.primefaces.event.RowEditEvent;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.view.ViewScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 
@@ -23,8 +24,9 @@ import java.util.List;
 @Setter
 @Slf4j
 @RequestScoped
+@Transactional
 public class SListBean implements Serializable {
-    private List<Standort> standorte;
+    private List<Standort> alleStandorte;
     private List<Standort> filteredStandorte;
     private List<Standort> selectedStandorte;
 
@@ -37,7 +39,7 @@ public class SListBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        standorte = standortDAO.getAll();
+        alleStandorte = standortDAO.getAll();
     }
 
 
@@ -46,7 +48,7 @@ public class SListBean implements Serializable {
         for (Standort s :
                 selectedStandorte) {
             log.info("Loesche Standort " + s.getOrt());
-            this.standortService.loescheStandort(s);
+            standortService.loescheStandort(s);
             try {
                 standortDAO.remove(s);
             } catch (StandortNotFoundException e) {
@@ -57,15 +59,21 @@ public class SListBean implements Serializable {
             if (filteredStandorte != null) {
                 this.filteredStandorte.remove(s);
             }
-            this.standorte = standortService.getStandorte();
+
         }
-        standorte = standortDAO.getAll();
+        alleStandorte = standortService.getStandorte();
     }
 
 
 
-    public void onCellEdit() {
+    public void onRowEdit(RowEditEvent<Standort> event) {
+        FacesMessage msg = new FacesMessage("Standort Edited", event.getObject().getOrt());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
 
+    public void onRowCancel(RowEditEvent<Standort> event) {
+        FacesMessage msg = new FacesMessage("Edit Cancelled", event.getObject().getOrt());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
 }
