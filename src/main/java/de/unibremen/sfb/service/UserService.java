@@ -2,6 +2,7 @@ package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.exception.DuplicateUserException;
 import de.unibremen.sfb.exception.UserNotFoundException;
+import de.unibremen.sfb.model.ExperimentierStation;
 import de.unibremen.sfb.model.User;
 import de.unibremen.sfb.persistence.UserDAO;
 import lombok.Getter;
@@ -160,5 +161,12 @@ public class UserService implements Serializable {
      * @throws UserNotFoundException if the email address has no registered user in the database */
     public void removeUserByMail(String email) throws UserNotFoundException{
         userDAO.remove(getUserByEmail(email));
+    }
+
+    /** Get the experimenting stations that are assigned to a user
+     * @param u - the user whose experimenting stations to return
+     * @return the user's experimenting stations */
+    public List<ExperimentierStation> getEsByUser(User u){
+        return u.getStationen();
     }
 }
