@@ -52,16 +52,16 @@ public class PSVErstellenBean {
     private ProzessSchrittZustandsAutomatVorlage zustandsAutomatenVorlage;
 
     @NonNull
-    private List<ProzessSchrittParameter> ausgewählteProzessSchrittParameter;
+    private List<ProzessSchrittParameter> ausgewaehlteProzessSchrittParameter;
 
     @NonNull
-    private List<ExperimentierStation> ausgewählteStationen;
+    private List<ExperimentierStation> ausgewaehlteStationen;
 
-    // Wir benötigen die Parameter und Eigenschaften um diese dann auszuwählen
-    private List<ProzessSchrittParameter> verfügbareParameter;
-    private List<QualitativeEigenschaft> verfügbareEigenschaften;
-    private List<ExperimentierStation> verfügbareStationen;
-    private List<ProzessSchrittVorlage> verfügbarePSV;
+    // Wir benoetigen die Parameter und Eigenschaften um diese dann auszuwaehlen
+    private List<ProzessSchrittParameter> verfuegbareParameter;
+    private List<QualitativeEigenschaft> verfuegbareEigenschaften;
+    private List<ExperimentierStation> verfuegbareStationen;
+    private List<ProzessSchrittVorlage> verfuegbarePSV;
 
 
     @Inject
@@ -81,13 +81,13 @@ public class PSVErstellenBean {
 
     @PostConstruct
     /**
-     * Hier werden aus der Persitenz die benötigten Daten Geladen
+     * Hier werden aus der Persitenz die benoetigten Daten Geladen
      */
     public void init() {
-        verfügbareParameter = prozessSchrittParameterService.getPSP();
-        verfügbareEigenschaften = qualitativeEigenschaftService.getEigenschaften(); // Hier weiter einschränken
-        verfügbarePSV = prozessSchrittVorlageService.getProzessSchrittVorlagen();
-        verfügbareStationen = experimentierStationService.getEsSet();
+        verfuegbareParameter = prozessSchrittParameterService.getPSP();
+        verfuegbareEigenschaften = qualitativeEigenschaftService.getEigenschaften(); // Hier weiter einschraenken
+        verfuegbarePSV = prozessSchrittVorlageService.getProzessSchrittVorlagen();
+        verfuegbareStationen = experimentierStationService.getEsSet();
     }
 
     public String erstellePSV() {
@@ -97,7 +97,7 @@ public class PSVErstellenBean {
         z.add("Kapput");
 
         ProzessSchrittVorlage psv = new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), Duration.ofHours(Long.parseLong(dauer)), psArt,
-                ausgewählteStationen, new ProzessSchrittZustandsAutomatVorlage(z, "Platzhalter"), ausgewählteProzessSchrittParameter);
+                ausgewaehlteStationen, new ProzessSchrittZustandsAutomatVorlage(z, "Platzhalter"), ausgewaehlteProzessSchrittParameter);
         try {
             prozessSchrittVorlageDAO.persist(psv);
         } catch (DuplicateProzessSchrittVorlageException e) {

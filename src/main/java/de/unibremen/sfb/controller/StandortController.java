@@ -29,9 +29,9 @@ public class StandortController {
     public String getStandort() { return null; }
 
     /**
-     * Returns the Träger (carrier) which are currently at this Standort
+     * Returns the Traeger (carrier) which are currently at this Standort
      *
-     * @return A Set with all Träger
+     * @return A Set with all Traeger
      */
     public Set<Traeger> getTrager() { return null; }
 }

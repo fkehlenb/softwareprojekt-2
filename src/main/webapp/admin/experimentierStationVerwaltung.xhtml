@@ -8,7 +8,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:shiro="http://shiro.apache.org/tags">
 <h:head>
-    <title>Experimentier Station Verwaltung - SFB Farbige Zustände</title>
+    <title>Experimentier Station Verwaltung - SFB Farbige Zustaende</title>
     <link rel="icon" href="../background.png"/>
 </h:head>
 <body background="../background.png">
@@ -25,13 +25,13 @@
             </p:row>
             <p:row>
                 <p>In der unteren Tabelle sehen Sie alle Experimentierstationen die im System existieren.<br/>
-                    Mit dem Formular können Sie neue Experimentierstationen einfügen.</p>
+                    Mit dem Formular koennen Sie neue Experimentierstationen einfuegen.</p>
             </p:row>
             <p:row>
                 <p:panelGrid>
                     <h:form>
                         <p:row>
-                            <h3 style="color: cornflowerblue">Experimentierstation Einfügen</h3>
+                            <h3 style="color: cornflowerblue">Experimentierstation Einfuegen</h3>
                         </p:row>
                         <p:row>
                             <p:column colspan="1">
@@ -50,7 +50,7 @@
                                                  converter="standortConverter" effect="fade"
                                                  var="standort" style="width: 172px" filter="true"
                                                  filterMatchMode="startsWith">
-                                    <f:selectItems value="#{esErstellenBean.verfügbareStandorte}"
+                                    <f:selectItems value="#{esErstellenBean.verfuegbareStandorte}"
                                                    var="standort" itemLabel="#{standort.ort}"
                                                    itemValue="#{standort}" required="true"/>
                                     <p:column>

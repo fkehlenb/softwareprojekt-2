@@ -97,7 +97,7 @@ public class InitialDataFiller {
             qualitativeEigenschaftList=getQualitativeEigenschaften();
             for (QualitativeEigenschaft qE :qualitativeEigenschaftList
                    ) {
-                log.info("Trying to Persist Qualität Eingenschaft " + qE.getName());
+                log.info("Trying to Persist Qualitaet Eingenschaft " + qE.getName());
                 em.persist(qE);
             }
                 // PS Parameter

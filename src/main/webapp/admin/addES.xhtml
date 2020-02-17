@@ -42,7 +42,7 @@
                                 <h:panelGrid columns="2" cellpadding="10">
                                     <p:outputLabel for="user" value="Benutzer: "/>
                                     <p:selectManyMenu id="user"
-                                                      value="#{esErstellenBean.ausgewählteBenutzer}"
+                                                      value="#{esErstellenBean.ausgewaehlteBenutzer}"
                                                       converter="userConverter" effect="fade"
                                                       var="user" style="width: 172px" filter="true"
                                                       filterMatchMode="startsWith">
@@ -66,7 +66,7 @@
                                                      converter="standortConverter" effect="fade"
                                                      var="standort" style="width: 172px" filter="true"
                                                      filterMatchMode="startsWith">
-                                        <f:selectItems value="#{esErstellenBean.verfügbareStandorte}"
+                                        <f:selectItems value="#{esErstellenBean.verfuegbareStandorte}"
                                                        var="standort" itemLabel="#{standort.ort}"
                                                        itemValue="#{standort}" required="true"/>
                                         <p:column>
@@ -96,7 +96,7 @@
                         <h:panelGrid columns="2" cellpadding="10">
                             <p:outputLabel for="user" value="Benutzer: "/>
                             <p:selectManyMenu id="user"
-                                              value="#{esErstellenBean.ausgewählteBenutzer}"
+                                              value="#{esErstellenBean.ausgewaehlteBenutzer}"
                                               converter="userConverter" effect="fade"
                                               var="user" style="width: 172px" filter="true"
                                               filterMatchMode="startsWith">
@@ -120,7 +120,7 @@
                                              converter="standortConverter" effect="fade"
                                              var="standort" style="width: 172px" filter="true"
                                              filterMatchMode="startsWith">
-                                <f:selectItems value="#{esErstellenBean.verfügbareStandorte}"
+                                <f:selectItems value="#{esErstellenBean.verfuegbareStandorte}"
                                                var="standort" itemLabel="#{standort.ort}"
                                                itemValue="#{standort}" required="true"/>
                                 <p:column>

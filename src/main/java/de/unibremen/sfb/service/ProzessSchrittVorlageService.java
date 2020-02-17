@@ -9,8 +9,8 @@ import java.util.List;
 
 @Singleton
 /**
- * Service für ProzessSchrittVorlagen
- * Anwendungsfall: Bearbeiten einer Vorlage oder hinzufügen einer ProzessSchrittVorlage in einer ProzessKettenVorlage
+ * Service fuer ProzessSchrittVorlagen
+ * Anwendungsfall: Bearbeiten einer Vorlage oder hinzufuegen einer ProzessSchrittVorlage in einer ProzessKettenVorlage
  */
 
 public class ProzessSchrittVorlageService {

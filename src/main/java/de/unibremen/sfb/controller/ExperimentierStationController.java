@@ -32,7 +32,7 @@ public class ExperimentierStationController {
 
     /**
      * Sets the current Status (state) of the station
-     * Possible values: Verfügbar(available), Besetzt(in use), Kaputt(broken)
+     * Possible values: Verfuegbar(available), Besetzt(in use), Kaputt(broken)
      * @param esz the new Status of this ExperimentierStation
      */
     public void setStatus(ExperimentierStationZustand esz) {
@@ -41,7 +41,7 @@ public class ExperimentierStationController {
 
     /**
      * Returns the current Status (state) of this station.
-     * Possible values: Verfügbar(available), Besetzt(in use), Kaputt(broken)
+     * Possible values: Verfuegbar(available), Besetzt(in use), Kaputt(broken)
      * @return the current Status of this ExperimentierStation
      */
     public Enum<ExperimentierStationZustand> getStatus() {
@@ -62,7 +62,7 @@ public class ExperimentierStationController {
      * Returns the next ProzessSchritt to be executed at this station.
      * The ProzessSchritt stays in the queue.
      *
-     * @return the next durchzuführende ProzessSchritt
+     * @return the next durchzufuehrende ProzessSchritt
      */
     public ProzessSchritt peekNextPS() { return null; //TODO
          }

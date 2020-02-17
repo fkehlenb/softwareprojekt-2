@@ -10,8 +10,8 @@ import java.util.Set;
 
 @Singleton
 /**
- * Service für ProzessSchrittZustandsAutomatVorlagen
- * Anwendungsfall: Bearbeiten einer Vorlage oder hinzufügen einer ProzessSchrittZustandsAutomatVorlage in einer ProzessKettenVorlage
+ * Service fuer ProzessSchrittZustandsAutomatVorlagen
+ * Anwendungsfall: Bearbeiten einer Vorlage oder hinzufuegen einer ProzessSchrittZustandsAutomatVorlage in einer ProzessKettenVorlage
  */
 public class ProzessSchrittZustandsAutomatVorlageService {
     private Set<ProzessSchrittZustandsAutomatVorlage> automatenVorlagen;
