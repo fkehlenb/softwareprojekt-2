@@ -10,14 +10,13 @@ import java.util.List;
 @Setter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@RequiredArgsConstructor
 public class TraegerArt {
 
     @Id @GeneratedValue
     private int id;
 
-    /**
-     * List containing all container types
-     */
-    @ElementCollection
-    private List<String> arten;
+    /** Container Type */
+    @NonNull
+    private String art;
 }
