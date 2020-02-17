@@ -1,0 +1,68 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+<h:head>
+    <style type="text/css">
+        .ui-row-editor .ui-row-editor-pencil {
+            margin-left:8px;
+        }
+    </style>
+
+</h:head>
+<h:body>
+
+    <ui:composition template="/template/common/layout.xhtml">
+        <ui:define name="content">
+            <h:form id="form">
+                <p:growl id="msgs" showDetail="true"/>
+
+                <p:dataTable id="psvs1" var="psv" value="#{dtPSVBean.prozessSchrittVorlageListe}" editable="true" style="margin-bottom:20px">
+                    <f:facet name="header">
+                        Row Editing
+                    </f:facet>
+
+                    <p:ajax event="rowEdit" listener="#{dtPSVBean.onRowEdit}" update=":form:msgs" />
+                    <p:ajax event="rowEditCancel" listener="#{dtPSVBean.onRowCancel}" update=":form:msgs" />
+
+                    <p:column headerText="Id">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{psv.psVID}" /></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Dauer">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{psv.dauer.toDays}" /></f:facet>
+                            <f:facet name="input"><p:inputText value="#{psv.dauer.ofDays()}" style="width:100%" label="Year"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="User">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{psv.creator}" /></f:facet>
+                            <f:facet name="input">
+                                <h:selectOneMenu value="#{psv.creator}" style="width:100%">
+                                    <f:selectItems value="#{dtPSVBean.verfuegbareBenutzer}" var="user" itemLabel="#{user}" itemValue="#{user}" />
+                                </h:selectOneMenu>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+
+                    <p:column style="width:35px">
+                        <p:rowEditor />
+                    </p:column>
+                </p:dataTable>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
+
+
+
+
+

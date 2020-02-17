@@ -3,6 +3,10 @@ package de.unibremen.sfb.persistence;
 import de.unibremen.sfb.exception.DuplicateProzessSchrittVorlageException;
 import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
 import de.unibremen.sfb.model.ProzessSchrittVorlage;
+import de.unibremen.sfb.model.QuantitativeEigenschaft;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 /** This class manages the process chain step templates in the database */
 public class ProzessSchrittVorlageDAO extends ObjectDAO<ProzessSchrittVorlage> {
@@ -67,6 +71,15 @@ public class ProzessSchrittVorlageDAO extends ObjectDAO<ProzessSchrittVorlage> {
         catch (Exception e){
             e.printStackTrace();
             throw new ProzessSchrittVorlageNotFoundException();
+        }
+    }
+            /** Return a List quantitative descriptor object from the database
+     * @throws IllegalArgumentException if the quantitative descriptor couldn't be found in the database */
+    public List<ProzessSchrittVorlage> getAll(){
+        try {
+            return em.createQuery("SELECT p FROM ProzessSchrittVorlage p", get()).getResultList();
+        }catch (Exception e){
+            throw new EntityNotFoundException("QuantitativeEigenschaft not found");
         }
     }
 }

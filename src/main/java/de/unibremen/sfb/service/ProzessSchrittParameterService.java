@@ -8,9 +8,9 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 
@@ -18,15 +18,20 @@ import java.util.List;
 @Startup
 @Data
 @Getter
-@Transactional
+@Singleton
 @Slf4j
 public class ProzessSchrittParameterService implements Serializable {
+    private List<ProzessSchrittParameter> parameterList;
 
     @Inject
     ProzessSchrittParameterDAO prozessSchrittParameterDAO;
-    //////////// Liam Implementierung ////
-//////////////////////////////////////////
-    private List<ProzessSchrittParameter> parameterList;
+
+    @PostConstruct
+    public void init() {
+       this.parameterList = prozessSchrittParameterDAO.getAll();
+    }
+
+
 
     public List<ProzessSchrittParameter> getPSP() {
         return parameterList;
@@ -47,11 +52,6 @@ public class ProzessSchrittParameterService implements Serializable {
     public ProzessSchrittParameter findByName(String name) {
         // FIXME Use String as ID or convert to String
         return this.parameterList.stream().filter(c -> c.getName().equals(name)).findFirst().orElse(null);
-    }
-
-    @PostConstruct
-    public void init() {
-        this.parameterList = prozessSchrittParameterDAO.getAll();
     }
 
     //////// Santiago Implementierung ////

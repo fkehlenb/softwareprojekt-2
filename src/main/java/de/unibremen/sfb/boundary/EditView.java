@@ -1,12 +1,7 @@
-package de.unibremen.sfb.boundary;
-
-import de.unibremen.sfb.exception.DuplicateStandortException;
-import de.unibremen.sfb.model.Standort;
-import de.unibremen.sfb.persistence.StandortDAO;
-import de.unibremen.sfb.service.StandortService;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
+import de.unibremen.sfb.model.Car;
+import de.unibremen.sfb.model.ProzessSchrittVorlage;
+import de.unibremen.sfb.service.CarService;
+import de.unibremen.sfb.service.ProzessSchrittVorlageService;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 
@@ -19,52 +14,52 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * Quelle https://www.primefaces.org/showcase/ui/data/datatable/edit.xhtml
- */
 @Named("dtEditView")
 @ViewScoped
-@Getter
-@Setter
-@Slf4j
 public class EditView implements Serializable {
 
-    private List<Standort> standorte;
+    private List<Car> cars1;
+    private List<Car> cars2;
 
     @Inject
-    private StandortService standortService;
+    private CarService service;
 
     @Inject
-    private StandortDAO standortDAO;
+    private ProzessSchrittVorlageService prozessSchrittVorlageService;
 
     @PostConstruct
     public void init() {
-        standorte = getStandorte();
+        cars1 = service.createCars(10);
+        cars2 = service.createCars(10);
     }
 
-    public List<Standort> getStandorte() {
-        return standortDAO.getAll();
+    public List<Car> getCars1() {
+        return cars1;
     }
 
+    public List<Car> getCars2() {
+        return cars2;
+    }
 
+    public List<String> getBrands() {
+        return service.getBrands();
+    }
 
-    public void onRowEdit(RowEditEvent<Standort> event) {
-//                Standort s = standortService.findById(((Standort) event.getOldValue()).getId());
-//
-//        try {
-//            s.setOrt(event.getNewValue());
-//            standortDAO.update(s);
-//        } catch (Exception e) {
-//            log.error("Not correct Type");
-//        }
-        FacesMessage msg = new FacesMessage("Standort Edited", event.getObject().toString());
+    public List<String> getColors() {
+        return service.getColors();
+    }
+
+    public void setService(CarService service) {
+        this.service = service;
+    }
+
+    public void onRowEdit(RowEditEvent<Car> event) {
+        FacesMessage msg = new FacesMessage("Car Edited", event.getObject().getId());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
-
-
-    public void onRowCancel(RowEditEvent<Standort> event) {
-        FacesMessage msg = new FacesMessage("Edit Cancelled", ((Standort) event.getObject()).getOrt());
+  public void onRowCancel(RowEditEvent<Car> event) {
+        FacesMessage msg = new FacesMessage("Edit Cancelled", event.getObject().getId());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
