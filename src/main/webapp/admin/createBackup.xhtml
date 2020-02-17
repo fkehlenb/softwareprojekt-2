@@ -14,6 +14,18 @@
 
               <p:commandButton value="Create Backup" id="withIcon" action="#{adminBean.backup}" update="growl" style="margin-right:20px;" icon="pi pi-save" />
           </h:form>
+
+
+
+
+          Single file<br />
+          <h:form enctype="multipart/form-data">
+              <p:growl id="growl" life="2000" />
+              <p:fileUpload value="#{fileUploadView.file}" mode="simple" skinSimple="true"/>
+              <br />
+              <p:commandButton value="Submit" ajax="false" action="#{fileUploadView.upload}" disabled="false" />
+          </h:form>
+
       </ui:define>
   </ui:composition>
 </body>

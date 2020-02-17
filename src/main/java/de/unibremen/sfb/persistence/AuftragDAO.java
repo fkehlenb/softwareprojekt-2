@@ -5,6 +5,7 @@ import de.unibremen.sfb.exception.DuplicateAuftragException;
 import de.unibremen.sfb.model.Auftrag;
 import de.unibremen.sfb.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /** This class handles the instantiated process chains in the database */
@@ -69,5 +70,18 @@ public class AuftragDAO extends ObjectDAO<Auftrag> {
      * @throws AuftragNotFoundException if the job couldn't be found */
     public List<Auftrag> getAuftragByUser(User u) throws AuftragNotFoundException{
         return null;
+    }
+
+    /**
+     * Get a list of all users in the database
+     * @return all users in the database
+     */
+    public List<Auftrag> getAll() {
+        try {
+            return em.createNamedQuery("Auftrag.getAll", get()).getResultList();
+        }
+        catch (Exception e){
+            return new ArrayList<>();
+        }
     }
 }
