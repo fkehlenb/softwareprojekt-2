@@ -3,7 +3,11 @@ package de.unibremen.sfb.persistence;
 import de.unibremen.sfb.exception.DuplicateUserException;
 import de.unibremen.sfb.exception.UserNotFoundException;
 import de.unibremen.sfb.model.User;
+import org.h2.engine.Database;
+import org.h2.engine.Session;
+import org.h2.tools.Script;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,9 +94,8 @@ public class UserDAO extends ObjectDAO<User> {
      */
     public User getUserByName(String n) throws UserNotFoundException {
         try {
-            return em.createNamedQuery("User.findByUsername",get()).setParameter("username",n).getSingleResult();
-        }
-        catch (Exception e){
+            return em.createNamedQuery("User.findByUsername", get()).setParameter("username", n).getSingleResult();
+        } catch (Exception e) {
             throw new UserNotFoundException();
         }
     }
@@ -106,22 +109,21 @@ public class UserDAO extends ObjectDAO<User> {
      */
     public User getUserByMail(String m) throws UserNotFoundException {
         try {
-            return em.createNamedQuery("User.findByEmail",get()).setParameter("email",m).getSingleResult();
-        }
-        catch (Exception e){
+            return em.createNamedQuery("User.findByEmail", get()).setParameter("email", m).getSingleResult();
+        } catch (Exception e) {
             throw new UserNotFoundException();
         }
     }
 
     /**
      * Get a list of all users in the database
+     *
      * @return all users in the database
      */
     public List<User> getAll() {
         try {
             return em.createNamedQuery("User.getAll", get()).getResultList();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return new ArrayList<>();
         }
     }
