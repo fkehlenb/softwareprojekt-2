@@ -41,61 +41,112 @@ public class AdminBean implements Serializable {
     @Inject
     private UserService userService;
 
-    /** TragerArt Service */
+    /**
+     * TragerArt Service
+     */
     @Inject
     private TraegerArtService traegerArtService;
 
-    /** Experimenting Station Service */
+    /**
+     * Experimenting Station Service
+     */
     @Inject
     private ExperimentierStationService experimentierStationService;
 
-    /** The user's name */
+    /**
+     * The user's name
+     */
     private String vorname;
 
-    /** The user's surname */
+    /**
+     * The user's surname
+     */
     private String nachname;
 
-    /** The user's id */
+    /**
+     * The user's id
+     */
     private String id;
 
-    /** The user's email address */
+    /**
+     * The user's email address
+     */
     private String email;
 
-    /** The user's phone number */
+    /**
+     * The user's phone number
+     */
     private String telefonNummer;
 
-    /** The user's username */
+    /**
+     * The user's username
+     */
     private String userName;
 
-    /** The user's password */
+    /**
+     * The user's password
+     */
     private String password;
 
-    /** Whether the user is verified or not */
-    private Boolean  wurdeVerifiziert;
+    /**
+     * Whether the user is verified or not
+     */
+    private Boolean wurdeVerifiziert;
 
-    /** The user's language */
+    /**
+     * The user's language
+     */
     private String language;
 
-    /** The roles the user has in the system */
+    /**
+     * The roles the user has in the system
+     */
     private List<Role> rollen = new ArrayList<>();
 
-    /** The jobs the user has in the system */
+    /**
+     * The jobs the user has in the system
+     */
     private List<Auftrag> auftrags = new ArrayList<>();
 
-    /** If the user is a technologe */
+    /**
+     * If the user is a technologe
+     */
     private boolean technologe;
 
-    /** If the user is a process chain admin */
+    /**
+     * If the user is a process chain admin
+     */
     private boolean pkAdministrator;
 
-    /** If the user is a transporter */
+    /**
+     * If the user is a transporter
+     */
     private boolean transporter;
 
-    /** If the user is a logistiker */
+    /**
+     * If the user is a logistiker
+     */
     private boolean logistiker;
 
-    /** If the user is an administrator */
+    /**
+     * If the user is an administrator
+     */
     private boolean administrator;
+
+    /**
+     * Experimenting station name
+     */
+    private String experimentierStationName;
+
+    /**
+     * Experimenting station location
+     */
+    private Standort experimentierStationStandort;
+
+    /**
+     * Users assigned to the experimenting station
+     */
+    private List<User> experimentierStationBenutzer;
 
     /**
      * Shiro password matcher for password encryption
@@ -109,7 +160,7 @@ public class AdminBean implements Serializable {
     public void addUser() throws DuplicateUserException {
         LocalDateTime date1 = LocalDateTime.now();
         builtRollenList();
-        try{
+        try {
             String idOld = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idx");
             User user = userService.getUserById(Integer.parseInt(idOld));
             user.setVorname(vorname);
@@ -124,20 +175,22 @@ public class AdminBean implements Serializable {
             user.setLanguage(language);
             user.setAuftraege(new ArrayList<>());
             userService.updateUser(user);
-            String id="";
+            String id = "";
             resetVariables();
             log.info("Added new User, Username: " + userName);
-        }catch (Exception e){
-            User user=new User(UUID.randomUUID().hashCode(),vorname,nachname,email,telefonNummer,
-                    userName,matcher.getPasswordService().encryptPassword(password),wurdeVerifiziert,date1
-                    , rollen,auftrags,language);
+        } catch (Exception e) {
+            User user = new User(UUID.randomUUID().hashCode(), vorname, nachname, email, telefonNummer,
+                    userName, matcher.getPasswordService().encryptPassword(password), wurdeVerifiziert, date1
+                    , rollen, auftrags, language);
             userService.addUser(user);
             resetVariables();
             log.info("User updated, Username: " + userName);
         }
     }
 
-    /** Edit a user */
+    /**
+     * Edit a user
+     */
     public void adminEditUser(String id) {
         try {
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idx", id);
@@ -156,32 +209,32 @@ public class AdminBean implements Serializable {
             this.password = new String(user.getPassword());
             this.wurdeVerifiziert = user.isWurdeVerifiziert();
             this.language = user.getLanguage();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             log.info("Couldn't edit user, Username: " + userName);
         }
     }
+
     /**
      * resetVariables in the Frontend when a new user is added
      */
-    public void resetVariables(){
-        this.technologe =false;
-        this.pkAdministrator =false;
-        this.transporter=false;
-        this.logistiker =false;
-        this.administrator =false;
-        this.id=null;
-        this.vorname=null;
-        this.nachname=null;
-        this.email=null;
-        this.telefonNummer=null;
-        this.userName=null;
-        this.password=null;
-        this.wurdeVerifiziert=false;
-        this.rollen =null;
-        this.auftrags=null;
-        this.language=null;
+    public void resetVariables() {
+        this.technologe = false;
+        this.pkAdministrator = false;
+        this.transporter = false;
+        this.logistiker = false;
+        this.administrator = false;
+        this.id = null;
+        this.vorname = null;
+        this.nachname = null;
+        this.email = null;
+        this.telefonNummer = null;
+        this.userName = null;
+        this.password = null;
+        this.wurdeVerifiziert = false;
+        this.rollen = null;
+        this.auftrags = null;
+        this.language = null;
         //Control Variable for the Process -> Edit -> Add User
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idx", id);
     }
@@ -189,23 +242,24 @@ public class AdminBean implements Serializable {
     /**
      * Help method for the List Roles to built
      */
-    public void builtRollenList(){
-        if(technologe) {
+    public void builtRollenList() {
+        if (technologe) {
             rollen.add(Role.TECHNOLOGE);
         }
-        if(pkAdministrator) {
+        if (pkAdministrator) {
             rollen.add(Role.PKADMIN);
         }
-        if(transporter) {
+        if (transporter) {
             rollen.add(Role.TRANSPORT);
         }
-        if(logistiker) {
+        if (logistiker) {
             rollen.add(Role.LOGISTIKER);
         }
-        if(administrator) {
+        if (administrator) {
             rollen.add(Role.ADMIN);
         }
     }
+
     /**
      * edits a user that already exists
      * user the user to be edited
@@ -222,6 +276,7 @@ public class AdminBean implements Serializable {
 
     /**
      * Deletes a user using his id
+     *
      * @param idu - the user's id
      */
     public void deleteUser(String idu) {
@@ -241,10 +296,9 @@ public class AdminBean implements Serializable {
      * @param newTa the new carrier type String
      */
     public void addTraegerArt(String newTa) {
-        try{
+        try {
             traegerArtService.getByName(newTa);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             try {
                 TraegerArt ta = new TraegerArt(newTa);
                 traegerArtService.addTraegerArt(ta);
@@ -258,14 +312,14 @@ public class AdminBean implements Serializable {
 
     /**
      * edits a carrier type
-     * @param id the id of the container type
+     *
+     * @param id    the id of the container type
      * @param newTa - the new type of the container
      */
-    public void editTraegerArt(int id,String newTa) {
-        try{
+    public void editTraegerArt(int id, String newTa) {
+        try {
             traegerArtService.getByName(newTa);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             try {
                 TraegerArt ta = traegerArtService.getById(id);
                 ta.setArt(newTa);
@@ -280,13 +334,13 @@ public class AdminBean implements Serializable {
 
     /**
      * deletes a carrier type
+     *
      * @param id - the id of the container type to remove
      */
     public void deleteTraegerArt(int id) {
-        try{
+        try {
             traegerArtService.removeTraegerArt(traegerArtService.getById(id));
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             log.error("Couldn't delete container type! ID: " + Integer.toString(id));
         }
@@ -294,42 +348,87 @@ public class AdminBean implements Serializable {
 
     /**
      * adds a new experimentation station
-     * @param es the new station
      */
-    public void addStation(ExperimentierStation es) {
-
+    public void addStation() {
+        try {
+            experimentierStationService.getStationByName(experimentierStationName);
+            FacesContext.getCurrentInstance().addMessage("Eine Experimentierstation mir diesem Namen gibt es schon", null);
+            log.error("Error adding experimenting station, station already exists! Name: " + experimentierStationName);
+        } catch (Exception e) {
+            e.printStackTrace();
+            ExperimentierStation es = new ExperimentierStation(UUID.randomUUID().hashCode(), experimentierStationStandort, experimentierStationName, ExperimentierStationZustand.VERFUEGBAR, experimentierStationBenutzer);
+            try {
+                experimentierStationService.addES(es);
+                log.info("Added experimenting station! Name: " + experimentierStationName);
+            } catch (Exception f) {
+                f.printStackTrace();
+                log.error("Couldn't add experimenting station! Name: " + experimentierStationName);
+            }
+        }
     }
 
     /**
      * edits a experimentation station that already exists
-     * @param es the station to be edited
      */
-    public void editStation(ExperimentierStation es) {}
+    public void editStation(int esID) {
+        try{
+            ExperimentierStation es = experimentierStationService.getById(esID);
+            es.setBenutzer(experimentierStationBenutzer);
+            es.setName(experimentierStationName);
+            es.setStandort(experimentierStationStandort);
+            experimentierStationService.updateES(es);
+            log.info("Updated experimenting station! ID: " + esID);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            log.info("Failed to update experimenting station! ID: " + esID);
+        }
+    }
 
     /**
      * deletes a station
-     * @param es the station to be edited
+     *
      */
-    public void deleteStation(ExperimentierStation es) {}
+    public void deleteStation(int esID) {
+        try{
+            ExperimentierStation es = experimentierStationService.getById(esID);
+            System.out.println("PASSED STEP 1");
+            experimentierStationService.loescheES(es);
+            log.info("Deleted experimenting station! ID: " + esID);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            log.info("Failed to remove experimenting station! ID: " + esID);
+        }
+    }
 
     /**
      * assigns a user to a station
+     *
      * @param us the user
      * @param es the station
      */
-    public void userToStation(User us, ExperimentierStation es) {}
+    public void userToStation(User us, ExperimentierStation es) {
+    }
 
     /**
      * generates a regestration mail that is supposed to be sent out to new users
      */
-    public void generateRegestrationMail()  {}
+    public void generateRegestrationMail() {
+    }
+
+    /** Action listener for table updates */
+    public void onClickExperimentierStationEdit(){
+
+    }
 
     /**
      * returns all experimentation stations existing
+     *
      * @return a set containing all stations
      */
-    public Set<ExperimentierStation> getES() {
-        return null;
+    public List<ExperimentierStation> getES() {
+        return experimentierStationService.getAll();
     }
 
     /**
@@ -349,9 +448,11 @@ public class AdminBean implements Serializable {
         //em.createNativeQuery(String.format("SCRIPT TO '%s'", sqlFilePath)).executeUpdate();
 
     }
+
     /**
      * the emtpy constructor
      */
-    public AdminBean() {}
+    public AdminBean() {
+    }
 
 }

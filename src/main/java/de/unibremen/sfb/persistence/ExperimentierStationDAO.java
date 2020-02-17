@@ -99,4 +99,18 @@ public class ExperimentierStationDAO extends ObjectDAO<ExperimentierStation> {
             throw new IllegalArgumentException();
         }
     }
+
+    /** Get an experimenting station using it's name
+     * @param name - the experimenting station's name
+     * @return the experimenting station with a matching name
+     * @throws ExperimentierStationNotFoundException if the experimenting station cannot be found in the database */
+    public ExperimentierStation getByName(String name) throws ExperimentierStationNotFoundException{
+        try {
+            return em.createQuery("SELECT es FROM ExperimentierStation es WHERE es.name = :name",get()).setParameter("name",name).getSingleResult();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new ExperimentierStationNotFoundException();
+        }
+    }
 }
