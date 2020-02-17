@@ -7,15 +7,20 @@ import de.unibremen.sfb.model.Auftrag;
 import de.unibremen.sfb.model.ProzessSchrittVorlage;
 import de.unibremen.sfb.persistence.AuftragDAO;
 import de.unibremen.sfb.persistence.ProzessSchrittVorlageDAO;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
+import javax.json.bind.JsonbConfig;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Singleton
+@Slf4j
 /**
  * Service fuer ProzessSchrittVorlagen
  * Anwendungsfall: Bearbeiten einer Vorlage oder hinzufuegen einer ProzessSchrittVorlage in einer ProzessKettenVorlage
@@ -33,7 +38,13 @@ public class AuftragService implements Serializable {
     @PostConstruct
     public void init() {
         auftrage = getAuftrage();
-        
+        // Create custom configuration with formatted output
+        JsonbConfig config = new JsonbConfig()
+                .withFormatting(true);
+
+        // Create Jsonb with custom configuration
+        Jsonb jsonb = JsonbBuilder.create(config);;
+        log.info(jsonb.toJson(auftrage));
     }
 
     public List<Auftrag> getAuftrage() {
