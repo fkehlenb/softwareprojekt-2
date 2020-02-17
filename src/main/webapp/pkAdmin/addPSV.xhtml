@@ -19,11 +19,11 @@
                                 <h:panelGrid columns="2" cellpadding="10">
                                     <p:outputLabel for="parameter" value="Parameter: "/>
                                     <p:selectManyMenu id="parameter"
-                                                      value="#{psvErstellenBean.ausgewählteProzessSchrittParameter}"
+                                                      value="#{psvErstellenBean.ausgewaehlteProzessSchrittParameter}"
                                                       converter="prozessSchrittParameterConverter" effect="fade"
                                                       var="parameter" style="width: 172px" filter="true"
                                                       filterMatchMode="startsWith">
-                                        <f:selectItems value="#{psvErstellenBean.verfügbareParameter}"
+                                        <f:selectItems value="#{psvErstellenBean.verfuegbareParameter}"
                                                        var="parameter" itemLabel="#{parameter.name}"
                                                        itemValue="#{parameter}"/>
                                         <p:column>
@@ -38,7 +38,7 @@
                                     <p:selectOneButton id="art"
                                                        value="#{psvErstellenBean.psArt}" required="true">
                                         <f:selectItem itemLabel="Umformend" itemValue="Umformend"/>
-                                        <f:selectItem itemLabel="Färbend" itemValue="Färbend"/>
+                                        <f:selectItem itemLabel="Faerbend" itemValue="Faerbend"/>
                                         <f:selectItem itemLabel="Ermittelnd" itemValue="Ermittelnd"/>
                                     </p:selectOneButton>
 
@@ -48,11 +48,11 @@
 
                                     <p:outputLabel for="experimentierStation" value="ExperimentierStation: "/>
                                     <p:selectManyMenu id="experimentierStation"
-                                                     value="#{psvErstellenBean.ausgewählteStationen}"
+                                                     value="#{psvErstellenBean.ausgewaehlteStationen}"
                                                      converter="experimentierStationConverter" effect="fade"
                                                      var="experimentierStation" style="width: 172px" filter="true"
                                                      filterMatchMode="startsWith">
-                                        <f:selectItems value="#{psvErstellenBean.verfügbareStationen}"
+                                        <f:selectItems value="#{psvErstellenBean.verfuegbareStationen}"
                                                        var="experimentierStation" itemLabel="#{experimentierStation.standort}"
                                                        itemValue="#{experimentierStation}" required="true"/>
                                         <p:column>

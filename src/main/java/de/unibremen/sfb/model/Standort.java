@@ -20,4 +20,5 @@ public class Standort {
     /** The location */
     @NonNull
     private String ort;
+
 }

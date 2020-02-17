@@ -52,7 +52,7 @@ public class AuftragController {
     /**
      * returns the current Zustand (state) of this Auftrag
      * possible values: Instanziiert (instantiated), Freigegeben (enabled), Gestartet (started),
-     *                  Abgebrochen (canceled), Durchgeführt (carried out)
+     *                  Abgebrochen (canceled), Durchgefuehrt (carried out)
      * @return the current Zustand
      */
     public Enum<ProzessKettenZustandsAutomat> getPKZ() {
@@ -62,7 +62,7 @@ public class AuftragController {
     /**
      * sets the current Zustand (state) of this Auftrag
      * possible values: Instanziiert (instantiated), Freigegeben (enabled), Gestartet (started),
-     *                  Abgebrochen (canceled), Durchgeführt (carried out)
+     *                  Abgebrochen (canceled), Durchgefuehrt (carried out)
      */
     public void setPKZ(Enum<ProzessKettenZustandsAutomat> pkz) {
         auftrag.setProzessKettenZustandsAutomat(pkz);
@@ -77,7 +77,7 @@ public class AuftragController {
     }
 
     /**
-     * sets the current Priorität (priority) of this Auftrag
+     * sets the current Prioritaet (priority) of this Auftrag
      */
     public void setPrio(Enum<AuftragsPrioritaet> prio) {
         auftrag.setPriority(prio);

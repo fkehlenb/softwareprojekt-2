@@ -54,7 +54,7 @@ public class ProzessSchrittVorlageController {
     public int getID() { return 0; }
 
     /**
-     * Returns the Zustände (states) in which this ProzessSchrittVorlage
+     * Returns the Zustaende (states) in which this ProzessSchrittVorlage
      * could be once instantiated as a ProzessSchritt
      *
      * @return A Set with every possible state
@@ -62,7 +62,7 @@ public class ProzessSchrittVorlageController {
     public Set<ProzessSchrittZustandsAutomat> getZustaende() { return null; }
 
     /**
-     * Sets the Zustände (states) in which this ProzessSchrittVorlage
+     * Sets the Zustaende (states) in which this ProzessSchrittVorlage
      * could be once instantiated as a ProzessSchritt
      *
      * @param psza A set with the new states

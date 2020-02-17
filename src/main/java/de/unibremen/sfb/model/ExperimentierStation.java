@@ -47,6 +47,6 @@ public class ExperimentierStation {
     private List<Bedingung> bedingungen;
 
     @NonNull
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER,  cascade = CascadeType.ALL)
     private List<User> benutzer;
 }

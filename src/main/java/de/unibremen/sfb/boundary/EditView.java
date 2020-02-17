@@ -1,12 +1,7 @@
-package de.unibremen.sfb.boundary;
-
-import de.unibremen.sfb.exception.DuplicateStandortException;
-import de.unibremen.sfb.model.Standort;
-import de.unibremen.sfb.persistence.StandortDAO;
-import de.unibremen.sfb.service.StandortService;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
+import de.unibremen.sfb.model.Car;
+import de.unibremen.sfb.model.ProzessSchrittVorlage;
+import de.unibremen.sfb.service.CarService;
+import de.unibremen.sfb.service.ProzessSchrittVorlageService;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.event.RowEditEvent;
 
@@ -19,50 +14,52 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * Quelle https://www.primefaces.org/showcase/ui/data/datatable/edit.xhtml
- */
 @Named("dtEditView")
 @ViewScoped
-@Getter
-@Setter
-@Slf4j
 public class EditView implements Serializable {
 
-    private List<Standort> standorte;
+    private List<Car> cars1;
+    private List<Car> cars2;
 
     @Inject
-    private StandortDAO standortDAO;
+    private CarService service;
+
+    @Inject
+    private ProzessSchrittVorlageService prozessSchrittVorlageService;
 
     @PostConstruct
     public void init() {
-        standorte = getStandorte();
+        cars1 = service.createCars(10);
+        cars2 = service.createCars(10);
     }
 
-    public List<Standort> getStandorte() {
-        standorte= standortDAO.getAll();
-        return standorte;
+    public List<Car> getCars1() {
+        return cars1;
     }
 
+    public List<Car> getCars2() {
+        return cars2;
+    }
 
+    public List<String> getBrands() {
+        return service.getBrands();
+    }
 
-    public void onRowEdit(RowEditEvent event) {
-        Standort s = null;
+    public List<String> getColors() {
+        return service.getColors();
+    }
 
-        try {
-            s = (Standort) event.getObject();
-            standortDAO.persist(s);
-        } catch (Exception e) {
-                log.error("Not correct Type");
-        }
-        FacesMessage msg = new FacesMessage("Standort Edited", s.getOrt());
+    public void setService(CarService service) {
+        this.service = service;
+    }
+
+    public void onRowEdit(RowEditEvent<Car> event) {
+        FacesMessage msg = new FacesMessage("Car Edited", event.getObject().getId());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
-
-
-    public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Edit Cancelled", event.getObject().toString()); // potentiel fix me id
+  public void onRowCancel(RowEditEvent<Car> event) {
+        FacesMessage msg = new FacesMessage("Edit Cancelled", event.getObject().getId());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
@@ -70,14 +67,7 @@ public class EditView implements Serializable {
         Object oldValue = event.getOldValue();
         Object newValue = event.getNewValue();
 
-
-        if (newValue != null && !newValue.equals(oldValue)) {
-            try {
-                standortDAO.persist( (Standort) newValue);
-            } catch (DuplicateStandortException e) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Standort konnte nicht gespeichert werden", null));
-                e.printStackTrace();
-            }
+        if(newValue != null && !newValue.equals(oldValue)) {
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }

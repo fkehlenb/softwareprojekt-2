@@ -4,6 +4,7 @@ import de.unibremen.sfb.exception.AuftragNotFoundException;
 import de.unibremen.sfb.exception.DuplicateUserException;
 import de.unibremen.sfb.exception.UserNotFoundException;
 import de.unibremen.sfb.model.Auftrag;
+import de.unibremen.sfb.model.ExperimentierStation;
 import de.unibremen.sfb.model.User;
 import de.unibremen.sfb.persistence.AuftragDAO;
 import de.unibremen.sfb.persistence.UserDAO;
@@ -25,6 +26,9 @@ public class UserService implements Serializable {
     @Inject
     private UserDAO userDAO;
 
+    /** Mailing service */
+    @Inject
+    private MailingService mailingService;
 
     /**
      * List of all users in the system
@@ -164,5 +168,20 @@ public class UserService implements Serializable {
      * @throws UserNotFoundException if the email address has no registered user in the database */
     public void removeUserByMail(String email) throws UserNotFoundException{
         userDAO.remove(getUserByEmail(email));
+    }
+
+    /** Get the experimenting stations that are assigned to a user
+     * @param u - the user whose experimenting stations to return
+     * @return the user's experimenting stations */
+    public List<ExperimentierStation> getEsByUser(User u){
+        return u.getStationen();
+    }
+
+    /** Send an email address to a user
+     * @param u - the user to send the email to
+     * @param subject - the email subject
+     * @param message - the email content message */
+    public void sendMail(User u,String subject,String message){
+        mailingService.sendmail(u.getEmail(),message,subject);
     }
 }
