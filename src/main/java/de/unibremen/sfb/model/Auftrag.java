@@ -12,6 +12,9 @@ import java.util.List;
 @Entity
 @RequiredArgsConstructor
 @NoArgsConstructor
+@NamedQueries({
+        @NamedQuery(name = "Auftrag.getAll", query = "SELECT a FROM Auftrag a")
+})
 public class Auftrag {
 
     /**

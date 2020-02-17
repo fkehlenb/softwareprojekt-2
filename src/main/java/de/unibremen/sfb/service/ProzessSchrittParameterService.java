@@ -1,5 +1,6 @@
 package de.unibremen.sfb.service;
 
+import de.unibremen.sfb.exception.ProzessSchrittParameterNotFoundException;
 import de.unibremen.sfb.model.ProzessSchrittParameter;
 import de.unibremen.sfb.model.QualitativeEigenschaft;
 import de.unibremen.sfb.persistence.ProzessSchrittParameterDAO;
@@ -71,6 +72,14 @@ public class ProzessSchrittParameterService implements Serializable {
         } catch (Exception e) {
             log.info("error get all ProzessSchrittParameterDAO Class=ProzessSchrittParameterService");
             return null;
+        }
+    }
+
+    public void update(ProzessSchrittParameter prozessSchrittParameter) {
+        try {
+            prozessSchrittParameterDAO.update(prozessSchrittParameter);
+        } catch (ProzessSchrittParameterNotFoundException e) {
+            e.printStackTrace();
         }
     }
 

@@ -87,14 +87,14 @@ public class User {
     /**
      * The experimenting stations a user is assigned to
      */
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<ExperimentierStation> stationen;
 
     /**
      * The jobs a user has
      */
     @NonNull
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Auftrag> auftraege;
 
     /**
