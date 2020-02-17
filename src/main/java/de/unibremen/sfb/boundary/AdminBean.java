@@ -3,6 +3,8 @@ package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.exception.DuplicateUserException;
 import de.unibremen.sfb.model.*;
+import de.unibremen.sfb.persistence.UserDAO;
+import de.unibremen.sfb.service.BackupService;
 import de.unibremen.sfb.service.ExperimentierStationService;
 import de.unibremen.sfb.service.TraegerArtService;
 import de.unibremen.sfb.service.UserService;
@@ -10,13 +12,19 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.credential.PasswordMatcher;
+import org.h2.engine.Session;
+import org.h2.tools.Backup;
+import org.h2.tools.Script;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.sql.DataSource;
 import javax.transaction.Transactional;
+import java.io.File;
 import java.io.Serializable;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -52,6 +60,10 @@ public class AdminBean implements Serializable {
      */
     @Inject
     private ExperimentierStationService experimentierStationService;
+
+    /** Database backup service */
+    @Inject
+    private BackupService backupService;
 
     /**
      * The user's name
@@ -446,10 +458,7 @@ public class AdminBean implements Serializable {
      * backs the system up
      */
     public void backup() throws SQLException {
-        log.info("Trying to connect with DB");
-        String sqlFilePath = "./Backup" + LocalDateTime.now().toString();
-        //em.createNativeQuery(String.format("SCRIPT TO '%s'", sqlFilePath)).executeUpdate();
-
+        backupService.backupDatabase();
     }
 
     /**
