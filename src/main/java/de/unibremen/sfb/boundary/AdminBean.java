@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.credential.PasswordMatcher;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -453,9 +454,11 @@ public class AdminBean implements Serializable {
      */
     public void backup() throws SQLException {
         log.info("Trying to connect with DB");
-        String sqlFilePath = "./Backup_" + LocalDateTime.now() + ".txt".toString();
+        String sqlFilePath = "./Backup_" + LocalDateTime.now() + ".sql".toString();
         Query q = em.createNativeQuery(String.format("SCRIPT TO '%s'", sqlFilePath));
         log.info(q.getResultList().toString());
+        FacesMessage message = new FacesMessage("Successfuly saved DB", sqlFilePath + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
 
     }
 
