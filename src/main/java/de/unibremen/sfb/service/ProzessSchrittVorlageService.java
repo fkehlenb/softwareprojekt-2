@@ -1,25 +1,32 @@
 package de.unibremen.sfb.service;
 
+import de.unibremen.sfb.exception.DuplicateProzessSchrittVorlageException;
 import de.unibremen.sfb.model.ProzessSchrittVorlage;
+import de.unibremen.sfb.persistence.ProzessSchrittVorlageDAO;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
+import javax.inject.Inject;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Singleton
 /**
- * Service für ProzessSchrittVorlagen
- * Anwendungsfall: Bearbeiten einer Vorlage oder hinzufügen einer ProzessSchrittVorlage in einer ProzessKettenVorlage
+ * Service fuer ProzessSchrittVorlagen
+ * Anwendungsfall: Bearbeiten einer Vorlage oder hinzufuegen einer ProzessSchrittVorlage in einer ProzessKettenVorlage
  */
 
-public class ProzessSchrittVorlageService {
+public class ProzessSchrittVorlageService implements Serializable {
     private List<ProzessSchrittVorlage> vorlagen;
 
     @PostConstruct
     public void init() {
-        this.vorlagen = erstelleStandartVorlagen();
+        this.vorlagen = getProzessSchrittVorlagen();
     }
+
+    @Inject
+    ProzessSchrittVorlageDAO psvDAO;
 
     // FIXME Add Default
     private List<ProzessSchrittVorlage> erstelleStandartVorlagen() {
@@ -27,10 +34,20 @@ public class ProzessSchrittVorlageService {
     }
 
     public List<ProzessSchrittVorlage> getProzessSchrittVorlagen() {
-        return vorlagen;
+        return psvDAO.getAll();
     }
+
 
     public void addVorlage(ProzessSchrittVorlage prozessSchrittVorlage) {
         this.vorlagen.add(prozessSchrittVorlage);
     }
+
+    public void persist(ProzessSchrittVorlage psv) {
+        try {
+            psvDAO.persist(psv);
+        } catch (DuplicateProzessSchrittVorlageException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

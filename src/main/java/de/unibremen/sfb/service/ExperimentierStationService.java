@@ -11,14 +11,14 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
+import java.io.Serializable;
 import java.util.List;
 
 
 @Startup
 @Getter
-public class ExperimentierStationService {
-
     /** List containing all experimenting stations */
+public class ExperimentierStationService implements Serializable {
     private List<ExperimentierStation> esSet;
 
     /** ES DAO for database management */
@@ -28,11 +28,11 @@ public class ExperimentierStationService {
     /** init called on startup */
     @PostConstruct
     public void init() {
-        this.esSet= getStandortListe();
+        this.esSet= esDao.getAll();
     }
 
     /** Get all experimenting stations from the database */
-    private List<ExperimentierStation> getStandortListe() {
+    public  List<ExperimentierStation> getESListe() {
         return esDao.getAll();
     }
 
@@ -49,7 +49,7 @@ public class ExperimentierStationService {
      * @throws ExperimentierStationNotFoundException on failure */
     public void loescheES(ExperimentierStation experimentierStation) throws ExperimentierStationNotFoundException {
         esDao.remove(experimentierStation);
-        esSet = getStandortListe();
+        esSet = getESListe();
     }
 
     /** Find an experimenting station using its name

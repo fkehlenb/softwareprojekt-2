@@ -190,7 +190,7 @@ public class AdminBean implements Serializable {
             String id = "";
             resetVariables();
             log.info("Added new User, Username: " + userName);
-            userService.sendMail(user,"Account Created!","Thank you for creating your account at SFB - Farbige Zustände!\nIf you did not create" +
+            userService.sendMail(user,"Account Created!","Thank you for creating your account at SFB - Farbige Zustaende!\nIf you did not create" +
                     "this account, please contact the system administrator!");
         } catch (Exception e) {
             User user = new User(UUID.randomUUID().hashCode(), vorname, nachname, email, telefonNummer,

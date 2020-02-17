@@ -1,11 +1,9 @@
 package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.exception.DuplicateProzessSchrittVorlageException;
+import de.unibremen.sfb.persistence.ExperimentierStationDAO;
 import de.unibremen.sfb.persistence.ProzessSchrittVorlageDAO;
-import de.unibremen.sfb.service.ExperimentierStationService;
-import de.unibremen.sfb.service.ProzessSchrittParameterService;
-import de.unibremen.sfb.service.ProzessSchrittVorlageService;
-import de.unibremen.sfb.service.QualitativeEigenschaftService;
+import de.unibremen.sfb.service.*;
 import de.unibremen.sfb.model.*;
 import lombok.Getter;
 import lombok.NonNull;
@@ -13,23 +11,25 @@ import lombok.Setter;
 import lombok.extern.java.Log;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+
 @Named("psvErstellenBean")
-@RequestScoped
+@SessionScoped
 @Getter
 @Setter
 @Log
-public class PSVErstellenBean {
+public class PSVErstellenBean implements Serializable {
 
     @NotEmpty
     private int psVID;
@@ -52,16 +52,16 @@ public class PSVErstellenBean {
     private ProzessSchrittZustandsAutomatVorlage zustandsAutomatenVorlage;
 
     @NonNull
-    private List<ProzessSchrittParameter> ausgewählteProzessSchrittParameter;
+    private List<ProzessSchrittParameter> ausgewaehlteProzessSchrittParameter;
 
     @NonNull
-    private List<ExperimentierStation> ausgewählteStationen;
+    private List<ExperimentierStation> ausgewaehlteStationen;
 
-    // Wir benötigen die Parameter und Eigenschaften um diese dann auszuwählen
-    private List<ProzessSchrittParameter> verfügbareParameter;
-    private List<QualitativeEigenschaft> verfügbareEigenschaften;
-    private List<ExperimentierStation> verfügbareStationen;
-    private List<ProzessSchrittVorlage> verfügbarePSV;
+    // Wir ben  tigen die Parameter und Eigenschaften um diese dann auszuwaehlen
+    private List<ProzessSchrittParameter> verfuegbareParameter;
+    private List<QualitativeEigenschaft> verfuegbareEigenschaften;
+    private List<ExperimentierStation> verfuegbareStationen;
+    private List<ProzessSchrittVorlage> verfuegbarePSV;
 
 
     @Inject
@@ -77,6 +77,12 @@ public class PSVErstellenBean {
     private ExperimentierStationService experimentierStationService;
 
     @Inject
+    ZustandsService  zustandsService;
+
+    @Inject
+    private ExperimentierStationDAO esDAO;
+
+    @Inject
     private ProzessSchrittVorlageDAO prozessSchrittVorlageDAO;
 
     @PostConstruct
@@ -84,25 +90,30 @@ public class PSVErstellenBean {
      * Hier werden aus der Persitenz die benötigten Daten Geladen
      */
     public void init() {
-        verfügbareParameter = prozessSchrittParameterService.getPSP();
-        verfügbareEigenschaften = qualitativeEigenschaftService.getEigenschaften(); // Hier weiter einschränken
-        verfügbarePSV = prozessSchrittVorlageService.getProzessSchrittVorlagen();
-        verfügbareStationen = experimentierStationService.getEsSet();
+        verfuegbareParameter = prozessSchrittParameterService.getPSP();
+        verfuegbareEigenschaften = qualitativeEigenschaftService.getEigenschaften(); // Hier weiter einschraenken
+        verfuegbarePSV = prozessSchrittVorlageService.getProzessSchrittVorlagen();
+//        verfuegbareStationen = experimentierStationService.getESListe();
+        verfuegbareStationen = esDAO.getAll();
+        zustandsService.getPsZustaende();
     }
+
 
     public String erstellePSV() {
         log.info("Erstelle Prozessschritt");
         // FIXME Add Service for Zustaende
         List<String> z = new ArrayList();
         z.add("Kapput");
+        // FIXME Wehre is es, persist auf  de.unibremen.sfb.model.ProzessSchrittVorlage.zustandsAutomat -> de.unibremen.sfb.model.ProzessSchrittZustandsAutomatVorlage
 
         ProzessSchrittVorlage psv = new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), Duration.ofHours(Long.parseLong(dauer)), psArt,
-                ausgewählteStationen, new ProzessSchrittZustandsAutomatVorlage(z, "Platzhalter"), ausgewählteProzessSchrittParameter);
+                ausgewaehlteStationen, new ProzessSchrittZustandsAutomatVorlage(z, "Platzhalter"), ausgewaehlteProzessSchrittParameter);
         try {
             prozessSchrittVorlageDAO.persist(psv);
         } catch (DuplicateProzessSchrittVorlageException e) {
             e.printStackTrace();
         }
+        
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Erfolg", "Prozessschrittvorlage:  " + psv.getPsVID() +
                 "erfolgreich erstellt"));

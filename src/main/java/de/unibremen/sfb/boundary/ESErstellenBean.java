@@ -37,13 +37,13 @@ public class ESErstellenBean {
     private Standort standort;
 
     @NotEmpty
-    private List<User> ausgewählteBenutzer;
+    private List<User> ausgewaehlteBenutzer;
 
     @NonNull
     private String name;
 
     private List<User> availableUsers;
-    private List<Standort> verfügbareStandorte;
+    private List<Standort> verfuegbareStandorte;
 
 
     @Inject
@@ -58,13 +58,13 @@ public class ESErstellenBean {
     @PostConstruct
     public void init() {
         availableUsers = userService.getUsers();
-        verfügbareStandorte = standortService.getStandorte();
+        verfuegbareStandorte = standortService.getStandorte();
     }
 
     public String createES() throws DuplicateExperimentierStationException
     {
         log.info("Erstelle neue Experimentierstation: "  + standort.toString() + name);
-        ExperimentierStation experimentierStation = new ExperimentierStation(UUID.randomUUID().hashCode(), standort, name, ExperimentierStationZustand.VERFUEGBAR, ausgewählteBenutzer);
+        ExperimentierStation experimentierStation = new ExperimentierStation(UUID.randomUUID().hashCode(), standort, name, ExperimentierStationZustand.VERFUEGBAR, ausgewaehlteBenutzer);
 
         log.info("Persisting Experimentierstation: "  + standort.toString() + name);
         esDao.persist(experimentierStation);

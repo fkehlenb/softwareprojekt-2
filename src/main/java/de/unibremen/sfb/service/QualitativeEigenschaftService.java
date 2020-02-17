@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -48,7 +49,7 @@ public class QualitativeEigenschaftService implements Serializable {
             return qeDAO.getAllQlEminusQnE();
         } catch (Exception e) {
             //TODO LOG
-            return null;
+            return new ArrayList<QualitativeEigenschaft>();
         }
     }
 

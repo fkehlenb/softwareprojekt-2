@@ -56,7 +56,7 @@ public class AuftragDAO extends ObjectDAO<Auftrag> {
     /** Get a job object from the database using the job id
      * @param id - the id whose job object to fetch from the database
      * @throws AuftragNotFoundException if the job couldn't be found in the database
-     * @return Gibt den Auftrag zuruück
+     * @return Gibt den Auftrag zuruueck
      */
 
     public Auftrag getObjById(int id) throws AuftragNotFoundException{
