@@ -23,6 +23,10 @@ public class UserService implements Serializable {
     @Inject
     private UserDAO userDAO;
 
+    /** Mailing service */
+    @Inject
+    private MailingService mailingService;
+
     /**
      * List of all users in the system
      */
@@ -168,5 +172,13 @@ public class UserService implements Serializable {
      * @return the user's experimenting stations */
     public List<ExperimentierStation> getEsByUser(User u){
         return u.getStationen();
+    }
+
+    /** Send an email address to a user
+     * @param u - the user to send the email to
+     * @param subject - the email subject
+     * @param message - the email content message */
+    public void sendMail(User u,String subject,String message){
+        mailingService.sendmail(u.getEmail(),message,subject);
     }
 }

@@ -178,6 +178,8 @@ public class AdminBean implements Serializable {
             String id = "";
             resetVariables();
             log.info("Added new User, Username: " + userName);
+            userService.sendMail(user,"Account Created!","Thank you for creating your account at SFB - Farbige Zustände!\nIf you did not create" +
+                    "this account, please contact the system administrator!");
         } catch (Exception e) {
             User user = new User(UUID.randomUUID().hashCode(), vorname, nachname, email, telefonNummer,
                     userName, matcher.getPasswordService().encryptPassword(password), wurdeVerifiziert, date1
@@ -209,6 +211,7 @@ public class AdminBean implements Serializable {
             this.password = new String(user.getPassword());
             this.wurdeVerifiziert = user.isWurdeVerifiziert();
             this.language = user.getLanguage();
+            log.info("Updated User! ID: " + id);
         } catch (Exception e) {
             e.printStackTrace();
             log.info("Couldn't edit user, Username: " + userName);
