@@ -29,8 +29,9 @@
                 </p:outputPanel>
 
                 <h2>Liste der Prozessschrittparameter</h2>
-                <p:dataTable id="psps1" var="psp" value="#{dtPSPBean.prozessSchrittParameter}" editable="true"
-                             style="margin-bottom:20px">
+                <p:dataTable id="psps1" var="psp" value="#{dtPSPBean.findAll()}" editable="true"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                             paginator="true" style="margin-bottom:20px">
                     <f:facet name="header">
                         Row Editing
                     </f:facet>
@@ -44,29 +45,27 @@
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column headerText="Dauer">
+                    <p:column headerText="Name">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{psp.name}"/></f:facet>
-                            <f:facet name="input"><p:inputText value="#{psp.name}" style="width:100%"
-                                                               label="Year"/></f:facet>
+                            <f:facet name="input"><p:inputText id="modelInput" value="#{psp.name}"
+                                                               style="width:96%"/></f:facet>
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column headerText="User">
+                    <p:column headerText="Eigenschenschaften">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{psp.qualitativeEigenschaften}"/></f:facet>
                             <f:facet name="input">
-                                <h:selectManyMenu value="#{psp.qualitativeEigenschaften}" style="width:100%">
+                                <h:selectOneMenu value="#{psp.qualitativeEigenschaften}" style="width:100%">
                                     <f:selectItems value="#{dtPSPBean.qualitativeEigenschaften}"
                                                    var="qualitativeEigenschaften"
                                                    itemLabel="#{qualitativeEigenschaften}"
                                                    itemValue="#{qualitativeEigenschaften}"/>
-                                </h:selectManyMenu>
+                                </h:selectOneMenu>
                             </f:facet>
                         </p:cellEditor>
                     </p:column>
-
-
                     <p:column style="width:35px">
                         <p:rowEditor/>
                     </p:column>

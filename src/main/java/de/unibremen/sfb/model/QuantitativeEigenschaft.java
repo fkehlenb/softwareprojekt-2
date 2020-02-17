@@ -3,6 +3,7 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 /** The quantitative descriptor data class */
 @Getter
@@ -18,12 +19,13 @@ public class QuantitativeEigenschaft extends QualitativeEigenschaft {
     /**
      * The quantitative descriptor value's measuring unit
      */
-    //TODO
-//    @NonNull
-//    @OneToOne
+    @NonNull
+    private String einheit;
+
+
 //    private SI einheit;
     public QuantitativeEigenschaft(String name, Number wert) {
-        super(name);
+        super(UUID.randomUUID().hashCode() ,name);
         this.wert = wert;
     }
 

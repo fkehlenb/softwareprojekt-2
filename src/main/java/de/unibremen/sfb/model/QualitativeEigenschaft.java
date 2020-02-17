@@ -21,6 +21,7 @@ public class QualitativeEigenschaft {
     /**
      * ID descriptor
      */
+    @NonNull
     @Id
     private int id;
     /**

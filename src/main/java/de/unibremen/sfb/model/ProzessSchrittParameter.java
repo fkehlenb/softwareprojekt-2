@@ -2,9 +2,7 @@ package de.unibremen.sfb.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
 
 /** The process chain step parameter's data class  */
@@ -25,6 +23,6 @@ public class ProzessSchrittParameter {
 
     /** The qualitative/quantitative descriptors creating this process step parameter */
     @NonNull
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<QualitativeEigenschaft> qualitativeEigenschaften;
 }
