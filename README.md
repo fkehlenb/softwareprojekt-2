@@ -30,15 +30,17 @@
 </ul>
 <h4 id="anforderungen">Anforderungen</h4>
 <h5 id="administrator">Administrator</h5>
+<strike>
 <ul>
-<li><strike>Übersicht über alle existierenden Nutzer<ul>
-<li>Anlegen neuer Nutzer</strike><ul>
+<li>Übersicht über alle existierenden Nutzer<ul>
+<li>Anlegen neuer Nutzer<ul>
 <li>Neue Nutzer werden per Mail über ihren Account informiert.</li>
 </ul>
 </li>
 <li><strike>Löschen bestehender Nutzer</strike></li>
 <li><strike>Bearbeiten bestehender Nutzer</strike></li>
 </ul>
+</strike>
 </li>
 <li><strike>Übersicht über alle Experimentierstationen</strike><ul>
 <li>Anlegen von neuen Experimentierstationen</li>
