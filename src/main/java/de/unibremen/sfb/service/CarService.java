@@ -4,6 +4,9 @@ import de.unibremen.sfb.model.Car;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,6 +15,9 @@ import java.util.UUID;
 @Named
 @ApplicationScoped
 public class CarService {
+
+    @PersistenceContext
+    EntityManager em;
 
     private final static String[] colors;
 
@@ -48,7 +54,6 @@ public class CarService {
         for(int i = 0 ; i < size ; i++) {
             list.add(new Car(getRandomId(), getRandomBrand(), getRandomYear(), getRandomColor(), getRandomPrice(), getRandomSoldState()));
         }
-
         return list;
     }
 

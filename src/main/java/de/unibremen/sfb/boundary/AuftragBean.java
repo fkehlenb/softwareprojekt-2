@@ -36,7 +36,6 @@ public class AuftragBean implements Serializable {
     @PostConstruct
     void init() {
         auftrage = auftragService.getAuftrage();
-        // lol
     }
 
     public void onRowEdit(RowEditEvent<Auftrag> event) {
@@ -48,6 +47,10 @@ public class AuftragBean implements Serializable {
     public void onRowCancel(RowEditEvent<Auftrag> event) {
         FacesMessage msg = new FacesMessage("Edit Cancelled", event.getObject().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public String json() {
+        return auftragService.toJson();
     }
 }
 

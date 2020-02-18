@@ -1,15 +1,18 @@
 package de.unibremen.sfb.model;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @RequiredArgsConstructor
 @Getter
 @Setter
+@Entity
+@NoArgsConstructor
 public class Car {
     @NonNull
+    @Id
     private String id;
     @NonNull
     private String Brand;

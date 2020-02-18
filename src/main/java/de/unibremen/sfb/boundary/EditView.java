@@ -1,3 +1,5 @@
+package de.unibremen.sfb.boundary;
+
 import de.unibremen.sfb.model.Car;
 import de.unibremen.sfb.model.ProzessSchrittVorlage;
 import de.unibremen.sfb.service.CarService;
@@ -11,12 +13,18 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.io.Serializable;
 import java.util.List;
 
 @Named("dtEditView")
 @ViewScoped
 public class EditView implements Serializable {
+
+    @PersistenceContext
+    EntityManager em;
 
     private List<Car> cars1;
     private List<Car> cars2;
@@ -68,6 +76,10 @@ public class EditView implements Serializable {
         Object newValue = event.getNewValue();
 
         if(newValue != null && !newValue.equals(oldValue)) {
+            if (em.contains(newValue)) {
+                em.merge(newValue);
+            } else em.persist(newValue);
+
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
