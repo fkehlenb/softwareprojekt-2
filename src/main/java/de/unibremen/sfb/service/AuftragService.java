@@ -28,23 +28,17 @@ import java.util.List;
 
 public class AuftragService implements Serializable {
     private List<Auftrag> auftrage;
-    
+
     @Inject
     AuftragDAO auftragDAO;
 
     @Inject
     AuftragService auftragService;
-    
+
     @PostConstruct
     public void init() {
         auftrage = getAuftrage();
         // Create custom configuration with formatted output
-        JsonbConfig config = new JsonbConfig()
-                .withFormatting(true);
-
-        // Create Jsonb with custom configuration
-        Jsonb jsonb = JsonbBuilder.create(config);;
-        log.info(jsonb.toJson(auftrage));
     }
 
     public List<Auftrag> getAuftrage() {
@@ -69,4 +63,14 @@ public class AuftragService implements Serializable {
         }
     }
 
+    public String toJson() {
+        JsonbConfig config = new JsonbConfig()
+                .withFormatting(true);
+
+        // Create Jsonb with custom configuration
+        Jsonb jsonb = JsonbBuilder.create(config);
+        String result = jsonb.toJson(auftragService.getAuftrage());
+        log.info("Export von den Auftraegen\n" + result);
+        return result;
+    }
 }

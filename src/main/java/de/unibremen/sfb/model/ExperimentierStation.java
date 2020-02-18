@@ -49,4 +49,7 @@ public class ExperimentierStation {
     @NonNull
     @ManyToMany(fetch = FetchType.EAGER,  cascade = CascadeType.ALL)
     private List<User> benutzer;
+
+//    @ManyToOne
+//    private ProzessSchritt currentPS;
 }

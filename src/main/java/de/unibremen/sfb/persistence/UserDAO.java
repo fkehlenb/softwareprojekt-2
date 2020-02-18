@@ -3,9 +3,6 @@ package de.unibremen.sfb.persistence;
 import de.unibremen.sfb.exception.DuplicateUserException;
 import de.unibremen.sfb.exception.UserNotFoundException;
 import de.unibremen.sfb.model.User;
-import org.h2.engine.Database;
-import org.h2.engine.Session;
-import org.h2.tools.Script;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;

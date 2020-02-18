@@ -454,7 +454,7 @@ public class AdminBean implements Serializable {
      */
     public void backup() throws SQLException {
         log.info("Trying to connect with DB");
-        String sqlFilePath = "./Backup_" + LocalDateTime.now() + ".sql".toString();
+        String sqlFilePath = "./Backup_" + LocalDateTime.now() + ".sql";
         Query q = em.createNativeQuery(String.format("SCRIPT TO '%s'", sqlFilePath));
         log.info(q.getResultList().toString());
         FacesMessage message = new FacesMessage("Successfuly saved DB", sqlFilePath + " is uploaded.");
