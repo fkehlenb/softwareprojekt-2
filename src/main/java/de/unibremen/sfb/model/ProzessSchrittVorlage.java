@@ -40,15 +40,6 @@ public class ProzessSchrittVorlage {
     @NonNull
     private  List<ExperimentierStation> stationen;
 
-    /** The process step template's state automaton template */
-    @NonNull
-    @OneToOne
-    private ProzessSchrittZustandsAutomatVorlage zustandsAutomat;
-
-    /** The user who created this template */
-    @ManyToOne
-    private User creator;
-
     /** The process step parameters */
     @ManyToMany
     @NonNull

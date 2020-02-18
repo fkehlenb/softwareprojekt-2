@@ -118,7 +118,7 @@ public class RegisterBean implements Serializable {
                     throw new IllegalArgumentException("USER ALREADY EXISTS!");
                 }
                 PasswordMatcher matcher = new PasswordMatcher();
-                userService.addUser(new User(UUID.randomUUID().hashCode(), vorname, nachname, email, phoneNumber, username, matcher.getPasswordService().encryptPassword(password), false, LocalDateTime.now(), List.of(Role.ADMIN), new ArrayList<>(), "DE"));
+                userService.addUser(new User(UUID.randomUUID().hashCode(), vorname, nachname, email, phoneNumber, username, matcher.getPasswordService().encryptPassword(password), false, LocalDateTime.now(), List.of(Role.ADMIN), "DE"));
                 //TODO redirect and send email
                 FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
                 System.out.println("REDIRECTED SUCCESSFULLY");

@@ -8,10 +8,10 @@ import java.util.List;
 /** Data class for process chain steps */
 @Data
 @Entity
-@NamedQueries({
-        @NamedQuery(name = "ProzessSchritt.getByEs",
-                query = "SELECT ps FROM ProzessSchritt ps WHERE ps.current = :experimentierStation")
-})
+//@NamedQueries({
+//        @NamedQuery(name = "ProzessSchritt.getByEs",
+//                query = "SELECT ps FROM ProzessSchritt ps WHERE ps.current = :experimentierStation")
+//})
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @RequiredArgsConstructor
 public class ProzessSchritt {
@@ -25,10 +25,10 @@ public class ProzessSchritt {
     /** Whether or not the process step has been uploaded */
     private boolean uploaded;
 
-    /** The experimenting station where the current process step is being carried out */
-    //@NonNull TOOD Wann beginnt die Zuweisung?
-    @OneToOne
-    private ExperimentierStation current;
+//    /** The experimenting station where the current process step is being carried out */
+//    //@NonNull TOOD Wann beginnt die Zuweisung?
+//    @OneToOne
+//    private ExperimentierStation current;
 
 
     /** The state Automaton for the process step */
@@ -47,12 +47,8 @@ public class ProzessSchritt {
 
     /** The process step template the process step was created from */
     @NonNull
-    @OneToOne
+    @ManyToOne
     private ProzessSchrittVorlage prozessSchrittVorlage;
-
-    /** The containers that are used in the process step */
-    @OneToOne
-    private Traeger traeger;
 
 
 }

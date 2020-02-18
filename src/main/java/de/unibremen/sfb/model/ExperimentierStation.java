@@ -50,6 +50,6 @@ public class ExperimentierStation {
     @ManyToMany(fetch = FetchType.EAGER,  cascade = CascadeType.ALL)
     private List<User> benutzer;
 
-//    @ManyToOne
-//    private ProzessSchritt currentPS;
+    @ManyToOne
+    private ProzessSchritt currentPS;
 }

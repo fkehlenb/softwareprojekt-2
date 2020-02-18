@@ -57,9 +57,4 @@ public class Auftrag {
     @NonNull
     private Enum<ProzessKettenZustandsAutomat> prozessKettenZustandsAutomat;
 
-    /**
-     * The user assigned to the job
-     */
-    @OneToOne
-    private User assigned;
 }

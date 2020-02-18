@@ -171,7 +171,8 @@ public class UserService implements Serializable {
      * @param u - the user whose experimenting stations to return
      * @return the user's experimenting stations */
     public List<ExperimentierStation> getEsByUser(User u){
-        return u.getStationen();
+//        return u.getStationen();
+        return new ArrayList<>();
     }
 
     /** Send an email address to a user

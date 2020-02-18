@@ -118,7 +118,7 @@ public class InitialDataFiller {
                 log.info("Trying to persist ProzessSchrittVorlage " + pSV.toString());
                 em.persist(pSV);
             }
-            pkv = new ProzessKettenVorlage(99, psListe, testUser);
+            pkv = new ProzessKettenVorlage(99, psListe);
             log.info("Try to persist ProzessSchrittVorlage " + pkv.getPkID());
             em.persist(pkv);
 
@@ -217,7 +217,7 @@ public class InitialDataFiller {
         a.add(Role.TECHNOLOGE);
         testUser = new User(UUID.randomUUID().hashCode(), "Default", "Technologe", "l@g.c", f.phoneNumber().cellPhone(),
                 "t,", matcher.getPasswordService().encryptPassword("12345678"), true, LocalDateTime.now(),
-                a, new ArrayList<Auftrag>(), "DEUTSCH");
+                a, "DEUTSCH");
         List users = new ArrayList<>();
 
         // Add to user Lost
@@ -228,7 +228,7 @@ public class InitialDataFiller {
         a.add(Role.PKADMIN);
         testUser = new User(UUID.randomUUID().hashCode(), "Default", "PKAdmin", "l@g.c", f.phoneNumber().cellPhone(),
                 "pk,", matcher.getPasswordService().encryptPassword("12345678"), true, LocalDateTime.now(),
-                a, new ArrayList<Auftrag>(), "DEUTSCH");
+                a, "DEUTSCH");
         // Add to user Lost
 
         users.add(testUser);
@@ -237,7 +237,7 @@ public class InitialDataFiller {
         a.add(Role.TRANSPORT);
         testUser = new User(UUID.randomUUID().hashCode(), "Default", "Transport", "l@g.c", f.phoneNumber().cellPhone(),
                 "pk,", matcher.getPasswordService().encryptPassword("12345678"), true, LocalDateTime.now(),
-                a, new ArrayList<Auftrag>(), "DEUTSCH");
+                a, "DEUTSCH");
 
         // Add to user Lost
         users.add(testUser);
@@ -246,7 +246,7 @@ public class InitialDataFiller {
         a.add(Role.LOGISTIKER);
         testUser = new User(UUID.randomUUID().hashCode(), "Default", "Logistik", "l@g.c", f.phoneNumber().cellPhone(),
                 "pk,", matcher.getPasswordService().encryptPassword("12345678"), true, LocalDateTime.now(),
-                a, new ArrayList<Auftrag>(), "DEUTSCH");
+                a, "DEUTSCH");
 
         // Add to user Lost
         users.add(testUser);
@@ -255,7 +255,7 @@ public class InitialDataFiller {
         a.add(Role.ADMIN);
         testUser = new User(UUID.randomUUID().hashCode(), "Default", "Logistik", "l@g.c", f.phoneNumber().cellPhone(),
                 "pk,", matcher.getPasswordService().encryptPassword("12345678"), true, LocalDateTime.now(),
-                a, new ArrayList<Auftrag>(), "DEUTSCH");
+                a, "DEUTSCH");
         // Add to user Lost
         users.add(testUser);
 
@@ -282,7 +282,7 @@ public class InitialDataFiller {
                 zustandsService.getPsZustaende(), "Test pszvav");
         em.persist(v);
         ProzessSchrittVorlage psv = new ProzessSchrittVorlage(99, Duration.ofMinutes(42),
-                "Ermittlend", experimentierStations, v, parameters);
+                "Ermittlend", experimentierStations, parameters);
         return psv;
     }
 

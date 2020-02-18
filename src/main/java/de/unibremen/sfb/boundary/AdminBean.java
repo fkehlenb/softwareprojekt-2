@@ -180,7 +180,6 @@ public class AdminBean implements Serializable {
             user.setErstellungsDatum(date1);
             user.setRollen(rollen);
             user.setLanguage(language);
-            user.setAuftraege(new ArrayList<>());
             userService.updateUser(user);
             String id = "";
             resetVariables();
@@ -190,7 +189,7 @@ public class AdminBean implements Serializable {
         } catch (Exception e) {
             User user = new User(UUID.randomUUID().hashCode(), vorname, nachname, email, telefonNummer,
                     userName, matcher.getPasswordService().encryptPassword(password), wurdeVerifiziert, date1
-                    , rollen, auftrags, language);
+                    , rollen, language);
             userService.addUser(user);
             resetVariables();
             log.info("User updated, Username: " + userName);
