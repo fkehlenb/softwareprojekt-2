@@ -39,8 +39,7 @@ public class QlEBean implements Serializable {
 
 
     public void addQualitativeEigenschaft() throws DuplicateQualitativeEigenschaftException {
-        QualitativeEigenschaft qualitativeEigenschaft = new QualitativeEigenschaft(nameQualitativeEigenschaft);
-        qualitativeEigenschaft.setId(UUID.randomUUID().hashCode());
+        QualitativeEigenschaft qualitativeEigenschaft = new QualitativeEigenschaft(UUID.randomUUID().hashCode(), nameQualitativeEigenschaft);
         qualitativeEigenschaftService.addQualitativeEigenschaft(qualitativeEigenschaft);
         nameQualitativeEigenschaft=null;
     }

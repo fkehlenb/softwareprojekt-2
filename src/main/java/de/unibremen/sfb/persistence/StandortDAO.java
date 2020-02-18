@@ -43,8 +43,8 @@ public class StandortDAO extends ObjectDAO<Standort> {
      * @throws StandortNotFoundException if the location object couldn't be found in the database */
     public void remove(Standort s) throws StandortNotFoundException{
         if (s!=null){
-            if (!em.contains(s)){
-                throw new StandortNotFoundException();
+            if (!em.contains(s)) {
+                em.merge(s);
             }
             em.remove(s);
         }

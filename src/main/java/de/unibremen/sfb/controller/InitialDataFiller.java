@@ -18,12 +18,13 @@ import javax.transaction.Transactional;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
+
 import org.apache.shiro.authc.credential.PasswordMatcher;
 
 /**
  * This Class is run when the Server is deployed. Its purpose is to pupulate all web Views
  * At the same time this works as a integration Test.
- *
+ * <p>
  * If there are persistence Problems they will be noticed here
  */
 @Startup
@@ -32,7 +33,7 @@ import org.apache.shiro.authc.credential.PasswordMatcher;
 @Slf4j
 public class InitialDataFiller {
     int limit = 5;
-    private  List<Standort>  standorte;
+    private List<Standort> standorte;
     private ProzessSchritt ps;
     private Auftrag pk;
     private ProzessKettenVorlage pkv;
@@ -94,19 +95,19 @@ public class InitialDataFiller {
             /**
              * persis von QualitativeEigenschaft durch die Variebln qualitativeEigenschaftList
              * */
-            qualitativeEigenschaftList=getQualitativeEigenschaften();
-            for (QualitativeEigenschaft qE :qualitativeEigenschaftList
-                   ) {
+            qualitativeEigenschaftList = getQualitativeEigenschaften();
+            for (QualitativeEigenschaft qE : qualitativeEigenschaftList
+            ) {
                 log.info("Trying to Persist Qualitaet Eingenschaft " + qE.getName());
                 em.persist(qE);
             }
-                // PS Parameter
-                List<ProzessSchrittParameter> parameters = new ArrayList<>();
-                parameters.add(new ProzessSchrittParameter(UUID.randomUUID().hashCode(), "Getestet",qualitativeEigenschaftList ));
+            // PS Parameter
+            List<ProzessSchrittParameter> parameters = new ArrayList<>();
+            parameters.add(new ProzessSchrittParameter(UUID.randomUUID().hashCode(), "Getestet", qualitativeEigenschaftList));
 
-            for (ProzessSchrittParameter psp: parameters
-                 ) {
-                log.info("Trying ti persist ProzessSchrittParameter "+psp.getName());
+            for (ProzessSchrittParameter psp : parameters
+            ) {
+                log.info("Trying ti persist ProzessSchrittParameter " + psp.getName());
                 em.persist(psp);
             }
 
@@ -114,47 +115,46 @@ public class InitialDataFiller {
             List<ProzessSchrittVorlage> psListe = getProzessSchrittVorlages(parameters);
             for (ProzessSchrittVorlage pSV :
                     psListe) {
-                log.info("Trying to persist ProzessSchrittVorlage "+pSV.toString());
+                log.info("Trying to persist ProzessSchrittVorlage " + pSV.toString());
                 em.persist(pSV);
             }
             pkv = new ProzessKettenVorlage(99, psListe, testUser);
-                log.info("Try to persist ProzessSchrittVorlage "+ pkv.getPkID());
-                em.persist(pkv);
+            log.info("Try to persist ProzessSchrittVorlage " + pkv.getPkID());
+            em.persist(pkv);
 
             // Auftrag Setup
             AuftragsLog aLog = new AuftragsLog(LocalDateTime.now());
             aLog.setErstellt(LocalDateTime.now());
             em.persist(aLog);
-            log.info("Try to persist AuftragsLog "+ aLog.toString());
-            pk = new Auftrag(420, pkv, AuftragsPrioritaet.HOCH, new ArrayList<ProzessSchritt>(), aLog , ProzessKettenZustandsAutomat.INSTANZIIERT);
+            log.info("Try to persist AuftragsLog " + aLog.toString());
+            pk = new Auftrag(420, pkv, AuftragsPrioritaet.HOCH, new ArrayList<ProzessSchritt>(), aLog, ProzessKettenZustandsAutomat.INSTANZIIERT);
 
 
             // PSAV Setup
             ProzessSchrittZustandsAutomatVorlage psza = new ProzessSchrittZustandsAutomatVorlage(zustandsService.getPsZustaende(),
                     zustandsService.getPsZustaende().get(0));
-            log.info("Try to persist ProzessSchrittZustandsAutomatVorlage "+ psza.toString());
+            log.info("Try to persist ProzessSchrittZustandsAutomatVorlage " + psza.toString());
             em.persist(psza);
             // PS Setup
             ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat("ERSTELLT", psza);
-            log.info("Try to persist ProzessSchrittZustandsAutomat "+ prozessSchrittZustandsAutomat.toString());
+            log.info("Try to persist ProzessSchrittZustandsAutomat " + prozessSchrittZustandsAutomat.toString());
             em.persist(prozessSchrittZustandsAutomat);
 
             ArrayList<ProzessSchrittLog> logs = new ArrayList<>();
             logs.add(new ProzessSchrittLog(LocalDateTime.now(), "INSTANZIERT"));
-            for (ProzessSchrittLog pSL:
-                 logs) {
-                log.info("Try to persist TESTlogs "+pSL.getGestartet().toString());
+            for (ProzessSchrittLog pSL :
+                    logs) {
+                log.info("Try to persist TESTlogs " + pSL.getGestartet().toString());
                 em.persist(pSL);
             }
 
 
-
-            ps = new ProzessSchritt(42, prozessSchrittZustandsAutomat, logs , psListe.get(0));
-            log.info("Try to persist TEST ProzessSchritt "+ps.getPsID());
+            ps = new ProzessSchritt(42, prozessSchrittZustandsAutomat, logs, psListe.get(0));
+            log.info("Try to persist TEST ProzessSchritt " + ps.getPsID());
             em.persist(ps);
             // PS aufuellen
             pk.getProzessSchritte().add(ps);
-            log.info("Try to persist TEST ProzessKette "+pk.getPkID());
+            log.info("Try to persist TEST ProzessKette " + pk.getPkID());
             em.persist(pk);
 
 
@@ -166,6 +166,7 @@ public class InitialDataFiller {
 
     /**
      * Erstelle Standorte
+     *
      * @return erstelle Standorte
      */
     private List<Standort> createDefaulStandort() {
@@ -173,22 +174,23 @@ public class InitialDataFiller {
         standorte = new ArrayList<>();
 
         for (int i = 0; i < limit; i++) {
-            Standort s =  new Standort(UUID.randomUUID().hashCode(), "Station " + i) ;
+            Standort s = new Standort(UUID.randomUUID().hashCode(), "Station " + i);
             log.info("Persisiting Experimentierstation " + i);
             standorte.add(s);
         }
 
 
-        return  standorte;
+        return standorte;
     }
 
     /**
      * Erstelle Experimentierstationen
      * Depends on createDefaultUser
+     *
      * @return
      */
     private List<ExperimentierStation> createDefaultStation() {
-         experimentierStations = new ArrayList<ExperimentierStation>();
+        experimentierStations = new ArrayList<ExperimentierStation>();
         List<User> users = new ArrayList();
         users.add(testUser);
 
@@ -203,6 +205,7 @@ public class InitialDataFiller {
     /**
      * Erstelle Standart Nutzer
      * FIXME Password need to be in external Config
+     *
      * @return A user for every Role
      */
     private List<User> createDefaultUsers() {
@@ -264,7 +267,6 @@ public class InitialDataFiller {
     private void setUpAuftrag() {
 
 
-
     }
 
     private List<ProzessSchrittVorlage> getProzessSchrittVorlages(List<ProzessSchrittParameter> parameters) {
@@ -280,16 +282,17 @@ public class InitialDataFiller {
                 zustandsService.getPsZustaende(), "Test pszvav");
         em.persist(v);
         ProzessSchrittVorlage psv = new ProzessSchrittVorlage(99, Duration.ofMinutes(42),
-                "Ermittlend", experimentierStations, v,parameters);
-        return  psv;
+                "Ermittlend", experimentierStations, v, parameters);
+        return psv;
     }
 
     private List<QualitativeEigenschaft> getQualitativeEigenschaften() {
         // Eigenschaften
         qualEigenschaften = new ArrayList<>();
-        QualitativeEigenschaft q1=new QualitativeEigenschaft("Test Eigenschaft");
-        q1.setId(UUID.randomUUID().hashCode());
+        QualitativeEigenschaft q1 = new QualitativeEigenschaft(UUID.randomUUID().hashCode(), "Test Eigenschaft");
+        QualitativeEigenschaft q2 = new QualitativeEigenschaft(UUID.randomUUID().hashCode(), "2te Eigenschaft");
         qualEigenschaften.add(q1);
-        return  qualEigenschaften;
+        qualEigenschaften.add(q2);
+        return qualEigenschaften;
     }
 }
