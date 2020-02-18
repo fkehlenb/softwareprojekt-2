@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 /** Sample object data class */
 @Data
@@ -24,8 +25,8 @@ public class Probe {
     private String probenID;
 
     /** Comment added to the sample and when it was added */
-    @OneToOne
-    private Kommentar kommentar;
+    @OneToMany
+    private List<Kommentar> kommentar;
 
     /** The sample's state */
     @NonNull

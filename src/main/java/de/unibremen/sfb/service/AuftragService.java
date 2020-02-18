@@ -24,7 +24,7 @@ import java.util.List;
 @Singleton
 @Slf4j
 /**
- * Service fuer ProzessSchrittVorlagen
+ * Service fuer AuftragService
  * Anwendungsfall: Bearbeiten einer Vorlage oder hinzufuegen einer ProzessSchrittVorlage in einer ProzessKettenVorlage
  */
 

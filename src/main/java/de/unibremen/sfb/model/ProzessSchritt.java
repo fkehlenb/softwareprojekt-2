@@ -30,6 +30,9 @@ public class ProzessSchritt {
     @OneToOne
     private ExperimentierStation current;
 
+    /** a short description of what needs to be done here**/
+    @NonNull
+    private String description; //TODO unnötig wg parameter?
 
     /** The state Automaton for the process step */
     @NonNull
