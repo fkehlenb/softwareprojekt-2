@@ -149,7 +149,7 @@ public class InitialDataFiller {
             }
 
 
-            ps = new ProzessSchritt(42, "description", prozessSchrittZustandsAutomat, logs, psListe.get(0));
+            ps = new ProzessSchritt(42, prozessSchrittZustandsAutomat, logs, psListe.get(0));
             log.info("Try to persist TEST ProzessSchritt " + ps.getPsID());
             em.persist(ps);
             // PS aufuellen

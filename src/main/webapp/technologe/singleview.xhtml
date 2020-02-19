@@ -47,10 +47,6 @@
                     </p:column>
                 </p:dataTable>
 
-                <p:row>
-                    <p>Beschreibung: #{technologeBean.singleJob.description}</p> <!-- brauche ich nicht wg Parameter? -->
-                </p:row>
-
                     <p:outputLabel for="kommentar" value="Kommentar:"/>
                     <p:inputMask id="kommentar" value="#{technologeBean.kommentarForAll}" mask="********"/>
                     <p:commandButton value="Save" type="save"/>
