@@ -1,4 +1,11 @@
-package de.unibremen.sfb.service;
+package de.unibremen.sfb.service.rollen;
 
-public class PKAdminService {
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.enterprise.context.SessionScoped;
+
+@Getter
+@Setter
+public class PKAdmin {
 }
