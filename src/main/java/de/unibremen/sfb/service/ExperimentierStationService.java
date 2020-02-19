@@ -12,12 +12,15 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
+import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 
 
 @Startup
 @Getter
+@Transactional
     /** List containing all experimenting stations */
 public class ExperimentierStationService implements Serializable {
     private List<ExperimentierStation> esSet;
@@ -47,10 +50,10 @@ public class ExperimentierStationService implements Serializable {
 
     /** Remove an experimenting station
      * @param experimentierStation - the experimenting station to delete
-     * @throws ExperimentierStationNotFoundException on failure */
-    public void loescheES(ExperimentierStation experimentierStation) throws ExperimentierStationNotFoundException {
+     */
+    public void loescheES(ExperimentierStation experimentierStation)  {
         esDao.remove(experimentierStation);
-        esSet = getESListe();
+//        esSet = getESListe();
     }
 
     /** Find an experimenting station using its name

@@ -1,9 +1,12 @@
 package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.model.Auftrag;
+import de.unibremen.sfb.model.ProzessKettenVorlage;
 import de.unibremen.sfb.model.ProzessSchrittVorlage;
 import de.unibremen.sfb.model.User;
+import de.unibremen.sfb.persistence.ProzessKettenVorlageDAO;
 import de.unibremen.sfb.service.AuftragService;
+import de.unibremen.sfb.service.ProzessKettenVorlageService;
 import de.unibremen.sfb.service.ProzessSchrittVorlageService;
 import de.unibremen.sfb.service.UserService;
 import lombok.Getter;
@@ -28,18 +31,24 @@ import java.util.List;
 @Log
 public class AuftragBean implements Serializable {
     private List<Auftrag> auftrage;
+    private List<ProzessKettenVorlage> vorlagen;
 
     @Inject
     AuftragService auftragService;
+
+    @Inject
+    ProzessKettenVorlageService prozessKettenVorlageService;
 
 
     @PostConstruct
     void init() {
         auftrage = auftragService.getAuftrage();
+        vorlagen = getPKVs();
     }
 
     public void onRowEdit(RowEditEvent<Auftrag> event) {
-        auftragService.add(event.getObject());
+        log.info("Updating: "+ event.getObject().getPkID());
+        auftragService.upate(event.getObject());
         FacesMessage msg = new FacesMessage("Auftrag Edited", event.getObject().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
@@ -51,6 +60,10 @@ public class AuftragBean implements Serializable {
 
     public String json() {
         return auftragService.toJson();
+    }
+
+    public List<ProzessKettenVorlage> getPKVs() {
+        return prozessKettenVorlageService.getPKVs();
     }
 }
 

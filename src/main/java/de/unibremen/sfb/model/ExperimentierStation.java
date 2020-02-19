@@ -47,9 +47,9 @@ public class ExperimentierStation {
     private List<Bedingung> bedingungen;
 
     @NonNull
-    @ManyToMany(fetch = FetchType.EAGER,  cascade = CascadeType.ALL)
+    @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private List<User> benutzer;
 
-//    @ManyToOne
-//    private ProzessSchritt currentPS;
+    @OneToOne
+    private ProzessSchritt currentPS;
 }

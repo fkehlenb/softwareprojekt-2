@@ -23,7 +23,7 @@
                 <p:dataTable id="auftraege" var="auftrag" value="#{dtAuftragBean.auftrage}" editable="true"
                              style="margin-bottom:20px">
                     <f:facet name="header">
-                        Row Editing
+                        Auftraege Bearbeiten
                     </f:facet>
 
                     <p:ajax event="rowEdit" listener="#{dtAuftragBean.onRowEdit}" update=":form:msgs"/>
@@ -36,10 +36,26 @@
                                                                style="width:100%"/></f:facet>
                         </p:cellEditor>
                     </p:column>
+
+
+                    <p:column headerText="Vorlage">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{auftrag.vorlage}"/></f:facet>
+                            <f:facet name="input">
+                                <h:selectOneMenu value="#{auftrag.vorlage}" style="width:100%" converter="prozessKettenVorlageConverter">
+                                    <f:selectItems value="#{dtAuftragBean.getPKVs()}"/>
+                                </h:selectOneMenu>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column style="width:35px">
+                        <p:rowEditor/>
+                    </p:column>
                 </p:dataTable>
 
-                <h:outputText value="#{dtAuftragBean.json()}" />
-                
+                <h:outputText value="#{dtAuftragBean.json()}"/>
+
             </h:form>
         </ui:define>
     </ui:composition>

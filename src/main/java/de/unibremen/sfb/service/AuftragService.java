@@ -4,11 +4,15 @@ import de.unibremen.sfb.exception.AuftragNotFoundException;
 import de.unibremen.sfb.exception.DuplicateAuftragException;
 import de.unibremen.sfb.exception.DuplicateProzessSchrittVorlageException;
 import de.unibremen.sfb.model.Auftrag;
+import de.unibremen.sfb.model.ProzessKettenVorlage;
 import de.unibremen.sfb.model.ProzessKettenZustandsAutomat;
 import de.unibremen.sfb.model.ProzessSchrittVorlage;
 import de.unibremen.sfb.model.User;
 import de.unibremen.sfb.persistence.AuftragDAO;
+import de.unibremen.sfb.persistence.ProzessKettenVorlageDAO;
 import de.unibremen.sfb.persistence.ProzessSchrittVorlageDAO;
+import lombok.Data;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
@@ -17,12 +21,15 @@ import javax.inject.Inject;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbConfig;
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Singleton
 @Slf4j
+@Getter
+@Data
 /**
  * Service fuer AuftragService
  * Anwendungsfall: Bearbeiten einer Vorlage oder hinzufuegen einer ProzessSchrittVorlage in einer ProzessKettenVorlage
@@ -34,13 +41,11 @@ public class AuftragService implements Serializable {
     @Inject
     AuftragDAO auftragDAO;
 
-    @Inject
-    AuftragService auftragService;
+
 
     @PostConstruct
     public void init() {
         auftrage = getAuftrage();
-        // Create custom configuration with formatted output
     }
 
     public List<Auftrag> getAuftrage() {
@@ -71,9 +76,19 @@ public class AuftragService implements Serializable {
 
         // Create Jsonb with custom configuration
         Jsonb jsonb = JsonbBuilder.create(config);
-        String result = jsonb.toJson(auftragService.getAuftrage());
+        String result = jsonb.toJson(getAuftrage());
         log.info("Export von den Auftraegen\n" + result);
         return result;
+    }
+
+    public Auftrag getAuftrag(String value) {
+
+        try {
+            return auftragDAO.getObjById(Integer.parseInt(value));
+        } catch (AuftragNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
     /**
      * sets the status of a job
@@ -93,7 +108,7 @@ public class AuftragService implements Serializable {
      * @throws AuftragNotFoundException the job couldn't be found in the database
      */
     public void assignToAuftrag(User t, Auftrag a) throws AuftragNotFoundException {
-        a.setAssigned(t);
+        //a.setAssigned(t);
         auftragDAO.update(a);
     }
 

@@ -24,11 +24,11 @@ public class ProzessSchrittVorlage {
     private Duration dauer;
 
     /** Accepted container input types */
-    @OneToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<TraegerArt> eingabeTraeger;
 
     /** Accepted container output types */
-    @OneToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<TraegerArt> ausgabeTraeger;
 
     /** The process step type */
@@ -40,17 +40,12 @@ public class ProzessSchrittVorlage {
     @NonNull
     private  List<ExperimentierStation> stationen;
 
-    /** The process step template's state automaton template */
-    @NonNull
-    @OneToOne
-    private ProzessSchrittZustandsAutomatVorlage zustandsAutomat;
-
-    /** The user who created this template */
-    @ManyToOne
-    private User creator;
-
     /** The process step parameters */
     @ManyToMany
     @NonNull
     private List<ProzessSchrittParameter> prozessSchrittParameter;
+
+    public String toString() {
+        return "PSV" + this.psVID;
+    }
 }

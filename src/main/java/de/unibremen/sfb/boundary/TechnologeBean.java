@@ -87,7 +87,7 @@ public class TechnologeBean implements Serializable {
      * returns the experimentation stations this user is assigned to
      * @return a list containing all stations this user is assigned to
      */
-    public List<ExperimentierStation> getStationen() { return technologe.getStationen(); }
+    public List<ExperimentierStation> getStationen() { return null; }//return technologe.getStationen(); }
 
     /**
      * returns the assignments currently available for this user
@@ -209,9 +209,9 @@ public class TechnologeBean implements Serializable {
         }
         else {
             Kommentar k = new Kommentar(LocalDateTime.now(), c);
-            for(Probe p : ps.getTraeger().getProben()) {
+            /*for(Probe p : ps.getTraeger().getProben()) {
                 addProbenComment(p, c);
-            }
+            }*/
         }
         kommentarForAll = "";
     }
@@ -227,9 +227,9 @@ public class TechnologeBean implements Serializable {
             errorMessage("invalid input");
         }
         else {
-            for(Probe p : ps.getTraeger().getProben()) {
+            /*for(Probe p : ps.getTraeger().getProben()) {
                 editProbenComment(p, k, c);
-            }
+            }*/
         }
         kommentarForAll="";
     }
@@ -244,9 +244,9 @@ public class TechnologeBean implements Serializable {
             errorMessage("invalid input");
         }
         else {
-            for(Probe p : ps.getTraeger().getProben()) {
+           /* for(Probe p : ps.getTraeger().getProben()) {
                 deleteProbenComment(p, k);
-            }
+            }*/
         }
         kommentarForAll="";
     }
@@ -315,7 +315,7 @@ public class TechnologeBean implements Serializable {
         List<Probe> res = new LinkedList<>();
         for(ProzessSchritt ps : getJobs()) {
             if(!ps.isUploaded()) {
-                res.addAll(ps.getTraeger().getProben());
+                //res.addAll(ps.getTraeger().getProben());
             }
         }
         return res;
@@ -403,7 +403,7 @@ public class TechnologeBean implements Serializable {
         }
         List<Probe> res = new LinkedList<>();
         for(ProzessSchritt ps : getJobs()) {
-            res.addAll(ps.getTraeger().getProben());
+            //res.addAll(ps.getTraeger().getProben());
         }
         return res;
     }

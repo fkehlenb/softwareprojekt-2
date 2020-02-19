@@ -34,7 +34,7 @@ public class Probe {
 
     /** The sample's location */
     @NonNull
-    @OneToOne
+    @ManyToOne
     private Standort standort;
 
     /** The qualitative/quantitative descriptors of the sample */
@@ -42,7 +42,7 @@ public class Probe {
     private List<QualitativeEigenschaft> qualitativeEigenschaften;
 
     /** The container the sample is currently located in */
-    @OneToOne
+    @ManyToOne
     private Traeger currentTraeger;
 }
 
