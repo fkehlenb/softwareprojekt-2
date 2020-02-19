@@ -24,11 +24,11 @@ public class ProzessSchrittVorlage {
     private Duration dauer;
 
     /** Accepted container input types */
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<TraegerArt> eingabeTraeger;
 
     /** Accepted container output types */
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<TraegerArt> ausgabeTraeger;
 
     /** The process step type */
