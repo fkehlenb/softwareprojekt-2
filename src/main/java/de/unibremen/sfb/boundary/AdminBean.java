@@ -2,6 +2,7 @@ package de.unibremen.sfb.boundary;
 
 
 import de.unibremen.sfb.exception.DuplicateUserException;
+import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.ExperimentierStationService;
 import de.unibremen.sfb.service.TraegerArtService;
@@ -399,16 +400,15 @@ public class AdminBean implements Serializable {
      *
      */
     public void deleteStation(int esID) {
-        try{
-            ExperimentierStation es = experimentierStationService.getById(esID);
-            System.out.println("PASSED STEP 1");
-            experimentierStationService.loescheES(es);
-            log.info("Deleted experimenting station! ID: " + esID);
-        }
-        catch (Exception e){
+        ExperimentierStation es = null;
+        try {
+            es = experimentierStationService.getById(esID);
+        } catch (ExperimentierStationNotFoundException e) {
             e.printStackTrace();
-            log.info("Failed to remove experimenting station! ID: " + esID);
         }
+        System.out.println("PASSED STEP 1");
+        experimentierStationService.loescheES(es);
+        log.info("Deleted experimenting station! ID: " + esID);
     }
 
     /**

@@ -24,11 +24,11 @@ public class ProzessSchrittVorlage {
     private Duration dauer;
 
     /** Accepted container input types */
-    @OneToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<TraegerArt> eingabeTraeger;
 
     /** Accepted container output types */
-    @OneToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<TraegerArt> ausgabeTraeger;
 
     /** The process step type */
@@ -44,4 +44,8 @@ public class ProzessSchrittVorlage {
     @ManyToMany
     @NonNull
     private List<ProzessSchrittParameter> prozessSchrittParameter;
+
+    public String toString() {
+        return "PSV" + this.psVID;
+    }
 }

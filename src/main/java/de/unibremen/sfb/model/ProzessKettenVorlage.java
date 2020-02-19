@@ -9,6 +9,9 @@ import java.util.List;
 @Data
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NamedQueries({
+        @NamedQuery(name = "PKV.getAll", query = "SELECT p FROM ProzessSchrittVorlage p")
+})
 @RequiredArgsConstructor
 public class ProzessKettenVorlage {
 
@@ -19,6 +22,6 @@ public class ProzessKettenVorlage {
 
     /** The process chain template's process steps (as templates hence not yet instantiated) */
     @NonNull
-    @OneToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<ProzessSchrittVorlage> prozessSchrittVorlagen;
 }
