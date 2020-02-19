@@ -17,6 +17,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,18 +38,11 @@ public class PSPBean implements Serializable {
 
     private String name;
 
-    private List<QualitativeEigenschaft> qualitativeEigenschaften;
-    private List<ProzessSchrittParameter> prozessSchrittParameter;
-
-    @PostConstruct
-    public void init() {
-        qualitativeEigenschaften = qualitativeEigenschaftService.getAllQualitativeEigenschaften();
-        prozessSchrittParameter = prozessSchrittParameterService.getParameterList();
-        //
-    }
+    private List<QualitativeEigenschaft> qualitativeEigenschaften = new ArrayList<>();
 
     public String creationLink() {
         return "pSCreation?faces-redirect=true";
+
     }
 
     public String add() {
@@ -59,7 +53,6 @@ public class PSPBean implements Serializable {
             prozessSchrittParameter.setQualitativeEigenschaften(qualitativeEigenschaften);
             prozessSchrittParameterService.addProcessSP(prozessSchrittParameter);
             log.info("Trying to persist der ProzzesSchritt"+prozessSchrittParameter.getName());
-
             return "pS?faces-redirect=true";
         } catch (Exception e) {
             log.info("Fail to persist der ProzzesSchritt");
@@ -87,16 +80,22 @@ public class PSPBean implements Serializable {
             return null;
         }
     }
-
-    public void onRowEdit(RowEditEvent<ProzessSchrittParameter> event) {
-        prozessSchrittParameterService.update(event.getObject());
-        FacesMessage msg = new FacesMessage("PSV Edited", event.getObject().toString());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+    public void deletePSP(String id){
+        try {
+            prozessSchrittParameterService.loscheParameter(prozessSchrittParameterService.getPSPByID(Integer.parseInt(id)));
+        } catch (Exception e) {
+            log.info("Failen remove ProzessSchrittParameterDAO Class=ProzessSchrittParameterService");
+            e.printStackTrace();
+        }
     }
 
-    public void onRowCancel(RowEditEvent<ProzessSchrittParameter> event) {
-        FacesMessage msg = new FacesMessage("Edit Cancelled", event.getObject().toString());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+   public String Edit(String id){
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id",id);
+        List<QualitativeEigenschaft> list=prozessSchrittParameterService.getPSPByID(Integer.parseInt(id)).getQualitativeEigenschaften();
+        ProzessSchrittParameter prozessSchrittParameter = prozessSchrittParameterService.getPSPByID(Integer.parseInt(id));
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("PSP",prozessSchrittParameter);
+       FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("list",list);
+        return "updatePSP?faces-redirect=true";
     }
 
     public List<ProzessSchrittParameter> findAll() {

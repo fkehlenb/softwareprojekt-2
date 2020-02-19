@@ -7,8 +7,11 @@ import de.unibremen.sfb.service.QualitativeEigenschaftService;
 import de.unibremen.sfb.service.QuantitativeEigenschaftService;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.RowEditEvent;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -108,6 +111,15 @@ public class QlEBean implements Serializable {
         }
     }
 
+    public void onCellEdit(CellEditEvent event) {
+        Object oldValue = event.getOldValue();
+        Object newValue = event.getNewValue();
+
+        if(newValue != null && !newValue.equals(oldValue)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        }
+    }
     public void editQnE(String IdQnE) {
         try {
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("IdQnE",IdQnE);

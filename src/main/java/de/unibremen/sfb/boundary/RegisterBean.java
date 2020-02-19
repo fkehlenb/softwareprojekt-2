@@ -120,7 +120,7 @@ public class RegisterBean implements Serializable {
                 PasswordMatcher matcher = new PasswordMatcher();
                 userService.addUser(new User(UUID.randomUUID().hashCode(), vorname, nachname, email, phoneNumber, username, matcher.getPasswordService().encryptPassword(password), false, LocalDateTime.now(), List.of(Role.ADMIN), "DE"));
                 //TODO redirect and send email
-                FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("nutzerVerwaltung.xhtml");
                 System.out.println("REDIRECTED SUCCESSFULLY");
             } else {
                 facesError("Passwords dont match!");
