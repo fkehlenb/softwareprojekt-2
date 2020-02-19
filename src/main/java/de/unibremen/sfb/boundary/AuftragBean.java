@@ -47,7 +47,8 @@ public class AuftragBean implements Serializable {
     }
 
     public void onRowEdit(RowEditEvent<Auftrag> event) {
-        auftragService.add(event.getObject());
+        log.info("Updating: "+ event.getObject().getPkID());
+        auftragService.upate(event.getObject());
         FacesMessage msg = new FacesMessage("Auftrag Edited", event.getObject().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }

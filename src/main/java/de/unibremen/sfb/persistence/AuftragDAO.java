@@ -2,7 +2,9 @@ package de.unibremen.sfb.persistence;
 
 import de.unibremen.sfb.exception.AuftragNotFoundException;
 import de.unibremen.sfb.exception.DuplicateAuftragException;
+import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
 import de.unibremen.sfb.model.Auftrag;
+import de.unibremen.sfb.model.ProzessSchrittVorlage;
 import de.unibremen.sfb.model.User;
 
 import java.util.ArrayList;
@@ -54,23 +56,24 @@ public class AuftragDAO extends ObjectDAO<Auftrag> {
         return Auftrag.class;
     }
 
-    /** Get a job object from the database using the job id
-     * @param id - the id whose job object to fetch from the database
-     * @throws AuftragNotFoundException if the job couldn't be found in the database
-     * @return Gibt den Auftrag zuruueck
-     */
-
+    /** Get a process chain step template from the database using its defined id
+     * @param id - the id of the requested process chain step template
+     * @return the process chain step template matching the given id
+     * @throws AuftragNotFoundException if the process chain step template couldn't be found */
     public Auftrag getObjById(int id) throws AuftragNotFoundException{
-        return null;
+        try {
+            Auftrag psv = em.find(get(),id);
+            if (psv==null){
+                throw new AuftragNotFoundException();
+            }
+            return psv;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new AuftragNotFoundException();
+        }
     }
 
-    /** Get the jobs of a specific user
-     * @param u - the user whose jobs to get
-     * @return the jobs belonging to a user
-     * @throws AuftragNotFoundException if the job couldn't be found */
-    public List<Auftrag> getAuftragByUser(User u) throws AuftragNotFoundException{
-        return null;
-    }
 
     /**
      * Get a list of all users in the database

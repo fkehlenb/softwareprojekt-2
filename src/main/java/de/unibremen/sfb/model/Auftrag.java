@@ -57,4 +57,8 @@ public class Auftrag {
     @NonNull
     private Enum<ProzessKettenZustandsAutomat> prozessKettenZustandsAutomat;
 
+
+    public String toString() {
+        return "Auftrag: " + this.pkID;
+    }
 }

@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @NamedQueries({
-        @NamedQuery(name = "PKV.getAll", query = "SELECT p FROM ProzessSchrittVorlage p")
+        @NamedQuery(name = "PKV.getAll", query = "SELECT p FROM ProzessKettenVorlage p")
 })
 @RequiredArgsConstructor
 public class ProzessKettenVorlage {

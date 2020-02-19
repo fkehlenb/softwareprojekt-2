@@ -78,4 +78,14 @@ public class AuftragService implements Serializable {
         log.info("Export von den Auftraegen\n" + result);
         return result;
     }
+
+    public Auftrag getAuftrag(String value) {
+
+        try {
+            return auftragDAO.getObjById(Integer.parseInt(value));
+        } catch (AuftragNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

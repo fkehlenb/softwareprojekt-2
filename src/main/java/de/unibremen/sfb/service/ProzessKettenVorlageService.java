@@ -1,5 +1,6 @@
 package de.unibremen.sfb.service;
 
+import de.unibremen.sfb.exception.ProzessKettenVorlageNotFoundException;
 import de.unibremen.sfb.model.Auftrag;
 import de.unibremen.sfb.model.ProzessKettenVorlage;
 import de.unibremen.sfb.model.ProzessSchrittVorlage;
@@ -41,10 +42,15 @@ public class ProzessKettenVorlageService {
         return new ArrayList<>();
     }
 
-    /**
-     * the ProzessKettenVorlage managed by an instance of this controller
-     */
-    public ProzessKettenVorlage pkv;
+    public ProzessKettenVorlage getPKV(int id) {
+        ProzessKettenVorlage result = null;
+        try {
+           result = prozessKettenVorlageDAO.getObjById(id);
+        } catch (ProzessKettenVorlageNotFoundException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
     /**
      * Sets the ID of this ProzessKettenVorlage.
