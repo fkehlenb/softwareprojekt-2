@@ -59,6 +59,7 @@ public class ExperimentierStationService implements Serializable {
      * @param name - the experimenting station's name */
     public ExperimentierStation findByName(String name) {
         // FIXME Use String as ID or convert to String
+        esSet = esDao.getAll();
         return this.esSet.stream().filter(c -> c.getName().equals(name)).findFirst().orElse(null);
     }
 
