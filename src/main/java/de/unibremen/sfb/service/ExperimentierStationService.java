@@ -4,6 +4,7 @@ package de.unibremen.sfb.service;
 import de.unibremen.sfb.exception.DuplicateExperimentierStationException;
 import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
 import de.unibremen.sfb.model.ExperimentierStation;
+import de.unibremen.sfb.model.ExperimentierStationZustand;
 import de.unibremen.sfb.model.User;
 import de.unibremen.sfb.persistence.ExperimentierStationDAO;
 import lombok.Getter;
@@ -96,8 +97,28 @@ public class ExperimentierStationService implements Serializable {
      * @param user
      * @return
      */
-    List<ExperimentierStation> getESByUser(User user) {
+    public List<ExperimentierStation> getESByUser(User user) {
        return esDao.getAll().stream().filter(c -> c.getBenutzer().contains(user)).collect(Collectors.toList());
     }
+
+    /**
+     * Change the Status of es to s
+     * @param es die Station
+     * @pearam z der Neue Zustand
+     */
+    public void changeStatus(ExperimentierStation es, ExperimentierStationZustand z) throws  ExperimentierStationNotFoundException{
+        try {
+            var eN = esDao.getObjById(es.getEsID());
+            if (z.equals(ExperimentierStationZustand.VERFUEGBAR)) {
+                // FIXME Pop form Queue to Current
+            }
+            eN.setStatus(z);
+            esDao.update(eN);
+        } catch (ExperimentierStationNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
 }
