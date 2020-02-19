@@ -30,56 +30,38 @@
                     </p:outputPanel>
                 </div>
                 <br/>
-                <h2>Liste der Prozessschrittparameter</h2>
                 <div id="QualEingeschaftList">
-                    <h:form id="form">
-                        <p:growl id="msgs" showDetail="true"/>
+                <h2>Liste der Prozessschrittparameter</h2>
                         <p:dataTable id="psps1" var="psp" value="#{dtPSPBean.findAll()}" editable="true"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                                      paginator="true" style="margin-bottom:20px">
-                            <f:facet name="header">
-                                Row Editing
-                            </f:facet>
-
-                            <p:ajax event="rowEdit" listener="#{dtPSPBean.onRowEdit}" update=":form:msgs"/>
-                            <p:ajax event="rowEditCancel" listener="#{dtPSPBean.onRowCancel}" update=":form:msgs"/>
-
-
                             <p:column headerText="Id">
                                 <h:outputText value="#{psp.id}"/>
                             </p:column>
-
                             <p:column headerText="Name">
-                                <p:cellEditor>
-                                    <f:facet name="output"><h:outputText value="#{psp.name}"/></f:facet>
-                                    <f:facet name="input"><p:inputText id="modelInput" value="#{psp.name}"
-                                                                       style="width:96%"/></f:facet>
-                                </p:cellEditor>
+                                <h:outputText value="#{psp.name}"/>
                             </p:column>
-
-                            <p:column headerText="Eigenschenschaften">
-                                <p:cellEditor>
-                                    <f:facet name="output"><h:outputText
-                                            value="#{psp.qualitativeEigenschaften}"/></f:facet>
-                                    <f:facet name="input">
-                                        <h:selectManyMenu value="#{psp.qualitativeEigenschaften}" style="width:100%">
-                                            <f:selectItems value="#{dtPSPBean.qualitativeEigenschaften}"
-                                                           var="qualitativeEigenschaften"
-                                                           itemLabel="#{qualitativeEigenschaften.name}"
-                                                           itemValue="#{qualitativeEigenschaften}"/>
-                                        </h:selectManyMenu>
-                                    </f:facet>
-                                </p:cellEditor>
-
+                            <p:column headerText="Remove">
+                                <h:form>
+                                    <div align="center">
+                                        <p:commandButton ajax="false" action="#{dtPSPBean.deletePSP(psp.id)}" value="ERASE"
+                                                         icon="pi pi-trash"/>
+                                    </div>
+                                </h:form>
                             </p:column>
-                            <p:column style="width:35px">
-                                <p:rowEditor/>
+                            <p:column headerText="Edit">
+                                <h:form>
+                                    <div align="center">
+                                        <p:commandButton ajax="false" action="#{dtPSPBean.Edit(psp.id)}" value="EDIT"
+                                                         icon="pi pi-pencil"/>
+                                    </div>
+                                </h:form>
                             </p:column>
                         </p:dataTable>
-                    </h:form>
                 </div>
             </div>
         </div>
+
         <div class="ui-g-2"></div>
     </ui:define>
 </ui:composition>
