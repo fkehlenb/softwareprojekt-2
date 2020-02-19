@@ -2,6 +2,7 @@ package de.unibremen.sfb.boundary;
 
 
 import de.unibremen.sfb.exception.DuplicateUserException;
+import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.ExperimentierStationService;
 import de.unibremen.sfb.service.TraegerArtService;
@@ -180,7 +181,6 @@ public class AdminBean implements Serializable {
             user.setErstellungsDatum(date1);
             user.setRollen(rollen);
             user.setLanguage(language);
-            user.setAuftraege(new ArrayList<>());
             userService.updateUser(user);
             String id = "";
             resetVariables();
@@ -190,7 +190,7 @@ public class AdminBean implements Serializable {
         } catch (Exception e) {
             User user = new User(UUID.randomUUID().hashCode(), vorname, nachname, email, telefonNummer,
                     userName, matcher.getPasswordService().encryptPassword(password), wurdeVerifiziert, date1
-                    , rollen, auftrags, language);
+                    , rollen, language);
             userService.addUser(user);
             resetVariables();
             log.info("User updated, Username: " + userName);
@@ -400,16 +400,15 @@ public class AdminBean implements Serializable {
      *
      */
     public void deleteStation(int esID) {
-        try{
-            ExperimentierStation es = experimentierStationService.getById(esID);
-            System.out.println("PASSED STEP 1");
-            experimentierStationService.loescheES(es);
-            log.info("Deleted experimenting station! ID: " + esID);
-        }
-        catch (Exception e){
+        ExperimentierStation es = null;
+        try {
+            es = experimentierStationService.getById(esID);
+        } catch (ExperimentierStationNotFoundException e) {
             e.printStackTrace();
-            log.info("Failed to remove experimenting station! ID: " + esID);
         }
+        System.out.println("PASSED STEP 1");
+        experimentierStationService.loescheES(es);
+        log.info("Deleted experimenting station! ID: " + esID);
     }
 
     /**
@@ -454,7 +453,7 @@ public class AdminBean implements Serializable {
      */
     public void backup() throws SQLException {
         log.info("Trying to connect with DB");
-        String sqlFilePath = "./Backup_" + LocalDateTime.now() + ".sql".toString();
+        String sqlFilePath = "./Backup_" + LocalDateTime.now() + ".sql";
         Query q = em.createNativeQuery(String.format("SCRIPT TO '%s'", sqlFilePath));
         log.info(q.getResultList().toString());
         FacesMessage message = new FacesMessage("Successfuly saved DB", sqlFilePath + " is uploaded.");

@@ -7,12 +7,11 @@ import java.util.List;
 
 /** Data class for the process chain templates */
 @Data
-@NamedQueries({
-        @NamedQuery(name = "PKV.getByUser",
-                query = "SELECT pkv FROM ProzessKettenVorlage pkv WHERE pkv.creator = :user") // FIXME Tutorgespraech Marcel meinte PK sind unabhaengig von Erstllern
-})
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NamedQueries({
+        @NamedQuery(name = "PKV.getAll", query = "SELECT p FROM ProzessKettenVorlage p")
+})
 @RequiredArgsConstructor
 public class ProzessKettenVorlage {
 
@@ -23,11 +22,6 @@ public class ProzessKettenVorlage {
 
     /** The process chain template's process steps (as templates hence not yet instantiated) */
     @NonNull
-    @OneToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<ProzessSchrittVorlage> prozessSchrittVorlagen;
-
-    /** The user who created this template */
-    @NonNull
-    @ManyToOne
-    private User creator;
 }

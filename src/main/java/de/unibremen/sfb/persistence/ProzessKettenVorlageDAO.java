@@ -4,6 +4,9 @@ import de.unibremen.sfb.exception.DuplicateProzessKettenVorlageException;
 import de.unibremen.sfb.exception.ProzessKettenVorlageNotFoundException;
 import de.unibremen.sfb.model.ProzessKettenVorlage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This class handles the job templates in the database
  */
@@ -53,6 +56,16 @@ public class ProzessKettenVorlageDAO extends ObjectDAO<ProzessKettenVorlage> {
                 throw new ProzessKettenVorlageNotFoundException();
             }
             em.remove(pkv);
+        }
+    }
+
+
+    public List<ProzessKettenVorlage> getAll() throws Exception {
+        try {
+            return em.createNamedQuery("PKV.getAll", get()).getResultList();
+        }
+        catch (Exception e){
+            return new ArrayList<>();
         }
     }
 

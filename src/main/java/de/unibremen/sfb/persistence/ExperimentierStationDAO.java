@@ -5,6 +5,7 @@ import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
 import de.unibremen.sfb.model.ExperimentierStation;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 /**
@@ -49,12 +50,11 @@ public class ExperimentierStationDAO extends ObjectDAO<ExperimentierStation> {
      * Removes an existing experimenting station object from the database
      *
      * @param es - the experimenting station to remove from the database
-     * @throws ExperimentierStationNotFoundException if the experimenting station couldn't be found in the database
      */
-    public void remove(ExperimentierStation es) throws ExperimentierStationNotFoundException {
+    public void remove(ExperimentierStation es) throws EntityNotFoundException {
         if (es != null) {
             if (!em.contains(es)) {
-                throw new ExperimentierStationNotFoundException();
+                throw new EntityNotFoundException();
             }
             em.remove(es);
         }

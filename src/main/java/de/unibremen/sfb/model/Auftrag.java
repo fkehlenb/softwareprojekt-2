@@ -28,7 +28,7 @@ public class Auftrag {
      * The process chain template this job was created from
      */
     @NonNull
-    @OneToOne
+    @ManyToOne
     private ProzessKettenVorlage vorlage;
 
     /**
@@ -57,9 +57,8 @@ public class Auftrag {
     @NonNull
     private Enum<ProzessKettenZustandsAutomat> prozessKettenZustandsAutomat;
 
-    /**
-     * The user assigned to the job
-     */
-    @OneToOne
-    private User assigned;
+
+    public String toString() {
+        return "Auftrag: " + this.pkID;
+    }
 }

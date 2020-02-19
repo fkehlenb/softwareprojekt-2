@@ -84,18 +84,6 @@ public class User {
     @ElementCollection
     private List<Role> rollen;
 
-    /**
-     * The experimenting stations a user is assigned to
-     */
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<ExperimentierStation> stationen;
-
-    /**
-     * The jobs a user has
-     */
-    @NonNull
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Auftrag> auftraege;
 
     /**
      * The User's language preference

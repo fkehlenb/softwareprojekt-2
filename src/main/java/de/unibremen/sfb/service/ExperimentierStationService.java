@@ -4,6 +4,7 @@ package de.unibremen.sfb.service;
 import de.unibremen.sfb.exception.DuplicateExperimentierStationException;
 import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
 import de.unibremen.sfb.model.ExperimentierStation;
+import de.unibremen.sfb.model.User;
 import de.unibremen.sfb.persistence.ExperimentierStationDAO;
 import lombok.Getter;
 
@@ -11,12 +12,16 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
+import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Startup
 @Getter
+@Transactional
     /** List containing all experimenting stations */
 public class ExperimentierStationService implements Serializable {
     private List<ExperimentierStation> esSet;
@@ -46,16 +51,17 @@ public class ExperimentierStationService implements Serializable {
 
     /** Remove an experimenting station
      * @param experimentierStation - the experimenting station to delete
-     * @throws ExperimentierStationNotFoundException on failure */
-    public void loescheES(ExperimentierStation experimentierStation) throws ExperimentierStationNotFoundException {
+     */
+    public void loescheES(ExperimentierStation experimentierStation)  {
         esDao.remove(experimentierStation);
-        esSet = getESListe();
+//        esSet = getESListe();
     }
 
     /** Find an experimenting station using its name
      * @param name - the experimenting station's name */
     public ExperimentierStation findByName(String name) {
         // FIXME Use String as ID or convert to String
+        esSet = esDao.getAll();
         return this.esSet.stream().filter(c -> c.getName().equals(name)).findFirst().orElse(null);
     }
 
@@ -83,6 +89,15 @@ public class ExperimentierStationService implements Serializable {
      * @throws ExperimentierStationNotFoundException on failure */
     public void updateES(ExperimentierStation es) throws ExperimentierStationNotFoundException{
         esDao.update(es);
+    }
+
+    /**
+     * Get all the Stations a User
+     * @param user
+     * @return
+     */
+    List<ExperimentierStation> getESByUser(User user) {
+       return esDao.getAll().stream().filter(c -> c.getBenutzer().contains(user)).collect(Collectors.toList());
     }
 
 }
