@@ -5,6 +5,7 @@ import de.unibremen.sfb.exception.DuplicateAuftragException;
 import de.unibremen.sfb.exception.DuplicateProzessSchrittVorlageException;
 import de.unibremen.sfb.model.Auftrag;
 import de.unibremen.sfb.model.ProzessKettenVorlage;
+import de.unibremen.sfb.model.ProzessKettenZustandsAutomat;
 import de.unibremen.sfb.model.ProzessSchrittVorlage;
 import de.unibremen.sfb.persistence.AuftragDAO;
 import de.unibremen.sfb.persistence.ProzessKettenVorlageDAO;
@@ -40,6 +41,15 @@ public class AuftragService implements Serializable {
     AuftragDAO auftragDAO;
 
 
+    /**
+     * Setze den Zustand von Auftrag a auf p und persistiere
+     * @param a Der Auftrag
+     * @param p Der Zustand
+     */
+    public void zustandswechsel(Auftrag a, ProzessKettenZustandsAutomat p) {
+        a.setProzessKettenZustandsAutomat(p);
+        upate(a);
+    }
 
     @PostConstruct
     public void init() {
