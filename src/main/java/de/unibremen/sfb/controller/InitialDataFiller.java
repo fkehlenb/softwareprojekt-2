@@ -269,14 +269,14 @@ public class InitialDataFiller {
 
     }
 
-    private List<ProzessSchrittVorlage> getProzessSchrittVorlages(List<ProzessSchrittParameter> parameters) {
+    public List<ProzessSchrittVorlage> getProzessSchrittVorlages(List<ProzessSchrittParameter> parameters) {
         // PSVA
         List<ProzessSchrittVorlage> psListe = new ArrayList<>();
         psListe.add(getProzessSchrittVorlage(parameters));
         return psListe;
     }
 
-    private ProzessSchrittVorlage getProzessSchrittVorlage(List<ProzessSchrittParameter> parameters) {
+    public ProzessSchrittVorlage getProzessSchrittVorlage(List<ProzessSchrittParameter> parameters) {
         // ProzessSchrittVorlage Setup
         ProzessSchrittZustandsAutomatVorlage v = new ProzessSchrittZustandsAutomatVorlage(
                 zustandsService.getPsZustaende(), "Test pszvav");
@@ -286,7 +286,7 @@ public class InitialDataFiller {
         return psv;
     }
 
-    private List<QualitativeEigenschaft> getQualitativeEigenschaften() {
+    public List<QualitativeEigenschaft> getQualitativeEigenschaften() {
         // Eigenschaften
         qualEigenschaften = new ArrayList<>();
         QualitativeEigenschaft q1 = new QualitativeEigenschaft(UUID.randomUUID().hashCode(), "Test Eigenschaft");

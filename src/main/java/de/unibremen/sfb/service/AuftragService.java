@@ -3,11 +3,7 @@ package de.unibremen.sfb.service;
 import de.unibremen.sfb.exception.AuftragNotFoundException;
 import de.unibremen.sfb.exception.DuplicateAuftragException;
 import de.unibremen.sfb.exception.DuplicateProzessSchrittVorlageException;
-import de.unibremen.sfb.model.Auftrag;
-import de.unibremen.sfb.model.ProzessKettenVorlage;
-import de.unibremen.sfb.model.ProzessKettenZustandsAutomat;
-import de.unibremen.sfb.model.ProzessSchrittVorlage;
-import de.unibremen.sfb.model.User;
+import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.AuftragDAO;
 import de.unibremen.sfb.persistence.ProzessKettenVorlageDAO;
 import de.unibremen.sfb.persistence.ProzessSchrittVorlageDAO;
@@ -42,6 +38,96 @@ public class AuftragService implements Serializable {
     AuftragDAO auftragDAO;
 
 
+    private Auftrag auftrag;
+    /**
+     * returns the ID of this Auftrag
+     *
+     * @return the ID
+     */
+    public int getID() {
+        return auftrag.getPkID();
+    }
+
+    /**
+     * return the ProzessKettenVorlage which was used to instantiate this Auftrag
+     *
+     * @return the ProzessKettenVorlage
+     */
+    public ProzessKettenVorlage getPKV() {
+        return auftrag.getVorlage();
+    }
+
+    /**
+     * return the protocol of this Auftrag that was created thus far
+     *
+     * @return the protocol
+     */
+    public AuftragsLog getLog() {
+        return auftrag.getLog();
+    }
+
+
+    /**
+     * sets the protocol of this Auftrag
+     *
+     * @param al the new protocol
+     */
+    public void setLog(AuftragsLog al) {
+        auftrag.setLog(al);
+    }
+
+    /**
+     * returns the current Zustand (state) of this Auftrag
+     * possible values: Instanziiert (instantiated), Freigegeben (enabled), Gestartet (started),
+     *                  Abgebrochen (canceled), Durchgefuehrt (carried out)
+     * @return the current Zustand
+     */
+    public Enum<ProzessKettenZustandsAutomat> getPKZ() {
+        return auftrag.getProzessKettenZustandsAutomat();
+    }
+
+    /**
+     * sets the current Zustand (state) of this Auftrag
+     * possible values: Instanziiert (instantiated), Freigegeben (enabled), Gestartet (started),
+     *                  Abgebrochen (canceled), Durchgefuehrt (carried out)
+     */
+    public void setPKZ(Enum<ProzessKettenZustandsAutomat> pkz) {
+        auftrag.setProzessKettenZustandsAutomat(pkz);
+    }
+
+    /**
+     * returns the current Prioritaet (priority) of this Auftrag
+     * @return the current Prioritaet
+     */
+    public Enum<AuftragsPrioritaet> getPrio() {
+        return auftrag.getPriority();
+    }
+
+    /**
+     * sets the current Prioritaet (priority) of this Auftrag
+     */
+    public void setPrio(Enum<AuftragsPrioritaet> prio) {
+        auftrag.setPriority(prio);
+    }
+
+    /**
+     * returns the ProzessSchritte which the Auftrag consists of
+     * @return a Set containing all ProzessSchritt
+     */
+    public List<ProzessSchritt> getPS() {
+        return auftrag.getProzessSchritte();
+    }
+
+
+    /**
+     * Setze den Zustand von Auftrag a auf p und persistiere
+     * @param a Der Auftrag
+     * @param p Der Zustand
+     */
+    public void zustandswechsel(Auftrag a, ProzessKettenZustandsAutomat p) {
+        a.setProzessKettenZustandsAutomat(p);
+        upate(a);
+    }
 
     @PostConstruct
     public void init() {

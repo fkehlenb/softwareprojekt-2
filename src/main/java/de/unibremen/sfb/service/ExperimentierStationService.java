@@ -5,6 +5,7 @@ import de.unibremen.sfb.exception.DuplicateExperimentierStationException;
 import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
 import de.unibremen.sfb.model.ExperimentierStation;
 import de.unibremen.sfb.model.ExperimentierStationZustand;
+import de.unibremen.sfb.model.User;
 import de.unibremen.sfb.persistence.ExperimentierStationDAO;
 import lombok.Getter;
 
@@ -16,6 +17,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Startup
@@ -60,6 +62,7 @@ public class ExperimentierStationService implements Serializable {
      * @param name - the experimenting station's name */
     public ExperimentierStation findByName(String name) {
         // FIXME Use String as ID or convert to String
+        esSet = esDao.getAll();
         return this.esSet.stream().filter(c -> c.getName().equals(name)).findFirst().orElse(null);
     }
 
@@ -98,5 +101,34 @@ public class ExperimentierStationService implements Serializable {
     public void updateES(ExperimentierStation es) throws ExperimentierStationNotFoundException{
         esDao.update(es);
     }
+
+    /**
+     * Get all the Stations a User
+     * @param user
+     * @return
+     */
+    public List<ExperimentierStation> getESByUser(User user) {
+       return esDao.getAll().stream().filter(c -> c.getBenutzer().contains(user)).collect(Collectors.toList());
+    }
+
+    /**
+     * Change the Status of es to s
+     * @param es die Station
+     * @pearam z der Neue Zustand
+     */
+    public void changeStatus(ExperimentierStation es, ExperimentierStationZustand z) throws  ExperimentierStationNotFoundException{
+        try {
+            var eN = esDao.getObjById(es.getEsID());
+            if (z.equals(ExperimentierStationZustand.VERFUEGBAR)) {
+                // FIXME Pop form Queue to Current
+            }
+            eN.setStatus(z);
+            esDao.update(eN);
+        } catch (ExperimentierStationNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
 }

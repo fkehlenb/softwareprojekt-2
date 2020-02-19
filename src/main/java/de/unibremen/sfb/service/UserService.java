@@ -30,6 +30,9 @@ public class UserService implements Serializable {
     @Inject
     private MailingService mailingService;
 
+    @Inject
+    private ExperimentierStationService experimentierStationService;
+
     /**
      * List of all users in the system
      */
@@ -146,6 +149,17 @@ public class UserService implements Serializable {
      * @param u - the user to remove from the database
      * @throws UserNotFoundException if the user couldn't be found in the database */
     public void removeUser(User u) throws UserNotFoundException{
+        List<ExperimentierStation> es = experimentierStationService.getAll();
+        for (ExperimentierStation e : es) {
+            if (e.getBenutzer().contains(u)) {
+                e.getBenutzer().remove(u);
+                try {
+                    experimentierStationService.updateES(e);
+                } catch (Exception f) {
+                    f.printStackTrace();
+                }
+            }
+        }
         userDAO.remove(u);
     }
 
