@@ -129,6 +129,9 @@ public class AuftragService implements Serializable {
         upate(a);
     }
 
+
+    // Hier beginnt der neue Service
+
     @PostConstruct
     public void init() {
         auftrage = getAuftrage();
@@ -176,4 +179,19 @@ public class AuftragService implements Serializable {
         }
         return null;
     }
+
+    /**
+     * Bestimme was der naechste Prozessschritt ist, der noch nicht ausgefuehrt wurde
+     * Es ist wichtig das der aktuell durchgefuehrte Schritt nicht den Zustand angenommen hat
+     * @param a Auftrag
+     * @return  Der naechste ProzessSchritt
+     */
+    public ProzessSchritt getNextPS(Auftrag a) {
+        return a.getProzessSchritte().stream()
+                .filter((p) -> "Angenommen".equals(p.getZustandsAutomat().getCurrent()))
+                .findFirst()
+                .orElse(null);
+    }
+
+
 }
