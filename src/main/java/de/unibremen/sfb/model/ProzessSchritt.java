@@ -50,5 +50,9 @@ public class ProzessSchritt {
     @ManyToOne
     private ProzessSchrittVorlage prozessSchrittVorlage;
 
+    /** Die Zugewiesenen Proben fuer diesen Schritt */
+    @OneToMany
+    private List<Probe> zugewieseneProben;
+
 
 }
