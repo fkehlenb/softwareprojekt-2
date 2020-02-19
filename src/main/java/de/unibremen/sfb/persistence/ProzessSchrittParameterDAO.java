@@ -63,4 +63,14 @@ public class ProzessSchrittParameterDAO extends ObjectDAO<ProzessSchrittParamete
             return new ArrayList<>();
         }
     }
+    /** @return all process parameters
+     * @return empty ArrayList if there are none */
+    public ProzessSchrittParameter getPSPByID(int id){
+        try {
+            return em.find(get(),id);
+        }
+        catch (Exception e){
+            return null;
+        }
+    }
 }

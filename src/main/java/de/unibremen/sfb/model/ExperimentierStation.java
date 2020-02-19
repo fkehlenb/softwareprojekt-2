@@ -15,7 +15,7 @@ import java.util.Queue;
         @NamedQuery(name = "ExperimentierStation.getByStatus",
                 query = "SELECT es FROM ExperimentierStation es WHERE es.status = :status"),
         @NamedQuery(name = "ExperimentierStation.getAll", query = "SELECT es FROM ExperimentierStation es"),
-        @NamedQuery(name = "ExperimentierStation.getByUser", query = "SELECT es FROM ExperimentierStation es WHERE  es.benutzer = ?"  )
+      //  @NamedQuery(name = "ExperimentierStation.getByUser", query = "SELECT es FROM ExperimentierStation es WHERE  es.benutzer = ?"  )
 })
 @RequiredArgsConstructor
 @NoArgsConstructor
