@@ -19,58 +19,36 @@
             <div id="pSFormaule">
                 <h2>ProcessSchrittParamiter Formular</h2>
                 <p:outputPanel>
+                    ID: <h:outputText value="#{updatePSPBean.id}" /><br></br>
                     <h:form>
                         <h:panelGrid columns="2" cellpadding="5">
-                            <p:outputLabel for="namePS" value="name:"/>
-                            <p:inputText id="namePS" value="#{dtPSPBean.name}"
-                                         placeholder="name" required="true"/>
-                            <p:commandButton ajax="false" action="#{dtPSPBean.add()}"
-                                             value="Erzeugen" />
+                            <p:commandButton ajax="false" action="#{updatePSPBean.updatePSP()}"
+                                             value="Update"/>
                         </h:panelGrid>
                     </h:form>
-                    <h:outputText value="-----" /><br></br>
-                    <h:outputText value="#{dtPSPBean.id}" /><br></br>
-                    <h:outputText value="-----" />
                 </p:outputPanel>
-
-
-
-            </div>
-            <br/>
-            <div id="GewahltQuantEingenschatenList">
-                <h2>List Gewalte Qualitavite Eingeschaft </h2>
-                <p:dataTable id="GewahltQuantEingenschatenTabele" var="qlEG" value="#{dtPSPBean.qlEGewahlt()}"
-                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                             paginator="true" rows="5" style="margin-bottom:20px">
-                    <p:column headerText="Id">
-                        <h:outputText value="#{qlEG.id}"/>
-                    </p:column>
-                    <p:column headerText="Name">
-                        <h:outputText value="#{qlEG.name}"/>
-                    </p:column>
-                </p:dataTable>
             </div>
             <br/>
             <div id="VerfugbarQuantEingenschatenList">
                 <h2>List Qualitavite Eingeschaft zu Waehlen</h2>
-                <p:dataTable id="VerfugbarQuantEingenschatenTabele" var="qlE" value="#{dtPSPBean.qlE()}"
+                <p:dataTable id="VerfugbarQuantEingenschatenTabele" var="qlE" value="#{updatePSPBean.qualitativeEigenschaften}"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                              paginator="true" rows="5" style="margin-bottom:20px">
                     <p:column headerText="Id">
                         <h:outputText value="#{qlE.id}"/>
+
                     </p:column>
                     <p:column headerText="Name">
                         <h:outputText value="#{qlE.name}"/>
                     </p:column>
-                    <p:column headerText="Select">
+                    <p:column headerText="Remove">
                         <h:form>
                             <div align="center">
-                                <p:commandButton ajax="false" action="#{dtPSPBean.select(qlE.id)}" value="Select"
-                                                 icon="pi pi-pencil"/>
+                                <p:commandButton ajax="false" action="#{updatePSPBean.deleteGewaltQein(qlE.id)}" value="ERASE"
+                                                 icon="pi pi-trash"/>
                             </div>
                         </h:form>
                     </p:column>
-
                 </p:dataTable>
             </div>
         </div>
@@ -79,4 +57,3 @@
 </ui:composition>
 </body>
 </html>
-

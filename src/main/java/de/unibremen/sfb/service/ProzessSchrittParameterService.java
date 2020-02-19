@@ -48,6 +48,23 @@ public class ProzessSchrittParameterService implements Serializable {
 
     public void loscheParameter(ProzessSchrittParameter parameter) {
         this.parameterList.remove(parameter);
+        try {
+            log.info("Trying remove ProzessSchrittParameterDAO Class=ProzessSchrittParameterService");
+            prozessSchrittParameterDAO.remove(parameter);
+        } catch (Exception e) {
+            log.info("Failen remove ProzessSchrittParameterDAO Class=ProzessSchrittParameterService");
+        }
+    }
+
+    public ProzessSchrittParameter getPSPByID(int idPSP) {
+
+        try {
+            log.info("Trying remove ProzessSchrittParameterDAO Class=ProzessSchrittParameterService");
+            return prozessSchrittParameterDAO.getPSPByID(idPSP);
+        } catch (Exception e) {
+            log.info("Failen remove ProzessSchrittParameterDAO Class=ProzessSchrittParameterService");
+            return null;
+        }
     }
 
     public ProzessSchrittParameter findByName(String name) {
