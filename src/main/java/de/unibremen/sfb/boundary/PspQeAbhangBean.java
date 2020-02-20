@@ -53,7 +53,6 @@ public class PspQeAbhangBean implements Serializable {
     public List<ProzessSchrittParameter> getProzessSchrittParameters(){
         return prozessSchrittParameters;
     }
-
     public String deleteAb(String id){
         ProzessSchrittParameter prozessSchrittParameter = prozessSchrittParameterService.getPSPByID(Integer.parseInt(id));
         QualitativeEigenschaft quantitativeEigenschaftToRemove = qualitativeEigenschaftService.getQlEById(Integer.parseInt(idqEin));
