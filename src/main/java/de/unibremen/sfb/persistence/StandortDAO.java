@@ -73,6 +73,21 @@ public class StandortDAO extends ObjectDAO<Standort> {
         }
     }
 
+    /** Get a location object using the location string
+     * @param l - the location String
+     * @return the location object with a matching string
+     * @throws StandortNotFoundException if a location with that string cannot be found */
+    public Standort getByOrt(String l) throws StandortNotFoundException{
+        try {
+            return em.createNamedQuery("Standort.getByOrt", get()).setParameter("ort", l).getSingleResult();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new StandortNotFoundException();
+        }
+    }
+
+    /** @return all locations */
     public List<Standort> getAll(){
         try {
             List<Standort> es = em.createQuery("SELECT es FROM Standort es",get()).getResultList();

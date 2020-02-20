@@ -134,12 +134,13 @@
                         </p:row>
                         <p:row>
                             <p:column colspan="1">
-                                <p:commandButton value="Reset" type="reset" icon="pi pi-times"/>
+                                <p:commandButton value="Reset" type="reset" icon="pi pi-times" ajax="true" update="form"
+                                                 action="#{adminBean.resetVariables}"/>
                             </p:column>
                             <p:column colspan="1">
-                                <p:commandButton ajax="false" action="#{adminBean.addUser}" value="Speichern/Einfuegen"
+                                <p:commandButton ajax="true" action="#{adminBean.addUser}" value="Speichern/Einfuegen"
                                                  icon="pi pi-save"
-                                                 style="width: 100%"/>
+                                                 style="width: 100%" update="form"/>
                             </p:column>
                         </p:row>
                     </p:panelGrid>
@@ -149,7 +150,8 @@
             <br/>
             <p:dataTable id="tbl" var="user" value="#{adminBean.findUsers()}"
                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                         paginator="true" rows="3" style="margin-bottom:20px">>
+                         paginator="true" rows="3" style="margin-bottom:20px">
+                <p:autoUpdate/>
                 <p:column headerText="Id">
                     <h:outputText value="#{user.id}"/>
                 </p:column>
@@ -177,16 +179,16 @@
                 <p:column headerText="Remove">
                     <h:form>
                         <div align="center">
-                            <p:commandButton ajax="false" action="#{adminBean.deleteUser(user.id)}" value="ERASE"
-                                             icon="pi pi-trash"/>
+                            <p:commandButton ajax="true" action="#{adminBean.deleteUser(user.id)}" value="ERASE"
+                                             icon="pi pi-trash" update="form"/>
                         </div>
                     </h:form>
                 </p:column>
                 <p:column headerText="Edit">
                     <h:form>
                         <div align="center">
-                            <p:commandButton ajax="false" action="#{adminBean.adminEditUser(user.id)}" value="EDIT"
-                                             icon="pi pi-pencil"/>
+                            <p:commandButton ajax="true" action="#{adminBean.adminEditUser(user.id)}" value="EDIT"
+                                             icon="pi pi-pencil" update="form"/>
                         </div>
                     </h:form>
                 </p:column>

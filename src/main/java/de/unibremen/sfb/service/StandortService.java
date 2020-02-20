@@ -73,13 +73,12 @@ public class StandortService implements Serializable {
     }
 
     /** Find a standort based on ts location */
-    public Standort findByLocation(String standort) {
-        // TODO qFIXME Use String as ID or convert to String
-        return this.standorte.stream().filter(c -> c.getOrt().equals(standort)).findFirst().orElse(null);
+    public Standort findByLocation(String standort) throws StandortNotFoundException {
+        return standortDAO.getByOrt(standort);
     }
-    public Standort findById(int Id) {
-        // TODO qFIXME Use String as ID or convert to String
-        return this.standorte.stream().filter(c -> c.getId() == (Id)).findFirst().orElse(null);
+
+    public Standort findById(int Id) throws StandortNotFoundException{
+        return standortDAO.getObjById(Id);
     }
     /**
      * Adds a new SEVERITY_ERROR FacesMessage for the ui

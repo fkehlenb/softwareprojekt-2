@@ -50,7 +50,7 @@
                                                  converter="standortConverter" effect="fade"
                                                  var="standort" style="width: 172px" filter="true"
                                                  filterMatchMode="startsWith">
-                                    <f:selectItems value="#{esErstellenBean.verfuegbareStandorte}"
+                                    <f:selectItems value="#{adminBean.allLocations}"
                                                    var="standort" itemLabel="#{standort.ort}"
                                                    itemValue="#{standort}" required="true"/>
                                     <p:column>
@@ -69,7 +69,7 @@
                                                   converter="userConverter" effect="fade"
                                                   var="user" style="width: 172px" filter="true"
                                                   filterMatchMode="startsWith">
-                                    <f:selectItems value="#{esErstellenBean.availableUsers}"
+                                    <f:selectItems value="#{adminBean.allUsers}"
                                                    var="user" itemLabel="#{user}"
                                                    itemValue="#{user}" required="true"/>
                                     <p:column>

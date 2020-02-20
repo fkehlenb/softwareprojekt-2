@@ -38,8 +38,12 @@ import javax.inject.Inject;
             if (value == null || value.isEmpty()) {
                 return null;
             }
-            /* make for Hurwitz Commentiert for Rey, um konflicten zu vermeiden
-            return userService.findByName(value);*/
-            return null;
+            try {
+                return userService.getUserByUsername(value);
+            }
+            catch (Exception e){
+                e.printStackTrace();
+                return null;
+            }
         }
 }

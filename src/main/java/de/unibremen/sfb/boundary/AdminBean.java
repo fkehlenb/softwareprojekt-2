@@ -5,6 +5,7 @@ import de.unibremen.sfb.exception.DuplicateUserException;
 import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.ExperimentierStationService;
+import de.unibremen.sfb.service.StandortService;
 import de.unibremen.sfb.service.TraegerArtService;
 import de.unibremen.sfb.service.UserService;
 import lombok.Getter;
@@ -12,6 +13,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.credential.PasswordMatcher;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -40,8 +42,8 @@ import java.util.UUID;
 @Getter
 public class AdminBean implements Serializable {
 
-    @PersistenceContext
-    EntityManager em;
+    @PersistenceContext(name = "swp2")
+    private EntityManager em;
 
     /**
      * UserService
@@ -60,6 +62,10 @@ public class AdminBean implements Serializable {
      */
     @Inject
     private ExperimentierStationService experimentierStationService;
+
+    /** Standort service */
+    @Inject
+    private StandortService standortService;
 
     /**
      * The user's name
@@ -155,6 +161,19 @@ public class AdminBean implements Serializable {
      * Users assigned to the experimenting station
      */
     private List<User> experimentierStationBenutzer;
+
+    /** All users */
+    private List<User> allUsers;
+
+    /** All locations */
+    private List<Standort> allLocations;
+
+    /** Init called on bean creation */
+    @PostConstruct
+    private void init(){
+        allLocations = standortService.getStandorte();
+        allUsers = userService.getAll();
+    }
 
     /**
      * Shiro password matcher for password encryption
@@ -299,7 +318,6 @@ public class AdminBean implements Serializable {
         }
     }
 
-
     /**
      * adds a carrier type
      *
@@ -406,7 +424,6 @@ public class AdminBean implements Serializable {
         } catch (ExperimentierStationNotFoundException e) {
             e.printStackTrace();
         }
-        System.out.println("PASSED STEP 1");
         experimentierStationService.loescheES(es);
         log.info("Deleted experimenting station! ID: " + esID);
     }
