@@ -3,9 +3,7 @@ package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.exception.DuplicateExperimentierStationException;
 import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
-import de.unibremen.sfb.model.ExperimentierStation;
-import de.unibremen.sfb.model.ExperimentierStationZustand;
-import de.unibremen.sfb.model.User;
+import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.ExperimentierStationDAO;
 import lombok.Getter;
 
@@ -98,8 +96,22 @@ public class ExperimentierStationService implements Serializable {
      * @return
      */
     public List<ExperimentierStation> getESByUser(User user) {
-       return esDao.getAll().stream().filter(c -> c.getBenutzer().contains(user)).collect(Collectors.toList());
+       return esDao.getAll().stream()
+               .filter(c -> c.getBenutzer().contains(user))
+               .collect(Collectors.toList());
     }
+
+    public List<ExperimentierStation> getAllESByBedingung(Bedingung b) {
+        return esDao.getAll().stream()
+                .filter(e -> e.getBedingungen().contains(b))
+                .collect(Collectors.toList());
+    }
+
+//    public List<ExperimentierStation> getAllESByParameter(ProzessSchrittParameter p) {
+//        return esDao.getAll().stream()
+//                .filter(e -> e.getBedingungen().contains(p))
+//                .collect(Collectors.toList());
+//    }
 
     /**
      * Change the Status of es to s
