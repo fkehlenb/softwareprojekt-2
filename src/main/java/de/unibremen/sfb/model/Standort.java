@@ -26,4 +26,8 @@ public class Standort {
     @NonNull
     private String ort;
 
+    @Override
+    public String toString(){
+        return ort;
+    }
 }

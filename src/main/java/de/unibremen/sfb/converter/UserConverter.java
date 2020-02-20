@@ -10,40 +10,31 @@ import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 
 
-    @FacesConverter(value = "userConverter", managed = true)
-    public class UserConverter implements Converter<User> {
+@FacesConverter(value = "userConverter", managed = true)
+public class UserConverter implements Converter<User> {
 
-        @Inject
-        private UserService userService;
+    /**
+     * User service
+     */
+    @Inject
+    private UserService userService;
 
-        @Override
-        public String toString() {
-            return "UserConverter{" +
-                    "userConverter" + userService +
-                    '}';
+    @Override
+    public String getAsString(FacesContext context, UIComponent component, User id) {
+        System.out.println(id);
+        return String.valueOf(id); // @return username
+    }
+
+    @Override
+    public User getAsObject(FacesContext context, UIComponent component, String id) {
+        try {
+            System.out.println("AS OBJECT: " + id);
+            User u = userService.getUserByUsername(id);
+            System.out.println("User found!");
+            return userService.getUserByUsername(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
-
-        @Override
-        public String getAsString(FacesContext context, UIComponent component, User user) {
-
-            if (user == null) {
-                return "";
-            }
-
-            return user.getNachname();
-        }
-
-        @Override
-        public User getAsObject(FacesContext context, UIComponent component, String value) {
-            if (value == null || value.isEmpty()) {
-                return null;
-            }
-            try {
-                return userService.getUserByUsername(value);
-            }
-            catch (Exception e){
-                e.printStackTrace();
-                return null;
-            }
-        }
+    }
 }

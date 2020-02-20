@@ -17,6 +17,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -160,7 +161,7 @@ public class AdminBean implements Serializable {
     /**
      * Users assigned to the experimenting station
      */
-    private List<User> experimentierStationBenutzer;
+    private User[] experimentierStationBenutzer;
 
     /** All users */
     private List<User> allUsers;
@@ -168,11 +169,15 @@ public class AdminBean implements Serializable {
     /** All locations */
     private List<Standort> allLocations;
 
+    /** All experimenting stations */
+    private List<ExperimentierStation> experimentierStations;
+
     /** Init called on bean creation */
     @PostConstruct
     private void init(){
         allLocations = standortService.getStandorte();
         allUsers = userService.getAll();
+        experimentierStations = experimentierStationService.getAll();
     }
 
     /**
@@ -211,8 +216,8 @@ public class AdminBean implements Serializable {
                     userName, matcher.getPasswordService().encryptPassword(password), wurdeVerifiziert, date1
                     , rollen, language);
             userService.addUser(user);
-            resetVariables();
             log.info("User updated, Username: " + userName);
+            resetVariables();
         }
     }
 
@@ -374,6 +379,32 @@ public class AdminBean implements Serializable {
         }
     }
 
+
+    /** Edit row for experimenting stations */
+    public void onRowEditES(int experimentierStationId){
+        try{
+            ExperimentierStation es = experimentierStationService.getById(experimentierStationId);
+            es.setBenutzer(List.of(experimentierStationBenutzer));
+            es.setStandort(experimentierStationStandort);
+            es.setName(experimentierStationName);
+            experimentierStationService.updateES(es);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            log.error("Couldn't update experimenting station! ID: " + experimentierStationId);
+        }
+    }
+
+    /** Edit row for experimenting stations canceled */
+    public void onRowEditCancelES(){
+        experimentierStationName = "";
+        experimentierStationStandort = null;
+    }
+
+
+
+
+
     /**
      * adds a new experimentation station
      */
@@ -384,7 +415,7 @@ public class AdminBean implements Serializable {
             log.error("Error adding experimenting station, station already exists! Name: " + experimentierStationName);
         } catch (Exception e) {
             e.printStackTrace();
-            ExperimentierStation es = new ExperimentierStation(UUID.randomUUID().hashCode(), experimentierStationStandort, experimentierStationName, ExperimentierStationZustand.VERFUEGBAR, experimentierStationBenutzer);
+            ExperimentierStation es = new ExperimentierStation(UUID.randomUUID().hashCode(), experimentierStationStandort, experimentierStationName, ExperimentierStationZustand.VERFUEGBAR, List.of(experimentierStationBenutzer));
             try {
                 experimentierStationService.addES(es);
                 log.info("Added experimenting station! Name: " + experimentierStationName);
@@ -401,7 +432,7 @@ public class AdminBean implements Serializable {
     public void editStation(int esID) {
         try{
             ExperimentierStation es = experimentierStationService.getById(esID);
-            es.setBenutzer(experimentierStationBenutzer);
+            es.setBenutzer(List.of(experimentierStationBenutzer));
             es.setName(experimentierStationName);
             es.setStandort(experimentierStationStandort);
             experimentierStationService.updateES(es);

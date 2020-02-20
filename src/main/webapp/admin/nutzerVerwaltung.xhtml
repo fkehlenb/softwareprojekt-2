@@ -23,7 +23,7 @@
         <p:panelGrid columns="1">
             <h:form id="form">
                 <p:row>
-                    <h2 style="color: cornflowerblue">Nutzerverlwatung</h2>
+                    <h2 style="color: cornflowerblue">Nutzerverwaltung</h2>
                 </p:row>
                 <p:row>
                     <p>In der unteren Tabelle sehen Sie alle Nutzer die im System registriert sind. Um einen
@@ -179,7 +179,7 @@
                 <p:column headerText="Remove">
                     <h:form>
                         <div align="center">
-                            <p:commandButton ajax="true" action="#{adminBean.deleteUser(user.id)}" value="ERASE"
+                            <p:commandButton ajax="true" action="#{adminBean.deleteUser(user.id)}" value="Delete"
                                              icon="pi pi-trash" update="form"/>
                         </div>
                     </h:form>
@@ -187,7 +187,7 @@
                 <p:column headerText="Edit">
                     <h:form>
                         <div align="center">
-                            <p:commandButton ajax="true" action="#{adminBean.adminEditUser(user.id)}" value="EDIT"
+                            <p:commandButton ajax="true" action="#{adminBean.adminEditUser(user.id)}" value="Edit"
                                              icon="pi pi-pencil" update="form"/>
                         </div>
                     </h:form>
