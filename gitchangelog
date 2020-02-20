@@ -1,0 +1,716 @@
+Changelog
+=========
+
+
+(unreleased)
+------------
+- Mehr updates. [Liam Hurwitz]
+- Added changelog. [Liam Hurwitz]
+- More cleanup. [Leonard Haddad]
+- Conflict resolved. [Leonard Haddad]
+- Korrekturlesung faktortabelle+problemkarten. [Aaron]
+- Merge conflict? [Aaron]
+- Merge remote-tracking branch 'origin/AaronFabianCode' into
+  AaronFabianCode. [Aaron]
+- Javadoc warnungen behoben. [Aaron]
+- Merge branch 'master' of https://gitlab.informatik.uni-
+  bremen.de/s_xsipo6/softwareprojekt-2. [Leonard Haddad]
+- Merge branch 'DatensichtVerbesserungen' into 'master' [Samuel Nejati
+  Masouleh]
+
+  Verbesserungen in der Datensicht
+
+  See merge request s_xsipo6/softwareprojekt-2!48
+- Verbesserungen in der Datensicht. [Samuel]
+- Exception doc. [Leonard Haddad]
+- Cleanup. [Leonard Haddad]
+- Added. [Leonard Haddad]
+- Moreeee. [Leonard Haddad]
+- More. [Leonard Haddad]
+- Conflicts. [Leonard Haddad]
+- Merge branch 'AaronFabianCode' into 'master' [Leonard Haddad]
+
+  Aaron fabian code
+
+  See merge request s_xsipo6/softwareprojekt-2!46
+- Merge branch 'master' into 'AaronFabianCode' [Leonard Haddad]
+
+  # Conflicts:
+  #   doc/Architekturbeschreibung.tex
+- Modules added. [Leonard Haddad]
+- Merge branch 'master' of https://gitlab.informatik.uni-
+  bremen.de/s_xsipo6/softwareprojekt-2. [Leonard Haddad]
+- Go. [Liam Hurwitz]
+- Model gedösel. [Liam Hurwitz]
+- Controller fix. [Leonard Haddad]
+- Controller fragen. [Aaron]
+- Merge branch 'sequenzkorrektur' into AaronFabianCode. [Aaron]
+- Erste Korrekturlesung Sequenzdiagrammtext. [Aaron]
+- Merge branch 'master' into AaronFabianCode. [Aaron]
+- Korrektur Datensicht fertig + Todo für Leo. [Samuel]
+
+  TODO FÜR LEO!
+- Verbesserungen. [Samuel]
+- Korrektur Datensicht. [Samuel]
+- Merge branch 'seq' into EinführungModulsicht. [Samuel]
+- Go. [Liam Hurwitz]
+- Merge branch 'pkErstellen' into seq. [Liam Hurwitz]
+- Model gedösel. [Liam Hurwitz]
+- Go charmander, kill all uml modell errors. [Liam Hurwitz]
+- Too pdf. [Liam Hurwitz]
+- Fix liams todo. [Liam Hurwitz]
+- SVG DATEI. [Kevin Santiago Rey Rodriguez]
+- Merge remote-tracking branch 'origin/master' into
+  EinführungModulsicht. [Samuel]
+- Merge branch 'master' of https://gitlab.informatik.uni-
+  bremen.de/s_xsipo6/softwareprojekt-2. [Leonard Haddad]
+- Merge branch 'mastererrorfix' [Liam Hurwitz]
+- Master error fix (contructor in super and sub class) [Aaron]
+- Change name of actor. [Liam Hurwitz]
+- Change name of actor. [Liam Hurwitz]
+- Minor fix. [Leonard Haddad]
+- Verbesserungen an der Datensicht. [Samuel]
+
+  + problemkarten etc
+- Einführung Modulsicht added und korrigiert. [Samuel]
+- Persistence fixes and modules. [Leonard]
+- Model LaTeX. [Leonard]
+- Model done. [Leonard]
+- Model done. [Leonard]
+- Added. [Leonard Haddad]
+- Konzept Sicht teil 1. [Liam Hurwitz]
+- Merge branch 'seq' [Liam Hurwitz]
+- Fix liams todo. [Liam Hurwitz]
+- Merge branch 'seq' [Liam Hurwitz]
+- Labels wieder gefix. [Kevin Santiago Rey Rodriguez]
+- Merge branch 'master' into seq. [Kevin Santiago Rey Rodriguez]
+- Merge branch 'master' into seq. [Kevin Santiago Rey Rodriguez]
+- Jetzt mit refs. [Liam Hurwitz]
+- Seq in aw folder. [Liam Hurwitz]
+- Merge branch 'seq' [Liam Hurwitz]
+- Images. [Kevin Santiago Rey Rodriguez]
+- Login mit Bedingungen in indexController, Addbedingungen in
+  ProzessschrittVorlageController, add von controller.xml like actual
+  Datei for the Controller View. [Kevin Santiago Rey Rodriguez]
+- Delete doc/UML/datenModel.png. [Kevin Santiago Rey Rodriguez]
+- GitIngnored. [Kevin Santiago Rey Rodriguez]
+- Merge branch 'seq' of https://gitlab.informatik.uni-
+  bremen.de/s_xsipo6/softwareprojekt-2 into seq. [Kevin Santiago Rey
+  Rodriguez]
+- Merge into seq. [Liam Hurwitz]
+- Addps.png. [Kevin Santiago Rey Rodriguez]
+- Merge branch 'seq' of https://gitlab.informatik.uni-
+  bremen.de/s_xsipo6/softwareprojekt-2 into seq. [Kevin Santiago Rey
+  Rodriguez]
+- Neues Sequenz Für Pk Erstellung. [Kevin Santiago Rey Rodriguez]
+- Merge branch 'AaronFabianCode' [Liam Hurwitz]
+- Javadoc erste fragen geklärt. [Aaron]
+- Merge branch 'master' into AaronFabianCode. [Aaron]
+- Javadoc controller. [Aaron]
+- Merge branch 'master' into AaronFabianCode. [Aaron]
+- Neue controller und Beans ohne javadoc. [Aaron]
+- Merge from seq, modell und uml. [Liam Hurwitz]
+- Viel text und weniger nutzlose Bilder. [Liam Hurwitz]
+- Merge into seq. [Liam Hurwitz]
+- Neues Sequenz Für Pk Erstellung. [Kevin Santiago Rey Rodriguez]
+- Clean modell. [Liam Hurwitz]
+- Update .gitlab-ci.yml. [Leonard Haddad]
+- Update Controller letztes Mal? + Controller Beschreibung. [Fabian]
+- Ä zu ae. [Liam Hurwitz]
+- Add public to uml. [Liam Hurwitz]
+- ControllerUpdate. [Fabian]
+- Added. [Leonard Haddad]
+- Merge branch 'AaronFabianCode' into 'master' [Leonard Haddad]
+
+  Aaron fabian code
+
+  See merge request s_xsipo6/softwareprojekt-2!44
+- Controllers überarbeitung anfang. [Aaron]
+- Merge branch 'master' into AaronFabianCode. [Aaron]
+- TraegerController javadoc return added. [Aaron]
+- ProzessParamter to ProzessSchrittParameter. [Aaron]
+- Merge remote-tracking branch 'origin/master' into AaronFabianCode.
+  [Aaron]
+- Java Controller javadoc. [Aaron]
+- ControllerUpdate. [Fabian]
+- Architekturbeschreibung Controller. [Fabian]
+- Controller Update box. [Fabian]
+- ControllerFertig! [Fabian]
+- Update pom.xml. [Leonard Haddad]
+- Update .gitlab-ci.yml. [Leonard Haddad]
+- Update pom.xml. [Leonard Haddad]
+- Update pom.xml. [Leonard Haddad]
+- Update .gitlab-ci.yml. [Leonard Haddad]
+- Controller erweitert und persistence erweitert + pdf korrigiert.
+  [Fabian]
+- Quale bed löschen. [Liam Hurwitz]
+- Persistence. [Leonard Haddad]
+- Update uml modell. [Liam Hurwitz]
+- Login. [Liam Hurwitz]
+- Neues maven nutzen. [Liam Hurwitz]
+- Neues maven nutzen. [Liam Hurwitz]
+- Merge branch 'master' into AaronFabianCode. [Liam Hurwitz]
+- No warnings. [Liam Hurwitz]
+- Uml works. [Liam Hurwitz]
+- Refractor 4. [Liam Hurwitz]
+- Do. [Liam Hurwitz]
+- Go. [Liam Hurwitz]
+- Merge branch 'AaronFabianCode' [Fabian]
+- Merge branch 'Controller' [Fabian]
+- Merge branch 'ModulSichtSantiago' [Fabian]
+- Einige Fehler behoben. [Samuel]
+- ModelPacket With LocalDateTime. [Kevin Santiago Rey Rodriguez]
+- ModelPacket. [Kevin Santiago Rey Rodriguez]
+- Merge branch 'master' into ModulSichtSantiago. [Kevin Santiago Rey
+  Rodriguez]
+- Merge branch 'master' of https://gitlab.informatik.uni-
+  bremen.de/s_xsipo6/softwareprojekt-2. [Kevin Santiago Rey Rodriguez]
+- Merge branch 'master' into ModulSichtSantiago. [Kevin Santiago Rey
+  Rodriguez]
+- Loose ds files. [Kevin Santiago Rey Rodriguez]
+- Services. [Kevin Santiago Rey Rodriguez]
+- Loose ds files. [Kevin Santiago Rey Rodriguez]
+- Merge into master. [Kevin Santiago Rey Rodriguez]
+- Gefixed. [Kevin Santiago Rey Rodriguez]
+- Merge branch 'AronSanti' [Fabian]
+- Merge remote-tracking branch 'origin/Samuel1234' [Fabian]
+- Persistence text. [Samuel]
+- Merge branch 'master' into Samuel1234. [Samuel]
+- Some javadoc. [Aaron]
+- Hier ist der textz. [Aaron Rudkowski]
+- Javadoc angefangen. [Aaron Rudkowski]
+- Controller Update+pdf. [Fabian]
+- Merge remote-tracking branch 'origin/AaronFabianCode' into
+  AaronFabianCode. [Aaron Rudkowski]
+- Refractor. [Liam Hurwitz]
+- Controller java Anfang. [Aaron Rudkowski]
+- ControllerUpdatePush. [Fabian]
+- Merge commit. [Aaron Rudkowski]
+- Merge branch 'master' into 'AronSanti' [Melina Rudkowski]
+
+  # Conflicts:
+  #   doc/Architekturbeschreibung.tex
+- Model korrektur. [Liam Hurwitz]
+- Runs. [Liam Hurwitz]
+- Clean up. [Liam Hurwitz]
+- Remove link. [Liam Hurwitz]
+- Update model. [Liam Hurwitz]
+- Refractor 3 and javadoc fix. [Liam Hurwitz]
+- Refractor2. [Liam Hurwitz]
+- Merge branch 'setup' into 'master' [Leonard Haddad]
+
+  Setup
+
+  See merge request s_xsipo6/softwareprojekt-2!42
+- Conflict. [Leonard Haddad]
+- Refractor 1. [Liam Hurwitz]
+- Fix modulsicht name. [Liam Hurwitz]
+- Camel case und ref vom model. [Liam Hurwitz]
+- Pom. [Leonard Haddad]
+- Fixed. [Leonard Haddad]
+- Merge branch 'master' into setup. [Leonard Haddad]
+- Merge remote-tracking branch 'origin/ModulSichtSantiago' [Liam
+  Hurwitz]
+- Verbeize. [Kevin Santiago Rey Rodriguez]
+- Verbeizungen. [Kevin Santiago Rey Rodriguez]
+- Merge remote-tracking branch 'origin/datenModelKorrektur' into
+  ModulSichtSantiago. [Kevin Santiago Rey Rodriguez]
+
+  Referencen zu hinzufungen
+- Modulsicht. [Kevin Santiago Rey Rodriguez]
+- ModulSicht. [Kevin Santiago Rey Rodriguez]
+- Model sicht grafik; uml und grafik user. [Kevin Santiago Rey
+  Rodriguez]
+- Mehr model Verbesserungen. [Liam Hurwitz]
+- Kleine Model korrektur. [Liam Hurwitz]
+- Korrektur. [Liam Hurwitz]
+- Erste Welle. [Liam Hurwitz]
+- Merge branch 'Samuel1234' into 'master' [Samuel Nejati Masouleh]
+
+  Samuel1234
+
+  See merge request s_xsipo6/softwareprojekt-2!38
+- Konzeptionelle Sicht uml erneuert. [Samuel]
+- Merge branch 'master' into Samuel1234. [Fabian]
+- Neues Ignore. [Liam Hurwitz]
+- Merge remote-tracking branch 'origin/datenModelKorrektur' [Fabian]
+- Treffen. [Liam Hurwitz]
+- Merge branch 'Samuel1234' [Fabian]
+- Korrekturen. [Samuel]
+- Konzeptionelle Sicht verbessert. [Samuel]
+- Merge branch 'master' into Samuel1234. [Fabian]
+- Label und Verweizungen. [Kevin Santiago Rey Rodriguez]
+- Last anderüngen. [Kevin Santiago Rey Rodriguez]
+- Korrektur JDVC->JDBC and Problem Karte 13 hinzugefüngt. [Kevin
+  Santiago Rey Rodriguez]
+- Merge branch 'Samuel1234' [Fabian]
+- Weitere Korrekturen an Konzeptioneller Sicht. [Samuel]
+- Merge branch 'master' into Samuel1234. [Samuel]
+- Merge branch 'setup' [Fabian]
+- Merge branch 'AronSanti' [Fabian]
+- Anpassen des Textes vom Model mit unseren Strategien. [Liam Hurwitz]
+- Merge branch 'KonzeptionelleSichtKorrektur' [Fabian]
+- Korrekturvorschlag Konzeptionelle Sicht. [Samuel]
+
+  Sprachliche Korrektur der Konzeptionellen Sicht
+- Merge branch 'FabianBranch' [Fabian]
+- Merge branch 'Samuel1234' into FabianBranch. [Fabian]
+- Korrekturen. [Samuel]
+- Korrektur. [Samuel]
+- TODO in Ausführungssicht. [Samuel]
+
+  Ansonsten wurde die Ausführungssicht korrigiert.
+- Evolution auf Rechtschreibung korrigiert. [Samuel]
+- Merge branch 'master' into Samuel1234. [Samuel]
+- Ausführungssicht korrektur. [Fabian]
+- Ausführungssicht update. [Fabian]
+- ControllerSicht noch nicht fertig. [Fabian]
+- Controller push. [Fabian]
+- Ausführungssicht update vom Tutorium. [Fabian]
+- Merge branch 'AronSanti' [Liam Hurwitz]
+- Notizen. [Liam Hurwitz]
+- Persistence done. [Leonard Haddad]
+- Fixes. [Leonard Haddad]
+- Updated persistence. [Leonard Haddad]
+- Added. [Leonard Haddad]
+- Faktortabelle Folgen und --/++ Einschätzung. [Aaron Rudkowski]
+- Problemkarten Fakoren richtig. [Aaron Rudkowski]
+- Faktortabelle neu formatiert. [Aaron Rudkowski]
+- Merge remote-tracking branch 'origin/AronSanti' into AronSanti. [Aaron
+  Rudkowski]
+
+  # Conflicts:
+  #	doc/Architekturbeschreibung.tex
+- Korrektur der Konzeptionellen sicht!! [Fabian]
+- Neuester stand problemkarten. [Aaron Rudkowski]
+- Transporteur problemkarte. [Aaron Rudkowski]
+- Merge branch 'master' into 'AronSanti' [Liam Hurwitz]
+
+  # Conflicts:
+  #   doc/Architekturbeschreibung.tex
+- Merge branch 'neuerSantiBranch' into 'master' [Leonard Haddad]
+
+  Neuer santi branch
+
+  See merge request s_xsipo6/softwareprojekt-2!35
+- Neuer santi branch. [Kevin Santiago Rey Rodriguez]
+- Merge branch 'setup' into 'master' [Leonard Haddad]
+
+  Setup
+
+  See merge request s_xsipo6/softwareprojekt-2!36
+- Done. [Leonard Haddad]
+- More stuff. [Leonard Haddad]
+- Some doc. [Leonard Haddad]
+- Server fix public entfernt. [Fabian]
+- New diagram. [Leonard Haddad]
+- Merge branch 'setup' [Liam Hurwitz]
+- Merge branch 'modelText' into setup. [Liam Hurwitz]
+- Text für modell und Freinheiten im Model. [Liam Hurwitz]
+- Merge branch 'setup' into 'master' [Leonard Haddad]
+
+  Setup
+
+  See merge request s_xsipo6/softwareprojekt-2!34
+- Merge branch 'master' into 'setup' [Leonard Haddad]
+
+  # Conflicts:
+  #   doc/Architekturbeschreibung.tex
+- Merge branch 'FabianWorking' into 'master' [Samuel Nejati Masouleh]
+
+  Fabian working into master
+
+  See merge request s_xsipo6/softwareprojekt-2!33
+- Ausführungssicht update, Evolution Einführungssatz, UML position.
+  [Fabian]
+
+  userpackage float hinzugefügt, UML richtig positioniert, Evolution Einleitungssatz.
+- Merge branch 'Samuel1234' into 'master' [Samuel Nejati Masouleh]
+
+  Samuel1234 merge into master
+
+  See merge request s_xsipo6/softwareprojekt-2!32
+- Einleitung komplett korrigiert. [Samuel]
+
+  Einmal manuell und mit Duden Rechtschreibkontrolle
+- Weitere Korrekturen der Einleitung. [Samuel]
+- Korrektur einführung erster text. [Samuel]
+- Merge remote-tracking branch 'origin/master' into Samuel1234. [Samuel]
+- More persistence. [Leonard]
+- Persistence. [Leonard]
+- Merge branch 'neuerSantiBranch' into setup. [Kevin Santiago Rey
+  Rodriguez]
+- Gefix. [Kevin Santiago Rey Rodriguez]
+- Bearbeitung an der Korrektur von Problem Karten. [Kevin Santiago Rey
+  Rodriguez]
+- 1 done. [Leonard Haddad]
+- Merge branch 'setup' of https://gitlab.informatik.uni-
+  bremen.de/s_xsipo6/softwareprojekt-2 into setup. [Leonard Haddad]
+- Scanner mehr text. [Liam Hurwitz]
+- Some shit. [Leonard Haddad]
+- Jetz    mit     glqq. [Liam Hurwitz]
+- Anwendungssicht Update. [Liam Hurwitz]
+- Merge branch 'master' into setup. [Leonard Haddad]
+- Ordnung. [Leonard Haddad]
+- Merge remote-tracking branch 'origin/setup' into setup. [Fabian]
+- 9. änderungen. [Samuel]
+- Merge branch 'master' into setup. [Samuel]
+- Neue Faktoren. [Aaron Rudkowski]
+- Neue Problemkarten für Datensicht. [Aaron Rudkowski]
+- Merge branch 'master' of https://gitlab.informatik.uni-
+  bremen.de/s_xsipo6/softwareprojekt-2. [Leonard Haddad]
+- Merge branch 'revert-21eb9c3f' into 'master' [Leonard Haddad]
+
+  Revert "Merge branch 'mergeBranche' into 'master'"
+
+  See merge request s_xsipo6/softwareprojekt-2!31
+- Revert "Merge branch 'mergeBranche' into 'master'" [Leonard Haddad]
+
+  This reverts merge request !30
+- Merge branch 'master' of https://gitlab.informatik.uni-
+  bremen.de/s_xsipo6/softwareprojekt-2. [Leonard Haddad]
+- Merge remote-tracking branch 'origin/AronSanti' [Fabian]
+- Strategien. [Aaron Rudkowski]
+- Konzeptionelle Sicht. [Kevin Santiago Rey Rodriguez]
+- BusinessLogik. [Kevin Santiago Rey Rodriguez]
+- BusinessLogik. [Kevin Santiago Rey Rodriguez]
+- Merge remote-tracking branch 'origin/AronSanti' into AronSanti. [Aaron
+  Rudkowski]
+
+  # Conflicts:
+  #	doc/Architekturbeschreibung.tex
+- Resolve Conflic. [Kevin Santiago Rey Rodriguez]
+- Problem KArte 15. [Kevin Santiago Rey Rodriguez]
+- Kleine sachen. [Aaron Rudkowski]
+- Problemkarten raus. [Aaron Rudkowski]
+- Neue Problemkarte. [Aaron Rudkowski]
+- Aenderungen. [Aaron Rudkowski]
+- Sortieren/Nummerieren. [Aaron Rudkowski]
+- Merge branch 'mergeBranche' into 'master' [Liam Hurwitz]
+
+  Merge branche
+
+  See merge request s_xsipo6/softwareprojekt-2!30
+- Merge branche. [Liam Hurwitz]
+- Merge branch 'setup' [Fabian]
+- Merge remote-tracking branch 'origin/setup' into setup. [Fabian]
+- 9 verbesserungen + Emails verbessert. [Samuel]
+- 06 UML überarbeitet. [Fabian]
+- Merge branch 'besseresModell' into 'master' [Liam Hurwitz]
+
+  Besseres modell
+
+  See merge request s_xsipo6/softwareprojekt-2!29
+- Besseres modell. [Liam Hurwitz]
+- Merge branch 'FabianKorrektur' into 'master' [Fabian Kehlenbeck]
+
+  Überflüssige LaTex Datei gelöscht
+
+  See merge request s_xsipo6/softwareprojekt-2!28
+- Überflüssige LaTex Datei gelöscht. [Fabian]
+- Merge branch 'AronSanti' [Fabian]
+- Uml hinzugefügt. [Aaron Rudkowski]
+- Aenderungen. [Aaron Rudkowski]
+- Vorlagentext raus. [Aaron Rudkowski]
+- Kleine sachen. [Aaron Rudkowski]
+- Neuer Grafik. [Liam Hurwitz]
+- Vereinfachung vom UML. [Liam Hurwitz]
+- Merge uml with master. [Liam Hurwitz]
+- Korr    igiertesModel. [Liam Hurwitz]
+- Nmehr   modeel. [Liam Hurwitz]
+- Ortho lines. [Liam Hurwitz]
+- Mehr moddele. [Liam Hurwitz]
+- Merge branch 'SantiagoKorrekturProblemKarten' into 'master' [Kevin
+  Santiago Rey Rodriguez]
+
+  Santiago korrektur problem karten
+
+  See merge request s_xsipo6/softwareprojekt-2!26
+- Santiago korrektur problem karten. [Kevin Santiago Rey Rodriguez]
+- Merge branch 'setup' into 'master' [Leonard Haddad]
+
+  Setup
+
+  See merge request s_xsipo6/softwareprojekt-2!25
+- Last added. [Leonard]
+- Yet more usecases. [Leonard]
+- Merge branch 'setup' into 'master' [Leonard Haddad]
+
+  Setup
+
+  See merge request s_xsipo6/softwareprojekt-2!24
+- More usecases. [Leonard]
+- Merge branch 'setup' of gitlab.informatik.uni-
+  bremen.de:s_xsipo6/softwareprojekt-2 into setup. [Leonard]
+- Italics gefixt, Evolution fertig. [Samuel]
+
+  Das gesamte Dokument ist nicht mehr in italics,
+
+  Evolution ist fertig
+- Added use cases. [Leonard]
+- Merge branch 'master' into setup. [Leonard]
+- Merge branch 'master' of gitlab.informatik.uni-
+  bremen.de:s_xsipo6/softwareprojekt-2. [Leonard]
+- Merge branch 'samuel' into 'master' [Liam Hurwitz]
+
+  Emails geändert + Konflikt
+
+  See merge request s_xsipo6/softwareprojekt-2!23
+- Emails geändert + Konflikt. [Samuel]
+
+  Name einer Datei im Latex und der Datei selbst geändert.
+- UML jetzt in AB. [Liam Hurwitz]
+- Problemkarte 16. [Liam Hurwitz]
+- Fix noallign. [Liam Hurwitz]
+- Merge too master. [Liam Hurwitz]
+- 2nd merge. [Liam Hurwitz]
+- Added Auftrag. [Liam Hurwitz]
+- Fixes. [Aaron Rudkowski]
+- AronSantiago suzammen. [Kevin Santiago Rey Rodriguez]
+- Merge branch 'AronSanti' of https://gitlab.informatik.uni-
+  bremen.de/s_xsipo6/softwareprojekt-2 into AronSanti. [Kevin Santiago
+  Rey Rodriguez]
+- Aron Commit. [Kevin Santiago Rey Rodriguez]
+- Updated uml model. [Liam Hurwitz]
+- J. [Liam Hurwitz]
+- Added Auftrag. [Liam Hurwitz]
+- Probleme karten. [Kevin Santiago Rey Rodriguez]
+- Problekarten. [Kevin Santiago Rey Rodriguez]
+- Focking git nicht funktioniert. [Kevin Santiago Rey Rodriguez]
+- Fixing errors. [Aaron Rudkowski]
+- Merge remote-tracking branch 'origin/AronSanti' into AronSanti. [Aaron
+  Rudkowski]
+- Neues problem. [Aaron Rudkowski]
+- Problemen karten 9. [Kevin Santiago Rey Rodriguez]
+- Problemkarten. [Kevin Santiago Rey Rodriguez]
+- Push. [Aaron Rudkowski]
+- Merge remote-tracking branch 'origin/AronSanti' into AronSanti. [Aaron
+  Rudkowski]
+
+  # Conflicts:
+  #	doc/Architekturbeschreibung.tex
+- Strategienamen. [Aaron Rudkowski]
+- Problem karten. [Kevin Santiago Rey Rodriguez]
+- Problem karten. [Kevin Santiago Rey Rodriguez]
+- Push. [Kevin Santiago Rey Rodriguez]
+- Error raus. [Aaron Rudkowski]
+- Merge remote-tracking branch 'origin/AronSanti' into AronSanti. [Aaron
+  Rudkowski]
+
+  # Conflicts:
+  #	doc/Architekturbeschreibung.tex
+- Problem Karten. [Kevin Santiago Rey Rodriguez]
+- Problemen Karten. [Kevin Santiago Rey Rodriguez]
+- Einführung. [Aaron Rudkowski]
+- Auf stand des setup branches. [Aaron Rudkowski]
+- NeueBranch. [Kevin Santiago Rey Rodriguez]
+- More uml auftrag updates. [Liam Hurwitz]
+- Added Auftrag. [Liam Hurwitz]
+- Löschen der vorlage. [Liam Hurwitz]
+- Merge plant     uml into master. [Liam Hurwitz]
+- Merge branch 'setup' into 'master' [Leonard Haddad]
+
+  Setup
+
+  See merge request s_xsipo6/softwareprojekt-2!22
+- Uebersicht updated. [Leonard]
+- Added. [Leonard]
+- Merge branch 'setup' into 'master' [Leonard Haddad]
+
+  Setup
+
+  See merge request s_xsipo6/softwareprojekt-2!21
+- Zweck und Status done. [Leonard]
+- Einleitung fertig. [Leonard]
+- Merge branch 'setup' into 'master' [Leonard Haddad]
+
+  Setup
+
+  See merge request s_xsipo6/softwareprojekt-2!20
+- Merge branch 'master' into 'setup' [Leonard Haddad]
+
+  # Conflicts:
+  #   doc/Architekturbeschreibung.tex
+  #   doc/UML/plantuml.org
+- Fix image. [Liam Hurwitz]
+- First plantuml modellt. [Liam Hurwitz]
+- Merge uml into master. [Liam Hurwitz]
+- Notes. [Liam Hurwitz]
+- Hi marcel. [Liam Hurwitz]
+- Konzeptionelle Sicht. [Liam Hurwitz]
+- Add pant        Uml Sequenz Diagramm. [Liam Hurwitz]
+- More uml info. [Liam Hurwitz]
+- TODOs. [Leonard Haddad]
+- Fixed. [Leonard Haddad]
+- Done. [Leonard Haddad]
+- Added stichpunte. [Liam Hurwitz]
+- Added subsections. [Leonard]
+- Neuer faktor, einführung problemkarten. [Aaron Rudkowski]
+- Merge remote-tracking branch 'origin/setup' into setup Problemkarten
+  1. Überarbeitung. [Aaron Rudkowski]
+- Added jrp. [Liam Hurwitz]
+- More stuff. [Leonard]
+- Merge branch 'setup' of gitlab.informatik.uni-
+  bremen.de:s_xsipo6/softwareprojekt-2 into setup. [Leonard]
+- Login page. [Leonard]
+- Folgen. [Aaron Rudkowski]
+- Merge remote-tracking branch 'origin/setup' into setup. [Aaron
+  Rudkowski]
+- Merge webserver. [Liam Hurwitz]
+- More uml info. [Liam Hurwitz]
+- Fasse uml zusammen. [Liam Hurwitz]
+- Erste Verbesserungen in der Einleitung. [Liam Hurwitz]
+- Added stichpunte. [Liam Hurwitz]
+- Datensicht und Zeit. [Liam Hurwitz]
+- Added einleitung. [Leonard Haddad]
+- Strategien und Probleme überarbeitet. [Aaron Rudkowski]
+- Merge branch 'master' of https://gitlab.informatik.uni-
+  bremen.de/s_xsipo6/softwareprojekt-2. [Leonard Haddad]
+- Merge branch 'prototyp' into 'master' [Leonard Haddad]
+
+  added
+
+  See merge request s_xsipo6/softwareprojekt-2!18
+- Added. [Leonard Haddad]
+- Merge branch 'setup' into 'master' [Fabian Kehlenbeck]
+
+  Setup into master: 06 Ausführungssicht
+
+  See merge request s_xsipo6/softwareprojekt-2!17
+- 6. Ausführungssicht fertig. [Samuel]
+
+  Einleitung unter Punkt 6 geschrieben.
+- 06 Ausführungsicht UML fertig + gitignore update. [Fabian]
+
+  UML 06 fertig + Datei zum bearbeiten, gitignore ignoriert jetzt nur noch eine pdf und nicht mehr alle!
+- Text für 6. Ausführungssicht. [Samuel]
+- Merge branch 'setup' into 'master' [Leonard Haddad]
+
+  Setup
+
+  See merge request s_xsipo6/softwareprojekt-2!16
+- Added 1.4. [Leonard Haddad]
+- Added 1.4. [Leonard Haddad]
+- 1.2 Status added. [Samuel]
+- 5 Datensicht Beschreibung. [Samuel]
+- Einfuehrung. [Kevin Santiago Rey Rodriguez]
+- Einfuehrung. [Kevin Santiago Rey Rodriguez]
+- Einfuhrung. [Kevin Santiago Rey Rodriguez]
+- Merge branch '1.5ÜbersichtüberdasDokument' into 'master' [Samuel
+  Nejati Masouleh]
+
+  1.5 added
+
+  See merge request s_xsipo6/softwareprojekt-2!15
+- Übersicht über das Dokument 1.0. [Samuel]
+- Merge branch 'patch-2' into 'master' [Liam Hurwitz]
+
+  Update .gitlab-ci.yml
+
+  See merge request s_xsipo6/softwareprojekt-2!14
+- Update .gitlab-ci.yml. [Liam Hurwitz]
+- Merge branch 'master' of https://gitlab.informatik.uni-
+  bremen.de/s_xsipo6/softwareprojekt-2. [Leonard Haddad]
+- Merge branch 'patch-1' into 'master' [Liam Hurwitz]
+
+  Update .gitlab-ci.yml
+
+  See merge request s_xsipo6/softwareprojekt-2!13
+- Update .gitlab-ci.yml. [Liam Hurwitz]
+- Merge branch 'patch-1' into 'master' [Liam Hurwitz]
+
+  Update .gitlab-ci.yml
+
+  See merge request s_xsipo6/softwareprojekt-2!12
+- Update .gitlab-ci.yml. [Liam Hurwitz]
+- Merge branch 'setup' into 'master' [Liam Hurwitz]
+
+  fix doc path
+
+  See merge request s_xsipo6/softwareprojekt-2!11
+- Merge branch 'master' into 'setup' [Liam Hurwitz]
+
+  # Conflicts:
+  #   .gitlab-ci.yml
+- Merge branch 'patch-1' into 'master' [Liam Hurwitz]
+
+  Update .gitlab-ci.yml
+
+  See merge request s_xsipo6/softwareprojekt-2!10
+- Update .gitlab-ci.yml. [Liam Hurwitz]
+- Merge branch 'setup' into 'master' [Liam Hurwitz]
+
+  Setup the ci for pdf export
+
+  See merge request s_xsipo6/softwareprojekt-2!9
+- Fix doc path. [Liam Hurwitz]
+- Update ci. [Liam Hurwitz]
+- More steps. [Liam Hurwitz]
+- Merge branch 'master' of https://gitlab.informatik.uni-
+  bremen.de/s_xsipo6/softwareprojekt-2. [Leonard Haddad]
+- Merge branch 'setup' into 'master' [Leonard Haddad]
+
+  Setup
+
+  See merge request s_xsipo6/softwareprojekt-2!8
+- Problemkarten Strategien. [Aaron Rudkowski]
+- Faktortabelle und problemkarten komplilieren. [Aaron Rudkowski]
+- Merge branch 'master' of https://gitlab.informatik.uni-
+  bremen.de/s_xsipo6/softwareprojekt-2. [Leonard Haddad]
+- Merge branch 'setup' into 'master' [Leonard Haddad]
+
+  Fixed Maven Dependencies
+
+  See merge request s_xsipo6/softwareprojekt-2!7
+- Added. [Leonard Haddad]
+- Merge branch 'setup' into 'master' [Liam Hurwitz]
+
+  Setup
+
+  See merge request s_xsipo6/softwareprojekt-2!6
+- Dont ignore webfiles. [Liam Hurwitz]
+- Update gitignore. [Liam Hurwitz]
+- Templates and house keeping. [Liam Hurwitz]
+- Updated. [Leonard Haddad]
+- Merge branch 'setup' into 'master' [Leonard Haddad]
+
+  updated
+
+  See merge request s_xsipo6/softwareprojekt-2!5
+- Updated. [Leonard Haddad]
+- Merge branch 'setup' into 'master' [Leonard Haddad]
+
+  updated
+
+  See merge request s_xsipo6/softwareprojekt-2!4
+- Updated. [Leonard Haddad]
+- Merge branch 'setup' into 'master' [Leonard Haddad]
+
+  updated
+
+  See merge request s_xsipo6/softwareprojekt-2!3
+- Updated. [Leonard Haddad]
+- Updated files. [Leonard Haddad]
+- Merge branch 'setup' into 'master' [Leonard Haddad]
+
+  added files
+
+  See merge request s_xsipo6/softwareprojekt-2!2
+- Added files. [Leonard]
+- Merge branch 'setup' into 'master' [Leonard Haddad]
+
+  added mockito
+
+  See merge request s_xsipo6/softwareprojekt-2!1
+- Added mockito. [Leonard]
+- Update README.md. [Leonard Haddad]
+- Initial commit. [Leonard]
+- Added ci. [Leonard]
+- Added ignore files. [Leonard]
+- Update README.md. [Leonard Haddad]
+- Update README.md. [Leonard Haddad]
+- Update README.md. [Leonard Haddad]
+- Update README.md. [Leonard Haddad]
+- Initial commit. [Leonard Haddad]
+
+

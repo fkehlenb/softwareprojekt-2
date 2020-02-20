@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Sign-Up! - SFB - Farbige Zustaende</title>
+    <link rel="icon" href="background.png"/>
+</h:head>
+<body background="background.png">
+<ui:include src="/template/common/header.xhtml"/>
+<div id="signup" style="margin-top: 80px; margin-left: 200px; margin-bottom: 100px; align-content: center">
+    <h:form style="float:left;" id="form">
+        <p:messages id="msgs" showDetail="false" closable="true" style="width: 750px">
+            <p:autoUpdate/>
+        </p:messages>
+        <p:panelGrid>
+            <p:row>
+                <p:column colspan="4">
+                    <h1 style="color: cornflowerblue">Signup</h1>
+                    <p>Bitte fuellen Sie alle mit (*) gekenntzeichneten Felder aus!</p>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column colspan="1">
+                    <h:outputText value="*Vorname:"/>
+                </p:column>
+                <p:column colspan="1">
+                    <p:inputText id= "name" required="true" placeholder="*Vorname" requiredMessage="Bitte Vorname eingeben!"
+                                 validatorMessage="Invalid Name!" value="#{registerBean.vorname}">
+                        <f:validateRegex pattern="^[A-Za-z]+$"/>
+                    </p:inputText>
+                </p:column>
+                <p:column colspan="1">
+                    <h:outputText value="*Nachname:"/>
+                </p:column>
+                <p:column colspan="1">
+                    <p:inputText id = "nachname" required="true" placeholder="*Nachname" requiredMessage="Bitte Nachname eingeben!"
+                                 validatorMessage="Invalid Name!" value="#{registerBean.nachname}">
+                        <f:validateRegex pattern="^[A-Za-z]+$"/>
+                    </p:inputText>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column colspan="1">
+                    <h:outputText value="*Username:"/>
+                </p:column>
+                <p:column colspan="3">
+                    <p:inputText required="true" placeholder="*Username"
+                                 requiredMessage="Bitte Username eingeben!" style="width: 400px"
+                                 value="#{registerBean.username}"/>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column colspan="1">
+                    <h:outputText value="*Passwort:"/>
+                </p:column>
+                <p:column colspan="1">
+                    <p:password required="true" placeholder="*Password" requiredMessage="Bitte Passwort eingeben!"
+                                value="#{registerBean.password}"/>
+                </p:column>
+                <p:column colspan="1">
+                    <h:outputText value="*Passwort Wiederholen:"/>
+                </p:column>
+                <p:column colspan="1">
+                    <p:password required="true" placeholder="*Passwort Wiederholen"
+                                requiredMessage="Bitte Passwort erneut eingeben!"
+                                value="#{registerBean.passwordConfirmation}"/>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column colspan="1">
+                    <h:outputText value="*Email:"/>
+                </p:column>
+                <p:column colspan="3">
+                    <p:inputText required="true" placeholder="*Email" requiredMessage="Bitte Email eingeben!"
+                                 validatorMessage="Invalid Email Address!" style="width: 400px"
+                                 value="#{registerBean.email}">
+                        <f:validateRegex
+                                pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
+                    </p:inputText>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column colspan="1">
+                    <h:outputText value="*Telefonnummer:"/>
+                </p:column>
+                <p:column colspan="3">
+                    <p:inputText required="true" placeholder="*Telefonnummer"
+                                 requiredMessage="Bitte Telefonnummer eingeben!"
+                                 validatorMessage="Invalid Phone Number!" style="width: 400px"
+                                 value="#{registerBean.phoneNumber}">
+                        <f:validateRegex pattern="^[0-9]+$"/>
+                    </p:inputText>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column colspan="3">
+                </p:column>
+                <p:column colspan="1">
+                    <p:commandButton value="Create Account" action="#{registerBean.signup}" update="form"/>
+                </p:column>
+            </p:row>
+        </p:panelGrid>
+    </h:form>
+</div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:shiro="http://shiro.apache.org/tags">
+<h:head>
+    <title>hamburgerMenu</title>
+</h:head>
+<body>
+<ui:composition>
+    <shiro:authenticated>
+        <div id="Hamburger" style="float: left; width: 300px; margin-left: 10px; margin-right: 20px; margin-top: 10px">
+            <h:form>
+                <p:growl>
+                    <p:autoUpdate/>
+                </p:growl>
+                <p:panelMenu>
+                    <p:submenu label="Navigation" id="navigation">
+                        <p:menuitem id="Home" value="Home" icon="pi pi-home" url="../../index.xhtml"/>
+                        <p:menuitem id="Account" value="Accout" icon="pi pi-briefcase"/>
+                        <p:menuitem id="Logout" value="Logout" icon="pi pi-times" url="../../logout"/>
+                    </p:submenu>
+                </p:panelMenu>
+                <p:panelMenu>
+                    <p:submenu label="Menu" id="Menu">
+                        <shiro:hasRole name="admin">
+                            <p:submenu label="Administrator Tools" id="AdminTools">
+                                <p:menuitem value="Nutzer Verwalten" url="../../admin/nutzerVerwaltung.xhtml"/>
+                                <p:menuitem value="Experimentierstationen Verwalten"
+                                            url="../../admin/experimentierStationVerwaltung.xhtml"/>
+                                <p:menuitem value="Globale Einstellungen"/>
+                                <p:menuitem value="Backup" url="../../admin/backup.xhtml"/>
+                            </p:submenu>
+                        </shiro:hasRole>
+                        <shiro:hasRole name="pkAdmin">
+                            <p:submenu label="Prozesskettenplaner Tools" id="pkverwaltungsTools">
+                                <p:menuitem value="Prozessschritt Verwaltung"/>
+                                <p:menuitem value="Ablaufsverwaltung"/>
+                                <p:menuitem value="Prozessketten Verwalten"/>
+                                <p:menuitem value="Auftraege Verwalten"/>
+                                <p:menuitem value="Arbeitsauslastung"/>
+                                <p:menuitem value="JSON Export"/>
+                            </p:submenu>
+                        </shiro:hasRole>
+                        <shiro:hasRole name="transport">
+                            <p:submenu label="Tansport Tools" id="transportTools">
+                                <p:menuitem value="Auftraege"/>
+                                <p:menuitem value="Probenverlust Melden"/>
+                            </p:submenu>
+                        </shiro:hasRole>
+                        <shiro:hasRole name="logistik">
+                            <p:submenu label="Logistik Tools">
+                                <p:menuitem value="Traegeruebersicht" url="../../Logistiker/Traegeruebersicht.xhtml"/>
+                                <p:menuitem value="Auftraegsuebersicht"/>
+                                <p:menuitem value="Probenuebersicht"/>
+                                <p:menuitem value="Archivuebersicht"/>
+                                <p:menuitem value="Probenstandortsuebericht"/>
+                            </p:submenu>
+                        </shiro:hasRole>
+                        <shiro:hasRole name="technologe">
+                            <p:submenu label="Technologen Tools">
+                                <p:menuitem value="Meine Experimentierstationen"/>
+                                <p:menuitem value="Meine Auftraege"/>
+                                <p:menuitem value="Angekuendigte Auftraege"/>
+                                <p:menuitem value="Auftragszustand"/>
+                                <p:menuitem value="Proben und Upload"/>
+                                <p:menuitem value="Kapputte Station Melden"/>
+                                <p:menuitem value="Probenverlust Melden"/>
+                            </p:submenu>
+                        </shiro:hasRole>
+                    </p:submenu>
+                </p:panelMenu>
+            </h:form>
+        </div>
+    </shiro:authenticated>
+</ui:composition>
+</body>
+</html>

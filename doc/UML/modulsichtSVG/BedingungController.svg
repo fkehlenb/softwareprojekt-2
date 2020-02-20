@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="182px" preserveAspectRatio="none" style="width:516px;height:182px;" version="1.1" viewBox="0 0 516 182" width="516px" zoomAndPan="magnify"><defs><filter height="300%" id="fxurm5g75xhqm" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[9b452dc1344d656297b75055d31e390d]
+class de.unibremen.sfb.controller.BedingungController--><a href="BedingungController.html" target="_top" title="BedingungController.html" xlink:actuate="onRequest" xlink:href="BedingungController.html" xlink:show="new" xlink:title="BedingungController.html" xlink:type="simple"><rect fill="#FEFECE" filter="url(#fxurm5g75xhqm)" height="144.9512" id="de.unibremen.sfb.controller.BedingungController" style="stroke: #A80036; stroke-width: 1.5;" width="498" x="7" y="7"/><ellipse cx="179.75" cy="26.1328" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M182.2231,32.2759 Q181.6421,32.5747 181.0029,32.7241 Q180.3638,32.8735 179.6582,32.8735 Q177.1514,32.8735 175.8315,31.2217 Q174.5117,29.5698 174.5117,26.4487 Q174.5117,23.3193 175.8315,21.6675 Q177.1514,20.0156 179.6582,20.0156 Q180.3638,20.0156 181.0112,20.165 Q181.6587,20.3145 182.2231,20.6133 L182.2231,23.3359 Q181.5923,22.7549 180.9988,22.4851 Q180.4053,22.2153 179.7744,22.2153 Q178.4297,22.2153 177.7449,23.282 Q177.0601,24.3486 177.0601,26.4487 Q177.0601,28.5405 177.7449,29.6072 Q178.4297,30.6738 179.7744,30.6738 Q180.4053,30.6738 180.9988,30.4041 Q181.5923,30.1343 182.2231,29.5532 Z "/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="144" x="200.25" y="25.5352">BedingungController</text><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacingAndGlyphs" textLength="137" x="203.75" y="38.1563">de.unibremen.sfb.controller</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="8" x2="504" y1="45.2656" y2="45.2656"/><ellipse cx="18" cy="56.2656" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="114" x="27" y="59.9004">controller: Controller</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="8" x2="504" y1="66.2207" y2="66.2207"/><ellipse cx="18" cy="77.2207" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="237" x="27" y="80.8555">setPSZ(Set&lt;ProzessSchrittParameter&gt;): void</text><ellipse cx="18" cy="90.1758" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="215" x="27" y="93.8105">getPSZ(): Set&lt;ProzessSchrittParameter&gt;</text><ellipse cx="18" cy="103.1309" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="281" x="27" y="106.7656">setEigenschaften(Set&lt;QualitativeEigenschaft&gt;): void</text><ellipse cx="18" cy="116.0859" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="259" x="27" y="119.7207">getEigenschaften(): Set&lt;QualitativeEigenschaft&gt;</text><ellipse cx="18" cy="129.041" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="472" x="27" y="132.6758">setBedingung(Pair&lt;Set&lt;ProzessSchrittParameter&gt;, Set&lt;QualitativeEigenschaft&gt;&gt;): void</text><ellipse cx="18" cy="141.9961" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="450" x="27" y="145.6309">getBedingung(): Pair&lt;Set&lt;ProzessSchrittParameter&gt;, Set&lt;QualitativeEigenschaft&gt;&gt;</text></a><text fill="#888888" font-family="sans-serif" font-size="10" lengthAdjust="spacingAndGlyphs" textLength="182" x="165" y="168.6191">UMLDoclet 2.0.7, PlantUML 1.2019.12</text><!--MD5=[a90e04e613be2d525a8704ca7b1dde28]
+@startuml
+    set namespaceSeparator none
+    hide empty fields
+    hide empty methods
+
+    class "<size:14>BedingungController\n<size:10>de.unibremen.sfb.controller" as de.unibremen.sfb.controller.BedingungController [[BedingungController.html]] {
+        +controller: controller
+        +setPSZ(Set<ProzessSchrittParameter>): void
+        +getPSZ(): Set<ProzessSchrittParameter>
+        +setEigenschaften(Set<QualitativeEigenschaft>): void
+        +getEigenschaften(): Set<QualitativeEigenschaft>
+        +setBedingung(Pair<Set<ProzessSchrittParameter>, Set<QualitativeEigenschaft>>): void
+        +getBedingung(): Pair<Set<ProzessSchrittParameter>, Set<QualitativeEigenschaft>>
+    }
+
+    center footer UMLDoclet 2.0.7, PlantUML 1.2019.12
+@enduml
+
+PlantUML version 1.2019.12(Sun Nov 03 11:24:54 CET 2019)
+(APACHE source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 13.0.1+9
+Operating System: Mac OS X
+Default Encoding: UTF-8
+Language: de
+Country: DE
+--></g></svg>

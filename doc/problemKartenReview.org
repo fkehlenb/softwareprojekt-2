@@ -1,0 +1,108 @@
+#+TITLE: problemKartenReview
+
+* Problemkarten auf Korrektheit überpürfen
+Zu lösendes Problem
+
+Die Qualität der Problemkarten soll überprüft werden
+Vorschlag
+
+** Für jeden der Problemkarten wird bewertet ob es auf
+
+1. die Grenzen und Einschränkungen eingeht
+
+2. beschreibt die Problemkarte ein Problem was einen Faktor begrenzt?
+
+3. Gibt es Schwierigkeit den Faktor zu erfüllen
+
+4. Wie fließt dieses Problem auf die Markoebene ein
+
+5. Problem betrifft die Architektur
+
+6. Die Problemkarte erklärt wie das Problem in der Architektur gelöst wird
+
+7. Die Problemkate geht dabei auf die Schichten ein
+
+Wer kann das Problem lösen?
+
+* Review
+>>>>>Angeguck Neue Stragenien. 
+1. Userrollen: Hat {1,2,4,5}
+   Genauer{6}
+   Fehlt{7}
+
+   Bitte gucke nochmal in das Modell: $Role Technolge \in Roles$
+   Technologe erbt von Role.
+   Schwierigkeit: Java EE ist nicht Trivial
+
+
+   Was soll die letze Zeile da? "Machen sie..."
+
+   - Bitte ein Beispiel raussuchen wie es mit Jakarta EE realsierbar ist, am
+     besten ein Code BSP.
+   - Bitte ein gucken ob apache shiro geeigneter ist
+
+   Damit ein Nutzer aus der Datenbank H  zugriff auf eine Funktion einer Rolle
+   hat, muss diese Authentifiziert sein, hierfür nutzen wir jakarta ee 8, sowie deren
+   bereit gestellten Authtifizierungsbuilder TODO Details: Nachdem die
+   Authentifizierung erfolgreich stattgefunden hat, kann das Servlet
+   den gewünschten Inhalt des Realms liefern.
+
+1. Datensicherheit, ist teilweise in q Enthalten, bitte übtragt den Inhalt,
+   dieser Probleme in die relevanten Abschnitte der Komponenten und
+   Modulbeschreibungen. Das Sequenz Diagramm vom login sollte auch auf
+   korrektheit überprüft werden
+
+2. Nebenläufigkeit. TODO   
+   
+3. CRUD von Nutzer Hat{}
+   1. Gut, diese Einschränkung lösen wir indem wir:
+   2. a) User nicht löschen können, weil in der Datenbank Prozess- und
+      Geschäfts relevante Eigenschaften von einem Nutze gebraucht werden
+   3. b) Falls ein Benutzer entfernt wird, müssen alle Einträge der Datenbank
+      die den Nutzer referenzieren auf einen anderen Nutzer übertragen werden
+      Zu 5. Wir müssen dieses Problem  ins besonders bei der PK sowie deren
+       zugewisennen Nutzern beachten. Wenn ein Transporteur gelöscht wird, müssen
+
+       seine Aufträge an andere Transporteure Übertragen werden.
+   2.TODO. Es fehlt:
+       Benutzen wir deltaspike data? (Marcel Vorschlag)(>>>>>Schon ain Stationen bearbeitung gemacht)
+       Dann SQL ausdrücke für diese Problem
+
+      Hibernate, dann bitte ähnliches BSP, den wir müssen schnell uns für eine
+      Persistenz entscheiden.
+
+4. Up und Download Fehlt{1,2 weil, die Menge von Serialisierbaren muss eingeschränkt werden,
+   5&6}.
+   Einflussfaktoren: Controller muss über repositry oder beans dies
+   Unterstützen.
+
+   Einflussfaktoren: Serialsierung Unser Datenmodell muss es
+   erlauben, dass wir PS und PK serialisieren können Dafür benutzen wir
+   JSONArrays, welche JSONObjects enthalten (siehe Modell)
+
+  (>>>>Bearbeitete) a) Dafür Nutzen Wir JaxB und foo, um aus den Beans JSON zu Generieren und zu
+   können
+   - b) Dafür nutzen wir jakarta EE und die Rest Unterstüzung von
+   Klassen welche Serialsierbar sind, werden durch Annotation so erweitert, dass
+   eine JSON Repräsentation möglich ist.
+
+5. Protokollierung:  Sind diese Strategien in der Richigen box?
+   Hier ein Grundgerüst:
+
+   Wir verwenden Aufträge in unserem System, dort werden alle Veränderungen von
+   Zuständen der in dem Auftrag enthalten Objekte protokolliert.  
+   Hierfür können wir log4j benutzen, dies ermöglicht es uns, wenn der
+   Controller ein relevanten Schritt des Auftrages ausführt, wird mit log4j dies
+   protokolliert
+
+6. Stationsbearbeitung:
+   Weitere Einflussfaktoren, An einer Experimentierstation es, gibt es bestimmt
+   ProzessSchritte, welche durchgeführt werden könnne, daher muss ermöglicht
+   werden, dass der Admin bei der Erstellung der es und später auch der t neue
+   die Unterstüzten Prozessparameter einstellt,
+   Die in existierenden Prozesschrit vorlagen erhalten Anforderungen an die
+   Prozessparameter und and die Materialeigenschaften. Durch das Festlegen,
+   welche parameter verändert werden können, kann der PKAdmin später schneller zuweisen
+
+
+

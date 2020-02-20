@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="130px" preserveAspectRatio="none" style="width:235px;height:130px;" version="1.1" viewBox="0 0 235 130" width="235px" zoomAndPan="magnify"><defs><filter height="300%" id="f1algu2vmz5dtq" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[40a1956681d53ceaeda42451e2d8ba56]
+class de.unibremen.sfb.controller.TraegerArtController--><a href="TraegerArtController.html" target="_top" title="TraegerArtController.html" xlink:actuate="onRequest" xlink:href="TraegerArtController.html" xlink:show="new" xlink:title="TraegerArtController.html" xlink:type="simple"><rect fill="#FEFECE" filter="url(#f1algu2vmz5dtq)" height="93.1309" id="de.unibremen.sfb.controller.TraegerArtController" style="stroke: #A80036; stroke-width: 1.5;" width="217" x="7" y="7"/><ellipse cx="40" cy="26.1328" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M42.4731,32.2759 Q41.8921,32.5747 41.2529,32.7241 Q40.6138,32.8735 39.9082,32.8735 Q37.4014,32.8735 36.0815,31.2217 Q34.7617,29.5698 34.7617,26.4487 Q34.7617,23.3193 36.0815,21.6675 Q37.4014,20.0156 39.9082,20.0156 Q40.6138,20.0156 41.2612,20.165 Q41.9087,20.3145 42.4731,20.6133 L42.4731,23.3359 Q41.8423,22.7549 41.2488,22.4851 Q40.6553,22.2153 40.0244,22.2153 Q38.6797,22.2153 37.9949,23.282 Q37.3101,24.3486 37.3101,26.4487 Q37.3101,28.5405 37.9949,29.6072 Q38.6797,30.6738 40.0244,30.6738 Q40.6553,30.6738 41.2488,30.4041 Q41.8423,30.1343 42.4731,29.5532 Z "/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="145" x="58" y="25.5352">TraegerArtController</text><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacingAndGlyphs" textLength="137" x="62" y="38.1563">de.unibremen.sfb.controller</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="8" x2="223" y1="45.2656" y2="45.2656"/><ellipse cx="18" cy="56.2656" fill="none" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="119" x="27" y="59.9004">traegerart: TraegerArt</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="8" x2="223" y1="66.2207" y2="66.2207"/><ellipse cx="18" cy="77.2207" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="191" x="27" y="80.8555">setTraegerArten(Set&lt;String&gt;): void</text><ellipse cx="18" cy="90.1758" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="169" x="27" y="93.8105">getTraegerArten(): Set&lt;String&gt;</text></a><text fill="#888888" font-family="sans-serif" font-size="10" lengthAdjust="spacingAndGlyphs" textLength="182" x="24.5" y="116.7988">UMLDoclet 2.0.7, PlantUML 1.2019.12</text><!--MD5=[d5b2c1d2592260862b9b0ba1acdb868f]
+@startuml
+    set namespaceSeparator none
+    hide empty fields
+    hide empty methods
+
+    class "<size:14>TraegerArtController\n<size:10>de.unibremen.sfb.controller" as de.unibremen.sfb.controller.TraegerArtController [[TraegerArtController.html]] {
+        +traegerart: TraegerArt
+        +setTraegerArten(Set<String>): void
+        +getTraegerArten(): Set<String>
+    }
+
+    center footer UMLDoclet 2.0.7, PlantUML 1.2019.12
+@enduml
+
+PlantUML version 1.2019.12(Sun Nov 03 11:24:54 CET 2019)
+(APACHE source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 13.0.1+9
+Operating System: Mac OS X
+Default Encoding: UTF-8
+Language: de
+Country: DE
+--></g></svg>
