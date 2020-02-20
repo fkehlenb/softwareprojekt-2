@@ -1,1 +1,0 @@
-PATH=/home/liam/anaconda3/bin:/home/liam/anaconda3/condabin:/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/jvm/java-13-openjdk/bin:/usr/lib/jvm/java-13-openjdk/bin:/home/liam/.local/bin:/home/liam/.local/bin:/home/liam/.local/bin
