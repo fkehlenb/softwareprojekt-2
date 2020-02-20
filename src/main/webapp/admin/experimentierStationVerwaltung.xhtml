@@ -99,8 +99,8 @@
                     <p:dataTable id="table" var="station" value="#{adminBean.experimentierStations}" editable="true"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                                  paginator="true" rows="5" style="margin-bottom:20px">
-                        <p:ajax event="rowEdit" listener="#{adminBean.onRowEditES(station.esID)}" update="form2"/>
-                        <p:ajax event="rowEditCancel" listener="#{adminBean.onRowEditCancelES}" update="form2"/>
+                        <p:ajax event="rowEdit" listener="#{adminBean.onRowEditES(station.esID)}" update="table"/>
+                        <p:ajax event="rowEditCancel" listener="#{adminBean.onRowEditCancelES}" update="table"/>
                         <p:column headerText="Name">
                             <p:cellEditor>
                                 <f:facet name="output">
