@@ -1,11 +1,6 @@
 package de.unibremen.sfb.service;
 
-
-import de.unibremen.sfb.exception.DuplicateQualitativeEigenschaftException;
-import de.unibremen.sfb.exception.QualitativeEigenschaftNotFoundException;
-import de.unibremen.sfb.model.QualitativeEigenschaft;
 import de.unibremen.sfb.model.QuantitativeEigenschaft;
-import de.unibremen.sfb.persistence.QualitativeEigenschaftDAO;
 import de.unibremen.sfb.persistence.QuantitativeEigenschaftDAO;
 import lombok.Getter;
 import lombok.Setter;

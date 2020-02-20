@@ -3,13 +3,14 @@ package de.unibremen.sfb.boundary;
 import de.unibremen.sfb.model.User;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 
 /**
  * this class manages the interaction between the gui and the backend system for situations in which the user is logged in
  */
-@SessionScoped
+@ViewScoped
 @Named
 public class LoggedInBean implements Serializable {
 
