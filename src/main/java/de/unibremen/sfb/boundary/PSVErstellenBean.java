@@ -107,7 +107,7 @@ public class PSVErstellenBean implements Serializable {
         // FIXME Wehre is es, persist auf  de.unibremen.sfb.model.ProzessSchrittVorlage.zustandsAutomat -> de.unibremen.sfb.model.ProzessSchrittZustandsAutomatVorlage
 
         ProzessSchrittVorlage psv = new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), Duration.ofHours(Long.parseLong(dauer)), psArt,
-                ausgewaehlteStationen, ausgewaehlteProzessSchrittParameter);
+                ausgewaehlteStationen, ausgewaehlteProzessSchrittParameter, new ArrayList<>());
         try {
             prozessSchrittVorlageDAO.persist(psv);
         } catch (DuplicateProzessSchrittVorlageException e) {

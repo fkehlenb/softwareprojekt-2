@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
 @Setter
 @Getter
 @Slf4j
+@Singleton
 public class QualitativeEigenschaftService implements Serializable {
 
     /** List of all qualitative descriptors in the database */
