@@ -37,8 +37,12 @@ public class Probe {
     @ManyToOne
     private Standort standort;
 
+    /** The Predicate of a Sample */
+    @ManyToMany
+    private List<Bedingung> bedingungen;
+
     /** The qualitative/quantitative descriptors of the sample */
-    @OneToMany
+    @ManyToMany
     private List<QualitativeEigenschaft> qualitativeEigenschaften;
 
     /** The container the sample is currently located in */

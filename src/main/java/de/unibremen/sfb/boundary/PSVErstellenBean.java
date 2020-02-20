@@ -14,6 +14,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotEmpty;
@@ -25,7 +26,7 @@ import java.util.UUID;
 
 
 @Named("psvErstellenBean")
-@SessionScoped
+@ViewScoped
 @Getter
 @Setter
 @Log
@@ -107,7 +108,7 @@ public class PSVErstellenBean implements Serializable {
         // FIXME Wehre is es, persist auf  de.unibremen.sfb.model.ProzessSchrittVorlage.zustandsAutomat -> de.unibremen.sfb.model.ProzessSchrittZustandsAutomatVorlage
 
         ProzessSchrittVorlage psv = new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), Duration.ofHours(Long.parseLong(dauer)), psArt,
-                ausgewaehlteStationen, ausgewaehlteProzessSchrittParameter);
+                ausgewaehlteStationen, ausgewaehlteProzessSchrittParameter, new ArrayList<>());
         try {
             prozessSchrittVorlageDAO.persist(psv);
         } catch (DuplicateProzessSchrittVorlageException e) {

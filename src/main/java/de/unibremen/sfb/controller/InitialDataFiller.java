@@ -282,7 +282,7 @@ public class InitialDataFiller {
                 zustandsService.getPsZustaende(), "Test pszvav");
         em.persist(v);
         ProzessSchrittVorlage psv = new ProzessSchrittVorlage(99, Duration.ofMinutes(42),
-                "Ermittlend", experimentierStations, parameters);
+                "Ermittlend", experimentierStations, parameters, new ArrayList<>());
         return psv;
     }
 

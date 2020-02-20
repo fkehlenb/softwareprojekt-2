@@ -10,7 +10,7 @@
 
 
 <h:head>
-    <title>Trägerübersicht - SFB - Farbige Zustaende</title>
+    <title>Auftragsübersicht - SFB - Farbige Zustaende</title>
     <link rel="icon" href="../background.png"/>
 
 </h:head>
@@ -20,26 +20,27 @@
 <ui:include src="/template/common/hamburgerMenu.xhtml"/>
 
 <ui:composition template="/template/common/layout.xhtml">
-        <ui:define name="content">
-            <p:dataTable var="car" value="#{dtBasicView.cars}">
-                <p:column headerText="Id">
-                    <h:outputText value="#{car.id}" />
-                </p:column>
+    <ui:define name="content">
+        <h2 style="text-align: center">Alle Aufträge </h2>
+        <p:dataTable var="auftrag" value="#{dtAuftragBean.auftrage}">
+            <p:column headerText="Id">
+                <h:outputText value="#{auftrag.pkID}" />
+            </p:column>
 
-                <p:column headerText="Year">
-                    <h:outputText value="#{car.year}" />
-                </p:column>
+            <p:column headerText="Year">
+                <h:outputText value="#{}" />
+            </p:column>
 
-                <p:column headerText="Brand">
-                    <h:outputText value="#{car.brand}" />
-                </p:column>
+            <p:column headerText="Brand">
+                <h:outputText value="#{}" />
+            </p:column>
 
-                <p:column headerText="Color">
-                    <h:outputText value="#{car.color}" />
-                </p:column>
-            </p:dataTable>
-        </ui:define>
-    </ui:composition>
+            <p:column headerText="Color">
+                <h:outputText value="#{}" />
+            </p:column>
+        </p:dataTable>
+    </ui:define>
+</ui:composition>
 
 </body>
 </html>

@@ -11,7 +11,6 @@ import java.util.List;
 /**
  * This class handles the experimenting station objects in the database
  */
-@Slf4j
 public class ExperimentierStationDAO extends ObjectDAO<ExperimentierStation> {
 
     /**
@@ -94,7 +93,6 @@ public class ExperimentierStationDAO extends ObjectDAO<ExperimentierStation> {
      */
     public List<ExperimentierStation> getAll() throws IllegalArgumentException {
         try {
-            log.info("Loading all ES from DB");
             return em.createNamedQuery("ExperimentierStation.getAll", get()).getResultList();
         }
         catch (Exception e){

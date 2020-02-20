@@ -4,13 +4,18 @@ import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /** The location data class */
 @Getter
 @Setter
 @Entity
 @RequiredArgsConstructor
-@NoArgsConstructor()
+@NoArgsConstructor
+@NamedQueries({
+        @NamedQuery(name = "Standort.getByOrt", query = "SELECT s FROM Standort s WHERE s.ort = :ort")
+})
 public class Standort {
 
     @Id
@@ -21,4 +26,8 @@ public class Standort {
     @NonNull
     private String ort;
 
+    @Override
+    public String toString(){
+        return ort;
+    }
 }

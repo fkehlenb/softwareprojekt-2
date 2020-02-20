@@ -3,9 +3,15 @@ package de.unibremen.sfb.persistence;
 import de.unibremen.sfb.exception.BedingungNotFoundException;
 import de.unibremen.sfb.exception.DuplicateBedingungException;
 import de.unibremen.sfb.model.Bedingung;
+import de.unibremen.sfb.model.Standort;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /** This class handles the conditions in the database */
-public class BindungungDAO extends ObjectDAO<Bedingung> {
+@Slf4j
+public class BedingungDAO extends ObjectDAO<Bedingung> {
 
     /** Add a condition to the database
      * @param b - the condition to add to the database
@@ -48,5 +54,21 @@ public class BindungungDAO extends ObjectDAO<Bedingung> {
     /** @return the class of condition */
     public Class<Bedingung> get(){
         return Bedingung.class;
+    }
+
+
+    public List<Bedingung> getAll(){
+        try {
+            List<Bedingung> es = em.createQuery("SELECT b FROM Bedingung b",get()).getResultList();
+            if (es.isEmpty()){
+                log.info("No Bedingungen Found");
+                return new ArrayList<>();
+            }
+            return es;
+        }
+        catch (Exception e){
+//            e.printStackTrace();
+            throw new IllegalArgumentException();
+        }
     }
 }

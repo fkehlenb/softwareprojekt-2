@@ -21,7 +21,7 @@
         </p:growl>
         <p:panelGrid columns="1">
             <p:row>
-                <h2 style="color: cornflowerblue">Experimentier Station Verwaltung</h2>
+                <h2 style="color: cornflowerblue">Experimentierstation Verwaltung</h2>
             </p:row>
             <p:row>
                 <p>In der unteren Tabelle sehen Sie alle Experimentierstationen die im System existieren.<br/>
@@ -29,7 +29,7 @@
             </p:row>
             <p:row>
                 <p:panelGrid>
-                    <h:form>
+                    <h:form id="form">
                         <p:row>
                             <h3 style="color: cornflowerblue">Experimentierstation Einfuegen</h3>
                         </p:row>
@@ -38,7 +38,8 @@
                                 <h:outputText value="Name:"/>
                             </p:column>
                             <p:column colspan="1">
-                                <p:inputText placeholder="Name" required="true" value="#{adminBean.experimentierStationName}"
+                                <p:inputText placeholder="Name" required="true"
+                                             value="#{adminBean.experimentierStationName}"
                                              requiredMessage="Bitte Experimentierstation Name eingeben"/>
                             </p:column>
                             <p:column colspan="1">
@@ -49,8 +50,9 @@
                                                  value="#{adminBean.experimentierStationStandort}"
                                                  converter="standortConverter" effect="fade"
                                                  var="standort" style="width: 172px" filter="true"
-                                                 filterMatchMode="startsWith">
-                                    <f:selectItems value="#{esErstellenBean.verfuegbareStandorte}"
+                                                 filterMatchMode="contains" required="true"
+                                                 requiredMessage="Bitte Standort Wahlen!">
+                                    <f:selectItems value="#{adminBean.allLocations}"
                                                    var="standort" itemLabel="#{standort.ort}"
                                                    itemValue="#{standort}" required="true"/>
                                     <p:column>
@@ -64,24 +66,17 @@
                                 <h:outputText value="Zugewiesene Benutzer:"/>
                             </p:column>
                             <p:column colspan="1">
-                                <p:selectManyMenu id="user"
-                                                  value="#{adminBean.experimentierStationBenutzer}"
-                                                  converter="userConverter" effect="fade"
-                                                  var="user" style="width: 172px" filter="true"
-                                                  filterMatchMode="startsWith">
-                                    <f:selectItems value="#{esErstellenBean.availableUsers}"
-                                                   var="user" itemLabel="#{user}"
+                                <p:selectCheckboxMenu id="userTable"
+                                                      value="#{adminBean.experimentierStationBenutzer}"
+                                                      converter="userConverter" effect="fade"
+                                                      var="user" style="width: 172px" filter="true"
+                                                      filterMatchMode="contains" showCheckbox="true"
+                                                      label="Benutzer" requiredMessage="Bitte Benutzer Zuweisen!"
+                                                      required="true">
+                                    <f:selectItems value="#{adminBean.allUsers}"
+                                                   var="user" itemLabel="#{user.username}"
                                                    itemValue="#{user}" required="true"/>
-                                    <p:column>
-                                        <h:outputText value="#{user.vorname}"/>
-                                    </p:column>
-                                    <p:column>
-                                        <h:outputText value="#{user.nachname}"/>
-                                    </p:column>
-                                    <p:column>
-                                        <h:outputText value="#{user.username}"/>
-                                    </p:column>
-                                </p:selectManyMenu>
+                                </p:selectCheckboxMenu>
                             </p:column>
                             <p:column colspan="1">
                                 <p:commandButton value="Reset" type="reset"/>
@@ -89,7 +84,7 @@
                             <p:column colspan="1">
                                 <p:commandButton value="Erstellen"
                                                  action="#{adminBean.addStation}" icon="pi pi-check"
-                                                 update="@form"/>
+                                                 update="form" ajax="true"/>
                             </p:column>
                         </p:row>
                     </h:form>
@@ -97,38 +92,79 @@
             </p:row>
             <br/>
             <p:row>
-                <p:dataTable id="table" var="station" value="#{adminBean.getES()}"
-                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                             paginator="true" rows="3" style="margin-bottom:20px">>
-                    <p:column headerText="Id">
-                        <h:outputText value="#{station.esID}"/>
-                    </p:column>
-                    <p:column headerText="Name">
-                        <h:outputText value="#{station.name}"/>
-                    </p:column>
-                    <p:column headerText="Standort">
-                        <h:outputText value="#{station.standort.ort}"/>
-                    </p:column>
-                    <p:column headerText="Zugewiesene Benutzer">
-                        <h:outputText value="#{station.benutzer}"/>
-                    </p:column>
-                    <p:column headerText="Remove">
-                        <h:form>
-                            <div align="center">
-                                <p:commandButton ajax="false" action="#{adminBean.deleteStation(station.esID)}" value="Remove"
-                                                 icon="pi pi-trash"/>
-                            </div>
-                        </h:form>
-                    </p:column>
-                    <p:column headerText="Edit">
-                        <h:form>
-                            <div align="center">
-                                <p:commandButton ajax="false" action="#{adminBean.editStation(station.esID)}" value="Edit"
-                                                 icon="pi pi-pencil"/>
-                            </div>
-                        </h:form>
-                    </p:column>
-                </p:dataTable>
+                <h:form id="form2">
+                    <p:growl>
+                        <p:autoUpdate/>
+                    </p:growl>
+                    <p:dataTable id="table" var="station" value="#{adminBean.experimentierStations}" editable="true"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                 paginator="true" rows="5" style="margin-bottom:20px">
+                        <p:ajax event="rowEdit" listener="#{adminBean.onRowEditES(station.esID)}" update="table"/>
+                        <p:ajax event="rowEditCancel" listener="#{adminBean.onRowEditCancelES}" update="table"/>
+                        <p:column headerText="Name">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{station.name}"/>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText value="#{adminBean.experimentierStationName}" label="Name"
+                                                 required="true"
+                                                 requiredMessage="Bitte Experimentierstation Name Eingeben!"
+                                                 placeholder="Name"/>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Standort">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{station.standort}"/>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:selectOneMenu id="standortTable"
+                                                     value="#{adminBean.experimentierStationStandort}"
+                                                     converter="standortConverter" effect="fade"
+                                                     var="standort" style="width: 172px" filter="true"
+                                                     filterMatchMode="contains" required="true"
+                                                     requiredMessage="Bitte Standort Wahlen!">
+                                        <f:selectItems value="#{adminBean.allLocations}"
+                                                       var="standort" itemLabel="#{standort.ort}"
+                                                       itemValue="#{standort}" required="true"/>
+                                        <p:column>
+                                            <h:outputText value="#{standort.ort}"/>
+                                        </p:column>
+                                    </p:selectOneMenu>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Zugewiesene Benutzer">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{station.benutzer}"/>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:selectCheckboxMenu id="user"
+                                                          value="#{adminBean.experimentierStationBenutzer}"
+                                                          converter="userConverter" effect="fade"
+                                                          var="user" style="width: 172px" filter="true"
+                                                          filterMatchMode="contains" showCheckbox="true"
+                                                          label="Benutzer" requiredMessage="Bitte Benutzer Zuweisen!"
+                                                          required="true">
+                                        <f:selectItems value="#{adminBean.allUsers}"
+                                                       var="user" itemLabel="#{user.username}"
+                                                       itemValue="#{user}" required="true"/>
+                                    </p:selectCheckboxMenu>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column>
+                            <p:commandButton ajax="false" action="#{adminBean.deleteStation(station.esID)}"
+                                             value="Delete" icon="pi pi-trash"/>
+                        </p:column>
+                        <p:column style="width: 35px">
+                            <p:rowEditor/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
             </p:row>
         </p:panelGrid>
     </div>

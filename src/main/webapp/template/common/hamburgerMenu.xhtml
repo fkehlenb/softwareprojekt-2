@@ -21,32 +21,43 @@
                         <p:menuitem id="Logout" value="Logout" icon="pi pi-times" url="../../logout"/>
                     </p:submenu>
                 </p:panelMenu>
-                <!--shiro:hasRole name="pkAdmin"-->
                 <p:panelMenu>
                     <p:submenu label="Menu" id="Menu">
-
-                        <p:submenu label="Administrator Tools" id="AdminTools">
-                            <p:menuitem value="Nutzer Verwalten" url="../../admin/nutzerVerwaltung.xhtml"/>
-                            <p:menuitem value="Experimentierstationen Verwalten"
-                                        url="../../admin/experimentierStationVerwaltung.xhtml"/>
-                            <p:menuitem value="Globale Einstellungen"/>
-                            <p:menuitem value="Backup" url="../../admin/backup.xhtml"/>
-                        </p:submenu>
-
-                        <p:submenu label="Prozesskettenplaner Tools" id="pkverwaltungsTools">
-                            <p:menuitem value="Prozessschritt Verwaltung"/>
-                            <p:menuitem value="Ablaufsverwaltung"/>
-                            <p:menuitem value="Prozessketten Verwalten"/>
-                            <p:menuitem value="Auftraege Verwalten"/>
-                            <p:menuitem value="Arbeitsauslastung"/>
-                            <p:menuitem value="JSON Export"/>
-                        </p:submenu>
-
-                        <p:submenu label="Tansport Tools" id="transportTools">
-                            <p:menuitem value="Auftraege"/>
-                            <p:menuitem value="Probenverlust Melden"/>
-                        </p:submenu>
-
+                        <shiro:hasRole name="admin">
+                            <p:submenu label="Administrator Tools" id="AdminTools">
+                                <p:menuitem value="Nutzer Verwalten" url="../../admin/nutzerVerwaltung.xhtml"/>
+                                <p:menuitem value="Experimentierstationen Verwalten"
+                                            url="../../admin/experimentierStationVerwaltung.xhtml"/>
+                                <p:menuitem value="Globale Einstellungen"/>
+                                <p:menuitem value="Backup" url="../../admin/backup.xhtml"/>
+                            </p:submenu>
+                        </shiro:hasRole>
+                        <shiro:hasRole name="pkAdmin">
+                            <p:submenu label="Prozesskettenplaner Tools" id="pkverwaltungsTools">
+                                <p:menuitem value="Prozessschritt Verwaltung"/>
+                                <p:menuitem value="Ablaufsverwaltung"/>
+                                <p:menuitem value="Prozessketten Verwalten"/>
+                                <p:menuitem value="Auftraege Verwalten"/>
+                                <p:menuitem value="Arbeitsauslastung"/>
+                                <p:menuitem value="JSON Export"/>
+                            </p:submenu>
+                        </shiro:hasRole>
+                        <shiro:hasRole name="transport">
+                            <p:submenu label="Tansport Tools" id="transportTools">
+                                <p:menuitem value="Auftraege"/>
+                                <p:menuitem value="Probenverlust Melden"/>
+                            </p:submenu>
+                        </shiro:hasRole>
+                        <shiro:hasRole name="logistik">
+                            <p:submenu label="Logistik Tools">
+                                <p:menuitem value="Traegeruebersicht" url="../../Logistiker/Traegeruebersicht.xhtml"/>
+                                <p:menuitem value="Auftraegsuebersicht"/>
+                                <p:menuitem value="Probenuebersicht"/>
+                                <p:menuitem value="Archivuebersicht"/>
+                                <p:menuitem value="Probenstandortsuebericht"/>
+                            </p:submenu>
+                        </shiro:hasRole>
+                        <shiro:hasRole name="technologe">
                     <p:submenu label="Technologen Tools" id="technologeTools">
                         <p:menuitem value="Meine Experimentierstationen" url="../../technologe/stationen.xhtml"/>
                         <p:menuitem value="Meine Aufträge" url="../../technologe/index.xhtml"/>
@@ -55,9 +66,9 @@
                         <p:menuitem value="Proben und Upload" url="../../technologe/proben.xhtml"/>
                         <p:menuitem value="Kapputte Station Melden"/>
                         <p:menuitem value="Probenverlust Melden"/>
+                        </shiro:hasRole>
                     </p:submenu>
                 </p:panelMenu>
-                <!--/shiro:hasRole-->
             </h:form>
         </div>
     </shiro:authenticated>
