@@ -2,8 +2,10 @@ package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.model.ProzessSchrittParameter;
 import de.unibremen.sfb.model.QualitativeEigenschaft;
+import de.unibremen.sfb.model.QuantitativeEigenschaft;
 import de.unibremen.sfb.service.ProzessSchrittParameterService;
 import de.unibremen.sfb.service.QualitativeEigenschaftService;
+import de.unibremen.sfb.service.QuantitativeEigenschaftService;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +34,8 @@ public class UpdatePSPBean implements Serializable {
     ProzessSchrittParameterService prozessSchrittParameterService;
     @Inject
     QualitativeEigenschaftService qualitativeEigenschaftService;
+    @Inject
+    QuantitativeEigenschaftService quantitativeEigenschaftService;
 
     private  ProzessSchrittParameter prozessSchrittParameter;
 
@@ -44,24 +48,25 @@ public class UpdatePSPBean implements Serializable {
     //Constructor///////
     public UpdatePSPBean() {
         try{
-            id=(String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("id");
+            id = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("id");
             qualitativeEigenschaften = (List<QualitativeEigenschaft>) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("list");
-            prozessSchrittParameter =(ProzessSchrittParameter) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("PSP");
+            prozessSchrittParameter = (ProzessSchrittParameter) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("PSP");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     /////////
 
-    public void updatePSP(){
+    public String updatePSP(){
         try {
             id = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("id");
             ProzessSchrittParameter p =  prozessSchrittParameterService.getPSPByID(Integer.parseInt(id));
+            p.setQualitativeEigenschaften(qualitativeEigenschaften);
             prozessSchrittParameterService.update(p);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        return "pS?faces-redirect=true";
     }
 
     public List<QualitativeEigenschaft> deleteGewaltQein(String id){
@@ -69,13 +74,26 @@ public class UpdatePSPBean implements Serializable {
         return qualitativeEigenschaften;
     }
 
-    public List<QualitativeEigenschaft> qlE() {
+    public List<QualitativeEigenschaft> listqlE() {
         try {
             return qualitativeEigenschaftService.getAllQualitativeEigenschaften();
         } catch (Exception e) {
             return null;
         }
     }
-
+    public List<QuantitativeEigenschaft> listqtE() {
+        try {
+            return quantitativeEigenschaftService.getAllQuantitativeEigenschaften();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    public void select(String idqE) {
+        try {
+            qualitativeEigenschaften.add(qualitativeEigenschaftService.getQlEById(Integer.parseInt(idqE)));
+        } catch (Exception e) {
+            qualitativeEigenschaften.add(quantitativeEigenschaftService.getQlEById(Integer.parseInt(idqE)));
+        }
+    }
 
 }
