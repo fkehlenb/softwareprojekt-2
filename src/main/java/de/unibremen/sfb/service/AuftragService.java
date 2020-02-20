@@ -21,6 +21,7 @@ import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Singleton
 @Slf4j
@@ -37,6 +38,8 @@ public class AuftragService implements Serializable {
     @Inject
     AuftragDAO auftragDAO;
 
+    @Inject
+    ProbenService probenService;
 
     private Auftrag auftrag;
     /**
@@ -129,6 +132,9 @@ public class AuftragService implements Serializable {
         upate(a);
     }
 
+
+    // Hier beginnt der neue Service
+
     @PostConstruct
     public void init() {
         auftrage = getAuftrage();
@@ -176,4 +182,62 @@ public class AuftragService implements Serializable {
         }
         return null;
     }
-}
+
+    /**
+     * Bestimme was der naechste Prozessschritt ist, der noch nicht ausgefuehrt wurde
+     * Es ist wichtig das der aktuell durchgefuehrte Schritt nicht den Zustand angenommen hat
+     * @param a Auftrag
+     * @return  Der naechste ProzessSchritt
+     */
+    public ProzessSchritt getNextPS(Auftrag a) {
+        return a.getProzessSchritte().stream()
+                .filter((p) -> "Angenommen".equals(p.getZustandsAutomat().getCurrent()))
+                .findFirst()
+                .orElse(null);
+    }
+
+    /**
+     * Weise einen Auftrag Proben zu
+     * Vorgehen:
+     *  - Fuer jeden ProzessSchritt
+     *    - Falls die Art erstellend ist, so koennen diese an der Station erstellt werden
+     *    - Ansonsten
+     *      - Gucke ob sich die Bedingen zu dem vorhergen ProzessSchritt veraendert haben
+     *        - Wenn nicht ueberneme die vorehrigen Proben
+     *        - Weise TODO andere Proben dann ins archiv
+     *      - Gucke welche existierenden freie Proben den Bediungen und Eigenschaften entsprechcen
+     *      - Teile dem ProzessSchritt diese Proben zu
+     * @param auftrag der Auftrag
+     * @return der Auftrag mit den neuen Proben
+     */
+    public Auftrag probenZuweisen(Auftrag auftrag) {
+//        for (ProzessSchritt ps :
+//                auftrag.getProzessSchritte()) {
+//            var proben = switch( ps.getProzessSchrittVorlage().getPsArt()) {
+//                case "ERZEUGEND" :
+//                    yield fori
+//            }
+//        }
+        return null;
+    }
+
+    /**
+     * Erstelle Proben die einer Bedingung entsprechen, dies koenne wir fuer erzeugende Prozessschritte nutzen
+     * @param b Die Bedingung
+     * @param s der Standort wo die Proben sind, normalerweise die Station and der sie erstellt werden
+     * @return
+     */
+    private List<Probe> erzeugeProbenNachBeding(Bedingung b, Standort s) {
+        var result = new ArrayList<Probe>();
+        for (int i = 0; i < b.getGewuenschteAnzahl(); i++) {
+            var p = new Probe(UUID.randomUUID().toString(), ProbenZustand.VORHANDEN, s);
+            p.setBedingungen(List.of(b));
+            result.add(p);
+            }
+        // TODO persist
+        return result;
+        }
+
+    }
+
+

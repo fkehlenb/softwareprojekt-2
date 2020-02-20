@@ -45,6 +45,11 @@ public class ProzessSchrittVorlage {
     @NonNull
     private List<ProzessSchrittParameter> prozessSchrittParameter;
 
+    /** The process step predicates */
+    @ManyToMany
+    @NonNull
+    private List<Bedingung> bedingungen;
+
     public String toString() {
         return "PSV" + this.psVID;
     }

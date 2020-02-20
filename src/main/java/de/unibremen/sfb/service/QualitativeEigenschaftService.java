@@ -1,7 +1,5 @@
 package de.unibremen.sfb.service;
 
-import de.unibremen.sfb.exception.DuplicateQualitativeEigenschaftException;
-import de.unibremen.sfb.exception.QualitativeEigenschaftNotFoundException;
 import de.unibremen.sfb.model.QualitativeEigenschaft;
 import de.unibremen.sfb.persistence.QualitativeEigenschaftDAO;
 import lombok.Getter;
@@ -9,6 +7,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,6 +16,7 @@ import java.util.List;
 @Setter
 @Getter
 @Slf4j
+@ViewScoped
 public class QualitativeEigenschaftService implements Serializable {
 
     /** List of all qualitative descriptors in the database */
@@ -49,7 +49,7 @@ public class QualitativeEigenschaftService implements Serializable {
             return qeDAO.getAllQlEminusQnE();
         } catch (Exception e) {
             //TODO LOG
-            return new ArrayList<QualitativeEigenschaft>();
+            return new ArrayList<>();
         }
     }
 

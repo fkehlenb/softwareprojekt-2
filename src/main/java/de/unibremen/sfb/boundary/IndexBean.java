@@ -4,13 +4,14 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 
 /**
  * this class manages the interaction between the gui and the backend system for the initial situation (the first page any visitor sees)
  */
-@SessionScoped
+@ViewScoped
 @Named
 public class IndexBean implements Serializable {
 

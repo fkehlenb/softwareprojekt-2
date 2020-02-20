@@ -31,6 +31,7 @@ public class PSPBean implements Serializable {
 
     @Inject
     ProzessSchrittParameterService prozessSchrittParameterService;
+
     @Inject
     QualitativeEigenschaftService qualitativeEigenschaftService;
 

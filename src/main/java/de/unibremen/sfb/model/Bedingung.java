@@ -25,4 +25,6 @@ public class Bedingung {
     /** Qualitative and quantitative descriptors that material needs to have */
     @OneToMany
     private List<QualitativeEigenschaft> eigenschaften;
+
+    private int gewuenschteAnzahl;
 }
