@@ -13,35 +13,23 @@ import javax.inject.Inject;
 @FacesConverter(value = "standortConverter", managed = true)
 public class StandortConverter implements Converter<Standort> {
 
+    /** Standort service */
     @Inject
     private StandortService standortService;
 
     @Override
-    public String toString() {
-        return "StandortConverter{" +
-                "standortConverter" + standortService +
-                '}';
+    public String getAsString(FacesContext context, UIComponent component, Standort id) {
+        // This method is called when item value is to be converted to HTTP request parameter.
+        return id.toString();
     }
 
     @Override
-    public String getAsString(FacesContext context, UIComponent component, Standort standort) {
-
-        if (standort == null) {
-            return "";
-        }
-
-        return standort.getOrt();
-    }
-
-    @Override
-    public Standort getAsObject(FacesContext context, UIComponent component, String value) {
-        if (value == null || value.isEmpty()) {
-            return null;
-        }
+    public Standort getAsObject(FacesContext context, UIComponent component, String id) {
+        // This method is called when HTTP request parameter is to be converted to item value.
         try {
-            return standortService.findByLocation(value);
+            return standortService.findById(Integer.parseInt(id));
         }
-        catch (Exception e){
+        catch (Exception e) {
             e.printStackTrace();
             return null;
         }

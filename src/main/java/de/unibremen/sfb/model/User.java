@@ -91,7 +91,8 @@ public class User {
     @NonNull
     private String language;
 
+    @Override
     public String toString() {
-        return vorname + nachname;
+        return Integer.toString(id);
     }
 }

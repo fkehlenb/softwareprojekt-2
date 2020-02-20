@@ -17,6 +17,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -36,7 +37,7 @@ import java.util.UUID;
  */
 @Transactional
 @Named
-@RequestScoped
+@ViewScoped
 @Slf4j
 @Setter
 @Getter
@@ -160,7 +161,7 @@ public class AdminBean implements Serializable {
     /**
      * Users assigned to the experimenting station
      */
-    private List<User> experimentierStationBenutzer;
+    private User[] experimentierStationBenutzer;
 
     /** All users */
     private List<User> allUsers;
@@ -211,8 +212,8 @@ public class AdminBean implements Serializable {
                     userName, matcher.getPasswordService().encryptPassword(password), wurdeVerifiziert, date1
                     , rollen, language);
             userService.addUser(user);
-            resetVariables();
             log.info("User updated, Username: " + userName);
+            resetVariables();
         }
     }
 
@@ -384,7 +385,7 @@ public class AdminBean implements Serializable {
             log.error("Error adding experimenting station, station already exists! Name: " + experimentierStationName);
         } catch (Exception e) {
             e.printStackTrace();
-            ExperimentierStation es = new ExperimentierStation(UUID.randomUUID().hashCode(), experimentierStationStandort, experimentierStationName, ExperimentierStationZustand.VERFUEGBAR, experimentierStationBenutzer);
+            ExperimentierStation es = new ExperimentierStation(UUID.randomUUID().hashCode(), experimentierStationStandort, experimentierStationName, ExperimentierStationZustand.VERFUEGBAR, List.of(experimentierStationBenutzer));
             try {
                 experimentierStationService.addES(es);
                 log.info("Added experimenting station! Name: " + experimentierStationName);
@@ -401,7 +402,7 @@ public class AdminBean implements Serializable {
     public void editStation(int esID) {
         try{
             ExperimentierStation es = experimentierStationService.getById(esID);
-            es.setBenutzer(experimentierStationBenutzer);
+            es.setBenutzer(List.of(experimentierStationBenutzer));
             es.setName(experimentierStationName);
             es.setStandort(experimentierStationStandort);
             experimentierStationService.updateES(es);

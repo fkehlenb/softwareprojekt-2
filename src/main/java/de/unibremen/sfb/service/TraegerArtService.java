@@ -7,10 +7,11 @@ import de.unibremen.sfb.persistence.TraegerArtDAO;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.io.Serializable;
 import java.util.List;
 
 /** This class manages the business logic for container types */
-public class TraegerArtService {
+public class TraegerArtService implements Serializable {
 
     /** TraegerArt DAO */
     @Inject
