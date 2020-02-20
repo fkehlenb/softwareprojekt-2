@@ -37,7 +37,7 @@ import java.util.UUID;
  */
 @Transactional
 @Named
-@ViewScoped
+@RequestScoped
 @Slf4j
 @Setter
 @Getter
@@ -169,11 +169,15 @@ public class AdminBean implements Serializable {
     /** All locations */
     private List<Standort> allLocations;
 
+    /** All experimenting stations */
+    private List<ExperimentierStation> experimentierStations;
+
     /** Init called on bean creation */
     @PostConstruct
     private void init(){
         allLocations = standortService.getStandorte();
         allUsers = userService.getAll();
+        experimentierStations = experimentierStationService.getAll();
     }
 
     /**
@@ -374,6 +378,32 @@ public class AdminBean implements Serializable {
             log.error("Couldn't delete container type! ID: " + Integer.toString(id));
         }
     }
+
+
+    /** Edit row for experimenting stations */
+    public void onRowEditES(int experimentierStationId){
+        try{
+            ExperimentierStation es = experimentierStationService.getById(experimentierStationId);
+            es.setBenutzer(List.of(experimentierStationBenutzer));
+            es.setStandort(experimentierStationStandort);
+            es.setName(experimentierStationName);
+            experimentierStationService.updateES(es);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            log.error("Couldn't update experimenting station! ID: " + experimentierStationId);
+        }
+    }
+
+    /** Edit row for experimenting stations canceled */
+    public void onRowEditCancelES(){
+        experimentierStationName = "";
+        experimentierStationStandort = null;
+    }
+
+
+
+
 
     /**
      * adds a new experimentation station

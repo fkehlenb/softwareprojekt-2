@@ -29,9 +29,9 @@ public class UserConverter implements Converter<User> {
     public User getAsObject(FacesContext context, UIComponent component, String id) {
         try {
             System.out.println("AS OBJECT: " + id);
-            User u = userService.getUserById(Integer.parseInt(id));
+            User u = userService.getUserByUsername(id);
             System.out.println("User found!");
-            return userService.getUserById(Integer.parseInt(id));
+            return userService.getUserByUsername(id);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
