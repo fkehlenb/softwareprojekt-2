@@ -48,7 +48,7 @@
                             <p:column colspan="1">
                                 <p:selectOneMenu id="standort"
                                                  value="#{adminBean.experimentierStationStandort}"
-                                                 converter="standortConverter" effect="fade"
+                                                 converter="omnifaces.SelectItemsConverter" effect="fade"
                                                  var="standort" style="width: 172px" filter="true"
                                                  filterMatchMode="contains" required="true"
                                                  requiredMessage="Bitte Standort Wahlen!">
@@ -68,7 +68,7 @@
                             <p:column colspan="1">
                                 <p:selectCheckboxMenu id="userTable"
                                                       value="#{adminBean.experimentierStationBenutzer}"
-                                                      converter="userConverter" effect="fade"
+                                                      converter="omnifaces.SelectItemsConverter" effect="fade"
                                                       var="user" style="width: 172px" filter="true"
                                                       filterMatchMode="contains" showCheckbox="true"
                                                       label="Benutzer" requiredMessage="Bitte Benutzer Zuweisen!"
@@ -122,7 +122,7 @@
                                 <f:facet name="input">
                                     <p:selectOneMenu id="standortTable"
                                                      value="#{adminBean.experimentierStationStandort}"
-                                                     converter="standortConverter" effect="fade"
+                                                     converter="omnifaces.SelectItemsConverter" effect="fade"
                                                      var="standort" style="width: 172px" filter="true"
                                                      filterMatchMode="contains" required="true"
                                                      requiredMessage="Bitte Standort Wahlen!">

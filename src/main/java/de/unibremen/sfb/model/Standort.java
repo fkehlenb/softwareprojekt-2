@@ -28,6 +28,6 @@ public class Standort {
 
     @Override
     public String toString(){
-        return ort;
+        return Integer.toString(id);
     }
 }
