@@ -1,5 +1,6 @@
 package de.unibremen.sfb.service;
 
+import de.unibremen.sfb.model.ProzessSchrittParameter;
 import de.unibremen.sfb.model.QualitativeEigenschaft;
 import de.unibremen.sfb.persistence.QualitativeEigenschaftDAO;
 import lombok.Getter;
@@ -12,6 +13,7 @@ import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Setter
 @Getter
@@ -25,6 +27,9 @@ public class QualitativeEigenschaftService implements Serializable {
     /** The DAO */
     @Inject
     private QualitativeEigenschaftDAO qeDAO;
+
+    @Inject
+    private ProzessSchrittParameterService prozessSchrittParameterService;
 
     /** Init on start */
     @PostConstruct
@@ -72,6 +77,18 @@ public class QualitativeEigenschaftService implements Serializable {
             log.info("FAILED QualitativeEigenschaft Methode = edit");
         }
     }
+
+    /**
+     * In welchen Prozesschritt Parameter wird diese Eigenschaft referenziert
+     * @param qE die Eigenschaft
+     * @return alle Prozessschritt 
+     */
+    public List<ProzessSchrittParameter> getReferences(QualitativeEigenschaft qE) {
+        return prozessSchrittParameterService.getParameterList().stream()
+                .filter(q -> q.getQualitativeEigenschaften().equals(qE))
+                .collect(Collectors.toList());
+    }
+
 
     /** Get a qualitative descriptor using its id */
     public QualitativeEigenschaft getQlEById(int id) {
