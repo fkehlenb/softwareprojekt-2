@@ -371,9 +371,8 @@ public class TechnologeBean implements Serializable {
         ProzessSchrittZustandsAutomat psz = new ProzessSchrittZustandsAutomat("sad", v);
         List<ProzessSchrittLog> l = new LinkedList<>();
         List<ExperimentierStation> le = new LinkedList<>();
-        List<ProzessSchrittParameter> para = new LinkedList<>();
         List<Bedingung> be = new LinkedList<>();
-        ProzessSchrittVorlage vl = new ProzessSchrittVorlage(0, Duration.ZERO, "sdhvoa", le, para, be);
+        ProzessSchrittVorlage vl = new ProzessSchrittVorlage(0, Duration.ZERO, "sdhvoa", le, be);
         ProzessSchritt p = new ProzessSchritt(0, psz, l, vl);
         ProzessSchritt q = new ProzessSchritt(1, psz, l, vl);
         ProzessSchritt w = new ProzessSchritt(3, psz, l, vl);

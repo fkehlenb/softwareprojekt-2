@@ -17,7 +17,7 @@
     <div class="ui-g-2"></div>
     <div class="ui-g-8">
         <h:body style="background: url('../background.png')">
-            <h:form style="background-color: white; margin-top: 100px; width: 650px">
+            <h:form id="form" style="background-color: white; margin-top: 100px; width: 650px">
                 <h:panelGrid columns="1">
                     <p:row>
                         <h1 style="color: cornflowerblue">Ihre aktuellen Aufträge</h1>
@@ -30,12 +30,8 @@
                         <p:column headerText="Status">
                             <h:outputText value="#{auftrag.zustandsAutomat.current}"/>
                         </p:column>
-                        <p:column headerText="Auswählen">
-                            <h:form>
-                                <div align="center">
-                                    <h:commandButton value="Choose" action="#{technologeBean.singleview(auftrag)}" />
-                                </div>
-                            </h:form>
+                        <p:column headerText="Auswählen" style="width:32px;text-align: center">
+                            <h:commandButton value="Choose" action="#{technologeBean.singleview(auftrag)}"/>
                         </p:column>
                     </p:dataTable>
                 </h:panelGrid>
