@@ -78,5 +78,25 @@ public class ProbenService {
                 .collect(Collectors.toList());
     }
 
+    @Inject
+    ExperimentierStationService experimentierStationService;
+
+    /**
+     * Hole alle Proben die akutell in experimentierStationene sind,
+     * welche dem Benuter zugewiesen sind
+     * @param u der Benutzer
+     * @return Alle akutell fuer den Benuzter relevanten Proben
+     */
+    public List<Probe> getProbenByUser(User u) {
+        var proben = new ArrayList<Probe>();
+        for (ExperimentierStation e :
+        experimentierStationService.getESByUser(u)) {
+            for (Probe p: e.getCurrentPS().getZugewieseneProben()) {
+                proben.add(p);
+            }
+        }
+        return proben;
+    }
+
 
 }
