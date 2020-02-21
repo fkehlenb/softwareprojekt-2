@@ -11,15 +11,18 @@ import java.util.Queue;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "ExperimentierStation.findAllInLocation",
-                query = "SELECT es FROM ExperimentierStation es WHERE es.standort = :standort"),
+                query = "SELECT es FROM ExperimentierStation es WHERE es.standort = :standort AND es.isValidData = true"),
         @NamedQuery(name = "ExperimentierStation.getByStatus",
-                query = "SELECT es FROM ExperimentierStation es WHERE es.status = :status"),
-        @NamedQuery(name = "ExperimentierStation.getAll", query = "SELECT es FROM ExperimentierStation es")//,
+                query = "SELECT es FROM ExperimentierStation es WHERE es.status = :status AND es.isValidData = true"),
+        @NamedQuery(name = "ExperimentierStation.getAll", query = "SELECT es FROM ExperimentierStation es WHERE es.isValidData = true")//,
         //@NamedQuery(name = "ExperimentierStation.getByUser", query = "SELECT es FROM ExperimentierStation es WHERE  es.benutzer = ?"  )
 })
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class ExperimentierStation {
+
+    /** On delete set to invalid */
+    private boolean isValidData = true;
 
     /** The station's id */
     @NonNull

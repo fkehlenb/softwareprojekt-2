@@ -9,12 +9,19 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
-/** Conditional data class, used to make sure certain conditions apply */
+/**
+ * Conditional data class, used to make sure certain conditions apply
+ */
 @Getter
 @Setter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Bedingung {
+
+    /**
+     * On delete set to invalid
+     */
+    private boolean isValidData = true;
 
     @Id
     private int id;
@@ -22,7 +29,9 @@ public class Bedingung {
     @NotEmpty
     private String name;
 
-    /** Process step parameters that the material must have */
+    /**
+     * Process step parameters that the material must have
+     */
     @OneToMany
     private List<ProzessSchrittParameter> prozessSchrittParameter;
 

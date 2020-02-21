@@ -13,9 +13,12 @@ import java.util.List;
 @RequiredArgsConstructor
 @NoArgsConstructor
 @NamedQueries({
-        @NamedQuery(name = "Auftrag.getAll", query = "SELECT a FROM Auftrag a")
+        @NamedQuery(name = "Auftrag.getAll", query = "SELECT a FROM Auftrag a WHERE a.isValidData = true")
 })
 public class Auftrag {
+
+    /** On delete set to invalid */
+    private boolean isValidData = true;
 
     /**
      * The job's id

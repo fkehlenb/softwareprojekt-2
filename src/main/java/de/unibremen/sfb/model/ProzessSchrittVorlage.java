@@ -13,6 +13,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProzessSchrittVorlage {
 
+    /** On delete set to invalid */
+    private boolean isValidData = true;
+
     /** Process step template id */
     @Id
     @Generated

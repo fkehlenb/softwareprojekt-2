@@ -55,7 +55,8 @@ public class ExperimentierStationDAO extends ObjectDAO<ExperimentierStation> {
             if (!em.contains(es)) {
                 throw new ExperimentierStationNotFoundException();
             }
-            em.remove(es);
+            es.setValidData(false);
+            update(es);
         }
     }
 
@@ -76,7 +77,7 @@ public class ExperimentierStationDAO extends ObjectDAO<ExperimentierStation> {
     public ExperimentierStation getObjById(int id) throws ExperimentierStationNotFoundException {
         try {
             ExperimentierStation es = em.find(get(), id);
-            if (es == null) {
+            if (es == null || !es.isValidData()) {
                 throw new ExperimentierStationNotFoundException();
             }
             return es;
@@ -88,28 +89,31 @@ public class ExperimentierStationDAO extends ObjectDAO<ExperimentierStation> {
 
     /**
      * Get a list of all experimenting stations in the database
+     *
      * @return a list of all experimenting stations
      * @throws IllegalArgumentException if the list is empty
      */
     public List<ExperimentierStation> getAll() throws IllegalArgumentException {
         try {
             return em.createNamedQuery("ExperimentierStation.getAll", get()).getResultList();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             throw new IllegalArgumentException();
         }
     }
 
-    /** Get an experimenting station using it's name
+    /**
+     * Get an experimenting station using it's name
+     *
      * @param name - the experimenting station's name
      * @return the experimenting station with a matching name
-     * @throws ExperimentierStationNotFoundException if the experimenting station cannot be found in the database */
-    public ExperimentierStation getByName(String name) throws ExperimentierStationNotFoundException{
+     * @throws ExperimentierStationNotFoundException if the experimenting station cannot be found in the database
+     */
+    public ExperimentierStation getByName(String name) throws ExperimentierStationNotFoundException {
         try {
-            return em.createQuery("SELECT es FROM ExperimentierStation es WHERE es.name = :name",get()).setParameter("name",name).getSingleResult();
-        }
-        catch (Exception e){
+            return em.createQuery("SELECT es FROM ExperimentierStation es WHERE es.name = :name AND es.isValidData=true", get())
+                    .setParameter("name", name).getSingleResult();
+        } catch (Exception e) {
             e.printStackTrace();
             throw new ExperimentierStationNotFoundException();
         }

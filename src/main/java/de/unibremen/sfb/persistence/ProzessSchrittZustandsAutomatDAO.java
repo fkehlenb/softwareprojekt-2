@@ -41,7 +41,8 @@ public class ProzessSchrittZustandsAutomatDAO extends ObjectDAO<ProzessSchrittZu
             if (!em.contains(psz)){
                 throw new ProzessSchrittZustandsAutomatNotFoundException();
             }
-            em.remove(psz);
+            psz.setValidData(false);
+            update(psz);
         }
     }
 

@@ -6,6 +6,7 @@ import de.unibremen.sfb.model.ProzessSchrittVorlage;
 import de.unibremen.sfb.model.QuantitativeEigenschaft;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 /** This class manages the process chain step templates in the database */
@@ -45,7 +46,8 @@ public class ProzessSchrittVorlageDAO extends ObjectDAO<ProzessSchrittVorlage> {
             if (!em.contains(psv)){
                 throw new ProzessSchrittVorlageNotFoundException();
             }
-            em.remove(psv);
+            psv.setValidData(false);
+            update(psv);
         }
     }
 
@@ -63,7 +65,7 @@ public class ProzessSchrittVorlageDAO extends ObjectDAO<ProzessSchrittVorlage> {
     public ProzessSchrittVorlage getObjById(int id) throws ProzessSchrittVorlageNotFoundException{
         try {
             ProzessSchrittVorlage psv = em.find(get(),id);
-            if (psv==null){
+            if (psv==null || !psv.isValidData()){
                 throw new ProzessSchrittVorlageNotFoundException();
             }
             return psv;
@@ -77,9 +79,9 @@ public class ProzessSchrittVorlageDAO extends ObjectDAO<ProzessSchrittVorlage> {
      * @throws IllegalArgumentException if the quantitative descriptor couldn't be found in the database */
     public List<ProzessSchrittVorlage> getAll(){
         try {
-            return em.createQuery("SELECT p FROM ProzessSchrittVorlage p", get()).getResultList();
+            return em.createQuery("SELECT p FROM ProzessSchrittVorlage p WHERE p.isValidData=true", get()).getResultList();
         }catch (Exception e){
-            throw new EntityNotFoundException("QuantitativeEigenschaft not found");
+            return new ArrayList<>();
         }
     }
 }

@@ -48,7 +48,8 @@ public class TraegerDAO extends ObjectDAO<Traeger> {
             if (!em.contains(t)){
                 throw new TraegerNotFoundException();
             }
-            em.remove(t);
+            t.setValidData(false);
+            update(t);
         }
     }
 
@@ -65,61 +66,13 @@ public class TraegerDAO extends ObjectDAO<Traeger> {
     public Traeger getObjById(int id) throws TraegerNotFoundException{
         try {
             Traeger t = em.find(get(),id);
-            if (t==null){
+            if (t==null || !t.isValidData()){
                 throw new TraegerNotFoundException();
             }
             return t;
         }
         catch (Exception e){
             throw new TraegerNotFoundException();
-        }
-    }
-
-    /** Get all containers from a specific location
-     * @return the containers in a specific location
-     * @throws StandortNotFoundException if the container couldn't be found in the database */
-    public List<Traeger> getTraegerByLocation(Standort s) throws StandortNotFoundException{
-        try {
-            List<Traeger> set = em.createNamedQuery("Traeger.findByLoc",get()).setParameter("standort",s).getResultList();
-            if (set.isEmpty()){
-                throw new StandortNotFoundException();
-            }
-            return set;
-        }
-        catch (Exception e){
-            throw new StandortNotFoundException();
-        }
-    }
-
-    /** Get the container containing a list of samples
-     * @return the container containing a list of samples
-     * @throws TraegerNotFoundException if the container couldn't be found in the database */
-    public Traeger getTragerWithProben(List<Probe> p) throws TraegerNotFoundException{
-        try {
-            Traeger t = em.createNamedQuery("Trager.findByProben",get()).setParameter("proben",p).getSingleResult();
-            if (t==null){
-                throw new TraegerNotFoundException();
-            }
-            return t;
-        }
-        catch (Exception e){
-            throw new TraegerNotFoundException();
-        }
-    }
-
-    /** Get all containers of a specific type
-     * @return list of all containers of a specific type
-     * @throws TraegerArtNotFoundException if the container couldn't be found or the TraegerArt doesn't exist*/
-    public List<Traeger> getTragerByArt(TraegerArt ta) throws TraegerArtNotFoundException{
-        try {
-            List<Traeger> t = em.createNamedQuery("Traeger.getByType",get()).setParameter("art",ta).getResultList();
-            if (t.isEmpty()){
-                throw new TraegerArtNotFoundException();
-            }
-            return t;
-        }
-        catch (Exception e){
-            throw new TraegerArtNotFoundException();
         }
     }
 }

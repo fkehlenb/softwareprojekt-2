@@ -13,6 +13,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TraegerArt {
 
+    /** On delete set to invalid */
+    private boolean isValidData = true;
+
     @Id @GeneratedValue
     private int id;
 
