@@ -196,4 +196,13 @@ public class UserService implements Serializable {
     public void sendMail(User u,String subject,String message){
         mailingService.sendmail(u.getEmail(),message,subject);
     }
+
+    /**
+     * Get the Current User
+     * // FIXME because no persistence
+     * @return
+     */
+    public User getCuurentUser() {
+        return userDAO.getAll().get(0);
+    }
 }
