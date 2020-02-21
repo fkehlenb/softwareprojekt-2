@@ -43,11 +43,6 @@ public class ProzessSchrittVorlage {
     @NonNull
     private  List<ExperimentierStation> stationen;
 
-    /** The process step parameters */
-    @ManyToMany
-    @NonNull
-    private List<ProzessSchrittParameter> prozessSchrittParameter;
-
     /** The process step predicates */
     @ManyToMany
     @NonNull

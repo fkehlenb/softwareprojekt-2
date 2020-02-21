@@ -2,19 +2,14 @@ package de.unibremen.sfb.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
-/**
- * Conditional data class, used to make sure certain conditions apply
- */
-@Getter
-@Setter
+/** Conditional data class, used to make sure certain conditions apply */
+@Data
 @Entity
+@RequiredArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Bedingung {
 
@@ -24,17 +19,22 @@ public class Bedingung {
     private boolean isValidData = true;
 
     @Id
+    @NonNull
     private int id;
 
-    @NotEmpty
+    @NonNull
     private String name;
 
-    /**
-     * Process step parameters that the material must have
-     */
-    @OneToMany
+    /** Process step parameters that the material must have */
+    @OneToMany(fetch = FetchType.EAGER)
+    @NonNull
     private List<ProzessSchrittParameter> prozessSchrittParameter;
 
     // Die gewunschte Anzahl an Proben die dieser Bedingung entsprechen
     private int gewuenschteAnzahl;
+
+    @Override
+    public String toString() {
+        return "Bed: " + name;
+    }
 }
