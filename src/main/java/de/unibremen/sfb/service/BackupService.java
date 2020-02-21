@@ -14,6 +14,8 @@ import javax.persistence.Query;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
@@ -51,7 +53,7 @@ public class BackupService implements Serializable {
     public void upload(UploadedFile file) throws IOException{
         try {
             if (file != null && file.getFileName() != null) {
-                file.write("." + file.getFileName());
+//                file.write(file.getFileName());
                 toDisk(file);
             }
             Query b = em.createNativeQuery(String.format("DROP ALL OBJECTS"));

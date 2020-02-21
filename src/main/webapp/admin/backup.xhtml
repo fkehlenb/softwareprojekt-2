@@ -21,7 +21,6 @@
             <p:growl id="growl">
                 <p:autoUpdate/>
             </p:growl>
-            <h:form>
                 <p:panelGrid>
                     <p:row>
                         <p:column colspan="3">
@@ -55,13 +54,11 @@
                                 <p:fileUpload value="#{adminBean.importFile}" mode="simple" skinSimple="true"/>
                             </p:column>
                             <p:column colspan="1">
-                                <p:commandButton value="Submit" ajax="false" action="#{adminBean.databaseImport}"
-                                                 disabled="false"/>
+                                <p:commandButton value="Submit" ajax="false" action="#{adminBean.databaseImport}" />
                             </p:column>
                         </h:form>
                     </p:row>
                 </p:panelGrid>
-            </h:form>
         </div>
     </shiro:hasRole>
 </shiro:authenticated>

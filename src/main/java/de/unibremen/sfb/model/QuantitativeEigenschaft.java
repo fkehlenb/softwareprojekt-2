@@ -13,6 +13,7 @@ import java.util.UUID;
 public class QuantitativeEigenschaft extends QualitativeEigenschaft {
 
     /** On delete set to invalid */
+    @NonNull
     private boolean isValidData = true;
 
     /** The numeric quantitative value  */

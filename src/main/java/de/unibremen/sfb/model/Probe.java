@@ -19,6 +19,7 @@ import java.util.List;
 public class Probe {
 
     /** On delete set to invalid */
+    @NonNull
     private boolean isValidData = true;
 
     /** The sample's id */

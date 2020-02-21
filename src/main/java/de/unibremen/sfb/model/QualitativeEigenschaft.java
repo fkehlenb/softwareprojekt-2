@@ -23,6 +23,7 @@ public class QualitativeEigenschaft {
     /**
      * On delete set to invalid
      */
+    @NonNull
     private boolean isValidData = true;
 
     /**

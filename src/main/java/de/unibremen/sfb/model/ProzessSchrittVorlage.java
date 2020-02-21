@@ -14,6 +14,7 @@ import java.util.List;
 public class ProzessSchrittVorlage {
 
     /** On delete set to invalid */
+    @NonNull
     private boolean isValidData = true;
 
     /** Process step template id */

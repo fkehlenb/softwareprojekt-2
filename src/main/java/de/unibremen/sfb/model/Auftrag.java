@@ -18,6 +18,7 @@ import java.util.List;
 public class Auftrag {
 
     /** On delete set to invalid */
+    @NonNull
     private boolean isValidData = true;
 
     /**
