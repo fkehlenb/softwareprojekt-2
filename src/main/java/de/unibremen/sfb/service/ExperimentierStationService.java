@@ -51,7 +51,7 @@ public class ExperimentierStationService implements Serializable {
     /** Remove an experimenting station
      * @param experimentierStation - the experimenting station to delete
      */
-    public void loescheES(ExperimentierStation experimentierStation)  {
+    public void loescheES(ExperimentierStation experimentierStation) throws ExperimentierStationNotFoundException  {
         esDao.remove(experimentierStation);
 //        esSet = getESListe();
     }

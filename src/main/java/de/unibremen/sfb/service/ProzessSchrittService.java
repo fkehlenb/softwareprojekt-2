@@ -2,11 +2,15 @@ package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.exception.ProzessSchrittNotFoundException;
 import de.unibremen.sfb.exception.ProzessSchrittZustandsAutomatNotFoundException;
+import de.unibremen.sfb.model.ExperimentierStation;
 import de.unibremen.sfb.model.ProzessSchritt;
+import de.unibremen.sfb.model.User;
 import de.unibremen.sfb.persistence.ProzessSchrittDAO;
 
 import javax.inject.Inject;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Service fuer ProzessSchritt
@@ -16,6 +20,25 @@ public class ProzessSchrittService implements Serializable {
 
     @Inject
     ProzessSchrittDAO prozessSchrittDAO;
+
+
+    @Inject
+    ExperimentierStationService experimentierStationService;
+
+    /**
+     * Get all PS which belong to user
+     * @param u the current user
+     * @return the ps
+     */
+    public List<ProzessSchritt> getProbenByUser(User u) {
+        var ps = new ArrayList<ProzessSchritt>();
+        for (ExperimentierStation e :
+                experimentierStationService.getESByUser(u)) {
+            ps.add(e.getCurrentPS());
+        }
+        return ps;
+    }
+
 
     /**
      * sets the current state of this ProzessSchritt
@@ -33,3 +56,4 @@ public class ProzessSchrittService implements Serializable {
         }
     }
 }
+

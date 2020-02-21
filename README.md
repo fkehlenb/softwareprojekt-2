@@ -42,11 +42,11 @@
 </ul>
 </strike>
 </li>
-<li><strike>Übersicht über alle Experimentierstationen</strike><ul>
+<li><strike>Übersicht über alle Experimentierstationen<ul>
 <li>Anlegen von neuen Experimentierstationen</li>
-<li><strike>Löschen von bestehenden Experimentierstationen<strike/></li>
+<li>Löschen von bestehenden Experimentierstationen</li>
 <li>Bearbeiten von bestehenden Experimentierstationen</li>
-<li>Zuordnen von Nutzern zu Experimentierstation</li>
+<li>Zuordnen von Nutzern zu Experimentierstation</strike></li>
 </ul>
 </li>
 <li>Konfiguration globaler Einstellungen<ul>

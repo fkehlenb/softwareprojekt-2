@@ -50,10 +50,10 @@ public class ExperimentierStationDAO extends ObjectDAO<ExperimentierStation> {
      *
      * @param es - the experimenting station to remove from the database
      */
-    public void remove(ExperimentierStation es) throws EntityNotFoundException {
+    public void remove(ExperimentierStation es) throws ExperimentierStationNotFoundException {
         if (es != null) {
             if (!em.contains(es)) {
-                throw new EntityNotFoundException();
+                throw new ExperimentierStationNotFoundException();
             }
             em.remove(es);
         }
