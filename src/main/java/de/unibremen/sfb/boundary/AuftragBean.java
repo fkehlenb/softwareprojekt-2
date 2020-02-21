@@ -5,10 +5,7 @@ import de.unibremen.sfb.model.ProzessKettenVorlage;
 import de.unibremen.sfb.model.ProzessSchrittVorlage;
 import de.unibremen.sfb.model.User;
 import de.unibremen.sfb.persistence.ProzessKettenVorlageDAO;
-import de.unibremen.sfb.service.AuftragService;
-import de.unibremen.sfb.service.ProzessKettenVorlageService;
-import de.unibremen.sfb.service.ProzessSchrittVorlageService;
-import de.unibremen.sfb.service.UserService;
+import de.unibremen.sfb.service.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
@@ -24,6 +21,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static de.unibremen.sfb.model.ProzessKettenZustandsAutomat.GESTARTET;
+
 @Named("dtAuftragBean")
 @ViewScoped
 @Getter
@@ -33,19 +32,33 @@ public class AuftragBean implements Serializable {
     private List<Auftrag> auftrage;
     private List<ProzessKettenVorlage> vorlagen;
 
+
     @Inject
     AuftragService auftragService;
 
     @Inject
     ProzessKettenVorlageService prozessKettenVorlageService;
 
+    @Inject
+    ZustandsService zustandsService;
+
+    @Inject
+    Auftrag auftrag;
 
     @PostConstruct
     void init() {
         auftrage = auftragService.getAuftrage();
         vorlagen = getPKVs();
+        //FIX?
+        auftragService.zustandswechsel(auftrag,GESTARTET);
+        auftrag = getAuftrag();
 
     }
+    //Soll den Zustand wechseln FUNKTIONIERT NICHT!
+    public void zWechsel(){
+         auftragService.zustandswechsel(auftrag,GESTARTET);
+    }
+
 
     public void onRowEdit(RowEditEvent<Auftrag> event) {
         log.info("Updating: "+ event.getObject().getPkID());
