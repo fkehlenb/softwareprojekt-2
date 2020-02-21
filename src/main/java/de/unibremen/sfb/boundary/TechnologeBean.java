@@ -340,21 +340,8 @@ public class TechnologeBean implements Serializable {
      * @return a list containing all the jobs
      */
     public List<ProzessSchritt> getJobs() {
-        //List<ProzessSchritt> r = psService.getSchritteByUser(technologe);
-        List<ProzessSchritt> r = new LinkedList<>();
-        ProzessSchrittZustandsAutomatVorlage v = new ProzessSchrittZustandsAutomatVorlage();
-        ProzessSchrittZustandsAutomat psz = new ProzessSchrittZustandsAutomat("sad", v);
-        List<ProzessSchrittLog> l = new LinkedList<>();
-        List<ExperimentierStation> le = new LinkedList<>();
-        List<Bedingung> be = new LinkedList<>();
-        ProzessSchrittVorlage vl = new ProzessSchrittVorlage(0, Duration.ZERO, "sdhvoa", le, be);
-        ProzessSchritt p = new ProzessSchritt(0, psz, l, vl);
-        ProzessSchritt q = new ProzessSchritt(1, psz, l, vl);
-        ProzessSchritt w = new ProzessSchritt(3, psz, l, vl);
-        r.add(p);
-        r.add(q);
-        r.add(w);
-        //r.sort(Comparator.comparing(o -> psService.getAuftrag(o).getPriority()));
+        List<ProzessSchritt> r = psService.getSchritteByUser(technologe);
+        //r.sort(Comparator.comparing(o -> psService.getAuftrag(o).getPriority())); //FIXME
         return r;
         //also nur ein technologe pro Station, und
         //kann erst auftrag annehmen, wenn er an dieser station nichts zu tun
@@ -363,25 +350,10 @@ public class TechnologeBean implements Serializable {
     }
 
     public List<Probe> getSamples() {
-        /*if(viewUploaded) {
+        if(viewUploaded) {
             return viewToBeUploaded();
         }
-        return probeService.getProbenByUser(technologe);*/
-
-        List<Probe> res = new LinkedList<>();
-        /*for(ProzessSchritt ps : getJobs()) {
-            res.addAll(ps.getTraeger().getProben());
-        }*/
-        Probe p = new Probe("asdf", ProbenZustand.VERLOREN, new Standort(0, "asdv"));
-        List<Kommentar> ks = new LinkedList<>();
-        ks.add(new Kommentar(LocalDateTime.now(), "saödvjkb"));
-        ks.add(new Kommentar(LocalDateTime.now(), "ädkänbvaejk"));
-        p.setKommentar(ks);
-        Probe q = new Probe("dsgnfg", ProbenZustand.KAPUTT, new Standort(0, "asdv"));
-        q.setKommentar(ks);
-        res.add(p);
-        res.add(q);
-        return res;
+        return probeService.getProbenByUser(technologe);
     }
 
     public String KommentarToString(Probe p) {
