@@ -384,7 +384,11 @@ public class AdminBean implements Serializable {
     public void onRowEditES(int experimentierStationId){
         try{
             ExperimentierStation es = experimentierStationService.getById(experimentierStationId);
-            es.setBenutzer(List.of(experimentierStationBenutzer));
+            List<User> newEsBenutzerList = new ArrayList<>();
+            for (User u : experimentierStationBenutzer){
+                newEsBenutzerList.add(u);
+            }
+            es.setBenutzer(newEsBenutzerList);
             es.setStandort(experimentierStationStandort);
             es.setName(experimentierStationName);
             experimentierStationService.updateES(es);
@@ -415,7 +419,12 @@ public class AdminBean implements Serializable {
             log.error("Error adding experimenting station, station already exists! Name: " + experimentierStationName);
         } catch (Exception e) {
             e.printStackTrace();
-            ExperimentierStation es = new ExperimentierStation(UUID.randomUUID().hashCode(), experimentierStationStandort, experimentierStationName, ExperimentierStationZustand.VERFUEGBAR, List.of(experimentierStationBenutzer));
+            List<User> experimentierStationUsers = new ArrayList<>();
+            // HIBERNATE DOESNT ACCEPT LIST.OF
+            for (User u : experimentierStationBenutzer){
+                experimentierStationUsers.add(u);
+            }
+            ExperimentierStation es = new ExperimentierStation(UUID.randomUUID().hashCode(), experimentierStationStandort, experimentierStationName, ExperimentierStationZustand.VERFUEGBAR, experimentierStationUsers);
             try {
                 experimentierStationService.addES(es);
                 log.info("Added experimenting station! Name: " + experimentierStationName);
@@ -432,7 +441,12 @@ public class AdminBean implements Serializable {
     public void editStation(int esID) {
         try{
             ExperimentierStation es = experimentierStationService.getById(esID);
-            es.setBenutzer(List.of(experimentierStationBenutzer));
+            List<User> experimentierStationUsers = new ArrayList<>();
+            // HIBERNATE DOESNT ACCEPT LIST.OF
+            for (User u : experimentierStationBenutzer){
+                experimentierStationUsers.add(u);
+            }
+            es.setBenutzer(experimentierStationUsers);
             es.setName(experimentierStationName);
             es.setStandort(experimentierStationStandort);
             experimentierStationService.updateES(es);
