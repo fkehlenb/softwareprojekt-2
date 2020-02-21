@@ -44,6 +44,7 @@ public class AuftragBean implements Serializable {
     void init() {
         auftrage = auftragService.getAuftrage();
         vorlagen = getPKVs();
+
     }
 
     public void onRowEdit(RowEditEvent<Auftrag> event) {

@@ -43,6 +43,9 @@ public class ShiroLoginBean implements Serializable {
             if (subject.hasRole("admin")) {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("admin/index.xhtml");
             } //FIXME other Roles
+            if (subject.hasRole("logistik")){
+                FacesContext.getCurrentInstance().getExternalContext().redirect("logistik/index.xhtml");
+            }
             else {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("nutzerVerwaltung.xhtml");
             }

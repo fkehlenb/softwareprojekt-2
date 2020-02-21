@@ -27,17 +27,23 @@
                 <h:outputText value="#{auftrag.pkID}" />
             </p:column>
 
-            <p:column headerText="Year">
-                <h:outputText value="#{}" />
+            <p:column headerText="Priorität">
+                <h:outputText value="#{auftrag.priority}" />
             </p:column>
 
-            <p:column headerText="Brand">
-                <h:outputText value="#{}" />
+            <!--<p:column headerText="Prozessschritte">
+                <h:outputText value="#{auftrag.prozessSchritte}" />
+            </p:column>-->
+
+
+            <p:column headerText="Zustand">
+                <h:outputText value="#{auftrag.prozessKettenZustandsAutomat}" />
             </p:column>
 
-            <p:column headerText="Color">
-                <h:outputText value="#{}" />
-            </p:column>
+            <p:commandButton value="Ajax Submit" id="ajax" update="growl" action="#{auftrag.}" style="margin-right:20px;" styleClass="ui-priority-primary" />
+
+
+
         </p:dataTable>
     </ui:define>
 </ui:composition>
