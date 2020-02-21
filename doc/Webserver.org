@@ -1,0 +1,190 @@
+#+TITLE: Webserver
+
+| Basic of Webapps | Request Flow Java EE | Basic Login         | Todo Functionality |   |
+|------------------+----------------------+---------------------+--------------------+---|
+| HTTP Requests    | Basic Servlet        | Creating JSP Form   | Bootstrap / CSS    |   |
+| HTTP Response    | JSP with JSTL & EL   | Handling Validation | Navigation         |   |
+| GET              | Running Wildfly      | Views Redirection   | Header & Footer    |   |
+| POST             | MVC Pattern Basic    |                     | Filters            |   |
+|------------------+----------------------+---------------------+--------------------+---|
+
+new maven FIle
+Create WEB.xml
+Create Main.java
+
+Java Servlet in File
+WEB-INF/web.xml
+
+Buidling with Goal Wildfly
+javax servlet
+Maven Compiler Plugin
+
+* Login Servlet
+
+#+begin_src java
+@Webservlet(urlPattern="/Login.do") // C  SPC for autocompletion
+public class Login Servlet extends HttpServlet {
+    protected void doGet(java) {
+        PrintWriter out = response.getWriter();
+        writer.println("Dummy Response");
+
+        // direct
+        out.println("<html>");
+
+        // get Parameters
+        String name = request.getParameter("name");
+
+        request.setAttribute("name"  ,name)
+
+
+        // Redirect to JSP
+        request.getRequestDispachter(<PATH>).forward(request, response);
+
+
+        // POST
+    protected void doPost(HttpServletRequest request, HttpServletResponse) throw Exception);
+         request.setAttribute("name", request.getParameter("name"));
+         request.getRequestDispachter(<PATH>).forward(request, response);
+
+        boolean isUserBalid = service.isUserValid(name, password);
+
+        if(isUserBalid) {
+            request.getRequestDispachter(<PATH>).forward(request, response);
+        } else {
+            request.getRequestDispachter(<OTHER_PATH>).forward(request, response);
+        }
+    } // copy from the docs
+}
+
+
+#+end_src
+
+Check Response in Dev Console of Broswer
+Send response out for Browser
+Java good for Busines Logik
+
+Java Server Pages
+Make writting of Dynamic Content Easy
+Converts to Servlets
+All Views in WEB-INF/
+
+#+begin_src html
+<%@page import="java.util.Date"%>
+<%@ page language "java" contentType="text/html; charset=UT-8">
+<!DOCTYPE html>
+<html>
+<% // Scriplet are BUUUUUHHH
+Syste.out.println("duh java");
+
+Date date = new Date();
+%>
+<body>
+Hello World it is <%=date%>
+</body>
+Hello ${name} This was expression Language
+
+<form action="/login.do" method="post">
+Enter Name <input type="text" name="name"/> <input type="submit"/>
+</form>
+</html>
+
+<!-- Valid User -> welcome.jsp  -->
+<!-- Invalid User -> login.jsp -->
+#+end_src
+
+
+The Path ist /WEB-INF/views/login.jsp
+
+Develop a Playfull Atidude
+
+1. What happens when changing the urlPattern
+2. What happens to the dispachter
+3. How does Autocomplete Worl
+
+Status Code HTML
+200 = Succes
+
+java has welcome file set too: CHANGEME
+
+How to pass parameters, use ?name=iam for passing parameters
+
+Check Request in Firefox Network->Params Inspector for request Headers
+
+Pass form jsp to Servlet
+
+
+Use Busines Layer for Coding
+
+Even after setting up the form the Request is a GET
+
+How to set the POST request
+
+
+#+begin_src java
+public class UserValidationService {
+
+    public boolean isUserValid(String user, String password);
+}
+#+end_src
+
+Extract Local Var:
+
+
+https://hibernate.org/validator/
+
+http://logback.qos.ch/
+
+https://eclipse-ee4j.github.io/jersey/
+
+
+Montag 8 Stunden
+Dienstag 1 Stunde
+Mittwoch 19-23 Uhr
+Donnerstag 12:00 19:00
+* Java EE Cheatsheet Server
+Usese Junit, beans
+persitence with jta with data Source Wildfly, JAXRSConfiguration
+
+* Avoid Repeating AttributesInJPAEntry
+Use H2 but has springframwork
+
+* Bootstrap Jakarta EE 8
+User provider uses json
+
+* demo CRUD APPLICATIOn
+uses lombok and javax.persistence
+The Book Controller has a ncie Syntax for CRUD and is nice to implent
+API STuff?
+The initializer uses the book repository which extends the jpaRepositry to save
+Book Repuest
+the Service uses spring boot framework beans
+
+* Java Magazin looks ok, but lacks features
+
+* jsf simple login with java ee security
+has typ for runing with jboss :)
+
+Has a login form build with primfaces
+If loged in it sends the user to the site app/index.html
+provides LogoutBacking and LoginBacking
+CustomerInMemoryIdentification machted Strings to Return a array for admin or
+user
+
+* Lazy loading with hibernate
+Dieses kleine Programm erlaubt es uns erste eine Datei zu laden, welche
+wenn sei gebraucht wird
+Benutzt Spring
+
+* Rest CLient for restful communication
+
+* rest easy file uploading
+
+* simple crud with primfaces
+
+* nice looking jsf apps with primefaces
+<<<<<<< HEAD
+=======
+
+
+* Simpe databse Connection with schemaspy
+>>>>>>> docEinleitung

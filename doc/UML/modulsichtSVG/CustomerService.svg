@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="148px" preserveAspectRatio="none" style="width:239px;height:148px;" version="1.1" viewBox="0 0 239 148" width="239px" zoomAndPan="magnify"><defs><filter height="300%" id="f1bglr7fg1izuh" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[46904a3897791aadcca2a2d65db6be57]
+class de.unibremen.sfb.control.CustomerService--><a href="CustomerService.html" target="_top" title="CustomerService.html" xlink:actuate="onRequest" xlink:href="CustomerService.html" xlink:show="new" xlink:title="CustomerService.html" xlink:type="simple"><rect fill="#FEFECE" filter="url(#f1bglr7fg1izuh)" height="111.041" id="de.unibremen.sfb.control.CustomerService" style="stroke: #A80036; stroke-width: 1.5;" width="221" x="7" y="7"/><ellipse cx="52.25" cy="26.1328" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M54.7231,32.2759 Q54.1421,32.5747 53.5029,32.7241 Q52.8638,32.8735 52.1582,32.8735 Q49.6514,32.8735 48.3315,31.2217 Q47.0117,29.5698 47.0117,26.4487 Q47.0117,23.3193 48.3315,21.6675 Q49.6514,20.0156 52.1582,20.0156 Q52.8638,20.0156 53.5112,20.165 Q54.1587,20.3145 54.7231,20.6133 L54.7231,23.3359 Q54.0923,22.7549 53.4988,22.4851 Q52.9053,22.2153 52.2744,22.2153 Q50.9297,22.2153 50.2449,23.282 Q49.5601,24.3486 49.5601,26.4487 Q49.5601,28.5405 50.2449,29.6072 Q50.9297,30.6738 52.2744,30.6738 Q52.9053,30.6738 53.4988,30.4041 Q54.0923,30.1343 54.7231,29.5532 Z "/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="115" x="76.25" y="25.5352">CustomerService</text><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacingAndGlyphs" textLength="122" x="72.75" y="38.1563">de.unibremen.sfb.control</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="8" x2="227" y1="45.2656" y2="45.2656"/><ellipse cx="18" cy="56.2656" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="54" x="27" y="59.9004">init(): void</text><ellipse cx="18" cy="69.2207" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="123" x="27" y="72.8555">resetCustomers(): void</text><ellipse cx="18" cy="82.1758" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="180" x="27" y="85.8105">getCustomers(): List&lt;Customer&gt;</text><ellipse cx="18" cy="95.1309" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="175" x="27" y="98.7656">deleteCustomer(Customer): void</text><ellipse cx="18" cy="108.0859" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="195" x="27" y="111.7207">findByCustomerId(String): Customer</text></a><text fill="#888888" font-family="sans-serif" font-size="10" lengthAdjust="spacingAndGlyphs" textLength="182" x="26.5" y="134.709">UMLDoclet 2.0.7, PlantUML 1.2019.12</text><!--MD5=[7fa48885b68fbc63348f6e50e2d5fcc2]
+@startuml
+    set namespaceSeparator none
+    hide empty fields
+    hide empty methods
+
+    class "<size:14>CustomerService\n<size:10>de.unibremen.sfb.control" as de.unibremen.sfb.control.CustomerService [[CustomerService.html]] {
+        +init(): void
+        +resetCustomers(): void
+        +getCustomers(): List<Customer>
+        +deleteCustomer(Customer): void
+        +findByCustomerId(String): Customer
+    }
+
+    center footer UMLDoclet 2.0.7, PlantUML 1.2019.12
+@enduml
+
+PlantUML version 1.2019.12(Sun Nov 03 11:24:54 CET 2019)
+(APACHE source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 13.0.1+9
+Operating System: Mac OS X
+Default Encoding: UTF-8
+Language: de
+Country: DE
+--></g></svg>

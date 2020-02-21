@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+
+    <ui:composition template="/template/common/layout.xhtml">
+        <ui:define name="content">
+
+            <div class="ui-g-8">
+
+                <h1 style="text-align: center">Neuen Standort erstellen</h1>
+                <p:panel id="psv" header="Daten Eingeben"
+                         style="margin-bottom: 20px">
+                    <h:form>
+                        <p:growl id="msgs" showDetail="true" sticky="true"/>
+
+                        <p:outputLabel for="name" value="Name:"/>
+                            <p:inputText id="name" value="#{sErstellenBean.name}"
+                                     required="true"/>
+
+                        <p:commandButton value="Reset" type="reset"/>
+                        <p:commandButton value="Erstellen"
+                                         action="#{sErstellenBean.createS}" icon="pi pi-check"
+                                         update="@form"/>
+                    </h:form>
+                </p:panel>
+
+
+            </div>
+            <div class="ui-g-2"></div>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
