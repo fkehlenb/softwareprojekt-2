@@ -38,10 +38,11 @@ public class ProzessSchrittLogDAO extends ObjectDAO<ProzessSchrittLog> {
      * @throws ProzessSchrittLogNotFoundException if the process step log couldn't be found in the database */
     public void remove(ProzessSchrittLog pl) throws ProzessSchrittLogNotFoundException{
         if (pl!=null){
-            if (!em.contains(pl)){
+            if (!em.contains(pl) || !pl.isValidData()){
                 throw new ProzessSchrittLogNotFoundException();
             }
-            em.remove(pl);
+            pl.setValidData(false);
+            update(pl);
         }
     }
 

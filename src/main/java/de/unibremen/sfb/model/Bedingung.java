@@ -13,6 +13,11 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Bedingung {
 
+    /**
+     * On delete set to invalid
+     */
+    private boolean isValidData = true;
+
     @Id
     @NonNull
     private int id;

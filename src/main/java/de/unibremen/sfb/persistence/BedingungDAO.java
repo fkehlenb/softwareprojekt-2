@@ -47,7 +47,8 @@ public class BedingungDAO extends ObjectDAO<Bedingung> {
             if (!em.contains(b)){
                 throw new BedingungNotFoundException();
             }
-            em.remove(b);
+            b.setValidData(false);
+            update(b);
         }
     }
 
@@ -59,7 +60,7 @@ public class BedingungDAO extends ObjectDAO<Bedingung> {
 
     public List<Bedingung> getAll(){
         try {
-            List<Bedingung> es = em.createQuery("SELECT b FROM Bedingung b",get()).getResultList();
+            List<Bedingung> es = em.createQuery("SELECT b FROM Bedingung b WHERE b.isValidData=true",get()).getResultList();
             if (es.isEmpty()){
                 log.info("No Bedingungen Found");
                 return new ArrayList<>();

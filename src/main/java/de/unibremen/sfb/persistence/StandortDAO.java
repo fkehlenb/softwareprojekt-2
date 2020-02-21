@@ -46,7 +46,8 @@ public class StandortDAO extends ObjectDAO<Standort> {
             if (!em.contains(s)) {
                 em.merge(s);
             }
-            em.remove(s);
+            s.setValidData(false);
+            update(s);
         }
     }
 
@@ -62,7 +63,7 @@ public class StandortDAO extends ObjectDAO<Standort> {
     public Standort getObjById(int id) throws StandortNotFoundException{
         try{
             Standort s = em.find(get(),id);
-            if (s==null){
+            if (s==null || !s.isValidData()){
                 throw new StandortNotFoundException();
             }
             return s;
@@ -90,7 +91,7 @@ public class StandortDAO extends ObjectDAO<Standort> {
     /** @return all locations */
     public List<Standort> getAll(){
         try {
-            List<Standort> es = em.createQuery("SELECT es FROM Standort es",get()).getResultList();
+            List<Standort> es = em.createQuery("SELECT es FROM Standort es WHERE es.isValidData=true",get()).getResultList();
             if (es.isEmpty()){
                 log.info("No Standorte Found");
                 return new ArrayList<>();

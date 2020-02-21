@@ -15,6 +15,9 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class AuftragsLog {
 
+    /** On delete set to invalid */
+    private boolean isValidData = true;
+
     @Id @GeneratedValue
     private int id;
 

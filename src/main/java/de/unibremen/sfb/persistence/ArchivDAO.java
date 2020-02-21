@@ -41,7 +41,8 @@ public class ArchivDAO extends ObjectDAO<Archiv> {
             if (!em.contains(a)){
                 throw new ArchivNotFoundException();
             }
-            em.remove(a);
+            a.setValidData(false);
+            update(a);
         }
     }
 
@@ -59,7 +60,7 @@ public class ArchivDAO extends ObjectDAO<Archiv> {
             throw new ArchivNotFoundException();
         }
         Archiv a = em.find(get(),id);
-        if (a==null){
+        if (a==null || !a.isValidData()){
             throw new ArchivNotFoundException();
         }
         return a;

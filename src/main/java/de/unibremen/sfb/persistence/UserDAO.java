@@ -56,7 +56,8 @@ public class UserDAO extends ObjectDAO<User> {
             if (!em.contains(u)) {
                 throw new UserNotFoundException();
             }
-            em.remove(u);
+            u.setValidData(false);
+            update(u);
         }
     }
 
@@ -76,7 +77,7 @@ public class UserDAO extends ObjectDAO<User> {
      */
     public User getUserById(int id) throws UserNotFoundException {
         User u = em.find(get(), id);
-        if (u == null) {
+        if (u == null || !u.isValidData()) {
             throw new UserNotFoundException();
         }
         return u;
