@@ -1,7 +1,5 @@
 package de.unibremen.sfb.service;
 
-import de.unibremen.sfb.exception.DuplicateBedingungException;
-import de.unibremen.sfb.exception.BedingungNotFoundException;
 import de.unibremen.sfb.model.Bedingung;
 import de.unibremen.sfb.persistence.BedingungDAO;
 import lombok.Getter;
@@ -12,7 +10,6 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -22,7 +19,7 @@ import java.util.List;
 public class BedingungService implements Serializable {
 
     /** List of all predicates in the database */
-    private List<Bedingung> eigenschaften;
+    private List<Bedingung> bs;
 
     /** The DAO */
     @Inject
@@ -31,7 +28,7 @@ public class BedingungService implements Serializable {
     /** Init on start */
     @PostConstruct
     public void init() {
-        eigenschaften = qeDAO.getAll();
+        bs = qeDAO.getAll();
     }
 
     /** Add a new predicate */

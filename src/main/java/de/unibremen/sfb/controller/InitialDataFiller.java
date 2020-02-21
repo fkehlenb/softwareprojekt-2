@@ -40,16 +40,16 @@ public class InitialDataFiller {
     private List<QualitativeEigenschaft> qualitativeEigenschaftList;
 
     @Inject
-    UserDAO userDAO;
+    private UserDAO userDAO;
 
     @Inject
-    StandortDAO standortDAO;
+    private StandortDAO standortDAO;
 
     @Inject
-    ZustandsService zustandsService;
+    private ZustandsService zustandsService;
 
     @Inject
-    AuftragDAO auftragDAO;
+    private AuftragDAO auftragDAO;
 
 
     @PersistenceContext
@@ -110,6 +110,11 @@ public class InitialDataFiller {
                 log.info("Trying ti persist ProzessSchrittParameter " + psp.getName());
                 em.persist(psp);
             }
+
+            // Erstelle Test Bedingung
+            Bedingung b = new Bedingung(UUID.randomUUID().hashCode(), "Test Bedingung" ,parameters);
+            log.info("Trying to persist Bedingung: " + b.toString());
+            em.persist(b);
 
             // Erstelle die Liste aus den Parametern
             List<ProzessSchrittVorlage> psListe = getProzessSchrittVorlages(parameters);
@@ -282,7 +287,7 @@ public class InitialDataFiller {
                 zustandsService.getPsZustaende(), "Test pszvav");
         em.persist(v);
         ProzessSchrittVorlage psv = new ProzessSchrittVorlage(99, Duration.ofMinutes(42),
-                "Ermittlend", experimentierStations, parameters, new ArrayList<>());
+                "Ermittlend", experimentierStations, new ArrayList<>());
         return psv;
     }
 

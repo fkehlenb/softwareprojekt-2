@@ -25,4 +25,10 @@ public class ProzessSchrittParameter {
     @NonNull
     @ManyToMany(fetch = FetchType.EAGER)
     private List<QualitativeEigenschaft> qualitativeEigenschaften;
+
+    @Override
+    public String toString() {
+        return String.valueOf(id);
+    }
+
 }
