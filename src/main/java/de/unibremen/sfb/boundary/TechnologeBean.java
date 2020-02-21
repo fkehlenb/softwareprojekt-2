@@ -382,4 +382,7 @@ public class TechnologeBean implements Serializable {
         return res;
     }
 
+    public String KommentarToString(Probe p) {
+        return probeService.KommentarToString(p);
+    }
 }

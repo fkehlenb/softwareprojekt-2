@@ -50,9 +50,9 @@ public class SingleJobBean implements Serializable {
         }
         else {
             Kommentar k = new Kommentar(LocalDateTime.now(), c);
-            /*for(Probe p : ps.getTraeger().getProben()) {
-                addProbenComment(p, c);
-            }*/
+            for(Probe p : ps.getZugewieseneProben()) {
+                technologeBean.addProbenComment(p, c);
+            }
         }
         kommentarForAll = "";
     }
