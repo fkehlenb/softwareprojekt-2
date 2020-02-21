@@ -21,16 +21,12 @@ public class UserConverter implements Converter<User> {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, User id) {
-        System.out.println(id);
-        return String.valueOf(id); // @return username
+        return String.valueOf(id);
     }
 
     @Override
     public User getAsObject(FacesContext context, UIComponent component, String id) {
         try {
-            System.out.println("AS OBJECT: " + id);
-            User u = userService.getUserByUsername(id);
-            System.out.println("User found!");
             return userService.getUserByUsername(id);
         } catch (Exception e) {
             e.printStackTrace();
