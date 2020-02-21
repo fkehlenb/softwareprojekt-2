@@ -22,9 +22,5 @@ public class Bedingung {
     @OneToMany
     private List<ProzessSchrittParameter> prozessSchrittParameter;
 
-    /** Qualitative and quantitative descriptors that material needs to have */
-    @OneToMany
-    private List<QualitativeEigenschaft> eigenschaften;
-
     private int gewuenschteAnzahl;
 }
