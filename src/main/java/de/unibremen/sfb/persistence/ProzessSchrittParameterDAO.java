@@ -44,7 +44,8 @@ public class ProzessSchrittParameterDAO extends ObjectDAO<ProzessSchrittParamete
             if (!em.contains(pp)){
                 throw new ProzessSchrittParameterNotFoundException();
             }
-            em.remove(pp);
+            pp.setValidData(false);
+            update(pp);
         }
     }
 
@@ -63,14 +64,21 @@ public class ProzessSchrittParameterDAO extends ObjectDAO<ProzessSchrittParamete
             return new ArrayList<>();
         }
     }
-    /** @return all process parameters
-     * @return empty ArrayList if there are none */
-    public ProzessSchrittParameter getPSPByID(int id){
+
+    /** Return the process parameter with the given id
+     * @param id - the process parameter id to look for
+     * @return the process parameter searched for
+     * @throws ProzessSchrittParameterNotFoundException if a matching process parameter couldn't be found */
+    public ProzessSchrittParameter getPSPByID(int id) throws ProzessSchrittParameterNotFoundException{
         try {
-            return em.find(get(),id);
+            ProzessSchrittParameter pp = em.find(get(),id);
+            if (!pp.isValidData()){
+                throw new Exception();
+            }
+            return pp;
         }
         catch (Exception e){
-            return null;
+            throw new ProzessSchrittParameterNotFoundException();
         }
     }
 }

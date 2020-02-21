@@ -47,7 +47,8 @@ public class AuftragDAO extends ObjectDAO<Auftrag> {
             if (!em.contains(a)){
                 throw new AuftragNotFoundException();
             }
-            em.remove(a);
+            a.setValidData(false);
+            update(a);
         }
     }
 
@@ -63,7 +64,7 @@ public class AuftragDAO extends ObjectDAO<Auftrag> {
     public Auftrag getObjById(int id) throws AuftragNotFoundException{
         try {
             Auftrag psv = em.find(get(),id);
-            if (psv==null){
+            if (psv==null || !psv.isValidData()){
                 throw new AuftragNotFoundException();
             }
             return psv;

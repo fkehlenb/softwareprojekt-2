@@ -55,7 +55,8 @@ public class ProzessKettenVorlageDAO extends ObjectDAO<ProzessKettenVorlage> {
             if (!em.contains(pkv)) {
                 throw new ProzessKettenVorlageNotFoundException();
             }
-            em.remove(pkv);
+            pkv.setValidData(false);
+            update(pkv);
         }
     }
 
@@ -85,7 +86,7 @@ public class ProzessKettenVorlageDAO extends ObjectDAO<ProzessKettenVorlage> {
      */
     public ProzessKettenVorlage getObjById(int id) throws ProzessKettenVorlageNotFoundException {
         ProzessKettenVorlage pkv = em.find(get(), id);
-        if (pkv == null) {
+        if (pkv == null || !pkv.isValidData()) {
             throw new ProzessKettenVorlageNotFoundException();
         }
         return pkv;

@@ -10,13 +10,16 @@ import java.util.List;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "Probe.getByLocation",
-                query = "SELECT p FROM Probe p WHERE p.standort = :standort"),
+                query = "SELECT p FROM Probe p WHERE p.standort = :standort AND p.isValidData = true"),
         @NamedQuery(name = "Probe.getByTraeger",
-                query = "SELECT p FROM Probe p WHERE p.currentTraeger = :traeger")
+                query = "SELECT p FROM Probe p WHERE p.currentTraeger = :traeger AND p.isValidData = true")
 })
 @RequiredArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Probe {
+
+    /** On delete set to invalid */
+    private boolean isValidData = true;
 
     /** The sample's id */
     @NonNull

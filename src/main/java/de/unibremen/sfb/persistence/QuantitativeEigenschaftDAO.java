@@ -44,14 +44,15 @@ public class QuantitativeEigenschaftDAO extends ObjectDAO<QuantitativeEigenschaf
             if (!em.contains(q)){
                 throw new QuantitativeEingenschaftNotFoundException();
             }
-            em.remove(q);
+            q.setValidData(false);
+            update(q);
         }
     }
     /** Return a List quantitative descriptor object from the database
      * @throws IllegalArgumentException if the quantitative descriptor couldn't be found in the database */
     public List<QuantitativeEigenschaft> getAll(){
         try {
-            return em.createQuery("SELECT q FROM QuantitativeEigenschaft q", get()).getResultList();
+            return em.createQuery("SELECT q FROM QuantitativeEigenschaft q WHERE q.isValidData=true", get()).getResultList();
         }catch (Exception e){
             throw new IllegalArgumentException("QuantitativeEigenschaft not found");
         }
@@ -59,7 +60,11 @@ public class QuantitativeEigenschaftDAO extends ObjectDAO<QuantitativeEigenschaf
 
     public QuantitativeEigenschaft findQnEById(int QnEById){
         try {
-            return em.find(QuantitativeEigenschaft.class, QnEById);
+            QuantitativeEigenschaft q = em.find(QuantitativeEigenschaft.class, QnEById);
+            if (!q.isValidData()){
+                throw new Exception();
+            }
+            return q;
         } catch (Exception e) {
             throw new IllegalArgumentException("QuantitativeEigenschaft not found");
         }

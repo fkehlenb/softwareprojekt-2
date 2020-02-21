@@ -15,6 +15,9 @@ import javax.persistence.OneToOne;
 @RequiredArgsConstructor
 public class ProzessSchrittZustandsAutomat {
 
+    /** On delete set to invalid */
+    private boolean isValidData = true;
+
     @Id @GeneratedValue
     private int id;
 

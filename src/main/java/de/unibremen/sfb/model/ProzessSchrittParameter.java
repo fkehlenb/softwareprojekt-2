@@ -13,6 +13,9 @@ import java.util.List;
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 public class ProzessSchrittParameter {
 
+    /** On delete set to invalid */
+    private boolean isValidData = true;
+
     @Id
     @NonNull
     private int id;
