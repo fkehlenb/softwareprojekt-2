@@ -1,12 +1,18 @@
 package de.unibremen.sfb.service;
 
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.file.UploadedFile;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -27,12 +33,48 @@ public class BackupService implements Serializable {
      * Backup the database
      */
     public void backup() throws SQLException {
-        log.info("Trying to connect with DB");
-        String sqlFilePath = "./Backup_" + LocalDateTime.now() + ".sql";
-        Query q = em.createNativeQuery(String.format("SCRIPT TO '%s'", sqlFilePath));
-        log.info(q.getResultList().toString());
-        FacesMessage message = new FacesMessage("Successfuly saved DB", sqlFilePath + " is uploaded.");
-        FacesContext.getCurrentInstance().addMessage(null, message);
+        try {
+            log.info("Trying to connect with DB");
+            String sqlFilePath = "./Backup_" + LocalDateTime.now() + ".sql";
+            Query q = em.createNativeQuery(String.format("SCRIPT TO '%s'", sqlFilePath));
+            log.info(q.getResultList().toString());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new SQLException();
+        }
+    }
+
+    /** Datenbank import
+     * @param file - the file to load data from
+     * @throws IOException on failure */
+    public void upload(UploadedFile file) throws IOException{
+        try {
+            if (file != null && file.getFileName() != null) {
+                file.write("." + file.getFileName());
+                toDisk(file);
+            }
+            Query b = em.createNativeQuery(String.format("DROP ALL OBJECTS"));
+            b.executeUpdate();
+            Query q = em.createNativeQuery(String.format("RUNSCRIPT FROM '" + file.getFileName() + "'"));
+            q.executeUpdate();
+            log.info("Backup was restored with Success!");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new IOException();
+        }
+    }
+
+    /**
+     * https://www.baeldung.com/java-write-to-file
+     * @throws IOException
+     */
+    public void toDisk(UploadedFile file) throws IOException {
+        FileOutputStream outputStream = new FileOutputStream(".xczzc" + file.getFileName());
+        outputStream.write(file.getContent());
+        log.info(file.getFileName() + " has been writen to drive");
+        outputStream.close();
     }
 
 }

@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.credential.PasswordMatcher;
+import org.primefaces.model.file.UploadedFile;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -21,6 +22,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+import java.io.File;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -177,6 +179,9 @@ public class AdminBean implements Serializable {
      */
     private List<ExperimentierStation> experimentierStations;
 
+    /** Database import file */
+    private UploadedFile importFile;
+
     /**
      * Init called on bean creation
      */
@@ -329,9 +334,11 @@ public class AdminBean implements Serializable {
         int idUser = Integer.parseInt(idu);
         try {
             userService.removeUser(userService.getUserById(idUser));
+            facesNotification("Deleted user! ID: " + idu);
         } catch (Exception e) {
             e.printStackTrace();
             log.error("Couldn't delete user, ID: " + idu);
+            facesError("Couldn't delete user! ID: " + idu);
         }
     }
 
@@ -483,6 +490,18 @@ public class AdminBean implements Serializable {
      */
     public void onClickExperimentierStationEdit() {
 
+    }
+
+    /** Database import */
+    public void databaseImport(){
+        try{
+            backupService.upload(importFile);
+            facesNotification("Imported successfully!");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            facesError("Couldn't impoort data!");
+        }
     }
 
     /**
