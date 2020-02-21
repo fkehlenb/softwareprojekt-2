@@ -19,6 +19,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -353,7 +354,7 @@ public class TechnologeBean implements Serializable {
         r.add(p);
         r.add(q);
         r.add(w);
-        r.sort(Comparator.comparing(o -> psService.getAuftrag(o).getPriority()));
+        //r.sort(Comparator.comparing(o -> psService.getAuftrag(o).getPriority()));
         return r;
         //also nur ein technologe pro Station, und
         //kann erst auftrag annehmen, wenn er an dieser station nichts zu tun
