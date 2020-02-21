@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 /** Conditional data class, used to make sure certain conditions apply */
@@ -15,12 +16,16 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Bedingung {
 
-    @Id @GeneratedValue
+    @Id
     private int id;
+
+    @NotEmpty
+    private String name;
 
     /** Process step parameters that the material must have */
     @OneToMany
     private List<ProzessSchrittParameter> prozessSchrittParameter;
 
+    // Die gewunschte Anzahl an Proben die dieser Bedingung entsprechen
     private int gewuenschteAnzahl;
 }
