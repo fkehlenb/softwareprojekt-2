@@ -15,6 +15,7 @@ import javax.persistence.Id;
 public class TransportAuftrag {
 
     /** On delete set to invalid */
+    @NonNull
     private boolean isValidData = true;
 
     @Id @GeneratedValue

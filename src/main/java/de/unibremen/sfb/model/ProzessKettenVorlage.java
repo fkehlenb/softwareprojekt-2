@@ -16,6 +16,7 @@ import java.util.List;
 public class ProzessKettenVorlage {
 
     /** On delete set to invalid */
+    @NonNull
     private boolean isValidData = true;
 
     /** The process chain template id */

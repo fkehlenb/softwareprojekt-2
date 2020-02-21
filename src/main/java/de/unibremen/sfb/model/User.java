@@ -25,6 +25,7 @@ public class User {
     /**
      * On delete set to invalid
      */
+    @NonNull
     private boolean isValidData = true;
 
     /**

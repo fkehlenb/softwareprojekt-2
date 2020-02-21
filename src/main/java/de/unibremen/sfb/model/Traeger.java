@@ -13,6 +13,7 @@ import java.util.List;
 public class Traeger {
 
     /** On delete set to invalid */
+    @NonNull
     private boolean isValidData = true;
 
     /** The container's id */

@@ -14,6 +14,7 @@ import java.util.List;
 public class ProzessSchrittParameter {
 
     /** On delete set to invalid */
+    @NonNull
     private boolean isValidData = true;
 
     @Id

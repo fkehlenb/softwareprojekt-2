@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 public class AuftragsLog {
 
     /** On delete set to invalid */
+    @NonNull
     private boolean isValidData = true;
 
     @Id @GeneratedValue

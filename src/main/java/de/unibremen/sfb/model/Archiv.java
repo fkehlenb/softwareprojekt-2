@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 public class Archiv {
 
     /** On delete set to invalid */
+    @NonNull
     private boolean isValidData = true;
 
     @Id @GeneratedValue

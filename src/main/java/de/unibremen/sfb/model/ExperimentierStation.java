@@ -22,6 +22,7 @@ import java.util.Queue;
 public class ExperimentierStation {
 
     /** On delete set to invalid */
+    @NonNull
     private boolean isValidData = true;
 
     /** The station's id */
