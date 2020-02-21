@@ -53,4 +53,11 @@ public class ExperimentierStation {
 
     @OneToOne
     private ProzessSchritt currentPS;
+
+    @Override
+    public String toString() {
+        return Integer.toString(esID);
+    }
+
+
 }

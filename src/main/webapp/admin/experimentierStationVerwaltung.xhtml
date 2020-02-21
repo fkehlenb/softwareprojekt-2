@@ -48,7 +48,7 @@
                             <p:column colspan="1">
                                 <p:selectOneMenu id="standort"
                                                  value="#{adminBean.experimentierStationStandort}"
-                                                 converter="standortConverter" effect="fade"
+                                                 converter="omnifaces.SelectItemsConverter" effect="fade"
                                                  var="standort" style="width: 172px" filter="true"
                                                  filterMatchMode="contains" required="true"
                                                  requiredMessage="Bitte Standort Wahlen!">
@@ -68,7 +68,7 @@
                             <p:column colspan="1">
                                 <p:selectCheckboxMenu id="userTable"
                                                       value="#{adminBean.experimentierStationBenutzer}"
-                                                      converter="userConverter" effect="fade"
+                                                      converter="omnifaces.SelectItemsConverter" effect="fade"
                                                       var="user" style="width: 172px" filter="true"
                                                       filterMatchMode="contains" showCheckbox="true"
                                                       label="Benutzer" requiredMessage="Bitte Benutzer Zuweisen!"
@@ -84,7 +84,7 @@
                             <p:column colspan="1">
                                 <p:commandButton value="Erstellen"
                                                  action="#{adminBean.addStation}" icon="pi pi-check"
-                                                 update="form" ajax="true"/>
+                                                 update="form2" ajax="true"/>
                             </p:column>
                         </p:row>
                     </h:form>
@@ -99,8 +99,8 @@
                     <p:dataTable id="table" var="station" value="#{adminBean.experimentierStations}" editable="true"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                                  paginator="true" rows="5" style="margin-bottom:20px">
-                        <p:ajax event="rowEdit" listener="#{adminBean.onRowEditES(station.esID)}" update="table"/>
-                        <p:ajax event="rowEditCancel" listener="#{adminBean.onRowEditCancelES}" update="table"/>
+                        <p:ajax event="rowEdit" listener="#{adminBean.onRowEditES(station.esID)}" update="form2:table"/>
+                        <p:ajax event="rowEditCancel" listener="#{adminBean.onRowEditCancelES}" update="form2:table"/>
                         <p:column headerText="Name">
                             <p:cellEditor>
                                 <f:facet name="output">
@@ -122,7 +122,7 @@
                                 <f:facet name="input">
                                     <p:selectOneMenu id="standortTable"
                                                      value="#{adminBean.experimentierStationStandort}"
-                                                     converter="standortConverter" effect="fade"
+                                                     converter="omnifaces.SelectItemsConverter" effect="fade"
                                                      var="standort" style="width: 172px" filter="true"
                                                      filterMatchMode="contains" required="true"
                                                      requiredMessage="Bitte Standort Wahlen!">
@@ -144,10 +144,11 @@
                                 <f:facet name="input">
                                     <p:selectCheckboxMenu id="user"
                                                           value="#{adminBean.experimentierStationBenutzer}"
-                                                          converter="userConverter" effect="fade"
+                                                          converter="omnifaces.SelectItemsConverter" effect="fade"
                                                           var="user" style="width: 172px" filter="true"
                                                           filterMatchMode="contains" showCheckbox="true"
-                                                          label="Benutzer" requiredMessage="Bitte Benutzer Zuweisen!"
+                                                          label="Benutzer"
+                                                          requiredMessage="Bitte Benutzer Zuweisen!"
                                                           required="true">
                                         <f:selectItems value="#{adminBean.allUsers}"
                                                        var="user" itemLabel="#{user.username}"
@@ -157,8 +158,8 @@
                             </p:cellEditor>
                         </p:column>
                         <p:column>
-                            <p:commandButton ajax="false" action="#{adminBean.deleteStation(station.esID)}"
-                                             value="Delete" icon="pi pi-trash"/>
+                            <p:commandButton ajax="true" action="#{adminBean.deleteStation(station.esID)}"
+                                             value="Delete" icon="pi pi-trash" update="form2:table"/>
                         </p:column>
                         <p:column style="width: 35px">
                             <p:rowEditor/>
