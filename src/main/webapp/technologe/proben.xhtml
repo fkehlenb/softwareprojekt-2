@@ -20,14 +20,11 @@
                         <h:panelGrid columns="1">
                             <p:row>
                                 <h1 style="color: cornflowerblue">Probenüberblick</h1>
-                            </p:row>
-
-                            <h:form>
                                 <div align="center">
                                     <h:commandButton action="#{technologeBean.setViewUploaded(!technologeBean.getViewUploaded)}" value="Upload ausstehend"/>
                                 </div>
+                            </p:row>
 
-                            </h:form>
 
                             <p:dataTable var="probe" value="#{technologeBean.getSamples()}">
                                 <p:column headerText="Id">
@@ -46,18 +43,14 @@
                                     <h:outputText value="#{technologeBean.KommentarToString(probe)}"/>
                                 </p:column>
                                 <p:column headerText="Auswählen">
-                                    <h:form>
                                         <div align="center">
                                             <h:commandButton value="Choose" action="#{singleSampleBean.singleprobe(probe)}" />
                                         </div>
-                                    </h:form>
                                 </p:column>
                                 <p:column headerText="Verloren">
-                                    <h:form>
                                         <div align="center">
                                             <h:commandButton action="#{technologeBean.reportLostProbe(probe)}" value="Verloren"/>
                                         </div>
-                                    </h:form>
                                 </p:column>
                             </p:dataTable>
                         </h:panelGrid>

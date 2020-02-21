@@ -20,40 +20,28 @@
         <h:form style="background-color: white; margin-top: 100px; width: 650px">
             <h:panelGrid columns="1">
                 <p:row>
-                    <h1 style="color: cornflowerblue">Auftrag #{technologeBean.singleJob.psID}- Überblick</h1>
+                    <h1 style="color: cornflowerblue">Auftrag #{singleJobBean.ps.psID}- Überblick</h1>
                 </p:row>
                 <p:row>
-                    <p>Daten hochgeladen: #{technologeBean.singleJob.uploaded}</p>
+                    <p>Daten hochgeladen: #{singleJobBean.ps.uploaded}</p>
                 </p:row>
                 <p:row>
-                    <p>Zustand: #{technologeBean.singleJob.zustandsAutomat.current}</p>
+                    <p>Zustand: #{singleJobBean.ps.zustandsAutomat.current}</p>
                 </p:row>
                 <p:row>
-                    <p>Prozessschritt Art: #{technologeBean.singleJob.prozessSchrittVorlage.psArt}</p>
+                    <p>Prozessschritt Art: #{singleJobBean.ps.prozessSchrittVorlage.psArt}</p>
                 </p:row>
-                <p:row>
-                    <p>Parameter des Prozessschrittes: </p>
-                </p:row>
-
-                <p:dataTable var="parameter" value="#{technologeBean.singleJob.prozessSchrittVorlage.prozessSchrittParameter}">
-                    <p:column headerText="Id">
-                        <h:outputText value="#{parameter.id}"/>
-                    </p:column>
-                    <p:column headerText="Name">
-                        <h:outputText value="#{parameter.name}"/>
-                    </p:column>
-                </p:dataTable>
 
                     <p:outputLabel for="kommentar" value="Kommentar:"/>
-                    <p:inputMask id="kommentar" value="#{technologeBean.kommentarForAll}" mask="********"/>
+                    <p:inputMask id="kommentar" value="#{singleJobBean.kommentarForAll}" mask="********"/>
                     <p:commandButton value="Save" type="save"/>
-                    <p:commandButton action="#{technologeBean.addComment(technologeBean.singleJob, technologeBean.kommentarForAll)}"/>
+                    <p:commandButton action="#{singleJobBean.addComment(technologeBean.singleJob, singleJobBean.kommentarForAll)}"/>
 
                 <p:row>
                     <p> Proben: </p>
                 </p:row>
 
-                <p:dataTable var="probe" value="#{technologeBean.singleJob.zugewieseneProben}">
+                <p:dataTable var="probe" value="#{singleJobBean.ps.zugewieseneProben}">
 
                     <p:column headerText="Id">
                         <h:outputText value="#{probe.probenID}"/>
@@ -65,7 +53,7 @@
                         <h:outputText value="#{probe.standort.ort}"/>
                     </p:column>
                     <p:column headerText="Kommentar">
-                        <h:outputText value="#{technologeBean.KommentarToString(probe)}"/>
+                        <h:outputText value="#{singleJobBean.KommentarToString(probe)}"/>
                     </p:column>
 
                 </p:dataTable>

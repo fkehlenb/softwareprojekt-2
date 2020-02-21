@@ -30,8 +30,10 @@
                         <p:column headerText="Status">
                             <h:outputText value="#{auftrag.zustandsAutomat.current}"/>
                         </p:column>
-                        <p:column headerText="Auswählen" style="width:32px;text-align: center">
-                            <h:commandButton value="Choose" action="#{technologeBean.singleview(auftrag)}"/>
+                        <p:column headerText="Auswählen">
+                            <div align="center">
+                                <h:commandButton value="Choose" action="#{singleJobBean.singlejob(auftrag)}" />
+                            </div>
                         </p:column>
                     </p:dataTable>
                 </h:panelGrid>

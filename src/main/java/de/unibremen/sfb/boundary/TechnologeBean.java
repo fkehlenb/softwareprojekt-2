@@ -41,11 +41,6 @@ public class TechnologeBean implements Serializable {
     private User technologe;
 
     /**
-     * saves a comment the user can type in to be added to all samples of a prozessschritt
-     */
-    private String kommentarForAll;
-
-    /**
      * saves whether the user wants to see only samples that need info to be uploaded, or everything
      */
     private Boolean viewUploaded;
@@ -199,24 +194,6 @@ public class TechnologeBean implements Serializable {
     public void createUrformend(String id) {
         //probeService.addNewSample(id);
         //TODO kann das der technologe wirklich selber?
-    }
-
-    /**
-     * adds a comment to a process step
-     * @param ps the process step
-     * @param c the comment
-     */
-    public void addComment(ProzessSchritt ps, String c) {
-        if(ps == null || c == null) {
-            errorMessage("invalid input");
-        }
-        else {
-            Kommentar k = new Kommentar(LocalDateTime.now(), c);
-            /*for(Probe p : ps.getTraeger().getProben()) {
-                addProbenComment(p, c);
-            }*/
-        }
-        kommentarForAll = "";
     }
 
     /**
@@ -405,19 +382,4 @@ public class TechnologeBean implements Serializable {
         return res;
     }
 
-    /**
-     * sets the singlejob attribute
-     *
-     * @param a the job which singlejob is to be set as
-     * @return the name of the xhtml site where the information about a single job can be viewed and edited
-     */
-    public String singleview(ProzessSchritt a) {
-        singleJob = a;
-        return "singleview.xhtml";
-    }
-
-
-    public String KommentarToString(Probe p) {
-        return probeService.KommentarToString(p);
-    }
 }
