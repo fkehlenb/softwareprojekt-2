@@ -157,8 +157,8 @@
                             </p:cellEditor>
                         </p:column>
                         <p:column>
-                            <p:commandButton ajax="false" action="#{adminBean.deleteStation(station.esID)}"
-                                             value="Delete" icon="pi pi-trash"/>
+                            <p:commandButton ajax="true" action="#{adminBean.deleteStation(station.esID)}"
+                                             value="Delete" icon="pi pi-trash" update="table"/>
                         </p:column>
                         <p:column style="width: 35px">
                             <p:rowEditor/>
