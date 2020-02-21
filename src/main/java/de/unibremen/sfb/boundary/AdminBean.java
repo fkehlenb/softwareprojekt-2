@@ -4,10 +4,7 @@ package de.unibremen.sfb.boundary;
 import de.unibremen.sfb.exception.DuplicateUserException;
 import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
 import de.unibremen.sfb.model.*;
-import de.unibremen.sfb.service.ExperimentierStationService;
-import de.unibremen.sfb.service.StandortService;
-import de.unibremen.sfb.service.TraegerArtService;
-import de.unibremen.sfb.service.UserService;
+import de.unibremen.sfb.service.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -27,10 +24,7 @@ import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * this class manages the interaction between the gui and the backend system in the case that the user is an admin
@@ -42,9 +36,6 @@ import java.util.UUID;
 @Setter
 @Getter
 public class AdminBean implements Serializable {
-
-    @PersistenceContext(name = "swp2")
-    private EntityManager em;
 
     /**
      * UserService
@@ -64,9 +55,17 @@ public class AdminBean implements Serializable {
     @Inject
     private ExperimentierStationService experimentierStationService;
 
-    /** Standort service */
+    /**
+     * Standort service
+     */
     @Inject
     private StandortService standortService;
+
+    /**
+     * Database backup service
+     */
+    @Inject
+    private BackupService backupService;
 
     /**
      * The user's name
@@ -163,18 +162,26 @@ public class AdminBean implements Serializable {
      */
     private User[] experimentierStationBenutzer;
 
-    /** All users */
+    /**
+     * All users
+     */
     private List<User> allUsers;
 
-    /** All locations */
+    /**
+     * All locations
+     */
     private List<Standort> allLocations;
 
-    /** All experimenting stations */
+    /**
+     * All experimenting stations
+     */
     private List<ExperimentierStation> experimentierStations;
 
-    /** Init called on bean creation */
+    /**
+     * Init called on bean creation
+     */
     @PostConstruct
-    private void init(){
+    private void init() {
         allLocations = standortService.getStandorte();
         allUsers = userService.getAll();
         experimentierStations = experimentierStationService.getAll();
@@ -186,8 +193,7 @@ public class AdminBean implements Serializable {
     private PasswordMatcher matcher = new PasswordMatcher();
 
     /**
-     * Returns all users registered in this system
-     * A set containing all users
+     * Add a new user
      */
     public void addUser() throws DuplicateUserException {
         LocalDateTime date1 = LocalDateTime.now();
@@ -208,21 +214,25 @@ public class AdminBean implements Serializable {
             userService.updateUser(user);
             String id = "";
             resetVariables();
-            log.info("Added new User, Username: " + userName);
-            userService.sendMail(user,"Account Created!","Thank you for creating your account at SFB - Farbige Zustaende!\nIf you did not create" +
-                    "this account, please contact the system administrator!");
+            log.info("User updated, ID: " + idOld);
+            facesNotification("User updated! ID: " + idOld);
         } catch (Exception e) {
             User user = new User(UUID.randomUUID().hashCode(), vorname, nachname, email, telefonNummer,
                     userName, matcher.getPasswordService().encryptPassword(password), wurdeVerifiziert, date1
                     , rollen, language);
             userService.addUser(user);
-            log.info("User updated, Username: " + userName);
+            log.info("Added new User, Username: " + userName);
+            facesNotification("Created new user! Username: " + userName);
+            userService.sendMail(user, "Account Created!", "Thank you for creating your account at SFB - Farbige Zustaende!\nIf you did not create" +
+                    "this account, please contact the system administrator!");
             resetVariables();
         }
     }
 
     /**
      * Edit a user
+     *
+     * @param id - the id of the user to be edited
      */
     public void adminEditUser(String id) {
         try {
@@ -243,9 +253,11 @@ public class AdminBean implements Serializable {
             this.wurdeVerifiziert = user.isWurdeVerifiziert();
             this.language = user.getLanguage();
             log.info("Updated User! ID: " + id);
+            facesNotification("Updated user! ID: " + id);
         } catch (Exception e) {
             e.printStackTrace();
             log.info("Couldn't edit user, Username: " + userName);
+            facesError("Couldn't update user! ID: " + id);
         }
     }
 
@@ -380,30 +392,37 @@ public class AdminBean implements Serializable {
     }
 
 
-    /** Edit row for experimenting stations */
-    public void onRowEditES(int experimentierStationId){
-        try{
+    /**
+     * Edit row for experimenting stations
+     *
+     * @param experimentierStationId - the id of the experimenting station currently being edited
+     */
+    public void onRowEditES(int experimentierStationId) {
+        try {
             ExperimentierStation es = experimentierStationService.getById(experimentierStationId);
-            es.setBenutzer(List.of(experimentierStationBenutzer));
+            List<User> newEsBenutzerList = new ArrayList<>();
+            Collections.addAll(newEsBenutzerList, experimentierStationBenutzer);
+            es.setBenutzer(newEsBenutzerList);
             es.setStandort(experimentierStationStandort);
             es.setName(experimentierStationName);
             experimentierStationService.updateES(es);
-        }
-        catch (Exception e){
+            log.info("Updated experimenting station! ID: " + experimentierStationId);
+            facesNotification("Updated experimentierstation! ID: " + experimentierStationId);
+        } catch (Exception e) {
             e.printStackTrace();
             log.error("Couldn't update experimenting station! ID: " + experimentierStationId);
+            facesError("Couldn't update experimentierstatioN! ID: " + experimentierStationId);
         }
     }
 
-    /** Edit row for experimenting stations canceled */
-    public void onRowEditCancelES(){
+    /**
+     * Edit row for experimenting stations canceled
+     * Reset variables on cancel
+     */
+    public void onRowEditCancelES() {
         experimentierStationName = "";
         experimentierStationStandort = null;
     }
-
-
-
-
 
     /**
      * adds a new experimentation station
@@ -413,59 +432,44 @@ public class AdminBean implements Serializable {
             experimentierStationService.getStationByName(experimentierStationName);
             FacesContext.getCurrentInstance().addMessage("Eine Experimentierstation mir diesem Namen gibt es schon", null);
             log.error("Error adding experimenting station, station already exists! Name: " + experimentierStationName);
+            facesError("Error adding experimenting station, station already exists! Name: " + experimentierStationName);
         } catch (Exception e) {
             e.printStackTrace();
-            ExperimentierStation es = new ExperimentierStation(UUID.randomUUID().hashCode(), experimentierStationStandort, experimentierStationName, ExperimentierStationZustand.VERFUEGBAR, List.of(experimentierStationBenutzer));
+            List<User> experimentierStationUsers = new ArrayList<>();
+            Collections.addAll(experimentierStationUsers, experimentierStationBenutzer);
+            ExperimentierStation es = new ExperimentierStation(UUID.randomUUID().hashCode(), experimentierStationStandort, experimentierStationName, ExperimentierStationZustand.VERFUEGBAR, experimentierStationUsers);
             try {
                 experimentierStationService.addES(es);
                 log.info("Added experimenting station! Name: " + experimentierStationName);
+                facesNotification("Added experimenting station! Name: " + experimentierStationName);
             } catch (Exception f) {
                 f.printStackTrace();
                 log.error("Couldn't add experimenting station! Name: " + experimentierStationName);
+                facesError("Couldn't add experimenting station! Name: " + experimentierStationName);
             }
         }
     }
 
     /**
-     * edits a experimentation station that already exists
-     */
-    public void editStation(int esID) {
-        try{
-            ExperimentierStation es = experimentierStationService.getById(esID);
-            es.setBenutzer(List.of(experimentierStationBenutzer));
-            es.setName(experimentierStationName);
-            es.setStandort(experimentierStationStandort);
-            experimentierStationService.updateES(es);
-            log.info("Updated experimenting station! ID: " + esID);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            log.info("Failed to update experimenting station! ID: " + esID);
-        }
-    }
-
-    /**
      * deletes a station
-     *
      */
     public void deleteStation(int esID) {
         ExperimentierStation es = null;
         try {
             es = experimentierStationService.getById(esID);
+            try {
+                experimentierStationService.loescheES(es);
+                log.info("Deleted experimenting station! ID: " + esID);
+                facesNotification("Deleted experimenting station! ID: " + esID);
+            }
+            catch (Exception e){
+                e.printStackTrace();
+                log.info("Couldn't delete exoerimenting station! ID: " + esID);
+                facesError("Couldn't delete exoerimenting station! ID: " + esID);
+            }
         } catch (ExperimentierStationNotFoundException e) {
             e.printStackTrace();
         }
-        experimentierStationService.loescheES(es);
-        log.info("Deleted experimenting station! ID: " + esID);
-    }
-
-    /**
-     * assigns a user to a station
-     *
-     * @param us the user
-     * @param es the station
-     */
-    public void userToStation(User us, ExperimentierStation es) {
     }
 
     /**
@@ -474,45 +478,47 @@ public class AdminBean implements Serializable {
     public void generateRegestrationMail() {
     }
 
-    /** Action listener for table updates */
-    public void onClickExperimentierStationEdit(){
-
-    }
-
     /**
-     * returns all experimentation stations existing
-     *
-     * @return a set containing all stations
+     * Action listener for table updates
      */
-    public List<ExperimentierStation> getES() {
-        return experimentierStationService.getAll();
-    }
+    public void onClickExperimentierStationEdit() {
 
-    /**
-     * edits the time of a job
-     *
-     * @param a the job
-     */
-    public void editAuftragTime(Auftrag a) {
     }
 
     /**
      * backs the system up
      */
-    public void backup() throws SQLException {
-        log.info("Trying to connect with DB");
-        String sqlFilePath = "./Backup_" + LocalDateTime.now() + ".sql";
-        Query q = em.createNativeQuery(String.format("SCRIPT TO '%s'", sqlFilePath));
-        log.info(q.getResultList().toString());
-        FacesMessage message = new FacesMessage("Successfuly saved DB", sqlFilePath + " is uploaded.");
-        FacesContext.getCurrentInstance().addMessage(null, message);
-
+    public void backup() {
+        try {
+            backupService.backup();
+            facesNotification("Backed up database!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            facesError("Couldn't backup database!");
+        }
     }
 
     /**
-     * the emtpy constructor
+     * the empty constructor
      */
     public AdminBean() {
     }
 
+    /**
+     * Adds a new SEVERITY_ERROR FacesMessage for the ui
+     *
+     * @param message Error Message
+     */
+    private void facesError(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+    }
+
+    /**
+     * Adds a new SEVERITY_INFO FacesMessage for the ui
+     *
+     * @param message Info Message
+     */
+    private void facesNotification(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
+    }
 }
