@@ -42,6 +42,13 @@ public class AuftragService implements Serializable {
     ProbenService probenService;
 
     private Auftrag auftrag;
+
+
+    @PostConstruct
+    public void init() {
+        auftrage = getAuftrage();
+    }
+
     /**
      * returns the ID of this Auftrag
      *
@@ -102,14 +109,14 @@ public class AuftragService implements Serializable {
      * returns the current Prioritaet (priority) of this Auftrag
      * @return the current Prioritaet
      */
-    public Enum<AuftragsPrioritaet> getPrio() {
+    public AuftragsPrioritaet getPrio() {
         return auftrag.getPriority();
     }
 
     /**
      * sets the current Prioritaet (priority) of this Auftrag
      */
-    public void setPrio(Enum<AuftragsPrioritaet> prio) {
+    public void setPrio(AuftragsPrioritaet prio) {
         auftrag.setPriority(prio);
     }
 
@@ -121,29 +128,18 @@ public class AuftragService implements Serializable {
         return auftrag.getProzessSchritte();
     }
 
-
     /**
-     * Setze den Zustand von Auftrag a auf p und persistiere
-     * @param a Der Auftrag
-     * @param p Der Zustand
+     * returns all jobs currently in the database
+     * @return a list containing all jobs in the database
      */
-    public void zustandswechsel(Auftrag a, ProzessKettenZustandsAutomat p) {
-        a.setProzessKettenZustandsAutomat(p);
-        upate(a);
-    }
-
-
-    // Hier beginnt der neue Service
-
-    @PostConstruct
-    public void init() {
-        auftrage = getAuftrage();
-    }
-
     public List<Auftrag> getAuftrage() {
         return auftragDAO.getAll();
     }
 
+    /**
+     * updates a job in the database
+     * @param auftrag the job to be updated
+     */
     public void upate(Auftrag auftrag) {
         try {
             auftragDAO.update(auftrag);
@@ -152,7 +148,10 @@ public class AuftragService implements Serializable {
         }
     }
 
-
+    /**
+     * adds a job to the database
+     * @param auftrag the new job
+     */
     public void add(Auftrag auftrag) {
         auftrage.add(auftrag);
         try {
@@ -162,6 +161,10 @@ public class AuftragService implements Serializable {
         }
     }
 
+    /**
+     * exports the jobs (TODO richtig?) to JSON
+     * @return idk //TODO
+     */
     public String toJson() {
         JsonbConfig config = new JsonbConfig()
                 .withFormatting(true);
@@ -173,11 +176,16 @@ public class AuftragService implements Serializable {
         return result;
     }
 
+    /**
+     * finds a job by an id (in form of a string)
+     * @param value the job-id in as String
+     * @return the job, if found; null if not found
+     */
     public Auftrag getAuftrag(String value) {
 
         try {
             return auftragDAO.getObjById(Integer.parseInt(value));
-        } catch (AuftragNotFoundException e) {
+        } catch (AuftragNotFoundException e) { //TODO sollten Exceptions nicht bis Beans durchgereicht werden?
             e.printStackTrace();
         }
         return null;
@@ -201,7 +209,7 @@ public class AuftragService implements Serializable {
      * @throws AuftragNotFoundException the job couldn't be found in the database
      */
     public void assignToAuftrag(User t, Auftrag a) throws AuftragNotFoundException {
-        //a.setAssigned(t);
+        //a.setAssigned(t); //TODO
         auftragDAO.update(a);
     }
 
@@ -247,8 +255,8 @@ public class AuftragService implements Serializable {
      * Erstelle Proben die einer Bedingung entsprechen, dies koenne wir fuer erzeugende Prozessschritte nutzen
      * @param b Die Bedingung
      * @param s der Standort wo die Proben sind, normalerweise die Station and der sie erstellt werden
-     * @return
-     */
+     * @return die liste mit proben die erzeugt wurden
+     */ //TODO warum nicht in ProbeService?
     private List<Probe> erzeugeProbenNachBeding(Bedingung b, Standort s) {
         var result = new ArrayList<Probe>();
         for (int i = 0; i < b.getGewuenschteAnzahl(); i++) {

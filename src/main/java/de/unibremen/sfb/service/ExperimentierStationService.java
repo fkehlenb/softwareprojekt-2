@@ -77,6 +77,15 @@ public class ExperimentierStationService implements Serializable {
      * @throws ExperimentierStationNotFoundException the station couldn't be found in the database
      */
     public void setZustand(ExperimentierStation e, ExperimentierStationZustand esz) throws ExperimentierStationNotFoundException {
+        /*
+        von der anderen setZustand-Methode:
+         */
+        /*var eN = esDao.getObjById(es.getEsID());
+        if (z.equals(ExperimentierStationZustand.VERFUEGBAR)) {
+            // FIXME Pop form Queue to Current
+        }
+        eN.setStatus(z);
+        esDao.update(eN);*/
         e.setStatus(esz);
         esDao.update(e);
     }
@@ -101,9 +110,9 @@ public class ExperimentierStationService implements Serializable {
     }
 
     /**
-     * Get all the Stations a User
-     * @param user
-     * @return
+     * Get all the Stations a User is assigned to
+     * @param user the user for whose stations are wanted
+     * @return a list containing all stations for this user
      */
     public List<ExperimentierStation> getESByUser(User user) {
        return esDao.getAll().stream()
@@ -111,6 +120,11 @@ public class ExperimentierStationService implements Serializable {
                .collect(Collectors.toList());
     }
 
+    /**
+     * returns all stationen fullfilling a Bedingung //TODO richtig?
+     * @param b the Bedingung
+     * @return a list containing all fitting stations
+     */
     public List<ExperimentierStation> getAllESByBedingung(Bedingung b) {
         return esDao.getAll().stream()
                 .filter(e -> e.getBedingungen().contains(b))
@@ -122,25 +136,6 @@ public class ExperimentierStationService implements Serializable {
 //                .filter(e -> e.getBedingungen().contains(p))
 //                .collect(Collectors.toList());
 //    }
-
-    /**
-     * Change the Status of es to s
-     * @param es die Station
-     * @param z der Neue Zustand
-     */
-    public void changeStatus(ExperimentierStation es, ExperimentierStationZustand z) throws  ExperimentierStationNotFoundException{
-        try {
-            var eN = esDao.getObjById(es.getEsID());
-            if (z.equals(ExperimentierStationZustand.VERFUEGBAR)) {
-                // FIXME Pop form Queue to Current
-            }
-            eN.setStatus(z);
-            esDao.update(eN);
-        } catch (ExperimentierStationNotFoundException e) {
-            e.printStackTrace();
-        }
-
-    }
 
 
 }

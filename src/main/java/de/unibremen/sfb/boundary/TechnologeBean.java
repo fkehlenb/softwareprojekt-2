@@ -339,10 +339,7 @@ public class TechnologeBean implements Serializable {
      * @return a list containing all the jobs
      */
     public List<ProzessSchritt> getJobs() {
-        //return psService.getSchritteByUser(technologe);
-        //also nur ein technologe pro Station, und
-        //kann erst auftrag annehmen, wenn er an dieser station nichts zu tun
-        //nur ein auftrag pro station, und ein technologe pro station
+        //List<ProzessSchritt> r = psService.getSchritteByUser(technologe);
         List<ProzessSchritt> r = new LinkedList<>();
         ProzessSchrittZustandsAutomatVorlage v = new ProzessSchrittZustandsAutomatVorlage();
         ProzessSchrittZustandsAutomat psz = new ProzessSchrittZustandsAutomat("sad", v);
@@ -356,8 +353,12 @@ public class TechnologeBean implements Serializable {
         r.add(p);
         r.add(q);
         r.add(w);
-
+        r.sort(Comparator.comparing(o -> psService.getAuftrag(o).getPriority()));
         return r;
+        //also nur ein technologe pro Station, und
+        //kann erst auftrag annehmen, wenn er an dieser station nichts zu tun
+        //nur ein auftrag pro station, und ein technologe pro station
+
     }
 
     public List<Probe> getSamples() {

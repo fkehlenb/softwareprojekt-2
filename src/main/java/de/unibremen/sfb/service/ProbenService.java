@@ -155,6 +155,12 @@ public class ProbenService implements Serializable {
         return probeDAO.getObjById(id); //TODO in DAO id als string
     }
 
+    /**
+     * turns the set of comments of a sample into a string
+     * every comment in a new paragraph
+     * @param p the sample
+     * @return the string with the text of all comments
+     */
     public String KommentarToString(Probe p) {
         String res = "";
         for(Kommentar k : p.getKommentar()) {

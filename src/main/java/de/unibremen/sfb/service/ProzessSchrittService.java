@@ -2,12 +2,14 @@ package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.exception.ProzessSchrittNotFoundException;
 import de.unibremen.sfb.exception.ProzessSchrittZustandsAutomatNotFoundException;
+import de.unibremen.sfb.model.Auftrag;
 import de.unibremen.sfb.model.ExperimentierStation;
 import de.unibremen.sfb.model.ProzessSchritt;
 import de.unibremen.sfb.model.User;
 import de.unibremen.sfb.persistence.ProzessSchrittDAO;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,8 @@ public class ProzessSchrittService implements Serializable {
     @Inject
     ProzessSchrittDAO prozessSchrittDAO;
 
+    @Inject
+    AuftragService auftragService;
 
     @Inject
     ExperimentierStationService experimentierStationService;
@@ -54,6 +58,29 @@ public class ProzessSchrittService implements Serializable {
             ps.getZustandsAutomat().setCurrent(zustand);
             prozessSchrittDAO.update(ps);
         }
+    }
+
+    /**
+     * searches for the Auftrag the ProzessSchritt belongs to //TODO yikes
+     * @param ps the ps which's Auftrag is looked for
+     * @return the Auftrag (or null, if none was found)
+     */
+    //TODO das funktioniert alles nicht... vllt mit Hibernate.initialize
+    /*
+    (aber müsste dafür dependency hinzufügen ...)
+    oder (extrem unschön) Fetch Type auf eager stellen in auftrag.java
+     */
+    public Auftrag getAuftrag(ProzessSchritt ps) {
+        /*
+        filtert liste von allen aufträgen
+        jeder auftrag, der den prozessschritt in seiner liste hat, kommt in ergebnis
+        da das nur einer sein sollte, reicht findfirst
+         */
+        return auftragService.getAuftrage().stream()
+                .filter((a) -> (a.getProzessSchritte().stream()
+                                .anyMatch((p) -> p.getPsID() == ps.getPsID()))
+                        ).findFirst().orElse(null);
+
     }
 }
 
