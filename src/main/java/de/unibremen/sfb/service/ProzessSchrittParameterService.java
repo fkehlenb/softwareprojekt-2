@@ -13,6 +13,7 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -98,6 +99,23 @@ public class ProzessSchrittParameterService implements Serializable {
         } catch (ProzessSchrittParameterNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public List<ProzessSchrittParameter> findByQei(int idqEin){
+        List<ProzessSchrittParameter> pspList = prozessSchrittParameterDAO.getAll();
+        List<ProzessSchrittParameter> prozessSchrittParameters = new ArrayList<>();
+
+        //lista para guardar los PSP si tiene Abhangig
+        for (ProzessSchrittParameter psp : pspList) {
+            List<QualitativeEigenschaft> qualitativeEigenschaftList = psp.getQualitativeEigenschaften();
+            for (QualitativeEigenschaft ql : qualitativeEigenschaftList) {
+                if (ql.getId() == idqEin) {
+                    prozessSchrittParameters.add(psp);
+                    System.out.println("Post");
+                }
+            }
+        }
+        return prozessSchrittParameters;
     }
 
 }

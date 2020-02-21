@@ -2,8 +2,10 @@ package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.model.ProzessSchrittParameter;
 import de.unibremen.sfb.model.QualitativeEigenschaft;
+import de.unibremen.sfb.model.QuantitativeEigenschaft;
 import de.unibremen.sfb.service.ProzessSchrittParameterService;
 import de.unibremen.sfb.service.QualitativeEigenschaftService;
+import de.unibremen.sfb.service.QuantitativeEigenschaftService;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +37,9 @@ public class PSPBean implements Serializable {
     @Inject
     QualitativeEigenschaftService qualitativeEigenschaftService;
 
+    @Inject
+    QuantitativeEigenschaftService quantitativeEigenschaftService;
+
     private String id;
 
     private String name;
@@ -63,7 +68,11 @@ public class PSPBean implements Serializable {
     }
 
     public void select(String idqE) {
-        qualitativeEigenschaften.add(qualitativeEigenschaftService.getQlEById(Integer.parseInt(idqE)));
+        try {
+            qualitativeEigenschaften.add(qualitativeEigenschaftService.getQlEById(Integer.parseInt(idqE)));
+        } catch (Exception e) {
+            qualitativeEigenschaften.add(quantitativeEigenschaftService.getQlEById(Integer.parseInt(idqE)));
+        }
     }
 
     public List<QualitativeEigenschaft> qlEGewahlt() {
@@ -81,6 +90,15 @@ public class PSPBean implements Serializable {
             return null;
         }
     }
+
+    public List<QuantitativeEigenschaft> qtE() {
+        try {
+            return quantitativeEigenschaftService.getAllQuantitativeEigenschaften();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public void deletePSP(String id){
         try {
             prozessSchrittParameterService.loscheParameter(prozessSchrittParameterService.getPSPByID(Integer.parseInt(id)));

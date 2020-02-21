@@ -28,9 +28,6 @@
                                              value="Erzeugen" />
                         </h:panelGrid>
                     </h:form>
-                    <h:outputText value="-----" /><br></br>
-                    <h:outputText value="#{dtPSPBean.id}" /><br></br>
-                    <h:outputText value="-----" />
                 </p:outputPanel>
 
 
@@ -51,9 +48,9 @@
                 </p:dataTable>
             </div>
             <br/>
-            <div id="VerfugbarQuantEingenschatenList">
+            <div id="VerfugbarQualEingenschatenList">
                 <h2>List Qualitavite Eingeschaft zu Waehlen</h2>
-                <p:dataTable id="VerfugbarQuantEingenschatenTabele" var="qlE" value="#{dtPSPBean.qlE()}"
+                <p:dataTable id="VerfugbarQualEingenschatenTabele" var="qlE" value="#{dtPSPBean.qlE()}"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                              paginator="true" rows="5" style="margin-bottom:20px">
                     <p:column headerText="Id">
@@ -66,6 +63,31 @@
                         <h:form>
                             <div align="center">
                                 <p:commandButton ajax="false" action="#{dtPSPBean.select(qlE.id)}" value="Select"
+                                                 icon="pi pi-pencil"/>
+                            </div>
+                        </h:form>
+                    </p:column>
+
+                </p:dataTable>
+            </div>
+            <div id="VerfugbarQuantEingenschatenList">
+                <h2>List Quantitavite Eingeschaft zu Waehlen</h2>
+                <p:dataTable id="VerfugbarQuantEingenschatenTabele" var="qtE" value="#{dtPSPBean.qtE()}"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                             paginator="true" rows="5" style="margin-bottom:20px">
+                    <p:column headerText="Id">
+                        <h:outputText value="#{qtE.id}"/>
+                    </p:column>
+                    <p:column headerText="Name">
+                        <h:outputText value="#{qtE.name}"/>
+                    </p:column>
+                    <p:column headerText="Name">
+                        <h:outputText value="#{qtE.wert}"/>
+                    </p:column>
+                    <p:column headerText="Select">
+                        <h:form>
+                            <div align="center">
+                                <p:commandButton ajax="false" action="#{dtPSPBean.select(qtE.id)}" value="Select"
                                                  icon="pi pi-pencil"/>
                             </div>
                         </h:form>
