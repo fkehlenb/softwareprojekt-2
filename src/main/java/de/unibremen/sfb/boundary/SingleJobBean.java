@@ -1,5 +1,6 @@
 package de.unibremen.sfb.boundary;
 
+import de.unibremen.sfb.exception.ProzessSchrittNotFoundException;
 import de.unibremen.sfb.model.Kommentar;
 import de.unibremen.sfb.model.Probe;
 import de.unibremen.sfb.model.ProzessSchritt;
@@ -56,4 +57,8 @@ public class SingleJobBean implements Serializable {
         }
         kommentarForAll = "";
     }
+
+    /*public String nextState() {
+        return "f";
+    }*/
 }

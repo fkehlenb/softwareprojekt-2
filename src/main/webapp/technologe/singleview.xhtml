@@ -27,15 +27,33 @@
                 </p:row>
                 <p:row>
                     <p>Zustand: #{singleJobBean.ps.zustandsAutomat.current}</p>
+                    <div align="center">
+                        <h:commandButton action="#{technologeBean.setJobZustand(singleJobBean.ps)}" value="Weiterschalten"/>
+                    </div>
                 </p:row>
+
                 <p:row>
                     <p>Prozessschritt Art: #{singleJobBean.ps.prozessSchrittVorlage.psArt}</p>
                 </p:row>
 
                     <p:outputLabel for="kommentar" value="Kommentar:"/>
-                    <p:inputMask id="kommentar" value="#{singleJobBean.kommentarForAll}" mask="********"/>
+                    <p:inputMask id="kommentar" value="#{singleJobBean.kommentarForAll}" mask=""/>
                     <p:commandButton value="Save" type="save"/>
                     <p:commandButton action="#{singleJobBean.addComment(technologeBean.singleJob, singleJobBean.kommentarForAll)}"/>
+
+                <p:row>
+                    <p> Bedingungen: </p>
+                </p:row>
+
+                <p:dataTable var="bed" value="#{singleJobBean.ps.prozessSchrittVorlage.bedingungen}">
+                    <p:column headerText="Id">
+                        <h:outputText value="#{bed.id}"/>
+                    </p:column>
+                    <p:column headerText="Name">
+                        <h:outputText value="#{bed.name}"/>
+                    </p:column>
+
+                </p:dataTable>
 
                 <p:row>
                     <p> Proben: </p>

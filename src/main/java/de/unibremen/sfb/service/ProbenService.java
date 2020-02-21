@@ -31,7 +31,7 @@ public class ProbenService implements Serializable {
 
     @PostConstruct
     void init() {
-        // FIME LOADING
+        // FIXME LOADING
         var s = new Standort(UUID.randomUUID().hashCode(), "Archiv");
         var s2 = new Standort(UUID.randomUUID().hashCode(), "Lager");
         var qEs = qualitativeEigenschaftService.getEigenschaften();

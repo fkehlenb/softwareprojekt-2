@@ -298,7 +298,6 @@ public class TechnologeBean implements Serializable {
                 e.printStackTrace();
             }
         }
-
     }
 
     /**
