@@ -30,7 +30,7 @@ public class ProzessSchrittService implements Serializable {
      * @param u the current user
      * @return the ps
      */
-    public List<ProzessSchritt> getProbenByUser(User u) {
+    public List<ProzessSchritt> getSchritteByUser(User u) {
         var ps = new ArrayList<ProzessSchritt>();
         for (ExperimentierStation e :
                 experimentierStationService.getESByUser(u)) {

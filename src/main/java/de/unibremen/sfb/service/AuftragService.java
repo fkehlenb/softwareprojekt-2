@@ -182,6 +182,7 @@ public class AuftragService implements Serializable {
         }
         return null;
     }
+
     /**
      * sets the status of a job
      * @param a the job
@@ -203,8 +204,6 @@ public class AuftragService implements Serializable {
         //a.setAssigned(t);
         auftragDAO.update(a);
     }
-
-}
 
     /**
      * Bestimme was der naechste Prozessschritt ist, der noch nicht ausgefuehrt wurde
@@ -261,6 +260,6 @@ public class AuftragService implements Serializable {
         return result;
         }
 
-    }
+}
 
 

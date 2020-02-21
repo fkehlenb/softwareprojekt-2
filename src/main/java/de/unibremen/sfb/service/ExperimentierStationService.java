@@ -126,7 +126,7 @@ public class ExperimentierStationService implements Serializable {
     /**
      * Change the Status of es to s
      * @param es die Station
-     * @pearam z der Neue Zustand
+     * @param z der Neue Zustand
      */
     public void changeStatus(ExperimentierStation es, ExperimentierStationZustand z) throws  ExperimentierStationNotFoundException{
         try {

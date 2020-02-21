@@ -56,7 +56,7 @@ public class TechnologeBean implements Serializable {
     private ExperimentierStationService esService;
 
     @Inject
-    private ProbeService probeService;
+    private ProbenService probeService;
 
     @Inject
     private UserService userService;
@@ -79,15 +79,22 @@ public class TechnologeBean implements Serializable {
      */
     @PostConstruct
     public void init() {
-        Subject currentUser = SecurityUtils.getSubject(); //TODO assign technologe correct
-
+        technologe = userService.getCurrentUser(); //TODO evtl updated das nicht richtig?
+        System.out.println(technologe.getUsername());
+        /*
+        also wenn technologe angemeldet, shit tut, und dann ein anderer angemeldeter benutzer
+        währenddessen als admin den technologen an anderen stationen zuteilt,
+        wird das dann richtig angezeigt? etc...
+         */
     }
 
     /**
      * returns the experimentation stations this user is assigned to
      * @return a list containing all stations this user is assigned to
      */
-    public List<ExperimentierStation> getStationen() { return null; }//return technologe.getStationen(); }
+    public List<ExperimentierStation> getStationen() {
+        return esService.getESByUser(technologe);
+    }
 
     /**
      * returns the assignments currently available for this user
@@ -100,6 +107,9 @@ public class TechnologeBean implements Serializable {
     }
 
     /**
+     *
+     * NOT SOMETHING THE TECHNOLOGE IS SUPPOSED TO BE ABLE TO DO
+     *
      * sets the state of a job
      * @param a the job
      * @param zustand the new state
@@ -118,17 +128,20 @@ public class TechnologeBean implements Serializable {
     }
 
     /**
-     * sets the state of a ProzessSchritt
+     * sets the state of a ProzessSchritt on further than it was
      * @param a the ProzessSchritt
-     * @param zustand the new state
      */
-    public void setJobZustand(ProzessSchritt a, String zustand) {
-        if(zustand == null || a == null) {
+    public void setJobZustand(ProzessSchritt a) {
+        if(a == null) {
             errorMessage("invalid input");
         }
         else {
+            int i = 0;
+            while(!a.getZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().get(i).equals(a.getZustandsAutomat().getCurrent())) {
+                i++;
+            }
             try {
-                psService.setZustand(a, zustand);
+                psService.setZustand(a, a.getZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().get(i+1));
             }
             catch(ProzessSchrittNotFoundException e) {
                 e.printStackTrace();
@@ -180,16 +193,6 @@ public class TechnologeBean implements Serializable {
     }
 
     /**
-     * sorts a list of jobs by their priority
-     * @param prio a set containing all jobs to be sorted
-     */
-    public List<ProzessSchritt> prioSort(Set<ProzessSchritt> prio) {
-        //probably dont need this, can just do sortby="priority"
-        //TODO how do I get the Auftrag a ProzessSchritt is part of?
-        return null;
-    }
-
-    /**
      * creates a new sample (happens in "urformende" process chains)
      * @param id the sample id of the new sample
      */
@@ -214,41 +217,6 @@ public class TechnologeBean implements Serializable {
             }*/
         }
         kommentarForAll = "";
-    }
-
-    /**
-     * edits a comment which belongs to a process step
-     * @param ps the process step the comments belongs to
-     * @param k the comment to be edited
-     * @param c the comment
-     */
-    public void editComment(ProzessSchritt ps, Kommentar k, String c) {
-        if(ps == null || c == null || k==null) {
-            errorMessage("invalid input");
-        }
-        else {
-            /*for(Probe p : ps.getTraeger().getProben()) {
-                editProbenComment(p, k, c);
-            }*/
-        }
-        kommentarForAll="";
-    }
-
-    /**
-     * deletes a comment belonging to a process step
-     * @param ps the process step
-     * @param k the comment
-     */
-    public void deleteComment(ProzessSchritt ps, Kommentar k) {
-        if(ps == null || k == null) {
-            errorMessage("invalid input");
-        }
-        else {
-           /* for(Probe p : ps.getTraeger().getProben()) {
-                deleteProbenComment(p, k);
-            }*/
-        }
-        kommentarForAll="";
     }
 
     /**
@@ -315,7 +283,7 @@ public class TechnologeBean implements Serializable {
         List<Probe> res = new LinkedList<>();
         for(ProzessSchritt ps : getJobs()) {
             if(!ps.isUploaded()) {
-                //res.addAll(ps.getTraeger().getProben());
+                res.addAll(ps.getZugewieseneProben());
             }
         }
         return res;
@@ -394,17 +362,47 @@ public class TechnologeBean implements Serializable {
      * @return a list containing all the jobs
      */
     public List<ProzessSchritt> getJobs() {
-        return null;
+        //return psService.getSchritteByUser(technologe);
+        //also nur ein technologe pro Station, und
+        //kann erst auftrag annehmen, wenn er an dieser station nichts zu tun
+        //nur ein auftrag pro station, und ein technologe pro station
+        List<ProzessSchritt> r = new LinkedList<>();
+        ProzessSchrittZustandsAutomatVorlage v = new ProzessSchrittZustandsAutomatVorlage();
+        ProzessSchrittZustandsAutomat psz = new ProzessSchrittZustandsAutomat("sad", v);
+        List<ProzessSchrittLog> l = new LinkedList<>();
+        List<ExperimentierStation> le = new LinkedList<>();
+        List<ProzessSchrittParameter> para = new LinkedList<>();
+        List<Bedingung> be = new LinkedList<>();
+        ProzessSchrittVorlage vl = new ProzessSchrittVorlage(0, Duration.ZERO, "sdhvoa", le, para, be);
+        ProzessSchritt p = new ProzessSchritt(0, psz, l, vl);
+        ProzessSchritt q = new ProzessSchritt(1, psz, l, vl);
+        ProzessSchritt w = new ProzessSchritt(3, psz, l, vl);
+        r.add(p);
+        r.add(q);
+        r.add(w);
+
+        return r;
     }
 
     public List<Probe> getSamples() {
-        if(viewUploaded) {
+        /*if(viewUploaded) {
             return viewToBeUploaded();
         }
+        return probeService.getProbenByUser(technologe);*/
+
         List<Probe> res = new LinkedList<>();
-        for(ProzessSchritt ps : getJobs()) {
-            //res.addAll(ps.getTraeger().getProben());
-        }
+        /*for(ProzessSchritt ps : getJobs()) {
+            res.addAll(ps.getTraeger().getProben());
+        }*/
+        Probe p = new Probe("asdf", ProbenZustand.VERLOREN, new Standort(0, "asdv"));
+        List<Kommentar> ks = new LinkedList<>();
+        ks.add(new Kommentar(LocalDateTime.now(), "saödvjkb"));
+        ks.add(new Kommentar(LocalDateTime.now(), "ädkänbvaejk"));
+        p.setKommentar(ks);
+        Probe q = new Probe("dsgnfg", ProbenZustand.KAPUTT, new Standort(0, "asdv"));
+        q.setKommentar(ks);
+        res.add(p);
+        res.add(q);
         return res;
     }
 

@@ -29,9 +29,6 @@
                     <p>Zustand: #{technologeBean.singleJob.zustandsAutomat.current}</p>
                 </p:row>
                 <p:row>
-                    <p>Station: #{technologeBean.singleJob.current.name}</p>
-                </p:row>
-                <p:row>
                     <p>Prozessschritt Art: #{technologeBean.singleJob.prozessSchrittVorlage.psArt}</p>
                 </p:row>
                 <p:row>
@@ -53,10 +50,10 @@
                     <p:commandButton action="#{technologeBean.addComment(technologeBean.singleJob, technologeBean.kommentarForAll)}"/>
 
                 <p:row>
-                    <p> Proben in Träger #{technologeBean.singleJob.traeger.id}: </p>
+                    <p> Proben: </p>
                 </p:row>
 
-                <p:dataTable var="probe" value="#{technologeBean.singleJob.traeger.proben}">
+                <p:dataTable var="probe" value="#{technologeBean.singleJob.zugewieseneProben}">
 
                     <p:column headerText="Id">
                         <h:outputText value="#{probe.probenID}"/>
@@ -65,18 +62,12 @@
                         <h:outputText value="#{probe.zustand}"/>
                     </p:column>
                     <p:column headerText="Standort">
-                        <h:outputText value="#{probe.standort}"/>
+                        <h:outputText value="#{probe.standort.ort}"/>
                     </p:column>
                     <p:column headerText="Kommentar">
                         <h:outputText value="#{technologeBean.KommentarToString(probe)}"/>
                     </p:column>
-                    <p:column headerText="Auswählen">
-                        <h:form>
-                            <div align="center">
-                                <h:commandButton value="Choose" action="#{technologeBean.singleprobe(probe)}" />
-                            </div>
-                        </h:form>
-                    </p:column>
+
                 </p:dataTable>
             </h:panelGrid>
         </h:form>
