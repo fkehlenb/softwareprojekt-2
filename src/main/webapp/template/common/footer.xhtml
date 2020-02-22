@@ -10,9 +10,9 @@
     <!-- Footer Links -->
         <h:form>
             <h:panelGrid columns="2">
-                <h:selectOneMenu value="#{language.localeCode}" onchange="submit()"
-                                 valueChangeListener="#{language.countryLocaleCodeChanged}">
-                    <f:selectItems value="#{language.countriesInMap}"/>
+                <h:selectOneMenu value="#{languageBean.localeCode}" onchange="submit()"
+                                 valueChangeListener="#{languageBean.countryLocaleCodeChanged}">
+                    <f:selectItems value="#{languageBean.countriesInMap}"/>
                 </h:selectOneMenu>
             </h:panelGrid>
         </h:form>

@@ -5,13 +5,14 @@ import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
+import javax.inject.Named;
 
-@ManagedBean(name="language")
 @SessionScoped
+@Named
 public class LanguageBean implements Serializable{
 
     private static final long serialVersionUID = 1L;

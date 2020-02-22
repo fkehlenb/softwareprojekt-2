@@ -12,7 +12,7 @@
         </locale-config>
         <resource-bundle>
             <base-name>de.unibremen.sfb</base-name>
-            <var>msgs</var>
+            <var>msg</var>
         </resource-bundle>
     </application>
 </faces-config>
