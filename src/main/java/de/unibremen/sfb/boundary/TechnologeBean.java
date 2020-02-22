@@ -1,17 +1,18 @@
 package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.controller.ProbeController;
-import de.unibremen.sfb.exception.AuftragNotFoundException;
-import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
-import de.unibremen.sfb.exception.ProbeNotFoundException;
-import de.unibremen.sfb.exception.ProzessSchrittNotFoundException;
+import de.unibremen.sfb.exception.*;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.primefaces.event.CellEditEvent;
+import org.primefaces.model.FilterMeta;
+import org.primefaces.model.LazyDataModel;
+import org.primefaces.model.SortMeta;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -34,6 +35,7 @@ import java.util.stream.Collectors;
 @SessionScoped
 @Getter
 @Setter
+@Slf4j
 public class TechnologeBean implements Serializable {
 
     /**
@@ -47,6 +49,11 @@ public class TechnologeBean implements Serializable {
     private Boolean viewUploaded;
 
     private ProzessSchritt singleJob;
+
+    private Kommentar singleKommentar;
+
+    private LazyDataModel<Probe> lazyProben;
+
 
     @Inject
     private ExperimentierStationService esService;
@@ -66,8 +73,6 @@ public class TechnologeBean implements Serializable {
     @Inject
     private ProzessSchrittService psService;
 
-    private Kommentar singleKommentar;
-
 
 
     /**
@@ -76,12 +81,10 @@ public class TechnologeBean implements Serializable {
     @PostConstruct
     public void init() {
         technologe = userService.getCurrentUser(); //TODO evtl updated das nicht richtig?
-        System.out.println(technologe.getUsername());
-        /*
-        also wenn technologe angemeldet, shit tut, und dann ein anderer angemeldeter benutzer
-        währenddessen als admin den technologen an anderen stationen zuteilt,
-        wird das dann richtig angezeigt? etc...
-         */
+
+        lazyProben = new LazyProbenDataModel();
+
+        viewUploaded = false;
     }
 
     /**
@@ -103,27 +106,6 @@ public class TechnologeBean implements Serializable {
     }
 
     /**
-     *
-     * NOT SOMETHING THE TECHNOLOGE IS SUPPOSED TO BE ABLE TO DO
-     *
-     * sets the state of a job
-     * @param a the job
-     * @param zustand the new state
-     */
-    public void setAuftragsZustand(Auftrag a, Enum<ProzessKettenZustandsAutomat> zustand) {
-        if(a == null || zustand == null) {
-            errorMessage("invalid input");
-        }
-        else {
-            try {
-                auftragService.setAuftragsZustand(a, zustand);
-            } catch (AuftragNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    /**
      * sets the state of a ProzessSchritt on further than it was
      * @param a the ProzessSchritt
      */
@@ -138,9 +120,11 @@ public class TechnologeBean implements Serializable {
             }
             try {
                 psService.setZustand(a, a.getZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().get(i+1));
+                log.info("set state of ProzessSchritt " + a.getPsID() + " to " + a.getZustandsAutomat().getCurrent());
             }
-            catch(ProzessSchrittNotFoundException e) {
+            catch(ProzessSchrittNotFoundException|ProzessSchrittLogNotFoundException|DuplicateProzessSchrittLogException e) {
                 e.printStackTrace();
+                log.info("an error occurred trying to update the state of " + a.getPsID() + ": " + e.getMessage());
             }
         }
     }
@@ -156,8 +140,10 @@ public class TechnologeBean implements Serializable {
         else {
             try {
                 esService.setZustand(es, ExperimentierStationZustand.KAPUTT);
+                log.info("ExperimentierStation " + es.getEsID() + "was reported as broken.");
             } catch (ExperimentierStationNotFoundException e) {
                 e.printStackTrace();
+                log.info("an error occurred trying to report ExperimentierStation " + es.getEsID() + " as broken: " + e.getMessage());
             }
         }
     }
@@ -173,8 +159,10 @@ public class TechnologeBean implements Serializable {
         else {
             try {
                 auftragService.assignToAuftrag(technologe, a);
+                log.info("user " + technologe.getId() + " was assigned to Auftrag " + a.getPkID());
             } catch (AuftragNotFoundException e) {
                 e.printStackTrace();
+                log.info("an error occurred trying to assign user " + technologe.getId() + "to Auftrag " + a.getPkID() + ": " + e.getMessage());
             }
         }
     }
@@ -209,8 +197,10 @@ public class TechnologeBean implements Serializable {
         else {
             try {
                 probeService.addProbenComment(p, c);
+                log.info("the comment " + c + " was added to the sample " + p.getProbenID());
             } catch (ProbeNotFoundException e) {
                 e.printStackTrace();
+                log.info("an error occurred trying to add comment " + c + " to sample " + p.getProbenID() + " : " +e.getMessage());
             }
         }
     }
@@ -227,9 +217,11 @@ public class TechnologeBean implements Serializable {
         else {
             try {
                 probeService.editProbenComment(p, k, c);
+                log.info("the comment " + k.getId() + " of probe " + p.getProbenID() + " was edited to " + c);
             }
             catch(ProbeNotFoundException e) {
                 e.printStackTrace();
+                log.info("an error occurred trying to update comment " + k.getId() + " of sample " + p.getProbenID() + " : " + e.getMessage());
             }
         }
     }
@@ -246,9 +238,11 @@ public class TechnologeBean implements Serializable {
         else {
             try {
                 probeService.deleteProbenComment(p, k);
+                log.info("comment " + k.getId() + " of probe " + p.getProbenID() + " was deleted");
             }
             catch(ProbeNotFoundException e) {
                 e.printStackTrace();
+                log.info("an error occurred trying to delete comment " + k.getId() + " of sample " + p.getProbenID() + " : " +e.getMessage());
             }
         }
     }
@@ -281,6 +275,7 @@ public class TechnologeBean implements Serializable {
      */
     public void reportLostProbe(Probe p) {
         probeController.setZustandForProbe(p, ProbenZustand.VERLOREN);
+        log.info("sample " + p.getProbenID() + " was reported as missing");
     }
 
     /**
@@ -296,6 +291,7 @@ public class TechnologeBean implements Serializable {
                 reportLostProbe(probeService.getProbeById(id));
             } catch (ProbeNotFoundException e) {
                 e.printStackTrace();
+                log.info("an error occurred trying to report a sample as lost: sample " + id + "could not be found in the database");
             }
         }
     }
@@ -306,6 +302,7 @@ public class TechnologeBean implements Serializable {
      */
     public void errorMessage(String e) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e, null));
+        log.info("an error occurred" + e);
     }
 
     /**
@@ -349,6 +346,7 @@ public class TechnologeBean implements Serializable {
     }
 
     public List<Probe> getSamples() {
+        System.out.println(viewUploaded);
         if(viewUploaded) {
             return viewToBeUploaded();
         }

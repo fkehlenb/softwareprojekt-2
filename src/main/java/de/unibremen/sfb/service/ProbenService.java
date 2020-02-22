@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 public class ProbenService implements Serializable {
     private List<Probe> proben;
 
+
     @Inject
     ProbeDAO probeDAO;
 
@@ -190,6 +191,25 @@ public class ProbenService implements Serializable {
         p.setQualitativeEigenschaften(qe);
         p.setCurrentTraeger(t);
         probeDAO.persist(p);
+    }
+
+    /**
+     * counts the samples in the database
+     * @return the amount of samples in the database
+     */
+    public int getProbenTotalCount() {
+        return probeDAO.getProbenCount();
+    }
+
+
+    /**
+     * selects a part of the samples in the database
+     * @param first the first index
+     * @param pagesize the amount of samples
+     * @return a list containing pagesize amount of samples from the database, starting at first
+     */
+    public List<Probe> getProbenListe(int first, int pagesize) {
+        return probeDAO.getProben(first, pagesize);
     }
 
 }

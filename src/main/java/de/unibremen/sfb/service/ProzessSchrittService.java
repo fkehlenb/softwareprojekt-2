@@ -1,16 +1,16 @@
 package de.unibremen.sfb.service;
 
+import de.unibremen.sfb.exception.DuplicateProzessSchrittLogException;
+import de.unibremen.sfb.exception.ProzessSchrittLogNotFoundException;
 import de.unibremen.sfb.exception.ProzessSchrittNotFoundException;
 import de.unibremen.sfb.exception.ProzessSchrittZustandsAutomatNotFoundException;
-import de.unibremen.sfb.model.Auftrag;
-import de.unibremen.sfb.model.ExperimentierStation;
-import de.unibremen.sfb.model.ProzessSchritt;
-import de.unibremen.sfb.model.User;
+import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.ProzessSchrittDAO;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,13 +21,16 @@ import java.util.List;
 public class ProzessSchrittService implements Serializable {
 
     @Inject
-    ProzessSchrittDAO prozessSchrittDAO;
+    private ProzessSchrittDAO prozessSchrittDAO;
 
     @Inject
-    AuftragService auftragService;
+    private AuftragService auftragService;
 
     @Inject
-    ExperimentierStationService experimentierStationService;
+    private ExperimentierStationService experimentierStationService;
+
+    @Inject
+    private ProzessSchrittLogService pslService;
 
     /**
      * Get all PS which belong to user
@@ -50,12 +53,16 @@ public class ProzessSchrittService implements Serializable {
      * @param zustand the new state
      * @throws ProzessSchrittNotFoundException the ProzessSchritt is not in the database
      */
-    public void setZustand(ProzessSchritt ps, String zustand) throws ProzessSchrittNotFoundException {
+    public void setZustand(ProzessSchritt ps, String zustand)
+            throws ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException, DuplicateProzessSchrittLogException
+    {
         if(! ps.getZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().contains(zustand)) {
             throw new IllegalArgumentException("state not possible for this ProzessSchritt");
         }
         else {
             ps.getZustandsAutomat().setCurrent(zustand);
+            pslService.closeLog(ps.getProzessSchrittLog().get(ps.getProzessSchrittLog().size()-1));
+            ps.getProzessSchrittLog().add(pslService.newLog(zustand));
             prozessSchrittDAO.update(ps);
         }
     }

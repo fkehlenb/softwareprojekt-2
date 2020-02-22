@@ -26,7 +26,10 @@
                             </p:row>
 
 
-                            <p:dataTable var="probe" value="#{technologeBean.getSamples()}">
+                            <p:dataTable var="probe" value="#{technologeBean.getSamples()}" paginator="true" rows="10"
+                                    paginatorTemplate=
+                                    "{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                    rowsPerPageTemplate="5,10,15" lazy="true">
                                 <p:column headerText="Id">
                                     <h:outputText value="#{probe.probenID}"/>
                                 </p:column>
