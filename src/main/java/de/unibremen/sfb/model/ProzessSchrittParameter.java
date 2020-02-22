@@ -13,6 +13,10 @@ import java.util.List;
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 public class ProzessSchrittParameter {
 
+    /** On delete set to invalid */
+    @NonNull
+    private boolean isValidData = true;
+
     @Id
     @NonNull
     private int id;
@@ -25,4 +29,10 @@ public class ProzessSchrittParameter {
     @NonNull
     @ManyToMany(fetch = FetchType.EAGER)
     private List<QualitativeEigenschaft> qualitativeEigenschaften;
+
+    @Override
+    public String toString() {
+        return String.valueOf(id);
+    }
+
 }

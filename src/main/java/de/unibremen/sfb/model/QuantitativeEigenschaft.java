@@ -12,6 +12,10 @@ import java.util.UUID;
 @NoArgsConstructor
 public class QuantitativeEigenschaft extends QualitativeEigenschaft {
 
+    /** On delete set to invalid */
+    @NonNull
+    private boolean isValidData = true;
+
     /** The numeric quantitative value  */
     @NonNull
     private Number wert;

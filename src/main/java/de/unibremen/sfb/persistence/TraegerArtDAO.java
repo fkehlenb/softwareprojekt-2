@@ -44,7 +44,8 @@ public class TraegerArtDAO extends ObjectDAO<TraegerArt> {
             if (!em.contains(ta)){
                 throw new TraegerArtNotFoundException();
             }
-            em.remove(ta);
+            ta.setValidData(false);
+            update(ta);
         }
     }
 
@@ -58,7 +59,7 @@ public class TraegerArtDAO extends ObjectDAO<TraegerArt> {
     public List<TraegerArt> getAll(){
         List<TraegerArt> arten = new ArrayList<>();
         try {
-            arten = em.createQuery("SELECT art FROM TraegerArt art",get()).getResultList();
+            arten = em.createQuery("SELECT art FROM TraegerArt art WHERE art.isValidData=true",get()).getResultList();
         }
         catch (Exception e){
             e.printStackTrace();
@@ -71,7 +72,7 @@ public class TraegerArtDAO extends ObjectDAO<TraegerArt> {
      * @throws TraegerArtNotFoundException if the container type couldn't be found in the database */
     public TraegerArt getByName(String taName) throws TraegerArtNotFoundException{
         try {
-            return (TraegerArt) em.createQuery("SELECT ta FROM TraegerArt ta WHERE ta.art = :taName").getSingleResult();
+            return (TraegerArt) em.createQuery("SELECT ta FROM TraegerArt ta WHERE ta.art = :taName AND ta.isValidData=true").getSingleResult();
         }
         catch (Exception e){
             e.printStackTrace();
@@ -84,7 +85,11 @@ public class TraegerArtDAO extends ObjectDAO<TraegerArt> {
      * @throws TraegerArtNotFoundException if the container type couldn't be found in the database */
     public TraegerArt getById(int id) throws TraegerArtNotFoundException{
         try {
-            return em.find(get(),id);
+            TraegerArt ta =  em.find(get(),id);
+            if (!ta.isValidData()){
+                throw new Exception();
+            }
+            return ta;
         }
         catch (Exception e){
             throw new TraegerArtNotFoundException();

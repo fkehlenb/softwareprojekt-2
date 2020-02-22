@@ -41,7 +41,8 @@ public class ProzessSchrittDAO extends ObjectDAO<ProzessSchritt> {
             if (!em.contains(ps)){
                 throw new ProzessSchrittNotFoundException();
             }
-            em.remove(ps);
+            ps.setValidData(false);
+            update(ps);
         }
     }
 
@@ -58,7 +59,7 @@ public class ProzessSchrittDAO extends ObjectDAO<ProzessSchritt> {
     public ProzessSchritt getObjById(int id) throws ProzessSchrittNotFoundException{
         try{
             ProzessSchritt ps = em.find(get(),id);
-            if (ps==null){
+            if (ps==null || !ps.isValidData()){
                 throw new ProzessSchrittNotFoundException();
             }
             return ps;
@@ -68,18 +69,4 @@ public class ProzessSchrittDAO extends ObjectDAO<ProzessSchritt> {
             throw new ProzessSchrittNotFoundException();
         }
     }
-
-    /** Get the station where a given process chain step is being carried out
-     * @return the experimenting station where a process chain step is being carried out */
-//    public ExperimentierStation getES(){
-//        return null;
-//    }
-
-    //========== NUTZLOSE FUNKTIONEN ==========
-
-    /** Get the job which a given process chain step belongs to
-     * @return the job which a given process chain step belongs to */
-//    public Auftrag getAuftrag(){
-//        return null;
-//    }
 }

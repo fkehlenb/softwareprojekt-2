@@ -1,0 +1,105 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+
+    <ui:composition template="/template/common/layout.xhtml">
+        <ui:define name="content">
+            <p:panel id="psv" header="Daten Eingeben"
+                     style="margin-bottom: 20px">
+                <h:form>
+
+                    <h:panelGrid columns="2" cellpadding="10">
+
+                        <p:outputLabel for="name" value="Name: "/>
+                        <p:inputText id="name" value="#{bedingungBean.name}"
+                                     placeholder="Name" required="true"/>
+
+                        <p:outputLabel for="anzahl" value="Anzahl: "/>
+                        <p:inputText id="anzahl" value="#{bedingungBean.anzahl}"
+                                     placeholder="Anzahl" required="true"/>
+
+                        <p:outputLabel for="bedingungAuswahlTable" value="Bedingung: "/>
+                        <p:selectCheckboxMenu id="bedingungAuswahlTable"
+                                              value="#{bedingungBean.ausProzessSchrittParameters}"
+                                              converter="omnifaces.SelectItemsConverter" effect="fade"
+                                              var="psp" style="width: 172px" filter="true"
+                                              filterMatchMode="contains" showCheckbox="true"
+                                              label="Bedingung" requiredMessage="Bitte Bedingung Zuweisen!"
+                                              required="true">
+                            <f:selectItems value="#{bedingungBean.verProzessSchrittParameters}"
+                                           var="psp" itemLabel="#{psp.name}"
+                                           itemValue="#{psp}"/>
+                        </p:selectCheckboxMenu>
+
+
+                    </h:panelGrid>
+                    <p:commandButton value="Reset" type="reset"/>
+                    <p:commandButton value="Erstellen"
+                                     action="#{bedingungBean.createB}" icon="pi pi-check"
+                                     update="@form"/>
+
+                </h:form>
+            </p:panel>
+
+
+            <h:form id="form">
+                <p:growl id="msgs" showDetail="true"/>
+
+                <p:dataTable id="bedingungen" var="bedingung" value="#{bedingungBean.bedingungen}" editable="true"
+                             style="margin-bottom:20px">
+                    <f:facet name="header">
+                        Row Editing
+                    </f:facet>
+
+                    <p:ajax event="rowEdit" listener="#{bedingungBean.onRowEdit}" update=":form:msgs"/>
+                    <p:ajax event="rowEditCancel" listener="#{bedingungBean.onRowCancel}" update=":form:msgs"/>
+
+                    <p:column headerText="Id">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{bedingung.id}"/></f:facet>
+                            <f:facet name="input"><p:inputText id="modelInput" value="#{bedingung.id}"
+                                                               style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Anzahl Proben">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{bedingung.gewuenschteAnzahl}"/></f:facet>
+                            <f:facet name="input"><p:inputText value="#{bedingung.gewuenschteAnzahl}" style="width:100%"
+                                                               label="Anzahl"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Bedingungen">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{bedingung.name}"/></f:facet>
+                            <f:facet name="input">
+                                <p:selectCheckboxMenu id="bedingungTable"
+                                                      value="#{bedingungBean.ausProzessSchrittParameters}"
+                                                      converter="omnifaces.SelectItemsConverter" effect="fade"
+                                                      var="psp" style="width: 172px" filter="true"
+                                                      filterMatchMode="contains" showCheckbox="true"
+                                                      label="Bedingung" requiredMessage="Bitte Bedingung Zuweisen!"
+                                                      required="true">
+                                    <f:selectItems value="#{bedingungBean.verProzessSchrittParameters}"
+                                                   var="psp" itemLabel="#{psp.name}"
+                                                   itemValue="#{psp}"/>
+                                </p:selectCheckboxMenu>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column style="width:35px">
+                        <p:rowEditor/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

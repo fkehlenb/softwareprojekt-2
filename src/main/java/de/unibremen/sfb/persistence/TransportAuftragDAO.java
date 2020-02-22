@@ -49,7 +49,8 @@ public class TransportAuftragDAO extends ObjectDAO<TransportAuftrag> {
             if (!em.contains(a)){
                 throw new TransportAuftragNotFoundException();
             }
-            em.remove(a);
+            a.setValidData(false);
+            update(a);
         }
     }
 

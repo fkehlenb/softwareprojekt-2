@@ -15,6 +15,10 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class ProzessSchrittLog {
 
+    /** On delete set to invalid */
+    @NonNull
+    private boolean isValidData = true;
+
     @Id @GeneratedValue
     private int id;
 

@@ -10,10 +10,14 @@ import java.util.List;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @NamedQueries({
-        @NamedQuery(name = "PKV.getAll", query = "SELECT p FROM ProzessKettenVorlage p")
+        @NamedQuery(name = "PKV.getAll", query = "SELECT p FROM ProzessKettenVorlage p WHERE p.isValidData = true")
 })
 @RequiredArgsConstructor
 public class ProzessKettenVorlage {
+
+    /** On delete set to invalid */
+    @NonNull
+    private boolean isValidData = true;
 
     /** The process chain template id */
     @Id

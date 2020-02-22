@@ -41,7 +41,8 @@ public class AuftragsLogDAO extends ObjectDAO<AuftragsLog> {
             if (!em.contains(a)){
                 throw new AuftragsLogNotFoundException();
             }
-            em.remove(a);
+            a.setValidData(false);
+            update(a);
         }
     }
 

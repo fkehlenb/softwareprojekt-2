@@ -12,6 +12,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class Traeger {
 
+    /** On delete set to invalid */
+    @NonNull
+    private boolean isValidData = true;
+
     /** The container's id */
     @NonNull
     @Id

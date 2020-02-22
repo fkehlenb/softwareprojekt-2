@@ -13,6 +13,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProzessSchrittVorlage {
 
+    /** On delete set to invalid */
+    @NonNull
+    private boolean isValidData = true;
+
     /** Process step template id */
     @Id
     @Generated
@@ -39,11 +43,6 @@ public class ProzessSchrittVorlage {
     @OneToMany
     @NonNull
     private  List<ExperimentierStation> stationen;
-
-    /** The process step parameters */
-    @ManyToMany
-    @NonNull
-    private List<ProzessSchrittParameter> prozessSchrittParameter;
 
     /** The process step predicates */
     @ManyToMany

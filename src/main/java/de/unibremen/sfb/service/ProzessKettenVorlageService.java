@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -21,7 +22,7 @@ import java.util.Set;
 @Singleton
 @Slf4j
 @Getter
-public class ProzessKettenVorlageService {
+public class ProzessKettenVorlageService implements Serializable {
     private List<ProzessKettenVorlage> vorlagen;
 
     @Inject

@@ -7,16 +7,24 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
-/** Data class for the qualitative descriptors */
+/**
+ * Data class for the qualitative descriptors
+ */
 @Data
 @Entity
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 @NamedQueries({
-        @NamedQuery(name = "QualitativeEigenschaft.getAll", query = "SELECT q FROM QualitativeEigenschaft q")
+        @NamedQuery(name = "QualitativeEigenschaft.getAll", query = "SELECT q FROM QualitativeEigenschaft q WHERE q.isValidData = true")
 })
 
 public class QualitativeEigenschaft {
+
+    /**
+     * On delete set to invalid
+     */
+    @NonNull
+    private boolean isValidData = true;
 
     /**
      * ID descriptor

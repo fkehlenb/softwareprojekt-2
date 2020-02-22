@@ -6,6 +6,7 @@ import de.unibremen.sfb.model.Probe;
 import de.unibremen.sfb.model.Standort;
 import de.unibremen.sfb.model.Traeger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,7 +57,8 @@ public class ProbeDAO extends ObjectDAO<Probe> {
             if (!em.contains(p)) {
                 throw new ProbeNotFoundException();
             }
-            em.remove(p);
+            p.setValidData(false);
+            update(p);
         }
     }
 
@@ -77,7 +79,7 @@ public class ProbeDAO extends ObjectDAO<Probe> {
     public Probe getObjById(int id) throws ProbeNotFoundException {
         try {
             Probe p = em.find(get(), id);
-            if (p == null) {
+            if (p == null || !p.isValidData()) {
                 throw new ProbeNotFoundException();
             }
             return p;
@@ -96,14 +98,9 @@ public class ProbeDAO extends ObjectDAO<Probe> {
      */
     public List<Probe> getProbenByLocation(Standort s) throws ProbeNotFoundException {
         try {
-            List<Probe> proben = em.createNamedQuery("Probe.getByLocation", get()).setParameter("standort", s).getResultList();
-            if (proben.isEmpty()) {
-                throw new ProbeNotFoundException();
-            }
-            return proben;
+            return em.createNamedQuery("Probe.getByLocation", get()).setParameter("standort", s).getResultList();
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new ProbeNotFoundException();
+            return new ArrayList<>();
         }
     }
 
@@ -115,10 +112,11 @@ public class ProbeDAO extends ObjectDAO<Probe> {
      * @throws ProbeNotFoundException if the sample couldn't be found in the database
      */
     public List<Probe> getProbenByTraeger(Traeger t) throws ProbeNotFoundException {
-        List<Probe> proben = em.createNamedQuery("Probe.getByTraeger", get()).setParameter("traeger", t).getResultList();
-        if (proben.isEmpty()) {
-            throw new ProbeNotFoundException();
+        try {
+            return em.createNamedQuery("Probe.getByTraeger", get()).setParameter("traeger", t).getResultList();
         }
-        return proben;
+        catch (Exception e){
+            return new ArrayList<>();
+        }
     }
 }

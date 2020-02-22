@@ -16,6 +16,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProzessSchritt {
 
+    /** On delete set to invalid */
+    @NonNull
+    private boolean isValidData = true;
+
     /** The process step id */
     @NonNull
     @Id

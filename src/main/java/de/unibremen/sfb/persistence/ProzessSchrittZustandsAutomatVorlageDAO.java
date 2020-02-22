@@ -41,7 +41,8 @@ public class ProzessSchrittZustandsAutomatVorlageDAO extends ObjectDAO<ProzessSc
             if (!em.contains(pszv)){
                 throw new ProzessSchrittVorlageNotFoundException();
             }
-            em.remove(pszv);
+            pszv.setValidData(false);
+            update(pszv);
         }
     }
 

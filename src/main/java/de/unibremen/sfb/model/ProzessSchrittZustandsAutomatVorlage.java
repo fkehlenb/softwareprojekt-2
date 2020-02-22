@@ -7,10 +7,15 @@ import java.util.List;
 
 /** Data class for the process step automaton templates */
 @Getter
+@Setter
 @RequiredArgsConstructor
 @Entity
-@NoArgsConstructor()
+@NoArgsConstructor
 public class ProzessSchrittZustandsAutomatVorlage {
+
+    /** On delete set to invalid */
+    @NonNull
+    private boolean isValidData = true;
 
     @Id @GeneratedValue
     private int id;

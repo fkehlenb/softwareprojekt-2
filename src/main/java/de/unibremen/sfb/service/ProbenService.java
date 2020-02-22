@@ -30,7 +30,7 @@ public class ProbenService {
         var s = new Standort(UUID.randomUUID().hashCode(), "Archiv");
         var s2 = new Standort(UUID.randomUUID().hashCode(), "Lager");
         var qEs = qualitativeEigenschaftService.getEigenschaften();
-        var bs = bedingungService.getEigenschaften();
+        var bs = bedingungService.getBs();
         var p1 = new Probe(UUID.randomUUID().toString(), ProbenZustand.VORHANDEN, s);
         p1.setQualitativeEigenschaften(qEs);
         var p2 = new Probe(UUID.randomUUID().toString(), ProbenZustand.VORHANDEN, s);
@@ -76,6 +76,26 @@ public class ProbenService {
         return proben.stream()
                 .filter(e -> e.getBedingungen().contains(b))
                 .collect(Collectors.toList());
+    }
+
+    @Inject
+    ExperimentierStationService experimentierStationService;
+
+    /**
+     * Hole alle Proben die akutell in experimentierStationene sind,
+     * welche dem Benuter zugewiesen sind
+     * @param u der Benutzer
+     * @return Alle akutell fuer den Benuzter relevanten Proben
+     */
+    public List<Probe> getProbenByUser(User u) {
+        var proben = new ArrayList<Probe>();
+        for (ExperimentierStation e :
+        experimentierStationService.getESByUser(u)) {
+            for (Probe p: e.getCurrentPS().getZugewieseneProben()) {
+                proben.add(p);
+            }
+        }
+        return proben;
     }
 
 

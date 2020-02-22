@@ -13,6 +13,10 @@ import java.time.LocalDateTime;
 /** Achive data class */
 public class Archiv {
 
+    /** On delete set to invalid */
+    @NonNull
+    private boolean isValidData = true;
+
     @Id @GeneratedValue
     private int id;
 

@@ -14,13 +14,19 @@ import java.util.List;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "User.findById", query = "SELECT u from User u WHERE u.id = :id"),
-        @NamedQuery(name = "User.findByUsername", query = "SELECT u from User u WHERE u.username = :username"),
-        @NamedQuery(name = "User.findByEmail", query = "SELECT u from User u WHERE u.email = :email"),
-        @NamedQuery(name = "User.getAll", query = "SELECT u FROM User u")
+        @NamedQuery(name = "User.findByUsername", query = "SELECT u from User u WHERE u.username = :username AND u.isValidData = true"),
+        @NamedQuery(name = "User.findByEmail", query = "SELECT u from User u WHERE u.email = :email AND u.isValidData = true"),
+        @NamedQuery(name = "User.getAll", query = "SELECT u FROM User u WHERE u.isValidData = true")
 })
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class User {
+
+    /**
+     * On delete set to invalid
+     */
+    @NonNull
+    private boolean isValidData = true;
 
     /**
      * User's id
