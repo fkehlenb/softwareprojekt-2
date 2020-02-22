@@ -27,7 +27,7 @@ public class Bedingung {
     private String name;
 
     /** Process step parameters that the material must have */
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @NonNull
     private List<ProzessSchrittParameter> prozessSchrittParameter;
 
