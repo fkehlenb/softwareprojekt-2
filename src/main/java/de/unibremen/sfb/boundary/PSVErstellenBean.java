@@ -93,7 +93,8 @@ public class PSVErstellenBean implements Serializable {
      */
     public void init() {
         verfuegbareBedingunen = bedingungService.getAll();
-        verfuegbarePSV = prozessSchrittVorlageService.getProzessSchrittVorlagen();
+        verfuegbarePSV = prozessSchrittVorlageService.erstelleStandartVorlagen();
+     //   verfuegbarePSV = prozessSchrittVorlageService.getProzessSchrittVorlagen(); // Auskommentieren um die Peristenz zu Testen
         verfuegbareStationen = experimentierStationService.getESListe();
         zustandsService.getPsZustaende();
     }
@@ -108,7 +109,7 @@ public class PSVErstellenBean implements Serializable {
 
         ProzessSchrittVorlage psv = new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), Duration.ofHours(Long.parseLong(dauer)), psArt,
                 ausgewaehlteStationen, ausgewaehlteBedingungen);
-        prozessSchrittVorlageService.addVorlage(psv);
+        prozessSchrittVorlageService.persist(psv);
 
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Erfolg", "Prozessschrittvorlage:  " + psv.getPsVID() +
