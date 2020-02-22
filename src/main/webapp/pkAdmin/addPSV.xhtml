@@ -20,7 +20,7 @@
                                     <p:outputLabel for="bedingungen" value="Bedingungen: "/>
                                     <p:selectManyMenu id="bedingungen"
                                                       value="#{psvErstellenBean.ausgewaehlteBedingungen}"
-                                                      converter="prozessSchrittBedingungenConverter" effect="fade"
+                                                      converter="omnifaces.SelectItemsConverter" effect="fade"
                                                       var="bedingungen" style="width: 172px" filter="true"
                                                       filterMatchMode="startsWith">
                                         <f:selectItems value="#{psvErstellenBean.verfuegbareBedingunen}"
