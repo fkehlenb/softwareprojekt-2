@@ -17,20 +17,20 @@
                                 <p:growl id="msgs" showDetail="true" sticky="true"/>
 
                                 <h:panelGrid columns="2" cellpadding="10">
-                                    <p:outputLabel for="parameter" value="Parameter: "/>
-                                    <p:selectManyMenu id="parameter"
-                                                      value="#{psvErstellenBean.ausgewaehlteProzessSchrittParameter}"
-                                                      converter="prozessSchrittParameterConverter" effect="fade"
-                                                      var="parameter" style="width: 172px" filter="true"
+                                    <p:outputLabel for="bedingungen" value="Bedingungen: "/>
+                                    <p:selectManyMenu id="bedingungen"
+                                                      value="#{psvErstellenBean.ausgewaehlteBedingungen}"
+                                                      converter="prozessSchrittBedingungenConverter" effect="fade"
+                                                      var="bedingungen" style="width: 172px" filter="true"
                                                       filterMatchMode="startsWith">
-                                        <f:selectItems value="#{psvErstellenBean.verfuegbareParameter}"
-                                                       var="parameter" itemLabel="#{parameter.name}"
-                                                       itemValue="#{parameter}"/>
+                                        <f:selectItems value="#{psvErstellenBean.verfuegbareBedingunen}"
+                                                       var="bedingungen" itemLabel="#{bedingungen.name}"
+                                                       itemValue="#{bedingungen}"/>
                                         <p:column>
-                                            <h:outputText value="#{parameter.name}"/>
+                                            <h:outputText value="#{bedingungen.name}"/>
                                         </p:column>
                                         <p:column>
-                                            <h:outputText value="#{parameter.id}"/>
+                                            <h:outputText value="#{bedingungen.id}"/>
                                         </p:column>
                                     </p:selectManyMenu>
 
@@ -49,7 +49,7 @@
                                     <p:outputLabel for="experimentierStation" value="ExperimentierStation: "/>
                                     <p:selectManyMenu id="experimentierStation"
                                                      value="#{psvErstellenBean.ausgewaehlteStationen}"
-                                                     converter="experimentierStationConverter" effect="fade"
+                                                     converter="omnifaces.SelectItemsConverter" effect="fade"
                                                      var="experimentierStation" style="width: 172px" filter="true"
                                                      filterMatchMode="startsWith">
                                         <f:selectItems value="#{psvErstellenBean.verfuegbareStationen}"
