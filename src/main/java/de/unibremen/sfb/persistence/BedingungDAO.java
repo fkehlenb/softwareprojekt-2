@@ -16,11 +16,15 @@ public class BedingungDAO extends ObjectDAO<Bedingung> {
     /** Add a condition to the database
      * @param b - the condition to add to the database
      * @throws DuplicateBedingungException if the condition already exists in the database */
-    public void persist(Bedingung b) throws DuplicateBedingungException {
+    public void persist(Bedingung b)   {
         if (b!=null){
             synchronized (Bedingung.class){
                 if (em.contains(b)){
-                    throw new DuplicateBedingungException();
+                    try {
+                        throw new DuplicateBedingungException();
+                    } catch (DuplicateBedingungException e) {
+                        e.printStackTrace();
+                    }
                 }
                 em.persist(b);
             }
@@ -32,9 +36,6 @@ public class BedingungDAO extends ObjectDAO<Bedingung> {
      * @throws BedingungNotFoundException if the condition couldn't be found */
     public void update(Bedingung b) throws BedingungNotFoundException{
         if (b!=null){
-            if (!em.contains(b)){
-                throw new BedingungNotFoundException();
-            }
             em.merge(b);
         }
     }
@@ -70,6 +71,15 @@ public class BedingungDAO extends ObjectDAO<Bedingung> {
         catch (Exception e){
 //            e.printStackTrace();
             throw new IllegalArgumentException();
+        }
+    }
+    public Bedingung findById(int id){
+        try {
+            log.info("Trying to find Bedingungen");
+            return em.find(Bedingung.class,id);
+        }catch (Exception e){
+            log.info("No Bedingungen Found");
+            return null;
         }
     }
 }

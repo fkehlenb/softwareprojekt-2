@@ -92,7 +92,7 @@ public class BedingungBean implements Serializable {
 
     public void onRowEdit(RowEditEvent<Bedingung> event) {
         log.info("Updating: "+ event.getObject().getName());
-        bedingungService.edit(event.getObject());
+        bedingungService.edit(  event.getObject());
         FacesMessage msg = new FacesMessage("Bedingung Edited", event.getObject().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
