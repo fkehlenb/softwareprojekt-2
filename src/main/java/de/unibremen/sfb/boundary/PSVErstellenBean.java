@@ -68,7 +68,7 @@ public class PSVErstellenBean implements Serializable {
 
 
     @Inject
-    transient private BedingungService bedingungService; // FIXME WhyThow
+    transient private BedingungService bedingungService; // FIXME WhyThow https://stackoverflow.com/a/32284585
 
     @Inject
     private ExperimentierStationService experimentierStationService;
@@ -102,12 +102,8 @@ public class PSVErstellenBean implements Serializable {
 
         ProzessSchrittVorlage psv = new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), Duration.ofHours(Long.parseLong(dauer)), psArt,
                 ausgewaehlteStationen, ausgewaehlteBedingungen);
-        try {
-            prozessSchrittVorlageDAO.persist(psv);
-        } catch (DuplicateProzessSchrittVorlageException e) {
-            e.printStackTrace();
-        }
-        
+        prozessSchrittVorlageService.addVorlage(psv);
+
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Erfolg", "Prozessschrittvorlage:  " + psv.getPsVID() +
                 "erfolgreich erstellt"));
