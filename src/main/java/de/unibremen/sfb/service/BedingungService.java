@@ -76,10 +76,10 @@ public class BedingungService implements Serializable {
     /** Add a new predicate */
     public void addBedingung(Bedingung bedingung) {
         try {
-            log.info("Trying Persis Bedingung");
+            log.info("Trying Persist Bedingung");
             qeDAO.persist(bedingung);
         } catch (Exception e) {
-            log.info("FAILED Persis Bedingung");
+            log.info("FAILED Persist Bedingung");
         }
     }
     

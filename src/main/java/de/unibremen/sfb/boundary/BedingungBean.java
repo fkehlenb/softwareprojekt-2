@@ -58,7 +58,7 @@ public class BedingungBean implements Serializable {
     @PostConstruct
     void init() {
         verProzessSchrittParameters = prozessSchrittParameterDAO.getAll();
-        bedingungen = bedingungService.getBs();
+        bedingungen = bedingungService.getAll();
 //
     }
 
@@ -70,7 +70,7 @@ public class BedingungBean implements Serializable {
         bedingungService.addBedingung(bedingung);
 
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Erfolg", "Bedingung:  " + bedingung.toString() +
+        context.addMessage(null, new FacesMessage("Erfolg", "Bedingung:  " + bedingung.getName() +
                 "erfolgreich erstellt"));
         context.getExternalContext().getFlash().setKeepMessages(true);
 
