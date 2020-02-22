@@ -17,6 +17,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.Min;
@@ -27,7 +28,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Named("bedingungBean")
-@RequestScoped
+@ViewScoped
 @Getter
 @Setter
 @Log
@@ -49,7 +50,7 @@ public class BedingungBean implements Serializable {
     private ProzessKettenVorlageService prozessKettenVorlageService;
 
     @Inject
-    BedingungService bedingungService;
+    transient private BedingungService bedingungService;
 
     @Inject
     private ProzessSchrittParameterDAO prozessSchrittParameterDAO;
