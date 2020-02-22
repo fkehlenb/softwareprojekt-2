@@ -52,7 +52,15 @@ public class ProzessSchrittVorlageService implements Serializable {
             e.printStackTrace();
         }
     }
-
+    public ProzessSchrittVorlage ByID(int id) throws ProzessSchrittVorlageNotFoundException {
+        try {
+            log.info("Trying to find a PSP by ID");
+            return psvDAO.getObjById(id);
+        } catch (Exception e) {
+            log.info("Error ProzessSchrittVorlageNotFoundException in PSVErstellenBean");
+            return null;
+        }
+    }
     public void edit(ProzessSchrittVorlage psv) throws ProzessSchrittVorlageNotFoundException {
         try {
             log.info("Trying try to update a PSV" + psv+ "Class=ProzessSchrittVorlageService");

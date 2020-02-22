@@ -70,18 +70,15 @@
                     </p:panel>
 
 
-                </div>
-            <div id="Tabele Edit Santiago Rey">
 
+            <br></br>
+
+                <h2>Tablele von PSV</h2>
                 <h:form id="form">
-
                     <p:growl id="msgs" showDetail="true" sticky="true"/>
                     <p:dataTable id="psvListe" var="psv" value="#{psvErstellenBean.verfuegbarePSV}" editable="true"
                                  style="margin-bottom:20px">
-                        <f:facet name="header">
-                            Row Editing
-                        </f:facet>
-                        <p:ajax event="rowEdit" listener="#{psvErstellenBean.onRowEdit}" update=":form:msgs"/>
+                        <p:ajax event="rowEdit" listener="#{psvErstellenBean.onRowEdit(psv.psVID)}" update=":form:msgs"/>
                         <p:ajax event="rowEditCancel" listener="#{psvErstellenBean.onRowCancel}" update=":form:msgs"/>
                         <p:column headerText="Id">
                             <p:cellEditor>
@@ -93,7 +90,7 @@
 
                         <p:column headerText="Bedingungen">
                             <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="Bedingunen zu Wahlen"/></f:facet>
+                                <f:facet name="output"><h:outputText value="edit"/></f:facet>
                                 <f:facet name="input">
                                     <p:selectCheckboxMenu id="bedingungTable"
                                                           value="#{psvErstellenBean.ausBedingunen}"

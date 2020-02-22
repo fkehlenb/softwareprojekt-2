@@ -13,6 +13,7 @@ import lombok.extern.java.Log;
 import org.primefaces.event.RowEditEvent;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -22,12 +23,13 @@ import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
 
 @Named("psvErstellenBean")
-@ViewScoped
+@RequestScoped
 @Getter
 @Setter
 @Log
@@ -65,9 +67,12 @@ public class PSVErstellenBean implements Serializable {
 
     private List<Bedingung> ausBedingunen;
 
+    private List<Bedingung> bedingungenVonPSP;
+
+
+
     @Inject
     private ProzessSchrittVorlageService prozessSchrittVorlageService;
-
 
     @Inject
     transient private BedingungService bedingungService; // FIXME WhyThow https://stackoverflow.com/a/32284585
@@ -81,7 +86,6 @@ public class PSVErstellenBean implements Serializable {
     @Inject
     private ExperimentierStationDAO esDAO;
 
-    private ProzessSchrittVorlageDAO prozessSchrittVorlageDAO;
 
     @PostConstruct
     /**
@@ -113,8 +117,25 @@ public class PSVErstellenBean implements Serializable {
 
         return "pkAdmin/createOrder.xhtml?faces-redirect=true";
     }
+    /*public void onRowEdit(String id) throws ProzessSchrittVorlageNotFoundException {
+        try {
 
+            ProzessSchrittVorlage prozessSchrittVorlage = prozessSchrittVorlageService.ByID(Integer.parseInt(id));
+
+            prozessSchrittVorlageService.edit(prozessSchrittVorlage);
+
+            bedingungenVonPSP = prozessSchrittVorlage.getBedingungen();
+
+            ausgewaehlteBedingungen=bedingungenVonPSP;
+
+
+        } catch (Exception e) {
+        e.getStackTrace();
+        }
+
+    }*/
     public void onRowEdit(RowEditEvent<ProzessSchrittVorlage> event) throws ProzessSchrittVorlageNotFoundException {
+        //event.getObject().setBedingungen(ausBedingunen);
         prozessSchrittVorlageService.edit(event.getObject());
         FacesMessage msg = new FacesMessage("PSV Edited", event.getObject().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
