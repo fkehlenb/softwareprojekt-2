@@ -1,8 +1,7 @@
 package de.unibremen.sfb.boundary;
 
-import de.unibremen.sfb.model.Bedingung;
-import de.unibremen.sfb.model.ProzessKettenVorlage;
-import de.unibremen.sfb.model.ProzessSchrittParameter;
+import de.unibremen.sfb.exception.DuplicateBedingungException;
+import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.BedingungService;
 import de.unibremen.sfb.service.ProzessKettenVorlageService;
 import de.unibremen.sfb.service.ProzessSchrittParameterService;
@@ -17,8 +16,11 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.List;
+import java.util.UUID;
 
 @Named("bedingungBean")
 @RequestScoped
@@ -28,8 +30,18 @@ import java.util.List;
 public class BedingungBean implements Serializable {
     private List<ProzessSchrittParameter> verProzessSchrittParameters;
     private ProzessSchrittParameter[] ausProzessSchrittParameters;
-    private ProzessKettenVorlage[] vorlagen;
     private List<Bedingung> bedingungen;
+    
+    
+    private Bedingung b;
+    
+    @NotBlank
+    private String name;
+    
+    @Min(1)
+    private int anzahl;
+    
+    private List<ProzessSchrittParameter> PSPs;
 
     @Inject
     private ProzessSchrittParameterService prozessSchrittParameterService;
@@ -47,6 +59,32 @@ public class BedingungBean implements Serializable {
         bedingungen = bedingungService.getBs();
 //
     }
+
+    public String createB() throws DuplicateBedingungException
+    {
+        log.info("Erstelle neue Bedingung: "  + b.toString() + name);
+        Bedingung bedingung = new Bedingung(UUID.randomUUID().hashCode(), name, PSPs);
+        log.info("Persisting  Bedingung: "  + b.toString() + name);
+        bedingungService.addBedingung(bedingung);
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Erfolg", "Bedingung:  " + bedingung.toString() +
+                "erfolgreich erstellt"));
+        context.getExternalContext().getFlash().setKeepMessages(true);
+
+        return "admin/addES.xhtml?faces-redirect=true";
+    }
+
+//    public void delete() {
+//        log.info("Loesche  Bedingung: "  + b.toString() + name);
+//        bedingungService.addBedingung(bedingung);
+//
+//        FacesContext context = FacesContext.getCurrentInstance();
+//        context.addMessage(null, new FacesMessage("Erfolg", "Bedingung:  " + bedingung.toString() +
+//                "erfolgreich erstellt"));
+//        context.getExternalContext().getFlash().setKeepMessages(true);
+//
+//    }
 
     public void onRowEdit(RowEditEvent<Bedingung> event) {
         log.info("Updating: "+ event.getObject().getName());
