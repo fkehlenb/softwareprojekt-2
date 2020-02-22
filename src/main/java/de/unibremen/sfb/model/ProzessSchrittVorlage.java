@@ -45,10 +45,11 @@ public class ProzessSchrittVorlage {
     private  List<ExperimentierStation> stationen;
 
     /** The process step predicates */
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @NonNull
     private List<Bedingung> bedingungen;
 
+    @Override
     public String toString() {
         return "PSV" + this.psVID;
     }

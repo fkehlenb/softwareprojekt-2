@@ -13,8 +13,8 @@
                     <h1 style="text-align: center">Neue Prozessschrittvorlage erstellen</h1>
                     <p:panel id="psv" header="Daten Eingeben"
                              style="margin-bottom: 20px">
-                            <h:form>
-                                <p:growl id="msgs" showDetail="true" sticky="true"/>
+
+                        <h:form>
 
                                 <h:panelGrid columns="2" cellpadding="10">
                                     <p:outputLabel for="bedingungen" value="Bedingungen: "/>
@@ -69,7 +69,54 @@
                             </h:form>
                     </p:panel>
 
+
                 </div>
+            <div id="Tabele Edit Santiago Rey">
+
+                <h:form id="form">
+
+                    <p:growl id="msgs" showDetail="true" sticky="true"/>
+                    <p:dataTable id="psvListe" var="psv" value="#{psvErstellenBean.verfuegbarePSV}" editable="true"
+                                 style="margin-bottom:20px">
+                        <f:facet name="header">
+                            Row Editing
+                        </f:facet>
+                        <p:ajax event="rowEdit" listener="#{psvErstellenBean.onRowEdit}" update=":form:msgs"/>
+                        <p:ajax event="rowEditCancel" listener="#{psvErstellenBean.onRowCancel}" update=":form:msgs"/>
+                        <p:column headerText="Id">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{psv.psVID}"/></f:facet>
+                                <f:facet name="input"><p:inputText id="modelInput" value="#{psv.psVID}"
+                                                                   style="width:100%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Bedingungen">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{psv."/></f:facet>
+                                <f:facet name="input">
+                                    <p:selectCheckboxMenu id="bedingungTable"
+                                                          value="#{psvErstellenBean.ausBedingunen}"
+                                                          converter="omnifaces.SelectItemsConverter" effect="fade"
+                                                          var="b" style="width: 172px" filter="true"
+                                                          filterMatchMode="contains" showCheckbox="true"
+                                                          label="Bedingung" requiredMessage="Bitte Bedingung Zuweisen!"
+                                                          required="true">
+                                        <f:selectItems value="#{psvErstellenBean.verfuegbareBedingunen}"
+                                                       var="bedingung" itemLabel="#{bedingung.name}"
+                                                       itemValue="#{bedingung}"/>
+                                    </p:selectCheckboxMenu>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column style="width:35px">
+                            <p:rowEditor/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+
+            </div>
         </ui:define>
     </ui:composition>
 </h:body>

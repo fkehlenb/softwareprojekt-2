@@ -67,6 +67,13 @@
                         </p:cellEditor>
                     </p:column>
 
+                    <p:column headerText="name">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{bedingung.name}"/></f:facet>
+                            <f:facet name="input"><p:inputText value="#{bedingung.name}" style="width:100%"
+                                                               label="Anzahl"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
                     <p:column headerText="Anzahl Proben">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{bedingung.gewuenschteAnzahl}"/></f:facet>
@@ -75,9 +82,9 @@
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column headerText="Bedingungen">
+                    <p:column headerText="PSP">
                         <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{bedingung.name}"/></f:facet>
+                            <f:facet name="output"><h:outputText value="ProzesSchirtParamiter"/></f:facet>
                             <f:facet name="input">
                                 <p:selectCheckboxMenu id="bedingungTable"
                                                       value="#{bedingungBean.ausProzessSchrittParameters}"

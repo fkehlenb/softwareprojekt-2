@@ -1,8 +1,10 @@
 package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.exception.DuplicateProzessSchrittVorlageException;
+import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
 import de.unibremen.sfb.model.ProzessSchrittVorlage;
 import de.unibremen.sfb.persistence.ProzessSchrittVorlageDAO;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -11,6 +13,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Singleton
 /**
  * Service fuer ProzessSchrittVorlagen
@@ -47,6 +50,15 @@ public class ProzessSchrittVorlageService implements Serializable {
             psvDAO.persist(psv);
         } catch (DuplicateProzessSchrittVorlageException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void edit(ProzessSchrittVorlage psv) throws ProzessSchrittVorlageNotFoundException {
+        try {
+            log.info("Trying try to update a PSV" + psv+ "Class=ProzessSchrittVorlageService");
+            psvDAO.update(psv);
+        } catch (Exception e) {
+            log.info("Error try to update a PSV" + psv+ "Class=ProzessSchrittVorlageService");
         }
     }
 

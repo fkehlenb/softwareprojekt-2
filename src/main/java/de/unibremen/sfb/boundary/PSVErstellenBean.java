@@ -1,6 +1,7 @@
 package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.exception.DuplicateProzessSchrittVorlageException;
+import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
 import de.unibremen.sfb.persistence.ExperimentierStationDAO;
 import de.unibremen.sfb.persistence.ProzessSchrittVorlageDAO;
 import de.unibremen.sfb.service.*;
@@ -62,6 +63,7 @@ public class PSVErstellenBean implements Serializable {
     private List<ExperimentierStation> verfuegbareStationen;
     private List<ProzessSchrittVorlage> verfuegbarePSV;
 
+    private List<Bedingung> ausBedingunen;
 
     @Inject
     private ProzessSchrittVorlageService prozessSchrittVorlageService;
@@ -112,8 +114,8 @@ public class PSVErstellenBean implements Serializable {
         return "pkAdmin/createOrder.xhtml?faces-redirect=true";
     }
 
-    public void onRowEdit(RowEditEvent<ProzessSchrittVorlage> event) {
-        prozessSchrittVorlageService.persist(event.getObject());
+    public void onRowEdit(RowEditEvent<ProzessSchrittVorlage> event) throws ProzessSchrittVorlageNotFoundException {
+        prozessSchrittVorlageService.edit(event.getObject());
         FacesMessage msg = new FacesMessage("PSV Edited", event.getObject().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
