@@ -1,7 +1,10 @@
 package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.exception.DuplicateBedingungException;
+import de.unibremen.sfb.exception.ProzessSchrittParameterNotFoundException;
 import de.unibremen.sfb.model.*;
+import de.unibremen.sfb.persistence.AuftragDAO;
+import de.unibremen.sfb.persistence.ProzessSchrittParameterDAO;
 import de.unibremen.sfb.service.BedingungService;
 import de.unibremen.sfb.service.ProzessKettenVorlageService;
 import de.unibremen.sfb.service.ProzessSchrittParameterService;
@@ -14,34 +17,31 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Named("bedingungBean")
-@RequestScoped
+@ViewScoped
 @Getter
 @Setter
 @Log
 public class BedingungBean implements Serializable {
     private List<ProzessSchrittParameter> verProzessSchrittParameters;
-    private ProzessSchrittParameter[] ausProzessSchrittParameters;
+    private List<ProzessSchrittParameter> ausProzessSchrittParameters;
     private List<Bedingung> bedingungen;
-    
-    
-    private Bedingung b;
-    
+
     @NotBlank
     private String name;
     
     @Min(1)
     private int anzahl;
-    
-    private List<ProzessSchrittParameter> PSPs;
 
     @Inject
     private ProzessSchrittParameterService prozessSchrittParameterService;
@@ -50,25 +50,28 @@ public class BedingungBean implements Serializable {
     private ProzessKettenVorlageService prozessKettenVorlageService;
 
     @Inject
-    BedingungService bedingungService;
+    transient private BedingungService bedingungService;
+
+    @Inject
+    private ProzessSchrittParameterDAO prozessSchrittParameterDAO;
 
 
     @PostConstruct
     void init() {
-        verProzessSchrittParameters = prozessSchrittParameterService.getParameterList();
-        bedingungen = bedingungService.getBs();
+        verProzessSchrittParameters = prozessSchrittParameterDAO.getAll();
+        bedingungen = bedingungService.getAll();
 //
     }
 
     public String createB() throws DuplicateBedingungException
     {
-        log.info("Erstelle neue Bedingung: "  + b.toString() + name);
-        Bedingung bedingung = new Bedingung(UUID.randomUUID().hashCode(), name, PSPs);
-        log.info("Persisting  Bedingung: "  + b.toString() + name);
+        Bedingung bedingung = new Bedingung(UUID.randomUUID().hashCode() + 44, name, ausProzessSchrittParameters);
+        log.info("Erstelle neue Bedingung: "  + bedingung.toString() + name);
+        log.info("Persisting  Bedingung: "  + bedingung.toString() + name);
         bedingungService.addBedingung(bedingung);
 
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Erfolg", "Bedingung:  " + bedingung.toString() +
+        context.addMessage(null, new FacesMessage("Erfolg", "Bedingung:  " + bedingung.getName() +
                 "erfolgreich erstellt"));
         context.getExternalContext().getFlash().setKeepMessages(true);
 

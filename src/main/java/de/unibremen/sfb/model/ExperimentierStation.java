@@ -60,7 +60,7 @@ public class ExperimentierStation {
 
     @Override
     public String toString() {
-        return Integer.toString(esID);
+        return "ES: " + standort;
     }
 
 

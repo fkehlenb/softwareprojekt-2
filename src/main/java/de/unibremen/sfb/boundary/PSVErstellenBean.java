@@ -9,9 +9,9 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.extern.java.Log;
+import org.primefaces.event.RowEditEvent;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -52,15 +52,13 @@ public class PSVErstellenBean implements Serializable {
     @NonNull
     private ProzessSchrittZustandsAutomatVorlage zustandsAutomatenVorlage;
 
-    @NonNull
-    private List<ProzessSchrittParameter> ausgewaehlteProzessSchrittParameter;
+    private @NonNull List<Bedingung> ausgewaehlteBedingungen;
 
     @NonNull
     private List<ExperimentierStation> ausgewaehlteStationen;
 
-    // Wir ben  tigen die Parameter und Eigenschaften um diese dann auszuwaehlen
-    private List<ProzessSchrittParameter> verfuegbareParameter;
-    private List<QualitativeEigenschaft> verfuegbareEigenschaften;
+    // Wir benoetigen die Parameter und Eigenschaften um diese dann auszuwaehlen
+    private List<Bedingung> verfuegbareBedingunen;
     private List<ExperimentierStation> verfuegbareStationen;
     private List<ProzessSchrittVorlage> verfuegbarePSV;
 
@@ -68,11 +66,9 @@ public class PSVErstellenBean implements Serializable {
     @Inject
     private ProzessSchrittVorlageService prozessSchrittVorlageService;
 
-    @Inject
-    private ProzessSchrittParameterService prozessSchrittParameterService;
 
     @Inject
-    private QualitativeEigenschaftService qualitativeEigenschaftService;
+    transient private BedingungService bedingungService; // FIXME WhyThow https://stackoverflow.com/a/32284585
 
     @Inject
     private ExperimentierStationService experimentierStationService;
@@ -83,7 +79,6 @@ public class PSVErstellenBean implements Serializable {
     @Inject
     private ExperimentierStationDAO esDAO;
 
-    @Inject
     private ProzessSchrittVorlageDAO prozessSchrittVorlageDAO;
 
     @PostConstruct
@@ -91,11 +86,9 @@ public class PSVErstellenBean implements Serializable {
      * Hier werden aus der Persitenz die benötigten Daten Geladen
      */
     public void init() {
-        verfuegbareParameter = prozessSchrittParameterService.getPSP();
-        verfuegbareEigenschaften = qualitativeEigenschaftService.getEigenschaften(); // Hier weiter einschraenken
+        verfuegbareBedingunen = bedingungService.getAll();
         verfuegbarePSV = prozessSchrittVorlageService.getProzessSchrittVorlagen();
-//        verfuegbareStationen = experimentierStationService.getESListe();
-        verfuegbareStationen = esDAO.getAll();
+        verfuegbareStationen = experimentierStationService.getESListe();
         zustandsService.getPsZustaende();
     }
 
@@ -108,19 +101,26 @@ public class PSVErstellenBean implements Serializable {
         // FIXME Wehre is es, persist auf  de.unibremen.sfb.model.ProzessSchrittVorlage.zustandsAutomat -> de.unibremen.sfb.model.ProzessSchrittZustandsAutomatVorlage
 
         ProzessSchrittVorlage psv = new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), Duration.ofHours(Long.parseLong(dauer)), psArt,
-                ausgewaehlteStationen, new ArrayList<>());
-        try {
-            prozessSchrittVorlageDAO.persist(psv);
-        } catch (DuplicateProzessSchrittVorlageException e) {
-            e.printStackTrace();
-        }
-        
+                ausgewaehlteStationen, ausgewaehlteBedingungen);
+        prozessSchrittVorlageService.addVorlage(psv);
+
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Erfolg", "Prozessschrittvorlage:  " + psv.getPsVID() +
                 "erfolgreich erstellt"));
         context.getExternalContext().getFlash().setKeepMessages(true);
 
         return "pkAdmin/createOrder.xhtml?faces-redirect=true";
+    }
+
+    public void onRowEdit(RowEditEvent<ProzessSchrittVorlage> event) {
+        prozessSchrittVorlageService.persist(event.getObject());
+        FacesMessage msg = new FacesMessage("PSV Edited", event.getObject().toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onRowCancel(RowEditEvent<ProzessSchrittVorlage> event) {
+        FacesMessage msg = new FacesMessage("Edit Cancelled", event.getObject().toString());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
 }

@@ -40,7 +40,7 @@ public class ProzessSchrittVorlage {
     private String psArt;
 
     /** The experimenting stations accepted in the process step template */
-    @OneToMany
+    @ManyToMany
     @NonNull
     private  List<ExperimentierStation> stationen;
 
