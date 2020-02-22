@@ -76,7 +76,7 @@
                 <h2>Tablele von PSV</h2>
                 <h:form id="form">
                     <p:growl id="msgs" showDetail="true" sticky="true"/>
-                    <p:dataTable id="psvListe" var="psv" value="#{psvErstellenBean.verfuegbarePSV}" editable="true"
+                    <p:dataTable id="psvListe" var="psv" value="#{psvErstellenBean.getList()}" editable="true"
                                  style="margin-bottom:20px">
                         <p:ajax event="rowEdit" listener="#{psvErstellenBean.onRowEdit}" update=":form:msgs"/>
                         <p:ajax event="rowEditCancel" listener="#{psvErstellenBean.onRowCancel}" update=":form:msgs"/>

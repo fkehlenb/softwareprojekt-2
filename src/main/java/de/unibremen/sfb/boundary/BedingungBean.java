@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Named("bedingungBean")
-@ViewScoped
+@RequestScoped
 @Getter
 @Setter
 @Log
@@ -40,7 +40,7 @@ public class BedingungBean implements Serializable {
     @NotBlank
     private String name;
     
-    @Min(1)
+
     private int anzahl;
 
     @Inject
@@ -65,7 +65,8 @@ public class BedingungBean implements Serializable {
 
     public String createB() throws DuplicateBedingungException
     {
-        Bedingung bedingung = new Bedingung(UUID.randomUUID().hashCode() + 44, name, ausProzessSchrittParameters);
+        Bedingung bedingung = new Bedingung(UUID.randomUUID().hashCode(),name , ausProzessSchrittParameters,anzahl);
+
         log.info("Erstelle neue Bedingung: "  + bedingung.toString() + name);
         log.info("Persisting  Bedingung: "  + bedingung.toString() + name);
         bedingungService.addBedingung(bedingung);

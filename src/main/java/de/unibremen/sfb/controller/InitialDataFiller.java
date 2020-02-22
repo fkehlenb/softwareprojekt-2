@@ -112,7 +112,7 @@ public class InitialDataFiller {
             }
 
             // Erstelle Test Bedingung
-            Bedingung b = new Bedingung(UUID.randomUUID().hashCode(), "Test Bedingung" ,parameters);
+            Bedingung b = new Bedingung(UUID.randomUUID().hashCode(), "Test Bedingung" ,parameters,44);
             log.info("Trying to persist Bedingung: " + b.toString());
             em.persist(b);
 

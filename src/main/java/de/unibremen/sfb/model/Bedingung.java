@@ -27,11 +27,12 @@ public class Bedingung {
     private String name;
 
     /** Process step parameters that the material must have */
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @NonNull
     private List<ProzessSchrittParameter> prozessSchrittParameter;
 
     // Die gewunschte Anzahl an Proben die dieser Bedingung entsprechen
+    @NonNull
     private int gewuenschteAnzahl;
 
     @Override
