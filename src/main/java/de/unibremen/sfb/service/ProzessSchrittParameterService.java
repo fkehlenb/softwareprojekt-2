@@ -39,10 +39,6 @@ public class ProzessSchrittParameterService implements Serializable {
         return parameterList;
     }
 
-    public void addPSP(ProzessSchrittParameter prozessSchrittParameter) {
-        this.parameterList.add(prozessSchrittParameter);
-    }
-
     public List<QualitativeEigenschaft> getEigenschaften(ProzessSchrittParameter p) {
         return p.getQualitativeEigenschaften();
     }
@@ -77,6 +73,7 @@ public class ProzessSchrittParameterService implements Serializable {
 //////////////////////////////////////////
     public void addProcessSP(ProzessSchrittParameter prozessSchrittParameter) {
         try {
+            this.parameterList.add(prozessSchrittParameter);
             log.info("Trying persist ProzessSchrittParameterDAO Class=ProzessSchrittParameterService");
             prozessSchrittParameterDAO.persist(prozessSchrittParameter);
         } catch (Exception e) {
