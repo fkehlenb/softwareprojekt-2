@@ -62,7 +62,6 @@ public class PSVErstellenBean implements Serializable {
     private List<ExperimentierStation> verfuegbareStationen;
     private List<ProzessSchrittVorlage> verfuegbarePSV;
 
-
     @Inject
     private ProzessSchrittVorlageService prozessSchrittVorlageService;
 

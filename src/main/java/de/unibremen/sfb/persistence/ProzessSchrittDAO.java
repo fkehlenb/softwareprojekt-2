@@ -3,6 +3,11 @@ package de.unibremen.sfb.persistence;
 import de.unibremen.sfb.exception.DuplicateProzessSchrittException;
 import de.unibremen.sfb.exception.ProzessSchrittNotFoundException;
 import de.unibremen.sfb.model.ProzessSchritt;
+import de.unibremen.sfb.model.QuantitativeEigenschaft;
+import org.w3c.dom.Entity;
+
+import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 /** This class handles the instantiated process chain steps in the database */
 public class ProzessSchrittDAO extends ObjectDAO<ProzessSchritt> {
@@ -67,6 +72,16 @@ public class ProzessSchrittDAO extends ObjectDAO<ProzessSchritt> {
         catch (Exception e){
             e.printStackTrace();
             throw new ProzessSchrittNotFoundException();
+        }
+    }
+
+    /** Return a List quantitative descriptor object from the database
+     * @throws IllegalArgumentException if the quantitative descriptor couldn't be found in the database */
+    public List<ProzessSchritt> getAll(){
+        try {
+            return em.createQuery("SELECT p from ProzessSchritt  p WHERE p.isValidData=true", get()).getResultList();
+        }catch (Exception e){
+            throw new EntityNotFoundException();
         }
     }
 }
