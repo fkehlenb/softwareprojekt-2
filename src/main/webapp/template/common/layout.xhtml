@@ -12,35 +12,30 @@
 </h:head>
 
 <body>
-
-
-<div id="page">
-
-    <div id="header">
-        <ui:insert name="header">
-            <ui:include src="/template/common/header.xhtml"/>
-        </ui:insert>
+<div id="page" class="ui-g">
+    <div class="ui-g-12 ui-md-2">
+        <ui:include src="/template/common/hamburgerMenu.xhtml"/>
     </div>
+    <div class="ui-g-12 ui-md-10 ui-g-nopad">
+        <div id="header" class="ui-g-12">
+            <ui:insert name="header">
+                <ui:include src="/template/common/header.xhtml"/>
+            </ui:insert>
+        </div>
 
-    <ui:include src="/template/common/hamburgerMenu.xhtml"/>
-    <div class="ui-g-2"></div>
-
-    <div class="ui-g-8" id="content">
-        <ui:insert name="content">
-            <ui:include src="/template/common/content.xhtml"/>
-        </ui:insert>
+        <div class="ui-g-12 ui-g-nopad" id="content">
+            <ui:insert name="content">
+                <ui:include src="/template/common/content.xhtml"/>
+            </ui:insert>
+        </div>
     </div>
-
-    <div class="ui-g-2"></div>
-
-    <div id="footer">
+    <div id="footer" class="ui-g-12">
         <ui:insert name="footer">
             <ui:include src="/template/common/footer.xhtml"/>
-            <p:growl></p:growl>
         </ui:insert>
     </div>
-
 </div>
+
 
 </body>
 </html>

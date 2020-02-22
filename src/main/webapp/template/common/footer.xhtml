@@ -3,14 +3,19 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html
         xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition>
 
-        <!-- Footer Links -->
-        <div>
-
-        </div>
+    <!-- Footer Links -->
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:selectOneMenu value="#{languageBean.localeCode}" onchange="submit()"
+                                 valueChangeListener="#{languageBean.countryLocaleCodeChanged}">
+                    <f:selectItems value="#{languageBean.countriesInMap}"/>
+                </h:selectOneMenu>
+            </h:panelGrid>
+        </h:form>
 
 
 </ui:composition>
