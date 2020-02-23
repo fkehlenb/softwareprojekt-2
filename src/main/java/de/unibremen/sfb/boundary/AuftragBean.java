@@ -63,7 +63,7 @@ public class AuftragBean implements Serializable {
     }
 
     public List<ProzessKettenVorlage> getPKVs() {
-        return prozessKettenVorlageService.getPKVs();
+        return prozessKettenVorlageService.getPkVorlagen();
     }
 }
 
