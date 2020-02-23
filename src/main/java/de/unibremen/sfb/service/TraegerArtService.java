@@ -4,6 +4,7 @@ import de.unibremen.sfb.exception.DuplicateTraegerArtException;
 import de.unibremen.sfb.exception.TraegerArtNotFoundException;
 import de.unibremen.sfb.model.TraegerArt;
 import de.unibremen.sfb.persistence.TraegerArtDAO;
+import lombok.Getter;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -12,6 +13,9 @@ import java.util.List;
 
 /** This class manages the business logic for container types */
 public class TraegerArtService implements Serializable {
+    @Getter
+    private List<TraegerArt> verTraeger;
+
 
     /** TraegerArt DAO */
     @Inject
@@ -20,11 +24,11 @@ public class TraegerArtService implements Serializable {
     /** TraegerArt */
     private List<TraegerArt> traegerArt;
 
-    /** Get all container types from the database
-     * @return a list of all container types in the database */
-    public List<TraegerArt> getAll(){
-        return traegerArtDAO.getAll();
+    @PostConstruct
+    private void init() {
+        verTraeger = traegerArtDAO.getAll();
     }
+
 
     /** Add a new container type to the database
      * @param ta - the container type to add
