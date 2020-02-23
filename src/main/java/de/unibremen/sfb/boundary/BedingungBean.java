@@ -76,7 +76,7 @@ public class BedingungBean implements Serializable {
                 "erfolgreich erstellt"));
         context.getExternalContext().getFlash().setKeepMessages(true);
 
-        return "admin/addES.xhtml?faces-redirect=true";
+        return "bedingungen?faces-redirect=true";
     }
 
 //    public void delete() {

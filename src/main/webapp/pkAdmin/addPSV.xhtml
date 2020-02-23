@@ -76,10 +76,21 @@
                 <h2>Tablele von PSV</h2>
                 <h:form id="form">
                     <p:growl id="msgs" showDetail="true" sticky="true"/>
-                    <p:dataTable id="psvListe" var="psv" value="#{psvErstellenBean.getList()}" editable="true"
-                                 style="margin-bottom:20px">
+
+                    <p:dataTable widgetVar="PSVList"
+                                 id="PSVList"
+                                 var="psv"
+                                 value="#{psvErstellenBean.verfuegbarePSV}"
+                                 editable="true"
+                                 selection="#{psvErstellenBean.selectedPSV}"
+                                 style="margin-bottom:20px"
+                                 rowKey="#{psv.psVID}">
+
                         <p:ajax event="rowEdit" listener="#{psvErstellenBean.onRowEdit}" update=":form:msgs"/>
                         <p:ajax event="rowEditCancel" listener="#{psvErstellenBean.onRowCancel}" update=":form:msgs"/>
+                        <p:column selectionMode="multiple"
+                                  style="width:16px;text-align:center" />
+
                         <p:column headerText="Id">
                             <p:cellEditor>
                                 <f:facet name="output"><h:outputText value="#{psv.psVID}"/></f:facet>
@@ -107,10 +118,17 @@
                             </p:cellEditor>
                         </p:column>
 
+
                         <p:column style="width:35px">
                             <p:rowEditor/>
                         </p:column>
                     </p:dataTable>
+
+                    <p:contextMenu for="PSVList">
+                        <p:menuitem value="Delete selected" update="PSVList"
+                                    icon="pi pi-times" action="#{psvErstellenBean.deletePSV}" />
+                    </p:contextMenu>
+
                 </h:form>
 
             </div>

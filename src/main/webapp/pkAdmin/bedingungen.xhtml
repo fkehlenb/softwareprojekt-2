@@ -51,7 +51,7 @@
                 <p:growl id="msgs" showDetail="true"/>
 
                 <p:dataTable id="bedingungen" var="bedingung" value="#{bedingungBean.bedingungen}" editable="true"
-                             style="margin-bottom:20px">
+                             style="margin-bottom:20px" rowKey="#{standort.id}">
                     <f:facet name="header">
                         Row Editing
                     </f:facet>
@@ -61,6 +61,7 @@
 
                     <p:column headerText="Id">
                         <p:cellEditor>
+
                             <f:facet name="output"><h:outputText value="#{bedingung.id}"/></f:facet>
                             <f:facet name="input"><p:inputText id="modelInput" value="#{bedingung.id}"
                                                                style="width:100%"/></f:facet>
@@ -84,7 +85,7 @@
 
                     <p:column headerText="PSP">
                         <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="ProzesSchirtParamiter"/></f:facet>
+                            <f:facet name="output"><h:outputText value="#{bedingung.prozessSchrittParameter}"/></f:facet>
                             <f:facet name="input">
                                 <p:selectCheckboxMenu id="bedingungTable"
                                                       value="#{bedingungBean.ausProzessSchrittParameters}"
@@ -104,6 +105,7 @@
                     <p:column style="width:35px">
                         <p:rowEditor/>
                     </p:column>
+
                 </p:dataTable>
             </h:form>
         </ui:define>

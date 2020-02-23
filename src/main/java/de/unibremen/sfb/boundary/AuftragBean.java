@@ -30,6 +30,7 @@ public class AuftragBean implements Serializable {
     private List<Auftrag> auftrage;
     private List<ProzessKettenVorlage> vorlagen;
 
+
     @Inject
     AuftragService auftragService;
 
@@ -41,6 +42,7 @@ public class AuftragBean implements Serializable {
     void init() {
         auftrage = auftragService.getAuftrage();
         vorlagen = getPKVs();
+
     }
 
     public AuftragsPrioritaet[] getPrios() {

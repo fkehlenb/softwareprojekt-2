@@ -1,10 +1,12 @@
 package de.unibremen.sfb.boundary;
 
-import de.unibremen.sfb.exception.DuplicateProzessSchrittVorlageException;
-import de.unibremen.sfb.persistence.ExperimentierStationDAO;
-import de.unibremen.sfb.persistence.ProzessSchrittVorlageDAO;
-import de.unibremen.sfb.service.*;
+import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
 import de.unibremen.sfb.model.*;
+import de.unibremen.sfb.persistence.ExperimentierStationDAO;
+import de.unibremen.sfb.service.BedingungService;
+import de.unibremen.sfb.service.ExperimentierStationService;
+import de.unibremen.sfb.service.ProzessSchrittVorlageService;
+import de.unibremen.sfb.service.ZustandsService;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -20,7 +22,6 @@ import javax.inject.Named;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -61,6 +62,7 @@ public class PSVErstellenBean implements Serializable {
     private List<Bedingung> verfuegbareBedingunen;
     private List<ExperimentierStation> verfuegbareStationen;
     private List<ProzessSchrittVorlage> verfuegbarePSV;
+    private List<ProzessSchrittVorlage> selectedPSV;
 
     @Inject
     private ProzessSchrittVorlageService prozessSchrittVorlageService;
@@ -83,18 +85,14 @@ public class PSVErstellenBean implements Serializable {
      */
     public void init() {
         verfuegbareBedingunen = bedingungService.getAll();
-        verfuegbarePSV = prozessSchrittVorlageService.getProzessSchrittVorlagen();
-     //   verfuegbarePSV = prozessSchrittVorlageService.getProzessSchrittVorlagen(); // Auskommentieren um die Peristenz zu Testen
+        verfuegbarePSV = prozessSchrittVorlageService.getVorlagen();
+        // verfuegbarePSV = prozessSchrittVorlageService.getProzessSchrittVorlagen(); // Auskommentieren um die Peristenz zu Testen
         verfuegbareStationen = experimentierStationService.getESListe();
         zustandsService.getPsZustaende();
     }
 
-
     public String erstellePSV() {
         log.info("Erstelle Prozessschritt");
-        // FIXME Add Service for Zustaende
-        List<String> z = new ArrayList();
-        z.add("Kapput");
         // FIXME Wehre is es, persist auf  de.unibremen.sfb.model.ProzessSchrittVorlage.zustandsAutomat -> de.unibremen.sfb.model.ProzessSchrittZustandsAutomatVorlage
 
         ProzessSchrittVorlage psv = new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), Duration.ofHours(Long.parseLong(dauer)), psArt,
@@ -109,8 +107,14 @@ public class PSVErstellenBean implements Serializable {
         return "pkAdmin/createOrder.xhtml?faces-redirect=true";
     }
 
-    public void onRowEdit(RowEditEvent<ProzessSchrittVorlage> event) {
-        prozessSchrittVorlageService.persist(event.getObject());
+    public void deletePSV() {
+        prozessSchrittVorlageService.delete(selectedPSV);
+
+    }
+
+    public void onRowEdit(RowEditEvent<ProzessSchrittVorlage> event) throws ProzessSchrittVorlageNotFoundException {
+        //When The Persistence gefit be, we can uncomment that.
+        // prozessSchrittVorlageService.edit(event.getObject());
         FacesMessage msg = new FacesMessage("PSV Edited", event.getObject().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }

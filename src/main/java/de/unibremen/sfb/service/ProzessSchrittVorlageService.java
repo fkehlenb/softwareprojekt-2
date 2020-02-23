@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -21,13 +22,14 @@ import java.util.UUID;
 @Slf4j
 @Data
 @Singleton
+
 /**
  * Service fuer ProzessSchrittVorlagen
  * Anwendungsfall: Bearbeiten einer Vorlage oder hinzufuegen einer ProzessSchrittVorlage in einer ProzessKettenVorlage
  */
 
 public class ProzessSchrittVorlageService implements Serializable {
-    private List<ProzessSchrittVorlage> vorlagen;
+    public List<ProzessSchrittVorlage> vorlagen;
 
     @PostConstruct
     public void init() {
@@ -84,7 +86,10 @@ public class ProzessSchrittVorlageService implements Serializable {
         psv0.setAusgabeTraeger(List.of(glass, eT));
         psv0.setEingabeTraeger(List.of(gT, glass));
 
-        return List.of(psv0, psv1);
+        var l = new ArrayList<ProzessSchrittVorlage>();
+        l.add(psv0);
+        l.add(psv1);
+        return l;
     }
 
     public List<ProzessSchrittVorlage> getProzessSchrittVorlagen() {
@@ -146,7 +151,9 @@ public class ProzessSchrittVorlageService implements Serializable {
     public void delete(List<ProzessSchrittVorlage> psvs) {
         for (ProzessSchrittVorlage psv :
                 psvs) {
+
             vorlagen.remove(psv);
+
         }
     }
 }
