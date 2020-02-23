@@ -1,7 +1,6 @@
 package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.exception.DuplicateProzessSchrittVorlageException;
-import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
 import de.unibremen.sfb.persistence.ExperimentierStationDAO;
 import de.unibremen.sfb.persistence.ProzessSchrittVorlageDAO;
 import de.unibremen.sfb.service.*;
@@ -13,7 +12,6 @@ import lombok.extern.java.Log;
 import org.primefaces.event.RowEditEvent;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -23,13 +21,12 @@ import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
 
 @Named("psvErstellenBean")
-@RequestScoped
+@ViewScoped
 @Getter
 @Setter
 @Log
@@ -65,12 +62,6 @@ public class PSVErstellenBean implements Serializable {
     private List<ExperimentierStation> verfuegbareStationen;
     private List<ProzessSchrittVorlage> verfuegbarePSV;
 
-    private List<Bedingung> ausBedingunen;
-
-    private List<Bedingung> bedingungenVonPSP;
-
-
-
     @Inject
     private ProzessSchrittVorlageService prozessSchrittVorlageService;
 
@@ -86,7 +77,6 @@ public class PSVErstellenBean implements Serializable {
     @Inject
     private ExperimentierStationDAO esDAO;
 
-
     @PostConstruct
     /**
      * Hier werden aus der Persitenz die benötigten Daten Geladen
@@ -99,10 +89,6 @@ public class PSVErstellenBean implements Serializable {
         zustandsService.getPsZustaende();
     }
 
-    public List<ProzessSchrittVorlage> getList(){
-        List<ProzessSchrittVorlage> a = prozessSchrittVorlageService.getProzessSchrittVorlagen();
-       return a;
-    }
 
     public String erstellePSV() {
         log.info("Erstelle Prozessschritt");
@@ -122,26 +108,9 @@ public class PSVErstellenBean implements Serializable {
 
         return "pkAdmin/createOrder.xhtml?faces-redirect=true";
     }
-    /*public void onRowEdit(String id) throws ProzessSchrittVorlageNotFoundException {
-        try {
 
-            ProzessSchrittVorlage prozessSchrittVorlage = prozessSchrittVorlageService.ByID(Integer.parseInt(id));
-
-            prozessSchrittVorlageService.edit(prozessSchrittVorlage);
-
-            bedingungenVonPSP = prozessSchrittVorlage.getBedingungen();
-
-            ausgewaehlteBedingungen=bedingungenVonPSP;
-
-
-        } catch (Exception e) {
-        e.getStackTrace();
-        }
-
-    }*/
-    public void onRowEdit(RowEditEvent<ProzessSchrittVorlage> event) throws ProzessSchrittVorlageNotFoundException {
-        //event.getObject().setBedingungen(ausBedingunen);
-        prozessSchrittVorlageService.edit(event.getObject());
+    public void onRowEdit(RowEditEvent<ProzessSchrittVorlage> event) {
+        prozessSchrittVorlageService.persist(event.getObject());
         FacesMessage msg = new FacesMessage("PSV Edited", event.getObject().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }

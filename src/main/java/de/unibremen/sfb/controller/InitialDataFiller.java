@@ -155,6 +155,13 @@ public class InitialDataFiller {
 
 
             ps = new ProzessSchritt(42, prozessSchrittZustandsAutomat, logs, psListe.get(0));
+            var psLogs = List.of(new ProzessSchrittLog(LocalDateTime.now(), "Gestartet"),
+                    new ProzessSchrittLog(LocalDateTime.now(), "Veraendert") );
+            for (ProzessSchrittLog psl :
+                    psLogs) {
+                em.persist(psl);
+            }
+            ps.setProzessSchrittLog(psLogs);
             log.info("Try to persist TEST ProzessSchritt " + ps.getPsID());
             em.persist(ps);
             // PS aufuellen
