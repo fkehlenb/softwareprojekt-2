@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -86,12 +87,17 @@ public class ProzessSchrittVorlageService implements Serializable {
         return psvDAO.getAll();
     }
 
+    /**
+     * Persistieren der ProzessSchrittVorlage
+     * @param psv die Vorlage
+     */
     public void persist(ProzessSchrittVorlage psv) {
-        try {
-            psvDAO.persist(psv);
-        } catch (DuplicateProzessSchrittVorlageException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            psvDAO.persist(psv);
+//        } catch (DuplicateProzessSchrittVorlageException e) {
+//            e.printStackTrace();
+//        }
+        vorlagen.add(psv);
     }
     public ProzessSchrittVorlage ByID(int id) throws ProzessSchrittVorlageNotFoundException {
         try {
@@ -101,14 +107,32 @@ public class ProzessSchrittVorlageService implements Serializable {
             log.info("Error ProzessSchrittVorlageNotFoundException in PSVErstellenBean");
             return null;
         }
-    }
-    public void edit(ProzessSchrittVorlage psv) throws ProzessSchrittVorlageNotFoundException {
-        try {
-            log.info("Trying try to update a PSV" + psv+ "Class=ProzessSchrittVorlageService");
-            psvDAO.update(psv);
-        } catch (Exception e) {
-            log.info("Error try to update a PSV" + psv+ "Class=ProzessSchrittVorlageService");
-        }
+
     }
 
+    /**
+     * Bearbeiten der ProzessSchrittVorlage
+     * @param psv
+     * @throws ProzessSchrittVorlageNotFoundException
+     */
+    public void edit(ProzessSchrittVorlage psv) throws ProzessSchrittVorlageNotFoundException {
+//        try {
+//            log.info("Trying try to update a PSV" + psv+ "Class=ProzessSchrittVorlageService");
+//            psvDAO.update(psv);
+//        } catch (Exception e) {
+//            log.info("Error try to update a PSV" + psv+ "Class=ProzessSchrittVorlageService");
+//        }
+//    }
+        var old = vorlagen.stream().filter(p -> psv.getPsVID() == p.getPsVID()).findFirst().orElse(null);
+
+        (Collections.replaceAll(vorlagen, old, psv) ? log.info("Succesful edit " + psv) : log.info("Failed to edit " + psv);
+    }
+
+    /**
+     * Loeschen der ProzessSchrittVorlage
+     * @param psv
+     */
+    public void delete(ProzessSchrittVorlage psv) {
+       vorlagen.remove(psv);
+    }
 }
