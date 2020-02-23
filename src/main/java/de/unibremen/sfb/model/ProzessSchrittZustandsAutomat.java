@@ -16,7 +16,8 @@ public class ProzessSchrittZustandsAutomat {
     @NonNull
     private boolean isValidData = true;
 
-    @Id @GeneratedValue
+    @Id
+    @NonNull
     private int id;
 
     /** The state the automaton is currently in */

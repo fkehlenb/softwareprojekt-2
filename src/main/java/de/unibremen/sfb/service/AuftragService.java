@@ -221,7 +221,7 @@ public class AuftragService implements Serializable {
      */
     public ProzessSchritt getNextPS(Auftrag a) {
         return a.getProzessSchritte().stream()
-                .filter((p) -> "Angenommen".equals(p.getZustandsAutomat().getCurrent()))
+                .filter((p) -> "Angenommen".equals(p.getProzessSchrittVorlage().getZustandsAutomat().getCurrent()))
                 .findFirst()
                 .orElse(null);
     }

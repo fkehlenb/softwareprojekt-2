@@ -45,6 +45,7 @@ public class PSVErstellenBean implements Serializable {
     @NonNull
     private String psArt;
 
+    @NonNull
     private List<ExperimentierStation> stationen;
 
     @NonNull
@@ -54,6 +55,9 @@ public class PSVErstellenBean implements Serializable {
 
     @NonNull
     private List<ExperimentierStation> ausgewaehlteStationen;
+
+    @NonNull
+    private ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage;
 
     // Wir benoetigen die Parameter und Eigenschaften um diese dann auszuwaehlen
     private List<Bedingung> verfuegbareBedingunen;
@@ -98,11 +102,14 @@ public class PSVErstellenBean implements Serializable {
         // FIXME Wehre is es, persist auf  de.unibremen.sfb.model.ProzessSchrittVorlage.zustandsAutomat -> de.unibremen.sfb.model.ProzessSchrittZustandsAutomatVorlage
 
         ProzessSchrittVorlage psv = new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), dauer, psArt,
-                ausgewaehlteStationen, ausgewaehlteBedingungen);
+                ausgewaehlteStationen, ausgewaehlteBedingungen,
+                new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "Angenommen",
+                        prozessSchrittZustandsAutomatVorlage));
         prozessSchrittVorlageService.persist(psv);
 
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Erfolg", "Prozessschrittvorlage:  " + psv.getPsVID() +
+        context.addMessage(null, new FacesMessage("Erfolg",
+                "Prozessschrittvorlage:  " + psv.getPsVID() +
                 "erfolgreich erstellt"));
         context.getExternalContext().getFlash().setKeepMessages(true);
 

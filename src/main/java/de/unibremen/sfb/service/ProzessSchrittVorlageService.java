@@ -14,10 +14,7 @@ import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Slf4j
 @Data
@@ -35,6 +32,9 @@ public class ProzessSchrittVorlageService implements Serializable {
     public void init() {
         this.vorlagen = erstelleStandartVorlagen();
     }
+
+    @Inject
+    ZustandsService zustandsService;
 
     @Inject
     ProzessSchrittVorlageDAO psvDAO;
@@ -75,8 +75,21 @@ public class ProzessSchrittVorlageService implements Serializable {
         var bs = List.of(new Bedingung(9, "Test B", List.of(new ProzessSchrittParameter(6, "PsP 1",
                 List.of(new QualitativeEigenschaft(8, "gestresst"))), p), 66));
         // Es ist nicht moeglich, es und bs eager in der naechsten Zeile
-        var psv0 = new ProzessSchrittVorlage(42, "8", "ERMITTELND", es, bs);
-        var psv1 = new ProzessSchrittVorlage(55, "6", "FAERBEND", es, bs);
+
+        // ProzessSchrittVorlage Setup
+        Set<ProzessSchrittZustandsAutomatVorlage> ergebnis = new HashSet<>();
+        List<String> zustaende = new ArrayList();
+        zustaende.add("Angenommen");
+        zustaende.add("In Brearbeitung");
+        zustaende.add("Bearbeitet");
+        zustaende.add("Weitergeleitet");
+        ProzessSchrittZustandsAutomatVorlage sVorlage = new ProzessSchrittZustandsAutomatVorlage(zustaende, "Standart");
+        ProzessSchrittZustandsAutomatVorlage v = new ProzessSchrittZustandsAutomatVorlage(
+                zustandsService.getPsZustaende(), "Test pszvav");
+        var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "ANGENOMMEN", sVorlage);
+
+        var psv0 = new ProzessSchrittVorlage(42, "8", "ERMITTELND", es, bs, a );
+        var psv1 = new ProzessSchrittVorlage(55, "6", "FAERBEND", es, bs, a);
 
         // Traeger Config
         var glass = new TraegerArt("Glass");
