@@ -17,10 +17,8 @@ public class TraegerArt {
     @NonNull
     private boolean isValidData = true;
 
-    @Id @GeneratedValue
-    private int id;
-
     /** Container Type */
+    @Id
     @NonNull
     private String art;
 }
