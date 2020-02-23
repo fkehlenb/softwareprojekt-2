@@ -42,19 +42,8 @@ public class InitialDataFiller {
 
     @Inject
     private UserDAO userDAO;
-
-    @Inject
-    private StandortDAO standortDAO;
-
     @Inject
     private ZustandsService zustandsService;
-
-    @Inject
-    private AuftragDAO auftragDAO;
-
-    @Inject
-    private TraegerArtService traegerArtService;
-
 
     @PersistenceContext
     private EntityManager em;
@@ -172,7 +161,8 @@ public class InitialDataFiller {
 
             // Persistiere Traeger Arten
             for (TraegerArt t :
-                    traegerArtService.getVerTraeger()) {
+                   erstelleTraeger()) {
+                log.info("Persisting Traegerart " + t.getArt());
                 em.persist(t);
             }
 
@@ -318,5 +308,9 @@ public class InitialDataFiller {
         qualEigenschaften.add(q1);
         qualEigenschaften.add(q2);
         return qualEigenschaften;
+    }
+
+    public List<TraegerArt> erstelleTraeger() {
+        return List.of(new TraegerArt("Glass"), new TraegerArt("Eingebetet", new TraegerArt("Einzelen");
     }
 }
