@@ -59,6 +59,11 @@
                                             <h:outputText value="#{experimentierStation.standort.ort}"/>
                                         </p:column>
                                     </p:selectManyMenu>
+
+                                    <p:outputLabel for="pszva" value="Vorlage" />
+                                    <h:selectOneMenu id="pszva" value="#{psvErstellenBean.prozessSchrittZustandsAutomatVorlage}" style="width:100%">
+                                        <f:selectItems value="#{psvErstellenBean.verPSZAV}"/>
+                                    </h:selectOneMenu>
                                 </h:panelGrid>
 
                                 <p:commandButton value="Reset" type="reset"/>

@@ -65,6 +65,7 @@ public class PSVErstellenBean implements Serializable {
     private List<ProzessSchrittVorlage> verfuegbarePSV;
     private List<ProzessSchrittVorlage> selectedPSV;
     private List<TraegerArt> verfuegbareTraegerArt;
+    private List<ProzessSchrittZustandsAutomatVorlage> verPSZAV;
 
     @Inject
     private ProzessSchrittVorlageService prozessSchrittVorlageService;
@@ -78,10 +79,11 @@ public class PSVErstellenBean implements Serializable {
     @Inject
     ZustandsService  zustandsService;
 
-
-
     @Inject
     private TraegerArtService traegerArtService;
+
+    @Inject
+    private ProzessSchrittZustandsAutomatVorlageService prozessSchrittZustandsAutomatVorlageService;
 
 
     @PostConstruct
@@ -95,6 +97,7 @@ public class PSVErstellenBean implements Serializable {
         verfuegbareStationen = experimentierStationService.getESListe();
         zustandsService.getPsZustaende();
         verfuegbareTraegerArt = traegerArtService.getVerTraeger();
+        verPSZAV = prozessSchrittZustandsAutomatVorlageService.getProzessSchrittZustandsAutomatVorlagen();
     }
 
     public String erstellePSV() {
