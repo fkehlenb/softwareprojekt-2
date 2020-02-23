@@ -6,8 +6,13 @@ import de.unibremen.sfb.exception.ProzessSchrittNotFoundException;
 import de.unibremen.sfb.exception.ProzessSchrittZustandsAutomatNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.ProzessSchrittDAO;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
+import javax.json.bind.JsonbConfig;
+import java.io.Serializable;
 import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -18,10 +23,14 @@ import java.util.List;
  * Service fuer ProzessSchritt
  * Anwendungsfall: Bearbeiten eines ProzessSchrittes oder Hinzufügen eines neuen
  */
+@Slf4j
 public class ProzessSchrittService implements Serializable {
 
     @Inject
     private ProzessSchrittDAO prozessSchrittDAO;
+
+    @Inject
+    ProzessSchrittDAO prozessSchrittDAO;
 
     @Inject
     private AuftragService auftragService;
@@ -89,5 +98,22 @@ public class ProzessSchrittService implements Serializable {
                         ).findFirst().orElse(null);
 
     }
+
+    public List<ProzessSchritt> getAll() {
+        return prozessSchrittDAO.getAll();
+    }
+
+
+    public String toJson() {
+        JsonbConfig config = new JsonbConfig()
+                .withFormatting(true);
+
+        // Create Jsonb with custom configuration
+        Jsonb jsonb = JsonbBuilder.create(config);
+        String result = jsonb.toJson(getAll());
+        log.info("Export von den Auftraegen\n" + result);
+        return result;
+    }
+
 }
 
