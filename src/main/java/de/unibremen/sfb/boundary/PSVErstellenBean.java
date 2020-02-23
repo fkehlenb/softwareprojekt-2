@@ -51,13 +51,14 @@ public class PSVErstellenBean implements Serializable {
     @NonNull
     private ProzessSchrittZustandsAutomatVorlage zustandsAutomatenVorlage;
 
-    private @NonNull List<Bedingung> ausgewaehlteBedingungen;
+     @NonNull
+     private List<Bedingung> ausgewaehlteBedingungen;
 
     @NonNull
     private List<ExperimentierStation> ausgewaehlteStationen;
 
-    @NonNull
-    private ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage;
+
+    private List<ProzessSchrittZustandsAutomatVorlage> ausProzessSchrittZustandsAutomatVorlage;
 
     // Wir benoetigen die Parameter und Eigenschaften um diese dann auszuwaehlen
     private List<Bedingung> verfuegbareBedingunen;
@@ -85,6 +86,9 @@ public class PSVErstellenBean implements Serializable {
     @Inject
     private ProzessSchrittZustandsAutomatVorlageService prozessSchrittZustandsAutomatVorlageService;
 
+   // @Inject
+   // private ProzessSchrittZustandsAutomatService
+
 
     @PostConstruct
     /**
@@ -103,11 +107,18 @@ public class PSVErstellenBean implements Serializable {
     public String erstellePSV() {
         log.info("Erstelle Prozessschritt");
         // FIXME Wehre is es, persist auf  de.unibremen.sfb.model.ProzessSchrittVorlage.zustandsAutomat -> de.unibremen.sfb.model.ProzessSchrittZustandsAutomatVorlage
+        // ausProzessSchrittZustandsAutomatVorlage.get(0) als Lösung Liam
+        //TODO wir können hier jetzt das methode nutzen und ein Prozessschrittvorlage persistieren.
+        // Bitte  es ist zu lösen 2 Sachen
+        // 1) name der verPSZAV nicht sehenbar
+        // 2) ausProzessSchrittZustandsAutomatVorlage.get(0) soll nicht nur das erte denke ich obwohlt funtiniert
+
+        var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "Angenommen",
+                ausProzessSchrittZustandsAutomatVorlage.get(0));
+       // prozessSchrittZustandsAutomatService.addVorlage(a);
 
         ProzessSchrittVorlage psv = new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), dauer, psArt,
-                ausgewaehlteStationen, ausgewaehlteBedingungen,
-                new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "Angenommen",
-                        prozessSchrittZustandsAutomatVorlage));
+                ausgewaehlteStationen, ausgewaehlteBedingungen,a);
         prozessSchrittVorlageService.persist(psv);
 
         FacesContext context = FacesContext.getCurrentInstance();

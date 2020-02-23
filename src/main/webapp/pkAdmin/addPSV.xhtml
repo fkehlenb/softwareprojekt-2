@@ -44,7 +44,7 @@
 
                                     <p:outputLabel for="dauer" value=" Dauer: "/>
                                     <p:inputMask id="dauer" value="#{psvErstellenBean.dauer}"
-                                                 required="true" mask="99"/>
+                                                 required="true"/>
 
                                     <p:outputLabel for="experimentierStation" value="ExperimentierStation: "/>
                                     <p:selectManyMenu id="experimentierStation"
@@ -60,10 +60,20 @@
                                         </p:column>
                                     </p:selectManyMenu>
 
-                                    <p:outputLabel for="pszva" value="Vorlage" />
-                                    <h:selectOneMenu id="pszva" value="#{psvErstellenBean.prozessSchrittZustandsAutomatVorlage}" style="width:100%">
-                                        <f:selectItems value="#{psvErstellenBean.verPSZAV}"/>
-                                    </h:selectOneMenu>
+                                    <p:outputLabel for="ProzessSchrittZustandsAutomatVorlage" value="ProzessSchrittZustandsAutomatVorlage: "/>
+                                    <p:selectManyMenu id="ProzessSchrittZustandsAutomatVorlage"
+                                                      value="#{psvErstellenBean.ausProzessSchrittZustandsAutomatVorlage}"
+                                                      converter="omnifaces.SelectItemsConverter" effect="fade"
+                                                      var="ProzessSchrittZustandsAutomatVorlage" style="width: 172px" filter="true"
+                                                      filterMatchMode="startsWith">
+                                        <f:selectItems value="#{psvErstellenBean.verPSZAV}"
+                                                       var="pszav" itemLabel="#{pszav.name}"
+                                                       itemValue="#{pszav}" required="true"/>
+                                        <p:column>
+                                            <h:outputText value="#{pszav.name}"/>
+                                        </p:column>
+                                    </p:selectManyMenu>
+
                                 </h:panelGrid>
 
                                 <p:commandButton value="Reset" type="reset"/>

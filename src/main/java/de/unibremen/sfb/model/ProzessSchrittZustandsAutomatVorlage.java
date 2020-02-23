@@ -27,4 +27,11 @@ public class ProzessSchrittZustandsAutomatVorlage {
 
     @NonNull
     private String name;
+
+    @Override
+    public String toString() {
+        return "ProzessSchrittZustandsAutomatVorlage{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
