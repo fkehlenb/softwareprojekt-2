@@ -1,9 +1,6 @@
 package de.unibremen.sfb.boundary;
 
-import de.unibremen.sfb.model.Auftrag;
-import de.unibremen.sfb.model.ProzessKettenVorlage;
-import de.unibremen.sfb.model.ProzessSchrittVorlage;
-import de.unibremen.sfb.model.User;
+import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.ProzessKettenVorlageDAO;
 import de.unibremen.sfb.service.AuftragService;
 import de.unibremen.sfb.service.ProzessKettenVorlageService;
@@ -44,6 +41,10 @@ public class AuftragBean implements Serializable {
     void init() {
         auftrage = auftragService.getAuftrage();
         vorlagen = getPKVs();
+    }
+
+    public AuftragsPrioritaet[] getPrios() {
+        return AuftragsPrioritaet.values();
     }
 
     public void onRowEdit(RowEditEvent<Auftrag> event) {

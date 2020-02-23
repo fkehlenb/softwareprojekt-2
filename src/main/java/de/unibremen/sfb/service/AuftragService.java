@@ -36,6 +36,7 @@ import java.util.UUID;
 
 public class AuftragService implements Serializable {
     private List<Auftrag> auftrage;
+    private
 
     @Inject
     AuftragDAO auftragDAO;
