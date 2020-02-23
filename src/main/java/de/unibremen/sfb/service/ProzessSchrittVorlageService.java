@@ -71,6 +71,14 @@ public class ProzessSchrittVorlageService implements Serializable {
         // Es ist nicht moeglich, es und bs eager in der naechsten Zeile
         var psv = new ProzessSchrittVorlage(42, Duration.ofHours(8),"ERMITTELND", es,bs);
 
+        // Traeger Config
+        var glass = new TraegerArt("Glass");
+        var eT = new TraegerArt("Eingebetet");
+        var gT = new TraegerArt("Einzelen");
+
+        psv.setAusgabeTraeger(List.of(glass, eT));
+        psv.setEingabeTraeger(List.of(gT, glass));
+
         return List.of(psv);
     }
 
