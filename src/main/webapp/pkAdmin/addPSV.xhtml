@@ -94,8 +94,34 @@
                         <p:column headerText="Id">
                             <p:cellEditor>
                                 <f:facet name="output"><h:outputText value="#{psv.psVID}"/></f:facet>
-                                <f:facet name="input"><p:inputText id="modelInput" value="#{psv.psVID}"
+                                <f:facet name="input"><p:inputText id="ID" value="#{psv.psVID}"
                                                                    style="width:100%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Dauer">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{psv.dauer.getSeconds()}"/></f:facet>
+                                <f:facet name="input"><p:inputText id="Dauer" value="#{psv.dauer}"
+                                                                   style="width:100%"/></f:facet>
+                            </p:cellEditor>
+                        </p:column>
+
+                        <p:column headerText="Stationen">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{psv.stationen}"/></f:facet>
+                                <f:facet name="input">
+                                    <p:selectCheckboxMenu id="stationenTable"
+                                                          value="#{psv.stationen}"
+                                                          converter="omnifaces.SelectItemsConverter" effect="fade"
+                                                          style="width: 172px" filter="true"
+                                                          filterMatchMode="contains" showCheckbox="true"
+                                                          label="#{psv.stationen}" requiredMessage="Bitte Stationen Zuweisen!"
+                                                          required="true">
+                                        <f:selectItems value="#{psvErstellenBean.verfuegbareStationen}"
+                                                       var="stationen" itemLabel="#{stationen.name}"
+                                                       itemValue="#{stationen}"/>
+                                    </p:selectCheckboxMenu>
+                                </f:facet>
                             </p:cellEditor>
                         </p:column>
 
@@ -106,7 +132,7 @@
                                     <p:selectCheckboxMenu id="bedingungTable"
                                                           value="#{psv.bedingungen}"
                                                           converter="omnifaces.SelectItemsConverter" effect="fade"
-                                                          var="b" style="width: 172px" filter="true"
+                                                          style="width: 172px" filter="true"
                                                           filterMatchMode="contains" showCheckbox="true"
                                                           label="#{psv.bedingungen}" requiredMessage="Bitte Bedingung Zuweisen!"
                                                           required="true">
