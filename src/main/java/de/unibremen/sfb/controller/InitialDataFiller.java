@@ -311,6 +311,6 @@ public class InitialDataFiller {
     }
 
     public List<TraegerArt> erstelleTraeger() {
-        return List.of(new TraegerArt("Glass"), new TraegerArt("Eingebetet", new TraegerArt("Einzelen");
+        return List.of(new TraegerArt("Glass"), new TraegerArt("Eingebetet"), new TraegerArt("Einzelen"));
     }
 }

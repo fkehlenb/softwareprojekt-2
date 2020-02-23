@@ -3,10 +3,7 @@ package de.unibremen.sfb.boundary;
 import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.ExperimentierStationDAO;
-import de.unibremen.sfb.service.BedingungService;
-import de.unibremen.sfb.service.ExperimentierStationService;
-import de.unibremen.sfb.service.ProzessSchrittVorlageService;
-import de.unibremen.sfb.service.ZustandsService;
+import de.unibremen.sfb.service.*;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -63,6 +60,7 @@ public class PSVErstellenBean implements Serializable {
     private List<ExperimentierStation> verfuegbareStationen;
     private List<ProzessSchrittVorlage> verfuegbarePSV;
     private List<ProzessSchrittVorlage> selectedPSV;
+    private List<TraegerArt> verfuegbareTraegerArt;
 
     @Inject
     private ProzessSchrittVorlageService prozessSchrittVorlageService;
@@ -76,8 +74,11 @@ public class PSVErstellenBean implements Serializable {
     @Inject
     ZustandsService  zustandsService;
 
+
+
     @Inject
-    private ExperimentierStationDAO esDAO;
+    private TraegerArtService traegerArtService;
+
 
     @PostConstruct
     /**
@@ -89,6 +90,7 @@ public class PSVErstellenBean implements Serializable {
         // verfuegbarePSV = prozessSchrittVorlageService.getProzessSchrittVorlagen(); // Auskommentieren um die Peristenz zu Testen
         verfuegbareStationen = experimentierStationService.getESListe();
         zustandsService.getPsZustaende();
+        verfuegbareTraegerArt = traegerArtService.getVerTraeger();
     }
 
     public String erstellePSV() {
