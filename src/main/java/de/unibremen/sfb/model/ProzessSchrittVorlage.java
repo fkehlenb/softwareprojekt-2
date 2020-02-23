@@ -26,7 +26,7 @@ public class ProzessSchrittVorlage {
 
     /** Duration of the process step template */
     @NonNull
-    private Duration dauer;
+    private String dauer;
 
     /** Accepted container input types */
     @ManyToMany

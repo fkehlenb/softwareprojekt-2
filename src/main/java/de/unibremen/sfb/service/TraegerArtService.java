@@ -9,6 +9,7 @@ import lombok.Getter;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.io.Serializable;
+import java.time.Duration;
 import java.util.List;
 
 /** This class manages the business logic for container types */
@@ -28,6 +29,7 @@ public class TraegerArtService implements Serializable {
     private void init() {
         verTraeger = traegerArtDAO.getAll();
     }
+
 
 
     /** Add a new container type to the database

@@ -101,7 +101,7 @@
                         <p:column headerText="Dauer">
                             <p:cellEditor>
                                 <f:facet name="output"><h:outputText value="#{psv.dauer.getSeconds()}"/></f:facet>
-                                <f:facet name="input"><p:inputText id="Dauer" value="#{psv.dauer}"
+                                <f:facet name="input"><p:inputText id="Dauer" value="#{Duration.between(localTime)}"
                                                                    style="width:100%"/></f:facet>
                             </p:cellEditor>
                         </p:column>

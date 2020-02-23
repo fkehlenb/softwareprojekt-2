@@ -75,8 +75,8 @@ public class ProzessSchrittVorlageService implements Serializable {
         var bs = List.of(new Bedingung(9, "Test B", List.of(new ProzessSchrittParameter(6, "PsP 1",
                 List.of(new QualitativeEigenschaft(8, "gestresst"))), p), 66));
         // Es ist nicht moeglich, es und bs eager in der naechsten Zeile
-        var psv0 = new ProzessSchrittVorlage(42, Duration.ofHours(8), "ERMITTELND", es, bs);
-        var psv1 = new ProzessSchrittVorlage(55, Duration.ofHours(6), "FAERBEND", es, bs);
+        var psv0 = new ProzessSchrittVorlage(42, "8", "ERMITTELND", es, bs);
+        var psv1 = new ProzessSchrittVorlage(55, "6", "FAERBEND", es, bs);
 
         // Traeger Config
         var glass = new TraegerArt("Glass");
