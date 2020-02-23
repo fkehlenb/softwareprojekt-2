@@ -5,6 +5,7 @@ import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.AuftragDAO;
 import de.unibremen.sfb.persistence.StandortDAO;
 import de.unibremen.sfb.persistence.UserDAO;
+import de.unibremen.sfb.service.TraegerArtService;
 import de.unibremen.sfb.service.ZustandsService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -50,6 +51,9 @@ public class InitialDataFiller {
 
     @Inject
     private AuftragDAO auftragDAO;
+
+    @Inject
+    private TraegerArtService traegerArtService;
 
 
     @PersistenceContext
@@ -164,6 +168,14 @@ public class InitialDataFiller {
             ps.setProzessSchrittLog(psLogs);
             log.info("Try to persist TEST ProzessSchritt " + ps.getPsID());
             em.persist(ps);
+
+
+            // Persistiere Traeger Arten
+            for (TraegerArt t :
+                    traegerArtService.getVerTraeger()) {
+                em.persist(t);
+            }
+
             // PS aufuellen
             pk.getProzessSchritte().add(ps);
             log.info("Try to persist TEST ProzessKette " + pk.getPkID());
