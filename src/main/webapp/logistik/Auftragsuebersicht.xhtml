@@ -39,13 +39,19 @@
             <p:column headerText="Zustand">
                 <h:outputText value="#{auftrag.prozessKettenZustandsAutomat}" />
             </p:column>
-
-            <p:commandButton value="Ajax Submit" id="ajax" update="growl" action="#{auftrag.}" style="margin-right:20px;" styleClass="ui-priority-primary" />
-
-
-
         </p:dataTable>
+        <!-- Button für Zustandwechsel-->
+        <h:form>
+            <p:commandButton value="Erstellen"
+                             action="#{dtAuftragBean.zWechsel(auftragid)}" icon="pi pi-check"
+                             update="@form"/>
+
+        </h:form>
+
     </ui:define>
+
+
+
 </ui:composition>
 
 </body>
