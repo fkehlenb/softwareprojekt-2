@@ -14,11 +14,11 @@ import java.util.Set;
  * Anwendungsfall: Bearbeiten einer Vorlage oder hinzufuegen einer ProzessSchrittZustandsAutomatVorlage in einer ProzessKettenVorlage
  */
 public class ProzessSchrittZustandsAutomatVorlageService {
-    private Set<ProzessSchrittZustandsAutomatVorlage> automatenVorlagen;
+    private Set<ProzessSchrittZustandsAutomatVorlage> psvVorlagen;
 
     @PostConstruct
     public void init() {
-        this.automatenVorlagen = erstelleStandartVorlagen();
+        this.psvVorlagen = erstelleStandartVorlagen();
     }
 
     // FIXME Add Default
@@ -35,11 +35,11 @@ public class ProzessSchrittZustandsAutomatVorlageService {
     }
 
     public Set<ProzessSchrittZustandsAutomatVorlage> getProzessSchrittZustandsAutomatVorlagen() {
-        return automatenVorlagen;
+        return psvVorlagen;
     }
 
     /** Add a new process step template */
     public void addVorlage(ProzessSchrittZustandsAutomatVorlage ProzessSchrittZustandsAutomatVorlage) {
-        this.automatenVorlagen.add(ProzessSchrittZustandsAutomatVorlage);
+        this.psvVorlagen.add(ProzessSchrittZustandsAutomatVorlage);
     }
 }

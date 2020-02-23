@@ -10,7 +10,7 @@
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
             <property name="javax.persistence.jdbc.user" value="swp2" />
             <property name="javax.persistence.jdbc.password" value="swp2" />
-            <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />
+            <property name="javax.persistence.schema-generation.database.action" value="update" />
         </properties>
     </persistence-unit>
 </persistence>
