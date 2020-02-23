@@ -2,10 +2,7 @@ package de.unibremen.sfb.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 /** Data class for process step state automatons */
 @Getter
@@ -28,6 +25,6 @@ public class ProzessSchrittZustandsAutomat {
 
     /** The process step state automaton template the automaton was created from (containing all possible states) */
     @NonNull
-    @OneToOne
+    @ManyToOne
     private ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage;
 }

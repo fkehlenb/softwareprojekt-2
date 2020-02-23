@@ -50,6 +50,11 @@ public class ProzessSchrittVorlage {
     @NonNull
     private List<Bedingung> bedingungen;
 
+    /** The state Automaton for the process step */
+    @NonNull
+    @OneToOne
+    private ProzessSchrittZustandsAutomat zustandsAutomat;
+
     @Override
     public String toString() {
         return "PSV" + this.psVID;

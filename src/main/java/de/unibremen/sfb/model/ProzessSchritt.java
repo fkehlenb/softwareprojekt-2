@@ -34,12 +34,6 @@ public class ProzessSchritt {
 //    @OneToOne
 //    private ExperimentierStation current;
 
-
-    /** The state Automaton for the process step */
-    @NonNull
-    @OneToOne
-    private ProzessSchrittZustandsAutomat zustandsAutomat;
-
     /** The transport job to be carried out */
     @OneToOne
     private TransportAuftrag transportAuftrag;
