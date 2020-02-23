@@ -21,4 +21,11 @@ public class TraegerArt {
     @Id
     @NonNull
     private String art;
+
+    @Override
+    public String toString() {
+        return "TraegerArt{" +
+                "art='" + art + '\'' +
+                '}';
+    }
 }
