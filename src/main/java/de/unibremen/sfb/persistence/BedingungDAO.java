@@ -6,6 +6,8 @@ import de.unibremen.sfb.model.Bedingung;
 import de.unibremen.sfb.model.Standort;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.persistence.EntityNotFoundException;
+import javax.swing.text.html.parser.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +70,7 @@ public class BedingungDAO extends ObjectDAO<Bedingung> {
             }
             return es;
         }
-        catch (Exception e){
+        catch (EntityNotFoundException e){
 //            e.printStackTrace();
             throw new IllegalArgumentException();
         }
