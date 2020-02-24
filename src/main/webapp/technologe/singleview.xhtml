@@ -26,7 +26,7 @@
                     <p>Daten hochgeladen: #{singleJobBean.ps.uploaded}</p>
                 </p:row>
                 <p:row>
-                    <p>Zustand: #{singleJobBean.ps.zustandsAutomat.current}</p>
+                    <p>Zustand: #{singleJobBean.ps.prozessSchrittZustandsAutomat.current}</p>
                     <div align="center">
                         <h:commandButton action="#{technologeBean.setJobZustand(singleJobBean.ps)}" value="Weiterschalten"/>
                     </div>
@@ -70,8 +70,10 @@
                     <p:column headerText="Standort">
                         <h:outputText value="#{probe.standort.ort}"/>
                     </p:column>
-                    <p:column headerText="Kommentar">
-                        <h:outputText value="#{singleJobBean.KommentarToString(probe)}"/>
+                    <p:column headerText="Auswählen">
+                        <div align="center">
+                            <h:commandButton value="Choose" action="#{singleSampleBean.singleprobe(probe)}" />
+                        </div>
                     </p:column>
 
                 </p:dataTable>
