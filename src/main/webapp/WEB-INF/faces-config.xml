@@ -11,7 +11,7 @@
             <supported-locale>en</supported-locale>
         </locale-config>
         <resource-bundle>
-            <base-name>de.unibremen.sfb</base-name>
+            <base-name>de.unibremen.sfb.messages</base-name>
             <var>msg</var>
         </resource-bundle>
     </application>
