@@ -1,5 +1,6 @@
 package de.unibremen.sfb.boundary;
 
+import de.unibremen.sfb.exception.DuplicateProzessKettenVorlageException;
 import de.unibremen.sfb.exception.ProzessKettenVorlageNotFoundException;
 import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
 import de.unibremen.sfb.model.*;
@@ -8,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.java.Log;
 import org.primefaces.event.RowEditEvent;
+import org.primefaces.model.DualListModel;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -16,10 +18,12 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
-@Named("psvErstellenBean")
+@Named("pkvView")
 @ViewScoped
 @Getter
 @Setter
@@ -27,7 +31,10 @@ import java.util.List;
 public class PKVView implements Serializable {
     private List<ProzessKettenVorlage> ausProzessKettenVorlagen;
     private List<ProzessKettenVorlage> verPKV;
-    private List<ProzessSchrittVorlage> verPSV;
+    private List<ProzessKettenVorlage> selPKV;
+    private List<ProzessSchrittVorlage> sourcePSV;
+    private List<ProzessSchrittVorlage> targetPSV;
+    private DualListModel<ProzessSchrittVorlage> psvs;
 
    @Inject
    private ProzessKettenVorlageService prozessKettenVorlageService;
@@ -40,12 +47,21 @@ public class PKVView implements Serializable {
      */
     @PostConstruct
     public void init() {
+        sourcePSV = prozessSchrittVorlageService.getVorlagen();
+        targetPSV = new ArrayList<ProzessSchrittVorlage>();
+        psvs = new DualListModel<ProzessSchrittVorlage>(sourcePSV, targetPSV);
         verPKV = prozessKettenVorlageService.getPKVs();
-        verPSV = prozessSchrittVorlageService.getVorlagen();
+        //
     }
 
-    public String erstellePSV() {
+    public String erstellePSK() {
         // FIXME
+        var pk = new ProzessKettenVorlage(UUID.randomUUID().hashCode(), psvs.getTarget() );
+        try {
+            prozessKettenVorlageService.persist(pk);
+        } catch (DuplicateProzessKettenVorlageException e) {
+            e.printStackTrace();
+        }
         return "?faces-redirect=true";
     }
 

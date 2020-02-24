@@ -9,6 +9,7 @@ import de.unibremen.sfb.persistence.AuftragDAO;
 import lombok.Data;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.crypto.hash.Hash;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -17,10 +18,8 @@ import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbConfig;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.lang.reflect.Array;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Singleton
@@ -301,6 +300,21 @@ public class AuftragService implements Serializable {
         }
         // TODO persist
         return result;
+    }
+
+    /**
+     * Hole Alle ProzessSchritte die als Transport Zustand ERSTELLT haben
+     * @return alle ps fuer den Transport
+     */
+    public List<ProzessSchritt> getTransportSchritt() {
+        var s = new HashSet<ProzessSchritt>();
+        for (Auftrag a :
+                getAuftrage()) {
+            s.addAll(a.getProzessSchritte().stream()
+                    .filter(p -> p.getTransportAuftrag().getZustandsAutomat().equals(TransportAuftragZustand.ERSTELLT))
+                    .collect(Collectors.toSet()));
+        }
+        return new ArrayList<ProzessSchritt>(s);
     }
 
 }

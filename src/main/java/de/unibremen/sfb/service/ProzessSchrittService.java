@@ -34,7 +34,7 @@ public class ProzessSchrittService implements Serializable {
      * @param u the current user
      * @return the ps
      */
-    public List<ProzessSchritt> getProbenByUser(User u) {
+    public List<ProzessSchritt> getSchritteByUser(User u) {
         var ps = new ArrayList<ProzessSchritt>();
         for (ExperimentierStation e :
                 experimentierStationService.getESByUser(u)) {
@@ -42,6 +42,7 @@ public class ProzessSchrittService implements Serializable {
         }
         return ps;
     }
+
 
     /** Get all process steps from the database
      * @return a list of all process steps */
