@@ -54,7 +54,11 @@ public class ExperimentierStationServiceTest {
     }
 
     void loescheES() {
-        experimentierStationService.loescheES(es);
+        try {
+            experimentierStationService.loescheES(es);
+        } catch (ExperimentierStationNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
