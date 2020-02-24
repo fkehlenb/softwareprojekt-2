@@ -14,12 +14,34 @@
 
 
 <ui:define name="content">
+    <div class="ui-g-2"></div>
+    <div class="ui-g-8">
+        <h:body style="background: url('../background.png')">
+            <h:form id="form" style="background-color: white; margin-top: 100px; width: 650px">
+                <h:panelGrid columns="1">
+                    <p:row>
+                        <h1 style="color: cornflowerblue">Ihre aktuellen Aufträge</h1>
+                    </p:row>
 
-    <p:breadCrumb>
-        <p:menuitem value="Home" url="#"/>
-    </p:breadCrumb>
-
+                    <p:dataTable var="auftrag" value="#{technologeView.getJobs()}">
+                        <p:column headerText="Id">
+                            <h:outputText value="#{auftrag.psID}"/>
+                        </p:column>
+                        <p:column headerText="Status">
+                            <h:outputText value="#{auftrag.prozessSchrittZustandsAutomat.current}"/>
+                        </p:column>
+                        <p:column headerText="Auswählen">
+                            <div align="center">
+                                <h:commandButton value="Choose" action="#{singleJobBean.singlejob(auftrag)}" />
+                            </div>
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGrid>
+            </h:form>
+        </h:body>
+    </div>
 </ui:define>
 </ui:composition>
 </body>
 </html>
+
