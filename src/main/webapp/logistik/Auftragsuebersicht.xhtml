@@ -22,39 +22,41 @@
 <ui:composition template="/template/common/layout.xhtml">
     <ui:define name="content">
         <h2 style="text-align: center">Alle Aufträge </h2>
-        <p:dataTable var="auftrag" value="#{dtAuftragBean.auftrage}">
-            <p:column headerText="Id">
-                <h:outputText value="#{auftrag.pkID}" />
-            </p:column>
-
-            <p:column headerText="Priorität">
-                <h:outputText value="#{auftrag.priority}" />
-            </p:column>
-
-            <!--<p:column headerText="Prozessschritte">
-                <h:outputText value="#{auftrag.prozessSchritte}" />
-            </p:column>-->
+        <p:growl>
+            <p:autoUpdate/>
+        </p:growl>
+        <h:form>
 
 
-            <p:column headerText="Zustand">
-                <h:outputText value="#{auftrag.prozessKettenZustandsAutomat}" />
-            </p:column>
-                <h:form>
-                    <p:commandButton value="#{dtAuftragBean.auftrage}"
-                                 action="#{dtAuftragBean.zWechsel(auftrag)}" icon="pi pi-check"
-                                 update="@form"/>
+            <p:dataTable var="auftrag" value="#{dtAuftragBean.auftrage}">
+                <p:column headerText="Id">
+                    <h:outputText value="#{auftrag.pkID}"/>
+                </p:column>
 
-                </h:form>
-            <p:column>
+                <p:column headerText="Priorität">
+                    <h:outputText value="#{auftrag.priority}"/>
+                </p:column>
+
+                <!--<p:column headerText="Prozessschritte">
+                    <h:outputText value="#{auftrag.prozessSchritte}" />
+                </p:column>-->
 
 
-            </p:column>
-        </p:dataTable>
+                <p:column headerText="Zustand">
+                    <h:outputText value="#{auftrag.prozessKettenZustandsAutomat}"/>
+                </p:column>
+                <p:column>
+
+                    <p:commandButton value="Change State" action="#{dtAuftragBean.zWechsel(auftrag.pkID)}" icon="pi pi-check" update="@form" ajax="true"/>
+
+                </p:column>
+            </p:dataTable>
+
+        </h:form>
         <!-- Button für Zustandwechsel-->
 
 
     </ui:define>
-
 
 
 </ui:composition>
