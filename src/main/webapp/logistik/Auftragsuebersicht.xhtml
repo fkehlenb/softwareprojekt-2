@@ -42,8 +42,8 @@
         </p:dataTable>
         <!-- Button für Zustandwechsel-->
         <h:form>
-            <p:commandButton value="Erstellen"
-                             action="#{dtAuftragBean.zWechsel}" icon="pi pi-check"
+            <p:commandButton value="#{dtAuftragBean.auftrage}"
+                             action="#{dtAuftragBean.zWechsel(auftrag)}" icon="pi pi-check"
                              update="@form"/>
 
         </h:form>

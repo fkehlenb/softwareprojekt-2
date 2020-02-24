@@ -31,6 +31,7 @@ import static de.unibremen.sfb.model.ProzessKettenZustandsAutomat.GESTARTET;
 public class AuftragBean implements Serializable {
     private List<Auftrag> auftrage;
     private List<ProzessKettenVorlage> vorlagen;
+    //Der gewählte Auftrag
 
 
     @Inject
@@ -41,20 +42,16 @@ public class AuftragBean implements Serializable {
 
     @Inject
     ZustandsService zustandsService;
-
-    @Inject
-    Auftrag auftrag;
-
+    private Auftrag auftrag;
     @PostConstruct
     void init() {
         auftrage = auftragService.getAuftrage();
         vorlagen = getPKVs();
-        //FIX?
-        auftragService.zustandswechsel(auftrag,GESTARTET);
+
 
     }
     //Soll den Zustand wechseln FUNKTIONIERT NICHT!
-    public void zWechsel(){
+    public void zWechsel(Auftrag auftrag){
          auftragService.zustandswechsel(auftrag,GESTARTET);
     }
 
