@@ -2,6 +2,7 @@ package de.unibremen.sfb.controller;
 
 import de.unibremen.sfb.model.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -14,7 +15,7 @@ import javax.json.bind.JsonbBuilder;
 /**
  * this class manages the interaction with models of samples (Proben)
  */
-public class ProbeController {
+public class ProbeController implements Serializable {
 
     /**
      * the Probe managed by a controller instance
@@ -135,6 +136,10 @@ public class ProbeController {
     public String getJSON(Probe probe) {
         Jsonb jsonb = JsonbBuilder.create();
         return jsonb.toJson(probe);
+    }
+
+    public void setZustandForProbe(Probe p, ProbenZustand pz) {
+
     }
 
 }
