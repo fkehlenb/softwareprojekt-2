@@ -30,7 +30,7 @@ public class ProzessSchrittVorlageService implements Serializable {
 
     @PostConstruct
     public void init() {
-        this.vorlagen = erstelleStandartVorlagen();
+        this.vorlagen = getProzessSchrittVorlagen();
     }
 
     @Inject
@@ -169,4 +169,15 @@ public class ProzessSchrittVorlageService implements Serializable {
 
         }
     }
+
+    /**
+     * Hole die PSV durch ihre ID
+     * @param id die ID von psv
+     * @return die PSV
+     * @throws ProzessSchrittVorlageNotFoundException
+     */
+    public ProzessSchrittVorlage getByID(int id) throws ProzessSchrittVorlageNotFoundException{
+        return psvDAO.getObjById(id);
+    }
+
 }

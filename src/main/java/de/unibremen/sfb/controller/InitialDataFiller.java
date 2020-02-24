@@ -123,8 +123,8 @@ public class InitialDataFiller {
                 log.info("Trying to persist ProzessSchrittVorlage " + pSV.toString());
                 em.persist(pSV);
             }
-            pkv = new ProzessKettenVorlage(99, psvListe);
-            log.info("Try to persist ProzessSchrittVorlage " + pkv.getPkID());
+            pkv = new ProzessKettenVorlage(UUID.randomUUID().hashCode(), psvListe);
+            log.info("Try to persist ProzessSchrittVorlage " + pkv.getPkvID());
             em.persist(pkv);
 
             // Auftrag Setup
@@ -162,7 +162,7 @@ public class InitialDataFiller {
             var automat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "AKZEPTIERT", pszaVorlage);
             em.persist(automat);
 
-            ps = new ProzessSchritt(42, logs, psvListe.get(0), automat);
+            ps = new ProzessSchritt(UUID.randomUUID().hashCode(), logs, psvListe.get(0), automat);
             var psLogs = List.of(new ProzessSchrittLog(LocalDateTime.now(), "Gestartet"),
                     new ProzessSchrittLog(LocalDateTime.now(), "Veraendert") );
             for (ProzessSchrittLog psl :
@@ -301,7 +301,9 @@ public class InitialDataFiller {
     public List<ProzessSchrittVorlage> getProzessSchrittVorlages(List<ProzessSchrittParameter> parameters) {
         // PSVA
         List<ProzessSchrittVorlage> psListe = new ArrayList<>();
-        psListe.add(getProzessSchrittVorlage(parameters));
+        for (int i = 0; i < limit ; i++) {
+            psListe.add(getProzessSchrittVorlage(parameters));
+        }
         return psListe;
     }
 
@@ -312,8 +314,10 @@ public class InitialDataFiller {
         em.persist(v);
         var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "ANGENOMMEN", sVorlage);
         em.persist(a);
-        ProzessSchrittVorlage psv = new ProzessSchrittVorlage(99, "42",
+
+        ProzessSchrittVorlage psv = new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), "42",
                 "Ermittlend", experimentierStations, new ArrayList<>(), v);
+
         return psv;
     }
 

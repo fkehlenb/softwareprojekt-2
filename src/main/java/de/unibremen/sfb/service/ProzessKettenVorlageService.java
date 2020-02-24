@@ -22,7 +22,7 @@ import java.util.*;
 @Slf4j
 @Getter
 public class ProzessKettenVorlageService implements Serializable {
-    private List<ProzessKettenVorlage> pkVorlagen;
+    private ArrayList<ProzessKettenVorlage> pkVorlagen;
     private List<ProzessSchrittVorlage> psVorlagen;
 
     @Inject
@@ -34,7 +34,7 @@ public class ProzessKettenVorlageService implements Serializable {
     @PostConstruct
     public void init() {
         psVorlagen = prozessSchrittVorlageService.getVorlagen();
-        pkVorlagen = erstellePKV();
+        pkVorlagen = getPkVorlagen();
     }
 
     private List<ProzessKettenVorlage> erstellePKV() {
@@ -65,13 +65,9 @@ public class ProzessKettenVorlageService implements Serializable {
      *
      * @param pkv die Vorlage
      */
-    public void persist(ProzessKettenVorlage pkv) {
-        try {
+    public void persist(ProzessKettenVorlage pkv) throws DuplicateProzessKettenVorlageException  {
             pkvDAO.persist(pkv);
-        } catch (DuplicateProzessKettenVorlageException e) {
-            e.printStackTrace();
-        }
-        pkVorlagen.add(pkv);
+            pkVorlagen.add(pkv);
     }
 
     public ProzessKettenVorlage ByID(int id) throws ProzessKettenVorlageNotFoundException {
