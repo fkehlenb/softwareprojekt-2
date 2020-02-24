@@ -1,12 +1,8 @@
 package de.unibremen.sfb.boundary;
 
-import de.unibremen.sfb.exception.DuplicateProzessSchrittVorlageException;
-import de.unibremen.sfb.persistence.ExperimentierStationDAO;
-import de.unibremen.sfb.persistence.ProzessSchrittVorlageDAO;
 import de.unibremen.sfb.service.*;
 import de.unibremen.sfb.model.*;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 import lombok.extern.java.Log;
 import org.primefaces.event.RowEditEvent;
@@ -17,12 +13,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
-import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 
 @Named("psView")
@@ -32,38 +24,76 @@ import java.util.UUID;
 @Log
 public class ProzessSchrittView implements Serializable {
 
+    /**
+     * All process steps
+     */
     private List<ProzessSchritt> allePS;
+
+    /**
+     * All process step templates
+     */
     private List<ProzessSchrittVorlage> allePSV;
 
+    /**
+     * Process step service
+     */
     @Inject
-    transient private ProzessSchrittService prozessSchrittService;
+    private ProzessSchrittService prozessSchrittService;
 
+    /**
+     * Process step template service
+     */
     @Inject
     private ProzessSchrittVorlageService prozessSchrittVorlageService;
 
-    @PostConstruct
+
     /**
      * Hier werden aus der Persitenz die benötigten Daten Geladen
      */
+    @PostConstruct
     public void init() {
-       allePS = prozessSchrittService.getAll();
-       allePSV = prozessSchrittVorlageService.getProzessSchrittVorlagen();
+        allePS = prozessSchrittService.getAll();
+        allePSV = prozessSchrittVorlageService.getProzessSchrittVorlagen();
     }
 
 
+    /**
+     * Once the row has been modified, update the object
+     */
     public void onRowEdit(RowEditEvent<ProzessSchrittVorlage> event) {
         prozessSchrittVorlageService.persist(event.getObject());
-        FacesMessage msg = new FacesMessage("PSV Edited", event.getObject().toString());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        facesNotification("Prozess schritt vorlage veraendert! ID: " + event.getObject().getPsVID());
     }
 
+    /**
+     * Canceled row edit
+     */
     public void onRowCancel(RowEditEvent<ProzessSchrittVorlage> event) {
-        FacesMessage msg = new FacesMessage("Edit Cancelled", event.getObject().toString());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        facesNotification("Cancelled!");
     }
 
+    /**
+     * JSON export
+     */
     public String json() {
         return prozessSchrittService.toJson();
     }
 
+    /**
+     * Adds a new SEVERITY_ERROR FacesMessage for the ui
+     *
+     * @param message Error Message
+     */
+    private void facesError(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+    }
+
+    /**
+     * Adds a new SEVERITY_INFO FacesMessage for the ui
+     *
+     * @param message Info Message
+     */
+    private void facesNotification(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
+    }
 }

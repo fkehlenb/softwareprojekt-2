@@ -1,48 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:shiro="http://shiro.apache.org/tags">
 <h:head>
+    <title>Prozess Schritt Verwaltung - SFB Farbige Zustaende</title>
+    <link rel="icon" href="../background.png"/>
 </h:head>
-<h:body>
 
-    <ui:composition template="/template/common/layout.xhtml">
-        <ui:define name="content">
-            <h:form id="form">
-                <p:growl id="msgs" showDetail="true"/>
-
-                <p:dataTable id="prozessSchritt" var="ps" value="#{psView.allePS}" editable="true"
-                             style="margin-bottom:20px">
-                    <f:facet name="header">
-                        Row Editing
-                    </f:facet>
-
-                    <p:ajax event="rowEdit" listener="#{psView.onRowEdit}" update=":form:msgs"/>
-                    <p:ajax event="rowEditCancel" listener="#{psView.onRowCancel}" update=":form:msgs"/>
-
-                    <p:column headerText="Id">
-                        <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{ps.psID}"/></f:facet>
-                            <f:facet name="input"><p:inputText id="idInput" value="#{ps.psID}"
-                                                               style="width:100%"/></f:facet>
-                        </p:cellEditor>
-                    </p:column>
-
-                    <p:column headerText="Prozessschritt Log">
-                            <f:facet name="output"><h:outputText value="#{ps.prozessSchrittLog.size}"/></f:facet>
-                    </p:column>
-
-
-                    <p:column style="width:35px">
-                        <p:rowEditor/>
-                    </p:column>
-                </p:dataTable>
-
-                <h:outputText value="#{psView.json()}"/>
-
-            </h:form>
-        </ui:define>
-    </ui:composition>
-</h:body>
+<body background="../background.png">
+<shiro:authenticated>
+    <shiro:hasRole name="pkAdmin">
+        <ui:composition template="/template/common/layout.xhtml">
+            <ui:define name="content">
+                <p:growl>
+                    <p:autoUpdate/>
+                </p:growl>
+                <h:form id="form">
+                    <p:dataTable id="table" var="ps" value="#{psView.allePS}" editable="true"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                 paginator="true" rows="5" style="margin-bottom:20px">
+                        <p:ajax event="rowEdit" listener="#{psView.onRowEdit}"
+                                update="form:table"/>
+                        <p:ajax event="rowEditCancel" listener="#{psView.onRowCancel}"
+                                update="form:table"/>
+                        <p:column headerText="Prozessschritt Log">
+                            <f:facet name="output">
+                                <h:outputText value="#{ps.prozessSchrittLog.size}"/>
+                            </f:facet>
+                        </p:column>
+                        <p:column style="width:35px">
+                            <p:rowEditor/>
+                        </p:column>
+                    </p:dataTable>
+                    <h:outputText value="#{psView.json()}"/>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </shiro:hasRole>
+</shiro:authenticated>
+</body>
 </html>

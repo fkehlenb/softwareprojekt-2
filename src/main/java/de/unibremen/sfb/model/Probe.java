@@ -28,7 +28,7 @@ public class Probe {
     private String probenID;
 
     /** Comment added to the sample and when it was added */
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Kommentar kommentar;
 
     /** The sample's state */
@@ -41,15 +41,15 @@ public class Probe {
     private Standort standort;
 
     /** The Predicate of a Sample */
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Bedingung> bedingungen;
 
     /** The qualitative/quantitative descriptors of the sample */
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<QualitativeEigenschaft> qualitativeEigenschaften;
 
     /** The container the sample is currently located in */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Traeger currentTraeger;
 }
 

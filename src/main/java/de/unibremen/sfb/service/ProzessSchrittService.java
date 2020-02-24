@@ -16,11 +16,17 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ProzessSchrittService implements Serializable {
 
+    /**
+     * Experimenting station service
+     */
     @Inject
-    ExperimentierStationService experimentierStationService;
+    private ExperimentierStationService experimentierStationService;
 
+    /**
+     * Process step dao
+     */
     @Inject
-    ProzessSchrittDAO prozessSchrittDAO;
+    private ProzessSchrittDAO prozessSchrittDAO;
 
     /**
      * Get all PS which belong to user
@@ -37,11 +43,13 @@ public class ProzessSchrittService implements Serializable {
         return ps;
     }
 
+    /** Get all process steps from the database
+     * @return a list of all process steps */
     public List<ProzessSchritt> getAll() {
         return prozessSchrittDAO.getAll();
     }
 
-
+    /** JSON export */
     public String toJson() {
         JsonbConfig config = new JsonbConfig()
                 .withFormatting(true);
