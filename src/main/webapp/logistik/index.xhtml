@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Logistik - Home</title>
+    <link rel="icon" href="../background.png"/>
+</h:head>
+<body background="../background.png">
+<ui:include src="/template/common/header.xhtml"/>
+<ui:include src="/template/common/hamburgerMenu.xhtml"/>
+<div style=" margin-top: 10px">
+    <h:form>
+        <p:growl>
+            <p:autoUpdate/>
+        </p:growl>
+        <p:panelGrid columns="1">
+            <p:tabMenu>
+                <p:menuitem value="Home"/>
+            </p:tabMenu>
+            <h1 style="color: cornflowerblue">Wilkommen beim SFB - Farbige Zustaende!</h1>
+            <p>Wilkommen beim SFB - Farbige Zustaende!<br/> Links sehen sie ihr Navigationsmenue. </p>
+        </p:panelGrid>
+    </h:form>
+</div>
+</body>
+</html>
