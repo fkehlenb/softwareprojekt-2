@@ -25,10 +25,10 @@
         <p:growl>
             <p:autoUpdate/>
         </p:growl>
-        <h:form>
+        <h:form id="form">
 
 
-            <p:dataTable var="auftrag" value="#{dtAuftragBean.auftrage}">
+            <p:dataTable id="table" var="auftrag" value="#{dtAuftragBean.auftrage}">
                 <p:column headerText="Id">
                     <h:outputText value="#{auftrag.pkID}"/>
                 </p:column>
@@ -37,17 +37,17 @@
                     <h:outputText value="#{auftrag.priority}"/>
                 </p:column>
 
-                <!--<p:column headerText="Prozessschritte">
+                <p:column headerText="Prozessschritte">
                     <h:outputText value="#{auftrag.prozessSchritte}" />
-                </p:column>-->
-
+                </p:column>
 
                 <p:column headerText="Zustand">
                     <h:outputText value="#{auftrag.prozessKettenZustandsAutomat}"/>
                 </p:column>
+
                 <p:column>
 
-                    <p:commandButton value="Change State" action="#{dtAuftragBean.zWechsel(auftrag.pkID)}" icon="pi pi-check" update="@form" ajax="true"/>
+                    <p:commandButton value="Change State" ajax="true" action="#{dtAuftragBean.zWechsel(auftrag.pkID)}" icon="pi pi-check" update="form:table" />
 
                 </p:column>
             </p:dataTable>

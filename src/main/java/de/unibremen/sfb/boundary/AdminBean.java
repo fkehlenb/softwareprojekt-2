@@ -417,6 +417,7 @@ public class AdminBean implements Serializable {
             experimentierStationService.updateES(es);
             log.info("Updated experimenting station! ID: " + experimentierStationId);
             facesNotification("Updated experimentierstation! ID: " + experimentierStationId);
+            experimentierStations = experimentierStationService.getAll();
         } catch (Exception e) {
             e.printStackTrace();
             log.error("Couldn't update experimenting station! ID: " + experimentierStationId);
@@ -451,6 +452,7 @@ public class AdminBean implements Serializable {
                 experimentierStationService.addES(es);
                 log.info("Added experimenting station! Name: " + experimentierStationName);
                 facesNotification("Added experimenting station! Name: " + experimentierStationName);
+                experimentierStations = experimentierStationService.getAll();
             } catch (Exception f) {
                 f.printStackTrace();
                 log.error("Couldn't add experimenting station! Name: " + experimentierStationName);
@@ -470,6 +472,7 @@ public class AdminBean implements Serializable {
                 experimentierStationService.loescheES(es);
                 log.info("Deleted experimenting station! ID: " + esID);
                 facesNotification("Deleted experimenting station! ID: " + esID);
+                experimentierStations = experimentierStationService.getAll();
             }
             catch (Exception e){
                 e.printStackTrace();
