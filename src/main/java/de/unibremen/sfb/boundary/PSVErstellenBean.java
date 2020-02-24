@@ -58,7 +58,7 @@ public class PSVErstellenBean implements Serializable {
     private List<ExperimentierStation> ausgewaehlteStationen;
 
 
-    private List<ProzessSchrittZustandsAutomatVorlage> ausProzessSchrittZustandsAutomatVorlage;
+    private ProzessSchrittZustandsAutomatVorlage ausProzessSchrittZustandsAutomatVorlage;
 
     // Wir benoetigen die Parameter und Eigenschaften um diese dann auszuwaehlen
     private List<Bedingung> verfuegbareBedingunen;
@@ -107,18 +107,9 @@ public class PSVErstellenBean implements Serializable {
     public String erstellePSV() {
         log.info("Erstelle Prozessschritt");
         // FIXME Wehre is es, persist auf  de.unibremen.sfb.model.ProzessSchrittVorlage.zustandsAutomat -> de.unibremen.sfb.model.ProzessSchrittZustandsAutomatVorlage
-        // ausProzessSchrittZustandsAutomatVorlage.get(0) als Lösung Liam
-        //TODO wir können hier jetzt das methode nutzen und ein Prozessschrittvorlage persistieren.
-        // Bitte  es ist zu lösen 2 Sachen
-        // 1) name der verPSZAV nicht sehenbar
-        // 2) ausProzessSchrittZustandsAutomatVorlage.get(0) soll nicht nur das erte denke ich obwohlt funtiniert
-
-        var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "Angenommen",
-                ausProzessSchrittZustandsAutomatVorlage.get(0));
-       // prozessSchrittZustandsAutomatService.addVorlage(a);
 
         ProzessSchrittVorlage psv = new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), dauer, psArt,
-                ausgewaehlteStationen, ausgewaehlteBedingungen,a);
+                ausgewaehlteStationen, ausgewaehlteBedingungen, ausProzessSchrittZustandsAutomatVorlage);
         prozessSchrittVorlageService.persist(psv);
 
         FacesContext context = FacesContext.getCurrentInstance();

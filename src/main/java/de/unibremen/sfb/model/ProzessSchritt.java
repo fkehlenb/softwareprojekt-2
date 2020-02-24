@@ -52,5 +52,10 @@ public class ProzessSchritt {
     @OneToMany
     private List<Probe> zugewieseneProben;
 
+    /** The process step state automaton template the automaton was created from (containing all possible states) */
+    @NonNull
+    @ManyToOne
+    private ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat;
+
 
 }

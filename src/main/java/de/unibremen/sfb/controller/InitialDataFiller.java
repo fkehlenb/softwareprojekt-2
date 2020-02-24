@@ -39,6 +39,7 @@ public class InitialDataFiller {
     private Auftrag pk;
     private ProzessKettenVorlage pkv;
     private List<QualitativeEigenschaft> qualitativeEigenschaftList;
+    private ProzessSchrittZustandsAutomatVorlage pszaVorlage;
 
     @Inject
     private UserDAO userDAO;
@@ -136,14 +137,14 @@ public class InitialDataFiller {
 
 
             // PSZAV Setup
-            ProzessSchrittZustandsAutomatVorlage psza = new ProzessSchrittZustandsAutomatVorlage(
+            pszaVorlage = new ProzessSchrittZustandsAutomatVorlage(
                     zustandsService.getPsZustaende(), zustandsService.getPsZustaende().get(0));
-            log.info("Try to persist ProzessSchrittZustandsAutomatVorlage " + psza.toString());
-            em.persist(psza);
+            log.info("Try to persist ProzessSchrittZustandsAutomatVorlage " + pszaVorlage.toString());
+            em.persist(pszaVorlage);
 
             // Setup PSZA
             ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(
-                    UUID.randomUUID().hashCode(), "ERSTELLT", psza);
+                    UUID.randomUUID().hashCode(), "ERSTELLT", pszaVorlage);
             log.info("Try to persist ProzessSchrittZustandsAutomat " + prozessSchrittZustandsAutomat.toString());
             em.persist(prozessSchrittZustandsAutomat);
 
@@ -157,7 +158,11 @@ public class InitialDataFiller {
             }
 
 
-            ps = new ProzessSchritt(42, logs, psvListe.get(0));
+            // Erstelle neuen PSZA
+            var automat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "AKZEPTIERT", pszaVorlage);
+            em.persist(automat);
+
+            ps = new ProzessSchritt(42, logs, psvListe.get(0), automat);
             var psLogs = List.of(new ProzessSchrittLog(LocalDateTime.now(), "Gestartet"),
                     new ProzessSchrittLog(LocalDateTime.now(), "Veraendert") );
             for (ProzessSchrittLog psl :
@@ -308,7 +313,7 @@ public class InitialDataFiller {
         var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "ANGENOMMEN", sVorlage);
         em.persist(a);
         ProzessSchrittVorlage psv = new ProzessSchrittVorlage(99, "42",
-                "Ermittlend", experimentierStations, new ArrayList<>(), a);
+                "Ermittlend", experimentierStations, new ArrayList<>(), v);
         return psv;
     }
 

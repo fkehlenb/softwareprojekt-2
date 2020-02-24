@@ -24,7 +24,6 @@ public class ProzessSchrittZustandsAutomat {
     @NonNull
     private String current;
 
-    /** The process step state automaton template the automaton was created from (containing all possible states) */
     @NonNull
     @ManyToOne
     private ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage;

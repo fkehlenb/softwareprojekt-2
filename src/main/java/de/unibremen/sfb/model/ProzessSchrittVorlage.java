@@ -52,8 +52,8 @@ public class ProzessSchrittVorlage {
 
     /** The state Automaton for the process step */
     @NonNull
-    @OneToOne
-    private ProzessSchrittZustandsAutomat zustandsAutomat;
+    @ManyToOne
+    private ProzessSchrittZustandsAutomatVorlage zustandsAutomatVorlage;
 
     @Override
     public String toString() {

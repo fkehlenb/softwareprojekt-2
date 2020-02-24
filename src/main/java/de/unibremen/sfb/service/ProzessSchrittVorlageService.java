@@ -88,8 +88,8 @@ public class ProzessSchrittVorlageService implements Serializable {
                 zustandsService.getPsZustaende(), "Test pszvav");
         var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "ANGENOMMEN", sVorlage);
 
-        var psv0 = new ProzessSchrittVorlage(42, "8", "ERMITTELND", es, bs, a );
-        var psv1 = new ProzessSchrittVorlage(55, "6", "FAERBEND", es, bs, a);
+        var psv0 = new ProzessSchrittVorlage(42, "8", "ERMITTELND", es, bs, v );
+        var psv1 = new ProzessSchrittVorlage(55, "6", "FAERBEND", es, bs, v);
 
         // Traeger Config
         var glass = new TraegerArt("Glass");
