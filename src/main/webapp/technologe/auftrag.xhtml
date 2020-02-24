@@ -27,14 +27,10 @@
                                     <h:outputText value="#{auftrag.psID}"/>
                                 </p:column>
                                 <p:column headerText="Zustand">
-                                    <h:outputText value="#{auftrag.zustandsAutomat.current}"/>
+                                    <h:outputText value="#{auftrag.prozessSchrittZustandsAutomat.current}"/>
                                 </p:column>
-                                <p:column headerText="Zuordnen">
-                                    <h:form>
-                                        <div align="center">
-                                            <h:commandButton action="#{technologeView.assignToAuftrag(auftrag)}" value="Assign"/>
-                                        </div>
-                                    </h:form>
+                                <p:column headerText="Standort">
+                                    <h:outputText value="#{}"/>
                                 </p:column>
                             </p:dataTable>
                         </h:panelGrid>

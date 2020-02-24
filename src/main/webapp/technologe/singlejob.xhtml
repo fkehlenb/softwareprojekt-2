@@ -36,24 +36,29 @@
                     <p>Prozessschritt Art: #{singleJobBean.ps.prozessSchrittVorlage.psArt}</p>
                 </p:row>
 
-                    <p:outputLabel for="kommentar" value="Kommentar:"/>
-                    <p:inputMask id="kommentar" value="#{singleJobBean.kommentarForAll}" mask=""/>
-                    <p:commandButton value="Save" type="save"/>
-                    <p:commandButton action="#{singleJobBean.addComment(technologeView.singleJob, singleJobBean.kommentarForAll)}"/>
+                <p:outputLabel for="kommentar" value="Kommentar:"/>
+                <p:inputMask id="kommentar" value="#{singleJobBean.kommentarForAll}" mask=""/>
+                <p:commandButton value="Save" type="save"/>
+                <p:commandButton action="#{singleJobBean.addComment(technologeView.singleJob, singleJobBean.kommentarForAll)}"/>
 
                 <p:row>
-                    <p> Bedingungen: </p>
+                    <p> Prozessschritt Parameter: </p>
                 </p:row>
 
-                <p:dataTable var="bed" value="#{singleJobBean.ps.prozessSchrittVorlage.bedingungen}">
+                <p:dataTable var="para" value="#{singleJobBean.getParameter()}">
                     <p:column headerText="Id">
-                        <h:outputText value="#{bed.id}"/>
+                        <h:outputText value="#{para.id}"/>
                     </p:column>
                     <p:column headerText="Name">
-                        <h:outputText value="#{bed.name}"/>
+                        <h:outputText value="#{para.name}"/>
                     </p:column>
-
                 </p:dataTable>
+
+                <p:row>
+                    <div align="center">
+                        <h:commandButton action="#{singleJobBean.download()}" value="Download Parameter"/>
+                    </div>
+                </p:row>
 
                 <p:row>
                     <p> Proben: </p>

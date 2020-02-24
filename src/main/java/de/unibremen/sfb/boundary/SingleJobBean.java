@@ -1,20 +1,22 @@
 package de.unibremen.sfb.boundary;
 
-import de.unibremen.sfb.model.Kommentar;
-import de.unibremen.sfb.model.Probe;
-import de.unibremen.sfb.model.ProzessSchritt;
+import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.ProbenService;
 import lombok.Getter;
+import lombok.Setter;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.LinkedList;
+import java.util.List;
 
 @Named
-@RequestScoped
+@SessionScoped
 @Getter
+@Setter
 public class SingleJobBean implements Serializable {
 
     private ProzessSchritt ps;
@@ -32,7 +34,7 @@ public class SingleJobBean implements Serializable {
 
     public String singlejob(ProzessSchritt ps) {
         this.ps = ps;
-        return "singleview.xhtml";
+        return "singlejob.xhtml";
     }
 
     public String KommentarToString(Probe p) {
@@ -55,6 +57,18 @@ public class SingleJobBean implements Serializable {
             }
         }
         kommentarForAll = "";
+    }
+
+    public List<ProzessSchrittParameter> getParameter() {
+        List<ProzessSchrittParameter> r = new LinkedList<>();
+        for(Bedingung b : ps.getProzessSchrittVorlage().getBedingungen()) {
+            r.addAll(b.getProzessSchrittParameter());
+        }
+        return r;
+    }
+
+    public void download() {
+        technologeView.download(getParameter());
     }
 
     /*public String nextState() {

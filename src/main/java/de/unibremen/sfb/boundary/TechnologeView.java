@@ -1,5 +1,6 @@
 package de.unibremen.sfb.boundary;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.unibremen.sfb.controller.ProbeController;
 import de.unibremen.sfb.exception.*;
 import de.unibremen.sfb.model.*;
@@ -9,6 +10,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.omnifaces.util.Faces;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.model.FilterMeta;
 import org.primefaces.model.LazyDataModel;
@@ -21,6 +23,8 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -73,7 +77,8 @@ public class TechnologeView implements Serializable {
     @Inject
     private ProzessSchrittService psService;
 
-
+    @Inject
+    private ProzessSchrittParameterService prozessSchrittParameterService;
 
     /**
      * loads the initial data from the database
@@ -146,34 +151,6 @@ public class TechnologeView implements Serializable {
                 log.info("an error occurred trying to report ExperimentierStation " + es.getEsID() + " as broken: " + e.getMessage());
             }
         }
-    }
-
-    /**
-     * assigns this user to a job
-     * @param a the job
-     */
-    public void assignToAuftrag(Auftrag a) {
-        if(a==null) {
-            errorMessage("invalid input");
-        }
-        else {
-            try {
-                auftragService.assignToAuftrag(technologe, a);
-                log.info("user " + technologe.getId() + " was assigned to Auftrag " + a.getPkID());
-            } catch (AuftragNotFoundException e) {
-                e.printStackTrace();
-                log.info("an error occurred trying to assign user " + technologe.getId() + "to Auftrag " + a.getPkID() + ": " + e.getMessage());
-            }
-        }
-    }
-
-    /**
-     * assigns this user to a prozessSchritt
-     * @param ps the prozessschritt
-     */
-    public void assignToAuftrag(ProzessSchritt ps) {
-        //find auftrag this prozessschritt belongs to
-        //then assignToAuftrag(a);
     }
 
     /**
@@ -337,7 +314,7 @@ public class TechnologeView implements Serializable {
      */
     public List<ProzessSchritt> getJobs() {
         List<ProzessSchritt> r = psService.getSchritteByUser(technologe);
-        //r.sort(Comparator.comparing(o -> psService.getAuftrag(o).getPriority())); //FIXME
+        r.sort(Comparator.comparing(o -> psService.getAuftrag(o).getPriority()));
         return r;
         //also nur ein technologe pro Station, und
         //kann erst auftrag annehmen, wenn er an dieser station nichts zu tun
@@ -355,5 +332,18 @@ public class TechnologeView implements Serializable {
 
     public String KommentarToString(Probe p) {
         return probeService.KommentarToString(p);
+    }
+
+    /**
+     * downloads a process step parameter
+     * @param psp the parameter
+     */
+    public void download(List<ProzessSchrittParameter> psp) {
+        try {
+            Faces.sendFile(prozessSchrittParameterService.toJSON(psp), true);
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 }

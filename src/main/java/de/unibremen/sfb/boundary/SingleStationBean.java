@@ -5,14 +5,14 @@ import de.unibremen.sfb.model.Probe;
 import de.unibremen.sfb.service.ProbenService;
 import lombok.Getter;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
 @Named
-@RequestScoped
+@SessionScoped
 @Getter
 public class SingleStationBean implements Serializable {
 

@@ -256,17 +256,6 @@ public class AuftragService implements Serializable {
     }
 
     /**
-     * assigns a user to a job
-     * @param t the user to be assigned
-     * @param a the job to which they will be assigned
-     * @throws AuftragNotFoundException the job couldn't be found in the database
-     */
-    public void assignToAuftrag(User t, Auftrag a) throws AuftragNotFoundException {
-        //a.setAssigned(t); //TODO
-        auftragDAO.update(a);
-    }
-
-    /**
      * Bestimme was der naechste Prozessschritt ist, der noch nicht ausgefuehrt wurde
      * Es ist wichtig das der aktuell durchgefuehrte Schritt nicht den Zustand angenommen hat
      *

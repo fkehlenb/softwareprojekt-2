@@ -5,13 +5,13 @@ import de.unibremen.sfb.model.Probe;
 import lombok.Getter;
 import org.primefaces.event.CellEditEvent;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 
 @Named
-@RequestScoped
+@SessionScoped
 @Getter
 public class SingleSampleBean implements Serializable {
 
