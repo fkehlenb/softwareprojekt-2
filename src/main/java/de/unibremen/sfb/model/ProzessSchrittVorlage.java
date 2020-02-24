@@ -41,12 +41,12 @@ public class ProzessSchrittVorlage {
     private String psArt;
 
     /** The experimenting stations accepted in the process step template */
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @NonNull
     private  List<ExperimentierStation> stationen;
 
     /** The process step predicates */
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @NonNull
     private List<Bedingung> bedingungen;
 

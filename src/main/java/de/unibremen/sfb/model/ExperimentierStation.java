@@ -32,7 +32,7 @@ public class ExperimentierStation {
 
     /** The station's location */
     @NonNull
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Standort standort;
 
     @NonNull
@@ -52,7 +52,7 @@ public class ExperimentierStation {
     private List<Bedingung> bedingungen;
 
     @NonNull
-    @ManyToMany(cascade=CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToMany(cascade=CascadeType.MERGE, fetch = FetchType.LAZY)
     private List<User> benutzer;
 
     @OneToOne

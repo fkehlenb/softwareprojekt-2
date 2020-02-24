@@ -46,16 +46,16 @@ public class ProzessSchritt {
 
     /** The process step's log */
     @NonNull
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private List<ProzessSchrittLog> prozessSchrittLog;
 
     /** The process step template the process step was created from */
     @NonNull
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private ProzessSchrittVorlage prozessSchrittVorlage;
 
     /** Die Zugewiesenen Proben fuer diesen Schritt */
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Probe> zugewieseneProben;
 
 
