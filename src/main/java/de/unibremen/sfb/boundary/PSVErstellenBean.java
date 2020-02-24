@@ -97,7 +97,6 @@ public class PSVErstellenBean implements Serializable {
     public void init() {
         verfuegbareBedingunen = bedingungService.getAll();
         verfuegbarePSV = prozessSchrittVorlageService.getVorlagen();
-        // verfuegbarePSV = prozessSchrittVorlageService.getProzessSchrittVorlagen(); // Auskommentieren um die Peristenz zu Testen
         verfuegbareStationen = experimentierStationService.getESListe();
         zustandsService.getPsZustaende();
         verfuegbareTraegerArt = traegerArtService.getVerTraeger();
