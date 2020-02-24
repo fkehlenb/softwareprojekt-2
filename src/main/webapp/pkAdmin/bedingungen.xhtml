@@ -23,13 +23,13 @@
                         <p:inputText id="anzahl" value="#{bedingungBean.anzahl}"
                                      placeholder="Anzahl" required="true"/>
 
-                        <p:outputLabel for="bedingungAuswahlTable" value="Bedingung: "/>
-                        <p:selectCheckboxMenu id="bedingungAuswahlTable"
+                        <p:outputLabel for="PSPAuswahlTable" value="PSP: "/>
+                        <p:selectCheckboxMenu id="PSPAuswahlTable"
                                               value="#{bedingungBean.ausProzessSchrittParameters}"
                                               converter="omnifaces.SelectItemsConverter" effect="fade"
                                               var="psp" style="width: 172px" filter="true"
                                               filterMatchMode="contains" showCheckbox="true"
-                                              label="Bedingung" requiredMessage="Bitte Bedingung Zuweisen!"
+                                              label="ProzessSchrittParamiter" requiredMessage="Bitte Bedingung Zuweisen!"
                                               required="true">
                             <f:selectItems value="#{bedingungBean.verProzessSchrittParameters}"
                                            var="psp" itemLabel="#{psp.name}"
@@ -51,7 +51,7 @@
                 <p:growl id="msgs" showDetail="true"/>
 
                 <p:dataTable id="bedingungen" var="bedingung" value="#{bedingungBean.bedingungen}" editable="true"
-                             style="margin-bottom:20px">
+                             style="margin-bottom:20px" rowKey="#{standort.id}">
                     <f:facet name="header">
                         Row Editing
                     </f:facet>
@@ -61,12 +61,20 @@
 
                     <p:column headerText="Id">
                         <p:cellEditor>
+
                             <f:facet name="output"><h:outputText value="#{bedingung.id}"/></f:facet>
                             <f:facet name="input"><p:inputText id="modelInput" value="#{bedingung.id}"
                                                                style="width:100%"/></f:facet>
                         </p:cellEditor>
                     </p:column>
 
+                    <p:column headerText="name">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{bedingung.name}"/></f:facet>
+                            <f:facet name="input"><p:inputText value="#{bedingung.name}" style="width:100%"
+                                                               label="Anzahl"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
                     <p:column headerText="Anzahl Proben">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{bedingung.gewuenschteAnzahl}"/></f:facet>
@@ -75,16 +83,16 @@
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column headerText="Bedingungen">
+                    <p:column headerText="PSP">
                         <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{bedingung.name}"/></f:facet>
+                            <f:facet name="output"><h:outputText value="#{bedingung.prozessSchrittParameter}"/></f:facet>
                             <f:facet name="input">
                                 <p:selectCheckboxMenu id="bedingungTable"
                                                       value="#{bedingungBean.ausProzessSchrittParameters}"
                                                       converter="omnifaces.SelectItemsConverter" effect="fade"
                                                       var="psp" style="width: 172px" filter="true"
                                                       filterMatchMode="contains" showCheckbox="true"
-                                                      label="Bedingung" requiredMessage="Bitte Bedingung Zuweisen!"
+                                                      label="ProzessSchirttParamiter" requiredMessage="Bitte Bedingung Zuweisen!"
                                                       required="true">
                                     <f:selectItems value="#{bedingungBean.verProzessSchrittParameters}"
                                                    var="psp" itemLabel="#{psp.name}"
@@ -97,6 +105,7 @@
                     <p:column style="width:35px">
                         <p:rowEditor/>
                     </p:column>
+
                 </p:dataTable>
             </h:form>
         </ui:define>
