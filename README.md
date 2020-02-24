@@ -20,35 +20,48 @@
 
 <p>Die folgenden Rollen sind vorzusehen:</p>
 <ul>
-
-<li>Administrator: Verwaltet Nutzer, Experimentierstationen und Berechtigung. </li>
-<li>Prozesskettenplaner: Legt Prozessschritte an und verwaltet Prozessketten.</li>
-<li>Logistiker: Verwaltet das Probenlager und -archiv.</li>
-<li>Transporteur: Transportiert Proben zwischen Stationen und dem Lager (<strong>O«Transporteur»</strong>)</li>
-<li>Technologe: Hat Übersicht über seine Arbeitsaufträge.</li>
-
+    <li>Administrator: Verwaltet Nutzer, Experimentierstationen und Berechtigung. </li>
+    <li>Prozesskettenplaner: Legt Prozessschritte an und verwaltet Prozessketten.</li>
+    <li>Logistiker: Verwaltet das Probenlager und -archiv.</li>
+    <li>Transporteur: Transportiert Proben zwischen Stationen und dem Lager (<strong>O«Transporteur»</strong>)</li>
+    <li>Technologe: Hat Übersicht über seine Arbeitsaufträge.</li>
 </ul>
 <h4 id="anforderungen">Anforderungen</h4>
 <h5 id="administrator">Administrator</h5>
 <strike>
 <ul>
-<li>Übersicht über alle existierenden Nutzer<ul>
-<li>Anlegen neuer Nutzer<ul>
-<li>Neue Nutzer werden per Mail über ihren Account informiert.</li>
-</ul>
-</li>
-<li><strike>Löschen bestehender Nutzer</strike></li>
-<li><strike>Bearbeiten bestehender Nutzer</strike></li>
+    <li>Übersicht über alle existierenden Nutzer
+        <ul>
+            <li>Anlegen neuer Nutzer<ul>
+            <li>Neue Nutzer werden per Mail über ihren Account informiert.</li>
+        </ul>
+    </li>
+    <li>
+        <strike>Löschen bestehender Nutzer</strike>
+    </li>
+    <li>
+        <strike>Bearbeiten bestehender Nutzer</strike>
+    </li>
 </ul>
 </strike>
 </li>
-<li><strike>Übersicht über alle Experimentierstationen<ul>
-<li>Anlegen von neuen Experimentierstationen</li>
-<li>Löschen von bestehenden Experimentierstationen</li>
-<li>Bearbeiten von bestehenden Experimentierstationen</li>
-<li>Zuordnen von Nutzern zu Experimentierstation</strike></li>
-</ul>
-</li>
+    <li>
+        <strike>Übersicht über alle Experimentierstationen
+            <ul>
+                <li>Anlegen von neuen Experimentierstationen</li>
+                <li>Löschen von bestehenden Experimentierstationen</li>
+                <li>Bearbeiten von bestehenden Experimentierstationen</li>
+                <li>Zuordnen von Nutzern zu Experimentierstation</li>
+            </ul>
+        </strike>
+    </li>
+    <li>Übersicht über alle Standorte
+        <ul>
+            <li>Anlegen von neuen Standorten</li>
+            <li>Löschen von bestehenden Standorten</li>
+            <li>Bearbeiten von bestehenden Standorten</li>
+        </ul>
+    </li>
 <li>Konfiguration globaler Einstellungen<ul>
 <li>Einstellung der Zeiten für alte Aufträge (<strong>O«UI.AlteAufträge»</strong>)</li>
 </ul>
@@ -78,13 +91,13 @@
 <li>Bearbeiten von unbenutzten Zustandsautomaten</li>
 </ul>
 </li>
-<li>Übersicht über alle Prozessketten<ul>
+<li><strike>Übersicht über alle Prozessketten</strike><ul>
 <li>Anlegen von neuen Prozessketten aus bestehenden Prozessschritten</li>
 <li>Löschen von bestehenden Prozessketten</li>
 <li>Bearbeiten von bestehenden Prozessketten (nicht durchgeführt oder freigegeben)</li>
 </ul>
 </li>
-<li>Übersicht über Aufträge<ul>
+<li><strike>Übersicht über Aufträge</strike><ul>
 <li>Anlegen von Aufträgen<ul>
 <li>Manuelles Setzen der Prozess(schritt)parameter</li>
 <li>Import der Prozess(schritt)parameter (<strong>O«Parameter.Import»</strong>)</li>
@@ -137,7 +150,7 @@
 </ul>
 <h4 id="technologe">Technologe</h4>
 <ul>
-<li>Übersicht über zugehörige Experimentierstationen<ul>
+<li><strike>Übersicht über zugehörige Experimentierstationen</strike><ul>
 <li>Sichtwechsel zwischen Experimentierstationen</li>
 </ul>
 </li>
@@ -165,14 +178,14 @@
 </ul>
 <h4 id="nichtfunktionale-anforderungen">Nichtfunktionale Anforderungen</h4>
 <ul>
-<li>Sicherheit<ul>
-<li>Nutzer müssen sich am System authentisieren</li>
-<li>Jeder Nutzer soll nur die Informationen einsehen können, die er für seine
-  Arbeit benötigt</li>
+<li><strike>Sicherheit</strike><ul>
+<li><strike>Nutzer müssen sich am System authentisieren</li>
+<li><strike>Jeder Nutzer soll nur die Informationen einsehen können, die er für seine
+  Arbeit benötigt</strike></li></strike>
 </ul>
 </li>
-<li>Benutzeroberfläche soll einfach benutzbar sein</li>
-<li>Benutzeroberfläche muss von mehreren Nutzern gleichzeitig benutzt werden können</li>
+<li><strike>Benutzeroberfläche soll einfach benutzbar sein</strike></li>
+<li><strike>Benutzeroberfläche muss von mehreren Nutzern gleichzeitig benutzt werden können</strike></li>
 </ul>
 <h4 id="zustandsautomaten">Zustandsautomaten</h4>
 <ul>
