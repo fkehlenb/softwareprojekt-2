@@ -117,6 +117,15 @@ public class ProzessKettenVorlageService implements Serializable {
             pkVorlagen.remove(pkv);
         }
     }
-    
-   
+
+
+    public List<ProzessKettenVorlage> getPKVs() {
+        try {
+            return pkvDAO.getAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<ProzessKettenVorlage>();
+    }
+
 }

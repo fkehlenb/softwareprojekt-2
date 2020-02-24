@@ -123,4 +123,11 @@ public class StandortService implements Serializable {
         standorte = standortDAO.getAll();
     }
 
+    public void addStandort(Standort s) {
+        try {
+            standortDAO.persist(s);
+        } catch (DuplicateStandortException e) {
+            e.printStackTrace();
+        }
+    }
 }
