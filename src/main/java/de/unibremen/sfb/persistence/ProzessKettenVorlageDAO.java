@@ -2,14 +2,19 @@ package de.unibremen.sfb.persistence;
 
 import de.unibremen.sfb.exception.DuplicateProzessKettenVorlageException;
 import de.unibremen.sfb.exception.ProzessKettenVorlageNotFoundException;
+import de.unibremen.sfb.model.Bedingung;
 import de.unibremen.sfb.model.ProzessKettenVorlage;
+import de.unibremen.sfb.model.QualitativeEigenschaft;
+import lombok.extern.slf4j.Slf4j;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * This class handles the job templates in the database
  */
+@Slf4j
 public class ProzessKettenVorlageDAO extends ObjectDAO<ProzessKettenVorlage> {
 
     /**
@@ -65,7 +70,7 @@ public class ProzessKettenVorlageDAO extends ObjectDAO<ProzessKettenVorlage> {
         try {
             return em.createNamedQuery("PKV.getAll", get()).getResultList();
         }
-        catch (Exception e){
+        catch (EntityNotFoundException e){
             return new ArrayList<>();
         }
     }
@@ -91,4 +96,5 @@ public class ProzessKettenVorlageDAO extends ObjectDAO<ProzessKettenVorlage> {
         }
         return pkv;
     }
+
 }

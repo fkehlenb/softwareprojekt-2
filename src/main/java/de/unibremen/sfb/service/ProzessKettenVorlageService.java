@@ -1,7 +1,7 @@
 package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.exception.ProzessKettenVorlageNotFoundException;
-import de.unibremen.sfb.model.Auftrag;
+import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
 import de.unibremen.sfb.model.ProzessKettenVorlage;
 import de.unibremen.sfb.model.ProzessSchrittVorlage;
 import de.unibremen.sfb.persistence.ProzessKettenVorlageDAO;
@@ -12,9 +12,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * this class manages the interaction with models of process chain templates (ProzessKettenVorlage)
@@ -23,61 +21,111 @@ import java.util.Set;
 @Slf4j
 @Getter
 public class ProzessKettenVorlageService implements Serializable {
-    private List<ProzessKettenVorlage> vorlagen;
+    private List<ProzessKettenVorlage> pkVorlagen;
+    private List<ProzessSchrittVorlage> psVorlagen;
 
     @Inject
-    ProzessKettenVorlageDAO prozessKettenVorlageDAO;
+    ProzessKettenVorlageDAO pkvDAO;
 
+    @Inject
+    ProzessSchrittVorlageService prozessSchrittVorlageService;
 
     @PostConstruct
     public void init() {
-        vorlagen = getPKVs();
+        psVorlagen = prozessSchrittVorlageService.getVorlagen();
+        pkVorlagen = erstellePKV();
     }
 
-    public List<ProzessKettenVorlage> getPKVs() {
-        try {
-            return prozessKettenVorlageDAO.getAll();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ArrayList<>();
+    private List<ProzessKettenVorlage> erstellePKV() {
+        return List.of(new ProzessKettenVorlage(UUID.randomUUID().hashCode(), psVorlagen));
     }
 
     public ProzessKettenVorlage getPKV(int id) {
         ProzessKettenVorlage result = null;
         try {
-           result = prozessKettenVorlageDAO.getObjById(id);
+           result = pkvDAO.getObjById(id);
         } catch (ProzessKettenVorlageNotFoundException e) {
             e.printStackTrace();
         }
         return result;
     }
 
-    /**
-     * Sets the ID of this ProzessKettenVorlage.
-     *
-     * @param id the new ID
-     */
-    public void setID(int id) {}
+    public List<ProzessKettenVorlage> getProzessKettenVorlagen() {
+        try {
+            return pkvDAO.getAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
+    }
 
     /**
-     * Returns the ID of this ProzessKettenVorlage.
+     * Persistieren der ProzessKettenVorlage
      *
-     * @return the ID
+     * @param pkv die Vorlage
      */
-    public int getID() { return 0; }
+    public void persist(ProzessKettenVorlage pkv) {
+//        try {
+//            pkvDAO.persist(pkv);
+//        } catch (DuplicateProzessKettenVorlageException e) {
+//            e.printStackTrace();
+//        }
+        pkVorlagen.add(pkv);
+    }
+
+    public ProzessKettenVorlage ByID(int id) throws ProzessKettenVorlageNotFoundException {
+        try {
+            log.info("Trying to find a PSP by ID");
+            return pkvDAO.getObjById(id);
+        } catch (Exception e) {
+            log.info("Error ProzessKettenVorlageNotFoundException in PKVErstellenBean");
+            return null;
+        }
+
+    }
 
     /**
-     * Sets the ProzessSchrittVorlagen this ProzessKettenVorlage consists of.
+     * Bearbeiten der ProzessKettenVorlage
      *
-     * @param psv A set containing the ProzessSchrittVorlagen
+     * @param pkv
+     * @throws ProzessKettenVorlageNotFoundException
      */
-    public void setPSV(Set<ProzessSchrittVorlage> psv) {}
+    public void edit(ProzessKettenVorlage pkv) throws ProzessKettenVorlageNotFoundException {
+//        try {
+//            log.info("Trying try to update a PKV" + pkv+ "Class=ProzessKettenVorlageService");
+//            pkvDAO.update(pkv);
+//        } catch (Exception e) {
+//            log.info("Error try to update a PKV" + pkv+ "Class=ProzessKettenVorlageService");
+//        }
+//    }
+        var old = pkVorlagen.stream().filter(p -> pkv.getPkID() == p.getPkID()).findFirst().orElse(null);
+
+        if (Collections.replaceAll(pkVorlagen, old, pkv)) {
+            log.info("Succesful edit " + pkv);
+        } else {
+            log.info("Failed to edit " + pkv);
+        }
+    }
 
     /**
-     * Returns the ProzessSchrittVorlagen this ProzessKettenVorlage consists of.
-     *
-     * @return A set containing the ProzessSchrittVorlagen
+     * Loeschen von ProzessKettenVorlagen
+     * @param pkvs die Vorlagen
      */
-    public Set<ProzessSchrittVorlage> getPSV() { return null; }
+    public void delete(List<ProzessKettenVorlage> pkvs) {
+        for (ProzessKettenVorlage pkv :
+                pkvs) {
+            pkVorlagen.remove(pkv);
+        }
+    }
+
+
+    public List<ProzessKettenVorlage> getPKVs() {
+        try {
+            return pkvDAO.getAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<ProzessKettenVorlage>();
+    }
+
 }

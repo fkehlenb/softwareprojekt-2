@@ -26,17 +26,24 @@ import java.util.List;
 @Slf4j
 public class ProzessSchrittService implements Serializable {
 
-    @Inject
-    private ProzessSchrittDAO prozessSchrittDAO;
-
-    @Inject
-    private AuftragService auftragService;
-
+    /**
+     * Experimenting station service
+     */
     @Inject
     private ExperimentierStationService experimentierStationService;
 
+    /**
+     * Process step dao
+     */
+    @Inject
+    private ProzessSchrittDAO prozessSchrittDAO;
+
+
     @Inject
     private ProzessSchrittLogService pslService;
+
+    @Inject
+    private AuftragService auftragService;
 
     /**
      * Get all PS which belong to user
@@ -52,6 +59,8 @@ public class ProzessSchrittService implements Serializable {
         return ps;
     }
 
+    /** Get all process steps from the database
+     * @return a list of all process steps */
 
     /**
      * sets the current state of this ProzessSchritt
@@ -62,11 +71,11 @@ public class ProzessSchrittService implements Serializable {
     public void setZustand(ProzessSchritt ps, String zustand)
             throws ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException, DuplicateProzessSchrittLogException
     {
-        if(! ps.getZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().contains(zustand)) {
+        if(! ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().contains(zustand)) {
             throw new IllegalArgumentException("state not possible for this ProzessSchritt");
         }
         else {
-            ps.getZustandsAutomat().setCurrent(zustand);
+            ps.getProzessSchrittZustandsAutomat().setCurrent(zustand);
             pslService.closeLog(ps.getProzessSchrittLog().get(ps.getProzessSchrittLog().size()-1));
             ps.getProzessSchrittLog().add(pslService.newLog(zustand));
             prozessSchrittDAO.update(ps);
@@ -100,7 +109,7 @@ public class ProzessSchrittService implements Serializable {
         return prozessSchrittDAO.getAll();
     }
 
-
+    /** JSON export */
     public String toJson() {
         JsonbConfig config = new JsonbConfig()
                 .withFormatting(true);

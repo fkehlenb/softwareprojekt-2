@@ -1,17 +1,10 @@
 package de.unibremen.sfb.boundary;
 
-import de.unibremen.sfb.model.Auftrag;
-import de.unibremen.sfb.model.ProzessKettenVorlage;
-import de.unibremen.sfb.model.ProzessSchrittVorlage;
-import de.unibremen.sfb.model.User;
-import de.unibremen.sfb.persistence.ProzessKettenVorlageDAO;
-import de.unibremen.sfb.service.AuftragService;
-import de.unibremen.sfb.service.ProzessKettenVorlageService;
-import de.unibremen.sfb.service.ProzessSchrittVorlageService;
-import de.unibremen.sfb.service.UserService;
+import de.unibremen.sfb.model.*;
+import de.unibremen.sfb.service.*;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.primefaces.event.RowEditEvent;
 
 import javax.annotation.PostConstruct;
@@ -21,17 +14,20 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
+
+import static de.unibremen.sfb.model.ProzessKettenZustandsAutomat.GESTARTET;
 
 @Named("dtAuftragBean")
 @ViewScoped
 @Getter
 @Setter
-@Log
+@Slf4j
 public class AuftragBean implements Serializable {
     private List<Auftrag> auftrage;
     private List<ProzessKettenVorlage> vorlagen;
+    //Der gewählte Auftrag
+
 
     @Inject
     AuftragService auftragService;
@@ -39,16 +35,38 @@ public class AuftragBean implements Serializable {
     @Inject
     ProzessKettenVorlageService prozessKettenVorlageService;
 
+    @Inject
+    ZustandsService zustandsService;
 
     @PostConstruct
     void init() {
         auftrage = auftragService.getAuftrage();
         vorlagen = getPKVs();
     }
+    //Soll den Zustand wechseln FUNKTIONIERT NICHT!
+    public void zWechsel(int auftrag){
+        try {
+            Auftrag a = auftragService.getAuftrag(auftrag);
+            a.setProzessKettenZustandsAutomat(GESTARTET);
+            auftragService.update(a);
+            log.info("Changed state of job! ID: " + auftrag);
+            facesNotification("Changed state of job! ID: " + auftrag);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            log.error("Failed to change auftrag state! ID: " + auftrag);
+            facesError("Failed to change auftrag state! ID: " + auftrag);
+        }
+    }
+
 
     public void onRowEdit(RowEditEvent<Auftrag> event) {
         log.info("Updating: "+ event.getObject().getPkID());
-        auftragService.upate(event.getObject());
+        try {
+            auftragService.update(event.getObject());
+        } catch (de.unibremen.sfb.exception.AuftragNotFoundException e) {
+            e.printStackTrace();
+        }
         FacesMessage msg = new FacesMessage("Auftrag Edited", event.getObject().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
@@ -64,6 +82,24 @@ public class AuftragBean implements Serializable {
 
     public List<ProzessKettenVorlage> getPKVs() {
         return prozessKettenVorlageService.getPKVs();
+    }
+
+    /**
+     * Adds a new SEVERITY_ERROR FacesMessage for the ui
+     *
+     * @param message Error Message
+     */
+    private void facesError(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+    }
+
+    /**
+     * Adds a new SEVERITY_INFO FacesMessage for the ui
+     *
+     * @param message Info Message
+     */
+    private void facesNotification(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
     }
 }
 

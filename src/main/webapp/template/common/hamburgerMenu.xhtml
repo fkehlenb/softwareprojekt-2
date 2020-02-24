@@ -9,7 +9,6 @@
 <body>
 <ui:composition>
     <shiro:authenticated>
-        <div id="Hamburger" style="float: left; width: 300px; margin-left: 10px; margin-right: 20px; margin-top: 10px">
             <h:form>
                 <p:growl>
                     <p:autoUpdate/>
@@ -29,6 +28,8 @@
                                             url="/admin/nutzerVerwaltung.xhtml"/>
                                 <p:menuitem value="Experimentierstationen Verwalten"
                                             url="/admin/experimentierStationVerwaltung.xhtml"/>
+                                <p:menuitem value="Standort Verwaltung"
+                                            url="/admin/standortVerwaltung.xhtml"/>
                                 <p:menuitem value="Globale Einstellungen"
                                             url="/admin/globaleEinstellungen.xhtml"/>
                                 <p:menuitem value="Backup" url="/admin/backup.xhtml"/>
@@ -36,7 +37,7 @@
                         </shiro:hasRole>
                         <shiro:hasRole name="pkAdmin">
                             <p:submenu label="Prozesskettenplaner Tools" id="pkverwaltungsTools">
-                                <p:menuitem value="Prozessschritt Verwaltung"/>
+                                <p:menuitem value="Prozessschritt Verwaltung" url="../../pkAdmin/.xhtml"/>
                                 <p:menuitem value="Ablaufsverwaltung"/>
                                 <p:menuitem value="Prozessketten Verwalten"/>
                                 <p:menuitem value="Auftraege Verwalten"/>
@@ -52,8 +53,8 @@
                         </shiro:hasRole>
                         <shiro:hasRole name="logistik">
                             <p:submenu label="Logistik Tools">
-                                <p:menuitem value="Traegeruebersicht" url="../../Logistiker/Traegeruebersicht.xhtml"/>
-                                <p:menuitem value="Auftraegsuebersicht"/>
+                                <p:menuitem value="Traegeruebersicht" url="../../logistik/Traegeruebersicht.xhtml"/>
+                                <p:menuitem value="Auftraegsuebersicht" url="../../logistik/Auftragsuebersicht.xhtml"/>
                                 <p:menuitem value="Probenuebersicht"/>
                                 <p:menuitem value="Archivuebersicht"/>
                                 <p:menuitem value="Probenstandortsuebericht"/>
@@ -73,7 +74,6 @@
                     </p:submenu>
                 </p:panelMenu>
             </h:form>
-        </div>
     </shiro:authenticated>
 </ui:composition>
 </body>

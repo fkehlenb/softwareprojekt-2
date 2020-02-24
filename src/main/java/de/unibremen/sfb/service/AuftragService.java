@@ -3,10 +3,9 @@ package de.unibremen.sfb.service;
 import de.unibremen.sfb.exception.AuftragNotFoundException;
 import de.unibremen.sfb.exception.DuplicateAuftragException;
 import de.unibremen.sfb.exception.DuplicateProzessSchrittVorlageException;
+import de.unibremen.sfb.exception.ProzessKettenVorlageNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.AuftragDAO;
-import de.unibremen.sfb.persistence.ProzessKettenVorlageDAO;
-import de.unibremen.sfb.persistence.ProzessSchrittVorlageDAO;
 import lombok.Data;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -17,11 +16,12 @@ import javax.inject.Inject;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbConfig;
-import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Singleton
 @Slf4j
@@ -34,6 +34,7 @@ import java.util.UUID;
 
 public class AuftragService implements Serializable {
     private List<Auftrag> auftrage;
+    private
 
     @Inject
     AuftragDAO auftragDAO;
@@ -42,12 +43,6 @@ public class AuftragService implements Serializable {
     ProbenService probenService;
 
     private Auftrag auftrag;
-
-
-    @PostConstruct
-    public void init() {
-        auftrage = getAuftrage();
-    }
 
     /**
      * returns the ID of this Auftrag
@@ -89,7 +84,8 @@ public class AuftragService implements Serializable {
     /**
      * returns the current Zustand (state) of this Auftrag
      * possible values: Instanziiert (instantiated), Freigegeben (enabled), Gestartet (started),
-     *                  Abgebrochen (canceled), Durchgefuehrt (carried out)
+     * Abgebrochen (canceled), Durchgefuehrt (carried out)
+     *
      * @return the current Zustand
      */
     public Enum<ProzessKettenZustandsAutomat> getPKZ() {
@@ -99,14 +95,45 @@ public class AuftragService implements Serializable {
     /**
      * sets the current Zustand (state) of this Auftrag
      * possible values: Instanziiert (instantiated), Freigegeben (enabled), Gestartet (started),
-     *                  Abgebrochen (canceled), Durchgefuehrt (carried out)
+     * Abgebrochen (canceled), Durchgefuehrt (carried out)
      */
-    public void setPKZ(Enum<ProzessKettenZustandsAutomat> pkz) {
-        auftrag.setProzessKettenZustandsAutomat(pkz);
-    }
+//        public List<Probe> getProbenByStandort(Standort s) {
+//        return proben.stream()
+//                .filter(e -> e.getStandort().equals(s))
+//                .collect(Collectors.toList());
+//    }
 
+//    public void setPKZ(Enum<ProzessKettenZustandsAutomat> pkz) {
+//        auftrag.setProzessKettenZustandsAutomat(pkz);
+//    }
+//
+//    /**
+//     * returns the current Prioritaet (priority) of this Auftrag
+//     * @return the current Prioritaet
+//     */
+//    public Enum<AuftragsPrioritaet> getPrio() {
+//        return auftrag.getPriority();
+//    }
+//
+//    /**
+//     * sets the current Prioritaet (priority) of this Auftrag
+//     */
+//    public void setPrio(Enum<AuftragsPrioritaet> prio) {
+//        auftrag.setPriority(prio);
+//    }
+//
+//    /**
+//     * returns the ProzessSchritte which the Auftrag consists of
+//     * @return a Set containing all ProzessSchritt
+//     */
+//    public List<ProzessSchritt> getPS() {
+//        return auftrag.getProzessSchritte();
+//    }
+//
+//
     /**
      * returns the current Prioritaet (priority) of this Auftrag
+     *
      * @return the current Prioritaet
      */
     public AuftragsPrioritaet getPrio() {
@@ -122,6 +149,7 @@ public class AuftragService implements Serializable {
 
     /**
      * returns the ProzessSchritte which the Auftrag consists of
+     *
      * @return a Set containing all ProzessSchritt
      */
     public List<ProzessSchritt> getPS() {
@@ -129,42 +157,78 @@ public class AuftragService implements Serializable {
     }
 
     /**
-     * returns all jobs currently in the database
-     * @return a list containing all jobs in the database
+     * Setze den Zustand von Auftrag a auf p und persistiere
+     *
+     * @param a Der Auftrag
+     * @param p Der Zustand
      */
+    public void zustandswechsel(Auftrag a, ProzessKettenZustandsAutomat p) throws AuftragNotFoundException {
+        a.setProzessKettenZustandsAutomat(p);
+        update(a);
+    }
+
+
+    // Hier beginnt der neue Service
+
+    @PostConstruct
+    public void init() {
+        auftrage = getAuftrage();
+    }
+
     public List<Auftrag> getAuftrage() {
         return auftragDAO.getAll();
     }
 
-    /**
-     * updates a job in the database
-     * @param auftrag the job to be updated
-     */
-    public void upate(Auftrag auftrag) {
-        try {
-            auftragDAO.update(auftrag);
-        } catch (AuftragNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
-     * adds a job to the database
-     * @param auftrag the new job
+     * Update an existing job in the database
+     *
+     * @param auftrag - the job to update
+     * @throws AuftragNotFoundException on failure
      */
-    public void add(Auftrag auftrag) {
+    public void update(Auftrag auftrag) throws AuftragNotFoundException {
+        auftragDAO.update(auftrag);
+    }
+
+
+    /**
+     * Add a new job to the database
+     *
+     * @param auftrag - the job to add
+     * @throws DuplicateAuftragException on failure
+     */
+    public void add(Auftrag auftrag) throws DuplicateAuftragException {
+        auftragDAO.persist(auftrag);
         auftrage.add(auftrag);
-        try {
-            auftragDAO.persist(auftrag);
-        } catch (DuplicateAuftragException e) {
-            e.printStackTrace();
+    }
+
+    /**
+     * Bearbeiten der ProzessKettenVorlage
+     *
+     * @param auftrag
+     * @throws ProzessKettenVorlageNotFoundException
+     */
+    public void edit(Auftrag auftrag) throws ProzessKettenVorlageNotFoundException {
+        var old = auftrage.stream().filter(p -> auftrag.getPkID() == p.getPkID()).findFirst().orElse(null);
+
+        if (Collections.replaceAll(auftrage, old, auftrag)) {
+            log.info("Succesful edit " + auftrag);
+        } else {
+            log.info("Failed to edit " + auftrag);
         }
     }
 
     /**
-     * exports the jobs (TODO richtig?) to JSON
-     * @return idk //TODO
+     * Loeschen von ProzessKettenVorlagen
+     * @param auftrags die Vorlagen
      */
+    public void delete(List<ProzessKettenVorlage> auftrags) {
+        for (ProzessKettenVorlage auftrag :
+                auftrags) {
+            auftrage.remove(auftrag);
+        }
+    }
+
     public String toJson() {
         JsonbConfig config = new JsonbConfig()
                 .withFormatting(true);
@@ -176,19 +240,8 @@ public class AuftragService implements Serializable {
         return result;
     }
 
-    /**
-     * finds a job by an id (in form of a string)
-     * @param value the job-id in as String
-     * @return the job, if found; null if not found
-     */
-    public Auftrag getAuftrag(String value) {
-
-        try {
-            return auftragDAO.getObjById(Integer.parseInt(value));
-        } catch (AuftragNotFoundException e) { //TODO sollten Exceptions nicht bis Beans durchgereicht werden?
-            e.printStackTrace();
-        }
-        return null;
+    public Auftrag getAuftrag(int value) throws AuftragNotFoundException {
+        return auftragDAO.getObjById(value);
     }
 
     /**
@@ -216,27 +269,29 @@ public class AuftragService implements Serializable {
     /**
      * Bestimme was der naechste Prozessschritt ist, der noch nicht ausgefuehrt wurde
      * Es ist wichtig das der aktuell durchgefuehrte Schritt nicht den Zustand angenommen hat
+     *
      * @param a Auftrag
-     * @return  Der naechste ProzessSchritt
+     * @return Der naechste ProzessSchritt
      */
-    public ProzessSchritt getNextPS(Auftrag a) {
-        return a.getProzessSchritte().stream()
-                .filter((p) -> "Angenommen".equals(p.getZustandsAutomat().getCurrent()))
-                .findFirst()
-                .orElse(null);
-    }
+//    public ProzessSchritt getNextPS(Auftrag a) {
+//        return a.getProzessSchritte().stream()
+//                .filter((p) -> "Angenommen".equals(p.getProzessSchrittVorlage().getZustandsAutomat().getCurrent()))
+//                .findFirst()
+//                .orElse(null);
+//    }
 
     /**
      * Weise einen Auftrag Proben zu
      * Vorgehen:
-     *  - Fuer jeden ProzessSchritt
-     *    - Falls die Art erstellend ist, so koennen diese an der Station erstellt werden
-     *    - Ansonsten
-     *      - Gucke ob sich die Bedingen zu dem vorhergen ProzessSchritt veraendert haben
-     *        - Wenn nicht ueberneme die vorehrigen Proben
-     *        - Weise TODO andere Proben dann ins archiv
-     *      - Gucke welche existierenden freie Proben den Bediungen und Eigenschaften entsprechcen
-     *      - Teile dem ProzessSchritt diese Proben zu
+     * - Fuer jeden ProzessSchritt
+     * - Falls die Art erstellend ist, so koennen diese an der Station erstellt werden
+     * - Ansonsten
+     * - Gucke ob sich die Bedingen zu dem vorhergen ProzessSchritt veraendert haben
+     * - Wenn nicht ueberneme die vorehrigen Proben
+     * - Weise TODO andere Proben dann ins archiv
+     * - Gucke welche existierenden freie Proben den Bediungen und Eigenschaften entsprechcen
+     * - Teile dem ProzessSchritt diese Proben zu
+     *
      * @param auftrag der Auftrag
      * @return der Auftrag mit den neuen Proben
      */
@@ -253,6 +308,7 @@ public class AuftragService implements Serializable {
 
     /**
      * Erstelle Proben die einer Bedingung entsprechen, dies koenne wir fuer erzeugende Prozessschritte nutzen
+     *
      * @param b Die Bedingung
      * @param s der Standort wo die Proben sind, normalerweise die Station and der sie erstellt werden
      * @return die liste mit proben die erzeugt wurden
@@ -263,7 +319,7 @@ public class AuftragService implements Serializable {
             var p = new Probe(UUID.randomUUID().toString(), ProbenZustand.VORHANDEN, s);
             p.setBedingungen(List.of(b));
             result.add(p);
-            }
+        }
         // TODO persist
         return result;
         }

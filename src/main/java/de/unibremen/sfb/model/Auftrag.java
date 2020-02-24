@@ -52,7 +52,7 @@ public class Auftrag {
      * The job's log
      */
     @NonNull
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private AuftragsLog log;
 
     /**

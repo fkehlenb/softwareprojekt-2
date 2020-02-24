@@ -115,12 +115,12 @@ public class TechnologeBean implements Serializable {
         }
         else {
             int i = 0;
-            while(!a.getZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().get(i).equals(a.getZustandsAutomat().getCurrent())) {
+            while(!a.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().get(i).equals(a.getProzessSchrittZustandsAutomat().getCurrent())) {
                 i++;
             }
             try {
-                psService.setZustand(a, a.getZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().get(i+1));
-                log.info("set state of ProzessSchritt " + a.getPsID() + " to " + a.getZustandsAutomat().getCurrent());
+                psService.setZustand(a, a.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().get(i+1));
+                log.info("set state of ProzessSchritt " + a.getPsID() + " to " + a.getProzessSchrittZustandsAutomat().getCurrent());
             }
             catch(ProzessSchrittNotFoundException|ProzessSchrittLogNotFoundException|DuplicateProzessSchrittLogException e) {
                 e.printStackTrace();

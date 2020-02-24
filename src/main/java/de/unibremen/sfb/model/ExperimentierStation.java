@@ -48,20 +48,21 @@ public class ExperimentierStation {
 //    private Queue<ProzessSchritt> nextPS;
 
     /** Conditions for using an experimenting station */
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Bedingung> bedingungen;
 
     @NonNull
     @ManyToMany(cascade=CascadeType.MERGE, fetch = FetchType.LAZY)
     private List<User> benutzer;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private ProzessSchritt currentPS;
 
     @Override
     public String toString() {
         return "ES: " + standort;
     }
+
 
 
 }

@@ -96,7 +96,8 @@ public class BedingungService implements Serializable {
             log.info("Trying Bedingung Methode = edit");
             bedingungDAO.update(bedingung);
         } catch (Exception e) {
-            log.info("FAILED Bedingung Methode = edit");
+            log.info("FAILED Bedingung Methode = edit class BedingungService");
         }
     }
+
 }
