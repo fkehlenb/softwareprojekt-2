@@ -24,8 +24,7 @@ public class TraegerArt {
 
     @Override
     public String toString() {
-        return "TraegerArt{" +
-                "art='" + art + '\'' +
-                '}';
+        return
+                "art='" + art ;
     }
 }

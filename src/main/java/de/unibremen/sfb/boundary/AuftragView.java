@@ -23,7 +23,7 @@ import static de.unibremen.sfb.model.ProzessKettenZustandsAutomat.GESTARTET;
 @Getter
 @Setter
 @Slf4j
-public class AuftragBean implements Serializable {
+public class AuftragView implements Serializable {
     private List<Auftrag> auftrage;
     private List<ProzessKettenVorlage> vorlagen;
     //Der gewählte Auftrag

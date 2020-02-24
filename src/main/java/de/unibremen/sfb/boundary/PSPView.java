@@ -29,7 +29,7 @@ import java.util.UUID;
 @Slf4j
 @Setter
 @Getter
-public class PSPBean implements Serializable {
+public class PSPView implements Serializable {
 
     @Inject
     ProzessSchrittParameterService prozessSchrittParameterService;

@@ -26,7 +26,7 @@ import java.util.UUID;
 @RequestScoped
 @Slf4j
 @Data   // Warum Data
-public class QlEBean implements Serializable {
+public class QlEView implements Serializable {
 
     @Inject
     private QualitativeEigenschaftService qualitativeEigenschaftService;
