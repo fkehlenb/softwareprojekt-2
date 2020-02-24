@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * this class manages the interaction of the gui with the backend system (for users who are technologists)
  */
-public class TechnologeBean implements Serializable {
+public class TechnologeView implements Serializable {
 
     /**
      * the user managed by this bean
@@ -133,7 +133,7 @@ public class TechnologeBean implements Serializable {
     /**
      * the empty constructor
      */
-    public TechnologeBean() {}
+    public TechnologeView() {}
 
     /**
      * returns the technologist managed by this bean

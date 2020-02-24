@@ -38,6 +38,12 @@ public class AuftragsConverter implements Converter<Auftrag> {
         if (value == null || value.isEmpty()) {
             return null;
         }
-        return auftragService.getAuftrag(value);
+        try {
+            return auftragService.getAuftrag(Integer.parseInt(value));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 }

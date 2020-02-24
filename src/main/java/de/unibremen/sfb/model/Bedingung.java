@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @Entity
 @RequiredArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class Bedingung {
 
     /**
@@ -27,11 +27,12 @@ public class Bedingung {
     private String name;
 
     /** Process step parameters that the material must have */
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @NonNull
     private List<ProzessSchrittParameter> prozessSchrittParameter;
 
     // Die gewunschte Anzahl an Proben die dieser Bedingung entsprechen
+    @NonNull
     private int gewuenschteAnzahl;
 
     @Override

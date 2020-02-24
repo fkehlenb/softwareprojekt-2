@@ -34,29 +34,26 @@ public class ProzessSchritt {
 //    @OneToOne
 //    private ExperimentierStation current;
 
-
-    /** The state Automaton for the process step */
-    @NonNull
-    @OneToOne
-    private ProzessSchrittZustandsAutomat zustandsAutomat;
-
     /** The transport job to be carried out */
     @OneToOne
     private TransportAuftrag transportAuftrag;
 
     /** The process step's log */
     @NonNull
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private List<ProzessSchrittLog> prozessSchrittLog;
 
     /** The process step template the process step was created from */
     @NonNull
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private ProzessSchrittVorlage prozessSchrittVorlage;
 
     /** Die Zugewiesenen Proben fuer diesen Schritt */
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Probe> zugewieseneProben;
 
-
+    /** The process step state automaton template the automaton was created from (containing all possible states) */
+    @NonNull
+    @OneToOne(fetch = FetchType.LAZY)
+    private ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat;
 }

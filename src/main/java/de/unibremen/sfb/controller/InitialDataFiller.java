@@ -5,6 +5,7 @@ import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.AuftragDAO;
 import de.unibremen.sfb.persistence.StandortDAO;
 import de.unibremen.sfb.persistence.UserDAO;
+import de.unibremen.sfb.service.TraegerArtService;
 import de.unibremen.sfb.service.ZustandsService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,19 +39,12 @@ public class InitialDataFiller {
     private Auftrag pk;
     private ProzessKettenVorlage pkv;
     private List<QualitativeEigenschaft> qualitativeEigenschaftList;
+    private ProzessSchrittZustandsAutomatVorlage pszaVorlage;
 
     @Inject
     private UserDAO userDAO;
-
-    @Inject
-    private StandortDAO standortDAO;
-
     @Inject
     private ZustandsService zustandsService;
-
-    @Inject
-    private AuftragDAO auftragDAO;
-
 
     @PersistenceContext
     private EntityManager em;
@@ -58,6 +52,7 @@ public class InitialDataFiller {
     private User testUser;
     private ArrayList<QualitativeEigenschaft> qualEigenschaften;
     private ArrayList<ExperimentierStation> experimentierStations;
+    private ProzessSchrittZustandsAutomatVorlage sVorlage;
 
     @PostConstruct
     public void init() {
@@ -79,6 +74,11 @@ public class InitialDataFiller {
                 em.persist(s);
             }
 
+            for (ProzessSchrittZustandsAutomatVorlage p :
+                    erstelleStandartVorlagen()) {
+                log.info("Persisting: Voralge" + p.getName());
+                em.persist(p);
+            }
 
             // Experimentierstaation, requires Standort
             for (ExperimentierStation s :
@@ -112,18 +112,18 @@ public class InitialDataFiller {
             }
 
             // Erstelle Test Bedingung
-            Bedingung b = new Bedingung(UUID.randomUUID().hashCode(), "Test Bedingung" ,parameters);
+            Bedingung b = new Bedingung(UUID.randomUUID().hashCode(), "Test Bedingung" ,parameters,44);
             log.info("Trying to persist Bedingung: " + b.toString());
             em.persist(b);
 
             // Erstelle die Liste aus den Parametern
-            List<ProzessSchrittVorlage> psListe = getProzessSchrittVorlages(parameters);
+            List<ProzessSchrittVorlage> psvListe = getProzessSchrittVorlages(parameters);
             for (ProzessSchrittVorlage pSV :
-                    psListe) {
+                    psvListe) {
                 log.info("Trying to persist ProzessSchrittVorlage " + pSV.toString());
                 em.persist(pSV);
             }
-            pkv = new ProzessKettenVorlage(99, psListe);
+            pkv = new ProzessKettenVorlage(99, psvListe);
             log.info("Try to persist ProzessSchrittVorlage " + pkv.getPkID());
             em.persist(pkv);
 
@@ -132,19 +132,23 @@ public class InitialDataFiller {
             aLog.setErstellt(LocalDateTime.now());
             em.persist(aLog);
             log.info("Try to persist AuftragsLog " + aLog.toString());
-            pk = new Auftrag(420, pkv, AuftragsPrioritaet.HOCH, new ArrayList<ProzessSchritt>(), aLog, ProzessKettenZustandsAutomat.INSTANZIIERT);
+            pk = new Auftrag(420, pkv, AuftragsPrioritaet.HOCH, new ArrayList<ProzessSchritt>(),
+                    aLog, ProzessKettenZustandsAutomat.INSTANZIIERT);
 
 
-            // PSAV Setup
-            ProzessSchrittZustandsAutomatVorlage psza = new ProzessSchrittZustandsAutomatVorlage(zustandsService.getPsZustaende(),
-                    zustandsService.getPsZustaende().get(0));
-            log.info("Try to persist ProzessSchrittZustandsAutomatVorlage " + psza.toString());
-            em.persist(psza);
-            // PS Setup
-            ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat("ERSTELLT", psza);
+            // PSZAV Setup
+            pszaVorlage = new ProzessSchrittZustandsAutomatVorlage(
+                    zustandsService.getPsZustaende(), zustandsService.getPsZustaende().get(0));
+            log.info("Try to persist ProzessSchrittZustandsAutomatVorlage " + pszaVorlage.toString());
+            em.persist(pszaVorlage);
+
+            // Setup PSZA
+            ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(
+                    UUID.randomUUID().hashCode(), "ERSTELLT", pszaVorlage);
             log.info("Try to persist ProzessSchrittZustandsAutomat " + prozessSchrittZustandsAutomat.toString());
             em.persist(prozessSchrittZustandsAutomat);
 
+            // PS Setup
             ArrayList<ProzessSchrittLog> logs = new ArrayList<>();
             logs.add(new ProzessSchrittLog(LocalDateTime.now(), "INSTANZIERT"));
             for (ProzessSchrittLog pSL :
@@ -154,9 +158,29 @@ public class InitialDataFiller {
             }
 
 
-            ps = new ProzessSchritt(42, prozessSchrittZustandsAutomat, logs, psListe.get(0));
+            // Erstelle neuen PSZA
+            var automat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "AKZEPTIERT", pszaVorlage);
+            em.persist(automat);
+
+            ps = new ProzessSchritt(42, logs, psvListe.get(0), automat);
+            var psLogs = List.of(new ProzessSchrittLog(LocalDateTime.now(), "Gestartet"),
+                    new ProzessSchrittLog(LocalDateTime.now(), "Veraendert") );
+            for (ProzessSchrittLog psl :
+                    psLogs) {
+                em.persist(psl);
+            }
+            ps.setProzessSchrittLog(psLogs);
             log.info("Try to persist TEST ProzessSchritt " + ps.getPsID());
             em.persist(ps);
+
+
+            // Persistiere Traeger Arten
+            for (TraegerArt t :
+                   erstelleTraeger()) {
+                log.info("Persisting Traegerart " + t.getArt());
+                em.persist(t);
+            }
+
             // PS aufuellen
             pk.getProzessSchritte().add(ps);
             log.info("Try to persist TEST ProzessKette " + pk.getPkID());
@@ -286,8 +310,10 @@ public class InitialDataFiller {
         ProzessSchrittZustandsAutomatVorlage v = new ProzessSchrittZustandsAutomatVorlage(
                 zustandsService.getPsZustaende(), "Test pszvav");
         em.persist(v);
-        ProzessSchrittVorlage psv = new ProzessSchrittVorlage(99, Duration.ofMinutes(42),
-                "Ermittlend", experimentierStations, new ArrayList<>());
+        var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "ANGENOMMEN", sVorlage);
+        em.persist(a);
+        ProzessSchrittVorlage psv = new ProzessSchrittVorlage(99, "42",
+                "Ermittlend", experimentierStations, new ArrayList<>(), v);
         return psv;
     }
 
@@ -299,5 +325,23 @@ public class InitialDataFiller {
         qualEigenschaften.add(q1);
         qualEigenschaften.add(q2);
         return qualEigenschaften;
+    }
+
+    public List<TraegerArt> erstelleTraeger() {
+        return List.of(new TraegerArt("Glass"), new TraegerArt("Eingebetet"), new TraegerArt("Einzelen"));
+    }
+
+    // FIXME Add Default
+    public Set<ProzessSchrittZustandsAutomatVorlage> erstelleStandartVorlagen() {
+        Set<ProzessSchrittZustandsAutomatVorlage> ergebnis = new HashSet<>();
+        List<String> zustaende = new ArrayList();
+        zustaende.add("Angenommen");
+        zustaende.add("In Brearbeitung");
+        zustaende.add("Bearbeitet");
+        zustaende.add("Weitergeleitet");
+
+        sVorlage = new ProzessSchrittZustandsAutomatVorlage(zustaende, "Standart");
+        ergebnis.add(sVorlage);
+        return ergebnis;
     }
 }

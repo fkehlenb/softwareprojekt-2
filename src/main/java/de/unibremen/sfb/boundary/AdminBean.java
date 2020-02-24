@@ -15,16 +15,10 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.transaction.Transactional;
-import java.io.File;
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -68,6 +62,10 @@ public class AdminBean implements Serializable {
      */
     @Inject
     private BackupService backupService;
+
+    /** Job Service */
+    @Inject
+    private AuftragService auftragService;
 
     /**
      * The user's name
@@ -182,6 +180,9 @@ public class AdminBean implements Serializable {
     /** Database import file */
     private UploadedFile importFile;
 
+    /** Old jobs */
+    private List<Auftrag> auftrage;
+
     /**
      * Init called on bean creation
      */
@@ -190,6 +191,7 @@ public class AdminBean implements Serializable {
         allLocations = standortService.getStandorte();
         allUsers = userService.getAll();
         experimentierStations = experimentierStationService.getAll();
+        auftrage = auftragService.getAuftrage();
     }
 
     /**
@@ -477,19 +479,6 @@ public class AdminBean implements Serializable {
         } catch (ExperimentierStationNotFoundException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * generates a regestration mail that is supposed to be sent out to new users
-     */
-    public void generateRegestrationMail() {
-    }
-
-    /**
-     * Action listener for table updates
-     */
-    public void onClickExperimentierStationEdit() {
-
     }
 
     /** Database import */

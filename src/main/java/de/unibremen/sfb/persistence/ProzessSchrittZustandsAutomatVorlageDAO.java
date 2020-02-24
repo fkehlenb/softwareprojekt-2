@@ -3,8 +3,14 @@ package de.unibremen.sfb.persistence;
 import de.unibremen.sfb.exception.DuplicateProzessSchrittZustandsAutomatVorlageException;
 import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
 import de.unibremen.sfb.model.ProzessSchrittZustandsAutomatVorlage;
+import de.unibremen.sfb.model.Standort;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /** This class manages the process step state template */
+@Slf4j
 public class ProzessSchrittZustandsAutomatVorlageDAO extends ObjectDAO<ProzessSchrittZustandsAutomatVorlage> {
 
     /** Add new process step state template to the database
@@ -43,6 +49,21 @@ public class ProzessSchrittZustandsAutomatVorlageDAO extends ObjectDAO<ProzessSc
             }
             pszv.setValidData(false);
             update(pszv);
+        }
+    }
+
+    public List<ProzessSchrittZustandsAutomatVorlage> getAll(){
+        try {
+            List<ProzessSchrittZustandsAutomatVorlage> es = em.createQuery("SELECT e FROM ProzessSchrittZustandsAutomatVorlage e WHERE e.isValidData=true",get()).getResultList();
+            if (es.isEmpty()){
+                log.info("No ProzessSchrittZustandsAutomatVorlagee Found");
+                return new ArrayList<>();
+            }
+            return es;
+        }
+        catch (Exception e){
+//            e.printStackTrace();
+            throw new IllegalArgumentException();
         }
     }
 

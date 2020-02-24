@@ -87,7 +87,7 @@ public class User {
      * The role's of the user
      */
     @NonNull
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.LAZY)
     private List<Role> rollen;
 
 

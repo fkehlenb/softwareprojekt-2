@@ -1,83 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+
 <h:head>
-    <style type="text/css">
-        .ui-row-editor .ui-row-editor-pencil {
-            margin-left: 8px;
-        }
-    </style>
-
+    <title>SFB - Farbige Zustaende</title>
+    <link rel="icon" href="../background.png"/>
 </h:head>
-<h:body>
 
-    <ui:composition template="/template/common/layout.xhtml">
-        <ui:define name="content">
-            <h:form id="form">
-                <p:growl id="msgs" showDetail="true"/>
-
-                <h2>ProcessSchrittParameter Erstellen</h2>
-                <p:outputPanel>
-                    <h:form>
-                        <h:panelGrid columns="2" cellpadding="5">
-                            <p:commandButton ajax="false" action="#{dtPSPBean.creationLink()}"
-                                             value="Erzeugen"/>
-                        </h:panelGrid>
-                    </h:form>
-                </p:outputPanel>
-
+<body>
+<ui:composition template="/template/common/layout.xhtml">
+    <ui:define name="content">
+        <div class="ui-g-2"></div>
+        <div class="ui-g-8">
+            <div id="QlE">
+                <div id="QualEingeschaftFormular">
+                    <h2>ProcessSchritt Creation</h2>
+                    <p:outputPanel>
+                        <h:form>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <p:commandButton ajax="false" action="#{dtPSPBean.creationLink()}"
+                                                 value="Erzeugen"/>
+                            </h:panelGrid>
+                        </h:form>
+                    </p:outputPanel>
+                </div>
+                <br/>
+                <div id="QualEingeschaftList">
                 <h2>Liste der Prozessschrittparameter</h2>
-                <p:dataTable id="psps1" var="psp" value="#{dtPSPBean.findAll()}" editable="true"
-                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                             paginator="true" style="margin-bottom:20px">
-                    <f:facet name="header">
-                        Row Editing
-                    </f:facet>
+                        <p:dataTable id="psps1" var="psp" value="#{dtPSPBean.findAll()}" editable="true"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                                     paginator="true" style="margin-bottom:20px">
+                            <p:column headerText="Id">
+                                <h:outputText value="#{psp.id}"/>
+                            </p:column>
+                            <p:column headerText="Name">
+                                <h:outputText value="#{psp.name}"/>
+                            </p:column>
+                            <p:column headerText="Remove">
+                                <h:form>
+                                    <div align="center">
+                                        <p:commandButton ajax="false" action="#{dtPSPBean.deletePSP(psp.id)}" value="ERASE"
+                                                         icon="pi pi-trash"/>
+                                    </div>
+                                </h:form>
+                            </p:column>
+                            <p:column headerText="Edit">
+                                <h:form>
+                                    <div align="center">
+                                        <p:commandButton ajax="false" action="#{dtPSPBean.Edit(psp.id)}" value="EDIT"
+                                                         icon="pi pi-pencil"/>
+                                    </div>
+                                </h:form>
+                            </p:column>
+                        </p:dataTable>
+                </div>
+            </div>
+        </div>
 
-                    <p:ajax event="rowEdit" listener="#{dtPSPBean.onRowEdit}" update=":form:msgs"/>
-                    <p:ajax event="rowEditCancel" listener="#{dtPSPBean.onRowCancel}" update=":form:msgs"/>
-
-                    <p:column headerText="Id">
-                        <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{psp.id}"/></f:facet>
-                        </p:cellEditor>
-                    </p:column>
-
-                    <p:column headerText="Name">
-                        <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{psp.name}"/></f:facet>
-                            <f:facet name="input"><p:inputText id="modelInput" value="#{psp.name}"
-                                                               style="width:96%"/></f:facet>
-                        </p:cellEditor>
-                    </p:column>
-
-                    <p:column headerText="Eigenschenschaften">
-                        <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{psp.qualitativeEigenschaften}"/></f:facet>
-                            <f:facet name="input">
-                                <h:selectOneMenu value="#{psp.qualitativeEigenschaften}" style="width:100%">
-                                    <f:selectItems value="#{dtPSPBean.qualitativeEigenschaften}"
-                                                   var="qualitativeEigenschaften"
-                                                   itemLabel="#{qualitativeEigenschaften}"
-                                                   itemValue="#{qualitativeEigenschaften}"/>
-                                </h:selectOneMenu>
-                            </f:facet>
-                        </p:cellEditor>
-                    </p:column>
-                    <p:column style="width:35px">
-                        <p:rowEditor/>
-                    </p:column>
-                </p:dataTable>
-
-            </h:form>
-        </ui:define>
-    </ui:composition>
-</h:body>
+        <div class="ui-g-2"></div>
+    </ui:define>
+</ui:composition>
+</body>
 </html>
-
-
-
-
-

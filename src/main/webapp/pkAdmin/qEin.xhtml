@@ -27,10 +27,10 @@
                         <h:form>
                             <h:panelGrid columns="2" cellpadding="5">
                                 <p:outputLabel for="nameQl" value="name:"/>
-                                <p:inputText id="nameQl" value="#{qlEBean.nameQualitativeEigenschaft}"
+                                <p:inputText id="nameQl" value="#{qlEView.nameQualitativeEigenschaft}"
                                              placeholder="name" required="true"/>
                                 <p:commandButton value="Reset" type="reset"/>
-                                <p:commandButton ajax="false" action="#{qlEBean.addQualitativeEigenschaft()}"
+                                <p:commandButton ajax="false" action="#{qlEView.addQualitativeEigenschaft()}"
                                                  value="Spichern"/>
                             </h:panelGrid>
                         </h:form>
@@ -40,7 +40,7 @@
                 <div id="form">
                     <h2>List Qualitative Eingeschaft </h2>
 
-                    <p:dataTable id="tbl" var="qlE" value="#{qlEBean.findAllQual()}"
+                    <p:dataTable id="tbl" var="qlE" value="#{qlEView.findAllQual()}"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                                  paginator="true" rows="5" style="margin-bottom:20px">
                 
@@ -53,8 +53,8 @@
                         <p:column headerText="Edit">
                             <h:form>
                                 <div align="center">
-                                    <h:inputText value="#{qlEBean.nameQualitativeEigenschaft}" placeholder=""/>
-                                    <p:commandButton ajax="false" action="#{qlEBean.editQlE(qlE.id)}" value="Edit"
+                                    <h:inputText value="#{qlEView.nameQualitativeEigenschaft}" placeholder=""/>
+                                    <p:commandButton ajax="false" action="#{qlEView.editQlE(qlE.id)}" value="Edit"
                                                      icon="pi pi-pencil"/>
                                 </div>
                             </h:form>
@@ -62,7 +62,7 @@
                         <p:column headerText="Remove">
                             <h:form>
                                 <div align="center">
-                                    <p:commandButton ajax="false" action="#{qlEBean.deleteQlE(qlE.id)}" value="ERASE"
+                                    <p:commandButton ajax="false" action="#{qlEView.deleteQlE(qlE.id)}" value="ERASE"
                                                      icon="pi pi-trash"/>
                                 </div>
                             </h:form>
@@ -77,13 +77,13 @@
                         <h:form>
                             <h:panelGrid columns="2" cellpadding="5">
                                 <p:outputLabel for="name" value="name:"/>
-                                <p:inputText id="name" value="#{qlEBean.nameQuantitativeEigenschaft}"
+                                <p:inputText id="name" value="#{qlEView.nameQuantitativeEigenschaft}"
                                              placeholder="name"/>
                                 <p:outputLabel for="value" value="value:"/>
-                                <p:inputText id="value" value="#{qlEBean.numberQuantitativeEigenschaft}"
+                                <p:inputText id="value" value="#{qlEView.numberQuantitativeEigenschaft}"
                                              placeholder="wert"/>
                                 <p:commandButton value="Reset" type="reset"/>
-                                <p:commandButton ajax="false" action="#{qlEBean.addQuantitativeEigenschaft()}"
+                                <p:commandButton ajax="false" action="#{qlEView.addQuantitativeEigenschaft()}"
                                                  value="Spichern"/>
                             </h:panelGrid>
                         </h:form>
@@ -91,7 +91,7 @@
                 </div>
                 <div id="QuantEingenschatenList">
                     <h2>List Quantitavite Eingeschaft </h2>
-                    <p:dataTable id="QuantEingenschatenTabele" var="qnE" value="#{qlEBean.findAllQuan()}"
+                    <p:dataTable id="QuantEingenschatenTabele" var="qnE" value="#{qlEView.findAllQuan()}"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                                  paginator="true" rows="5" style="margin-bottom:20px">
                         <p:column headerText="Id">
@@ -106,7 +106,7 @@
                         <p:column headerText="Edit">
                             <h:form>
                                 <div align="center">
-                                    <p:commandButton ajax="false" action="#{qlEBean.editQnE(qnE.id)}" value="Edit"
+                                    <p:commandButton ajax="false" action="#{qlEView.editQnE(qnE.id)}" value="Edit"
                                                      icon="pi pi-pencil"/>
                                 </div>
                             </h:form>
@@ -114,7 +114,7 @@
                         <p:column headerText="Remove">
                             <h:form>
                                 <div align="center">
-                                    <p:commandButton ajax="false" action="#{qlEBean.deleteQlE(qnE.id)}" value="ERASE"
+                                    <p:commandButton ajax="false" action="#{qlEView.deleteQlE(qnE.id)}" value="ERASE"
                                                      icon="pi pi-trash"/>
                                 </div>
                             </h:form>

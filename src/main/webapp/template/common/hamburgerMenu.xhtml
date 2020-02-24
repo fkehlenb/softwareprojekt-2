@@ -15,25 +15,29 @@
                 </p:growl>
                 <p:panelMenu>
                     <p:submenu label="Navigation" id="navigation">
-                        <p:menuitem id="Home" value="Home" icon="pi pi-home" url="../../index.xhtml"/>
+                        <p:menuitem id="Home" value="Home" icon="pi pi-home" url="/index.xhtml"/>
                         <p:menuitem id="Account" value="Accout" icon="pi pi-briefcase"/>
-                        <p:menuitem id="Logout" value="Logout" icon="pi pi-times" url="../../logout"/>
+                        <p:menuitem id="Logout" value="Logout" icon="pi pi-times" url="/logout"/>
                     </p:submenu>
                 </p:panelMenu>
                 <p:panelMenu>
                     <p:submenu label="Menu" id="Menu">
                         <shiro:hasRole name="admin">
                             <p:submenu label="Administrator Tools" id="AdminTools">
-                                <p:menuitem value="Nutzer Verwalten" url="../../admin/nutzerVerwaltung.xhtml"/>
+                                <p:menuitem value="Nutzer Verwalten"
+                                            url="/admin/nutzerVerwaltung.xhtml"/>
                                 <p:menuitem value="Experimentierstationen Verwalten"
-                                            url="../../admin/experimentierStationVerwaltung.xhtml"/>
-                                <p:menuitem value="Globale Einstellungen"/>
-                                <p:menuitem value="Backup" url="../../admin/backup.xhtml"/>
+                                            url="/admin/experimentierStationVerwaltung.xhtml"/>
+                                <p:menuitem value="Standort Verwaltung"
+                                            url="/admin/standortVerwaltung.xhtml"/>
+                                <p:menuitem value="Globale Einstellungen"
+                                            url="/admin/globaleEinstellungen.xhtml"/>
+                                <p:menuitem value="Backup" url="/admin/backup.xhtml"/>
                             </p:submenu>
                         </shiro:hasRole>
                         <shiro:hasRole name="pkAdmin">
                             <p:submenu label="Prozesskettenplaner Tools" id="pkverwaltungsTools">
-                                <p:menuitem value="Prozessschritt Verwaltung"/>
+                                <p:menuitem value="Prozessschritt Verwaltung" url="../../pkAdmin/.xhtml"/>
                                 <p:menuitem value="Ablaufsverwaltung"/>
                                 <p:menuitem value="Prozessketten Verwalten"/>
                                 <p:menuitem value="Auftraege Verwalten"/>
@@ -43,14 +47,14 @@
                         </shiro:hasRole>
                         <shiro:hasRole name="transport">
                             <p:submenu label="Tansport Tools" id="transportTools">
-                                <p:menuitem value="Auftraege"/>
-                                <p:menuitem value="Probenverlust Melden"/>
+                                <p:menuitem value="Aufträge" url="../../transport/auftraege.xhtml"/>
+                                <p:menuitem value="Probenverlust Melden" url="../../transport/probenVerlust.xhtml"/>
                             </p:submenu>
                         </shiro:hasRole>
                         <shiro:hasRole name="logistik">
                             <p:submenu label="Logistik Tools">
-                                <p:menuitem value="Traegeruebersicht" url="../../Logistiker/Traegeruebersicht.xhtml"/>
-                                <p:menuitem value="Auftraegsuebersicht"/>
+                                <p:menuitem value="Traegeruebersicht" url="../../logistik/Traegeruebersicht.xhtml"/>
+                                <p:menuitem value="Auftraegsuebersicht" url="../../logistik/Auftragsuebersicht.xhtml"/>
                                 <p:menuitem value="Probenuebersicht"/>
                                 <p:menuitem value="Archivuebersicht"/>
                                 <p:menuitem value="Probenstandortsuebericht"/>

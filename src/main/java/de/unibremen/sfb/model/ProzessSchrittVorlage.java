@@ -3,6 +3,7 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.ws.rs.ext.ParamConverter;
 import java.time.Duration;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class ProzessSchrittVorlage {
 
     /** Duration of the process step template */
     @NonNull
-    private Duration dauer;
+    private String dauer;
 
     /** Accepted container input types */
     @ManyToMany(fetch = FetchType.LAZY)
@@ -40,15 +41,21 @@ public class ProzessSchrittVorlage {
     private String psArt;
 
     /** The experimenting stations accepted in the process step template */
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @NonNull
     private  List<ExperimentierStation> stationen;
 
     /** The process step predicates */
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @NonNull
     private List<Bedingung> bedingungen;
 
+    /** The state Automaton for the process step */
+    @NonNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    private ProzessSchrittZustandsAutomatVorlage zustandsAutomatVorlage;
+
+    @Override
     public String toString() {
         return "PSV" + this.psVID;
     }

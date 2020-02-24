@@ -26,6 +26,6 @@ public class ProzessKettenVorlage {
 
     /** The process chain template's process steps (as templates hence not yet instantiated) */
     @NonNull
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<ProzessSchrittVorlage> prozessSchrittVorlagen;
 }

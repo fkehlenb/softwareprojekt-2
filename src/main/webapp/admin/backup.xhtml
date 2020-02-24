@@ -15,51 +15,53 @@
 <body background="../background.png">
 <shiro:authenticated>
     <shiro:hasRole name="admin">
-        <ui:include src="/template/common/header.xhtml"/>
-        <ui:include src="/template/common/hamburgerMenu.xhtml"/>
-        <div style=" margin-top: 10px">
-            <p:growl id="growl">
-                <p:autoUpdate/>
-            </p:growl>
-                <p:panelGrid>
-                    <p:row>
-                        <p:column colspan="3">
-                            <h2 style="color: cornflowerblue">Backup und Restore</h2>
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column colspan="3">
-                            <p>Hier können Sie die aktuelle Datenbank mit all ihrer Daten exportieren, oder neue Daten aus
-                                einer existierenden Datenbank importieren.</p>
-                        </p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column colspan="1">
-                            <h3 style="color: cornflowerblue">Datenbank Backup</h3>
-                        </p:column>
-                        <p:column colspan="2">
-                            <h:form style="width: 100%">
-                                <p:commandButton value="Create Backup" id="withIcon" action="#{adminBean.backup}"
-                                                 update="growl" style="margin-right:20px;" icon="pi pi-save"/>
+        <ui:composition template="/template/common/layout.xhtml">
+            <ui:define name="content">
+                <div class="ui-g-8">
+                    <p:growl id="growl">
+                        <p:autoUpdate/>
+                    </p:growl>
+                    <p:panelGrid>
+                        <p:row>
+                            <p:column colspan="3">
+                                <h2 style="color: cornflowerblue">Backup und Restore</h2>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="3">
+                                <p>Hier können Sie die aktuelle Datenbank mit all ihrer Daten exportieren, oder neue Daten aus
+                                    einer existierenden Datenbank importieren.</p>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="1">
+                                <h3 style="color: cornflowerblue">Datenbank Backup</h3>
+                            </p:column>
+                            <p:column colspan="2">
+                                <h:form style="width: 100%">
+                                    <p:commandButton value="Create Backup" id="withIcon" action="#{adminBean.backup}"
+                                                     update="growl" style="margin-right:20px;" icon="pi pi-save"/>
+                                </h:form>
+                            </p:column>
+                        </p:row>
+                        <br/>
+                        <p:row>
+                            <p:column colspan="1">
+                                <h3 style="color: cornflowerblue">Daten Importieren</h3>
+                            </p:column>
+                            <h:form enctype="multipart/form-data">
+                                <p:column colspan="1">
+                                    <p:fileUpload value="#{adminBean.importFile}" mode="simple" skinSimple="true"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:commandButton value="Submit" ajax="false" action="#{adminBean.databaseImport}"/>
+                                </p:column>
                             </h:form>
-                        </p:column>
-                    </p:row>
-                    <br/>
-                    <p:row>
-                        <p:column colspan="1">
-                            <h3 style="color: cornflowerblue">Daten Importieren</h3>
-                        </p:column>
-                        <h:form enctype="multipart/form-data">
-                            <p:column colspan="1">
-                                <p:fileUpload value="#{adminBean.importFile}" mode="simple" skinSimple="true"/>
-                            </p:column>
-                            <p:column colspan="1">
-                                <p:commandButton value="Submit" ajax="false" action="#{adminBean.databaseImport}" />
-                            </p:column>
-                        </h:form>
-                    </p:row>
-                </p:panelGrid>
-        </div>
+                        </p:row>
+                    </p:panelGrid>
+                </div>
+            </ui:define>
+        </ui:composition>
     </shiro:hasRole>
 </shiro:authenticated>
 </body>

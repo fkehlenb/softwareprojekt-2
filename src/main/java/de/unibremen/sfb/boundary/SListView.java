@@ -25,7 +25,7 @@ import java.util.List;
 @Slf4j
 @RequestScoped
 @Transactional
-public class SListBean implements Serializable {
+public class SListView implements Serializable {
     private List<Standort> alleStandorte;
     private List<Standort> filteredStandorte;
     private List<Standort> selectedStandorte;
@@ -48,8 +48,8 @@ public class SListBean implements Serializable {
         for (Standort s :
                 selectedStandorte) {
             log.info("Loesche Standort " + s.getOrt());
-            standortService.loescheStandort(s);
             try {
+                standortService.remove(s);
                 standortDAO.remove(s);
             } catch (StandortNotFoundException e) {
                 e.printStackTrace();

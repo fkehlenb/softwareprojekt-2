@@ -21,8 +21,9 @@ import java.util.stream.Collectors;
 @Startup
 @Getter
 @Transactional
-    /** List containing all experimenting stations */
 public class ExperimentierStationService implements Serializable {
+
+    /** List containing all experimenting stations */
     private List<ExperimentierStation> esSet;
 
     /** ES DAO for database management */
