@@ -30,9 +30,6 @@ public class ProzessSchrittService implements Serializable {
     private ProzessSchrittDAO prozessSchrittDAO;
 
     @Inject
-    ProzessSchrittDAO prozessSchrittDAO;
-
-    @Inject
     private AuftragService auftragService;
 
     @Inject

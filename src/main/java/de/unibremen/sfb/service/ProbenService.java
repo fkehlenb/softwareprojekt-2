@@ -85,7 +85,7 @@ public class ProbenService implements Serializable {
     }
 
     @Inject
-    ExperimentierStationService experimentierStationService;
+    private ExperimentierStationService experimentierStationService;
 
     /**
      * Hole alle Proben die akutell in experimentierStationene sind,
