@@ -61,7 +61,7 @@
                                     </p:selectManyMenu>
 
                                     <p:outputLabel for="ProzessSchrittZustandsAutomatVorlage" value="ProzessSchrittZustandsAutomatVorlage: "/>
-                                    <p:selectManyMenu id="ProzessSchrittZustandsAutomatVorlage"
+                                    <p:selectOneMenu id="ProzessSchrittZustandsAutomatVorlage"
                                                       value="#{psvErstellenBean.ausProzessSchrittZustandsAutomatVorlage}"
                                                       converter="omnifaces.SelectItemsConverter" effect="fade"
                                                       var="ProzessSchrittZustandsAutomatVorlage" style="width: 172px" filter="true"
@@ -70,9 +70,12 @@
                                                        var="pszav" itemLabel="#{pszav.name}"
                                                        itemValue="#{pszav}" required="true"/>
                                         <p:column>
+                                            <h:outputText value="Vorlage: "/>
+                                        </p:column>
+                                        <p:column>
                                             <h:outputText value="#{pszav.name}"/>
                                         </p:column>
-                                    </p:selectManyMenu>
+                                    </p:selectOneMenu>
 
                                 </h:panelGrid>
 
