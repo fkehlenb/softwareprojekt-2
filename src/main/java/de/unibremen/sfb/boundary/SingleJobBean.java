@@ -1,6 +1,5 @@
 package de.unibremen.sfb.boundary;
 
-import de.unibremen.sfb.exception.ProzessSchrittNotFoundException;
 import de.unibremen.sfb.model.Kommentar;
 import de.unibremen.sfb.model.Probe;
 import de.unibremen.sfb.model.ProzessSchritt;
@@ -26,10 +25,10 @@ public class SingleJobBean implements Serializable {
     private String kommentarForAll;
 
     @Inject
-    ProbenService probeService;
+    private ProbenService probeService;
 
     @Inject
-    TechnologeBean technologeBean;
+    private TechnologeView technologeView;
 
     public String singlejob(ProzessSchritt ps) {
         this.ps = ps;
@@ -47,12 +46,12 @@ public class SingleJobBean implements Serializable {
      */
     public void addComment(ProzessSchritt ps, String c) {
         if(ps == null || c == null) {
-            technologeBean.errorMessage("invalid input");
+            technologeView.errorMessage("invalid input");
         }
         else {
             Kommentar k = new Kommentar(LocalDateTime.now(), c);
             for(Probe p : ps.getZugewieseneProben()) {
-                technologeBean.addProbenComment(p, c);
+                technologeView.addProbenComment(p, c);
             }
         }
         kommentarForAll = "";

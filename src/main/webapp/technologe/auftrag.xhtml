@@ -22,7 +22,7 @@
                                 <h1 style="color: cornflowerblue">Verfügbare Aufträge</h1>
                             </p:row>
 
-                            <p:dataTable var="auftrag" value="#{technologeBean.getAuftrag()}">
+                            <p:dataTable var="auftrag" value="#{technologeView.getAuftrag()}">
                                 <p:column headerText="Id">
                                     <h:outputText value="#{auftrag.psID}"/>
                                 </p:column>
@@ -32,7 +32,7 @@
                                 <p:column headerText="Zuordnen">
                                     <h:form>
                                         <div align="center">
-                                            <h:commandButton action="#{technologeBean.assignToAuftrag(auftrag)}" value="Assign"/>
+                                            <h:commandButton action="#{technologeView.assignToAuftrag(auftrag)}" value="Assign"/>
                                         </div>
                                     </h:form>
                                 </p:column>

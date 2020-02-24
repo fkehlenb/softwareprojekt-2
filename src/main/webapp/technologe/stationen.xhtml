@@ -24,7 +24,7 @@
                                 <h1 style="color: cornflowerblue">Experimentierstationen</h1>
                             </p:row>
 
-                            <p:dataTable var="station" value="#{technologeBean.getStationen()}">
+                            <p:dataTable var="station" value="#{technologeView.getStationen()}">
                                 <p:column headerText="Id">
                                     <h:outputText value="#{station.esID}"/>
                                 </p:column>
@@ -40,7 +40,7 @@
                                 <p:column headerText="Als kaputt melden">
                                     <h:form>
                                         <div align="center">
-                                            <h:commandButton action="#{technologeBean.reportBroken(station)}" value="REPORT"/>
+                                            <h:commandButton action="#{technologeView.reportBroken(station)}" value="REPORT"/>
                                         </div>
                                     </h:form>
                                 </p:column>

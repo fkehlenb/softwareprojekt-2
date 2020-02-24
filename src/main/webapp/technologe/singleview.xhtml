@@ -28,7 +28,7 @@
                 <p:row>
                     <p>Zustand: #{singleJobBean.ps.prozessSchrittZustandsAutomat.current}</p>
                     <div align="center">
-                        <h:commandButton action="#{technologeBean.setJobZustand(singleJobBean.ps)}" value="Weiterschalten"/>
+                        <h:commandButton action="#{technologeView.setJobZustand(singleJobBean.ps)}" value="Weiterschalten"/>
                     </div>
                 </p:row>
 
@@ -39,7 +39,7 @@
                     <p:outputLabel for="kommentar" value="Kommentar:"/>
                     <p:inputMask id="kommentar" value="#{singleJobBean.kommentarForAll}" mask=""/>
                     <p:commandButton value="Save" type="save"/>
-                    <p:commandButton action="#{singleJobBean.addComment(technologeBean.singleJob, singleJobBean.kommentarForAll)}"/>
+                    <p:commandButton action="#{singleJobBean.addComment(technologeView.singleJob, singleJobBean.kommentarForAll)}"/>
 
                 <p:row>
                     <p> Bedingungen: </p>

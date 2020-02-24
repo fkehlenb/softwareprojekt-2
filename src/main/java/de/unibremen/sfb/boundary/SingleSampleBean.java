@@ -5,10 +5,7 @@ import de.unibremen.sfb.model.Probe;
 import lombok.Getter;
 import org.primefaces.event.CellEditEvent;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -21,7 +18,7 @@ public class SingleSampleBean implements Serializable {
     private Probe p;
 
     @Inject
-    private TechnologeBean technologeBean;
+    private TechnologeView technologeView;
 
 
     public String singleprobe(Probe p) {
@@ -38,7 +35,7 @@ public class SingleSampleBean implements Serializable {
         int row = e.getRowIndex();
         Kommentar k = p.getKommentar().get(row);
 
-        technologeBean.editProbenComment(p, k, ne);
+        technologeView.editProbenComment(p, k, ne);
     }
 
     public SingleSampleBean() {}

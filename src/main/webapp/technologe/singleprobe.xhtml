@@ -87,7 +87,7 @@
             <p:column headerText="Löschen">
                 <h:form>
                     <div align="center">
-                        <h:commandButton action="#{technologeBean.deleteProbenComment(singleSampleBean.p, kommentar)}" value="Löschen"/>
+                        <h:commandButton action="#{technologeView.deleteProbenComment(singleSampleBean.p, kommentar)}" value="Löschen"/>
                     </div>
                 </h:form>
             </p:column>
@@ -95,9 +95,9 @@
         </p:dataTable>
 
         <p:outputLabel for="kommentar" value="Kommentar:"/>
-        <p:inputMask id="kommentar" value="#{technologeBean.kommentarForAll}"/>
+        <p:inputMask id="kommentar" value="#{technologeView.kommentarForAll}"/>
         <p:commandButton value="Save" type="save"/>
-        <p:commandButton action="#{technologeBean.addProbenComment(singleSampleBean.p, kommentar)}"/>
+        <p:commandButton action="#{technologeView.addProbenComment(singleSampleBean.p, kommentar)}"/>
 
     </h:panelGrid>
     </h:form>

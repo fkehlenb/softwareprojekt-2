@@ -33,7 +33,7 @@
                             <p> Status: #{singleStationBean.station.status}</p>
                         </p:row>
                         <div align="center">
-                            <h:commandButton action="#{technologeBean.reportBroken(singleStationBean.station)}" value="Report as broken"/>
+                            <h:commandButton action="#{technologeView.reportBroken(singleStationBean.station)}" value="Report as broken"/>
                         </div>
                         <p:row>
                             <p> ProzessSchritt: #{singleStationBean.station.currentPS.psID} </p>

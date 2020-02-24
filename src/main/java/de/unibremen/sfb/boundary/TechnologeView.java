@@ -36,7 +36,7 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @Slf4j
-public class TechnologeBean implements Serializable {
+public class TechnologeView implements Serializable {
 
     /**
      * the user managed by this bean
@@ -308,7 +308,7 @@ public class TechnologeBean implements Serializable {
     /**
      * the empty constructor
      */
-    public TechnologeBean() {}
+    public TechnologeView() {}
 
     /**
      * returns the technologist managed by this bean
