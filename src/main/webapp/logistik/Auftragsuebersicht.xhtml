@@ -39,14 +39,19 @@
             <p:column headerText="Zustand">
                 <h:outputText value="#{auftrag.prozessKettenZustandsAutomat}" />
             </p:column>
+                <h:form>
+                    <p:commandButton value="#{dtAuftragBean.auftrage}"
+                                 action="#{dtAuftragBean.zWechsel(auftrag)}" icon="pi pi-check"
+                                 update="@form"/>
+
+                </h:form>
+            <p:column>
+
+
+            </p:column>
         </p:dataTable>
         <!-- Button für Zustandwechsel-->
-        <h:form>
-            <p:commandButton value="#{dtAuftragBean.auftrage}"
-                             action="#{dtAuftragBean.zWechsel(auftrag)}" icon="pi pi-check"
-                             update="@form"/>
 
-        </h:form>
 
     </ui:define>
 
