@@ -13,80 +13,82 @@
 <body background="../background.png">
 <shiro:authenticated>
     <shiro:hasRole name="admin">
-        <ui:include src="/template/common/header.xhtml"/>
-        <ui:include src="/template/common/hamburgerMenu.xhtml"/>
-        <div style=" margin-top: 10px">
-            <p:growl>
-                <p:autoUpdate/>
-            </p:growl>
-            <p:panelGrid columns="1">
-                <p:row>
-                    <h2 style="color: cornflowerblue">Standort Verwaltung</h2>
-                </p:row>
-                <p:row>
-                    <p>In der unteren Tabelle sehen Sie alle Standorte die im System existieren.<br/>
-                        Mit dem Formular koennen Sie neue Standorte einfuegen. In der tabelle
-                        koennen Sie existierende Standorte veraendern.</p>
-                </p:row>
-                <p:row>
-                    <h3 style="color: cornflowerblue">Standort Einfuegen</h3>
-                    <h:form id="form">
-                        <p:panelGrid>
-                            <p:row>
-                                <p:column colspan="1">
-                                    <h:outputText value="Standort:"/>
-                                </p:column>
-                                <p:column colspan="1">
-                                    <p:inputText placeholder="Standort" required="true"
-                                                 requiredMessage="Bitte Standort Angeben!"
-                                                 value="#{standortBean.standortName}"/>
-                                </p:column>
-                            </p:row>
-                            <p:row>
-                                <p:column colspan="1">
-                                    <p:commandButton value="Reset" type="reset" ajax="true" update="form"/>
-                                </p:column>
-                                <p:column colspan="1">
-                                    <p:commandButton value="Erstellen" ajax="true" update="form2:table"
-                                                     action="#{standortBean.addStandort}"/>
-                                </p:column>
-                            </p:row>
-                        </p:panelGrid>
-                    </h:form>
-                </p:row>
-                <p:row>
-                    <h:form id="form2">
-                        <p:dataTable id="table" var="standort" value="#{standortBean.all}" editable="true"
-                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                     paginator="true" rows="3" style="margin-bottom:20px">
-                            <p:ajax event="rowEdit" listener="#{standortBean.updateOnRowEdit(standort.id)}"
-                                    update="form2:table"/>
-                            <p:ajax event="rowEditCancel" listener="#{standortBean.onRowEditCancel}"
-                                    update="form2:table"/>
-                            <p:column headerText="Standort">
-                                <p:cellEditor>
-                                    <f:facet name="output">
-                                        <h:outputText value="#{standort.ort}"/>
-                                    </f:facet>
-                                    <f:facet name="input">
-                                        <p:inputText placeholder="Standort" required="true"
-                                                     requiredMessage="Bitte Standort eingeben!"
-                                                     value="#{standortBean.standortName}"/>
-                                    </f:facet>
-                                </p:cellEditor>
-                            </p:column>
-                            <p:column>
-                                <p:commandButton ajax="true" action="#{standortBean.remove(standort.id)}"
-                                                 value="Delete" icon="pi pi-trash" update="form2:table"/>
-                            </p:column>
-                            <p:column style="width: 35px">
-                                <p:rowEditor/>
-                            </p:column>
-                        </p:dataTable>
-                    </h:form>
-                </p:row>
-            </p:panelGrid>
-        </div>
+        <ui:composition template="/template/common/layout.xhtml">
+            <ui:define name="content">
+                <div class="ui-g-8">
+                    <p:growl>
+                        <p:autoUpdate/>
+                    </p:growl>
+                    <p:panelGrid columns="1">
+                        <p:row>
+                            <h2 style="color: cornflowerblue">Standort Verwaltung</h2>
+                        </p:row>
+                        <p:row>
+                            <p>In der unteren Tabelle sehen Sie alle Standorte die im System existieren.<br/>
+                                Mit dem Formular koennen Sie neue Standorte einfuegen. In der tabelle
+                                koennen Sie existierende Standorte veraendern.</p>
+                        </p:row>
+                        <p:row>
+                            <h3 style="color: cornflowerblue">Standort Einfuegen</h3>
+                            <h:form id="form">
+                                <p:panelGrid>
+                                    <p:row>
+                                        <p:column colspan="1">
+                                            <h:outputText value="Standort:"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:inputText placeholder="Standort" required="true"
+                                                         requiredMessage="Bitte Standort Angeben!"
+                                                         value="#{standortBean.standortName}"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="1">
+                                            <p:commandButton value="Reset" type="reset" ajax="true" update="form"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:commandButton value="Erstellen" ajax="true" update="form2:table"
+                                                             action="#{standortBean.addStandort}"/>
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                            </h:form>
+                        </p:row>
+                        <p:row>
+                            <h:form id="form2">
+                                <p:dataTable id="table" var="standort" value="#{standortBean.all}" editable="true"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                             paginator="true" rows="3" style="margin-bottom:20px">
+                                    <p:ajax event="rowEdit" listener="#{standortBean.updateOnRowEdit(standort.id)}"
+                                            update="form2:table"/>
+                                    <p:ajax event="rowEditCancel" listener="#{standortBean.onRowEditCancel}"
+                                            update="form2:table"/>
+                                    <p:column headerText="Standort">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <h:outputText value="#{standort.ort}"/>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:inputText placeholder="Standort" required="true"
+                                                             requiredMessage="Bitte Standort eingeben!"
+                                                             value="#{standortBean.standortName}"/>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+                                    <p:column>
+                                        <p:commandButton ajax="true" action="#{standortBean.remove(standort.id)}"
+                                                         value="Delete" icon="pi pi-trash" update="form2:table"/>
+                                    </p:column>
+                                    <p:column style="width: 35px">
+                                        <p:rowEditor/>
+                                    </p:column>
+                                </p:dataTable>
+                            </h:form>
+                        </p:row>
+                    </p:panelGrid>
+                </div>
+            </ui:define>
+        </ui:composition>
     </shiro:hasRole>
 </shiro:authenticated>
 </body>
