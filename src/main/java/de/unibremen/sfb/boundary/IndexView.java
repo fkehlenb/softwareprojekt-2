@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 @ViewScoped
 @Named
-public class IndexBean implements Serializable {
+public class IndexView implements Serializable {
 
     // Define the Subject
     private Subject subject = SecurityUtils.getSubject();
@@ -41,6 +41,6 @@ public class IndexBean implements Serializable {
     /**
      * the empty constructor
      */
-    public IndexBean() {}
+    public IndexView() {}
 
 }

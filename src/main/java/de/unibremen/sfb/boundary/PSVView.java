@@ -28,7 +28,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Log
-public class PSVErstellenBean implements Serializable {
+public class PSVView implements Serializable {
 
     @NotEmpty
     private int psVID;

@@ -1,4 +1,4 @@
-package de.unibremen.sfb.boundary;
+package de.unibremen.sfb.controller;
 
 import de.unibremen.sfb.model.*;
 

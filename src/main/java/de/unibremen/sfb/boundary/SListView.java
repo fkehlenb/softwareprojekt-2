@@ -25,7 +25,7 @@ import java.util.List;
 @Slf4j
 @RequestScoped
 @Transactional
-public class SListBean implements Serializable {
+public class SListView implements Serializable {
     private List<Standort> alleStandorte;
     private List<Standort> filteredStandorte;
     private List<Standort> selectedStandorte;
