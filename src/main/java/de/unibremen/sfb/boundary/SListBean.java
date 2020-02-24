@@ -48,8 +48,8 @@ public class SListBean implements Serializable {
         for (Standort s :
                 selectedStandorte) {
             log.info("Loesche Standort " + s.getOrt());
-            standortService.loescheStandort(s);
             try {
+                standortService.remove(s);
                 standortDAO.remove(s);
             } catch (StandortNotFoundException e) {
                 e.printStackTrace();
