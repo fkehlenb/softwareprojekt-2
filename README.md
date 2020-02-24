@@ -49,6 +49,13 @@
 <li>Zuordnen von Nutzern zu Experimentierstation</strike></li>
 </ul>
 </li>
+<li>Übersicht über alle Standorte
+    <ul>
+        <li>Anlegen von neuen Standorten</li>
+        <li>Löschen von bestehenden Standorten</li>
+        <li>Bearbeiten von bestehenden Standorten</li>
+    </ul>
+</li>
 <li>Konfiguration globaler Einstellungen<ul>
 <li>Einstellung der Zeiten für alte Aufträge (<strong>O«UI.AlteAufträge»</strong>)</li>
 </ul>
