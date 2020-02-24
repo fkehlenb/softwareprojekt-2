@@ -42,7 +42,7 @@ public class AuftragBean implements Serializable {
 
     @Inject
     ZustandsService zustandsService;
-    private Auftrag auftrag;
+
     @PostConstruct
     void init() {
         auftrage = auftragService.getAuftrage();
