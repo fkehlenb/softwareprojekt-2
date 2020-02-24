@@ -141,20 +141,19 @@ public class ProzessSchrittVorlageService implements Serializable {
      * @throws ProzessSchrittVorlageNotFoundException
      */
     public void edit(ProzessSchrittVorlage psv) throws ProzessSchrittVorlageNotFoundException {
-//        try {
-//            log.info("Trying try to update a PSV" + psv+ "Class=ProzessSchrittVorlageService");
-//            psvDAO.update(psv);
-//        } catch (Exception e) {
-//            log.info("Error try to update a PSV" + psv+ "Class=ProzessSchrittVorlageService");
-//        }
-//    }
-        var old = vorlagen.stream().filter(p -> psv.getPsVID() == p.getPsVID()).findFirst().orElse(null);
-
-        if (Collections.replaceAll(vorlagen, old, psv)) {
-            log.info("Succesful edit " + psv);
-        } else {
-            log.info("Failed to edit " + psv);
+        try {
+            log.info("Trying try to update a PSV" + psv+ "Class=ProzessSchrittVorlageService");
+            psvDAO.update(psv);
+        } catch (Exception e) {
+            log.info("Error try to update a PSV" + psv+ "Class=ProzessSchrittVorlageService");
         }
+
+        //var old = vorlagen.stream().filter(p -> psv.getPsVID() == p.getPsVID()).findFirst().orElse(null);
+        //if (Collections.replaceAll(vorlagen, old, psv)) {
+        //    log.info("Succesful edit " + psv);
+        //} else {
+        //    log.info("Failed to edit " + psv);
+       // }
     }
 
     /**

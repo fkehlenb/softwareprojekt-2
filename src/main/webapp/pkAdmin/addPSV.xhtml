@@ -171,18 +171,19 @@
                         </p:column>
                         <p:column headerText="Eintrager">
                             <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{psv.eingabeTraeger}"/></f:facet>
+                                <f:facet name="output"><h:outputText value="#{psv.eingabeTraeger}" label="Leer"/></f:facet>
                                 <f:facet name="input">
                                     <p:selectCheckboxMenu id="EintragerTabele"
                                                           value="#{psv.eingabeTraeger}"
                                                           converter="omnifaces.SelectItemsConverter" effect="fade"
                                                           style="width: 172px" filter="true"
                                                           filterMatchMode="contains" showCheckbox="true"
-                                                          label="#{psv.eingabeTraeger}" requiredMessage="Bitte eingabeTraeger Zuweisen!"
+                                                          label="Leer" requiredMessage="Bitte eingabeTraeger Zuweisen!"
                                                           required="true">
                                         <f:selectItems value="#{psvErstellenBean.verfuegbareTraegerArt}"
                                                        var="traeger" itemLabel="#{traeger.art}"
-                                                       itemValue="#{traeger}"/>
+                                                       itemValue="#{traeger}"
+                                                       label="Leer"/>
                                     </p:selectCheckboxMenu>
                                 </f:facet>
                             </p:cellEditor>
@@ -197,10 +198,11 @@
                                                           converter="omnifaces.SelectItemsConverter" effect="fade"
                                                           style="width: 172px" filter="true"
                                                           filterMatchMode="contains" showCheckbox="true"
-                                                          label="#{psv.ausgabeTraeger}" requiredMessage="Bitte eingabeTraeger Zuweisen!"
+                                                          label="Leer" requiredMessage="Bitte eingabeTraeger Zuweisen!"
                                                           required="true">
                                         <f:selectItems value="#{psvErstellenBean.verfuegbareTraegerArt}"
                                                        var="traeger" itemLabel="#{traeger.art}"
+                                                       label="Leer"
                                                        itemValue="#{traeger}"/>
                                     </p:selectCheckboxMenu>
                                 </f:facet>
