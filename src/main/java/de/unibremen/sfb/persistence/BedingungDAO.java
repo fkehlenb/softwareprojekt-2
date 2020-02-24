@@ -6,6 +6,8 @@ import de.unibremen.sfb.model.Bedingung;
 import de.unibremen.sfb.model.Standort;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.persistence.EntityNotFoundException;
+import javax.swing.text.html.parser.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,11 +18,15 @@ public class BedingungDAO extends ObjectDAO<Bedingung> {
     /** Add a condition to the database
      * @param b - the condition to add to the database
      * @throws DuplicateBedingungException if the condition already exists in the database */
-    public void persist(Bedingung b) throws DuplicateBedingungException {
+    public void persist(Bedingung b)   {
         if (b!=null){
             synchronized (Bedingung.class){
                 if (em.contains(b)){
-                    throw new DuplicateBedingungException();
+                    try {
+                        throw new DuplicateBedingungException();
+                    } catch (DuplicateBedingungException e) {
+                        e.printStackTrace();
+                    }
                 }
                 em.persist(b);
             }
@@ -32,9 +38,6 @@ public class BedingungDAO extends ObjectDAO<Bedingung> {
      * @throws BedingungNotFoundException if the condition couldn't be found */
     public void update(Bedingung b) throws BedingungNotFoundException{
         if (b!=null){
-            if (!em.contains(b)){
-                throw new BedingungNotFoundException();
-            }
             em.merge(b);
         }
     }
@@ -67,9 +70,18 @@ public class BedingungDAO extends ObjectDAO<Bedingung> {
             }
             return es;
         }
-        catch (Exception e){
+        catch (EntityNotFoundException e){
 //            e.printStackTrace();
             throw new IllegalArgumentException();
+        }
+    }
+    public Bedingung findById(int id){
+        try {
+            log.info("Trying to find Bedingungen");
+            return em.find(Bedingung.class,id);
+        }catch (Exception e){
+            log.info("No Bedingungen Found");
+            return null;
         }
     }
 }

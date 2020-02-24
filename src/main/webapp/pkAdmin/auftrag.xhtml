@@ -37,15 +37,20 @@
                         </p:cellEditor>
                     </p:column>
 
+                    <p:column headerText="Priority">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{auftrag.priority}"/></f:facet>
+                            <f:facet name="input">
+                                <h:selectOneMenu value="#{auftrag.priority}" style="width:100%">
+                                    <f:selectItems value="#{dtAuftragBean.prios}"/>
+                                </h:selectOneMenu>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
 
                     <p:column headerText="Vorlage">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{auftrag.vorlage}"/></f:facet>
-                            <f:facet name="input">
-                                <h:selectOneMenu value="#{auftrag.vorlage}" style="width:100%" converter="prozessKettenVorlageConverter">
-                                    <f:selectItems value="#{dtAuftragBean.getPKVs()}"/>
-                                </h:selectOneMenu>
-                            </f:facet>
                         </p:cellEditor>
                     </p:column>
 

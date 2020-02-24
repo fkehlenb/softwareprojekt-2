@@ -1,8 +1,13 @@
 package de.unibremen.sfb.service;
 import de.unibremen.sfb.model.ProzessSchrittZustandsAutomatVorlage;
+import de.unibremen.sfb.persistence.ProzessSchrittVorlageDAO;
+import de.unibremen.sfb.persistence.ProzessSchrittZustandsAutomatDAO;
+import de.unibremen.sfb.persistence.ProzessSchrittZustandsAutomatVorlageDAO;
+import de.unibremen.sfb.persistence.TraegerArtDAO;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -14,32 +19,26 @@ import java.util.Set;
  * Anwendungsfall: Bearbeiten einer Vorlage oder hinzufuegen einer ProzessSchrittZustandsAutomatVorlage in einer ProzessKettenVorlage
  */
 public class ProzessSchrittZustandsAutomatVorlageService {
-    private Set<ProzessSchrittZustandsAutomatVorlage> automatenVorlagen;
+    private List<ProzessSchrittZustandsAutomatVorlage> psvVorlagen;
+
+    @Inject
+    ProzessSchrittZustandsAutomatVorlageDAO prozessSchrittZustandsAutomatVorlageDAO;
 
     @PostConstruct
     public void init() {
-        this.automatenVorlagen = erstelleStandartVorlagen();
+        this.psvVorlagen = prozessSchrittZustandsAutomatVorlageDAO.getAll();
     }
 
-    // FIXME Add Default
-    private Set<ProzessSchrittZustandsAutomatVorlage> erstelleStandartVorlagen() {
-        Set<ProzessSchrittZustandsAutomatVorlage> ergebnis = new HashSet<>();
-        List<String> zustaende = new ArrayList();
-        zustaende.add("Angenommen");
-        zustaende.add("In Brearbeitung");
-        zustaende.add("Bearbeitet");
-        zustaende.add("Weitergeleitet");
 
-        ergebnis.add(new ProzessSchrittZustandsAutomatVorlage(zustaende, "Standart"));
-        return ergebnis;
-    }
 
-    public Set<ProzessSchrittZustandsAutomatVorlage> getProzessSchrittZustandsAutomatVorlagen() {
-        return automatenVorlagen;
+    public List<ProzessSchrittZustandsAutomatVorlage> getProzessSchrittZustandsAutomatVorlagen() {
+        return psvVorlagen;
     }
 
     /** Add a new process step template */
     public void addVorlage(ProzessSchrittZustandsAutomatVorlage ProzessSchrittZustandsAutomatVorlage) {
-        this.automatenVorlagen.add(ProzessSchrittZustandsAutomatVorlage);
+        this.psvVorlagen.add(ProzessSchrittZustandsAutomatVorlage);
     }
+
+
 }

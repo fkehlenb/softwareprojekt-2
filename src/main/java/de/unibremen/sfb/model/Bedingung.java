@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @Entity
 @RequiredArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class Bedingung {
 
     /**
@@ -32,6 +32,7 @@ public class Bedingung {
     private List<ProzessSchrittParameter> prozessSchrittParameter;
 
     // Die gewunschte Anzahl an Proben die dieser Bedingung entsprechen
+    @NonNull
     private int gewuenschteAnzahl;
 
     @Override
