@@ -1,5 +1,6 @@
 package de.unibremen.sfb.service;
 
+import de.unibremen.sfb.exception.DuplicateProzessKettenVorlageException;
 import de.unibremen.sfb.exception.ProzessKettenVorlageNotFoundException;
 import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
 import de.unibremen.sfb.model.ProzessKettenVorlage;
@@ -43,7 +44,7 @@ public class ProzessKettenVorlageService implements Serializable {
     public ProzessKettenVorlage getPKV(int id) {
         ProzessKettenVorlage result = null;
         try {
-           result = pkvDAO.getObjById(id);
+            result = pkvDAO.getObjById(id);
         } catch (ProzessKettenVorlageNotFoundException e) {
             e.printStackTrace();
         }
@@ -65,11 +66,11 @@ public class ProzessKettenVorlageService implements Serializable {
      * @param pkv die Vorlage
      */
     public void persist(ProzessKettenVorlage pkv) {
-//        try {
-//            pkvDAO.persist(pkv);
-//        } catch (DuplicateProzessKettenVorlageException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            pkvDAO.persist(pkv);
+        } catch (DuplicateProzessKettenVorlageException e) {
+            e.printStackTrace();
+        }
         pkVorlagen.add(pkv);
     }
 
@@ -91,24 +92,25 @@ public class ProzessKettenVorlageService implements Serializable {
      * @throws ProzessKettenVorlageNotFoundException
      */
     public void edit(ProzessKettenVorlage pkv) throws ProzessKettenVorlageNotFoundException {
-//        try {
-//            log.info("Trying try to update a PKV" + pkv+ "Class=ProzessKettenVorlageService");
-//            pkvDAO.update(pkv);
-//        } catch (Exception e) {
-//            log.info("Error try to update a PKV" + pkv+ "Class=ProzessKettenVorlageService");
+//        var old = pkVorlagen.stream().filter(p -> pkv.getPkID() == p.getPkID()).findFirst().orElse(null);
+//
+//        if (Collections.replaceAll(pkVorlagen, old, pkv)) {
+//            log.info("Succesful edit " + pkv);
+//        } else {
+//            log.info("Failed to edit " + pkv);
 //        }
-//    }
-        var old = pkVorlagen.stream().filter(p -> pkv.getPkID() == p.getPkID()).findFirst().orElse(null);
-
-        if (Collections.replaceAll(pkVorlagen, old, pkv)) {
-            log.info("Succesful edit " + pkv);
-        } else {
-            log.info("Failed to edit " + pkv);
+// }
+        try {
+            log.info("Trying try to update a PKV" + pkv + "Class=ProzessKettenVorlageService");
+            pkvDAO.update(pkv);
+        } catch (Exception e) {
+            log.info("Error try to update a PKV" + pkv + "Class=ProzessKettenVorlageService");
         }
     }
 
     /**
      * Loeschen von ProzessKettenVorlagen
+     *
      * @param pkvs die Vorlagen
      */
     public void delete(List<ProzessKettenVorlage> pkvs) {

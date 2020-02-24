@@ -115,11 +115,11 @@ public class ProzessSchrittVorlageService implements Serializable {
      * @param psv die Vorlage
      */
     public void persist(ProzessSchrittVorlage psv) {
-//        try {
-//            psvDAO.persist(psv);
-//        } catch (DuplicateProzessSchrittVorlageException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            psvDAO.persist(psv);
+        } catch (DuplicateProzessSchrittVorlageException e) {
+            e.printStackTrace();
+        }
         vorlagen.add(psv);
     }
 

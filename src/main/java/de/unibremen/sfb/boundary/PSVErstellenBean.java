@@ -128,7 +128,7 @@ public class PSVErstellenBean implements Serializable {
 
     public void onRowEdit(RowEditEvent<ProzessSchrittVorlage> event) throws ProzessSchrittVorlageNotFoundException {
         //When The Persistence gefit be, we can uncomment that.
-        // prozessSchrittVorlageService.edit(event.getObject());
+         prozessSchrittVorlageService.edit(event.getObject());
         FacesMessage msg = new FacesMessage("PSV Edited", event.getObject().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
