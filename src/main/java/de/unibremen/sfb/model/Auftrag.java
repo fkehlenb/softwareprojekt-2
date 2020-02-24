@@ -39,7 +39,7 @@ public class Auftrag {
      * The job's priority
      */
     @NonNull
-    private Enum<AuftragsPrioritaet> priority;
+    private AuftragsPrioritaet priority;
 
     /**
      * The job's process steps TODO hier ID

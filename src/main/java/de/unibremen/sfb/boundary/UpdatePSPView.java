@@ -28,7 +28,7 @@ import java.util.UUID;
 @Slf4j
 @Setter
 @Getter
-public class UpdatePSPBean implements Serializable {
+public class UpdatePSPView implements Serializable {
 
     @Inject
     ProzessSchrittParameterService prozessSchrittParameterService;
@@ -46,7 +46,7 @@ public class UpdatePSPBean implements Serializable {
     private List<QualitativeEigenschaft> qualitativeEigenschaften = new ArrayList<>();
 
     //Constructor///////
-    public UpdatePSPBean() {
+    public UpdatePSPView() {
         try{
             id = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("id");
             qualitativeEigenschaften = (List<QualitativeEigenschaft>) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("list");
