@@ -22,7 +22,7 @@ public class ProzessSchrittZustandsAutomatVorlage {
 
     /** The states the process step automatons can be in */
     @NonNull
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.LAZY)
     private List<String> zustaende;
 
 //    /** The user who created this template */

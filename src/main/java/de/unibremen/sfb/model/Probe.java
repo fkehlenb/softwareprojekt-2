@@ -38,7 +38,7 @@ public class Probe {
 
     /** The sample's location */
     @NonNull
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Standort standort;
 
     /** The Predicate of a Sample */

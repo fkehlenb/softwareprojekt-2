@@ -27,7 +27,7 @@ public class ProzessSchrittParameter {
 
     /** The qualitative/quantitative descriptors creating this process step parameter */
     @NonNull
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<QualitativeEigenschaft> qualitativeEigenschaften;
 
     @Override

@@ -9,26 +9,29 @@
 <body>
 <ui:composition>
     <shiro:authenticated>
+        <div id="Hamburger" style="float: left; width: 300px; margin-left: 10px; margin-right: 20px; margin-top: 10px">
             <h:form>
                 <p:growl>
                     <p:autoUpdate/>
                 </p:growl>
                 <p:panelMenu>
                     <p:submenu label="Navigation" id="navigation">
-                        <p:menuitem id="Home" value="Home" icon="pi pi-home" url="../../index.xhtml"/>
+                        <p:menuitem id="Home" value="Home" icon="pi pi-home" url="/index.xhtml"/>
                         <p:menuitem id="Account" value="Accout" icon="pi pi-briefcase"/>
-                        <p:menuitem id="Logout" value="Logout" icon="pi pi-times" url="../../logout"/>
+                        <p:menuitem id="Logout" value="Logout" icon="pi pi-times" url="/logout"/>
                     </p:submenu>
                 </p:panelMenu>
                 <p:panelMenu>
                     <p:submenu label="Menu" id="Menu">
                         <shiro:hasRole name="admin">
                             <p:submenu label="Administrator Tools" id="AdminTools">
-                                <p:menuitem value="Nutzer Verwalten" url="../../admin/nutzerVerwaltung.xhtml"/>
+                                <p:menuitem value="Nutzer Verwalten"
+                                            url="/admin/nutzerVerwaltung.xhtml"/>
                                 <p:menuitem value="Experimentierstationen Verwalten"
-                                            url="../../admin/experimentierStationVerwaltung.xhtml"/>
-                                <p:menuitem value="Globale Einstellungen"/>
-                                <p:menuitem value="Backup" url="../../admin/backup.xhtml"/>
+                                            url="/admin/experimentierStationVerwaltung.xhtml"/>
+                                <p:menuitem value="Globale Einstellungen"
+                                            url="/admin/globaleEinstellungen.xhtml"/>
+                                <p:menuitem value="Backup" url="/admin/backup.xhtml"/>
                             </p:submenu>
                         </shiro:hasRole>
                         <shiro:hasRole name="pkAdmin">
@@ -70,6 +73,7 @@
                     </p:submenu>
                 </p:panelMenu>
             </h:form>
+        </div>
     </shiro:authenticated>
 </ui:composition>
 </body>

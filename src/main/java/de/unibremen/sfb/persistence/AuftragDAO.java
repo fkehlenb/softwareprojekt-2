@@ -88,4 +88,6 @@ public class AuftragDAO extends ObjectDAO<Auftrag> {
             return new ArrayList<>();
         }
     }
+
+
 }
