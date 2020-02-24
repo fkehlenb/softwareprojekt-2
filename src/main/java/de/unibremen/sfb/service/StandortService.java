@@ -1,5 +1,6 @@
 package de.unibremen.sfb.service;
 
+import de.unibremen.sfb.exception.DuplicateStandortException;
 import de.unibremen.sfb.exception.StandortNotFoundException;
 import de.unibremen.sfb.model.Standort;
 import de.unibremen.sfb.persistence.StandortDAO;
@@ -10,81 +11,116 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
 public class StandortService implements Serializable {
 
-    /** The dao for the locations */
+    /**
+     * The dao for the locations
+     */
     @Inject
     private StandortDAO standortDAO;
 
 
-    /** list of all locations */
+    /**
+     * list of all locations
+     */
     private List<Standort> standorte;
 
+    /**
+     * Add a new location
+     *
+     * @param standort - the location object to add
+     */
     public void persist(Standort standort) {
         try {
             standortDAO.persist(standort);
         } catch (Exception e) {
             facesError("Zu dieser Email existiert schon ein Benutzer!");
         }
-
     }
 
-    /** Init is called on startup */
+    /**
+     * Init is called on startup
+     */
     @PostConstruct
     public void init() {
-
         standorte = getStandorte();
     }
 
+    /**
+     * Get all locations from the database
+     *
+     * @return a list of al locations
+     */
     public List<Standort> getStandorte() {
         standorte = standortDAO.getAll();
         return standorte;
     }
 
-    public List<Standort> getStandort2() {
-        List<Standort> standorteNew = new ArrayList<>();
-        for (int i = 0; i < 5 ; i++) {
-            standorteNew.add(new Standort());
-        }
-        return standorteNew;
-    }
-
-    /** Add a new location */
-    public void addStandort(Standort standort) {
-        standorte.add(standort);
-    }
-
-    /** Remove a location */
-    public void loescheStandort(Standort standort) {
+    /**
+     * Remove a location
+     *
+     * @param standort - the location to remove
+     * @throws StandortNotFoundException on failure
+     */
+    public void remove(Standort standort) throws StandortNotFoundException {
+        standortDAO.remove(standort);
         this.standorte.remove(standort);
-        try {
-            standortDAO.remove(standort);
-        } catch (StandortNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
-    /** Find a standort based on ts location */
+    /**
+     * Find a standort based on ts location
+     *
+     * @param standort - the name of the location
+     * @throws StandortNotFoundException if the location couldn't be found in the database
+     */
     public Standort findByLocation(String standort) throws StandortNotFoundException {
         return standortDAO.getByOrt(standort);
     }
 
-    public Standort findById(int Id) throws StandortNotFoundException{
-        return standortDAO.getObjById(Id);
+    /**
+     * Get a location object using its id
+     *
+     * @param id - the id of the location object
+     * @throws StandortNotFoundException if the location couldn't be found in the database
+     */
+    public Standort findById(int id) throws StandortNotFoundException {
+        return standortDAO.getObjById(id);
     }
+
     /**
      * Adds a new SEVERITY_ERROR FacesMessage for the ui
+     *
      * @param message Error Message
      */
     private void facesError(String message) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
     }
+
+    /**
+     * Add a new location
+     *
+     * @param s - the new location to add
+     * @throws DuplicateStandortException of failure
+     */
+    public void add(Standort s) throws DuplicateStandortException {
+        standortDAO.persist(s);
+        standorte = standortDAO.getAll();
+    }
+
+    /**
+     * Update a location in the database
+     *
+     * @param s - the location to update
+     * @throws StandortNotFoundException on failure
+     */
+    public void update(Standort s) throws StandortNotFoundException {
+        standortDAO.update(s);
+        standorte = standortDAO.getAll();
+    }
+
 }

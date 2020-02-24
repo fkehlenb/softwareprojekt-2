@@ -56,5 +56,6 @@ public class LanguageBean implements Serializable{
             }
         }
     }
+   // private Res
 
 }
