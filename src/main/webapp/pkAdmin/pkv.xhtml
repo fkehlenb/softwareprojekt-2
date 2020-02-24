@@ -1,0 +1,82 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+
+    <ui:composition template="/template/common/layout.xhtml">
+        <ui:define name="content">
+
+            <p:panel id="psv" header="Daten Eingeben"
+                     style="margin-bottom: 20px">
+
+                <h:form>
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <p:outputLabel for="psvV" value="PSV Vorlagen: "/>
+                        <p:pickList id="psvV" value="#{pkvView.psvs}" var="psvs" itemLabel="#{psvs}" itemValue="#{psvs}"
+                            converter="psvConverter"/>
+                    </h:panelGrid>
+
+                    <p:commandButton value="Reset" type="reset"/>
+                    <p:commandButton value="Erstellen"
+                                     action="#{pkvView.erstellePSK}" icon="pi pi-check"
+                                     update="@form"/>
+
+                </h:form>
+            </p:panel>
+
+
+            <h:form id="form">
+                <p:growl id="msgs" showDetail="true" sticky="true"/>
+
+                <p:dataTable widgetVar="PSKList"
+                             id="PSKList"
+                             var="pkv"
+                             value="#{pkvView.verPKV}"
+                             editable="true"
+                             selection="#{pkvView.selPKV}"
+                             style="margin-bottom:20px"
+                             rowKey="#{pkv.pkvID}">
+
+                    <p:ajax event="rowEdit" listener="#{pkvView.onRowEdit}" update=":form:msgs"/>
+                    <p:ajax event="rowEditCancel" listener="#{pkvView.onRowCancel}" update=":form:msgs"/>
+                    <p:column selectionMode="multiple"
+                              style="width:16px;text-align:center"/>
+
+                    <p:column headerText="Id">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{pkv.pkvID}"/></f:facet>
+                            <f:facet name="input"><p:inputText id="ID" value="#{pkv.pkvID}"
+                                                               style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Schritt Vorlagen">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{pkv.prozessSchrittVorlagen}"/></f:facet>
+                            <f:facet name="input">
+                                <p:orderList value="#{pkv.prozessSchrittVorlagen}" var="psv" controlsLocation="none" itemLabel="#{psv}"
+                                             itemValue="#{psv}"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column style="width:35px">
+                        <p:rowEditor/>
+                    </p:column>
+                </p:dataTable>
+
+                <p:contextMenu for="PSKList">
+                    <p:menuitem value="Delete selected" update="PSKList"
+                                icon="pi pi-times" action="#{pkvErstellenBean.deletePKV}"/>
+                </p:contextMenu>
+
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
