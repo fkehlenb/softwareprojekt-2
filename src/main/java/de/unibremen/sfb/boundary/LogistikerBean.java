@@ -1,20 +1,65 @@
 package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.model.*;
+import de.unibremen.sfb.persistence.ProbeDAO;
+import de.unibremen.sfb.service.AuftragService;
+import de.unibremen.sfb.service.ProzessKettenVorlageService;
+import de.unibremen.sfb.service.ZustandsService;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
 
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
+
+import static de.unibremen.sfb.model.ProzessKettenZustandsAutomat.ABGELEHNT;
+import static de.unibremen.sfb.model.ProzessKettenZustandsAutomat.GESTARTET;
 
 /**
  * this class manages the interaction between the gui and the backend system for users who are logistic experts
  */
+@Named("dtLogistikerBean")
+@ViewScoped
+@Getter
+@Setter
+@Slf4j
 public class LogistikerBean implements Serializable {
+private List<Probe> proben;
+private List<Auftrag> auftrage;
+
+@Inject
+ProbeDAO probeDAO;
+
+@Inject
+AuftragService auftragService;
+
+@Inject
+ProzessKettenVorlageService prozessKettenVorlageService;
+
+@Inject
+ZustandsService zustandsService;
+
+@Inject
+AuftragView auftragView;
+
+@PostConstruct
+    void init() {
+    auftrage = auftragService.getAuftrage();
+    proben = getProben();
+    }
 
     /**
      * the user managed by this bean
      */
-    public User logistiker;
+    private User logistiker;
 
     /**
      * returns all carriers currently existing
@@ -58,7 +103,9 @@ public class LogistikerBean implements Serializable {
      * returns all samples currently existing
      * @return a set containing all samples
      */
-    public Set<Probe> getProben() { return null; }
+    public List<Probe> getProben() {
+        return probeDAO.getProben(1,100);
+    }
 
     /**
      * returns all samples currently existing by whether or not they are archived
@@ -76,17 +123,46 @@ public class LogistikerBean implements Serializable {
 
     /**
      * starts a job
-     * @param a the job to be started
+     * @param auftrag the job to be started
      */
-    public void startAuftrag(Auftrag a) {}
+    public void startAuftrag(int auftrag) {
+        try {
+            Auftrag a = auftragService.getAuftrag(auftrag);
+            auftragService.zustandswechsel(a, GESTARTET );
+            log.info("Auftrag wurde gestartet! ID: " + auftrag);
+            facesNotification("Auftrag wurde gestartet! ID: " + auftrag);
+            //Aktualisiert Auftragsliste
+            auftragView.updateAuftragTabelle();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            log.error("Failed to change auftrag state! ID: " + auftrag);
+            facesError("Failed to change auftrag state! ID: " + auftrag);
+        }
+
+
+
+    }
 
     /**
      * refuses a job (signals to the process chain administrator that this job cannot be started in the current form)
-     * @param a the job
+     * @param auftrag the job
      * @param message the message to the process chain administrator
      */
-    public void refuseAuftrag(Auftrag a, String message) {}
-
+    public void refuseAuftrag(int auftrag, String message) {
+        try {
+            Auftrag a = auftragService.getAuftrag(auftrag);
+            auftragService.zustandswechsel(a, ABGELEHNT);
+            log.info("Auftrag wurde abgelehnt! ID: " + auftrag);
+            facesNotification("Auftrag wurde abgelehnt! ID: " + auftrag);
+            //Aktualisiert Auftragsliste
+            auftragView.updateAuftragTabelle();
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("Failed to change auftrag state! ID: " + auftrag);
+            facesError("Failed to change auftrag state! ID: " + auftrag);
+        }
+    }
     /**
      * returns an error message
      * @return the error message
@@ -122,4 +198,22 @@ public class LogistikerBean implements Serializable {
      * @param logistiker the user
      */
     public void setLogistiker(User logistiker) { this.logistiker = logistiker; }
+
+    /**
+     * Adds a new SEVERITY_ERROR FacesMessage for the ui
+     *
+     * @param message Error Message
+     */
+    private void facesError(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(javax.faces.application.FacesMessage.SEVERITY_ERROR, message, null));
+    }
+
+    /**
+     * Adds a new SEVERITY_INFO FacesMessage for the ui
+     *
+     * @param message Info Message
+     */
+    private void facesNotification(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(javax.faces.application.FacesMessage.SEVERITY_INFO, message, null));
+    }
 }
