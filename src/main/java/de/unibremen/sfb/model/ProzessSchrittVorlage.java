@@ -29,11 +29,11 @@ public class ProzessSchrittVorlage {
     private String dauer;
 
     /** Accepted container input types */
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<TraegerArt> eingabeTraeger;
 
     /** Accepted container output types */
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<TraegerArt> ausgabeTraeger;
 
     /** The process step type */
@@ -52,7 +52,7 @@ public class ProzessSchrittVorlage {
 
     /** The state Automaton for the process step */
     @NonNull
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private ProzessSchrittZustandsAutomatVorlage zustandsAutomatVorlage;
 
     @Override

@@ -32,7 +32,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Log
-public class BedingungBean implements Serializable {
+public class BedingungView implements Serializable {
     private List<ProzessSchrittParameter> verProzessSchrittParameters;
     private List<ProzessSchrittParameter> ausProzessSchrittParameters;
     private List<Bedingung> bedingungen;

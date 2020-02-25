@@ -1,0 +1,87 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+      xmlns:of="http://omnifaces.org/functions">
+<h:head>
+    <title>SFB - Farbige Zustände</title>
+    <link rel="icon" href="../background.png"/>
+</h:head>
+
+<body>
+<ui:composition template="../template/common/layout.xhtml">
+
+
+<ui:define name="content">
+<div class="ui-g-2"></div>
+<div class="ui-g-8">
+    <h:body style="background: url('../background.png')">
+        <h:form style="background-color: white; margin-top: 100px; width: 650px">
+            <h:panelGrid columns="1">
+                <p:row>
+                    <h1 style="color: cornflowerblue">Auftrag #{singleJobBean.ps.psID}- Überblick</h1>
+                </p:row>
+                <p:row>
+                    <p>Daten hochgeladen: #{singleJobBean.ps.uploaded}</p>
+                </p:row>
+                <p:row>
+                    <p>Zustand: #{singleJobBean.ps.prozessSchrittZustandsAutomat.current}</p>
+                    <div align="center">
+                        <h:commandButton action="#{technologeView.setJobZustand(singleJobBean.ps)}" value="Weiterschalten"/>
+                    </div>
+                </p:row>
+
+                <p:row>
+                    <p>Prozessschritt Art: #{singleJobBean.ps.prozessSchrittVorlage.psArt}</p>
+                </p:row>
+
+                    <p:outputLabel for="kommentar" value="Kommentar:"/>
+                    <p:inputMask id="kommentar" value="#{singleJobBean.kommentarForAll}" mask=""/>
+                    <p:commandButton value="Save" type="save"/>
+                    <p:commandButton action="#{singleJobBean.addComment(technologeView.singleJob, singleJobBean.kommentarForAll)}"/>
+
+                <p:row>
+                    <p> Bedingungen: </p>
+                </p:row>
+
+                <p:dataTable var="bed" value="#{singleJobBean.ps.prozessSchrittVorlage.bedingungen}">
+                    <p:column headerText="Id">
+                        <h:outputText value="#{bed.id}"/>
+                    </p:column>
+                    <p:column headerText="Name">
+                        <h:outputText value="#{bed.name}"/>
+                    </p:column>
+
+                </p:dataTable>
+
+                <p:row>
+                    <p> Proben: </p>
+                </p:row>
+
+                <p:dataTable var="probe" value="#{singleJobBean.ps.zugewieseneProben}">
+
+                    <p:column headerText="Id">
+                        <h:outputText value="#{probe.probenID}"/>
+                    </p:column>
+                    <p:column headerText="Zustand">
+                        <h:outputText value="#{probe.zustand}"/>
+                    </p:column>
+                    <p:column headerText="Standort">
+                        <h:outputText value="#{probe.standort.ort}"/>
+                    </p:column>
+                    <p:column headerText="Auswählen">
+                        <div align="center">
+                            <h:commandButton value="Choose" action="#{singleSampleBean.singleprobe(probe)}" />
+                        </div>
+                    </p:column>
+
+                </p:dataTable>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</div>
+</ui:define>
+</ui:composition>
+</body>
+</html>

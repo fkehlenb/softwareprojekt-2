@@ -9,7 +9,6 @@
 <body>
 <ui:composition>
     <shiro:authenticated>
-        <div id="Hamburger" style="float: left; width: 300px; margin-left: 10px; margin-right: 20px; margin-top: 10px">
             <h:form>
                 <p:growl>
                     <p:autoUpdate/>
@@ -48,8 +47,8 @@
                         </shiro:hasRole>
                         <shiro:hasRole name="transport">
                             <p:submenu label="Tansport Tools" id="transportTools">
-                                <p:menuitem value="Auftraege"/>
-                                <p:menuitem value="Probenverlust Melden"/>
+                                <p:menuitem value="Aufträge" url="../../transport/auftraege.xhtml"/>
+                                <p:menuitem value="Probenverlust Melden" url="../../transport/probenVerlust.xhtml"/>
                             </p:submenu>
                         </shiro:hasRole>
                         <shiro:hasRole name="logistik">
@@ -62,12 +61,12 @@
                             </p:submenu>
                         </shiro:hasRole>
                         <shiro:hasRole name="technologe">
-                            <p:submenu label="Technologen Tools">
-                                <p:menuitem value="Meine Experimentierstationen"/>
-                                <p:menuitem value="Meine Auftraege"/>
-                                <p:menuitem value="Angekuendigte Auftraege"/>
+                            <p:submenu label="Technologen Tools" id="technologeTools">
+                                <p:menuitem value="Meine Experimentierstationen" url="../../technologe/stationen.xhtml"/>
+                                <p:menuitem value="Meine Aufträge" url="../../technologe/index.xhtml"/>
+                                <p:menuitem value="Verfügbare Aufträge" url="../../technologe/auftrag.xhtml"/>
                                 <p:menuitem value="Auftragszustand"/>
-                                <p:menuitem value="Proben und Upload"/>
+                                <p:menuitem value="Proben und Upload" url="../../technologe/proben.xhtml"/>
                                 <p:menuitem value="Kapputte Station Melden"/>
                                 <p:menuitem value="Probenverlust Melden"/>
                             </p:submenu>
@@ -75,7 +74,6 @@
                     </p:submenu>
                 </p:panelMenu>
             </h:form>
-        </div>
     </shiro:authenticated>
 </ui:composition>
 </body>

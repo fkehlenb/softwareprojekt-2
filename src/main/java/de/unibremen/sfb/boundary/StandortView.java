@@ -20,7 +20,7 @@ import java.util.UUID;
 @Transactional
 @RequestScoped
 @Slf4j
-public class StandortBean implements Serializable {
+public class StandortView implements Serializable {
 
     /**
      * Location service

@@ -22,7 +22,7 @@ public class ProzessKettenVorlage {
     /** The process chain template id */
     @Id
     @NonNull
-    private int pkID;
+    private int pkvID;
 
     /** The process chain template's process steps (as templates hence not yet instantiated) */
     @NonNull

@@ -39,7 +39,7 @@ public class Auftrag {
      * The job's priority
      */
     @NonNull
-    private Enum<AuftragsPrioritaet> priority;
+    private AuftragsPrioritaet priority;
 
     /**
      * The job's process steps TODO hier ID
@@ -52,7 +52,7 @@ public class Auftrag {
      * The job's log
      */
     @NonNull
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private AuftragsLog log;
 
     /**

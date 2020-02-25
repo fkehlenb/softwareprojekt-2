@@ -28,7 +28,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Log
-public class PSVErstellenBean implements Serializable {
+public class PSVView implements Serializable {
 
     @NotEmpty
     private int psVID;
@@ -97,7 +97,6 @@ public class PSVErstellenBean implements Serializable {
     public void init() {
         verfuegbareBedingunen = bedingungService.getAll();
         verfuegbarePSV = prozessSchrittVorlageService.getVorlagen();
-        // verfuegbarePSV = prozessSchrittVorlageService.getProzessSchrittVorlagen(); // Auskommentieren um die Peristenz zu Testen
         verfuegbareStationen = experimentierStationService.getESListe();
         zustandsService.getPsZustaende();
         verfuegbareTraegerArt = traegerArtService.getVerTraeger();
@@ -128,7 +127,7 @@ public class PSVErstellenBean implements Serializable {
 
     public void onRowEdit(RowEditEvent<ProzessSchrittVorlage> event) throws ProzessSchrittVorlageNotFoundException {
         //When The Persistence gefit be, we can uncomment that.
-        // prozessSchrittVorlageService.edit(event.getObject());
+         prozessSchrittVorlageService.edit(event.getObject());
         FacesMessage msg = new FacesMessage("PSV Edited", event.getObject().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }

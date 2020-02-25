@@ -7,21 +7,23 @@
     <link rel="icon" href="../background.png"/>
 </h:head>
 <body background="../background.png">
-<ui:include src="/template/common/header.xhtml"/>
-<ui:include src="/template/common/hamburgerMenu.xhtml"/>
-<div style=" margin-top: 10px">
-    <h:form>
-        <p:growl>
-            <p:autoUpdate/>
-        </p:growl>
-        <p:panelGrid columns="1">
-            <p:tabMenu>
-                <p:menuitem value="Home"/>
-            </p:tabMenu>
-            <h1 style="color: cornflowerblue">Wilkommen beim SFB - Farbige Zustaende!</h1>
-            <p>Wilkommen beim SFB - Farbige Zustaende!<br/> Links sehen sie ihr Navigationsmenue. </p>
-        </p:panelGrid>
-    </h:form>
-</div>
+<ui:composition template="/template/common/layout.xhtml">
+    <ui:define name="content">
+        <div class="ui-g-8">
+            <h:form>
+                <p:growl>
+                    <p:autoUpdate/>
+                </p:growl>
+                <p:panelGrid columns="1">
+                    <p:tabMenu>
+                        <p:menuitem value="Home"/>
+                    </p:tabMenu>
+                    <h1 style="color: cornflowerblue">Wilkommen beim SFB - Farbige Zustaende!</h1>
+                    <p>Wilkommen beim SFB - Farbige Zustaende!<br/> Links sehen sie ihr Navigationsmenue. </p>
+                </p:panelGrid>
+            </h:form>
+        </div>
+    </ui:define>
+</ui:composition>
 </body>
 </html>

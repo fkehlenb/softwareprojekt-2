@@ -30,7 +30,7 @@ public class ProzessSchrittVorlageService implements Serializable {
 
     @PostConstruct
     public void init() {
-        this.vorlagen = erstelleStandartVorlagen();
+        this.vorlagen = getProzessSchrittVorlagen();
     }
 
     @Inject
@@ -52,7 +52,7 @@ public class ProzessSchrittVorlageService implements Serializable {
      * <p>
      * Bitte gebe uns eine andere Alernative als, das wir FetchType.EAGER benutzen muessen.
      * <p>
-     * In addPSV.xhtml muessen Aufrufe wie diese moeglich sein
+     * In psv.xhtml muessen Aufrufe wie diese moeglich sein
      * <f:facet name="output"><h:outputText value="#{psv.bedingungen}"/></f:facet>
      * <p>
      * Bei Fetch Type Eager, wuerde Hibernate fuer eine PSV zwei Eager Queries aufrufen, dies wird aber nicht unterstuetzt
@@ -115,11 +115,11 @@ public class ProzessSchrittVorlageService implements Serializable {
      * @param psv die Vorlage
      */
     public void persist(ProzessSchrittVorlage psv) {
-//        try {
-//            psvDAO.persist(psv);
-//        } catch (DuplicateProzessSchrittVorlageException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            psvDAO.persist(psv);
+        } catch (DuplicateProzessSchrittVorlageException e) {
+            e.printStackTrace();
+        }
         vorlagen.add(psv);
     }
 
@@ -128,7 +128,7 @@ public class ProzessSchrittVorlageService implements Serializable {
             log.info("Trying to find a PSP by ID");
             return psvDAO.getObjById(id);
         } catch (Exception e) {
-            log.info("Error ProzessSchrittVorlageNotFoundException in PSVErstellenBean");
+            log.info("Error ProzessSchrittVorlageNotFoundException in PSVView");
             return null;
         }
 
@@ -169,4 +169,15 @@ public class ProzessSchrittVorlageService implements Serializable {
 
         }
     }
+
+    /**
+     * Hole die PSV durch ihre ID
+     * @param id die ID von psv
+     * @return die PSV
+     * @throws ProzessSchrittVorlageNotFoundException
+     */
+    public ProzessSchrittVorlage getByID(int id) throws ProzessSchrittVorlageNotFoundException{
+        return psvDAO.getObjById(id);
+    }
+
 }
