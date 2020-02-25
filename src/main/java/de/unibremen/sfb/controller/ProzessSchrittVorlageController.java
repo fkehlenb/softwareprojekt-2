@@ -59,7 +59,7 @@ public class ProzessSchrittVorlageController {
      *
      * @return A Set with every possible state
      */
-    public Set<ProzessSchrittZustandsAutomat> getZustaende() { return null; }
+public Set<ProzessSchrittZustandsAutomat> getZustaende() { return null; }
 
     /**
      * Sets the Zustaende (states) in which this ProzessSchrittVorlage

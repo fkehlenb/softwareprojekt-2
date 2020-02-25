@@ -83,8 +83,9 @@ public class ProzessSchrittVorlageService implements Serializable {
         zustaende.add("In Brearbeitung");
         zustaende.add("Bearbeitet");
         zustaende.add("Weitergeleitet");
-        ProzessSchrittZustandsAutomatVorlage sVorlage = new ProzessSchrittZustandsAutomatVorlage(zustaende, "Standart");
-        ProzessSchrittZustandsAutomatVorlage v = new ProzessSchrittZustandsAutomatVorlage(
+        ProzessSchrittZustandsAutomatVorlage sVorlage = new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(),
+                zustaende, "Standart");
+        ProzessSchrittZustandsAutomatVorlage v = new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(),
                 zustandsService.getPsZustaende(), "Test pszvav");
         var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "ANGENOMMEN", sVorlage);
 
