@@ -1,0 +1,65 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+
+    <ui:composition template="/template/common/layout.xhtml">
+        <ui:define name="content">
+
+
+            <h:form id="form">
+                <p:growl id="msgs" showDetail="true"/>
+
+                <p:dataTable id="psz" var="psz" value="#{pszBean.psz}" editable="true"
+                             style="margin-bottom:20px" rowKey="#{psz.name}">
+                    <f:facet name="header">
+                        Row Editing
+                    </f:facet>
+
+                    <p:ajax event="rowEdit" listener="#{pszBean.onRowEdit}" update=":form:msgs"/>
+                    <p:ajax event="rowEditCancel" listener="#{pszBean.onRowCancel}" update=":form:msgs"/>
+
+                    <p:column headerText="Id/name">
+                        <p:cellEditor>
+
+                            <f:facet name="output"><h:outputText value="#{psz.name}"/></f:facet>
+                            <f:facet name="input"><p:inputText id="modelInput" value="#{psz.name}"
+                                                               style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+
+
+                    <p:column headerText="zustaende">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{psz.zustaende}"/></f:facet>
+                            <f:facet name="input">
+                                <p:selectCheckboxMenu id="bedingungTable"
+                                                      value="#{pszBean.auspszList}"
+                                                      converter="omnifaces.SelectItemsConverter" effect="fade"
+                                                      var="zustaende" style="width: 172px" filter="true"
+                                                      filterMatchMode="contains" showCheckbox="true"
+                                                      label="zustaende" requiredMessage="Bitte zustaende Zuweisen!"
+                                                      required="true">
+                                    <f:selectItems value="#{pszBean.pszList}"
+                                                   var="zustande" itemLabel="#{zustande}"
+                                                   itemValue="#{zustande}"/>
+                                </p:selectCheckboxMenu>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column style="width:35px">
+                        <p:rowEditor/>
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

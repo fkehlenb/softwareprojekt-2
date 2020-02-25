@@ -8,6 +8,7 @@ import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.ProzessSchrittDAO;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
@@ -25,6 +26,7 @@ import java.util.List;
  */
 @Slf4j
 public class ProzessSchrittService implements Serializable {
+    List<ProzessSchritt> psListe;
 
     /**
      * Experimenting station service
@@ -44,6 +46,12 @@ public class ProzessSchrittService implements Serializable {
 
     @Inject
     private AuftragService auftragService;
+
+
+    @PostConstruct
+    public void init() {
+        psListe = getAll();
+    }
 
     /**
      * Get all PS which belong to user
@@ -117,7 +125,9 @@ public class ProzessSchrittService implements Serializable {
 
         // Create Jsonb with custom configuration
         Jsonb jsonb = JsonbBuilder.create(config);
-        String result = jsonb.toJson(getAll());
+  //      String result = jsonb.toJson(getAll());
+        // FIXME LEO
+        String result = "JSON IS Broken";
         log.info("Export von den Auftraegen\n" + result);
         return result;
     }

@@ -37,12 +37,15 @@
                         </shiro:hasRole>
                         <shiro:hasRole name="pkAdmin">
                             <p:submenu label="Prozesskettenplaner Tools" id="pkverwaltungsTools">
-                                <p:menuitem value="Prozessschritt Verwaltung" url="/pkAdmin/.xhtml"/>
-                                <p:menuitem value="Ablaufsverwaltung"/>
-                                <p:menuitem value="Prozessketten Verwalten"/>
-                                <p:menuitem value="Auftraege Verwalten"/>
-                                <p:menuitem value="Arbeitsauslastung"/>
-                                <p:menuitem value="JSON Export"/>
+                                <p:menuitem value="Prozessschritt" url="/pkAdmin/ps.xhtml" id="ps" />
+                                <p:menuitem value="Prozessschritt Vorlage" url="/pkAdmin/psv.xhtml" id="psv" />
+                                <p:menuitem value="PS Zustandsautomaten" url="/pkAdmin/pszav.xhtml" id="av" />
+                                <p:menuitem value="Prozessschritt Parameter" url="/pkAdmin/psp.xhtml" id="psp"/>
+                                <p:menuitem value="Prozessketten Vorlagen" url="/pkAdmin/pkv.xhtml" id="pkv" />
+                                <p:menuitem value="Auftraege" url="/pkAdmin/auftrage.xhtml" id="a" />
+                                <p:menuitem value="Eigenschaften" url="/pkAdmin/qEin.xhtml" id="e" />
+                                <p:menuitem value="Bedingungen" url="/pkAdmin/bedingungen.xhtml" id="b" />
+                                <p:menuitem value="Arbeitsauslastung" id="al"/>
                             </p:submenu>
                         </shiro:hasRole>
                         <shiro:hasRole name="transport">

@@ -10,6 +10,7 @@ import de.unibremen.sfb.service.QuantitativeEigenschaftService;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -32,6 +33,7 @@ public class QlEView implements Serializable {
     private QualitativeEigenschaftService qualitativeEigenschaftService;
     @Inject
     private QuantitativeEigenschaftService quantitativeEigenschaftService;
+    // FIXME Santi Edit Einheit
 
     @Inject
     private ProzessSchrittParameterService prozessSchrittParameterService;
@@ -42,6 +44,14 @@ public class QlEView implements Serializable {
 
     private String nameQuantitativeEigenschaft;
 
+    private String einheit;
+    private List<String> einheiten;
+
+
+    @PostConstruct
+    public void init() {
+       einheiten = quantitativeEigenschaftService.getEinheiten();
+    }
 
     public void addQualitativeEigenschaft() throws DuplicateQualitativeEigenschaftException {
         QualitativeEigenschaft qualitativeEigenschaft = new QualitativeEigenschaft(UUID.randomUUID().hashCode(), nameQualitativeEigenschaft);
