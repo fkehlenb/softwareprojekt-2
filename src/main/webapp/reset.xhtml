@@ -20,27 +20,27 @@
         <p:panelGrid>
             <p:row>
                 <p:column colspan="2">
-                    <h2 style="color: cornflowerblue">Reset mit Username</h2>
+                    <h2 style="color: cornflowerblue">#{msg['resetUsername.jsf']}</h2>
                 </p:column>
             </p:row>
             <p:row>
                 <p:column colspan="2">
-                    <p>Bitte Username Eingeben!</p>
+                    <p>#{msg['plsUsername.jsf']}</p>
                 </p:column>
             </p:row>
             <p:row>
                 <p:column colspan="1">
-                    <h:outputText value="Username:"/>
+                    <h:outputText value="#{msg['username.jsf']}"/>
                 </p:column>
                 <p:column colspan="1">
-                    <p:inputText placeholder="Username" required="true" requiredMessage="Bitte Username eingeben!"
+                    <p:inputText placeholder="#{msg['username.jsf']}" required="true" requiredMessage="#{msg['plsUsername.jsf']}"
                                  value="#{resetBean.username}"/>
                 </p:column>
             </p:row>
             <p:row>
                 <p:column colspan="1"/>
                 <p:column colspan="1">
-                    <p:commandButton value="Reset Password" action="#{resetBean.resetByUsername}" update="form"/>
+                    <p:commandButton value="#{msg['pwReset.jsf']}" action="#{resetBean.resetByUsername}" update="form"/>
                 </p:column>
             </p:row>
         </p:panelGrid>
@@ -49,12 +49,12 @@
         <p:panelGrid>
             <p:row>
                 <p:column colspan="2">
-                    <h2 style="color: cornflowerblue">Reset mit Email</h2>
+                    <h2 style="color: cornflowerblue">#{msg['resetEmail.jsf']}</h2>
                 </p:column>
             </p:row>
             <p:row>
                 <p:column colspan="2">
-                    <p>Bitte Email Adresse eingeben!</p>
+                    <p>#{msg['plsEmail.jsf']}</p>
                 </p:column>
             </p:row>
             <p:row>
@@ -62,14 +62,14 @@
                     <h:outputText value="Email:"/>
                 </p:column>
                 <p:column colspan="1">
-                    <p:inputText placeholder="Email" required="true" requiredMessage="Bitte Email eingeben!"
+                    <p:inputText placeholder="Email" required="true" requiredMessage="#{msg['plsEmail.jsf']}"
                                  value="#{resetBean.email}"/>
                 </p:column>
             </p:row>
             <p:row>
                 <p:column colspan="1"/>
                 <p:column colspan="1">
-                    <p:commandButton value="Reset Password" action="#{resetBean.resetByEmail}" update="form2"/>
+                    <p:commandButton value="#{msg['pwReset.jsf']}" action="#{resetBean.resetByEmail}" update="form2"/>
                 </p:column>
             </p:row>
         </p:panelGrid>
