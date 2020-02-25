@@ -53,8 +53,6 @@ public class LogistikerBean implements Serializable {
     @Inject
     private ProzessKettenVorlageService prozessKettenVorlageService;
 
-    @Inject
-    private ZustandsService zustandsService;
 
     @Inject
     private AuftragView auftragView;
