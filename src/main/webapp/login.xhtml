@@ -15,32 +15,32 @@
         <p:panelGrid>
             <p:row>
                 <p:column colspan="2">
-                    <h1 style="color: cornflowerblue">Wilkommen zum SFB - Farbige Zustaende!</h1>
-                    <p>Um sich Einzuloggen, geben sie bitte ihre details ein!</p>
+                    <h1 style="color: cornflowerblue">#{msg['welcome.jsf']}</h1>
+                    <p>#{msg['plsLogin.jsf']}</p>
                 </p:column>
             </p:row>
             <p:row>
                 <p:column colspan="1">
-                    <h:outputText value="Username:"/>
+                    <h:outputText value="#{msg['username.jsf']}"/>
                 </p:column>
                 <p:column colspan="1">
                     <p:inputText id="username" required="true"
-                                 placeholder="Username" value="#{shiroLoginBean.username}"
-                                 requiredMessage="Bitte Username eingeben!"/>
+                                 placeholder="#{msg['username.jsf']}" value="#{shiroLoginBean.username}"
+                                 requiredMessage="#{msg['plsUsername.jsf']}"/>
                 </p:column>
             </p:row>
             <p:row>
                 <p:column colspan="1">
-                    <h:outputText value="Password:"/>
+                    <h:outputText value="#{msg['password.jsf']}"/>
                 </p:column>
                 <p:column colspan="1">
-                    <p:password id="password" required="true" placeholder="Password"
-                                requiredMessage="Bitte Passwort angeben!" value="#{shiroLoginBean.password}"/>
+                    <p:password id="password" required="true" placeholder="#{msg['password.jsf']}"
+                                requiredMessage="#{msg['plsPassword.jsf']}" value="#{shiroLoginBean.password}"/>
                 </p:column>
             </p:row>
             <p:row>
                 <p:column colspan="1">
-                    <h:outputText value="Remember me:"/>
+                    <h:outputText value="#{msg['remember.jsf']}"/>
                 </p:column>
                 <p:column colspan="1">
                     <p:toggleSwitch id="rememberMe" value="#{shiroLoginBean.rememberMe}"/>
@@ -54,7 +54,7 @@
             </p:row>
             <p:row>
                 <p:column colspan="2">
-                    <p>Forgot password? <a href="reset.xhtml">Reset Password</a></p>
+                    <p>#{msg['forgotpw.jsf']} <a href="reset.xhtml">#{msg['pwReset.jsf']}</a></p>
                 </p:column>
             </p:row>
         </p:panelGrid>

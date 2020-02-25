@@ -24,8 +24,8 @@
                 <p:tabMenu>
                     <p:menuitem value="Home"/>
                 </p:tabMenu>
-                <h1 style="color: cornflowerblue">Wilkommen beim SFB - Farbige Zustaende!</h1>
-                <p>Wilkommen beim SFB - Farbige Zustaende!<br/> Links sehen sie ihr Navigationsmenue. </p>
+                <h1 style="color: cornflowerblue">#{msg['welcome.jsf']}</h1>
+                <p>#{msg['welcome.jsf']}<br/> Links sehen sie ihr Navigationsmenue. </p>
             </p:panelGrid>
         </h:form>
     </div>
@@ -36,10 +36,10 @@
         <div style="margin-left: 200px; margin-top: 80px; box-shadow: black;">
             <p:panelGrid columns="1">
                 <p:row>
-                    <h2 style="color: cornflowerblue">Wilkommen beim SFB - Farbige Zustaende</h2>
+                    <h2 style="color: cornflowerblue">#{msg['welcome.jsf']}</h2>
                 </p:row>
                 <p:row>
-                    <h:outputText value="#{msg['visit.jsf']}"/> <a href="login.xhtml">>Profil</a>
+                    <h:outputText value="#{msg['visit.jsf']}"/> <a href="login.xhtml">#{msg['profile.jsf']}</a>
 
                 </p:row>
             </p:panelGrid>
