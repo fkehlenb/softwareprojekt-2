@@ -4,6 +4,7 @@ import de.unibremen.sfb.exception.ZustandNotFoundException;
 import de.unibremen.sfb.model.Zustand;
 import de.unibremen.sfb.persistence.ZustandsDAO;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Named
+@Slf4j
 @ApplicationScoped
 @Getter
 public class ZustandsService {
@@ -36,14 +38,12 @@ public class ZustandsService {
     public void init() throws ZustandNotFoundException {
 
         psZ=zustandsDAO.getZustandById("psZ");
-
         pkZ=zustandsDAO.getZustandById("pkZ");
 
         psZustaende = psZ.getZustaende();
         pkZustaende = pkZ.getZustaende();
 
-
-       /* psZustaende.add("Angenommen");
+        /*psZustaende.add("Angenommen");
         psZustaende.add("In Bearbeitung");
         psZustaende.add("Bearbeitet");
         psZustaende.add("Weitergeleitet");
@@ -53,9 +53,16 @@ public class ZustandsService {
         pkZustaende.add("ERSTELLT");
         pkZustaende.add("INSTANZIERT");
         pkZustaende.add("BEENDET");
-        pkZustaende.add("ARCHIVIERT");*/
+        pkZustaende.add("ARCHIVIERT");
 
-        //   psZustande = getByName("pkZ");
+        //   psZustande = getByName("pkZ");*/
     }
-
+    public void edit(Zustand psz){
+        try {
+            log.info("Trying try to update a PSV" + psz+ "Class=ProzessSchrittVorlageService");
+            zustandsDAO.update(psz);
+        } catch (Exception e) {
+            log.info("Error try to update a PSV" + psz+ "Class=ProzessSchrittVorlageService");
+        }
+    }
 }
