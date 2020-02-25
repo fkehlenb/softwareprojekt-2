@@ -25,6 +25,7 @@ import java.util.List;
 public class AuftragView implements Serializable {
     private List<Auftrag> auftrage;
     private List<ProzessKettenVorlage> vorlagen;
+    private AuftragsPrioritaet[] prios;
     //Der gewählte Auftrag
 
 
@@ -38,6 +39,7 @@ public class AuftragView implements Serializable {
     void init() {
         auftrage = auftragService.getAuftrage();
         vorlagen = getPKVs();
+        prios = AuftragsPrioritaet.values();
     }
 
     /**
