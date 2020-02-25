@@ -110,11 +110,8 @@
                                   style="width:16px;text-align:center" />
 
                         <p:column headerText="Id">
-                            <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{psv.psVID}"/></f:facet>
-                                <f:facet name="input"><p:inputText id="ID" value="#{psv.psVID}"
-                                                                   style="width:100%"/></f:facet>
-                            </p:cellEditor>
+
+                               <h:outputText value="#{psv.psVID}"/>
                         </p:column>
                         <p:column headerText="Dauer">
                             <p:cellEditor>
@@ -156,11 +153,11 @@
                                 <f:facet name="output"><h:outputText value="#{psv.bedingungen}"/></f:facet>
                                 <f:facet name="input">
                                     <p:selectCheckboxMenu id="bedingungTable"
-                                                          value="#{psv.bedingungen}"
+                                                          value="#{psvErstellenBean.ausgewaehlteBedingungen}"
                                                           converter="omnifaces.SelectItemsConverter" effect="fade"
                                                           style="width: 172px" filter="true"
                                                           filterMatchMode="contains" showCheckbox="true"
-                                                          label="#{psv.bedingungen}" requiredMessage="Bitte Bedingung Zuweisen!"
+                                                          label="Bedigungen" requiredMessage="Bitte Bedingung Zuweisen!"
                                                           required="true">
                                         <f:selectItems value="#{psvErstellenBean.verfuegbareBedingunen}"
                                                        var="bedingung" itemLabel="#{bedingung.name}"
@@ -174,12 +171,11 @@
                                 <f:facet name="output"><h:outputText value="#{psv.eingabeTraeger}"/></f:facet>
                                 <f:facet name="input">
                                     <p:selectCheckboxMenu id="EintragerTabele"
-                                                          value="#{psv.eingabeTraeger}"
+                                                          value="#{psvErstellenBean.ausEInTragArt}"
                                                           converter="omnifaces.SelectItemsConverter" effect="fade"
                                                           style="width: 172px" filter="true"
                                                           filterMatchMode="contains" showCheckbox="true"
-                                                          label="#{psv.eingabeTraeger}" requiredMessage="Bitte eingabeTraeger Zuweisen!"
-                                                          required="true">
+                                                          label="eingabeTraeger" >
                                         <f:selectItems value="#{psvErstellenBean.verfuegbareTraegerArt}"
                                                        var="traeger" itemLabel="#{traeger.art}"
                                                        itemValue="#{traeger}"/>
@@ -193,12 +189,11 @@
                                 <f:facet name="output"><h:outputText value="#{psv.ausgabeTraeger}" label="Leer"/></f:facet>
                                 <f:facet name="input">
                                     <p:selectCheckboxMenu id="AustragerTabele"
-                                                          value="#{psv.ausgabeTraeger}"
+                                                          value="#{psvErstellenBean.ausAusTragArt}"
                                                           converter="omnifaces.SelectItemsConverter" effect="fade"
                                                           style="width: 172px" filter="true"
                                                           filterMatchMode="contains" showCheckbox="true"
-                                                          label="#{psv.ausgabeTraeger}" requiredMessage="Bitte eingabeTraeger Zuweisen!"
-                                                          required="true">
+                                                          label="AustragerTabele" >
                                         <f:selectItems value="#{psvErstellenBean.verfuegbareTraegerArt}"
                                                        var="traeger" itemLabel="#{traeger.art}"
                                                        itemValue="#{traeger}"/>
