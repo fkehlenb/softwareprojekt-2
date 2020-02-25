@@ -20,9 +20,6 @@ public class ZustandsService {
     /** Process chain states */
     private List<String> pkZustaende = new ArrayList<>();
 
-    @Inject
-    ZustandsService zustandsService;
-
     /**
      * Hier werden die die Standart Zustaende erstellt
      */
@@ -33,14 +30,14 @@ public class ZustandsService {
         psZustaende.add("Bearbeitet");
         psZustaende.add("Weitergeleitet");
 
-     //   psZustande = zustandsService.getByName("psZ");
+     //   psZustande = getByName("psZ");
 
         pkZustaende.add("ERSTELLT");
         pkZustaende.add("INSTANZIERT");
         pkZustaende.add("BEENDET");
         pkZustaende.add("ARCHIVIERT");
 
-        //   psZustande = zustandsService.getByName("pkZ");
+        //   psZustande = getByName("pkZ");
     }
 
 }
