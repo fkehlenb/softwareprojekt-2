@@ -2,10 +2,10 @@ package de.unibremen.sfb.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The location data class
@@ -13,10 +13,10 @@ import javax.persistence.NamedQuery;
 @Getter
 @Setter
 @Entity
-@RequiredArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 @NamedQueries({
-        @NamedQuery(name = "Zustand.getByOrt", query = "SELECT s FROM Zustand s WHERE s.ort = :ort AND s.isValidData = true")
+        @NamedQuery(name = "Zustand.getALL", query = "SELECT z FROM Zustand z WHERE  z.isValidData = true")
 })
 public class Zustand {
 
@@ -28,16 +28,19 @@ public class Zustand {
 
     @Id
     @NonNull
-    private int id;
+    private String name;
 
-    /**
-     * The location
-     */
     @NonNull
-    private String ort;
+    @ElementCollection
+    private List<String> zustaende = new ArrayList<String>();
+
+    public Zustand(String id, ArrayList<String> zustaende) {
+        this.name = id;
+        this.zustaende = zustaende;
+    }
 
     @Override
     public String toString() {
-        return Integer.toString(id);
+        return name;
     }
 }

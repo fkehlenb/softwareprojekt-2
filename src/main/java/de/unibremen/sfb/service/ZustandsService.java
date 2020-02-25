@@ -24,15 +24,7 @@ public class ZustandsService {
      */
     @PostConstruct
     public void init() {
-        psZustaende.add("Angenommen");
-        psZustaende.add("In Bearbeitung");
-        psZustaende.add("Bearbeitet");
-        psZustaende.add("Weitergeleitet");
 
-        pkZustaende.add("ERSTELLT");
-        pkZustaende.add("INSTANZIERT");
-        pkZustaende.add("BEENDET");
-        pkZustaende.add("ARCHIVIERT");
     }
 
 }

@@ -67,6 +67,21 @@ public class InitialDataFiller {
                 em.persist(user);
             }
 
+            var psZustaende = new ArrayList<String>();
+            var pkZustaende = new ArrayList<String>();
+            psZustaende.add("Angenommen");
+            psZustaende.add("In Bearbeitung");
+            psZustaende.add("Bearbeitet");
+            psZustaende.add("Weitergeleitet");
+
+            pkZustaende.add("ERSTELLT");
+            pkZustaende.add("INSTANZIERT");
+            pkZustaende.add("BEENDET");
+            pkZustaende.add("ARCHIVIERT");
+
+            em.persist(new Zustand("psZ", psZustaende));
+            em.persist(new Zustand("pkZ", pkZustaende));
+
             // Standort, requires Users
             for (Standort s :
                     createDefaulStandort()) {
@@ -137,7 +152,7 @@ public class InitialDataFiller {
 
 
             // PSZAV Setup
-            pszaVorlage = new ProzessSchrittZustandsAutomatVorlage(
+            pszaVorlage = new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(),
                     zustandsService.getPsZustaende(), zustandsService.getPsZustaende().get(0));
             log.info("Try to persist ProzessSchrittZustandsAutomatVorlage " + pszaVorlage.toString());
             em.persist(pszaVorlage);
@@ -309,7 +324,7 @@ public class InitialDataFiller {
 
     public ProzessSchrittVorlage getProzessSchrittVorlage(List<ProzessSchrittParameter> parameters) {
         // ProzessSchrittVorlage Setup
-        ProzessSchrittZustandsAutomatVorlage v = new ProzessSchrittZustandsAutomatVorlage(
+        ProzessSchrittZustandsAutomatVorlage v = new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(),
                 zustandsService.getPsZustaende(), "Test pszvav");
         em.persist(v);
         var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "ANGENOMMEN", sVorlage);
@@ -344,8 +359,9 @@ public class InitialDataFiller {
         zustaende.add("Bearbeitet");
         zustaende.add("Weitergeleitet");
 
-        sVorlage = new ProzessSchrittZustandsAutomatVorlage(zustaende, "Standart");
+        sVorlage = new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(), zustaende, "Standart");
         ergebnis.add(sVorlage);
         return ergebnis;
     }
+
 }

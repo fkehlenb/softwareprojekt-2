@@ -1,4 +1,5 @@
 package de.unibremen.sfb.service;
+import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
 import de.unibremen.sfb.model.ProzessSchrittZustandsAutomatVorlage;
 import de.unibremen.sfb.persistence.ProzessSchrittVorlageDAO;
 import de.unibremen.sfb.persistence.ProzessSchrittZustandsAutomatDAO;
@@ -24,6 +25,17 @@ public class ProzessSchrittZustandsAutomatVorlageService {
     @Inject
     ProzessSchrittZustandsAutomatVorlageDAO prozessSchrittZustandsAutomatVorlageDAO;
 
+    public void delete(List<ProzessSchrittZustandsAutomatVorlage> selpszav) throws ProzessSchrittVorlageNotFoundException {
+        for (ProzessSchrittZustandsAutomatVorlage p :
+                selpszav) {
+            prozessSchrittZustandsAutomatVorlageDAO.remove(p);
+        }
+    }
+
+    public void edit(ProzessSchrittZustandsAutomatVorlage object) throws ProzessSchrittVorlageNotFoundException {
+        prozessSchrittZustandsAutomatVorlageDAO.update(object);
+    }
+
     @PostConstruct
     public void init() {
         this.psvVorlagen = prozessSchrittZustandsAutomatVorlageDAO.getAll();
@@ -32,7 +44,8 @@ public class ProzessSchrittZustandsAutomatVorlageService {
 
 
     public List<ProzessSchrittZustandsAutomatVorlage> getProzessSchrittZustandsAutomatVorlagen() {
-        return psvVorlagen;
+        psvVorlagen = prozessSchrittZustandsAutomatVorlageDAO.getAll();
+        return  psvVorlagen;
     }
 
     /** Add a new process step template */
