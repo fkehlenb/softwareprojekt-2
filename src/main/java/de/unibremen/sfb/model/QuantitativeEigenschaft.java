@@ -9,7 +9,8 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 public class QuantitativeEigenschaft extends QualitativeEigenschaft {
 
     /** On delete set to invalid */

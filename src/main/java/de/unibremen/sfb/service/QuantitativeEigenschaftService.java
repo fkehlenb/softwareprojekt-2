@@ -2,9 +2,12 @@ package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.model.QuantitativeEigenschaft;
 import de.unibremen.sfb.persistence.QuantitativeEigenschaftDAO;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.mockito.Mock;
 
 import javax.inject.Inject;
 import java.io.Serializable;
@@ -13,6 +16,7 @@ import java.util.List;
 @Setter
 @Getter
 @Slf4j
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class QuantitativeEigenschaftService implements Serializable {
 
     /** The DAO */
