@@ -42,16 +42,13 @@ public class PSZAVView implements Serializable {
     @Inject
     private ProzessSchrittVorlageService prozessSchrittVorlageService;
 
-    @Inject
-    ZustandsService zustandsService;
-
     /**
      * Hier werden aus der Persitenz die benötigten Daten Geladen
      */
     @PostConstruct
     public void init() {
         sourceZ = new ArrayList<String>();
-        targetZ = zustandsService.getPsZustaende();
+        targetZ = prozessSchrittZustandsAutomatVorlageService.getByID(996699).getZustaende();//;
         dualZ = new DualListModel<String>(sourceZ, targetZ);
         verpszav = prozessSchrittZustandsAutomatVorlageService.getProzessSchrittZustandsAutomatVorlagen();
         //

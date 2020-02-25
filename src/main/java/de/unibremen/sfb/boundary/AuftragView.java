@@ -35,9 +35,6 @@ public class AuftragView implements Serializable {
     @Inject
     ProzessKettenVorlageService prozessKettenVorlageService;
 
-    @Inject
-    ZustandsService zustandsService;
-
     @PostConstruct
     void init() {
         auftrage = auftragService.getAuftrage();

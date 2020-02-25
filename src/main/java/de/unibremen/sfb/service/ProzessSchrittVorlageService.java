@@ -33,8 +33,6 @@ public class ProzessSchrittVorlageService implements Serializable {
         this.vorlagen = getProzessSchrittVorlagen();
     }
 
-    @Inject
-    ZustandsService zustandsService;
 
     @Inject
     ProzessSchrittVorlageDAO psvDAO;
@@ -86,7 +84,7 @@ public class ProzessSchrittVorlageService implements Serializable {
         ProzessSchrittZustandsAutomatVorlage sVorlage = new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(),
                 zustaende, "Standart");
         ProzessSchrittZustandsAutomatVorlage v = new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(),
-                zustandsService.getPsZustaende(), "Test pszvav");
+                List.of("Erstellt", "Kapput") , "Test pszvav");
         var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "ANGENOMMEN", sVorlage);
 
         var psv0 = new ProzessSchrittVorlage(42, "8", "ERMITTELND", es, bs, v );
