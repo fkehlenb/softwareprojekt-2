@@ -28,9 +28,10 @@ public class QuantitativeEigenschaft extends QualitativeEigenschaft {
 
 
 //    private SI einheit;
-    public QuantitativeEigenschaft(String name, Number wert) {
+    public QuantitativeEigenschaft(String name, Number wert, String einheit) {
         super(UUID.randomUUID().hashCode() ,name);
         this.wert = wert;
+        this.einheit = einheit;
     }
 
 }
