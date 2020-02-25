@@ -37,7 +37,7 @@
                         </shiro:hasRole>
                         <shiro:hasRole name="pkAdmin">
                             <p:submenu label="Prozesskettenplaner Tools" id="pkverwaltungsTools">
-                                <p:menuitem value="Prozessschritt Verwaltung" url="../../pkAdmin/.xhtml"/>
+                                <p:menuitem value="Prozessschritt Verwaltung" url="/pkAdmin/.xhtml"/>
                                 <p:menuitem value="Ablaufsverwaltung"/>
                                 <p:menuitem value="Prozessketten Verwalten"/>
                                 <p:menuitem value="Auftraege Verwalten"/>
@@ -47,26 +47,26 @@
                         </shiro:hasRole>
                         <shiro:hasRole name="transport">
                             <p:submenu label="Tansport Tools" id="transportTools">
-                                <p:menuitem value="Aufträge" url="../../transport/auftraege.xhtml"/>
-                                <p:menuitem value="Probenverlust Melden" url="../../transport/probenVerlust.xhtml"/>
+                                <p:menuitem value="Aufträge" url="/transport/auftraege.xhtml"/>
+                                <p:menuitem value="Probenverlust Melden" url="/transport/probenVerlust.xhtml"/>
                             </p:submenu>
                         </shiro:hasRole>
                         <shiro:hasRole name="logistik">
                             <p:submenu label="Logistik Tools">
-                                <p:menuitem value="Traegeruebersicht" url="../../logistik/Traegeruebersicht.xhtml"/>
-                                <p:menuitem value="Auftraegsuebersicht" url="../../logistik/Auftragsuebersicht.xhtml"/>
-                                <p:menuitem value="Probenuebersicht" url="../../logistik/Probenuebersicht.xhtml"/>
+                                <p:menuitem value="Traegeruebersicht" url="/logistik/Traegeruebersicht.xhtml"/>
+                                <p:menuitem value="Auftraegsuebersicht" url="/logistik/Auftragsuebersicht.xhtml"/>
+                                <p:menuitem value="Probenuebersicht" url="/logistik/Probenuebersicht.xhtml"/>
                                 <p:menuitem value="Archivuebersicht"/>
-                                <p:menuitem value="Probenstandortsuebericht"/>
+                                <p:menuitem value="Probenstandortsuebericht" url="logistik/probenStandortUebersicht.xhtml"/>
                             </p:submenu>
                         </shiro:hasRole>
                         <shiro:hasRole name="technologe">
                             <p:submenu label="Technologen Tools" id="technologeTools">
-                                <p:menuitem value="Meine Experimentierstationen" url="../../technologe/stationen.xhtml"/>
-                                <p:menuitem value="Meine Aufträge" url="../../technologe/index.xhtml"/>
-                                <p:menuitem value="Verfügbare Aufträge" url="../../technologe/auftrag.xhtml"/>
+                                <p:menuitem value="Meine Experimentierstationen" url="/technologe/stationen.xhtml"/>
+                                <p:menuitem value="Meine Aufträge" url="/technologe/index.xhtml"/>
+                                <p:menuitem value="Verfügbare Aufträge" url="/technologe/auftrag.xhtml"/>
                                 <p:menuitem value="Auftragszustand"/>
-                                <p:menuitem value="Proben und Upload" url="../../technologe/proben.xhtml"/>
+                                <p:menuitem value="Proben und Upload" url="/technologe/proben.xhtml"/>
                                 <p:menuitem value="Kapputte Station Melden"/>
                                 <p:menuitem value="Probenverlust Melden"/>
                             </p:submenu>
