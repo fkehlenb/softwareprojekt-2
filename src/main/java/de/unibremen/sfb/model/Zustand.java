@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @NamedQueries({
-        @NamedQuery(name = "Zustand.getALL", query = "SELECT z FROM Zustand z WHERE  z.isValidData = true")
+        @NamedQuery(name = "Zustand.getAll", query = "SELECT z FROM Zustand z WHERE  z.isValidData = true")
 })
 public class Zustand {
 

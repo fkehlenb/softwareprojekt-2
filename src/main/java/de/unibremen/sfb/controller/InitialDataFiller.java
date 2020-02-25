@@ -67,17 +67,7 @@ public class InitialDataFiller {
                 em.persist(user);
             }
 
-            var psZustaende = new ArrayList<String>();
-            var pkZustaende = new ArrayList<String>();
-            psZustaende.add("Angenommen");
-            psZustaende.add("In Bearbeitung");
-            psZustaende.add("Bearbeitet");
-            psZustaende.add("Weitergeleitet");
-
-            pkZustaende.add("ERSTELLT");
-            pkZustaende.add("INSTANZIERT");
-            pkZustaende.add("BEENDET");
-            pkZustaende.add("ARCHIVIERT");
+     git
 
             em.persist(new Zustand("psZ", psZustaende));
             em.persist(new Zustand("pkZ", pkZustaende));
