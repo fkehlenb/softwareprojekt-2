@@ -159,9 +159,16 @@ public class LogistikerBean implements Serializable {
                 e.printStackTrace();
             }
             Probe p = new Probe(probenID,ProbenZustand.ARCHIVIERT,standort);
-            probenService.persist(p);
-            facesNotification("Added new sample! ID: " + probenID);
-            log.info("Added new sample! ID: " + probenID);
+            try {
+                Probe a = probenService.getProbeById(probenID);
+                facesError("Probe with id already exists! ID: " + probenID);
+                log.error("Probe with id already exists! ID: " + probenID);
+            }
+            catch (Exception e) {
+                probenService.persist(p);
+                facesNotification("Added new sample! ID: " + probenID);
+                log.info("Added new sample! ID: " + probenID);
+            }
         }
         catch (Exception e){
             e.printStackTrace();
