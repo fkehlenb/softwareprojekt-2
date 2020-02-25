@@ -12,12 +12,14 @@ import org.mockito.Mock;
 import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.List;
-
+import si.uom.SI;
 @Setter
 @Getter
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class QuantitativeEigenschaftService implements Serializable {
+
+
 
     /** The DAO */
     @Inject
@@ -62,6 +64,10 @@ public class QuantitativeEigenschaftService implements Serializable {
         } catch (Exception e) {
             log.info("FAILED QuantitativeEigenschaft Methode = edit");
         }
+    }
+
+    public List<String> getEinheiten() {
+        return List.of("second", "metre", "kilogram", "kilogram", "ampere", "mole", "candela");
     }
 
     /** Get a quantitative descriptor using its id*/
