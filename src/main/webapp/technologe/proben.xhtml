@@ -20,13 +20,10 @@
                         <h:panelGrid columns="1">
                             <p:row>
                                 <h1 style="color: cornflowerblue">Probenüberblick</h1>
-                                <div align="center">
-                                    <h:commandButton action="#{technologeView.setViewUploaded(!technologeView.getViewUploaded)}" value="Upload ausstehend"/>
-                                </div>
                             </p:row>
 
 
-                            <p:dataTable var="probe" value="#{technologeView.getSamples()}" paginator="true" rows="10"
+                            <p:dataTable var="probe" value="#{technologeView.viewToBeUploaded()}" paginator="true" rows="10"
                                          paginatorTemplate=
                                     "{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                                          rowsPerPageTemplate="5,10,15" lazy="true">
