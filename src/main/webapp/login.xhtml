@@ -8,57 +8,63 @@
     <link rel="icon" href="background.png"/>
 </h:head>
 <body background="background.png">
-<ui:include src="/template/common/header.xhtml"/>
-<div style="margin-left: 200px; margin-top: 80px; box-shadow: black; ">
-    <h:form prependId="false" id="form">
-        <p:growl id="growl" showDetail="true" sticky="true"/>
-        <p:panelGrid>
-            <p:row>
-                <p:column colspan="2">
-                    <h1 style="color: cornflowerblue">#{msg['welcome.jsf']}</h1>
-                    <p>#{msg['plsLogin.jsf']}</p>
-                </p:column>
-            </p:row>
-            <p:row>
-                <p:column colspan="1">
-                    <h:outputText value="#{msg['username.jsf']}"/>
-                </p:column>
-                <p:column colspan="1">
-                    <p:inputText id="username" required="true"
-                                 placeholder="#{msg['username.jsf']}" value="#{shiroLoginBean.username}"
-                                 requiredMessage="#{msg['plsUsername.jsf']}"/>
-                </p:column>
-            </p:row>
-            <p:row>
-                <p:column colspan="1">
-                    <h:outputText value="#{msg['password.jsf']}"/>
-                </p:column>
-                <p:column colspan="1">
-                    <p:password id="password" required="true" placeholder="#{msg['password.jsf']}"
-                                requiredMessage="#{msg['plsPassword.jsf']}" value="#{shiroLoginBean.password}"/>
-                </p:column>
-            </p:row>
-            <p:row>
-                <p:column colspan="1">
-                    <h:outputText value="#{msg['remember.jsf']}"/>
-                </p:column>
-                <p:column colspan="1">
-                    <p:toggleSwitch id="rememberMe" value="#{shiroLoginBean.rememberMe}"/>
-                </p:column>
-            </p:row>
-            <p:row>
-                <p:column colspan="1"/>
-                <p:column colspan="1">
-                    <p:commandButton value="Login" action="#{shiroLoginBean.doLogin}" style="width: 100px" update="form"/>
-                </p:column>
-            </p:row>
-            <p:row>
-                <p:column colspan="2">
-                    <p>#{msg['forgotpw.jsf']} <a href="reset.xhtml">#{msg['pwReset.jsf']}</a></p>
-                </p:column>
-            </p:row>
-        </p:panelGrid>
-    </h:form>
-</div>
+<ui:composition template="template/common/layout.xhtml">
+    <ui:define name="content">
+
+
+
+        <h:form prependId="false" id="form">
+            <p:growl id="growl" showDetail="true" sticky="true"/>
+            <p:panelGrid>
+                <p:row>
+                    <p:column colspan="2">
+                        <h1 style="color: cornflowerblue">Wilkommen zum SFB - Farbige Zustaende!</h1>
+                        <p>Um sich Einzuloggen, geben sie bitte ihre details ein!</p>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column colspan="1">
+                        <h:outputText value="Username:"/>
+                    </p:column>
+                    <p:column colspan="1">
+                        <p:inputText id="username" required="true"
+                                     placeholder="Username" value="#{shiroLoginBean.username}"
+                                     requiredMessage="Bitte Username eingeben!"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column colspan="1">
+                        <h:outputText value="Password:"/>
+                    </p:column>
+                    <p:column colspan="1">
+                        <p:password id="password" required="true" placeholder="Password"
+                                    requiredMessage="Bitte Passwort angeben!" value="#{shiroLoginBean.password}"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column colspan="1">
+                        <h:outputText value="Remember me:"/>
+                    </p:column>
+                    <p:column colspan="1">
+                        <p:toggleSwitch id="rememberMe" value="#{shiroLoginBean.rememberMe}"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column colspan="1"/>
+                    <p:column colspan="1">
+                        <p:commandButton value="Login" action="#{shiroLoginBean.doLogin}" style="width: 100px"
+                                         update="form"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column colspan="2">
+                        <p>Forgot password? <a href="reset.xhtml">Reset Password</a></p>
+                    </p:column>
+                </p:row>
+            </p:panelGrid>
+        </h:form>
+
+    </ui:define>
+</ui:composition>
 </body>
 </html>

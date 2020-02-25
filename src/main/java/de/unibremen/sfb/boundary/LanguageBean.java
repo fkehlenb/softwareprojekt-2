@@ -22,8 +22,9 @@ public class LanguageBean implements Serializable{
     private static Map<String,Object> countries;
     static{
         countries = new LinkedHashMap<String,Object>();
-        countries.put("English", Locale.ENGLISH); //label, value
+         //label, value
         countries.put("Deutsch", Locale.GERMAN);
+        countries.put("English", Locale.ENGLISH);
     }
 
     public Map<String, Object> getCountriesInMap() {
