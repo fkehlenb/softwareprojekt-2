@@ -62,11 +62,11 @@
             <li>Bearbeiten von bestehenden Standorten</li>
         </ul>
     </strike></li>
-<li>Konfiguration globaler Einstellungen<ul>
-<li>Einstellung der Zeiten für alte Aufträge (<strong>O«UI.AlteAufträge»</strong>)</li>
+<li><strike>Konfiguration globaler Einstellungen</strike><ul>
+<li><strike>Einstellung der Zeiten für alte Aufträge (<strong>O«UI.AlteAufträge»</strong>)</strike></li>
 </ul>
 </li>
-<li>Backup der Systemdaten</li>
+<li><strike>Backup der Systemdaten</strike></li>
 </ul>
 <h5 id="prozesskettenplaner">Prozesskettenplaner</h5>
 <ul>
