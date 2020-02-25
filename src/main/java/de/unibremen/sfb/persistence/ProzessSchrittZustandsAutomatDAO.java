@@ -2,7 +2,14 @@ package de.unibremen.sfb.persistence;
 
 import de.unibremen.sfb.exception.DuplicateProzessSchrittZustandsAutomatException;
 import de.unibremen.sfb.exception.ProzessSchrittZustandsAutomatNotFoundException;
+import de.unibremen.sfb.exception.TraegerArtNotFoundException;
 import de.unibremen.sfb.model.ProzessSchrittZustandsAutomat;
+import de.unibremen.sfb.model.ProzessSchrittZustandsAutomatVorlage;
+import de.unibremen.sfb.model.TraegerArt;
+import de.unibremen.sfb.model.Zustand;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /** This class handles the process step state objects stored in the database */
 public class ProzessSchrittZustandsAutomatDAO extends ObjectDAO<ProzessSchrittZustandsAutomat> {
@@ -45,6 +52,31 @@ public class ProzessSchrittZustandsAutomatDAO extends ObjectDAO<ProzessSchrittZu
             update(psz);
         }
     }
+
+//    public List<Zustand> getZustaende() {
+//        try {
+//            return em.createNamedQuery("Zustand.getAll", get()).getResultList();
+//        }
+//        catch (Exception e){
+//            return new ArrayList<>();
+//        }
+//    }
+//
+//    /** Get a container type by id
+//     * @param id - the container type id
+//     * @throws TraegerArtNotFoundException if the container type couldn't be found in the database */
+//    public TraegerArt getZustandByID(String id) throws TraegerArtNotFoundException{
+//        try {
+//            var Proz =  em.find(get(),id);
+//            if (!ta.isValidData()){
+//                throw new Exception();
+//            }
+//            return ta;
+//        }
+//        catch (Exception e){
+//            throw new TraegerArtNotFoundException();
+//        }
+//    }
 
     /** @return the class of process step state objects */
     public Class<ProzessSchrittZustandsAutomat> get(){
