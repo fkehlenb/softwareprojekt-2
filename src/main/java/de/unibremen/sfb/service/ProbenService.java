@@ -212,4 +212,10 @@ public class ProbenService implements Serializable {
         return probeDAO.getProben(first, pagesize);
     }
 
+    /** Get all archived samples
+     * @return a list of all archived samples */
+    public List<Probe> getAllArchived(){
+        return probeDAO.getAllArchived();
+    }
+
 }

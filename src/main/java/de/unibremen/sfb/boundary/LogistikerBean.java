@@ -2,10 +2,7 @@ package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.ProbeDAO;
-import de.unibremen.sfb.service.AuftragService;
-import de.unibremen.sfb.service.ProzessKettenVorlageService;
-import de.unibremen.sfb.service.TraegerService;
-import de.unibremen.sfb.service.ZustandsService;
+import de.unibremen.sfb.service.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -36,8 +33,15 @@ public class LogistikerBean implements Serializable {
     private List<Probe> proben;
     private List<Auftrag> auftrage;
 
+    //TODO remove this
     @Inject
     private ProbeDAO probeDAO;
+
+    /**
+     * Sample service
+     */
+    @Inject
+    private ProbenService probenService;
 
     @Inject
     private AuftragService auftragService;
@@ -51,18 +55,28 @@ public class LogistikerBean implements Serializable {
     @Inject
     private AuftragView auftragView;
 
-    /** Traeger service */
+    /**
+     * Traeger service
+     */
     @Inject
     private TraegerService traegerService;
 
-    /** All containers */
+    /**
+     * All containers
+     */
     private List<Traeger> traegers;
+
+    /**
+     * All archived samples
+     */
+    private List<Probe> archiviert;
 
     @PostConstruct
     void init() {
         auftrage = auftragService.getAuftrage();
         proben = getProben();
         traegers = getTraegerList();
+        archiviert = getAllArchviert();
     }
 
     /**
@@ -86,17 +100,30 @@ public class LogistikerBean implements Serializable {
 
     }
 
-    /** Update a container
-     * @param id - the id of the container to update */
-    public void updateTraeger(int id){
+    /**
+     * Update a container
+     *
+     * @param id - the id of the container to update
+     */
+    public void updateTraeger(int id) {
 
     }
 
     /**
      * deletes a carrier
+     *
      * @param id - the id of the container to remove
      */
     public void deleteTraeger(int id) {
+    }
+
+    /**
+     * Get all archived samples
+     *
+     * @return a list of all archived samples
+     */
+    public List<Probe> getAllArchviert() {
+        return probenService.getAllArchived();
     }
 
     /**

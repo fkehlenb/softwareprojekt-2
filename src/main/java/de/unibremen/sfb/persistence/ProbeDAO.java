@@ -3,6 +3,7 @@ package de.unibremen.sfb.persistence;
 import de.unibremen.sfb.exception.DuplicateProbeException;
 import de.unibremen.sfb.exception.ProbeNotFoundException;
 import de.unibremen.sfb.model.Probe;
+import de.unibremen.sfb.model.ProbenZustand;
 import de.unibremen.sfb.model.Standort;
 import de.unibremen.sfb.model.Traeger;
 
@@ -146,8 +147,8 @@ public class ProbeDAO extends ObjectDAO<Probe> {
      * @return the amount of samples
      */
     public int getProbenCount() {
-        Query query = em.createQuery("Select count (p.id) from Probe p"); //TODO richtig?
-        return ((Long) query.getSingleResult()).intValue();
+        List<Probe> proben = em.createQuery("select p from Probe p where p.isValidData = true",get()).getResultList();
+        return proben.size();
     }
 
     /**
@@ -161,5 +162,24 @@ public class ProbeDAO extends ObjectDAO<Probe> {
         query.setFirstResult(first);
         query.setMaxResults(size);
         return (List<Probe>) query.getResultList();
+    }
+
+    /** Get all archived samples from the database
+     * @return a list of all archived samples in the database or an empty arraylist */
+    public List<Probe> getAllArchived(){
+        List<Probe> probes = new ArrayList<>();
+        try {
+            List<Probe> probes1 = new ArrayList<>();
+            probes1 = em.createQuery("select p from Probe p where p.isValidData = true",get()).getResultList();
+            for (Probe p : probes1){
+                if (p.getZustand()== ProbenZustand.ARCHIVIERT){
+                    probes.add(p);
+                }
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return probes;
     }
 }
