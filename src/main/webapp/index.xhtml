@@ -12,39 +12,38 @@
 </h:head>
 
 <body background="background.png">
-<shiro:authenticated>
-    <ui:include src="/template/common/header.xhtml"/>
-    <ui:include src="/template/common/hamburgerMenu.xhtml"/>
-    <div style=" margin-top: 10px">
-        <h:form>
-            <p:growl>
-                <p:autoUpdate/>
-            </p:growl>
-            <p:panelGrid columns="1">
-                <p:tabMenu>
-                    <p:menuitem value="Home"/>
-                </p:tabMenu>
-                <h1 style="color: cornflowerblue">#{msg['welcome.jsf']}</h1>
-                <p>#{msg['welcome.jsf']}<br/> Links sehen sie ihr Navigationsmenue. </p>
-            </p:panelGrid>
-        </h:form>
-    </div>
-</shiro:authenticated>
-<shiro:notAuthenticated>
-    <ui:include src="/template/common/header.xhtml"/>
-    <div style=" margin-top: 10px">
-        <div style="margin-left: 200px; margin-top: 80px; box-shadow: black;">
-            <p:panelGrid columns="1">
-                <p:row>
-                    <h2 style="color: cornflowerblue">#{msg['welcome.jsf']}</h2>
-                </p:row>
-                <p:row>
-                    <h:outputText value="#{msg['visit.jsf']}"/> <a href="login.xhtml">#{msg['profile.jsf']}</a>
-
-                </p:row>
-            </p:panelGrid>
-        </div>
-    </div>
-</shiro:notAuthenticated>
+<ui:composition template="/template/common/layout.xhtml">
+    <ui:define name="content">
+        <shiro:authenticated>
+            <div class="ui-g-2"></div>
+            <div class="ui-g-8">
+                <h:form>
+                    <p:growl>
+                        <p:autoUpdate/>
+                    </p:growl>
+                    <p:panelGrid columns="1">
+                        <p:tabMenu>
+                            <p:menuitem value="Home"/>
+                        </p:tabMenu>
+                        <h1 style="color: cornflowerblue">Wilkommen beim SFB - Farbige Zustaende!</h1>
+                        <p>Wilkommen beim SFB - Farbige Zustaende!<br/> Links sehen sie ihr Navigationsmenue. </p>
+                    </p:panelGrid>
+                </h:form>
+            </div>
+        </shiro:authenticated>
+        <shiro:notAuthenticated>
+            <div style="margin-top: 20px; margin-left: 10px">
+                <p:panelGrid columns="1">
+                    <p:row>
+                        <h2 style="color: cornflowerblue">Wilkommen beim SFB - Farbige Zustaende</h2>
+                    </p:row>
+                    <p:row>
+                        <p>Bitte <a href="login.xhtml">hier</a> Anmelden!</p>
+                    </p:row>
+                </p:panelGrid>
+            </div>
+        </shiro:notAuthenticated>
+    </ui:define>
+</ui:composition>
 </body>
 </html>
