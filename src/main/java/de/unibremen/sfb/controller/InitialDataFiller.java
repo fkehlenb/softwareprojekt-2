@@ -33,7 +33,7 @@ import org.apache.shiro.authc.credential.PasswordMatcher;
 @Transactional
 @Slf4j
 public class InitialDataFiller {
-    int limit = 5;
+    int limit = 1000;
     private List<Standort> standorte;
     private ProzessSchritt ps;
     private Auftrag pk;
@@ -76,7 +76,7 @@ public class InitialDataFiller {
 
             for (ProzessSchrittZustandsAutomatVorlage p :
                     erstelleStandartVorlagen()) {
-                log.info("Persisting: Voralge" + p.getName());
+                log.info("Persisting: Voralge " + p.getName());
                 em.persist(p);
             }
 
@@ -86,12 +86,7 @@ public class InitialDataFiller {
                 log.info("Trying to persist Station " + s.getName());
                 em.persist(s);
             }
-            // Experimentierstaation, requires Standort
-            for (ExperimentierStation s :
-                    createDefaultStation()) {
-                log.info("Trying to persist Station " + s.getName());
-                em.persist(s);
-            }
+
             /**
              * persis von QualitativeEigenschaft durch die Variebln qualitativeEigenschaftList
              * */
@@ -127,15 +122,6 @@ public class InitialDataFiller {
             log.info("Try to persist ProzessSchrittVorlage " + pkv.getPkvID());
             em.persist(pkv);
 
-            // Auftrag Setup
-            AuftragsLog aLog = new AuftragsLog(LocalDateTime.now());
-            aLog.setErstellt(LocalDateTime.now());
-            em.persist(aLog);
-            log.info("Try to persist AuftragsLog " + aLog.toString());
-            pk = new Auftrag(420, pkv, AuftragsPrioritaet.HOCH, new ArrayList<ProzessSchritt>(),
-                    aLog, ProzessKettenZustandsAutomat.INSTANZIIERT);
-
-
             // PSZAV Setup
             pszaVorlage = new ProzessSchrittZustandsAutomatVorlage(
                     zustandsService.getPsZustaende(), zustandsService.getPsZustaende().get(0));
@@ -147,32 +133,7 @@ public class InitialDataFiller {
                     UUID.randomUUID().hashCode(), "ERSTELLT", pszaVorlage);
             log.info("Try to persist ProzessSchrittZustandsAutomat " + prozessSchrittZustandsAutomat.toString());
             em.persist(prozessSchrittZustandsAutomat);
-
-            // PS Setup
-            ArrayList<ProzessSchrittLog> logs = new ArrayList<>();
-            logs.add(new ProzessSchrittLog(LocalDateTime.now(), "INSTANZIERT"));
-            for (ProzessSchrittLog pSL :
-                    logs) {
-                log.info("Try to persist TESTlogs " + pSL.getGestartet().toString());
-                em.persist(pSL);
-            }
-
-
-            // Erstelle neuen PSZA
-            var automat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "AKZEPTIERT", pszaVorlage);
-            em.persist(automat);
-
-            ps = new ProzessSchritt(UUID.randomUUID().hashCode(), logs, psvListe.get(0), automat);
-            var psLogs = List.of(new ProzessSchrittLog(LocalDateTime.now(), "Gestartet"),
-                    new ProzessSchrittLog(LocalDateTime.now(), "Veraendert") );
-            for (ProzessSchrittLog psl :
-                    psLogs) {
-                em.persist(psl);
-            }
-            ps.setProzessSchrittLog(psLogs);
-            log.info("Try to persist TEST ProzessSchritt " + ps.getPsID());
-            em.persist(ps);
-
+            erstelleAuftrag(psvListe);
 
             // Persistiere Traeger Arten
             for (TraegerArt t :
@@ -181,16 +142,52 @@ public class InitialDataFiller {
                 em.persist(t);
             }
 
-            // PS aufuellen
-            pk.getProzessSchritte().add(ps);
-            log.info("Try to persist TEST ProzessKette " + pk.getPkID());
-            em.persist(pk);
-
-
         } else {
             log.info("Data already exists");
         }
 
+    }
+
+    private void erstelleAuftrag(List<ProzessSchrittVorlage> psvListe) {
+        for (int i = 0; i < limit; i++) {
+            // Auftrag Setup
+            AuftragsLog aLog = new AuftragsLog(LocalDateTime.now());
+            aLog.setErstellt(LocalDateTime.now());
+            em.persist(aLog);
+            log.info("Try to persist AuftragsLog " + aLog.toString());
+            pk = new Auftrag(UUID.randomUUID().hashCode(), pkv, AuftragsPrioritaet.HOCH, new ArrayList<ProzessSchritt>(),
+                    aLog, ProzessKettenZustandsAutomat.INSTANZIIERT);
+
+            // Erstelle neuen PSZA
+            var automat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "AKZEPTIERT", pszaVorlage);
+            em.persist(automat);
+
+            // PS Setup
+            ArrayList<ProzessSchrittLog> logs = new ArrayList<>();
+            logs.add(new ProzessSchrittLog(LocalDateTime.now(), "INSTANZIERT"));
+            for (ProzessSchrittLog pSL :
+                    logs) {
+                log.info("Try to persist logs " + pSL.getGestartet().toString());
+                em.persist(pSL);
+            }
+
+            // FIXME add more ps
+            ps = new ProzessSchritt(UUID.randomUUID().hashCode(), logs, psvListe.get(0), automat);
+            var psLogs = List.of(new ProzessSchrittLog(LocalDateTime.now(), "Gestartet"),
+                    new ProzessSchrittLog(LocalDateTime.now(), "Veraendert"));
+            for (ProzessSchrittLog psl :
+                    psLogs) {
+                em.persist(psl);
+            }
+            ps.setProzessSchrittLog(psLogs);
+            log.info("Try to persist TEST ProzessSchritt " + ps.getPsID());
+            em.persist(ps);
+
+            // PS aufuellen
+            pk.getProzessSchritte().add(ps);
+            log.info("Try to persist TEST ProzessKette " + pk.getPkID());
+            em.persist(pk);
+        }
     }
 
     /**
@@ -222,9 +219,8 @@ public class InitialDataFiller {
         experimentierStations = new ArrayList<ExperimentierStation>();
         List<User> users = new ArrayList();
         users.add(testUser);
-
+        Faker faker = new Faker();
         for (int i = 0; i < limit; i++) {
-            Faker faker = new Faker();
             experimentierStations.add(new ExperimentierStation(UUID.randomUUID().hashCode(), standorte.get(i),
                     faker.lordOfTheRings().location(), ExperimentierStationZustand.VERFUEGBAR, users));
         }
@@ -293,11 +289,6 @@ public class InitialDataFiller {
     }
 
 
-    private void setUpAuftrag() {
-
-
-    }
-
     public List<ProzessSchrittVorlage> getProzessSchrittVorlages(List<ProzessSchrittParameter> parameters) {
         // PSVA
         List<ProzessSchrittVorlage> psListe = new ArrayList<>();
@@ -323,11 +314,13 @@ public class InitialDataFiller {
 
     public List<QualitativeEigenschaft> getQualitativeEigenschaften() {
         // Eigenschaften
+        Faker faker = new Faker();
         qualEigenschaften = new ArrayList<>();
-        QualitativeEigenschaft q1 = new QualitativeEigenschaft(UUID.randomUUID().hashCode(), "Test Eigenschaft");
-        QualitativeEigenschaft q2 = new QualitativeEigenschaft(UUID.randomUUID().hashCode(), "2te Eigenschaft");
-        qualEigenschaften.add(q1);
-        qualEigenschaften.add(q2);
+        for (int i = 0; i < limit; i++) {
+            QualitativeEigenschaft q1 = new QualitativeEigenschaft(UUID.randomUUID().hashCode(), faker.funnyName().name());
+            qualEigenschaften.add(q1);
+        }
+
         return qualEigenschaften;
     }
 
