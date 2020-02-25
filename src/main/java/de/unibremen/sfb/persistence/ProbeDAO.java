@@ -182,4 +182,17 @@ public class ProbeDAO extends ObjectDAO<Probe> {
         }
         return probes;
     }
+
+    /** Get all samples from the database
+     * @return a list of all samples or an empty arraylist */
+    public List<Probe> getAll(){
+        List<Probe> probes = new ArrayList<>();
+        try {
+            probes = em.createQuery("select p from Probe p where p.isValidData = true",get()).getResultList();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return probes;
+    }
 }

@@ -16,29 +16,29 @@
     <shiro:hasRole name="logistik">
         <ui:composition template="/template/common/layout.xhtml">
             <ui:define name="content">
-                <div class="ui-g-2"></div>
-                <div class="ui-g-8">
-                    <p:panelGrid columns="1">
-                        <p:row>
-                            <h2 style="color: cornflowerblue">Probenstandort Uebersicht</h2>
-                        </p:row>
-                        <p:row>
-                            <p>In der unteren Tabelle sehen Sie alle Proben und ihre Standorte.</p>
-                        </p:row>
-                        <p:row>
-                            <p:dataTable id="table" var="probe" value="#{dtLogistikerBean.proben}"
-                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                         paginator="true" rows="3" style="margin-bottom:20px">
-                                <p:column headerText="Proben ID">
-                                    <h:outputText value="#{probe.probenID}"/>
-                                </p:column>
-                                <p:column headerText="Proben Standort">
-                                    <h:outputText value="#{probe.standort.ort}"/>
-                                </p:column>
-                            </p:dataTable>
-                        </p:row>
-                    </p:panelGrid>
-                </div>
+                <p:growl id="growl">
+                    <p:autoUpdate/>
+                </p:growl>
+                <p:panelGrid columns="1">
+                    <p:row>
+                        <h2 style="color: cornflowerblue">Probenstandort Uebersicht</h2>
+                    </p:row>
+                    <p:row>
+                        <p>In der unteren Tabelle sehen Sie alle Proben und ihre Standorte.</p>
+                    </p:row>
+                    <p:row>
+                        <p:dataTable id="table" var="probe" value="#{dtLogistikerBean.proben}"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                     paginator="true" rows="3" style="margin-bottom:20px">
+                            <p:column headerText="Proben ID">
+                                <h:outputText value="#{probe.probenID}"/>
+                            </p:column>
+                            <p:column headerText="Proben Standort">
+                                <h:outputText value="#{probe.standort.ort}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:row>
+                </p:panelGrid>
             </ui:define>
         </ui:composition>
     </shiro:hasRole>

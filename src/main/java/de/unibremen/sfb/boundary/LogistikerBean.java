@@ -9,14 +9,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import static de.unibremen.sfb.model.ProzessKettenZustandsAutomat.ABGELEHNT;
 import static de.unibremen.sfb.model.ProzessKettenZustandsAutomat.GESTARTET;
@@ -25,10 +28,11 @@ import static de.unibremen.sfb.model.ProzessKettenZustandsAutomat.GESTARTET;
  * this class manages the interaction between the gui and the backend system for users who are logistic experts
  */
 @Named("dtLogistikerBean")
-@ViewScoped
+@RequestScoped
 @Getter
 @Setter
 @Slf4j
+@Transactional
 public class LogistikerBean implements Serializable {
     private List<Probe> proben;
     private List<Auftrag> auftrage;
@@ -61,6 +65,10 @@ public class LogistikerBean implements Serializable {
     @Inject
     private TraegerService traegerService;
 
+    /** Location Service */
+    @Inject
+    private StandortService standortService;
+
     /**
      * All containers
      */
@@ -70,6 +78,9 @@ public class LogistikerBean implements Serializable {
      * All archived samples
      */
     private List<Probe> archiviert;
+
+    /** Sample ID */
+    private String probenID;
 
     @PostConstruct
     void init() {
@@ -126,6 +137,39 @@ public class LogistikerBean implements Serializable {
         return probenService.getAllArchived();
     }
 
+    /** Add a new sample to the system */
+    public void addProbe(){
+        try{
+            Standort standort = new Standort(UUID.randomUUID().hashCode(),"Lager");
+            try{
+                List<Standort> standorts = standortService.getStandorte();
+                for (Standort s : standorts){
+                    if (s.getOrt().equals("Lager")){
+                        standort = s;
+                    }
+                }
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+            try{
+                standortService.add(standort);
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+            Probe p = new Probe(probenID,ProbenZustand.ARCHIVIERT,standort);
+            probenService.persist(p);
+            facesNotification("Added new sample! ID: " + probenID);
+            log.info("Added new sample! ID: " + probenID);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            facesError("Couldn't add probe! ID: " + probenID);
+            log.error("Couldn't add probe! ID: " + probenID);
+        }
+    }
+
     /**
      * returns all jobs currently awaiting processing by the logistic
      *
@@ -159,27 +203,7 @@ public class LogistikerBean implements Serializable {
      * @return a set containing all samples
      */
     public List<Probe> getProben() {
-        return probeDAO.getProben(1, 100);
-    }
-
-    /**
-     * returns all samples currently existing by whether or not they are archived
-     *
-     * @param archiviert True: display archived samples. False: display samples which are not archived
-     * @return a set containing all samples which fullfill the condition
-     */
-    public Set<Probe> getProben(boolean archiviert) {
-        return null;
-    }
-
-    /**
-     * returns the current location of a sample
-     *
-     * @param p the sample
-     * @return the location
-     */
-    public Standort getProbenStandort(Probe p) {
-        return null;
+        return probenService.getAll();
     }
 
     /**

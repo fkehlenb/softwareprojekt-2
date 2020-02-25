@@ -218,4 +218,30 @@ public class ProbenService implements Serializable {
         return probeDAO.getAllArchived();
     }
 
+    /** Add a new sample
+     * @param p - the sample to add
+     * @throws DuplicateProbeException on failure */
+    public void persist(Probe p) throws DuplicateProbeException{
+         probeDAO.persist(p);
+    }
+
+    /** Update a sample
+     * @param p - the sample to update
+     * @throws ProbeNotFoundException on failure */
+    public void update(Probe p) throws ProbeNotFoundException{
+        probeDAO.update(p);
+    }
+
+    /** Remove a sample
+     * @param p - the sample to remove
+     * @throws ProbeNotFoundException on failure */
+    public void remove(Probe p) throws ProbeNotFoundException{
+        probeDAO.remove(p);
+    }
+
+    /** Get all samples from the database
+     * @return a list of all samples from the database */
+    public List<Probe> getAll(){
+        return probeDAO.getAll();
+    }
 }
