@@ -5,21 +5,19 @@ import de.unibremen.sfb.model.QuantitativeEigenschaft;
 
 import de.unibremen.sfb.persistence.QuantitativeEigenschaftDAO;
 import org.junit.jupiter.api.Test;
-
-import org.junit.runner.RunWith;
-
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-import static org.mockito.Mockito.*;
-import static org.junit.Assert.*;
 
-
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 class QuantitativeEigenschaftServiceTest {
 
     @Mock

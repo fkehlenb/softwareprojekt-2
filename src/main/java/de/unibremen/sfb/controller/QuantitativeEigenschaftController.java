@@ -1,7 +1,7 @@
 package de.unibremen.sfb.controller;
 
 import de.unibremen.sfb.model.QuantitativeEigenschaft;
-import si.uom.SI;
+
 
 /**
  * this class manages the interaction with models of quantity properties
@@ -26,11 +26,6 @@ public class QuantitativeEigenschaftController extends QualitativeEigenschaftCon
      * sets the unit the value is in
      * @param einheit the new unit
      */
-    public void setEinheit(SI einheit) {}
+    public void setEinheit(String einheit) {}
 
-    /**
-     * returns the unit the value is in
-     * @return the unit
-     */
-    public SI getEinheit() { return null; }
 }
