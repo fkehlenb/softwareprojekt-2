@@ -145,7 +145,7 @@
 <li>Klassifizierung nach Parameterwerten wie Legierung und Wärmebehandlung</li>
 </ul>
 </li>
-<li>Übersicht über archivierten Proben (<strong>O«Lagerverwaltung»</strong>)</li>
+<li><strike>Übersicht über archivierten Proben (<strong>O«Lagerverwaltung»</strong>)</strike></li>
 <li><strike>Übersicht über Probenstandorte (<strong>O«Lagerverwaltung»</strong>)</strike></li>
 </ul>
 <h4 id="technologe">Technologe</h4>
