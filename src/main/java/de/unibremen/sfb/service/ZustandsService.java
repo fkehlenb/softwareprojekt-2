@@ -46,14 +46,14 @@ public class ZustandsService {
         psZustaende.add("Bearbeitet");
         psZustaende.add("Weitergeleitet");
 
-     //   psZustande = zustandsService.getByName("psZ");
+     //   psZustande = getByName("psZ");
 
         pkZustaende.add("ERSTELLT");
         pkZustaende.add("INSTANZIERT");
         pkZustaende.add("BEENDET");
         pkZustaende.add("ARCHIVIERT");*/
 
-        //   psZustande = zustandsService.getByName("pkZ");
+        //   psZustande = getByName("pkZ");
     }
 
 }
