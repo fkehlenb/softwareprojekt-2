@@ -4,6 +4,7 @@ import lombok.Getter;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,9 @@ public class ZustandsService {
     /** Process chain states */
     private List<String> pkZustaende = new ArrayList<>();
 
+    @Inject
+    ZustandsService zustandsService;
+
     /**
      * Hier werden die die Standart Zustaende erstellt
      */
@@ -29,10 +33,14 @@ public class ZustandsService {
         psZustaende.add("Bearbeitet");
         psZustaende.add("Weitergeleitet");
 
+     //   psZustande = zustandsService.getByName("psZ");
+
         pkZustaende.add("ERSTELLT");
         pkZustaende.add("INSTANZIERT");
         pkZustaende.add("BEENDET");
         pkZustaende.add("ARCHIVIERT");
+
+        //   psZustande = zustandsService.getByName("pkZ");
     }
 
 }
