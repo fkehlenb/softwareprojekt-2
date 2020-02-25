@@ -9,6 +9,7 @@ import de.unibremen.sfb.model.Standort;
 import de.unibremen.sfb.model.Traeger;
 import de.unibremen.sfb.model.TraegerArt;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /** This class handles the containers in the database */
@@ -74,5 +75,18 @@ public class TraegerDAO extends ObjectDAO<Traeger> {
         catch (Exception e){
             throw new TraegerNotFoundException();
         }
+    }
+
+    /** Get a list of all containers in the database
+     * @return a list of all containers in the database or an empty arraylist */
+    public List<Traeger> getAll(){
+        List<Traeger> traegers = new ArrayList<>();
+        try{
+            traegers = em.createQuery("select t from Traeger t where t.isValidData = true",get()).getResultList();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return traegers;
     }
 }

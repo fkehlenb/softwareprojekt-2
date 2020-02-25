@@ -21,6 +21,7 @@ import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * this class manages the interaction between the gui and the backend system in the case that the user is an admin
@@ -181,7 +182,13 @@ public class AdminBean implements Serializable {
     private UploadedFile importFile;
 
     /** Old jobs */
-    private List<Auftrag> auftrage;
+    private List<Auftrag> auftrage = new ArrayList<>();
+
+    /** Strings to be converted to datetime */
+    private String erstellt;
+    private String gestartet;
+    private String beendet;
+    private String archiviert;
 
     /**
      * Init called on bean creation
@@ -191,7 +198,11 @@ public class AdminBean implements Serializable {
         allLocations = standortService.getStandorte();
         allUsers = userService.getAll();
         experimentierStations = experimentierStationService.getAll();
-        auftrage = auftragService.getAuftrage();
+        for (Auftrag a : auftragService.getAuftrage()){
+            if (a.getProzessKettenZustandsAutomat()==ProzessKettenZustandsAutomat.DURCHGEFUEHRT){
+                auftrage.add(a);
+            }
+        }
     }
 
     /**
@@ -417,6 +428,7 @@ public class AdminBean implements Serializable {
             experimentierStationService.updateES(es);
             log.info("Updated experimenting station! ID: " + experimentierStationId);
             facesNotification("Updated experimentierstation! ID: " + experimentierStationId);
+            experimentierStations = experimentierStationService.getAll();
         } catch (Exception e) {
             e.printStackTrace();
             log.error("Couldn't update experimenting station! ID: " + experimentierStationId);
@@ -451,6 +463,7 @@ public class AdminBean implements Serializable {
                 experimentierStationService.addES(es);
                 log.info("Added experimenting station! Name: " + experimentierStationName);
                 facesNotification("Added experimenting station! Name: " + experimentierStationName);
+                experimentierStations = experimentierStationService.getAll();
             } catch (Exception f) {
                 f.printStackTrace();
                 log.error("Couldn't add experimenting station! Name: " + experimentierStationName);
@@ -470,6 +483,7 @@ public class AdminBean implements Serializable {
                 experimentierStationService.loescheES(es);
                 log.info("Deleted experimenting station! ID: " + esID);
                 facesNotification("Deleted experimenting station! ID: " + esID);
+                experimentierStations = experimentierStationService.getAll();
             }
             catch (Exception e){
                 e.printStackTrace();
@@ -479,6 +493,54 @@ public class AdminBean implements Serializable {
         } catch (ExperimentierStationNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    /** Convert a char[] to a localdatetime object
+     * @param s - the char[] to convert
+     * @return a localdatetime object matching the string */
+    private LocalDateTime getDateTimeFromCharArray(char[] s){
+        return LocalDateTime
+                .of(Integer.parseInt(String.valueOf(s[0]+s[1]+s[2]+s[3]))
+                        ,Integer.parseInt(String.valueOf(s[5]+s[6]))
+                        ,Integer.parseInt(String.valueOf(s[8]+s[9]))
+                        ,Integer.parseInt(String.valueOf(s[11]+s[12]))
+                        ,Integer.parseInt(String.valueOf(s[14]+s[15])));
+    }
+
+    /** Globale einstellungen action listener
+     * @param id - the id of the job to update */
+    public void onRowEditGlobaleEinstellungen(int id){
+        try {
+            char[] aufErstellt = erstellt.toCharArray();
+            char[] aufGestartet = gestartet.toCharArray();
+            char[] aufBeendet = beendet.toCharArray();
+            char[] aufArchiviert = archiviert.toCharArray();
+            LocalDateTime hierErstellt = getDateTimeFromCharArray(aufErstellt);
+            LocalDateTime hierGestartet = getDateTimeFromCharArray(aufGestartet);
+            LocalDateTime hierBeendet = getDateTimeFromCharArray(aufBeendet);
+            LocalDateTime hierArchiviert = getDateTimeFromCharArray(aufArchiviert);
+            Auftrag a = auftragService.getAuftrag(id);
+            AuftragsLog alog = a.getLog();
+            alog.setErstellt(hierErstellt);
+            alog.setStart(hierGestartet);
+            alog.setBeendet(hierBeendet);
+            alog.setArchiviert(hierArchiviert);
+            a.setLog(alog);
+            // Automatically updates log thanks to cascadeType
+            auftragService.update(a);
+            facesNotification("Updated job! ID: " + id);
+            log.info("Updated job! ID: " + id);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            facesError("Couldn't update job! ID: " + id);
+            log.error("Couldn't update job! ID: " + id);
+        }
+    }
+
+    /** Globale einstellungen cancel action listener */
+    public void onRowEditCancelGlobaleEinstellungen(){
+        facesNotification("Canceled!");
     }
 
     /** Database import */

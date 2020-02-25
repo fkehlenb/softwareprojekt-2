@@ -16,7 +16,6 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
-import static de.unibremen.sfb.model.ProzessKettenZustandsAutomat.GESTARTET;
 
 @Named("dtAuftragBean")
 @ViewScoped
@@ -43,22 +42,13 @@ public class AuftragView implements Serializable {
         auftrage = auftragService.getAuftrage();
         vorlagen = getPKVs();
     }
-    //Soll den Zustand wechseln FUNKTIONIERT NICHT!
-    public void zWechsel(int auftrag){
-        try {
-            Auftrag a = auftragService.getAuftrag(auftrag);
-            a.setProzessKettenZustandsAutomat(GESTARTET);
-            auftragService.update(a);
-            log.info("Changed state of job! ID: " + auftrag);
-            facesNotification("Changed state of job! ID: " + auftrag);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            log.error("Failed to change auftrag state! ID: " + auftrag);
-            facesError("Failed to change auftrag state! ID: " + auftrag);
-        }
-    }
 
+    /**
+     * Aktualisiert die Tabelle
+     */
+    public void updateAuftragTabelle(){
+        auftrage = auftragService.getAuftrage();
+    }
 
     public void onRowEdit(RowEditEvent<Auftrag> event) {
         log.info("Updating: "+ event.getObject().getPkID());

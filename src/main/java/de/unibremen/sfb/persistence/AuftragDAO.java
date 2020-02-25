@@ -32,7 +32,7 @@ public class AuftragDAO extends ObjectDAO<Auftrag> {
      * @throws AuftragNotFoundException if the job couldn't be found */
     public void update(Auftrag a) throws AuftragNotFoundException{
         if (a!=null){
-            if (!em.contains(a)){
+            if (!em.contains(em.find(get(),a.getPkID()))){
                 throw new AuftragNotFoundException();
             }
             em.merge(a);

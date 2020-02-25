@@ -10,19 +10,19 @@
     <ui:composition template="/template/common/layout.xhtml">
         <ui:define name="content">
 
-            <p:panel id="pkv" header="Daten Eingeben"
+            <p:panel id="pszav" header="Daten Eingeben"
                      style="margin-bottom: 20px">
 
                 <h:form>
                     <h:panelGrid columns="2" cellpadding="10">
-                        <p:outputLabel for="psvV" value="PSV Vorlagen: "/>
-                        <p:pickList id="psvV" value="#{pkvView.psvs}" var="psvs" itemLabel="#{psvs}" itemValue="#{psvs}"
-                            converter="psvConverter"/>
+                        <p:outputLabel for="zustandV" value="zustand Vorlagen: "/>
+                        <p:pickList id="zustandV" value="#{pszavView.dualZ}" var="zustand" itemLabel="#{zustand}" itemValue="#{zustand}"
+                                    />
                     </h:panelGrid>
 
                     <p:commandButton value="Reset" type="reset"/>
                     <p:commandButton value="Erstellen"
-                                     action="#{pkvView.erstellePSK}" icon="pi pi-check"
+                                     action="#{pszavView.erstellePSZAV}" icon="pi pi-check"
                                      update="@form"/>
 
                 </h:form>
@@ -34,32 +34,32 @@
 
                 <p:dataTable widgetVar="PSKList"
                              id="PSKList"
-                             var="pkv"
-                             value="#{pkvView.verPKV}"
+                             var="pszav"
+                             value="#{pszavView.verpszav}"
                              editable="true"
-                             selection="#{pkvView.selPKV}"
+                             selection="#{pszavView.selpszav}"
                              style="margin-bottom:20px"
-                             rowKey="#{pkv.pkvID}">
+                             rowKey="#{pszav.id}">
 
-                    <p:ajax event="rowEdit" listener="#{pkvView.onRowEdit}" update=":form:msgs"/>
-                    <p:ajax event="rowEditCancel" listener="#{pkvView.onRowCancel}" update=":form:msgs"/>
+                    <p:ajax event="rowEdit" listener="#{pszavView.onRowEdit}" update=":form:msgs"/>
+                    <p:ajax event="rowEditCancel" listener="#{pszavView.onRowCancel}" update=":form:msgs"/>
                     <p:column selectionMode="multiple"
                               style="width:16px;text-align:center"/>
 
                     <p:column headerText="Id">
                         <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{pkv.pkvID}"/></f:facet>
-                            <f:facet name="input"><p:inputText id="ID" value="#{pkv.pkvID}"
+                            <f:facet name="output"><h:outputText value="#{pszav.id}"/></f:facet>
+                            <f:facet name="input"><p:inputText id="ID" value="#{pszav.id}"
                                                                style="width:100%"/></f:facet>
                         </p:cellEditor>
                     </p:column>
 
                     <p:column headerText="Schritt Vorlagen">
                         <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{pkv.prozessSchrittVorlagen}"/></f:facet>
+                            <f:facet name="output"><h:outputText value="#{pszav.zustaende}"/></f:facet>
                             <f:facet name="input">
-                                <p:orderList value="#{pkv.prozessSchrittVorlagen}" var="psv" controlsLocation="none" itemLabel="#{psv}"
-                                             itemValue="#{psv}"/>
+                                <p:orderList value="#{pszav.zustaende}" var="zustand" controlsLocation="none" itemLabel="#{zustand}"
+                                             itemValue="#{zustand}"/>
                             </f:facet>
                         </p:cellEditor>
                     </p:column>
@@ -71,7 +71,7 @@
 
                 <p:contextMenu for="PSKList">
                     <p:menuitem value="Delete selected" update="PSKList"
-                                icon="pi pi-times" action="#{pkvErstellenBean.deletePKV}"/>
+                                icon="pi pi-times" action="#{pszavView.deletePSZAV}"/>
                 </p:contextMenu>
 
             </h:form>

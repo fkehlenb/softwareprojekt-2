@@ -83,8 +83,9 @@ public class ProzessSchrittVorlageService implements Serializable {
         zustaende.add("In Brearbeitung");
         zustaende.add("Bearbeitet");
         zustaende.add("Weitergeleitet");
-        ProzessSchrittZustandsAutomatVorlage sVorlage = new ProzessSchrittZustandsAutomatVorlage(zustaende, "Standart");
-        ProzessSchrittZustandsAutomatVorlage v = new ProzessSchrittZustandsAutomatVorlage(
+        ProzessSchrittZustandsAutomatVorlage sVorlage = new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(),
+                zustaende, "Standart");
+        ProzessSchrittZustandsAutomatVorlage v = new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(),
                 zustandsService.getPsZustaende(), "Test pszvav");
         var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "ANGENOMMEN", sVorlage);
 
@@ -141,20 +142,19 @@ public class ProzessSchrittVorlageService implements Serializable {
      * @throws ProzessSchrittVorlageNotFoundException
      */
     public void edit(ProzessSchrittVorlage psv) throws ProzessSchrittVorlageNotFoundException {
-//        try {
-//            log.info("Trying try to update a PSV" + psv+ "Class=ProzessSchrittVorlageService");
-//            psvDAO.update(psv);
-//        } catch (Exception e) {
-//            log.info("Error try to update a PSV" + psv+ "Class=ProzessSchrittVorlageService");
-//        }
-//    }
-        var old = vorlagen.stream().filter(p -> psv.getPsVID() == p.getPsVID()).findFirst().orElse(null);
-
-        if (Collections.replaceAll(vorlagen, old, psv)) {
-            log.info("Succesful edit " + psv);
-        } else {
-            log.info("Failed to edit " + psv);
+        try {
+            log.info("Trying try to update a PSV" + psv+ "Class=ProzessSchrittVorlageService");
+            psvDAO.update(psv);
+        } catch (Exception e) {
+            log.info("Error try to update a PSV" + psv+ "Class=ProzessSchrittVorlageService");
         }
+
+        //var old = vorlagen.stream().filter(p -> psv.getPsVID() == p.getPsVID()).findFirst().orElse(null);
+        //if (Collections.replaceAll(vorlagen, old, psv)) {
+        //    log.info("Succesful edit " + psv);
+        //} else {
+        //    log.info("Failed to edit " + psv);
+       // }
     }
 
     /**

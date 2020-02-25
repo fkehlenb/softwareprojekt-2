@@ -11,6 +11,7 @@ import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
@@ -38,6 +39,7 @@ public class BackupService implements Serializable {
         try {
             log.info("Trying to connect with DB");
             String sqlFilePath = "./Backup_" + LocalDateTime.now() + ".sql";
+            sqlFilePath = sqlFilePath.replaceAll(":","_");
             Query q = em.createNativeQuery(String.format("SCRIPT TO '%s'", sqlFilePath));
             log.info(q.getResultList().toString());
         }

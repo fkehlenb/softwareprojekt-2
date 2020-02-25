@@ -17,7 +17,8 @@ public class ProzessSchrittZustandsAutomatVorlage {
     @NonNull
     private boolean isValidData = true;
 
-    @Id @GeneratedValue
+    @Id
+    @NonNull
     private int id;
 
     /** The states the process step automatons can be in */

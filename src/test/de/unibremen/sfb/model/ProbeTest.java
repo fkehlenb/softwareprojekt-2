@@ -29,7 +29,7 @@ class ProbeTest {
         Standort a = new  Standort(UUID.randomUUID().hashCode(), "Hier");
         erste.setProbenID("14");
         erste.setStandort(a);
-        erste.setKommentar(new Kommentar(LocalDateTime.now(), "Hallo Welt"));
+        erste.setKommentar(List.of(new Kommentar(LocalDateTime.now(), "Hallo Welt")));
         eigenschaften.add(new QualitativeEigenschaft(UUID.randomUUID().hashCode(),"getestet"));
 
         erste.setQualitativeEigenschaften(eigenschaften);
