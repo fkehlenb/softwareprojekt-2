@@ -22,7 +22,7 @@ public class Archiv {
 
     /** The job that has been archived */
     @NonNull
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     private Auftrag auftrag;
 
     /** The date the job has been archived */

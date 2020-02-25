@@ -6,6 +6,7 @@ import de.unibremen.sfb.model.Probe;
 import de.unibremen.sfb.model.Standort;
 import de.unibremen.sfb.model.Traeger;
 
+import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,6 +91,26 @@ public class ProbeDAO extends ObjectDAO<Probe> {
     }
 
     /**
+     * Use a sample id (String type) to get a specific sample
+     *
+     * @param id the id of the requested sample
+     * @return the sample which's id matches the given one
+     * @throws ProbeNotFoundException if the sample couldn't be found in the database
+     */
+    public Probe getObjById(String id) throws ProbeNotFoundException {
+        try {
+            Probe p = em.find(get(), id);
+            if (p == null) {
+                throw new ProbeNotFoundException();
+            }
+            return p;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new ProbeNotFoundException();
+        }
+    }
+
+    /**
      * Get samples by location
      *
      * @param s - the location which's samples to get
@@ -118,5 +139,27 @@ public class ProbeDAO extends ObjectDAO<Probe> {
         catch (Exception e){
             return new ArrayList<>();
         }
+    }
+
+    /**
+     * counts the samples currently saved in the database
+     * @return the amount of samples
+     */
+    public int getProbenCount() {
+        Query query = em.createQuery("Select count (p.id) from Probe p"); //TODO richtig?
+        return ((Long) query.getSingleResult()).intValue();
+    }
+
+    /**
+     * returns a subset of all samples in the databse
+     * @param first the index of first sample to be loaded
+     * @param size the maximum amount of samples
+     * @return a list containing a maximum of size samples
+     */
+    public List<Probe> getProben(int first, int size) {
+        Query query = em.createQuery("From Probe"); //TODO richtig?
+        query.setFirstResult(first);
+        query.setMaxResults(size);
+        return (List<Probe>) query.getResultList();
     }
 }

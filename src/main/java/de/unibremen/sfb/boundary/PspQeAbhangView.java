@@ -27,7 +27,7 @@ import java.util.List;
 @Slf4j
 @Setter
 @Getter
-public class PspQeAbhangBean implements Serializable {
+public class PspQeAbhangView implements Serializable {
     @Inject
     ProzessSchrittParameterService prozessSchrittParameterService;
 

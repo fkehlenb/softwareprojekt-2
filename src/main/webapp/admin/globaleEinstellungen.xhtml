@@ -14,27 +14,29 @@
 <body background="../background.png">
 <shiro:authenticated>
     <shiro:hasRole name="admin">
-        <ui:include src="/template/common/header.xhtml"/>
-        <ui:include src="/template/common/hamburgerMenu.xhtml"/>
-        <div style=" margin-top: 10px">
-            <p:growl>
-                <p:autoUpdate/>
-            </p:growl>
-            <p:panelGrid columns="1">
-                <p:row>
-                    <h2 style="color: cornflowerblue">Globale Einstellungen</h2>
-                </p:row>
-                <p:row>
-                    <p>Hier koennen Sie die Zeiten von alten Auftraegen verwalten und veraendern</p>
-                </p:row>
-                <p:row>
-                    <p:dataTable id="table" var="auftrag" value="#{adminBean.auftrage}" editable="true"
-                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                 paginator="true" rows="3" style="margin-bottom:20px">
-                    </p:dataTable>
-                </p:row>
-            </p:panelGrid>
-        </div>
+        <ui:composition template="/template/common/layout.xhtml">
+            <ui:define name="content">
+                <div class="ui-g-8">
+                    <p:growl>
+                        <p:autoUpdate/>
+                    </p:growl>
+                    <p:panelGrid columns="1">
+                        <p:row>
+                            <h2 style="color: cornflowerblue">Globale Einstellungen</h2>
+                        </p:row>
+                        <p:row>
+                            <p>Hier koennen Sie die Zeiten von alten Auftraegen verwalten und veraendern</p>
+                        </p:row>
+                        <p:row>
+                            <p:dataTable id="table" var="auftrag" value="#{adminBean.auftrage}" editable="true"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                         paginator="true" rows="3" style="margin-bottom:20px">
+                            </p:dataTable>
+                        </p:row>
+                    </p:panelGrid>
+                </div>
+            </ui:define>
+        </ui:composition>
     </shiro:hasRole>
 </shiro:authenticated>
 </body>

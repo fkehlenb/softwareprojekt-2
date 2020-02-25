@@ -23,7 +23,7 @@ import static de.unibremen.sfb.model.ProzessKettenZustandsAutomat.GESTARTET;
 @Getter
 @Setter
 @Slf4j
-public class AuftragBean implements Serializable {
+public class AuftragView implements Serializable {
     private List<Auftrag> auftrage;
     private List<ProzessKettenVorlage> vorlagen;
     //Der gewählte Auftrag
@@ -47,16 +47,18 @@ public class AuftragBean implements Serializable {
     public void zWechsel(int auftrag){
         try {
             Auftrag a = auftragService.getAuftrag(auftrag);
-            a.setProzessKettenZustandsAutomat(GESTARTET);
-            auftragService.update(a);
+            auftragService.zustandswechsel(a, GESTARTET );
             log.info("Changed state of job! ID: " + auftrag);
             facesNotification("Changed state of job! ID: " + auftrag);
+            //Aktualisiert Auftragsliste
+            auftrage = auftragService.getAuftrage();
         }
         catch (Exception e){
             e.printStackTrace();
             log.error("Failed to change auftrag state! ID: " + auftrag);
             facesError("Failed to change auftrag state! ID: " + auftrag);
         }
+        //return "Auftragsuebersicht?faces-redirect=true";
     }
 
 
