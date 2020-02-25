@@ -23,10 +23,13 @@ import java.util.List;
 @Data
 public class PszBean implements Serializable {
 
-    List<String> pszList;
-    Zustand psz;
+    private List<String> pszList;
+
+    private List<String> auspszList;
+
+    private Zustand psz;
     @Inject
-    ZustandsService zustandsService;
+    private ZustandsService zustandsService;
 
     @PostConstruct
     public void init(){
