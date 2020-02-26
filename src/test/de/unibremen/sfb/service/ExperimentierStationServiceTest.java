@@ -3,16 +3,14 @@ package de.unibremen.sfb.service;
 import de.unibremen.sfb.controller.InitialDataFiller;
 import de.unibremen.sfb.exception.DuplicateExperimentierStationException;
 import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
-import de.unibremen.sfb.model.ExperimentierStation;
-import de.unibremen.sfb.model.ExperimentierStationZustand;
-import de.unibremen.sfb.model.Standort;
-import de.unibremen.sfb.model.User;
+import de.unibremen.sfb.model.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,7 +36,7 @@ public class ExperimentierStationServiceTest {
 
         List<User> users = userService.getUsers();
         es = new ExperimentierStation(UUID.randomUUID().hashCode(), s, "Test Station" ,
-                ExperimentierStationZustand.VERFUEGBAR, users);
+                ExperimentierStationZustand.VERFUEGBAR, new ArrayList<ProzessSchritt>(), users);
 
         try {
             experimentierStationService.addES(es);
