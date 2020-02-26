@@ -408,5 +408,3 @@ public class AuftragService implements Serializable {
         return s.isEmpty()?new ArrayList<>():List.copyOf(s);
     }
 }
-
-
