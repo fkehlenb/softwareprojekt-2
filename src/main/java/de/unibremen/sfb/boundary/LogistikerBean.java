@@ -72,6 +72,8 @@ public class LogistikerBean implements Serializable {
      */
     private List<Traeger> traegers;
 
+    private String errorMessage;
+
     /**
      * All archived samples
      */
@@ -237,9 +239,9 @@ public class LogistikerBean implements Serializable {
      * refuses a job (signals to the process chain administrator that this job cannot be started in the current form)
      *
      * @param auftrag the job
-     * @param message the message to the process chain administrator
+     *
      */
-    public void refuseAuftrag(int auftrag, String message) {
+    public void refuseAuftrag(int auftrag) {
         try {
             Auftrag a = auftragService.getAuftrag(auftrag);
             auftragService.zustandswechsel(a, ABGELEHNT);
@@ -247,6 +249,7 @@ public class LogistikerBean implements Serializable {
             facesNotification("Auftrag wurde abgelehnt! ID: " + auftrag);
             //Aktualisiert Auftragsliste
             auftragView.updateAuftragTabelle();
+
         } catch (Exception e) {
             e.printStackTrace();
             log.error("Failed to change auftrag state! ID: " + auftrag);

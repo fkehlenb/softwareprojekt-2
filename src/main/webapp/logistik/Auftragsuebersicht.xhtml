@@ -52,7 +52,8 @@
                 </p:column>
 
                 <p:column>
-                    <p:commandButton value="Ablehnen" ajax="true" action="#{dtLogistikerBean.refuseAuftrag(auftrag.pkID, ),}" icon="pi pi-ban" update="form:table" />
+                    <p:inputText value="#{dtLogistikerBean.errorMessage}" placeholder="error"/>
+                    <p:commandButton value="Ablehnen" ajax="true" action="#{dtLogistikerBean.refuseAuftrag(auftrag.pkID)}" icon="pi pi-ban" update="form:table" />
                     <p:commandButton value="Annehmen" ajax="true" action="#{dtLogistikerBean.startAuftrag(auftrag.pkID)}" icon="pi pi-check" update="form:table" />
 
                 </p:column>
