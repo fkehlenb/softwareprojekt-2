@@ -82,6 +82,9 @@ public class LogistikerBean implements Serializable {
     /** Container types */
     private List<TraegerArt> traegerArts;
 
+    /** Container Location */
+    private Standort traegerLocation;
+
     private String errorMessage;
 
     /**
@@ -119,7 +122,7 @@ public class LogistikerBean implements Serializable {
      * creates a new carrier
      */
     public void createTraeger() {
-        Traeger traeger = new Traeger(UUID.randomUUID().hashCode(),traegerArt);
+        Traeger traeger = new Traeger(UUID.randomUUID().hashCode(),traegerArt, traegerLocation);
         try{
             traegerService.persist(traeger);
             facesNotification("Added new Traeger with Art: " + traegerArt.getArt());
@@ -142,6 +145,7 @@ public class LogistikerBean implements Serializable {
         try{
             Traeger t = traegerService.getTraegerById(id);
             t.setArt(traegerArt);
+            t.setTragerStandort(traegerLocation);
             traegerService.update(t);
             facesNotification("Edited trager with ID: " + id);
             log.info("Edited trager with ID: " + id);

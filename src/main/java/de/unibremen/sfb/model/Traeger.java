@@ -25,4 +25,9 @@ public class Traeger {
     @NonNull
     @ManyToOne(fetch = FetchType.LAZY)
     private TraegerArt art;
+
+    /** The container's location */
+    @NonNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Standort tragerStandort;
 }
