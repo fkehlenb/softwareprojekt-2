@@ -71,8 +71,8 @@
 <h5 id="prozesskettenplaner">Prozesskettenplaner</h5>
 <ul>
 <li>Übersicht über alle Prozessschritte<ul>
-<li>Anlegen neuer Prozessschritte <ul>
-<li>Auswahl von vordefinierten Abläufen (Zustandsautomat)</li>
+<li>Anlegen neuer Prozessschritte  <em>FIXME LEO</em> <ul>
+<li>Auswahl von vordefinierten Abläufen (Zustandsautomat) <em>FIXME SANTI add List</em</li>
 <li>Auswahl von dyn. Abläufen (<strong>O«Dynamische Zustandsautomaten»</strong>)</li>
 <li>Eingabe von voraussichtlicher Prozessschrittdauer</li>
 <li>Definition von Prozessschrittparametern (Name, Einheit)</li>
