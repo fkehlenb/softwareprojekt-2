@@ -19,6 +19,7 @@ import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbConfig;
 import java.io.Serializable;
 import java.lang.reflect.Array;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -130,14 +131,6 @@ public class AuftragService implements Serializable {
 //    }
 //
 //
-    /**
-     * returns the current Prioritaet (priority) of this Auftrag
-     *
-     * @return the current Prioritaet
-     */
-    public AuftragsPrioritaet getPrio() {
-        return auftrag.getPriority();
-    }
 
     /**
      * sets the current Prioritaet (priority) of this Auftrag
@@ -176,6 +169,82 @@ public class AuftragService implements Serializable {
 
     public List<Auftrag> getAuftrage() {
         return auftragDAO.getAll();
+        // FIXME DAO Persistence LEo
+    }
+
+    /**
+     * Diese Methode simuliert eine korrekte Persistenz.
+     * Wenn ExperimentierStation.benutzer und ProzessSchrittVorlage.bedingungen auf Eager gestellt sind
+     * ist es fuer Hibernate unmoeglich. Siehe: org.hibernate.loader.MultipleBagFetchException: cannot simultaneously fetch multiple bags
+     * https://stackoverflow.com/questions/4334970/hibernate-throws-multiplebagfetchexception-cannot-simultaneously-fetch-multipl
+     * <p>
+     * Es ist daher keine Loesung alles auf Fetchtype EAGER zu stellen.
+     * <p>
+     * AddPSV.xhtml benoetigt aber das man psv.bedingung als Value nutzt. Es muss also fuer views  moeglich sein
+     * das in einem View die Collection eines Objectes aufgerufen werden kann
+     * <p>
+     * Bitte gebe uns eine andere Alernative als, das wir FetchType.EAGER benutzen muessen.
+     * <p>
+     * In psv.xhtml muessen Aufrufe wie diese moeglich sein
+     * <f:facet name="output"><h:outputText value="#{psv.bedingungen}"/></f:facet>
+     * <p>
+     * Bei Fetch Type Eager, wuerde Hibernate fuer eine PSV zwei Eager Queries aufrufen, dies wird aber nicht unterstuetzt
+     * <p>
+     * Es muss fuer uns moeglich sein, ohne Eager eine Collection (bedingungen oder es) aufrufen zu koennen
+     * <p>
+     * Um dieses Problem zu Reproduzieren zu koenne, kann in init in psvErstellen zwischen dieser Methode und der Dao gewechselt werden
+     *
+     * @return
+     */
+    public List<Auftrag> erstelleStandartAuftrag() {
+
+
+        var p = new ProzessSchrittParameter(420, "Test", new ArrayList<>());
+        var us = List.of(new User(5, "Default", "Logistik", "l@g.c", "01234",
+                "pk,", "123", true, LocalDateTime.now(),
+                List.of(Role.TECHNOLOGE), "DEUTSCH"));
+        var es = List.of(new ExperimentierStation(4, new Standort(1, "Test"), "Fehlerfrei",
+                ExperimentierStationZustand.VERFUEGBAR, us));
+        var bs = List.of(new Bedingung(9, "Test B", List.of(new ProzessSchrittParameter(6, "PsP 1",
+                List.of(new QualitativeEigenschaft(8, "gestresst"))), p), 66));
+        // Es ist nicht moeglich, es und bs eager in der naechsten Zeile
+
+        // ProzessSchrittVorlage Setup
+        Set<ProzessSchrittZustandsAutomatVorlage> ergebnis = new HashSet<>();
+        List<String> zustaende = new ArrayList();
+        zustaende.add("Angenommen");
+        zustaende.add("In Brearbeitung");
+        zustaende.add("Bearbeitet");
+        zustaende.add("Weitergeleitet");
+        ProzessSchrittZustandsAutomatVorlage sVorlage = new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(),
+                zustaende, "Standart");
+        ProzessSchrittZustandsAutomatVorlage v = new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(),
+                List.of("Erstellt", "Kapput") , "Test pszvav");
+        var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "ANGENOMMEN", sVorlage);
+
+        var psv0 = new ProzessSchrittVorlage(42, "8", "ERMITTELND", es, bs, v );
+        var psv1 = new ProzessSchrittVorlage(55, "6", "FAERBEND", es, bs, v);
+
+        // Traeger Config
+        var glass = new TraegerArt("Glass");
+        var eT = new TraegerArt("Eingebetet");
+        var gT = new TraegerArt("Einzelen");
+
+        psv0.setAusgabeTraeger(List.of(glass, eT));
+        psv0.setEingabeTraeger(List.of(gT, glass));
+
+        var l = new ArrayList<ProzessSchrittVorlage>();
+        l.add(psv0);
+        l.add(psv1);
+
+        var pslogs = new ArrayList<ProzessSchrittLog>();
+        var ps = new ProzessSchritt(UUID.randomUUID().hashCode(), List.of(new ProzessSchrittLog(LocalDateTime.now(), "string")),  psv1, new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(),
+                "FUCK", new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(), List.of("String"), "String")));
+
+        var pkv = new ProzessKettenVorlage(UUID.randomUUID().hashCode(), List.of(psv1, psv0));
+
+        return List.of(new Auftrag(UUID.randomUUID().hashCode(), pkv, AuftragsPrioritaet.HOCH, List.of(ps),
+                new AuftragsLog(LocalDateTime.now()), ProzessKettenZustandsAutomat.GESTARTET));
     }
 
 
@@ -234,7 +303,8 @@ public class AuftragService implements Serializable {
 
         // Create Jsonb with custom configuration
         Jsonb jsonb = JsonbBuilder.create(config);
-        String result = jsonb.toJson(getAuftrage());
+//        String result = jsonb.toJson(getAuftrage());
+        String result = "JSON IS BROKEN FIXME LEO";
         log.info("Export von den Auftraegen\n" + result);
         return result;
     }
@@ -337,7 +407,6 @@ public class AuftragService implements Serializable {
         }
         return s.isEmpty()?new ArrayList<>():List.copyOf(s);
     }
-
 }
 
 

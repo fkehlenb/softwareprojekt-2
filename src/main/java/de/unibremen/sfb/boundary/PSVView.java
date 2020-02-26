@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.primefaces.event.RowEditEvent;
 
 import javax.annotation.PostConstruct;
@@ -27,7 +28,7 @@ import java.util.UUID;
 @ViewScoped
 @Getter
 @Setter
-@Log
+@Slf4j
 public class PSVView implements Serializable {
 
     @NotEmpty
@@ -60,6 +61,10 @@ public class PSVView implements Serializable {
 
     private ProzessSchrittZustandsAutomatVorlage ausProzessSchrittZustandsAutomatVorlage;
 
+    private List<TraegerArt> ausEInTragArt;
+
+    private List<TraegerArt> ausAusTragArt;
+
     // Wir benoetigen die Parameter und Eigenschaften um diese dann auszuwaehlen
     private List<Bedingung> verfuegbareBedingunen;
     private List<ExperimentierStation> verfuegbareStationen;
@@ -77,8 +82,6 @@ public class PSVView implements Serializable {
     @Inject
     private ExperimentierStationService experimentierStationService;
 
-    @Inject
-    ZustandsService  zustandsService;
 
     @Inject
     private TraegerArtService traegerArtService;
@@ -98,7 +101,6 @@ public class PSVView implements Serializable {
         verfuegbareBedingunen = bedingungService.getAll();
         verfuegbarePSV = prozessSchrittVorlageService.getVorlagen();
         verfuegbareStationen = experimentierStationService.getESListe();
-        zustandsService.getPsZustaende();
         verfuegbareTraegerArt = traegerArtService.getVerTraeger();
         verPSZAV = prozessSchrittZustandsAutomatVorlageService.getProzessSchrittZustandsAutomatVorlagen();
     }
@@ -117,7 +119,7 @@ public class PSVView implements Serializable {
                 "erfolgreich erstellt"));
         context.getExternalContext().getFlash().setKeepMessages(true);
 
-        return "pkAdmin/createOrder.xhtml?faces-redirect=true";
+        return "psv?faces-redirect=true";
     }
 
     public void deletePSV() {
@@ -127,6 +129,8 @@ public class PSVView implements Serializable {
 
     public void onRowEdit(RowEditEvent<ProzessSchrittVorlage> event) throws ProzessSchrittVorlageNotFoundException {
         //When The Persistence gefit be, we can uncomment that.
+        //NO WORK AGAIN org.hibernate.LazyInitializationException
+
          prozessSchrittVorlageService.edit(event.getObject());
         FacesMessage msg = new FacesMessage("PSV Edited", event.getObject().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);

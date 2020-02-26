@@ -17,13 +17,18 @@ public class ProzessSchrittZustandsAutomatVorlage {
     @NonNull
     private boolean isValidData = true;
 
-    @Id @GeneratedValue
+    @Id
+    @NonNull
     private int id;
 
     /** The states the process step automatons can be in */
     @NonNull
-    @ElementCollection(fetch = FetchType.LAZY)
-    private List<String> zustaende;
+     @ElementCollection(fetch = FetchType.LAZY)
+     private List<String> zustaende;
+
+    //Leo Möglische Loesung
+    //@OneToMany
+    //private List<Zustand> zustaende;
 
     @NonNull
     private String name;

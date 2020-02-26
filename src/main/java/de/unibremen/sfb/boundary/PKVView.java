@@ -29,9 +29,8 @@ import java.util.UUID;
 @Setter
 @Log
 public class PKVView implements Serializable {
-    private List<ProzessKettenVorlage> ausProzessKettenVorlagen;
-    private List<ProzessKettenVorlage> verPKV;
     private List<ProzessKettenVorlage> selPKV;
+    private List<ProzessKettenVorlage> verPKV;
     private List<ProzessSchrittVorlage> sourcePSV;
     private List<ProzessSchrittVorlage> targetPSV;
     private DualListModel<ProzessSchrittVorlage> psvs;
@@ -66,7 +65,7 @@ public class PKVView implements Serializable {
     }
 
     public void deletePSV() {
-        prozessKettenVorlageService.delete(ausProzessKettenVorlagen);
+        prozessKettenVorlageService.delete(selPKV);
 
     }
 

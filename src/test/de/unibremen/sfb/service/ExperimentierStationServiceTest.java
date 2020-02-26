@@ -7,7 +7,7 @@ import de.unibremen.sfb.model.ExperimentierStation;
 import de.unibremen.sfb.model.ExperimentierStationZustand;
 import de.unibremen.sfb.model.Standort;
 import de.unibremen.sfb.model.User;
-import org.jboss.weld.junit5.EnableWeld;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +18,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@EnableWeld
+
 public class ExperimentierStationServiceTest {
     private List<ExperimentierStation> stationen;
     private ExperimentierStation es;

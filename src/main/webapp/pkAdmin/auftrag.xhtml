@@ -49,9 +49,7 @@
                     </p:column>
 
                     <p:column headerText="Vorlage">
-                        <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{auftrag.vorlage}"/></f:facet>
-                        </p:cellEditor>
+                            <h:outputText value="#{auftrag.vorlage.prozessSchrittVorlagen}"/>
                     </p:column>
 
                     <p:column style="width:35px">
