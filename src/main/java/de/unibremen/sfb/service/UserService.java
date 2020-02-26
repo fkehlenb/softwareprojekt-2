@@ -5,6 +5,7 @@ import de.unibremen.sfb.exception.UserNotFoundException;
 import de.unibremen.sfb.model.ExperimentierStation;
 import de.unibremen.sfb.model.Role;
 import de.unibremen.sfb.model.User;
+import de.unibremen.sfb.persistence.RoleDao;
 import de.unibremen.sfb.persistence.UserDAO;
 import lombok.Getter;
 
@@ -25,12 +26,17 @@ public class UserService implements Serializable {
     @Inject
     private UserDAO userDAO;
 
-    /** Mailing service */
+    /**
+     * Mailing service
+     */
     @Inject
     private MailingService mailingService;
 
     @Inject
     private ExperimentierStationService experimentierStationService;
+
+    @Inject
+    private RoleDao roleDao;
 
     /**
      * List of all users in the system
@@ -98,57 +104,70 @@ public class UserService implements Serializable {
         return userDAO.getAll();
     }
 
-    /** Check if a user exists in the database
+    /**
+     * Check if a user exists in the database
+     *
      * @param u - the user to check
-     * @return user exists in database? */
-    public boolean containsUser(User u) throws UserNotFoundException{
+     * @return user exists in database?
+     */
+    public boolean containsUser(User u) throws UserNotFoundException {
         try {
             userDAO.getUserById(u.getId());
             return true;
         }
         // On fail the dao will throw an exception
-        catch (Exception e){
+        catch (Exception e) {
             return false;
         }
     }
 
-    /** Check if a username has a user registered in the database
+    /**
+     * Check if a username has a user registered in the database
+     *
      * @param username - the username to check
-     * @return user exists in database? */
-    public boolean containsUserWithUsername(String username){
+     * @return user exists in database?
+     */
+    public boolean containsUserWithUsername(String username) {
         try {
             getUserByUsername(username);
             return true;
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
 
-    /** Check if an email address has a user registered in the database
+    /**
+     * Check if an email address has a user registered in the database
+     *
      * @param email - the email address to check
-     * @return the user exists in the database? */
-    public boolean containsUserWithEmail(String email){
-        try{
+     * @return the user exists in the database?
+     */
+    public boolean containsUserWithEmail(String email) {
+        try {
             getUserByEmail(email);
             return true;
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
 
-    /** Update a user in the database
+    /**
+     * Update a user in the database
+     *
      * @param u - the user to update in the database
-     * @throws UserNotFoundException if the user couldn't be found in the database */
-    public void updateUser(User u) throws UserNotFoundException{
+     * @throws UserNotFoundException if the user couldn't be found in the database
+     */
+    public void updateUser(User u) throws UserNotFoundException {
         userDAO.update(u);
     }
 
-    /** Remove a user from the database
+    /**
+     * Remove a user from the database
+     *
      * @param u - the user to remove from the database
-     * @throws UserNotFoundException if the user couldn't be found in the database */
-    public void removeUser(User u) throws UserNotFoundException{
+     * @throws UserNotFoundException if the user couldn't be found in the database
+     */
+    public void removeUser(User u) throws UserNotFoundException {
         List<ExperimentierStation> es = experimentierStationService.getAll();
         for (ExperimentierStation e : es) {
             if (e.getBenutzer().contains(u)) {
@@ -163,61 +182,84 @@ public class UserService implements Serializable {
         userDAO.remove(u);
     }
 
-    /** Remove a user from the database using his id
+    /**
+     * Remove a user from the database using his id
+     *
      * @param id - the user's id
-     * @throws UserNotFoundException if the id has no registered user in the database */
-    public void removeUserById(int id) throws UserNotFoundException{
+     * @throws UserNotFoundException if the id has no registered user in the database
+     */
+    public void removeUserById(int id) throws UserNotFoundException {
         userDAO.remove(getUserById(id));
     }
 
-    /** Remove a user from the database using his username
+    /**
+     * Remove a user from the database using his username
+     *
      * @param username - the user's username
-     * @throws UserNotFoundException if the username has no registered user in the database */
-    public void removeUserByUsername(String username) throws UserNotFoundException{
+     * @throws UserNotFoundException if the username has no registered user in the database
+     */
+    public void removeUserByUsername(String username) throws UserNotFoundException {
         userDAO.remove(getUserByUsername(username));
     }
 
-    /** Remove a user from the database using his email address
+    /**
+     * Remove a user from the database using his email address
+     *
      * @param email - the user's email address
-     * @throws UserNotFoundException if the email address has no registered user in the database */
-    public void removeUserByMail(String email) throws UserNotFoundException{
+     * @throws UserNotFoundException if the email address has no registered user in the database
+     */
+    public void removeUserByMail(String email) throws UserNotFoundException {
         userDAO.remove(getUserByEmail(email));
     }
 
-    /** Get the experimenting stations that are assigned to a user
+    /**
+     * Get the experimenting stations that are assigned to a user
+     *
      * @param u - the user whose experimenting stations to return
-     * @return the user's experimenting stations */
-    public List<ExperimentierStation> getEsByUser(User u){
+     * @return the user's experimenting stations
+     */
+    public List<ExperimentierStation> getEsByUser(User u) {
 //        return u.getStationen();
         return new ArrayList<>();
     }
 
-    /** Send an email address to a user
-     * @param u - the user to send the email to
+    /**
+     * Send an email address to a user
+     *
+     * @param u       - the user to send the email to
      * @param subject - the email subject
-     * @param message - the email content message */
-    public void sendMail(User u,String subject,String message){
-        mailingService.sendmail(u.getEmail(),message,subject);
+     * @param message - the email content message
+     */
+    public void sendMail(User u, String subject, String message) {
+        mailingService.sendmail(u.getEmail(), message, subject);
     }
 
     public List<Role> getRoles() {
-        roles = List.of(new Role("technologe"), new Role("transport"),
-                new Role ("admin"), new Role("pkAdmin"), new Role("logistik"));
-        return  roles;
+        roles = roleDao.getAll();
+        if (roles.isEmpty()) {
+            roles = List.of(new Role(UUID.randomUUID().hashCode(), "technologe"), new Role(UUID.randomUUID().hashCode(), "transport"),
+                    new Role(UUID.randomUUID().hashCode(), "admin"), new Role(UUID.randomUUID().hashCode(), "pkAdmin"), new Role(UUID.randomUUID().hashCode(), "logistik"));
+            for (Role r : roles){
+                roleDao.persist(r);
+            }
+        }
+        return roles;
     }
 
     /**
      * Get the Role specified by arg
+     *
      * @param role the request Role
      * @return the Role
      */
-    public Role getRole(String role) {
-       return roles.stream().filter(r -> r.getName().equals(role)).findFirst().orElseThrow(EntityNotFoundException::new);
+    public String getRole(String role) {
+        return role;
     }
 
     /**
      * Get the Current User
      * // FIXME because no persistence
+     *
      * @return
      */
     public User getCurrentUser() {

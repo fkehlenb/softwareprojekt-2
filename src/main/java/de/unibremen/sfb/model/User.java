@@ -37,8 +37,8 @@ public class User {
 
     // Die Rollen der Users
     @NonNull
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Role> roleList;
+    @ElementCollection
+    private List<String> roleList;
 
     /**
      * The user's name

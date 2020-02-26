@@ -116,7 +116,7 @@ public class AdminBean implements Serializable {
     /**
      * The roles the user has in the system
      */
-    private List<Role> rollen = new ArrayList<>();
+    private List<String> rollen = new ArrayList<>();
 
     /**
      * The jobs the user has in the system

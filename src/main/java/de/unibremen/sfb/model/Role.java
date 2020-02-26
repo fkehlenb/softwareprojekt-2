@@ -25,7 +25,7 @@ import java.util.Objects;
 public class Role {
 
     @Id
-    @GeneratedValue()
+    @NonNull
     private int id;
 
     /**
