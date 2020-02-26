@@ -18,7 +18,7 @@ import java.io.Serializable;
 
 @Named
 @RequestScoped
-@Slf4j  // WICHTIG TODO nicht @Log sondern @slf4j
+@Slf4j
 public class ShiroLoginBean implements Serializable {
 //    private static final Logger log = LoggerFactory.getLogger(ShiroLoginBean.class);
 

@@ -2,7 +2,9 @@ package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.model.QuantitativeEigenschaft;
 import de.unibremen.sfb.persistence.QuantitativeEigenschaftDAO;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -13,7 +15,10 @@ import java.util.List;
 @Setter
 @Getter
 @Slf4j
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 public class QuantitativeEigenschaftService implements Serializable {
+
+
 
     /** The DAO */
     @Inject
@@ -58,6 +63,10 @@ public class QuantitativeEigenschaftService implements Serializable {
         } catch (Exception e) {
             log.info("FAILED QuantitativeEigenschaft Methode = edit");
         }
+    }
+
+    public List<String> getEinheiten() {
+        return List.of("second", "metre", "kilogram", "kilogram", "ampere", "mole", "candela");
     }
 
     /** Get a quantitative descriptor using its id*/

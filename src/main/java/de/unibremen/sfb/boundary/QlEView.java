@@ -10,6 +10,7 @@ import de.unibremen.sfb.service.QuantitativeEigenschaftService;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -32,6 +33,7 @@ public class QlEView implements Serializable {
     private QualitativeEigenschaftService qualitativeEigenschaftService;
     @Inject
     private QuantitativeEigenschaftService quantitativeEigenschaftService;
+    // FIXME Santi Edit Einheit
 
     @Inject
     private ProzessSchrittParameterService prozessSchrittParameterService;
@@ -42,6 +44,14 @@ public class QlEView implements Serializable {
 
     private String nameQuantitativeEigenschaft;
 
+    private String einheit;
+    private List<String> einheiten;
+
+
+    @PostConstruct
+    public void init() {
+        einheiten = quantitativeEigenschaftService.getEinheiten();
+    }
 
     public void addQualitativeEigenschaft() throws DuplicateQualitativeEigenschaftException {
         QualitativeEigenschaft qualitativeEigenschaft = new QualitativeEigenschaft(UUID.randomUUID().hashCode(), nameQualitativeEigenschaft);
@@ -93,12 +103,14 @@ public class QlEView implements Serializable {
             QuantitativeEigenschaft quantitativeEigenschaft = quantitativeEigenschaftService.getQlEById(Integer.parseInt(idF));
             quantitativeEigenschaft.setName(nameQuantitativeEigenschaft);
             quantitativeEigenschaft.setWert(Integer.parseInt(numberQuantitativeEigenschaft));
+            quantitativeEigenschaft.setEinheit(einheit);
             quantitativeEigenschaftService.edit(quantitativeEigenschaft);
         } catch (Exception e) {
             QuantitativeEigenschaft quantitativeEigenschaft = new QuantitativeEigenschaft();
             quantitativeEigenschaft.setName(nameQuantitativeEigenschaft);
             quantitativeEigenschaft.setId(UUID.randomUUID().hashCode());
             quantitativeEigenschaft.setWert(Integer.parseInt(numberQuantitativeEigenschaft));
+            quantitativeEigenschaft.setEinheit(einheit);
             quantitativeEigenschaftService.addQuantitativeEigenschaft(quantitativeEigenschaft);
         }
         resetvariables();
@@ -126,6 +138,7 @@ public class QlEView implements Serializable {
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("IdQnE", IdQnE);
             nameQuantitativeEigenschaft = quantitativeEigenschaftService.getQlEById(Integer.parseInt(IdQnE)).getName();
             numberQuantitativeEigenschaft = NumberFormat.getInstance().format(quantitativeEigenschaftService.getQlEById(Integer.parseInt(IdQnE)).getWert());
+            einheit = quantitativeEigenschaftService.getQlEById(Integer.parseInt(IdQnE)).getEinheit();
         } catch (Exception e) {
             e.printStackTrace();
         }

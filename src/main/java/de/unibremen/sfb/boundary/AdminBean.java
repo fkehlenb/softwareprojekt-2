@@ -309,6 +309,7 @@ public class AdminBean implements Serializable {
     public void builtRollenList() {
         if (technologe) {
             rollen.add(Role.TECHNOLOGE);
+
         }
         if (pkAdministrator) {
             rollen.add(Role.PKADMIN);
@@ -458,7 +459,7 @@ public class AdminBean implements Serializable {
             e.printStackTrace();
             List<User> experimentierStationUsers = new ArrayList<>();
             Collections.addAll(experimentierStationUsers, experimentierStationBenutzer);
-            ExperimentierStation es = new ExperimentierStation(UUID.randomUUID().hashCode(), experimentierStationStandort, experimentierStationName, ExperimentierStationZustand.VERFUEGBAR, experimentierStationUsers);
+            ExperimentierStation es = new ExperimentierStation(UUID.randomUUID().hashCode(), experimentierStationStandort, experimentierStationName, ExperimentierStationZustand.VERFUEGBAR, new ArrayList<>(), experimentierStationUsers);
             try {
                 experimentierStationService.addES(es);
                 log.info("Added experimenting station! Name: " + experimentierStationName);

@@ -1,5 +1,6 @@
 package de.unibremen.sfb.boundary;
 
+import de.unibremen.sfb.exception.AuftragNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.*;
 import lombok.Getter;
@@ -25,7 +26,14 @@ import java.util.List;
 public class AuftragView implements Serializable {
     private List<Auftrag> auftrage;
     private List<ProzessKettenVorlage> vorlagen;
+    private AuftragsPrioritaet[] prios;
+    private List<Auftrag> selectedAuftraege;
+    private List<Auftrag> filteredAuftraege;
     //Der gewählte Auftrag
+
+    // Auftrag Erstellen
+    private ProzessKettenVorlage ausPKV;
+    private AuftragsPrioritaet ausPrio;
 
 
     @Inject
@@ -34,28 +42,33 @@ public class AuftragView implements Serializable {
     @Inject
     ProzessKettenVorlageService prozessKettenVorlageService;
 
-    @Inject
-    ZustandsService zustandsService;
-
     @PostConstruct
     void init() {
         auftrage = auftragService.getAuftrage();
         vorlagen = getPKVs();
+        prios = AuftragsPrioritaet.values();
+    }
+
+    public void erstelleAuftrag() {
+        int id = auftragService.erstelleAuftrag(ausPKV, ausPrio);
+        facesNotification("Erfolgreich Auftrag: " + id + " erstellt");
+        updateAuftragTabelle();
     }
 
     /**
      * Aktualisiert die Tabelle
      */
-    public void updateAuftragTabelle(){
+    public void updateAuftragTabelle() {
         auftrage = auftragService.getAuftrage();
     }
 
     public void onRowEdit(RowEditEvent<Auftrag> event) {
-        log.info("Updating: "+ event.getObject().getPkID());
+        log.info("Updating: " + event.getObject().getPkID());
         try {
             auftragService.update(event.getObject());
         } catch (de.unibremen.sfb.exception.AuftragNotFoundException e) {
             e.printStackTrace();
+            log.error(e.getMessage());
         }
         FacesMessage msg = new FacesMessage("Auftrag Edited", event.getObject().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -72,6 +85,18 @@ public class AuftragView implements Serializable {
 
     public List<ProzessKettenVorlage> getPKVs() {
         return prozessKettenVorlageService.getPKVs();
+    }
+
+    public void delete() {
+        try {
+            auftragService.delete(selectedAuftraege); //FIXME LIAM
+            FacesMessage msg = new FacesMessage("Deleted", selectedAuftraege.toString());
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error(e.getMessage());
+            facesError("Failed to delete Selection");
+        }
     }
 
     /**

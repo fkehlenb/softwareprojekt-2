@@ -49,12 +49,12 @@ public class BedingungService implements Serializable {
         bs = getAll();
     }
 
-    /** Find an Bedingung using its name
-     * @param name - the Bedingung's name */
-    public Bedingung findByName(String name) {
+    /** Find an Bedingung using its id
+     * @param id - the Bedingung's name */
+    public Bedingung findByID(int id) {
         // FIXME Use String as ID or convert to String
-        bs = bedingungDAO.getAll();
-        return this.bs.stream().filter(c -> c.getName().equals(name)).findFirst().orElse(null);
+        Bedingung bs = bedingungDAO.findById(id);
+        return bs;
     }
 
     /** @return a list of all bedingung in the system */

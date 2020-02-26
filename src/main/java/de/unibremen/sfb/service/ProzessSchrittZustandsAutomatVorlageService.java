@@ -54,4 +54,7 @@ public class ProzessSchrittZustandsAutomatVorlageService {
     }
 
 
+    public ProzessSchrittZustandsAutomatVorlage getByID(int id) {
+        return prozessSchrittZustandsAutomatVorlageDAO.getById(id);
+    }
 }

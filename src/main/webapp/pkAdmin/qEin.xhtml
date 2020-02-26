@@ -82,6 +82,11 @@
                                 <p:outputLabel for="value" value="value:"/>
                                 <p:inputText id="value" value="#{qlEView.numberQuantitativeEigenschaft}"
                                              placeholder="wert"/>
+                                <p:outputLabel for="value" value="Einheit:"/>
+                                <h:selectOneMenu value="#{qlEView.einheit}" style="width:100%">
+                                    <f:selectItems value="#{qlEView.einheiten}" var="e" itemLabel="#{e}"
+                                                   itemValue="#{e}"/>
+                                </h:selectOneMenu>
                                 <p:commandButton value="Reset" type="reset"/>
                                 <p:commandButton ajax="false" action="#{qlEView.addQuantitativeEigenschaft()}"
                                                  value="Spichern"/>
@@ -102,6 +107,9 @@
                         </p:column>
                         <p:column headerText="Value">
                             <h:outputText value="#{qnE.wert}"/>
+                        </p:column>
+                        <p:column headerText="Einheit">
+                            <h:outputText value="#{qnE.einheit}" />
                         </p:column>
                         <p:column headerText="Edit">
                             <h:form>

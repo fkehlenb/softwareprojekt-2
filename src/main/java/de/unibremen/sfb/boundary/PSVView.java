@@ -82,8 +82,6 @@ public class PSVView implements Serializable {
     @Inject
     private ExperimentierStationService experimentierStationService;
 
-    @Inject
-    ZustandsService  zustandsService;
 
     @Inject
     private TraegerArtService traegerArtService;
@@ -103,7 +101,6 @@ public class PSVView implements Serializable {
         verfuegbareBedingunen = bedingungService.getAll();
         verfuegbarePSV = prozessSchrittVorlageService.getVorlagen();
         verfuegbareStationen = experimentierStationService.getESListe();
-        zustandsService.getPsZustaende();
         verfuegbareTraegerArt = traegerArtService.getVerTraeger();
         verPSZAV = prozessSchrittZustandsAutomatVorlageService.getProzessSchrittZustandsAutomatVorlagen();
     }

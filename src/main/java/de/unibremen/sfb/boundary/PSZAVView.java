@@ -35,6 +35,7 @@ public class PSZAVView implements Serializable {
     private List<String> sourceZ;
     private List<String> targetZ;
     private DualListModel<String> dualZ;
+    private String toaddd;
 
     @Inject
     private ProzessSchrittZustandsAutomatVorlageService prozessSchrittZustandsAutomatVorlageService;
@@ -42,21 +43,26 @@ public class PSZAVView implements Serializable {
     @Inject
     private ProzessSchrittVorlageService prozessSchrittVorlageService;
 
-    @Inject
-    ZustandsService zustandsService;
-
     /**
      * Hier werden aus der Persitenz die benötigten Daten Geladen
      */
     @PostConstruct
     public void init() {
         sourceZ = new ArrayList<String>();
-        targetZ = zustandsService.getPsZustaende();
+        targetZ = prozessSchrittZustandsAutomatVorlageService.getByID(996699).getZustaende();//;
         dualZ = new DualListModel<String>(sourceZ, targetZ);
         verpszav = prozessSchrittZustandsAutomatVorlageService.getProzessSchrittZustandsAutomatVorlagen();
         //
     }
 
+    public void toAdd(String id) throws ProzessSchrittVorlageNotFoundException {
+        ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage =  prozessSchrittZustandsAutomatVorlageService.getByID(Integer.parseInt(id));
+        List<String> newZustande = prozessSchrittZustandsAutomatVorlage.getZustaende();
+        newZustande.add(toaddd);
+        prozessSchrittZustandsAutomatVorlage.setZustaende(newZustande);
+        prozessSchrittZustandsAutomatVorlageService.edit(prozessSchrittZustandsAutomatVorlage);
+        verpszav = prozessSchrittZustandsAutomatVorlageService.getProzessSchrittZustandsAutomatVorlagen();
+    }
     public String erstellePSZAV() {
         // FIXME Implementation
         log.info("Selected Zustaende: " + dualZ.getTarget());
@@ -74,17 +80,58 @@ public class PSZAVView implements Serializable {
 
     public void onRowEdit(RowEditEvent<ProzessSchrittZustandsAutomatVorlage> event) throws ProzessSchrittVorlageNotFoundException {
         //When The Persistence gefit be, we can uncomment that.
+        boolean a =checkOrdnung(event);
+        if(!a){
         prozessSchrittZustandsAutomatVorlageService.edit(event.getObject());
         FacesMessage msg = new FacesMessage("PS Automat Edited", event.getObject().toString());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        FacesContext.getCurrentInstance().addMessage(null, msg);}
+        else{
+            onRowCancelWegenOrdnung();
+        }
 
+    }
+
+    private boolean checkOrdnung(RowEditEvent<ProzessSchrittZustandsAutomatVorlage> event) {
+        int counterInbearbeitung =0;
+        int counterBearbeitet = 0;
+        int counterAngenommen =0;
+        int counterWeitergeleitet = 0;
+        int counter=0;
+        var list = event.getObject().getZustaende();
+        for (String listz:
+        list) {
+            if(listz.equals("Angenommen")){
+                counterAngenommen=counter;
+            }
+            if(listz.equals("In Bearbeitung")){
+                counterInbearbeitung=counter;
+            }
+            if(listz.equals("Bearbeitet")){
+                counterBearbeitet=counter;
+            }
+            if(listz.equals("Weitergeleitet")){
+                counterWeitergeleitet=counter;
+            }
+            counter++;
+        }
+        if(counterBearbeitet<counterInbearbeitung &&
+                counterAngenommen<counterInbearbeitung&&
+                counterAngenommen<counterBearbeitet &&
+                counterAngenommen<counterWeitergeleitet ){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public void onRowCancel(RowEditEvent<ProzessSchrittVorlage> event) {
         FacesMessage msg = new FacesMessage("Edit Cancelled", event.getObject().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
-
+    public void onRowCancelWegenOrdnung() {
+        FacesMessage msg = new FacesMessage("Bearbeitet darf nicht vor in Bearbeitung sein");
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
 }
 
 

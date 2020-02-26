@@ -1,13 +1,11 @@
 package de.unibremen.sfb.service;
 
-import de.unibremen.sfb.exception.DuplicateProzessSchrittLogException;
-import de.unibremen.sfb.exception.ProzessSchrittLogNotFoundException;
-import de.unibremen.sfb.exception.ProzessSchrittNotFoundException;
-import de.unibremen.sfb.exception.ProzessSchrittZustandsAutomatNotFoundException;
+import de.unibremen.sfb.exception.*;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.ProzessSchrittDAO;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
@@ -24,7 +22,13 @@ import java.util.List;
  * Anwendungsfall: Bearbeiten eines ProzessSchrittes oder Hinzufügen eines neuen
  */
 @Slf4j
+@Transactional
 public class ProzessSchrittService implements Serializable {
+
+    /**
+     * List of all process steps
+     */
+    private List<ProzessSchritt> psListe;
 
     /**
      * Experimenting station service
@@ -43,10 +47,17 @@ public class ProzessSchrittService implements Serializable {
     private ProzessSchrittLogService pslService;
 
     @Inject
-    private AuftragService auftragService;
+    AuftragService auftragService;
+
+
+    @PostConstruct
+    public void init() {
+        psListe = getAll();
+    }
 
     /**
      * Get all PS which belong to user
+     *
      * @param u the current user
      * @return the ps
      */
@@ -65,7 +76,8 @@ public class ProzessSchrittService implements Serializable {
 
     /**
      * sets the current state of this ProzessSchritt
-     * @param ps the ProzessSchritt
+     *
+     * @param ps      the ProzessSchritt
      * @param zustand the new state
      * @throws ProzessSchrittNotFoundException the ProzessSchritt is not in the database
      */
@@ -77,10 +89,9 @@ public class ProzessSchrittService implements Serializable {
         }
         else if(! ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().contains(zustand)) {
             throw new IllegalArgumentException("state not possible for this ProzessSchritt");
-        }
-        else {
+        } else {
             ps.getProzessSchrittZustandsAutomat().setCurrent(zustand);
-            pslService.closeLog(ps.getProzessSchrittLog().get(ps.getProzessSchrittLog().size()-1));
+            pslService.closeLog(ps.getProzessSchrittLog().get(ps.getProzessSchrittLog().size() - 1));
             ps.getProzessSchrittLog().add(pslService.newLog(zustand));
             prozessSchrittDAO.update(ps);
         }
@@ -88,6 +99,7 @@ public class ProzessSchrittService implements Serializable {
 
     /**
      * searches for the Auftrag the ProzessSchritt belongs to //TODO yikes
+     *
      * @param ps the ps which's Auftrag is looked for
      * @return the Auftrag (or null, if none was found)
      */
@@ -104,8 +116,8 @@ public class ProzessSchrittService implements Serializable {
          */
         return auftragService.getAuftrage().stream()
                 .filter((a) -> (a.getProzessSchritte().stream()
-                                .anyMatch((p) -> p.getPsID() == ps.getPsID()))
-                        ).findFirst().orElse(null);
+                        .anyMatch((p) -> p.getPsID() == ps.getPsID()))
+                ).findFirst().orElse(null);
 
     }
 
@@ -113,17 +125,24 @@ public class ProzessSchrittService implements Serializable {
         return prozessSchrittDAO.getAll();
     }
 
-    /** JSON export */
+    /**
+     * JSON export
+     */
     public String toJson() {
         JsonbConfig config = new JsonbConfig()
                 .withFormatting(true);
 
         // Create Jsonb with custom configuration
         Jsonb jsonb = JsonbBuilder.create(config);
-        String result = jsonb.toJson(getAll());
+        String result = jsonb.toJson(psListe);
+        // FIXME LEO
+        //String result = "JSON IS Broken";
         log.info("Export von den Auftraegen\n" + result);
         return result;
     }
 
+    public void add(ProzessSchritt ps) throws DuplicateProzessSchrittException {
+        prozessSchrittDAO.persist(ps);
+    }
 }
 

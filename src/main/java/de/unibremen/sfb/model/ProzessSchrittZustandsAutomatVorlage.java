@@ -23,8 +23,12 @@ public class ProzessSchrittZustandsAutomatVorlage {
 
     /** The states the process step automatons can be in */
     @NonNull
-    @ElementCollection(fetch = FetchType.LAZY)
-    private List<String> zustaende;
+     @ElementCollection(fetch = FetchType.LAZY)
+     private List<String> zustaende;
+
+    //Leo Möglische Loesung
+    //@OneToMany
+    //private List<Zustand> zustaende;
 
     @NonNull
     private String name;

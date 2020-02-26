@@ -5,6 +5,8 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import java.time.LocalDateTime;
 
 /** The transport jobs' data class */
 @Getter
@@ -20,6 +22,16 @@ public class TransportAuftrag {
 
     @Id @GeneratedValue
     private int id;
+
+    @NonNull
+    private LocalDateTime erstellt;
+    private LocalDateTime abgeholt;
+    private LocalDateTime abgeliefert;
+
+    @ManyToOne
+    private Standort start;
+    @ManyToOne
+    private Standort ziel;
 
     /** The transport job's current state */
     @NonNull

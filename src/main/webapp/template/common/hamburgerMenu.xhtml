@@ -14,35 +14,38 @@
                     <p:autoUpdate/>
                 </p:growl>
                 <p:panelMenu>
-                    <p:submenu label="Navigation" id="navigation">
-                        <p:menuitem id="Home" value="Home" icon="pi pi-home" url="/index.xhtml"/>
-                        <p:menuitem id="Account" value="Accout" icon="pi pi-briefcase"/>
-                        <p:menuitem id="Logout" value="Logout" icon="pi pi-times" url="/logout"/>
+                    <p:submenu label="#{msg['navigation.jsf']}" id="navigation">
+                        <p:menuitem id="Home" value="#{msg['home.jsf']}" icon="pi pi-home" url="/index.xhtml"/>
+                        <p:menuitem id="Account" value="Account" icon="pi pi-briefcase"/>
+                        <p:menuitem id="Logout" value="#{msg['logout.jsf']}" icon="pi pi-times" url="/logout"/>
                     </p:submenu>
                 </p:panelMenu>
                 <p:panelMenu>
                     <p:submenu label="Menu" id="Menu">
                         <shiro:hasRole name="admin">
-                            <p:submenu label="Administrator Tools" id="AdminTools">
-                                <p:menuitem value="Nutzer Verwalten"
+                            <p:submenu label="#{msg['adminTools.jsf']}" id="AdminTools">
+                                <p:menuitem value="#{msg['nutzerV.jsf']}"
                                             url="/admin/nutzerVerwaltung.xhtml"/>
-                                <p:menuitem value="Experimentierstationen Verwalten"
+                                <p:menuitem value="#{msg['esV.jsf']}"
                                             url="/admin/experimentierStationVerwaltung.xhtml"/>
-                                <p:menuitem value="Standort Verwaltung"
+                                <p:menuitem value="#{msg['sV.jsf']}"
                                             url="/admin/standortVerwaltung.xhtml"/>
-                                <p:menuitem value="Globale Einstellungen"
+                                <p:menuitem value="#{msg['gloEin.jsf']}"
                                             url="/admin/globaleEinstellungen.xhtml"/>
                                 <p:menuitem value="Backup" url="/admin/backup.xhtml"/>
                             </p:submenu>
                         </shiro:hasRole>
                         <shiro:hasRole name="pkAdmin">
                             <p:submenu label="Prozesskettenplaner Tools" id="pkverwaltungsTools">
-                                <p:menuitem value="Prozessschritt Verwaltung" url="/pkAdmin/.xhtml"/>
-                                <p:menuitem value="Ablaufsverwaltung"/>
-                                <p:menuitem value="Prozessketten Verwalten"/>
-                                <p:menuitem value="Auftraege Verwalten"/>
-                                <p:menuitem value="Arbeitsauslastung"/>
-                                <p:menuitem value="JSON Export"/>
+                                <p:menuitem value="Prozessschritt" url="/pkAdmin/ps.xhtml" id="ps" />
+                                <p:menuitem value="Prozessschritt Vorlage" url="/pkAdmin/psv.xhtml" id="psv" />
+                                <p:menuitem value="PS Zustandsautomaten" url="/pkAdmin/pszav.xhtml" id="av" />
+                                <p:menuitem value="Prozessschritt Parameter" url="/pkAdmin/psp.xhtml" id="psp"/>
+                                <p:menuitem value="Prozessketten Vorlagen" url="/pkAdmin/pkv.xhtml" id="pkv" />
+                                <p:menuitem value="Auftraege" url="/pkAdmin/auftrag.xhtml" id="a" />
+                                <p:menuitem value="Eigenschaften" url="/pkAdmin/qEin.xhtml" id="e" />
+                                <p:menuitem value="Bedingungen" url="/pkAdmin/bedingungen.xhtml" id="b" />
+                                <p:menuitem value="Arbeitsauslastung" id="al"/>
                             </p:submenu>
                         </shiro:hasRole>
                         <shiro:hasRole name="transport">

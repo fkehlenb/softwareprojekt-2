@@ -6,7 +6,7 @@ import de.unibremen.sfb.exception.TraegerArtNotFoundException;
 import de.unibremen.sfb.model.ProzessSchrittZustandsAutomat;
 import de.unibremen.sfb.model.ProzessSchrittZustandsAutomatVorlage;
 import de.unibremen.sfb.model.TraegerArt;
-import de.unibremen.sfb.model.Zustand;
+
 
 import java.util.ArrayList;
 import java.util.List;

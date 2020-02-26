@@ -6,7 +6,9 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Queue;
 
-/** Experimenting stations data class */
+/**
+ * Experimenting stations data class
+ */
 @Data
 @Entity
 @NamedQueries({
@@ -21,48 +23,59 @@ import java.util.Queue;
 @NoArgsConstructor
 public class ExperimentierStation {
 
-    /** On delete set to invalid */
+    /**
+     * On delete set to invalid
+     */
     @NonNull
     private boolean isValidData = true;
 
-    /** The station's id */
+    /**
+     * The station's id
+     */
     @NonNull
     @Id
     private int esID;
 
-    /** The station's location */
+    /**
+     * The station's location
+     */
     @NonNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Standort standort;
 
     @NonNull
     private String name;
 
-    /** The station's status */
+    /**
+     * The station's status
+     */
     @NonNull
     private Enum<ExperimentierStationZustand> status;
 
-    //TODO
-    /** The queue currently being processed at the experimenting station */
-//    @NonNull
-//    private Queue<ProzessSchritt> nextPS;
+    /**
+     * The queue currently being processed at the experimenting station
+     */
+    @NonNull
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<ProzessSchritt> psQeue;
 
-    /** Conditions for using an experimenting station */
+    /**
+     * Conditions for using an experimenting station
+     */
     @OneToMany(fetch = FetchType.LAZY)
     private List<Bedingung> bedingungen;
 
     @NonNull
-    @ManyToMany(cascade=CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private List<User> benutzer;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     private ProzessSchritt currentPS;
 
     @Override
     public String toString() {
         return "ES: " + standort;
     }
-
 
 
 }

@@ -39,7 +39,7 @@ public class Probe {
 
     /** The sample's location */
     @NonNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Standort standort;
 
     /** The Predicate of a Sample */
@@ -51,7 +51,7 @@ public class Probe {
     private List<QualitativeEigenschaft> qualitativeEigenschaften;
 
     /** The container the sample is currently located in */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Traeger currentTraeger;
 }
 

@@ -3,9 +3,11 @@ package de.unibremen.sfb.persistence;
 import de.unibremen.sfb.exception.DuplicateProzessSchrittZustandsAutomatVorlageException;
 import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
 import de.unibremen.sfb.model.ProzessSchrittZustandsAutomatVorlage;
+import de.unibremen.sfb.model.QualitativeEigenschaft;
 import de.unibremen.sfb.model.Standort;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,9 +34,9 @@ public class ProzessSchrittZustandsAutomatVorlageDAO extends ObjectDAO<ProzessSc
      * @throws ProzessSchrittVorlageNotFoundException if the process step state template cannot be found in the database */
     public void update(ProzessSchrittZustandsAutomatVorlage pszv) throws ProzessSchrittVorlageNotFoundException{
         if (pszv!=null){
-            if (!em.contains(pszv)){
-                throw new ProzessSchrittVorlageNotFoundException();
-            }
+            //if (!em.contains(pszv)){
+            //    throw new ProzessSchrittVorlageNotFoundException();
+            //}
             em.merge(pszv);
         }
     }
@@ -70,5 +72,14 @@ public class ProzessSchrittZustandsAutomatVorlageDAO extends ObjectDAO<ProzessSc
     /** @return the class of a process step state template */
     public Class<ProzessSchrittZustandsAutomatVorlage> get(){
         return ProzessSchrittZustandsAutomatVorlage.class;
+    }
+
+    public ProzessSchrittZustandsAutomatVorlage getById(int id) {
+        try {
+            ProzessSchrittZustandsAutomatVorlage q =  em.find(ProzessSchrittZustandsAutomatVorlage.class, id);
+            return q;
+        } catch (Exception e) {
+            throw new IllegalArgumentException("PS Automat not found");
+        }
     }
 }

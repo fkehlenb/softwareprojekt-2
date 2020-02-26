@@ -3,6 +3,7 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(name = "Auftrag.getAll", query = "SELECT a FROM Auftrag a WHERE a.isValidData = true")
 })
-public class Auftrag {
+public class Auftrag implements Serializable {
 
     /** On delete set to invalid */
     @NonNull
@@ -32,7 +33,7 @@ public class Auftrag {
      * The process chain template this job was created from
      */
     @NonNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private ProzessKettenVorlage vorlage;
 
     /**
@@ -52,7 +53,7 @@ public class Auftrag {
      * The job's log
      */
     @NonNull
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     private AuftragsLog log;
 
     /**
