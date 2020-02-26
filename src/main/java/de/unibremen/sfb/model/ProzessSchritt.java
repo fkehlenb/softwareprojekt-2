@@ -45,7 +45,7 @@ public class ProzessSchritt {
 
     /** The process step template the process step was created from */
     @NonNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private ProzessSchrittVorlage prozessSchrittVorlage;
 
     /** Die Zugewiesenen Proben fuer diesen Schritt */
@@ -54,6 +54,6 @@ public class ProzessSchritt {
 
     /** The process step state automaton template the automaton was created from (containing all possible states) */
     @NonNull
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     private ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat;
 }

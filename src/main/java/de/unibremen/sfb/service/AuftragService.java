@@ -17,21 +17,22 @@ import javax.inject.Inject;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbConfig;
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Singleton
-@Slf4j
-@Getter
-@Data
+
 /**
  * Service fuer AuftragService
  * Anwendungsfall: Bearbeiten einer Vorlage oder hinzufuegen einer ProzessSchrittVorlage in einer ProzessKettenVorlage
  */
-
+@Slf4j
+@Getter
+@Data
+@Transactional
 public class AuftragService implements Serializable {
     private List<Auftrag> auftrage;
     private
@@ -204,7 +205,7 @@ public class AuftragService implements Serializable {
                 "pk,", "123", true, LocalDateTime.now(),
                 List.of(Role.TECHNOLOGE), "DEUTSCH"));
         var es = List.of(new ExperimentierStation(4, new Standort(1, "Test"), "Fehlerfrei",
-                ExperimentierStationZustand.VERFUEGBAR,new ArrayList<>(), us));
+                ExperimentierStationZustand.VERFUEGBAR, new ArrayList<>(), us));
         var bs = List.of(new Bedingung(9, "Test B", List.of(new ProzessSchrittParameter(6, "PsP 1",
                 List.of(new QualitativeEigenschaft(8, "gestresst"))), p), 66));
         // Es ist nicht moeglich, es und bs eager in der naechsten Zeile
@@ -219,10 +220,10 @@ public class AuftragService implements Serializable {
         ProzessSchrittZustandsAutomatVorlage sVorlage = new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(),
                 zustaende, "Standart");
         ProzessSchrittZustandsAutomatVorlage v = new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(),
-                List.of("Erstellt", "Kapput") , "Test pszvav");
+                List.of("Erstellt", "Kapput"), "Test pszvav");
         var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "ANGENOMMEN", sVorlage);
 
-        var psv0 = new ProzessSchrittVorlage(42, "8", "ERMITTELND", es, bs, v );
+        var psv0 = new ProzessSchrittVorlage(42, "8", "ERMITTELND", es, bs, v);
         var psv1 = new ProzessSchrittVorlage(55, "6", "FAERBEND", es, bs, v);
 
         // Traeger Config
@@ -238,7 +239,7 @@ public class AuftragService implements Serializable {
         l.add(psv1);
 
         var pslogs = new ArrayList<ProzessSchrittLog>();
-        var ps = new ProzessSchritt(UUID.randomUUID().hashCode(), List.of(new ProzessSchrittLog(LocalDateTime.now(), "string")),  psv1, new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(),
+        var ps = new ProzessSchritt(UUID.randomUUID().hashCode(), List.of(new ProzessSchrittLog(LocalDateTime.now(), "string")), psv1, new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(),
                 "FUCK", new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(), List.of("String"), "String")));
 
         var pkv = new ProzessKettenVorlage(UUID.randomUUID().hashCode(), List.of(psv1, psv0));
@@ -288,6 +289,7 @@ public class AuftragService implements Serializable {
 
     /**
      * Loeschen von ProzessKettenVorlagen
+     *
      * @param auftrags die Vorlagen
      */
     public void delete(List<ProzessKettenVorlage> auftrags) {
@@ -300,11 +302,8 @@ public class AuftragService implements Serializable {
     public String toJson() {
         JsonbConfig config = new JsonbConfig()
                 .withFormatting(true);
-
-        // Create Jsonb with custom configuration
         Jsonb jsonb = JsonbBuilder.create(config);
-         String result = jsonb.toJson(auftrage);
-        //String result = "JSON IS BROKEN FIXME LEO";
+        String result = jsonb.toJson(auftrage);
         log.info("Export von den Auftraegen\n" + result);
         return result;
     }
@@ -315,7 +314,8 @@ public class AuftragService implements Serializable {
 
     /**
      * sets the status of a job
-     * @param a the job
+     *
+     * @param a       the job
      * @param zustand the new status
      * @throws AuftragNotFoundException the job couldn't be found in the database
      */
@@ -326,6 +326,7 @@ public class AuftragService implements Serializable {
 
     /**
      * assigns a user to a job
+     *
      * @param t the user to be assigned
      * @param a the job to which they will be assigned
      * @throws AuftragNotFoundException the job couldn't be found in the database
@@ -391,10 +392,11 @@ public class AuftragService implements Serializable {
         }
         // TODO persist
         return result;
-        }
+    }
 
     /**
      * Hole Alle ProzessSchritte die als Transport Zustand ERSTELLT haben
+     *
      * @return alle ps fuer den Transport
      */
     public List<ProzessSchritt> getTransportSchritt() {
@@ -402,9 +404,9 @@ public class AuftragService implements Serializable {
         for (Auftrag a :
                 getAuftrage()) {
             s.addAll(a.getProzessSchritte().stream()
-                    .filter(p -> p.getTransportAuftrag().getZustandsAutomat()==TransportAuftragZustand.ERSTELLT)
+                    .filter(p -> p.getTransportAuftrag().getZustandsAutomat() == TransportAuftragZustand.ERSTELLT)
                     .collect(Collectors.toSet()));
         }
-        return s.isEmpty()?new ArrayList<>():List.copyOf(s);
+        return s.isEmpty() ? new ArrayList<>() : List.copyOf(s);
     }
 }

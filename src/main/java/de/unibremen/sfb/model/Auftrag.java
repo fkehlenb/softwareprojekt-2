@@ -32,7 +32,7 @@ public class Auftrag {
      * The process chain template this job was created from
      */
     @NonNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private ProzessKettenVorlage vorlage;
 
     /**
@@ -52,7 +52,7 @@ public class Auftrag {
      * The job's log
      */
     @NonNull
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     private AuftragsLog log;
 
     /**
