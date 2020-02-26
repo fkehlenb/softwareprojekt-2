@@ -90,7 +90,7 @@ public class QlEView implements Serializable {
             return "Succes";
         } else {
             System.out.println("abhanging");
-            return "abhanPSundqEI?faces-redirect=true";
+            return "abEvPP?faces-redirect=true";
         }
     }
 

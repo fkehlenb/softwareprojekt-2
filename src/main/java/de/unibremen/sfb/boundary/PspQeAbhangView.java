@@ -61,7 +61,7 @@ public class PspQeAbhangView implements Serializable {
         qualitativeEigenschaftP.remove(quantitativeEigenschaftToRemove);
         prozessSchrittParameter.setQualitativeEigenschaften(qualitativeEigenschaftP);
         prozessSchrittParameterService.update(prozessSchrittParameter);
-        return "abhanPSundqEI?faces-redirect=true";
+        return "abEvPP?faces-redirect=true";
     }
 
     public String linkQIE(){
