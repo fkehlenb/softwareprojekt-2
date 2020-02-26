@@ -40,7 +40,7 @@ public class ExperimentierStation {
      * The station's location
      */
     @NonNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Standort standort;
 
     @NonNull
@@ -69,7 +69,7 @@ public class ExperimentierStation {
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private List<User> benutzer;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     private ProzessSchritt currentPS;
 
     @Override

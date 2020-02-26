@@ -50,7 +50,7 @@ public class QlEView implements Serializable {
 
     @PostConstruct
     public void init() {
-       einheiten = quantitativeEigenschaftService.getEinheiten();
+        einheiten = quantitativeEigenschaftService.getEinheiten();
     }
 
     public void addQualitativeEigenschaft() throws DuplicateQualitativeEigenschaftException {
@@ -103,12 +103,14 @@ public class QlEView implements Serializable {
             QuantitativeEigenschaft quantitativeEigenschaft = quantitativeEigenschaftService.getQlEById(Integer.parseInt(idF));
             quantitativeEigenschaft.setName(nameQuantitativeEigenschaft);
             quantitativeEigenschaft.setWert(Integer.parseInt(numberQuantitativeEigenschaft));
+            quantitativeEigenschaft.setEinheit(einheit);
             quantitativeEigenschaftService.edit(quantitativeEigenschaft);
         } catch (Exception e) {
             QuantitativeEigenschaft quantitativeEigenschaft = new QuantitativeEigenschaft();
             quantitativeEigenschaft.setName(nameQuantitativeEigenschaft);
             quantitativeEigenschaft.setId(UUID.randomUUID().hashCode());
             quantitativeEigenschaft.setWert(Integer.parseInt(numberQuantitativeEigenschaft));
+            quantitativeEigenschaft.setEinheit(einheit);
             quantitativeEigenschaftService.addQuantitativeEigenschaft(quantitativeEigenschaft);
         }
         resetvariables();
@@ -136,6 +138,7 @@ public class QlEView implements Serializable {
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("IdQnE", IdQnE);
             nameQuantitativeEigenschaft = quantitativeEigenschaftService.getQlEById(Integer.parseInt(IdQnE)).getName();
             numberQuantitativeEigenschaft = NumberFormat.getInstance().format(quantitativeEigenschaftService.getQlEById(Integer.parseInt(IdQnE)).getWert());
+            einheit = quantitativeEigenschaftService.getQlEById(Integer.parseInt(IdQnE)).getEinheit();
         } catch (Exception e) {
             e.printStackTrace();
         }

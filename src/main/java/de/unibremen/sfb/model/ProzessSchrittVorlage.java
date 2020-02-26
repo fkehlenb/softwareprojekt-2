@@ -52,7 +52,7 @@ public class ProzessSchrittVorlage {
 
     /** The state Automaton for the process step */
     @NonNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private ProzessSchrittZustandsAutomatVorlage zustandsAutomatVorlage;
 
     @Override

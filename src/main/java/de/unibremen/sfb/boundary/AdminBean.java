@@ -309,6 +309,7 @@ public class AdminBean implements Serializable {
     public void builtRollenList() {
         if (technologe) {
             rollen.add(Role.TECHNOLOGE);
+
         }
         if (pkAdministrator) {
             rollen.add(Role.PKADMIN);

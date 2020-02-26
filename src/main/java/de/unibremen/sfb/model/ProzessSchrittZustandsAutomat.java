@@ -25,6 +25,6 @@ public class ProzessSchrittZustandsAutomat {
     private String current;
 
     @NonNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage;
 }

@@ -23,11 +23,11 @@ public class Traeger {
 
     /** The container's type */
     @NonNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private TraegerArt art;
 
     /** The container's location */
     @NonNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Standort tragerStandort;
 }

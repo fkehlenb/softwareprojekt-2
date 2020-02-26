@@ -47,9 +47,9 @@ public class BedingungDAO extends ObjectDAO<Bedingung> {
      * @throws BedingungNotFoundException if the condition couldn't be found */
     public void remove(Bedingung b) throws BedingungNotFoundException{
         if (b!=null){
-            if (!em.contains(b)){
-                throw new BedingungNotFoundException();
-            }
+           // if (!em.contains(b)){
+           //     throw new BedingungNotFoundException();
+           // }
             b.setValidData(false);
             update(b);
         }

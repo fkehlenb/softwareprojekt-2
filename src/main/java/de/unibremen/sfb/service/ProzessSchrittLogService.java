@@ -32,4 +32,14 @@ public class ProzessSchrittLogService {
         pslDAO.persist(l);
         return l;
     }
+
+    /**
+     * Persist the psl
+     * @param prozessSchrittLog the log
+     * @throws DuplicateProzessSchrittLogException is passed to bean
+     */
+    public void add(ProzessSchrittLog prozessSchrittLog) throws  DuplicateProzessSchrittLogException {
+        pslDAO.persist(prozessSchrittLog);
+    }
+
 }
