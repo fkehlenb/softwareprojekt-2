@@ -9,76 +9,95 @@
 </h:head>
 
 <h:body>
-<ui:composition template="/template/common/layout.xhtml">
-    <ui:define name="content">
-    <h:form>
-        <p:growl>
-            <p:autoUpdate/>
-        </p:growl>
-        <p:panelGrid columns="1">
-            <p:tabMenu>
-                <p:menuitem value="Home"/>
-            </p:tabMenu>
-            <h1 style="color: cornflowerblue">Aufträge</h1>
-            <p>Hier können bald Ihre Aufträge aufgelistet sein.<br/> Links sehen sie ihr Navigationsmenue. </p>
-        </p:panelGrid>
-    </h:form>
+    <ui:composition template="/template/common/layout.xhtml">
+        <ui:define name="content">
+            <p:panelGrid columns="1">
+                <h:form>
+                    <p:growl>
+                        <p:autoUpdate/>
+                    </p:growl>
 
-    <h:form id="form">
-        <p:growl id="msgs" showDetail="true"/>
+                    <p:tabMenu>
+                        <p:menuitem value="Home"/>
+                    </p:tabMenu>
+                    <h1 style="color: cornflowerblue">Aufträge</h1>
+                    <p>Hier können bald Ihre Aufträge aufgelistet sein.<br/> Links sehen sie ihr Navigationsmenue. </p>
 
-        <p:dataTable id="cars1" var="car" value="#{dtEditView.cars1}" editable="true" style="margin-bottom:20px">
-            <f:facet name="header">
-                Row Editing
-            </f:facet>
+                </h:form>
 
-            <p:ajax event="rowEdit" listener="#{dtEditView.onRowEdit}" update=":form:msgs"/>
-            <p:ajax event="rowEditCancel" listener="#{dtEditView.onRowCancel}" update=":form:msgs"/>
+                <h:form id="form">
+                    <p:growl id="msgs" showDetail="true"/>
 
-            <p:column headerText="Id">
-                <p:cellEditor>
-                    <f:facet name="output"><h:outputText value="#{car.id}"/></f:facet>
-                    <f:facet name="input"><p:inputText id="modelInput" value="#{car.id}" style="width:100%"/></f:facet>
-                </p:cellEditor>
-            </p:column>
 
-            <p:column headerText="Year">
-                <p:cellEditor>
-                    <f:facet name="output"><h:outputText value="#{car.year}"/></f:facet>
-                    <f:facet name="input"><p:inputText value="#{car.year}" style="width:100%" label="Year"/></f:facet>
-                </p:cellEditor>
-            </p:column>
+                    <p:dataTable id="angAuftrag1" var="angAuftrag" value="#{transportBean.ps}" editable="true"
+                                 style="margin-bottom:20px">
+                        <f:facet name="header">
+                            Angenommene Aufträge
+                        </f:facet>
 
-            <p:column headerText="Brand">
-                <p:cellEditor>
-                    <f:facet name="output"><h:outputText value="#{car.brand}"/></f:facet>
-                    <f:facet name="input">
-                        <h:selectOneMenu value="#{car.brand}" style="width:100%">
-                            <f:selectItems value="#{dtEditView.brands}" var="man" itemLabel="#{man}"
-                                           itemValue="#{man}"/>
-                        </h:selectOneMenu>
-                    </f:facet>
-                </p:cellEditor>
-            </p:column>
+                        <p:column headerText="Id">
+                            <h:outputText value="#{angAuftrag.psID}"/>
+                        </p:column>
 
-            <p:column headerText="Color">
-                <p:cellEditor>
-                    <f:facet name="output"><h:outputText value="#{car.color}"/></f:facet>
-                    <f:facet name="input">
-                        <h:selectOneMenu value="#{car.color}" style="width:100%">
-                            <f:selectItems value="#{dtEditView.colors}" var="color" itemLabel="#{color}"
-                                           itemValue="#{color}"/>
-                        </h:selectOneMenu>
-                    </f:facet>
-                </p:cellEditor>
-            </p:column>
+                        <p:column headerText="TrägerID">
+                            <h:outputText value="#{angAuftrag.psID}"/>
+                        </p:column>
 
-            <p:column style="width:35px">
-                <p:rowEditor/>
-            </p:column>
-        </p:dataTable>
-    </h:form>
-    </ui:define>
-</ui:composition>
+                        <p:column headerText="Abholort">
+                            <h:outputText value="#{angAuftrag.prozessSchrittVorlage.stationen}"/>
+                        </p:column>
+
+                        <p:column headerText="Ablieferort">
+                            <h:outputText value="#{angAuftrag.psID}"/>
+                        </p:column>
+
+                        <p:column headerText="Zustand">
+                            <h:outputText value="#{angAuftrag.psID}"/>
+                        </p:column>
+
+                        <p:column headerText="Abgeliefert?">
+                            <h:outputText value="#{angAuftrag.psID}"/>
+                        </p:column>
+
+                    </p:dataTable>
+
+
+                    <p:dataTable id="auftrag1" var="auftrag" value="#{dtAuftragBean.auftrage}" editable="true"
+                                 style="margin-bottom:20px">
+                        <f:facet name="header">
+                            Verfügbare Aufträge
+                        </f:facet>
+
+                        <p:column headerText="Id">
+                            <h:outputText value="#{auftrag.pkID}"/>
+                        </p:column>
+
+                        <p:column headerText="TrägerID">
+                            <h:outputText value="#{auftrag.pkID}"/>
+                        </p:column>
+
+                        <p:column headerText="Abholort">
+                            <h:outputText value="#{auftrag.pkID}"/>
+                        </p:column>
+
+                        <p:column headerText="Ablieferort">
+                            <h:outputText value="#{auftrag.pkID}"/>
+                        </p:column>
+
+                        <p:column headerText="Zustand">
+                            <h:outputText value="#{auftrag.pkID}"/>
+                        </p:column>
+
+                        <p:column headerText="Annehmen?">
+                            <h:outputText value="#{auftrag.pkID}"/>
+                        </p:column>
+
+                    </p:dataTable>
+
+
+                </h:form>
+            </p:panelGrid>
+        </ui:define>
+    </ui:composition>
 </h:body>
 </html>
