@@ -13,13 +13,10 @@ import javax.inject.Inject;
 @FacesConverter(value = "auftragConverter", managed = true)
 public class AuftragsConverter implements Converter<Auftrag> {
 
-    @Inject
-    private AuftragService auftragService;
-
     @Override
     public String toString() {
         return "AuftragConverter{" +
-                "auftragConverter" + auftragService +
+                "auftragConverter" +
                 '}';
     }
 
@@ -39,7 +36,8 @@ public class AuftragsConverter implements Converter<Auftrag> {
             return null;
         }
         try {
-            return auftragService.getAuftrag(Integer.parseInt(value));
+//            return auftragService.getAuftrag(Integer.parseInt(value)); // FIXME
+            return null;
         }
         catch (Exception e){
             e.printStackTrace();

@@ -47,7 +47,7 @@ public class ProzessSchrittService implements Serializable {
     private ProzessSchrittLogService pslService;
 
     @Inject
-    private AuftragService auftragService;
+    AuftragService auftragService;
 
 
     @PostConstruct
