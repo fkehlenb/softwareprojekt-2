@@ -62,11 +62,11 @@
             <li>Bearbeiten von bestehenden Standorten</li>
         </ul>
     </strike></li>
-<li>Konfiguration globaler Einstellungen<ul>
-<li>Einstellung der Zeiten für alte Aufträge (<strong>O«UI.AlteAufträge»</strong>)</li>
+<li><strike>Konfiguration globaler Einstellungen</strike><ul>
+<li><strike>Einstellung der Zeiten für alte Aufträge (<strong>O«UI.AlteAufträge»</strong>)</strike></li>
 </ul>
 </li>
-<li>Backup der Systemdaten</li>
+<li><strike>Backup der Systemdaten</strike></li>
 </ul>
 <h5 id="prozesskettenplaner">Prozesskettenplaner</h5>
 <ul>
@@ -145,8 +145,8 @@
 <li>Klassifizierung nach Parameterwerten wie Legierung und Wärmebehandlung</li>
 </ul>
 </li>
-<li>Übersicht über archivierten Proben (<strong>O«Lagerverwaltung»</strong>)</li>
-<li>Übersicht über Probenstandorte (<strong>O«Lagerverwaltung»</strong>)</li>
+<li><strike>Übersicht über archivierten Proben (<strong>O«Lagerverwaltung»</strong>)</strike></li>
+<li><strike>Übersicht über Probenstandorte (<strong>O«Lagerverwaltung»</strong>)</strike></li>
 </ul>
 <h4 id="technologe">Technologe</h4>
 <ul>

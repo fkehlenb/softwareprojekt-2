@@ -51,7 +51,8 @@
                             </p:column>
                             <h:form enctype="multipart/form-data">
                                 <p:column colspan="1">
-                                    <p:fileUpload value="#{adminBean.importFile}" mode="simple" skinSimple="true"/>
+                                    <p:fileUpload value="#{adminBean.importFile}" mode="simple" skinSimple="true"
+                                                  required="true" requiredMessage="Bitte Backup-File aussuchen!"/>
                                 </p:column>
                                 <p:column colspan="1">
                                     <p:commandButton value="Submit" ajax="false" action="#{adminBean.databaseImport}"/>

@@ -6,9 +6,10 @@
     <title>Admin - Home</title>
     <link rel="icon" href="../background.png"/>
 </h:head>
-<body background="../background.png">
+<h:body>
 <ui:composition template="/template/common/layout.xhtml">
     <ui:define name="content">
+        <div class="ui-g-2"></div>
         <div class="ui-g-8">
             <h:form>
                 <p:growl>
@@ -18,12 +19,12 @@
                     <p:tabMenu>
                         <p:menuitem value="Home"/>
                     </p:tabMenu>
-                    <h1 style="color: cornflowerblue">Wilkommen beim SFB - Farbige Zustaende!</h1>
-                    <p>Wilkommen beim SFB - Farbige Zustaende!<br/> Links sehen sie ihr Navigationsmenue. </p>
+                    <h1 style="color: cornflowerblue">#{msg['welcome.jsf']}</h1>
+                    <p>#{msg['welcome.jsf']}<br/> #{msg['menuLeft.jsf']} </p>
                 </p:panelGrid>
             </h:form>
         </div>
     </ui:define>
 </ui:composition>
-</body>
+</h:body>
 </html>

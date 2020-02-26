@@ -16,14 +16,14 @@ class InitialDataFillerTest {
 
 
 
-    @Test
+//    @Test
     void init() {
 //        InitialDataFiller initialDataFiller = new InitialDataFiller();
 //       initialDataFiller.init();
 //        System.out.println("Testet die Daos");
     }
 
-    @Test
+  //  @Test
     void testAuftrag() {
         JsonbConfig config = new JsonbConfig()
                 .withFormatting(true);

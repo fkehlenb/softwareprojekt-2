@@ -89,7 +89,11 @@ public class BedingungView implements Serializable {
 //        context.getExternalContext().getFlash().setKeepMessages(true);
 //
 //    }
-
+    public void deleteBedingung(int id){
+        Bedingung b = bedingungService.findByID(id);
+        bedingungService.remove(b);
+        bedingungen = bedingungService.getAll();
+    }
     public void onRowEdit(RowEditEvent<Bedingung> event) {
         log.info("Updating: "+ event.getObject().getName());
         bedingungService.edit(  event.getObject());
