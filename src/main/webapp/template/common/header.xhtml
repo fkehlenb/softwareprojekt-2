@@ -34,8 +34,8 @@ ALL TAGS ABOVE THIS LINE WILL BE REMOVED BY JSF
             </shiro:hasRole>
 
 
-            <p:submenu label="File" icon="pi pi-file">
-                <p:submenu label="New" icon="pi pi-briefcase">
+            <p:submenu label="#{msg['file.jsf']}" icon="pi pi-file">
+                <p:submenu label="#{msg['new.jsf']}" icon="pi pi-briefcase">
                     <shiro:hasRole name="pkAdmin">
                         <p:menuitem value="Prozessschritt" url="#"/>
                         <p:menuitem value="Prozesskette" url="#"/>
@@ -43,15 +43,15 @@ ALL TAGS ABOVE THIS LINE WILL BE REMOVED BY JSF
                     </shiro:hasRole>
 
                     <shiro:hasRole name="admin">
-                        <p:menuitem value="Nutzer" url="/admin/"/>
-                        <p:menuitem value="Standorte" url="/admin/standorte.xhtml"/>
+                        <p:menuitem value="#{msg['user.jsf']}" url="/admin/"/>
+                        <p:menuitem value="#{msg['standort.jsf']}" url="/admin/standorte.xhtml"/>
                         <p:menuitem value="Backup" url="/admin/createBackup.xhtml"/>
                     </shiro:hasRole>
 
                 </p:submenu>
-                <p:menuitem value="Open" url="#"/>
+                <p:menuitem value="#{msg['open.jsf']}" url="#"/>
                 <p:separator/>
-                <p:menuitem value="Quit" url="#"/>
+                <p:menuitem value="#{msg['quit.jsf']}" url="#"/>
             </p:submenu>
 
             <p:submenu label="#{msg['edit.jsf']}" icon="pi pi-pencil">
