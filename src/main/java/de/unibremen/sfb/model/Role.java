@@ -32,5 +32,5 @@ import java.util.Objects;
      */
     @Id
     @NonNull
-    String UUID;
+    String name;
 }
