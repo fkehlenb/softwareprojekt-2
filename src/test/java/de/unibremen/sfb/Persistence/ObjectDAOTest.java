@@ -1,4 +1,4 @@
-package de.unibremen.sfb.persistence;
+package de.unibremen.sfb.Persistence;
 
 import static org.junit.jupiter.api.Assertions.*;
 
