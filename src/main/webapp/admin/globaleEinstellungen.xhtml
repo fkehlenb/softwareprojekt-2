@@ -28,10 +28,80 @@
                             <p>Hier koennen Sie die Zeiten von alten Auftraegen verwalten und veraendern</p>
                         </p:row>
                         <p:row>
-                            <p:dataTable id="table" var="auftrag" value="#{adminBean.auftrage}" editable="true"
-                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                         paginator="true" rows="3" style="margin-bottom:20px">
-                            </p:dataTable>
+                            <h:form id="form">
+                                <p:dataTable id="table" var="auftrag" value="#{adminBean.auftrage}" editable="true"
+                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                             paginator="true" rows="6" style="margin-bottom:20px">
+                                    <p:ajax event="rowEdit"
+                                            listener="#{adminBean.onRowEditGlobaleEinstellungen(auftrag.pkID)}"
+                                            update="form:table"/>
+                                    <p:ajax event="rowEditCancel"
+                                            listener="#{adminBean.onRowEditCancelGlobaleEinstellungen}"
+                                            update="form:table"/>
+                                    <p:column headerText="Auftrags ID">
+                                        <h:outputText value="#{auftrag.pkID}"/>
+                                    </p:column>
+                                    <p:column headerText="Erstellt">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <h:outputText value="#{auftrag.log.erstellt}"/>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:inputMask mask="YYYY:MM:DDTHH:MM"
+                                                             placeholder="YYYY:MM:DDTHH:MM"
+                                                             required="true"
+                                                             requiredMessage="Bitte Zeit und Datum angeben!"
+                                                             value="#{adminBean.erstellt}"/>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+                                    <p:column headerText="Gestartet">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <h:outputText value="#{auftrag.log.start}"/>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:inputMask mask="YYYY:MM:DDTHH:MM"
+                                                             placeholder="YYYY:MM:DDTHH:MM"
+                                                             required="true"
+                                                             requiredMessage="Bitte Zeit und Datum angeben!"
+                                                             value="#{adminBean.gestartet}"/>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+                                    <p:column headerText="Beendet">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <h:outputText value="#{auftrag.log.beendet}"/>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:inputMask mask="YYYY:MM:DDTHH:MM"
+                                                             placeholder="YYYY:MM:DDTHH:MM"
+                                                             required="true"
+                                                             requiredMessage="Bitte Zeit und Datum angeben!"
+                                                             value="#{adminBean.beendet}"/>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+                                    <p:column headerText="Archiviert">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <h:outputText value="#{auftrag.log.archiviert}"/>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:inputMask mask="YYYY:MM:DDTHH:MM"
+                                                             placeholder="YYYY:MM:DDTHH:MM"
+                                                             required="true"
+                                                             requiredMessage="Bitte Zeit und Datum angeben!"
+                                                             value="#{adminBean.archiviert}"/>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+                                    <p:column>
+                                        <p:rowEditor/>
+                                    </p:column>
+                                </p:dataTable>
+                            </h:form>
                         </p:row>
                     </p:panelGrid>
                 </div>

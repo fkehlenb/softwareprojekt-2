@@ -16,7 +16,6 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
-import static de.unibremen.sfb.model.ProzessKettenZustandsAutomat.GESTARTET;
 
 @Named("dtAuftragBean")
 @ViewScoped
@@ -26,6 +25,7 @@ import static de.unibremen.sfb.model.ProzessKettenZustandsAutomat.GESTARTET;
 public class AuftragView implements Serializable {
     private List<Auftrag> auftrage;
     private List<ProzessKettenVorlage> vorlagen;
+    private AuftragsPrioritaet[] prios;
     //Der gewählte Auftrag
 
 
@@ -39,25 +39,15 @@ public class AuftragView implements Serializable {
     void init() {
         auftrage = auftragService.getAuftrage();
         vorlagen = getPKVs();
-    }
-    //Soll den Zustand wechseln FUNKTIONIERT NICHT!
-    public void zWechsel(int auftrag){
-        try {
-            Auftrag a = auftragService.getAuftrag(auftrag);
-            auftragService.zustandswechsel(a, GESTARTET );
-            log.info("Changed state of job! ID: " + auftrag);
-            facesNotification("Changed state of job! ID: " + auftrag);
-            //Aktualisiert Auftragsliste
-            auftrage = auftragService.getAuftrage();
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            log.error("Failed to change auftrag state! ID: " + auftrag);
-            facesError("Failed to change auftrag state! ID: " + auftrag);
-        }
-        //return "Auftragsuebersicht?faces-redirect=true";
+        prios = AuftragsPrioritaet.values();
     }
 
+    /**
+     * Aktualisiert die Tabelle
+     */
+    public void updateAuftragTabelle(){
+        auftrage = auftragService.getAuftrage();
+    }
 
     public void onRowEdit(RowEditEvent<Auftrag> event) {
         log.info("Updating: "+ event.getObject().getPkID());
