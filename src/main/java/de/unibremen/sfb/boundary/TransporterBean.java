@@ -3,7 +3,6 @@ package de.unibremen.sfb.boundary;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.AuftragService;
 import de.unibremen.sfb.service.ProzessKettenVorlageService;
-import de.unibremen.sfb.service.ZustandsService;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -32,9 +31,6 @@ public class TransporterBean implements Serializable {
     AuftragService auftragService;
     @Inject
     ProzessKettenVorlageService prozessKettenVorlageService;
-
-    @Inject
-    ZustandsService zustandsService;
 
     @PostConstruct
     void init(){
