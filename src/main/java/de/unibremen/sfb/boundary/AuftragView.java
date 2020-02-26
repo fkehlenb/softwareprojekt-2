@@ -1,5 +1,6 @@
 package de.unibremen.sfb.boundary;
 
+import de.unibremen.sfb.exception.AuftragNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.*;
 import lombok.Getter;
@@ -26,6 +27,8 @@ public class AuftragView implements Serializable {
     private List<Auftrag> auftrage;
     private List<ProzessKettenVorlage> vorlagen;
     private AuftragsPrioritaet[] prios;
+    private List<Auftrag> selectedAuftraege;
+    private List<Auftrag> filteredAuftraege;
     //Der gewählte Auftrag
 
     // Auftrag Erstellen
@@ -82,6 +85,18 @@ public class AuftragView implements Serializable {
 
     public List<ProzessKettenVorlage> getPKVs() {
         return prozessKettenVorlageService.getPKVs();
+    }
+
+    public void delete() {
+        try {
+            auftragService.delete(selectedAuftraege); //FIXME LIAM
+            FacesMessage msg = new FacesMessage("Deleted", selectedAuftraege.toString());
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error(e.getMessage());
+            facesError("Failed to delete Selection");
+        }
     }
 
     /**

@@ -22,20 +22,21 @@
                 <h:form>
                     <h:panelGrid columns="2" cellpadding="10">
                         <p:outputLabel for="pkv" value="PKV Vorlagen: "/>
-                        <h:selectOneMenu  id="pkv" value="#{dtAuftragBean.ausPKV}" converter="omnifaces.SelectItemsConverter" >
+                        <h:selectOneMenu id="pkv" value="#{dtAuftragBean.ausPKV}"
+                                         converter="omnifaces.SelectItemsConverter">
                             <f:selectItems value="#{dtAuftragBean.vorlagen}" label="#{dtAuftragBean.ausPKV.pkvID}"/>
                         </h:selectOneMenu>
 
                         <p:outputLabel for="prio" value="Priorität"/>
-                        <h:selectOneMenu id="prio"  value="#{dtAuftragBean.ausPrio}">
+                        <h:selectOneMenu id="prio" value="#{dtAuftragBean.ausPrio}">
                             <f:selectItems value="#{dtAuftragBean.prios}"/>
                         </h:selectOneMenu>
 
 
-                    <p:commandButton value="Reset" type="reset"/>
-                    <p:commandButton value="Erstellen" ajax="false"
-                                     action="#{dtAuftragBean.erstelleAuftrag}" icon="pi pi-check"
-                                     update="@form"/>
+                        <p:commandButton value="Reset" type="reset"/>
+                        <p:commandButton value="Erstellen" ajax="false"
+                                         action="#{dtAuftragBean.erstelleAuftrag}" icon="pi pi-check"
+                                         update="@form"/>
                     </h:panelGrid>
                 </h:form>
             </p:panel>
@@ -44,11 +45,29 @@
             <h:form id="form">
                 <p:growl id="msgs" showDetail="true"/>
 
-                <p:dataTable id="auftraege" var="auftrag" value="#{dtAuftragBean.auftrage}" editable="true"
-                             style="margin-bottom:20px">
+                <p:dataTable id="auftragList" var="auftrag"
+                             value="#{dtAuftragBean.auftrage}"
+                             filteredValue="#{dtAuftragBean.filteredAuftraege}"
+                             editable="true"
+                             rowKey="#{auftrag.pkID}"
+                             resizableColumns="true" rows="10" paginator="true"
+                             style="margin-bottom:20px"
+                             widgetVar="auftragsList"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15">
+                             selection="#{dtAuftragBean.selectedAuftraege}">
+
                     <f:facet name="header">
-                        Auftraege Bearbeiten
+                        <p:outputPanel>
+                            <h:outputText value="Search all fields: " />
+                            <p:inputText id="globalFilter"
+                                         onkeyup="PF('auftragList').filter()" style="width:150px"
+                                         placeholder="Enter keyword" />
+                        </p:outputPanel>
                     </f:facet>
+
+                    <p:column selectionMode="multiple"
+                              style="width:16px;text-align:center" />
 
                     <p:ajax event="rowEdit" listener="#{dtAuftragBean.onRowEdit}" update=":form:msgs"/>
                     <p:ajax event="rowEditCancel" listener="#{dtAuftragBean.onRowCancel}" update=":form:msgs"/>
@@ -73,7 +92,7 @@
                     </p:column>
 
                     <p:column headerText="Vorlage">
-                            <h:outputText value="#{auftrag.vorlage.prozessSchrittVorlagen}"/>
+                        <h:outputText value="#{auftrag.vorlage.prozessSchrittVorlagen}"/>
                     </p:column>
 
                     <p:column style="width:35px">
@@ -81,8 +100,12 @@
                     </p:column>
                 </p:dataTable>
 
-                <h:outputText value="#{dtAuftragBean.json()}"/>
+                <p:contextMenu for="auftragList">
+                    <p:menuitem value="Delete selected" update="auftragList"
+                                icon="pi pi-times" action="#{dtAuftragBean.delete}"/>
+                </p:contextMenu>
 
+                <h:outputText value="#{dtAuftragBean.json()}"/>
             </h:form>
         </ui:define>
     </ui:composition>
