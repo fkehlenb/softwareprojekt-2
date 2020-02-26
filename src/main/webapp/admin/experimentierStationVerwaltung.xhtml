@@ -22,17 +22,17 @@
                     </p:growl>
                     <p:panelGrid columns="1">
                         <p:row>
-                            <h2 style="color: cornflowerblue">Experimentierstation Verwaltung</h2>
+                            <h2 style="color: cornflowerblue">#{msg['esV.jsf']}</h2>
                         </p:row>
                         <p:row>
-                            <p>In der unteren Tabelle sehen Sie alle Experimentierstationen die im System existieren.<br/>
-                                Mit dem Formular koennen Sie neue Experimentierstationen einfuegen.</p>
+                            <p>#{msg['esVerwaltungText.jsf']}<br/>
+                                #{msg['esVerwaltungText2.jsf']}</p>
                         </p:row>
                         <p:row>
                             <p:panelGrid>
                                 <h:form id="form">
                                     <p:row>
-                                        <h3 style="color: cornflowerblue">Experimentierstation Einfuegen</h3>
+                                        <h3 style="color: cornflowerblue">#{msg['esEinfügen.jsf']}</h3>
                                     </p:row>
                                     <p:row>
                                         <p:column colspan="1">
@@ -41,10 +41,10 @@
                                         <p:column colspan="1">
                                             <p:inputText placeholder="Name" required="true"
                                                          value="#{adminBean.experimentierStationName}"
-                                                         requiredMessage="Bitte Experimentierstation Name eingeben"/>
+                                                         requiredMessage="#{msg['esVerwaltungMeldung2.jsf']}"/>
                                         </p:column>
                                         <p:column colspan="1">
-                                            <h:outputText value="Standort:"/>
+                                            <h:outputText value="#{msg['standort.jsf']}:"/>
                                         </p:column>
                                         <p:column colspan="1">
                                             <p:selectOneMenu id="standort"
@@ -52,7 +52,7 @@
                                                              converter="omnifaces.SelectItemsConverter" effect="fade"
                                                              var="standort" style="width: 172px" filter="true"
                                                              filterMatchMode="contains" required="true"
-                                                             requiredMessage="Bitte Standort Wahlen!">
+                                                             requiredMessage="#{msg['esVerwaltungMeldung.jsf']}">
                                                 <f:selectItems value="#{adminBean.allLocations}"
                                                                var="standort" itemLabel="#{standort.ort}"
                                                                itemValue="#{standort}" required="true"/>
@@ -64,7 +64,7 @@
                                     </p:row>
                                     <p:row>
                                         <p:column colspan="1">
-                                            <h:outputText value="Zugewiesene Benutzer:"/>
+                                            <h:outputText value="#{msg['zugewUser.jsf']}"/>
                                         </p:column>
                                         <p:column colspan="1">
                                             <p:selectCheckboxMenu id="userTable"
@@ -73,7 +73,7 @@
                                                                   effect="fade"
                                                                   var="user" style="width: 172px" filter="true"
                                                                   filterMatchMode="contains" showCheckbox="true"
-                                                                  label="Benutzer"
+                                                                  label="#{msg['user.jsf']}"
                                                                   requiredMessage="Bitte Benutzer Zuweisen!"
                                                                   required="true">
                                                 <f:selectItems value="#{adminBean.allUsers}"
@@ -82,10 +82,10 @@
                                             </p:selectCheckboxMenu>
                                         </p:column>
                                         <p:column colspan="1">
-                                            <p:commandButton value="Reset" type="reset"/>
+                                            <p:commandButton value="#{msg['reset.jsf']}" type="reset"/>
                                         </p:column>
                                         <p:column colspan="1">
-                                            <p:commandButton value="Erstellen"
+                                            <p:commandButton value="#{msg['erstellen.jsf']}"
                                                              action="#{adminBean.addStation}" icon="pi pi-check"
                                                              update="form2" ajax="true"/>
                                         </p:column>
@@ -115,12 +115,12 @@
                                             <f:facet name="input">
                                                 <p:inputText value="#{adminBean.experimentierStationName}" label="Name"
                                                              required="true"
-                                                             requiredMessage="Bitte Experimentierstation Name Eingeben!"
+                                                             requiredMessage="#{msg['esVerwaltungMeldung2.jsf']}"
                                                              placeholder="Name"/>
                                             </f:facet>
                                         </p:cellEditor>
                                     </p:column>
-                                    <p:column headerText="Standort">
+                                    <p:column headerText="#{msg['standort.jsf']}">
                                         <p:cellEditor>
                                             <f:facet name="output">
                                                 <h:outputText value="#{station.standort.ort}"/>
@@ -132,7 +132,7 @@
                                                                  effect="fade"
                                                                  var="standort" style="width: 172px" filter="true"
                                                                  filterMatchMode="contains" required="true"
-                                                                 requiredMessage="Bitte Standort Wahlen!">
+                                                                 requiredMessage="#{msg['esVerwaltungMeldung.jsf']}">
                                                     <f:selectItems value="#{adminBean.allLocations}"
                                                                    var="standort" itemLabel="#{standort.ort}"
                                                                    itemValue="#{standort}" required="true"/>
@@ -143,7 +143,7 @@
                                             </f:facet>
                                         </p:cellEditor>
                                     </p:column>
-                                    <p:column headerText="Zugewiesene Benutzer">
+                                    <p:column headerText="#{msg['zugewUser.jsf']}">
                                         <p:cellEditor>
                                             <f:facet name="output">
                                                 <h:outputText value="#{station.benutzer}"/>
@@ -156,7 +156,7 @@
                                                                       var="user" style="width: 172px" filter="true"
                                                                       filterMatchMode="contains" showCheckbox="true"
                                                                       label="Benutzer"
-                                                                      requiredMessage="Bitte Benutzer Zuweisen!"
+                                                                      requiredMessage="#{msg['esVerwaltungMeldung3.jsf']}"
                                                                       required="true">
                                                     <f:selectItems value="#{adminBean.allUsers}"
                                                                    var="user" itemLabel="#{user.username}"
@@ -165,12 +165,12 @@
                                             </f:facet>
                                         </p:cellEditor>
                                     </p:column>
-                                    <p:column headerText="Zustand">
+                                    <p:column headerText="#{msg['zustand.jsf']}">
                                         <h:outputText value="#{station.status}"/>
                                     </p:column>
                                     <p:column>
                                         <p:commandButton ajax="true" action="#{adminBean.deleteStation(station.esID)}"
-                                                         value="Delete" icon="pi pi-trash" update="form2:table"/>
+                                                         value="#{msg['delete.jsf']}" icon="pi pi-trash" update="form2:table"/>
                                     </p:column>
                                     <p:column style="width: 35px">
                                         <p:rowEditor/>
