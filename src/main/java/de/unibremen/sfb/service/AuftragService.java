@@ -204,7 +204,7 @@ public class AuftragService implements Serializable {
                 "pk,", "123", true, LocalDateTime.now(),
                 List.of(Role.TECHNOLOGE), "DEUTSCH"));
         var es = List.of(new ExperimentierStation(4, new Standort(1, "Test"), "Fehlerfrei",
-                ExperimentierStationZustand.VERFUEGBAR, us));
+                ExperimentierStationZustand.VERFUEGBAR,new ArrayList<>(), us));
         var bs = List.of(new Bedingung(9, "Test B", List.of(new ProzessSchrittParameter(6, "PsP 1",
                 List.of(new QualitativeEigenschaft(8, "gestresst"))), p), 66));
         // Es ist nicht moeglich, es und bs eager in der naechsten Zeile
@@ -303,8 +303,8 @@ public class AuftragService implements Serializable {
 
         // Create Jsonb with custom configuration
         Jsonb jsonb = JsonbBuilder.create(config);
-//        String result = jsonb.toJson(getAuftrage());
-        String result = "JSON IS BROKEN FIXME LEO";
+         String result = jsonb.toJson(auftrage);
+        //String result = "JSON IS BROKEN FIXME LEO";
         log.info("Export von den Auftraegen\n" + result);
         return result;
     }

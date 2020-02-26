@@ -28,31 +28,14 @@
                                 update="form:table"/>
                         <p:ajax event="rowEditCancel" listener="#{psView.onRowCancel}"
                                 update="form:table"/>
-
-
                         <p:column headerText="Prozessschritt ID">
-                            <p:cellEditor>
-                                <f:facet name="output">
-                                    <h:outputText value="#{ps.psID}"/>
-                                </f:facet>
-                            </p:cellEditor>
+                            <h:outputText value="#{ps.psID}"/>
                         </p:column>
-
-
                         <p:column headerText="Prozessschritt Vorlage">
-                            <p:cellEditor>
-                                <f:facet name="output">
-                                    <h:outputText value="#{ps.prozessSchrittVorlage.psVID}"/>
-                                </f:facet>
-                            </p:cellEditor>
+                            <h:outputText value="#{ps.prozessSchrittVorlage.psVID}"/>
                         </p:column>
-
                         <p:column headerText="Prozessschritt Log">
-                            <p:cellEditor>
-                                <f:facet name="output">
-                                    <h:outputText value="#{ps.prozessSchrittLog}"/>
-                                </f:facet>
-                            </p:cellEditor>
+                            <h:outputText value="#{ps.prozessSchrittLog}"/>
                         </p:column>
 
                         <p:column style="width:35px">
