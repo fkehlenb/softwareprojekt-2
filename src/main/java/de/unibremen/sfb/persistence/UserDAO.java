@@ -86,20 +86,6 @@ public class  UserDAO extends ObjectDAO<User> {
         return u;
     }
 
-    public Enum<RoleE> getRolesbyID(String userId){
-        try {
-            log.info("Trying to find Rolen");
-            // Fixme Load the Roles.
-
-            // Fix me
-            // List<Role> rollen = em.createQuery("select r.roles from Role r where r.isValidData x = true and where r.UUID = ?",get()).getResultList();
-
-        }catch (Exception e){
-            log.info("No Roles Found");
-            return null;
-        }
-    }
-
     /**
      * Get a user object using the user's name
      *

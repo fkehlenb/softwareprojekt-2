@@ -227,7 +227,7 @@ public class AdminBean implements Serializable {
             user.setPassword(matcher.getPasswordService().encryptPassword(password));
             user.setWurdeVerifiziert(wurdeVerifiziert);
             user.setErstellungsDatum(date1);
-            user.setRollen(rollen);
+            user.setRoleList(rollen);
             user.setLanguage(language);
             userService.updateUser(user);
             String id = "";
@@ -235,9 +235,9 @@ public class AdminBean implements Serializable {
             log.info("User updated, ID: " + idOld);
             facesNotification("User updated! ID: " + idOld);
         } catch (Exception e) {
-            User user = new User(UUID.randomUUID().hashCode(), vorname, nachname, email, telefonNummer,
+            User user = new User(UUID.randomUUID().hashCode(), rollen, vorname, nachname, email, telefonNummer,
                     userName, matcher.getPasswordService().encryptPassword(password), wurdeVerifiziert, date1
-                    , rollen, language);
+                    ,  language);
             userService.addUser(user);
             log.info("Added new User, Username: " + userName);
             facesNotification("Created new user! Username: " + userName);
@@ -257,11 +257,11 @@ public class AdminBean implements Serializable {
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idx", id);
             User user = userService.getUserById(Integer.parseInt(id));
             this.id = id;
-            this.technologe = user.getRollen().contains(Role.TECHNOLOGE);
-            this.pkAdministrator = user.getRollen().contains(Role.PKADMIN);
-            this.transporter = user.getRollen().contains(Role.TRANSPORT);
-            this.logistiker = user.getRollen().contains(Role.LOGISTIKER);
-            this.administrator = user.getRollen().contains(Role.ADMIN);
+            this.technologe = user.getRoleList().contains(userService.getRole("technologe"));
+            this.pkAdministrator = user.getRoleList().contains(userService.getRole("pkAdmin"));
+            this.transporter = user.getRoleList().contains(userService.getRole("transport"));
+            this.logistiker = user.getRoleList().contains(userService.getRole("logistik"));
+            this.administrator = user.getRoleList().contains(userService.getRole("admin"));
             this.vorname = user.getVorname();
             this.nachname = user.getNachname();
             this.email = user.getEmail();
@@ -308,19 +308,19 @@ public class AdminBean implements Serializable {
      */
     public void builtRollenList() {
         if (technologe) {
-            rollen.add(Role.TECHNOLOGE);
+            rollen.add(userService.getRole("technologe"));
         }
         if (pkAdministrator) {
-            rollen.add(Role.PKADMIN);
+            rollen.add(userService.getRole("pkAdmin"));
         }
         if (transporter) {
-            rollen.add(Role.TRANSPORT);
+            rollen.add(userService.getRole("transport"));
         }
         if (logistiker) {
-            rollen.add(Role.LOGISTIKER);
+            rollen.add(userService.getRole("logistik"));
         }
         if (administrator) {
-            rollen.add(Role.ADMIN);
+            rollen.add(userService.getRole("admin"));
         }
     }
 

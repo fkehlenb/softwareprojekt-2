@@ -36,7 +36,8 @@ public class User {
     private int id;
 
     // Die Rollen der Users
-    @ManyToMany
+    @NonNull
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Role> roleList;
 
     /**
@@ -86,17 +87,6 @@ public class User {
      */
     @NonNull
     private LocalDateTime erstellungsDatum;
-
-    /**
-     * The role's of the user
-     *
-     // Rollen die dieser Rolle zugewiesen wurden
-        Find by ID Query mit Rolle als String
-     */
-    @NonNull
-    @ElementCollection(fetch = FetchType.LAZY)
-    protected List<String> rollen;
-
 
     /**
      * The User's language preference

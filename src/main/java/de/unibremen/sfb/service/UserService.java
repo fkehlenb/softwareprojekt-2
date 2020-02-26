@@ -1,12 +1,10 @@
 package de.unibremen.sfb.service;
 
-import de.unibremen.sfb.exception.AuftragNotFoundException;
 import de.unibremen.sfb.exception.DuplicateUserException;
 import de.unibremen.sfb.exception.UserNotFoundException;
-import de.unibremen.sfb.model.Auftrag;
 import de.unibremen.sfb.model.ExperimentierStation;
+import de.unibremen.sfb.model.Role;
 import de.unibremen.sfb.model.User;
-import de.unibremen.sfb.persistence.AuftragDAO;
 import de.unibremen.sfb.persistence.UserDAO;
 import lombok.Getter;
 
@@ -14,6 +12,7 @@ import javax.annotation.PostConstruct;
 import java.io.Serializable;
 import java.util.*;
 import javax.inject.Inject;
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 @Getter
@@ -37,6 +36,7 @@ public class UserService implements Serializable {
      * List of all users in the system
      */
     private List<User> users;
+    private List<Role> roles;
 
     /**
      * Initializer
@@ -198,6 +198,21 @@ public class UserService implements Serializable {
      * @param message - the email content message */
     public void sendMail(User u,String subject,String message){
         mailingService.sendmail(u.getEmail(),message,subject);
+    }
+
+    public List<Role> getRoles() {
+        roles = List.of(new Role("technologe"), new Role("transport"),
+                new Role ("admin"), new Role("pkAdmin"), new Role("logistik"));
+        return  roles;
+    }
+
+    /**
+     * Get the Role specified by arg
+     * @param role the request Role
+     * @return the Role
+     */
+    public Role getRole(String role) {
+       return roles.stream().filter(r -> r.getName().equals(role)).findFirst().orElseThrow(EntityNotFoundException::new);
     }
 
     /**
