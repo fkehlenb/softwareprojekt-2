@@ -2,7 +2,9 @@ package de.unibremen.sfb.persistence;
 
 import de.unibremen.sfb.exception.DuplicateUserException;
 import de.unibremen.sfb.exception.UserNotFoundException;
+import de.unibremen.sfb.model.Role;
 import de.unibremen.sfb.model.User;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
@@ -11,7 +13,8 @@ import java.util.List;
 /**
  * This class handles the users in the database
  */
-public class UserDAO extends ObjectDAO<User> {
+@Slf4j
+public class  UserDAO extends ObjectDAO<User> {
 
     /**
      * Add a user object to the database
@@ -81,6 +84,20 @@ public class UserDAO extends ObjectDAO<User> {
             throw new UserNotFoundException();
         }
         return u;
+    }
+
+    public Enum<RoleE> getRolesbyID(String userId){
+        try {
+            log.info("Trying to find Rolen");
+            // Fixme Load the Roles.
+
+            // Fix me
+            // List<Role> rollen = em.createQuery("select r.roles from Role r where r.isValidData x = true and where r.UUID = ?",get()).getResultList();
+
+        }catch (Exception e){
+            log.info("No Roles Found");
+            return null;
+        }
     }
 
     /**

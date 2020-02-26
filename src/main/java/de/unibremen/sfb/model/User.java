@@ -35,6 +35,10 @@ public class User {
     @NonNull
     private int id;
 
+    // Die Rollen der Users
+    @ManyToMany
+    private List<Role> roleList;
+
     /**
      * The user's name
      */
@@ -85,10 +89,13 @@ public class User {
 
     /**
      * The role's of the user
+     *
+     // Rollen die dieser Rolle zugewiesen wurden
+        Find by ID Query mit Rolle als String
      */
     @NonNull
     @ElementCollection(fetch = FetchType.LAZY)
-    private List<Role> rollen;
+    protected List<String> rollen;
 
 
     /**

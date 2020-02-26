@@ -202,7 +202,7 @@ public class AuftragService implements Serializable {
         var p = new ProzessSchrittParameter(420, "Test", new ArrayList<>());
         var us = List.of(new User(5, "Default", "Logistik", "l@g.c", "01234",
                 "pk,", "123", true, LocalDateTime.now(),
-                List.of(Role.TECHNOLOGE), "DEUTSCH"));
+                List.of("Technologe", "Admin", "pkAdmin", "Logistiker", "Transport"), "DEUTSCH"));
         var es = List.of(new ExperimentierStation(4, new Standort(1, "Test"), "Fehlerfrei",
                 ExperimentierStationZustand.VERFUEGBAR, us));
         var bs = List.of(new Bedingung(9, "Test B", List.of(new ProzessSchrittParameter(6, "PsP 1",
