@@ -2,6 +2,7 @@ package de.unibremen.sfb.service;
 
 
 import de.unibremen.sfb.model.QuantitativeEigenschaft;
+import de.unibremen.sfb.model.User;
 import de.unibremen.sfb.persistence.QuantitativeEigenschaftDAO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -44,10 +45,12 @@ class QuantitativeEigenschaftServiceTest {
         //when(quantitativeEigenschaft.getEinheit()).thenReturn("Stones");
         when(quantitativeEigenschaftDAO.getAll()).thenReturn(new ArrayList<QuantitativeEigenschaft>());
         when(quantitativeEigenschaftDAO.findQnEById(1)).thenReturn(quantitativeEigenschaft);
+
     }
 
     @Test
     public void testgetQuantitativeEingeschaft() {
+
         assertEquals(quantitativeEigenschaftService.getQlEById(1), quantitativeEigenschaft);
         assertEquals(quantitativeEigenschaftService.getAllQuantitativeEigenschaften(), new ArrayList<QuantitativeEigenschaft>());
 
