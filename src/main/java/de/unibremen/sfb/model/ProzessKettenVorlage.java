@@ -3,6 +3,7 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /** Data class for the process chain templates */
@@ -13,7 +14,7 @@ import java.util.List;
         @NamedQuery(name = "PKV.getAll", query = "SELECT p FROM ProzessKettenVorlage p WHERE p.isValidData = true")
 })
 @RequiredArgsConstructor
-public class ProzessKettenVorlage {
+public class ProzessKettenVorlage implements Serializable {
 
     /** On delete set to invalid */
     @NonNull

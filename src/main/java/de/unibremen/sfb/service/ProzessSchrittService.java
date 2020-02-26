@@ -1,9 +1,6 @@
 package de.unibremen.sfb.service;
 
-import de.unibremen.sfb.exception.DuplicateProzessSchrittLogException;
-import de.unibremen.sfb.exception.ProzessSchrittLogNotFoundException;
-import de.unibremen.sfb.exception.ProzessSchrittNotFoundException;
-import de.unibremen.sfb.exception.ProzessSchrittZustandsAutomatNotFoundException;
+import de.unibremen.sfb.exception.*;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.ProzessSchrittDAO;
 import lombok.extern.slf4j.Slf4j;
@@ -140,5 +137,8 @@ public class ProzessSchrittService implements Serializable {
         return result;
     }
 
+    public void add(ProzessSchritt ps) throws DuplicateProzessSchrittException {
+        prozessSchrittDAO.persist(ps);
+    }
 }
 
