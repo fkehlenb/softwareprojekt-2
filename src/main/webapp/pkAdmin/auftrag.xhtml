@@ -16,6 +16,30 @@
                 }
             </style>
 
+            <p:panel id="auftragErstellen" header="Erstelel Auftrag"
+                     style="margin-bottom: 20px">
+
+                <h:form>
+                    <h:panelGrid columns="2" cellpadding="10">
+                        <p:outputLabel for="pkv" value="PKV Vorlagen: "/>
+                        <h:selectOneMenu  id="pkv" value="#{dtAuftragBean.ausPKV}" converter="omnifaces.SelectItemsConverter" >
+                            <f:selectItems value="#{dtAuftragBean.vorlagen}" label="#{dtAuftragBean.ausPKV.pkvID}"/>
+                        </h:selectOneMenu>
+
+                        <p:outputLabel for="prio" value="Priorität"/>
+                        <h:selectOneMenu id="prio"  value="#{dtAuftragBean.ausPrio}">
+                            <f:selectItems value="#{dtAuftragBean.prios}"/>
+                        </h:selectOneMenu>
+
+
+                    <p:commandButton value="Reset" type="reset"/>
+                    <p:commandButton value="Erstellen" ajax="false"
+                                     action="#{dtAuftragBean.erstelleAuftrag}" icon="pi pi-check"
+                                     update="@form"/>
+                    </h:panelGrid>
+                </h:form>
+            </p:panel>
+
 
             <h:form id="form">
                 <p:growl id="msgs" showDetail="true"/>
