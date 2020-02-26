@@ -63,6 +63,10 @@ public class LogistikerBean implements Serializable {
     @Inject
     private TraegerService traegerService;
 
+    /** Container type service */
+    @Inject
+    private TraegerArtService traegerArtService;
+
     /** Location Service */
     @Inject
     private StandortService standortService;
@@ -71,6 +75,12 @@ public class LogistikerBean implements Serializable {
      * All containers
      */
     private List<Traeger> traegers;
+
+    /** Container type */
+    private TraegerArt traegerArt;
+
+    /** Container types */
+    private List<TraegerArt> traegerArts;
 
     private String errorMessage;
 
@@ -88,6 +98,7 @@ public class LogistikerBean implements Serializable {
         proben = getProben();
         traegers = getTraegerList();
         archiviert = getAllArchviert();
+        traegerArts = traegerArtService.getAll();
     }
 
     /**
@@ -108,16 +119,44 @@ public class LogistikerBean implements Serializable {
      * creates a new carrier
      */
     public void createTraeger() {
-
+        Traeger traeger = new Traeger(UUID.randomUUID().hashCode(),traegerArt);
+        try{
+            traegerService.persist(traeger);
+            facesNotification("Added new Traeger with Art: " + traegerArt.getArt());
+            log.info("Added new Traeger with Art: " + traegerArt.getArt());
+            traegers = getTraegerList();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            facesError("Failed to add new Traeger with Art: " + traegerArt.getArt());
+            log.error("Failed to add new Traeger with Art: " + traegerArt.getArt());
+        }
     }
 
     /**
-     * Update a container
+     * Update a container on row edit
      *
      * @param id - the id of the container to update
      */
-    public void updateTraeger(int id) {
+    public void onRowEditUpdateTraeger(int id) {
+        try{
+            Traeger t = traegerService.getTraegerById(id);
+            t.setArt(traegerArt);
+            traegerService.update(t);
+            facesNotification("Edited trager with ID: " + id);
+            log.info("Edited trager with ID: " + id);
+            traegers = getTraegerList();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            facesError("Failed to edit traeger with ID: " + id);
+            log.error("Failed to edit traeger with ID: " + id);
+        }
+    }
 
+    /** On row edit cancel, restore default variables */
+    public void onRowEditCancelTraegerEdit(){
+        traegerArt = null;
     }
 
     /**
@@ -126,6 +165,17 @@ public class LogistikerBean implements Serializable {
      * @param id - the id of the container to remove
      */
     public void deleteTraeger(int id) {
+        try{
+            traegerService.remove(traegerService.getTraegerById(id));
+            facesNotification("Removed trager with ID: " + id);
+            log.info("Removed trager with ID: " + id);
+            traegers = getTraegerList();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            facesError("Failed to remove traeger with ID: " + id);
+            log.error("Failed to remove traeger with ID: " + id);
+        }
     }
 
     /**

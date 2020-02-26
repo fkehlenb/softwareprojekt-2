@@ -21,7 +21,6 @@ public class Traeger {
     @Id
     private int id;
 
-
     /** The container's type */
     @NonNull
     @ManyToOne(fetch = FetchType.LAZY)

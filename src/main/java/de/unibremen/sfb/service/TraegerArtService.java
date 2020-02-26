@@ -66,4 +66,10 @@ public class TraegerArtService implements Serializable {
     public TraegerArt getById(int id) throws TraegerArtNotFoundException{
         return traegerArtDAO.getById(id);
     }
+
+    /** Get all container types from the database
+     * @return a list of all container types in the database */
+    public List<TraegerArt> getAll(){
+        return traegerArtDAO.getAll();
+    }
 }
