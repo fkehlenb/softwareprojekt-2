@@ -51,7 +51,7 @@
                 <p:growl id="msgs" showDetail="true"/>
 
                 <p:dataTable id="bedingungen" var="bedingung" value="#{bedingungBean.bedingungen}" editable="true"
-                             style="margin-bottom:20px" rowKey="#{standort.id}">
+                             style="margin-bottom:20px" rowKey="#{bedingung.id}">
                     <f:facet name="header">
                         Row Editing
                     </f:facet>
@@ -104,6 +104,11 @@
 
                     <p:column style="width:35px">
                         <p:rowEditor/>
+                    </p:column>
+                    <p:column >
+                        <p:commandButton value="Delete"
+                                         action="#{bedingungBean.deleteBedingung(bedingung.id)}" icon="pi pi-check"
+                                         update="@form"/>
                     </p:column>
 
                 </p:dataTable>

@@ -2,7 +2,9 @@ package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.exception.DuplicateProzessSchrittVorlageException;
 import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
-import de.unibremen.sfb.model.*;
+import de.unibremen.sfb.model.Auftrag;
+import de.unibremen.sfb.model.ProzessSchritt;
+import de.unibremen.sfb.model.ProzessSchrittVorlage;
 import de.unibremen.sfb.persistence.ProzessSchrittVorlageDAO;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -10,11 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import java.io.Serializable;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Data
@@ -26,6 +27,7 @@ import java.util.*;
  */
 
 public class ProzessSchrittVorlageService implements Serializable {
+
     public List<ProzessSchrittVorlage> vorlagen;
 
     @PostConstruct
@@ -36,7 +38,8 @@ public class ProzessSchrittVorlageService implements Serializable {
 
     @Inject
     ProzessSchrittVorlageDAO psvDAO;
-
+    @Inject
+    AuftragService auftragService;
 
 
     public List<ProzessSchrittVorlage> getProzessSchrittVorlagen() {
@@ -105,12 +108,36 @@ public class ProzessSchrittVorlageService implements Serializable {
 
     /**
      * Hole die PSV durch ihre ID
+     *
      * @param id die ID von psv
      * @return die PSV
      * @throws ProzessSchrittVorlageNotFoundException
      */
-    public ProzessSchrittVorlage getByID(int id) throws ProzessSchrittVorlageNotFoundException{
+    public ProzessSchrittVorlage getByID(int id) throws ProzessSchrittVorlageNotFoundException {
         return psvDAO.getObjById(id);
     }
 
+    public List<ProzessSchritt> darftBearbeiten() {
+        var r = new ArrayList<ProzessSchritt>();
+        for (Auftrag a :
+                auftragService.getAuftrage()) {
+            istBearbeitbar(r, a);
+        }
+        return  r;
+    }
+
+    private void istBearbeitbar(ArrayList<ProzessSchritt> r, Auftrag a) {
+        r.addAll( a.getProzessSchritte().stream().filter(p -> !p.getProzessSchrittZustandsAutomat().
+                getCurrent().equals("In Bearbeitung")).
+                collect(Collectors.toList()));
+    }
+
+    public List<ProzessSchrittVorlage> akzeptiertePSV(){
+        List<ProzessSchrittVorlage> psv= new ArrayList<ProzessSchrittVorlage>();
+        for (ProzessSchritt ps:
+                darftBearbeiten()) {
+            psv.add(ps.getProzessSchrittVorlage());
+        }
+        return psv;
+    }
 }
