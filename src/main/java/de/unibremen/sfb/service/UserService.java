@@ -235,34 +235,6 @@ public class UserService implements Serializable {
         mailingService.sendmail(u.getEmail(), message, subject);
     }
 
-    public List<Role> getRoles() {
-        roles = roleDao.getAll();
-        if (roles.isEmpty()) {
-            roles = List.of(new Role(UUID.randomUUID().hashCode(), "technologe"), new Role(UUID.randomUUID().hashCode(), "transport"),
-                    new Role(UUID.randomUUID().hashCode(), "admin"), new Role(UUID.randomUUID().hashCode(), "pkAdmin"), new Role(UUID.randomUUID().hashCode(), "logistik"));
-            try {
-                for (Role r : roles){
-                    roleDao.persist(r);
-                }
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-        return roles;
-    }
-
-    /**
-     * Get the Role specified by arg
-     *
-     * @param role the request Role
-     * @return the Role
-     * @throws RoleNotFoundException on failure
-     */
-    public Role getRole(String role) throws RoleNotFoundException {
-        return roleDao.getObjByID(role);
-    }
-
     /**
      * Get the Current User
      * // FIXME because no persistence

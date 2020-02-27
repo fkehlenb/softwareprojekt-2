@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import javax.ws.rs.Path;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -34,11 +35,6 @@ public class User {
     @Id
     @NonNull
     private int id;
-
-    // Die Rollen der Users
-    @NonNull
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<Role> roleList;
 
     /**
      * The user's name

@@ -90,16 +90,10 @@ public class RoleDao extends ObjectDAO<Role> {
     /**
      * Get a role using its type
      *
-     * @param r - the role whichs object to fetch
+     * @param r - the user
      * @return the role object matching the string
-     * @throws RoleNotFoundException on failure
      */
-    public Role getObjByID(String r) throws RoleNotFoundException {
-        try {
-            return em.createNamedQuery("Role.getByName",get()).setParameter("name",r).getSingleResult();
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RoleNotFoundException();
+    public List<Role> getObjByID(String r) {
+            return em.createNamedQuery("Role.getByName",get()).setParameter("name",r).getResultList();
         }
-    }
 }

@@ -18,7 +18,7 @@ import java.util.Objects;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "Role.getAll", query = "SELECT u FROM Role u WHERE u.isValidData = true"),
-        @NamedQuery(name = "Role.getByName", query = "select u from Role u where u.isValidData = true and u.name = :name")
+        @NamedQuery(name = "Role.getByName", query = "select u from Role u where u.isValidData = true and u.username = :name")
 })
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
