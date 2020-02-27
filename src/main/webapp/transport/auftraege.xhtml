@@ -29,34 +29,34 @@
                     <p:growl id="msgs" showDetail="true"/>
 
 
-                    <p:dataTable id="angAuftrag1" var="angAuftrag" value="#{transportBean.ps}" editable="true"
+                    <p:dataTable id="ps1" var="ps" value="#{transportBean.ps}" editable="true"
                                  style="margin-bottom:20px">
                         <f:facet name="header">
                             Angenommene Aufträge
                         </f:facet>
 
                         <p:column headerText="Id">
-                            <h:outputText value="#{angAuftrag.psID}"/>
+                            <h:outputText value="#{ps.psID}"/>
                         </p:column>
 
                         <p:column headerText="TrägerID">
-                            <h:outputText value="#{angAuftrag.psID}"/>
+                            <h:outputText value="#{ps.psID}"/>
                         </p:column>
 
                         <p:column headerText="Abholort">
-                            <h:outputText value="#{angAuftrag.}"/>
+                            <h:outputText value="#{ps.prozessSchrittLog}"/>
                         </p:column>
 
                         <p:column headerText="Ablieferort">
-                            <h:outputText value="#{angAuftrag.psID}"/>
+                            <h:outputText value="#{ps.psID}"/>
                         </p:column>
 
                         <p:column headerText="Zustand">
-                            <h:outputText value="#{angAuftrag.psID}"/>
+                            <h:outputText value="#{ps.transportAuftrag.zustandsAutomat}"/>
                         </p:column>
 
                         <p:column headerText="Abgeliefert?">
-                            <h:outputText value="#{angAuftrag.psID}"/>
+                            <h:outputText value="#{ps.psID}"/>
                         </p:column>
 
                     </p:dataTable>
