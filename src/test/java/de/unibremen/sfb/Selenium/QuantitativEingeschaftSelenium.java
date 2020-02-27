@@ -13,7 +13,7 @@ public class QuantitativEingeschaftSelenium {
         WebDriverManager.firefoxdriver().setup();
         WebDriver driver = new FirefoxDriver();
         driver.manage().window().maximize();
-        driver.get("https://google.com");
+        driver.get("http://localhost:8080");
     }
 
 }

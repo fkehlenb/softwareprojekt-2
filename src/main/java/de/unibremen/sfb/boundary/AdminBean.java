@@ -1,10 +1,7 @@
 package de.unibremen.sfb.boundary;
 
 
-import de.unibremen.sfb.exception.DuplicateRoleException;
-import de.unibremen.sfb.exception.DuplicateUserException;
-import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
-import de.unibremen.sfb.exception.RoleNotFoundException;
+import de.unibremen.sfb.exception.*;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.*;
 import lombok.Getter;
@@ -226,10 +223,10 @@ public class AdminBean implements Serializable {
     private PasswordMatcher matcher = new PasswordMatcher();
 
     /**
+     * CODE REVIEW: CREATED BY SANTI, ANGEPASST BY LEO
      * Add a new user
      * @throws DuplicateUserException is user already Exists
      */
-    // CODE REVIEW: CREATED BY SANTI, ANGEPASST BY LEO
     public void addUser() throws DuplicateUserException, DuplicateRoleException, RoleNotFoundException {
         LocalDateTime date1 = LocalDateTime.now();
         builtRollenList();

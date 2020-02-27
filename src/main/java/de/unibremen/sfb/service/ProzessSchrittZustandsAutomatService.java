@@ -22,7 +22,7 @@ public class ProzessSchrittZustandsAutomatService {
     /**
      * Loesche die Liste dieser ProzessSchrittZustandsAutomaten
      * @param selpsza die List der zu loeschenden ProzessSchrittZustandsAutomaten
-     * @throws ProzessSchrittZustandsAutomatNotFoundException
+     * @throws ProzessSchrittZustandsAutomatNotFoundException falls es ihn nicht gibt
      */
     public void delete(List<ProzessSchrittZustandsAutomat> selpsza) throws ProzessSchrittZustandsAutomatNotFoundException {
         for (ProzessSchrittZustandsAutomat p :

@@ -42,8 +42,8 @@ public class ProzessSchrittZustandsAutomatVorlageService {
     }
 
     @PostConstruct
-    /**
-     * Init vom Service, laedet alle Vorlagen
+    /*
+      Init vom Service, laedet alle Vorlagen
      */
     public void init() {
         this.psvVorlagen = prozessSchrittZustandsAutomatVorlageDAO.getAll();
