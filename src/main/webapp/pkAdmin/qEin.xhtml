@@ -21,7 +21,7 @@
     <ui:define name="content">
         <div class="ui-g-8">
             <div id="QlE">
-                <div id="QualEingeschaftFormular">
+                <p:panel id="QualEingeschaftFormular">
                     <h2>Qualitative Eingeschaft Formular</h2>
                     <p:outputPanel>
                         <h:form>
@@ -35,15 +35,15 @@
                             </h:panelGrid>
                         </h:form>
                     </p:outputPanel>
-                </div>
-                <br/>
-                <div id="form">
+                </p:panel>
+
+                <p:panel id="form">
                     <h2>List Qualitative Eingeschaft </h2>
 
                     <p:dataTable id="tbl" var="qlE" value="#{qlEView.findAllQual()}"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                                  paginator="true" rows="5" style="margin-bottom:20px">
-                
+
                         <p:column headerText="Id">
                             <h:outputText value="#{qlE.id}"/>
                         </p:column>
@@ -68,10 +68,10 @@
                             </h:form>
                         </p:column>
                     </p:dataTable>
-                </div>
+                </p:panel>
             </div>
             <div id="QuanTE">
-                <div id="QuantEingeschaftFormular">
+                <p:panel id="QuantEingeschaftFormular">
                     <h2>Quantitative Eingeschaft Formular</h2>
                     <p:outputPanel>
                         <h:form>
@@ -93,8 +93,8 @@
                             </h:panelGrid>
                         </h:form>
                     </p:outputPanel>
-                </div>
-                <div id="QuantEingenschatenList">
+                </p:panel>
+                <p:panel id="QuantEingenschatenList">
                     <h2>List Quantitavite Eingeschaft </h2>
                     <p:dataTable id="QuantEingenschatenTabele" var="qnE" value="#{qlEView.findAllQuan()}"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
@@ -128,7 +128,7 @@
                             </h:form>
                         </p:column>
                     </p:dataTable>
-                </div>
+                </p:panel>
             </div>
         </div>
     </ui:define>
