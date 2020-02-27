@@ -18,18 +18,17 @@
                 </p:growl>
                 <p:panelGrid columns="1">
                     <p:row>
-                        <h2 style="color: cornflowerblue">Traegeruebersicht</h2>
+                        <h2 style="color: cornflowerblue">#{msg['logTrägerÜ.jsf']}</h2>
                     </p:row>
                     <p:row>
-                        <p>In der unteren Tabelle sehen Sie alle Traeger die im System existieren.
-                            Mit hilfe des unteren Formulars koennen Sie neue Traeger ins System einfuegen.</p>
+                        <p>#{msg['logTräÜText.jsf']}</p>
                     </p:row>
                     <p:row>
                         <h:form id="form">
                             <p:panelGrid>
                                 <p:row>
                                     <p:column colspan="1">
-                                        <h:outputText value="Tragerart:"/>
+                                        <h:outputText value="#{msg['logTrägerart.jsf']}:"/>
                                     </p:column>
                                     <p:column colspan="1">
                                         <p:selectOneMenu id="tragerArtTabelle"
@@ -38,7 +37,7 @@
                                                          effect="fade"
                                                          var="tragerArt" style="width: 172px" filter="true"
                                                          filterMatchMode="contains" required="true"
-                                                         requiredMessage="Bitte Traegerart Wahlen!">
+                                                         requiredMessage="#{msg['logTrägerartMessage.jsf']}">
                                             <f:selectItems value="#{dtLogistikerBean.traegerArts}"
                                                            var="tragerArt" itemLabel="#{tragerArt.art}"
                                                            itemValue="#{tragerArt}" required="true"/>
@@ -48,7 +47,7 @@
                                         </p:selectOneMenu>
                                     </p:column>
                                     <p:column colspan="1">
-                                        <h:outputText value="Standort:"/>
+                                        <h:outputText value="#{msg['logStandort.jsf']}:"/>
                                     </p:column>
                                     <p:column colspan="1">
                                         <p:selectOneMenu id="standortTable"
@@ -57,7 +56,7 @@
                                                          effect="fade"
                                                          var="standort" style="width: 172px" filter="true"
                                                          filterMatchMode="contains" required="true"
-                                                         requiredMessage="Bitte Standort Wahlen!">
+                                                         requiredMessage="#{msg['esVerwaltungMeldung.jsf']}">
                                             <f:selectItems value="#{adminBean.allLocations}"
                                                            var="standort" itemLabel="#{standort.ort}"
                                                            itemValue="#{standort}" required="true"/>
@@ -69,10 +68,10 @@
                                 </p:row>
                                 <p:row>
                                     <p:column colspan="1">
-                                        <p:commandButton value="Reset" type="reset" icon="pi pi-trash"/>
+                                        <p:commandButton value="#{msg['reset.jsf']}" type="reset" icon="pi pi-trash"/>
                                     </p:column>
                                     <p:column colspan="1">
-                                        <p:commandButton value="Erstellen"
+                                        <p:commandButton value="#{msg['erstellen.jsf']}"
                                                          action="#{dtLogistikerBean.createTraeger}" icon="pi pi-check"
                                                          update="form2" ajax="true"/>
                                     </p:column>
@@ -89,10 +88,10 @@
                                         update="form2:table"/>
                                 <p:ajax event="rowEditCancel" listener="#{dtLogistikerBean.onRowEditCancelTraegerEdit}"
                                         update="form2:table"/>
-                                <p:column headerText="Traeger ID">
+                                <p:column headerText="#{msg['logTrägerID.jsf']}">
                                     <h:outputText value="#{trager.id}"/>
                                 </p:column>
-                                <p:column headerText="Traegerart">
+                                <p:column headerText="#{msg['logTrägerart.jsf']}">
                                     <p:cellEditor>
                                         <f:facet name="output">
                                             <h:outputText value="#{trager.art.art}"/>
@@ -115,7 +114,7 @@
                                         </f:facet>
                                     </p:cellEditor>
                                 </p:column>
-                                <p:column headerText="Standort">
+                                <p:column headerText="#{msg['logStandort.jsf']}">
                                     <p:cellEditor>
                                         <f:facet name="output">
                                             <h:outputText value="#{trager.tragerStandort.ort}"/>
@@ -127,7 +126,7 @@
                                                              effect="fade"
                                                              var="standort" style="width: 172px" filter="true"
                                                              filterMatchMode="contains" required="true"
-                                                             requiredMessage="Bitte Standort Wahlen!">
+                                                             requiredMessage="#{msg['esVerwaltungMeldung.jsf']}">
                                                 <f:selectItems value="#{adminBean.allLocations}"
                                                                var="standort" itemLabel="#{standort.ort}"
                                                                itemValue="#{standort}" required="true"/>
@@ -139,7 +138,7 @@
                                     </p:cellEditor>
                                 </p:column>
                                 <p:column>
-                                    <p:commandButton value="Delete" ajax="true" update="form2"
+                                    <p:commandButton value="#{msg['delete.jsf']}" ajax="true" update="form2"
                                                      action="#{dtLogistikerBean.deleteTraeger(trager.id)}"
                                                      icon="pi pi-trash"/>
                                 </p:column>
