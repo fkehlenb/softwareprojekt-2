@@ -1,9 +1,10 @@
-image: maven:latest
+image: jboss/wildfly
 
 stages:
   - build
-  - test
+  - package
   - deploy
+  - test
 
 cache:
   paths:
@@ -19,6 +20,14 @@ compile_pdf:
   artifacts:
     paths:
       - doc/Architekturbeschreibung.pdf  # instruct GitLab to keep the main.pdf file
+
+package_service
+  stage: package
+  image: maven
+  script: mvn package
+
+
+
 
 pages:
   stage: deploy
