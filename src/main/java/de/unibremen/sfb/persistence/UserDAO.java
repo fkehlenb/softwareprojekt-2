@@ -2,7 +2,9 @@ package de.unibremen.sfb.persistence;
 
 import de.unibremen.sfb.exception.DuplicateUserException;
 import de.unibremen.sfb.exception.UserNotFoundException;
+import de.unibremen.sfb.model.Role;
 import de.unibremen.sfb.model.User;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +12,8 @@ import java.util.List;
 /**
  * This class handles the users in the database
  */
-public class UserDAO extends ObjectDAO<User> {
+@Slf4j
+public class  UserDAO extends ObjectDAO<User> {
 
     /**
      * Add a user object to the database

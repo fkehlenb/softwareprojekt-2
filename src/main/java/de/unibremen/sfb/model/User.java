@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -81,14 +82,6 @@ public class User {
      */
     @NonNull
     private LocalDateTime erstellungsDatum;
-
-    /**
-     * The role's of the user
-     */
-    @NonNull
-    @ElementCollection(fetch = FetchType.LAZY)
-    private List<Role> rollen;
-
 
     /**
      * The User's language preference

@@ -1,9 +1,10 @@
 package de.unibremen.sfb.boundary;
 
 
+import de.unibremen.sfb.exception.DuplicateRoleException;
 import de.unibremen.sfb.exception.DuplicateUserException;
 import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
-import de.unibremen.sfb.exception.UserNotFoundException;
+import de.unibremen.sfb.exception.RoleNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.*;
 import lombok.Getter;
@@ -64,9 +65,17 @@ public class AdminBean implements Serializable {
     @Inject
     private BackupService backupService;
 
-    /** Job Service */
+    /**
+     * Job Service
+     */
     @Inject
     private AuftragService auftragService;
+
+    /**
+     * Rollen service
+     */
+    @Inject
+    private RoleService roleService;
 
     /**
      * The user's name
@@ -116,7 +125,7 @@ public class AdminBean implements Serializable {
     /**
      * The roles the user has in the system
      */
-    private List<Role> rollen = new ArrayList<>();
+    private List<String> rollen = new ArrayList<>();
 
     /**
      * The jobs the user has in the system
@@ -178,13 +187,19 @@ public class AdminBean implements Serializable {
      */
     private List<ExperimentierStation> experimentierStations;
 
-    /** Database import file */
+    /**
+     * Database import file
+     */
     private UploadedFile importFile;
 
-    /** Old jobs */
+    /**
+     * Old jobs
+     */
     private List<Auftrag> auftrage = new ArrayList<>();
 
-    /** Strings to be converted to datetime */
+    /**
+     * Strings to be converted to datetime
+     */
     private String erstellt;
     private String gestartet;
     private String beendet;
@@ -198,8 +213,8 @@ public class AdminBean implements Serializable {
         allLocations = standortService.getStandorte();
         allUsers = userService.getAll();
         experimentierStations = experimentierStationService.getAll();
-        for (Auftrag a : auftragService.getAuftrage()){
-            if (a.getProzessKettenZustandsAutomat()==ProzessKettenZustandsAutomat.DURCHGEFUEHRT){
+        for (Auftrag a : auftragService.getAuftrage()) {
+            if (a.getProzessKettenZustandsAutomat() == ProzessKettenZustandsAutomat.DURCHGEFUEHRT) {
                 auftrage.add(a);
             }
         }
@@ -214,7 +229,8 @@ public class AdminBean implements Serializable {
      * Add a new user
      * @throws DuplicateUserException is user already Exists
      */
-    public void addUser() throws DuplicateUserException {
+    // CODE REVIEW: CREATED BY SANTI, ANGEPASST BY LEO
+    public void addUser() throws DuplicateUserException, DuplicateRoleException, RoleNotFoundException {
         LocalDateTime date1 = LocalDateTime.now();
         builtRollenList();
         try {
@@ -228,9 +244,9 @@ public class AdminBean implements Serializable {
             user.setPassword(matcher.getPasswordService().encryptPassword(password));
             user.setWurdeVerifiziert(wurdeVerifiziert);
             user.setErstellungsDatum(date1);
-            user.setRollen(rollen);
             user.setLanguage(language);
             userService.updateUser(user);
+            roleService.applyRoles(rollen,userName);
             String id = "";
             resetVariables();
             log.info("User updated, ID: " + idOld);
@@ -238,8 +254,9 @@ public class AdminBean implements Serializable {
         } catch (Exception e) {
             User user = new User(UUID.randomUUID().hashCode(), vorname, nachname, email, telefonNummer,
                     userName, matcher.getPasswordService().encryptPassword(password), wurdeVerifiziert, date1
-                    , rollen, language);
+                    , language);
             userService.addUser(user);
+            roleService.applyRoles(rollen,userName);
             log.info("Added new User, Username: " + userName);
             facesNotification("Created new user! Username: " + userName);
             userService.sendMail(user, "Account Created!", "Thank you for creating your account at SFB - Farbige Zustaende!\nIf you did not create" +
@@ -253,16 +270,34 @@ public class AdminBean implements Serializable {
      *
      * @param id - the id of the user to be edited
      */
+    // CODE REVIEW: CREATED BY SANTI, ANGEPASST BY LEO
     public void adminEditUser(String id) {
         try {
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idx", id);
             User user = userService.getUserById(Integer.parseInt(id));
             this.id = id;
-            this.technologe = user.getRollen().contains(Role.TECHNOLOGE);
-            this.pkAdministrator = user.getRollen().contains(Role.PKADMIN);
-            this.transporter = user.getRollen().contains(Role.TRANSPORT);
-            this.logistiker = user.getRollen().contains(Role.LOGISTIKER);
-            this.administrator = user.getRollen().contains(Role.ADMIN);
+            List<Role> usersRoles = roleService.getRolesByUser(user.getUsername());
+            for (Role r : usersRoles) {
+                switch (r.getName()) {
+                    case "technologe":
+                        technologe = true;
+                        break;
+                    case "pkAdmin":
+                        pkAdministrator = true;
+                        break;
+                    case "transport":
+                        transporter = true;
+                        break;
+                    case "logistik":
+                        logistiker = true;
+                        break;
+                    case "admin":
+                        administrator = true;
+                        break;
+                    default:
+                        break;
+                }
+            }
             this.vorname = user.getVorname();
             this.nachname = user.getNachname();
             this.email = user.getEmail();
@@ -307,22 +342,22 @@ public class AdminBean implements Serializable {
     /**
      * Help method for the List Roles to built
      */
+    // CODE REVIEW: CREATED BY SANTI, ANGEPASST BY LEO
     public void builtRollenList() {
         if (technologe) {
-            rollen.add(Role.TECHNOLOGE);
-
+            rollen.add("technologe");
         }
         if (pkAdministrator) {
-            rollen.add(Role.PKADMIN);
+            rollen.add("pkAdmin");
         }
         if (transporter) {
-            rollen.add(Role.TRANSPORT);
+            rollen.add("transport");
         }
         if (logistiker) {
-            rollen.add(Role.LOGISTIKER);
+            rollen.add("logistik");
         }
         if (administrator) {
-            rollen.add(Role.ADMIN);
+            rollen.add("admin");
         }
     }
 
@@ -488,8 +523,7 @@ public class AdminBean implements Serializable {
                 log.info("Deleted experimenting station! ID: " + esID);
                 facesNotification("Deleted experimenting station! ID: " + esID);
                 experimentierStations = experimentierStationService.getAll();
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 log.info("Couldn't delete exoerimenting station! ID: " + esID);
                 facesError("Couldn't delete exoerimenting station! ID: " + esID);
@@ -499,21 +533,27 @@ public class AdminBean implements Serializable {
         }
     }
 
-    /** Convert a char[] to a localdatetime object
+    /**
+     * Convert a char[] to a localdatetime object
+     *
      * @param s - the char[] to convert
-     * @return a localdatetime object matching the string */
-    private LocalDateTime getDateTimeFromCharArray(char[] s){
+     * @return a localdatetime object matching the string
+     */
+    private LocalDateTime getDateTimeFromCharArray(char[] s) {
         return LocalDateTime
-                .of(Integer.parseInt(String.valueOf(s[0]+s[1]+s[2]+s[3]))
-                        ,Integer.parseInt(String.valueOf(s[5]+s[6]))
-                        ,Integer.parseInt(String.valueOf(s[8]+s[9]))
-                        ,Integer.parseInt(String.valueOf(s[11]+s[12]))
-                        ,Integer.parseInt(String.valueOf(s[14]+s[15])));
+                .of(Integer.parseInt(String.valueOf(s[0] + s[1] + s[2] + s[3]))
+                        , Integer.parseInt(String.valueOf(s[5] + s[6]))
+                        , Integer.parseInt(String.valueOf(s[8] + s[9]))
+                        , Integer.parseInt(String.valueOf(s[11] + s[12]))
+                        , Integer.parseInt(String.valueOf(s[14] + s[15])));
     }
 
-    /** Globale einstellungen action listener
-     * @param id - the id of the job to update */
-    public void onRowEditGlobaleEinstellungen(int id){
+    /**
+     * Globale einstellungen action listener
+     *
+     * @param id - the id of the job to update
+     */
+    public void onRowEditGlobaleEinstellungen(int id) {
         try {
             char[] aufErstellt = erstellt.toCharArray();
             char[] aufGestartet = gestartet.toCharArray();
@@ -534,26 +574,28 @@ public class AdminBean implements Serializable {
             auftragService.update(a);
             facesNotification("Updated job! ID: " + id);
             log.info("Updated job! ID: " + id);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             facesError("Couldn't update job! ID: " + id);
             log.error("Couldn't update job! ID: " + id);
         }
     }
 
-    /** Globale einstellungen cancel action listener */
-    public void onRowEditCancelGlobaleEinstellungen(){
+    /**
+     * Globale einstellungen cancel action listener
+     */
+    public void onRowEditCancelGlobaleEinstellungen() {
         facesNotification("Canceled!");
     }
 
-    /** Database import */
-    public void databaseImport(){
-        try{
+    /**
+     * Database import
+     */
+    public void databaseImport() {
+        try {
             backupService.upload(importFile);
             facesNotification("Imported successfully!");
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             facesError("Couldn't impoort data!");
         }
