@@ -63,7 +63,7 @@ public class UpdatePSPView implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "pS?faces-redirect=true";
+        return "psp?faces-redirect=true";
     }
 
     public List<QualitativeEigenschaft> deleteGewaltQein(String id){
