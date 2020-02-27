@@ -21,7 +21,7 @@ compile_pdf:
     paths:
       - doc/Architekturbeschreibung.pdf  # instruct GitLab to keep the main.pdf file
 
-package_service
+package_service:
   stage: package
   image: maven
   script:
@@ -59,3 +59,4 @@ build:
     when: on_success
     paths:
       - "target/*.jar"
+
