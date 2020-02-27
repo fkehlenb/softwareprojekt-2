@@ -3,7 +3,6 @@ package de.unibremen.sfb.service;
 import de.unibremen.sfb.exception.DuplicateProzessSchrittLogException;
 import de.unibremen.sfb.exception.ProzessSchrittLogNotFoundException;
 import de.unibremen.sfb.model.ProzessSchrittLog;
-import de.unibremen.sfb.model.ProzessSchrittZustandsAutomat;
 import de.unibremen.sfb.persistence.ProzessSchrittLogDAO;
 
 import javax.inject.Inject;

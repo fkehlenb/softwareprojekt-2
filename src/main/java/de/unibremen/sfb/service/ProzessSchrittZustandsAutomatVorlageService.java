@@ -1,18 +1,12 @@
 package de.unibremen.sfb.service;
 import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
 import de.unibremen.sfb.model.ProzessSchrittZustandsAutomatVorlage;
-import de.unibremen.sfb.persistence.ProzessSchrittVorlageDAO;
-import de.unibremen.sfb.persistence.ProzessSchrittZustandsAutomatDAO;
 import de.unibremen.sfb.persistence.ProzessSchrittZustandsAutomatVorlageDAO;
-import de.unibremen.sfb.persistence.TraegerArtDAO;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Singleton
 /**

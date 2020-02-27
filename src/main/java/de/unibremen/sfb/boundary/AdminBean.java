@@ -21,7 +21,6 @@ import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Stream;
 
 /**
  * this class manages the interaction between the gui and the backend system in the case that the user is an admin

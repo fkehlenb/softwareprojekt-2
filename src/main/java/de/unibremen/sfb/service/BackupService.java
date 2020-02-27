@@ -1,22 +1,14 @@
 package de.unibremen.sfb.service;
 
-import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.file.UploadedFile;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
@@ -71,7 +63,7 @@ public class BackupService implements Serializable {
 
     /**
      * https://www.baeldung.com/java-write-to-file
-     * @throws IOException
+     * @throws IOException falls es IO fehler gibt
      */
     public void  toDisk(UploadedFile file) throws IOException {
         FileOutputStream outputStream = new FileOutputStream(file.getFileName());

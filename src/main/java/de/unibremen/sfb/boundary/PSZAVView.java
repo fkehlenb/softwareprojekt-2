@@ -1,8 +1,6 @@
 package de.unibremen.sfb.boundary;
 
 
-import de.unibremen.sfb.exception.DuplicateProzessSchrittZustandsAutomatVorlageException;
-import de.unibremen.sfb.exception.ProzessSchrittZustandsAutomatVorlageNotFoundException;
 import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.*;
@@ -21,7 +19,6 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 
 @Named("pszavView")

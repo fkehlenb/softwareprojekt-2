@@ -3,7 +3,6 @@ package de.unibremen.sfb.controller;
 import de.unibremen.sfb.model.*;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * this class manages communication with models of experimenting stations (ExperimentierStationen)

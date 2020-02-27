@@ -1,13 +1,11 @@
 package de.unibremen.sfb.converter;
 
 import de.unibremen.sfb.model.Auftrag;
-import de.unibremen.sfb.service.AuftragService;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.inject.Inject;
 
 
 @FacesConverter(value = "auftragConverter", managed = true)

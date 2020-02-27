@@ -1,9 +1,7 @@
 package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.exception.DuplicateBedingungException;
-import de.unibremen.sfb.exception.ProzessSchrittParameterNotFoundException;
 import de.unibremen.sfb.model.*;
-import de.unibremen.sfb.persistence.AuftragDAO;
 import de.unibremen.sfb.persistence.ProzessSchrittParameterDAO;
 import de.unibremen.sfb.service.BedingungService;
 import de.unibremen.sfb.service.ProzessKettenVorlageService;
@@ -17,13 +15,10 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 

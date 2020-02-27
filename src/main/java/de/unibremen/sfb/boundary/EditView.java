@@ -1,7 +1,6 @@
 package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.model.Car;
-import de.unibremen.sfb.model.ProzessSchrittVorlage;
 import de.unibremen.sfb.service.CarService;
 import de.unibremen.sfb.service.ProzessSchrittVorlageService;
 import org.primefaces.event.CellEditEvent;
@@ -13,7 +12,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.Serializable;

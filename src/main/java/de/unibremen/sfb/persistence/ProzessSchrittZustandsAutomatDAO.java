@@ -2,14 +2,7 @@ package de.unibremen.sfb.persistence;
 
 import de.unibremen.sfb.exception.DuplicateProzessSchrittZustandsAutomatException;
 import de.unibremen.sfb.exception.ProzessSchrittZustandsAutomatNotFoundException;
-import de.unibremen.sfb.exception.TraegerArtNotFoundException;
 import de.unibremen.sfb.model.ProzessSchrittZustandsAutomat;
-import de.unibremen.sfb.model.ProzessSchrittZustandsAutomatVorlage;
-import de.unibremen.sfb.model.TraegerArt;
-
-
-import java.util.ArrayList;
-import java.util.List;
 
 /** This class handles the process step state objects stored in the database */
 public class ProzessSchrittZustandsAutomatDAO extends ObjectDAO<ProzessSchrittZustandsAutomat> {
