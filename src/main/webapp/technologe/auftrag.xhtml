@@ -22,6 +22,10 @@
                                 <h1 style="color: cornflowerblue">Verfügbare Aufträge</h1>
                             </p:row>
 
+                            <p:row>
+                                <p>Hier können Sie alle Aufträge sehen, die aktuell an Ihren Stationen offen sind, und sich denen zuordnen, die Sie bearbeiten wollen.</p>
+                            </p:row>
+
                             <p:dataTable var="auftrag" value="#{technologeView.getAuftrag()}">
                                 <p:column headerText="Id">
                                     <h:outputText value="#{auftrag.psID}"/>

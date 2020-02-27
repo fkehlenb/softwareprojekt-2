@@ -24,6 +24,10 @@
                                 <h1 style="color: cornflowerblue">Experimentierstationen</h1>
                             </p:row>
 
+                            <p:row>
+                                <p>Hier können Sie alle Stationen sehen, an denen Sie arbeiten, und zwischen den Sichtweisen der Stationen wechseln. </p>
+                            </p:row>
+
                             <p:dataTable var="station" value="#{technologeView.getStationen()}">
                                 <p:column headerText="Id">
                                     <h:outputText value="#{station.esID}"/>
