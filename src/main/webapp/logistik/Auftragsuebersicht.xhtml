@@ -25,36 +25,36 @@
         </p:growl>
         <p:panelGrid columns="1">
             <p:row>
-                <h2 style="color:cornflowerblue">Alle Aufträge</h2>
+                <h2 style="color:cornflowerblue">#{msg['logAuftragsÜ.jsf']}</h2>
             </p:row>
             <p:row>
-                <p>In der unteren Tabelle sehen Sie alle Aufträge die Instanziiert wurden.<br/>
-                    Mit dem Formular können sie den Auftrag verwalten und starten.</p>
+                <p>#{msg['logAuftragsÜText.jsf']}<br/>
+                    #{msg['logAuftragsÜText2.jsf']}</p>
             </p:row>
             <h:form id="form">
 
 
             <p:dataTable id="table" var="auftrag" value="#{dtAuftragBean.auftrage}">
-                <p:column headerText="Id">
+                <p:column headerText="ID">
                     <h:outputText value="#{auftrag.pkID}"/>
                 </p:column>
 
-                <p:column headerText="Priorität">
+                <p:column headerText="#{msg['logPriority.jsf']}">
                     <h:outputText value="#{auftrag.priority}"/>
                 </p:column>
 
-                <p:column headerText="Prozessschritte">
+                <p:column headerText="#{msg['logProzessSchritte.jsf']}">
                     <h:outputText value="#{auftrag.prozessSchritte}" />
                 </p:column>
 
-                <p:column headerText="Zustand">
+                <p:column headerText="#{msg['zustand.jsf']}">
                     <h:outputText value="#{auftrag.prozessKettenZustandsAutomat}"/>
                 </p:column>
 
                 <p:column>
                     <p:inputText value="#{dtLogistikerBean.errorMessage}" placeholder="error"/>
-                    <p:commandButton value="Ablehnen" ajax="true" action="#{dtLogistikerBean.refuseAuftrag(auftrag.pkID)}" icon="pi pi-ban" update="form:table" />
-                    <p:commandButton value="Annehmen" ajax="true" action="#{dtLogistikerBean.startAuftrag(auftrag.pkID)}" icon="pi pi-check" update="form:table" />
+                    <p:commandButton value="#{msg['logAblehnen.jsf']}" ajax="true" action="#{dtLogistikerBean.refuseAuftrag(auftrag.pkID)}" icon="pi pi-ban" update="form:table" />
+                    <p:commandButton value="#{msg['logAnnehmen.jsf']}" ajax="true" action="#{dtLogistikerBean.startAuftrag(auftrag.pkID)}" icon="pi pi-check" update="form:table" />
 
                 </p:column>
             </p:dataTable>
