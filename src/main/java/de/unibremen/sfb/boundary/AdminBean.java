@@ -237,6 +237,8 @@ public class AdminBean implements Serializable {
      * CODE REVIEW: CREATED BY SANTI, ANGEPASST BY LEO
      * Add a new user
      * @throws DuplicateUserException is user already Exists
+     * @throws DuplicateRoleException on Persistence Failure
+     * @throws RoleNotFoundException  on Persistence Failure
      */
     public void addUser() throws DuplicateUserException, DuplicateRoleException, RoleNotFoundException {
         LocalDateTime date1 = LocalDateTime.now();
@@ -505,8 +507,8 @@ public class AdminBean implements Serializable {
             e.printStackTrace();
             List<User> experimentierStationUsers = new ArrayList<>();
             Collections.addAll(experimentierStationUsers, experimentierStationBenutzer);
-            ExperimentierStation es = new ExperimentierStation(UUID.randomUUID().hashCode(), experimentierStationStandort, experimentierStationName, ExperimentierStationZustand.VERFUEGBAR, experimentierStationUsers);
-            es.setBedingungen(bedingungen);
+            ExperimentierStation es = new ExperimentierStation(UUID.randomUUID().hashCode(), experimentierStationStandort,
+                    experimentierStationName, ExperimentierStationZustand.VERFUEGBAR , bedingungen , experimentierStationUsers);
             try {
                 experimentierStationService.addES(es);
                 log.info("Added experimenting station! Name: " + experimentierStationName);

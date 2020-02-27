@@ -57,6 +57,7 @@ public class ExperimentierStation {
 //    private Queue<ProzessSchritt> nextPS;
 
     /** Conditions for using an experimenting station */
+    @NonNull
     @ManyToMany(fetch = FetchType.LAZY)
     private List<Bedingung> bedingungen;
 

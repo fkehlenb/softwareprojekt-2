@@ -55,7 +55,7 @@ public class ArchivDAO extends ObjectDAO<Archiv> {
      * @param id - the id which's archive to get from the database
      * @return the archive with an id matching the entered one
      * @throws ArchivNotFoundException if the archive couldn't be found in the database */
-    public Archiv getObjById(int id) throws ArchivNotFoundException{
+    public Archiv getObjById(int id) throws ArchivNotFoundException {
         if (id==0){
             throw new ArchivNotFoundException();
         }

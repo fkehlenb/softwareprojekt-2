@@ -76,6 +76,7 @@ public class StandortService implements Serializable {
      * Find a standort based on ts location
      *
      * @param standort - the name of the location
+     * @return the Location which machted the String standort
      * @throws StandortNotFoundException if the location couldn't be found in the database
      */
     public Standort findByLocation(String standort) throws StandortNotFoundException {
@@ -86,6 +87,7 @@ public class StandortService implements Serializable {
      * Get a location object using its id
      *
      * @param id - the id of the location object
+     * @return the Location which matches the id
      * @throws StandortNotFoundException if the location couldn't be found in the database
      */
     public Standort findById(int id) throws StandortNotFoundException {
