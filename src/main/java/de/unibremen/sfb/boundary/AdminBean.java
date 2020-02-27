@@ -194,6 +194,16 @@ public class AdminBean implements Serializable {
      */
     private List<Auftrag> auftrage = new ArrayList<>();
 
+    /** Experimenting station requirements */
+    private List<Bedingung> bedingungen;
+
+    /** Condition service */
+    @Inject
+    private BedingungService bedingungService;
+
+    /** List of all available requirements */
+    private List<Bedingung> availableBedingungen;
+
     /**
      * Strings to be converted to datetime
      */
@@ -210,6 +220,7 @@ public class AdminBean implements Serializable {
         allLocations = standortService.getStandorte();
         allUsers = userService.getAll();
         experimentierStations = experimentierStationService.getAll();
+        availableBedingungen = bedingungService.getAll();
         for (Auftrag a : auftragService.getAuftrage()) {
             if (a.getProzessKettenZustandsAutomat() == ProzessKettenZustandsAutomat.DURCHGEFUEHRT) {
                 auftrage.add(a);
@@ -460,6 +471,7 @@ public class AdminBean implements Serializable {
             es.setBenutzer(newEsBenutzerList);
             es.setStandort(experimentierStationStandort);
             es.setName(experimentierStationName);
+            es.setBedingungen(bedingungen);
             experimentierStationService.updateES(es);
             log.info("Updated experimenting station! ID: " + experimentierStationId);
             facesNotification("Updated experimentierstation! ID: " + experimentierStationId);
@@ -493,7 +505,8 @@ public class AdminBean implements Serializable {
             e.printStackTrace();
             List<User> experimentierStationUsers = new ArrayList<>();
             Collections.addAll(experimentierStationUsers, experimentierStationBenutzer);
-            ExperimentierStation es = new ExperimentierStation(UUID.randomUUID().hashCode(), experimentierStationStandort, experimentierStationName, ExperimentierStationZustand.VERFUEGBAR, new ArrayList<>(), experimentierStationUsers);
+            ExperimentierStation es = new ExperimentierStation(UUID.randomUUID().hashCode(), experimentierStationStandort, experimentierStationName, ExperimentierStationZustand.VERFUEGBAR, experimentierStationUsers);
+            es.setBedingungen(bedingungen);
             try {
                 experimentierStationService.addES(es);
                 log.info("Added experimenting station! Name: " + experimentierStationName);
