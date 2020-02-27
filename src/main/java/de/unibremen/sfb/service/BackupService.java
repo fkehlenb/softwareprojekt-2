@@ -26,6 +26,7 @@ public class BackupService implements Serializable {
 
     /**
      * Backup the database
+     * @throws  SQLException if the SQL is malformed
      */
     public void backup() throws SQLException {
         try {
@@ -64,6 +65,7 @@ public class BackupService implements Serializable {
 
     /**
      * https://www.baeldung.com/java-write-to-file
+     * @param file which will be saved to disk
      * @throws IOException falls es IO fehler gibt
      */
     public void  toDisk(UploadedFile file) throws IOException {

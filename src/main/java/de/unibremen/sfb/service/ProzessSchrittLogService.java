@@ -16,6 +16,7 @@ public class ProzessSchrittLogService {
     /**
      * adds to a ProzessSchrittLog
      * @param l the log
+     * @throws ProzessSchrittLogNotFoundException is there is none
      */
     public void closeLog(ProzessSchrittLog l) throws ProzessSchrittLogNotFoundException {
         l.setGeendet(LocalDateTime.now());
@@ -25,6 +26,8 @@ public class ProzessSchrittLogService {
     /**
      * creates a new log
      * @param z the new state
+     * @throws DuplicateProzessSchrittLogException if there is already one PSL
+     * @return the new Log
      */
     public ProzessSchrittLog newLog(String z) throws DuplicateProzessSchrittLogException {
         ProzessSchrittLog l = new ProzessSchrittLog(LocalDateTime.now(), z);

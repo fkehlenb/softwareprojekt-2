@@ -49,7 +49,8 @@ public class QualitativeEigenschaftDAO extends ObjectDAO<QualitativeEigenschaft>
         }
     }
 
-    /** @return the class of qualitative descriptors */
+    /** return the QualitativeEigenschaft class
+     * @return the class of qualitative descriptors */
     public Class<QualitativeEigenschaft> get(){
         return QualitativeEigenschaft.class;
     }

@@ -58,6 +58,7 @@ public class FileUploadView {
 
     /**
      * https://www.baeldung.com/java-write-to-file
+     * @param file which should be uploaded
      * @throws IOException when an IO error occurs
      */
     public void toDisk(UploadedFile file)

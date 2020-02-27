@@ -119,6 +119,7 @@ public class ProzessSchrittService implements Serializable {
 
     /**
      * JSON export
+     * @return the JSON as a String
      */
     public String toJson() {
         JsonbConfig config = new JsonbConfig()

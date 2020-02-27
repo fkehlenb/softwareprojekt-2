@@ -34,13 +34,17 @@ public class ExperimentierStationService implements Serializable {
         this.esSet= esDao.getAll();
     }
 
-    /** Get all experimenting stations from the database */
+    /**
+     * Get all experimenting stations from the database
+     * @return all Stations
+     */
     public  List<ExperimentierStation> getESListe() {
         return esDao.getAll();
     }
 
 
-    /** Add a new experimenting station
+    /**
+     * Add a new experimenting station
      * @param experimentierStation - the experimenting station to add
      * @throws DuplicateExperimentierStationException on failure */
     public void addES(ExperimentierStation experimentierStation) throws DuplicateExperimentierStationException {
@@ -49,14 +53,18 @@ public class ExperimentierStationService implements Serializable {
 
     /** Remove an experimenting station
      * @param experimentierStation - the experimenting station to delete
+     * @throws  ExperimentierStationNotFoundException if experimentierStation could not be found
      */
     public void loescheES(ExperimentierStation experimentierStation) throws ExperimentierStationNotFoundException  {
         esDao.remove(experimentierStation);
 //        esSet = getESListe();
     }
 
-    /** Find an experimenting station using its name
-     * @param name - the experimenting station's name */
+    /**
+     * Find an experimenting station using its name
+     * @param name - the experimenting station's name
+     * @return the Found Station
+     */
     public ExperimentierStation findByName(String name) {
         // FIXME Use String as ID or convert to String
         esSet = esDao.getAll();
@@ -65,7 +73,9 @@ public class ExperimentierStationService implements Serializable {
 
     /** Get an experimenting station using its name
      * @param name - the experimenting station's name
-     * @throws ExperimentierStationNotFoundException on failure */
+     * @return the Station which has the name
+     * @throws ExperimentierStationNotFoundException on failure
+     */
     public ExperimentierStation getStationByName(String name) throws ExperimentierStationNotFoundException{
         return esDao.getByName(name);
     }
@@ -91,7 +101,9 @@ public class ExperimentierStationService implements Serializable {
 
     /** Get an experimenting station using its id
      * @param id - the experimenting station's id
-     * @throws ExperimentierStationNotFoundException on failure */
+     * @throws ExperimentierStationNotFoundException on failure
+     * @return the Station which has the id
+     */
     public ExperimentierStation getById(int id) throws ExperimentierStationNotFoundException{
         return esDao.getObjById(id);
     }

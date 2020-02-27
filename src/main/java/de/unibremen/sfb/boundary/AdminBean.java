@@ -212,6 +212,7 @@ public class AdminBean implements Serializable {
 
     /**
      * Add a new user
+     * @throws DuplicateUserException is user already Exists
      */
     public void addUser() throws DuplicateUserException {
         LocalDateTime date1 = LocalDateTime.now();
@@ -251,7 +252,6 @@ public class AdminBean implements Serializable {
      * Edit a user
      *
      * @param id - the id of the user to be edited
-     * @throws UserNotFoundException if not found
      */
     public void adminEditUser(String id) {
         try {
@@ -329,6 +329,7 @@ public class AdminBean implements Serializable {
     /**
      * edits a user that already exists
      * user the user to be edited
+     * @return all Users which match the Query
      */
     public List<User> findUsers() {
         try {
@@ -476,6 +477,7 @@ public class AdminBean implements Serializable {
 
     /**
      * deletes a station
+     * @param esID the Station ID
      */
     public void deleteStation(int esID) {
         ExperimentierStation es = null;

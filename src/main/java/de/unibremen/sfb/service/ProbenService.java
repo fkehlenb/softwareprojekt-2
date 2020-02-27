@@ -125,6 +125,7 @@ public class ProbenService implements Serializable {
      * edits a comment of a sample
      * @param p the sample
      * @param c the new comment text
+     * @param k the Class of the Comment
      * @throws ProbeNotFoundException the sample could not be found in the database
      */
     public void editProbenComment(Probe p, Kommentar k, String c) throws ProbeNotFoundException {

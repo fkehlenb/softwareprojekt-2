@@ -75,6 +75,7 @@ public class ProzessSchrittVorlageService implements Serializable {
      * Bearbeiten der ProzessSchrittVorlage
      *
      * @param psv die zu bearbeitende ProzessSchrittVorlage
+     * @throws ProzessSchrittVorlageNotFoundException falls es die PSV nicht gibt
      */
     public void edit(ProzessSchrittVorlage psv) throws ProzessSchrittVorlageNotFoundException {
         try {
@@ -110,11 +111,16 @@ public class ProzessSchrittVorlageService implements Serializable {
      *
      * @param id die ID von psv
      * @return die PSV
+     * @throws ProzessSchrittVorlageNotFoundException falls es sie nicht gibt
      */
     public ProzessSchrittVorlage getByID(int id) throws ProzessSchrittVorlageNotFoundException {
         return psvDAO.getObjById(id);
     }
 
+    /**
+     * Duerfen diese PS bearbeitet werden
+     * @return die Liste welche bearbeitet werden darf
+     */
     public List<ProzessSchritt> darftBearbeiten() {
         var r = new ArrayList<ProzessSchritt>();
         for (Auftrag a :
@@ -124,6 +130,11 @@ public class ProzessSchrittVorlageService implements Serializable {
         return  r;
     }
 
+    /**
+     * Fuege alle PS r in den Auftrag a ein
+     * @param r die PS
+     * @param a der Auftrag
+     */
     private void istBearbeitbar(ArrayList<ProzessSchritt> r, Auftrag a) {
         r.addAll( a.getProzessSchritte().stream().filter(p -> !p.getProzessSchrittZustandsAutomat().
                 getCurrent().equals("In Bearbeitung")).

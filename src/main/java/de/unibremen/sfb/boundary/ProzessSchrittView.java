@@ -59,6 +59,7 @@ public class ProzessSchrittView implements Serializable {
 
     /**
      * Once the row has been modified, update the object
+     * @param event from ajax with new values
      */
     public void onRowEdit(RowEditEvent<ProzessSchrittVorlage> event) {
         prozessSchrittVorlageService.persist(event.getObject());
@@ -67,6 +68,7 @@ public class ProzessSchrittView implements Serializable {
 
     /**
      * Canceled row edit
+     * @param event from ajax with new values
      */
     public void onRowCancel(RowEditEvent<ProzessSchrittVorlage> event) {
         facesNotification("Cancelled!");
@@ -74,6 +76,7 @@ public class ProzessSchrittView implements Serializable {
 
     /**
      * JSON export
+     * @return the JSON fo all PS
      */
     public String json() {
         return prozessSchrittService.toJson();

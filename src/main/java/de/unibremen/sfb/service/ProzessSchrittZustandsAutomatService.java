@@ -19,18 +19,30 @@ public class ProzessSchrittZustandsAutomatService {
     @Inject
     ProzessSchrittZustandsAutomatDAO prozessSchrittZustandsAutomatDAO;
 
-    public void delete(List<ProzessSchrittZustandsAutomat> selpszav) throws ProzessSchrittZustandsAutomatNotFoundException {
+    /**
+     * Loesche die Liste dieser ProzessSchrittZustandsAutomaten
+     * @param selpsza die List der zu loeschenden ProzessSchrittZustandsAutomaten
+     * @throws ProzessSchrittZustandsAutomatNotFoundException
+     */
+    public void delete(List<ProzessSchrittZustandsAutomat> selpsza) throws ProzessSchrittZustandsAutomatNotFoundException {
         for (ProzessSchrittZustandsAutomat p :
-                selpszav) {
+                selpsza) {
             prozessSchrittZustandsAutomatDAO.remove(p);
         }
     }
 
+   /* Bearbeite die Liste dieser ProzessSchrittZustandsAutomaten
+     * @param selpsza die List der zu loeschenden ProzessSchrittZustandsAutomaten
+     * @throws ProzessSchrittZustandsAutomatNotFoundException
+     */
     public void edit(ProzessSchrittZustandsAutomat object) throws ProzessSchrittZustandsAutomatNotFoundException {
         prozessSchrittZustandsAutomatDAO.update(object);
     }
 
-    /** Add a new process step template */
+    /* Hinzufuegen eines ProzessSchrittZustandsAutomaten
+     * @param prozessSchrittZustandsAutomat der Automat
+     * @throws ProzessSchrittZustandsAutomatNotFoundException
+     */
     public void add(ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat) throws DuplicateProzessSchrittZustandsAutomatException {
         prozessSchrittZustandsAutomatDAO.persist(prozessSchrittZustandsAutomat);
     }

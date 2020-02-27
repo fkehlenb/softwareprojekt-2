@@ -48,7 +48,9 @@ public class QuantitativeEigenschaftDAO extends ObjectDAO<QuantitativeEigenschaf
         }
     }
     /** Return a List quantitative descriptor object from the database
-     * @throws IllegalArgumentException if the quantitative descriptor couldn't be found in the database */
+     * @throws IllegalArgumentException if the quantitative descriptor couldn't be found in the database
+     * @return alle Quantitative Eigenschaften aus der Datenbank
+     * */
     public List<QuantitativeEigenschaft> getAll(){
         try {
             return em.createQuery("SELECT q FROM QuantitativeEigenschaft q WHERE q.isValidData=true", get()).getResultList();
@@ -57,6 +59,11 @@ public class QuantitativeEigenschaftDAO extends ObjectDAO<QuantitativeEigenschaf
         }
     }
 
+    /**
+     * Finde QuantitativeEigenschaft by id
+     * @param QnEById die ID der Eigenschaft
+     * @return die Eigenschaft
+     */
     public QuantitativeEigenschaft findQnEById(int QnEById){
         try {
             QuantitativeEigenschaft q = em.find(QuantitativeEigenschaft.class, QnEById);

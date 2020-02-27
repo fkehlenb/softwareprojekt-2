@@ -198,6 +198,7 @@ public class TechnologeView implements Serializable {
      * edits a comment belonging to a sample
      * @param p the sample
      * @param c the comment
+     * @param k the comment class
      */
     public void editProbenComment(Probe p, Kommentar k, String c) {
         if(p == null || c == null || k == null) {

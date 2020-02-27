@@ -74,7 +74,9 @@ public class ProzessSchrittDAO extends ObjectDAO<ProzessSchritt> {
     }
 
     /** Return a List quantitative descriptor object from the database
-     * @throws IllegalArgumentException if the quantitative descriptor couldn't be found in the database */
+     * @throws IllegalArgumentException if the quantitative descriptor couldn't be found in the database
+     * @return alle ProzessSchritte aus der Datenbank
+     */
     public List<ProzessSchritt> getAll(){
         try {
             return em.createQuery("SELECT p from ProzessSchritt  p WHERE p.isValidData=true", get()).getResultList();

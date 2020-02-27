@@ -43,6 +43,7 @@ public class BedingungService implements Serializable {
 
     /** Remove an Bedingung
      * @param bedingung - the Bedingung to delete
+     * @throws BedingungNotFoundException is it does not exist
      */
     public void loescheES(Bedingung bedingung) throws BedingungNotFoundException {
         bedingungDAO.remove(bedingung);
@@ -50,7 +51,9 @@ public class BedingungService implements Serializable {
     }
 
     /** Find an Bedingung using its id
-     * @param id - the Bedingung's name */
+     * @param id - the Bedingung's name
+     * @return the Bedingung which matches the id
+     */
     public Bedingung findByID(int id) {
         // FIXME Use String as ID or convert to String
         return bedingungDAO.findById(id);
@@ -68,7 +71,10 @@ public class BedingungService implements Serializable {
         bedingungDAO.update(es);
     }
 
-    /** Add a new predicate */
+    /**
+     * Add a new predicate
+     * @param bedingung the predicate to be added
+     */
     public void addBedingung(Bedingung bedingung) {
         try {
             log.info("Trying Persist Bedingung");
@@ -77,9 +83,12 @@ public class BedingungService implements Serializable {
             log.info("FAILED Persist Bedingung");
         }
     }
-    
 
-    /** Remove a predicate from the database */
+
+    /**
+     * Remove a predicate from the database
+     * @param bedingung to be removed
+     */
     public void remove(Bedingung bedingung) {
         try {
             log.info("Trying Bedingung Methode = remove");
@@ -89,7 +98,10 @@ public class BedingungService implements Serializable {
         }
     }
 
-    /** Edit a predicate in the database */
+    /**
+     * Edit a predicate in the database
+     * @param bedingung to be edited
+     */
     public void edit(Bedingung bedingung) {
         try {
             log.info("Trying Bedingung Methode = edit");

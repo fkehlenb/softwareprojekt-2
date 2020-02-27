@@ -69,6 +69,7 @@ public class TraegerArtDAO extends ObjectDAO<TraegerArt> {
 
     /** Get a container type by name
      * @param taName - the container name
+     * @return the TraegerArt with this name
      * @throws TraegerArtNotFoundException if the container type couldn't be found in the database */
     public TraegerArt getByName(String taName) throws TraegerArtNotFoundException{
         try {
@@ -82,6 +83,7 @@ public class TraegerArtDAO extends ObjectDAO<TraegerArt> {
 
     /** Get a container type by id
      * @param id - the container type id
+     * @return the TraegerArt with this id
      * @throws TraegerArtNotFoundException if the container type couldn't be found in the database */
     public TraegerArt getById(int id) throws TraegerArtNotFoundException{
         try {
