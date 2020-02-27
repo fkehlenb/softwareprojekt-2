@@ -128,9 +128,9 @@ public class ProzessSchrittService implements Serializable {
 
         // Create Jsonb with custom configuration
         Jsonb jsonb = JsonbBuilder.create(config);
-        String result = jsonb.toJson(psListe);
+        //String result = jsonb.toJson(psListe);
         // FIXME LEO
-        //String result = "JSON IS Broken";
+        String result = "JSON IS Broken";
         log.info("Export von den Auftraegen\n" + result);
         return result;
     }
