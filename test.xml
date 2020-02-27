@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Selenium Suite" parallel="methods" thread-count="20" verbose="3" >
+    <test name="Selenium Tests" >
+        <classes>
+            <class name="de.unibremen.sfb.service.QuantitativeEigenschaftServiceTest"></class>
+            <class name="de.unibremen.sfb.Selenium.QuantitativEingeschaftSelenium" />
+        </classes>
+    </test>
+</suite>
