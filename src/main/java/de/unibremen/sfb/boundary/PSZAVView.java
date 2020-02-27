@@ -69,10 +69,12 @@ public class PSZAVView implements Serializable {
     public void deletePSZAV() {
         try {
             prozessSchrittZustandsAutomatVorlageService.delete(selpszav);
+            FacesMessage msg = new FacesMessage("PS Automat Delete");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
         } catch (ProzessSchrittVorlageNotFoundException e) {
             e.printStackTrace();
         }
-
+        verpszav = prozessSchrittZustandsAutomatVorlageService.getProzessSchrittZustandsAutomatVorlagen();
     }
 
     public void onRowEdit(RowEditEvent<ProzessSchrittZustandsAutomatVorlage> event) throws ProzessSchrittVorlageNotFoundException {
@@ -121,7 +123,7 @@ public class PSZAVView implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
     public void onRowCancelWegenOrdnung() {
-        FacesMessage msg = new FacesMessage("Der Ordnung kann nicht gespeichern werden");
+        FacesMessage msg = new FacesMessage("Der Ordnung kann nicht gespeichern werden /n [Erstellt, Angenommen, In Bearbeitung, Bearbeitet, Weitergeleitet]");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 }

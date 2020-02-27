@@ -33,6 +33,8 @@ public class PSVView implements Serializable {
 
     @NonNull
     private String dauer;
+    @NonNull
+    private String name;
 
     @NonNull
     private List<TraegerArt> eingabeTraeger;
@@ -106,7 +108,7 @@ public class PSVView implements Serializable {
         log.info("Erstelle Prozessschritt");
         // FIXME Wehre is es, persist auf  de.unibremen.sfb.model.ProzessSchrittVorlage.zustandsAutomat -> de.unibremen.sfb.model.ProzessSchrittZustandsAutomatVorlage
 
-        ProzessSchrittVorlage psv = new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), dauer, psArt,
+        ProzessSchrittVorlage psv = new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), dauer, name,psArt,
                 ausgewaehlteStationen, ausgewaehlteBedingungen, ausProzessSchrittZustandsAutomatVorlage);
         prozessSchrittVorlageService.persist(psv);
 

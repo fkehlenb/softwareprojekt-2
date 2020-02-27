@@ -34,6 +34,8 @@ public class ProzessSchrittVorlage {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<TraegerArt> ausgabeTraeger;
 
+    @NonNull
+    String name;
     /** The process step type */
     @NonNull
     private String psArt;

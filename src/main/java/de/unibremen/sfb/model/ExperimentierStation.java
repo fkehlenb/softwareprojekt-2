@@ -73,7 +73,7 @@ public class ExperimentierStation {
 
     @Override
     public String toString() {
-        return "ES: " + standort;
+        return standort.getOrt();
     }
 
 

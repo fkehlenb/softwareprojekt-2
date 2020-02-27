@@ -42,6 +42,10 @@
                                         <f:selectItem itemLabel="Ermittelnd" itemValue="Ermittelnd"/>
                                     </p:selectOneButton>
 
+                                    <p:outputLabel for="name" value=" Name: "/>
+                                    <p:inputMask id="name" value="#{psvErstellenBean.name}"
+                                                 required="true"/>
+
                                     <p:outputLabel for="dauer" value=" Dauer: "/>
                                     <p:inputMask id="dauer" value="#{psvErstellenBean.dauer}"
                                                  required="true"/>
@@ -69,11 +73,9 @@
                                         <f:selectItems value="#{psvErstellenBean.verPSZAV}"
                                                        var="pszav" itemLabel="#{pszav.name}"
                                                        itemValue="#{pszav}" required="true"/>
+
                                         <p:column>
-                                            <h:outputText value="Vorlage: "/>
-                                        </p:column>
-                                        <p:column>
-                                            <h:outputText value="#{pszav.name}"/>
+                                            <h:outputText value="Vorlage: #{pszav.name}"/>
                                         </p:column>
                                     </p:selectOneMenu>
 
@@ -112,6 +114,17 @@
                         <p:column headerText="Id">
 
                                <h:outputText value="#{psv.psVID}"/>
+                        </p:column>
+                        <p:column headerText="Name">
+                            <p:cellEditor>
+                                <f:facet name="output"><h:outputText value="#{psv.name}"/></f:facet>
+
+                                <f:facet name="input">
+                                    <p:inputText id="namePSv" value="#{psv.name}"
+                                                 style="width:100%" required="true">
+                                    </p:inputText>
+                                </f:facet>
+                            </p:cellEditor>
                         </p:column>
                         <p:column headerText="Dauer">
                             <p:cellEditor>

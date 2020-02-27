@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -45,7 +46,7 @@ class QuantitativeEigenschaftServiceTest {
         //when(quantitativeEigenschaft.getEinheit()).thenReturn("Stones");
         when(quantitativeEigenschaftDAO.getAll()).thenReturn(new ArrayList<QuantitativeEigenschaft>());
         when(quantitativeEigenschaftDAO.findQnEById(1)).thenReturn(quantitativeEigenschaft);
-
+        List.of("second", "metre", "kilogram", "kilogram", "ampere", "mole", "candela");
     }
 
     @Test
@@ -53,6 +54,10 @@ class QuantitativeEigenschaftServiceTest {
 
         assertEquals(quantitativeEigenschaftService.getQlEById(1), quantitativeEigenschaft);
         assertEquals(quantitativeEigenschaftService.getAllQuantitativeEigenschaften(), new ArrayList<QuantitativeEigenschaft>());
+        assertEquals(quantitativeEigenschaftService.getEinheiten(),List.of("second", "metre", "kilogram", "kilogram", "ampere", "mole", "candela"));
+    }
+
+    public void getEinheiten(){
 
     }
 

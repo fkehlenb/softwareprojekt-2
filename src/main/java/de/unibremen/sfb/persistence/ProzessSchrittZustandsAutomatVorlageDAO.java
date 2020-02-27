@@ -43,7 +43,7 @@ public class ProzessSchrittZustandsAutomatVorlageDAO extends ObjectDAO<ProzessSc
      * @throws ProzessSchrittVorlageNotFoundException if the process step state template cannot be found in the database */
     public void remove(ProzessSchrittZustandsAutomatVorlage pszv) throws ProzessSchrittVorlageNotFoundException{
         if (pszv!=null){
-            if (!em.contains(pszv)){
+            if (!em.contains(em.find(get(),pszv.getId()))){
                 throw new ProzessSchrittVorlageNotFoundException();
             }
             pszv.setValidData(false);
