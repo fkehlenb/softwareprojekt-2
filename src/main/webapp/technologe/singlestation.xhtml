@@ -18,7 +18,10 @@
         <div class="ui-g-8">
             <h:body style="background: url('../background.png')">
                 <h:form style="background-color: white; margin-top: 100px; width: 650px">
-                    <h:panelGrid columns="1">
+                    <p:growl>
+                        <p:autoUpdate/>
+                    </p:growl>
+                    <p:panelGrid columns="1">
                         <p:row>
                             <h1 style="color: cornflowerblue">Experimentierstation #{singleStationBean.station.name} Überblick</h1>
                         </p:row>
@@ -65,7 +68,7 @@
                             </p:column>
 
                         </p:dataTable>
-                    </h:panelGrid>
+                    </p:panelGrid>
                 </h:form>
             </h:body>
         </div>

@@ -18,7 +18,10 @@
 <div class="ui-g-8">
     <h:body style="background: url('../background.png')">
     <h:form id="form" style="background-color: white; margin-top: 100px; width: 650px">
-    <h:panelGrid columns="1">
+        <p:growl>
+            <p:autoUpdate/>
+        </p:growl>
+    <p:panelGrid columns="1">
 
         <p:row>
             <h1 style="color: cornflowerblue">Probe #{singleSampleBean.p.probenID} - Überblick</h1>
@@ -103,7 +106,7 @@
         <p:commandButton value="Save" type="save"/>
         <p:commandButton action="#{singleSampleBean.addProbenComment(kommentar)}"/>
 
-    </h:panelGrid>
+    </p:panelGrid>
     </h:form>
     </h:body>
 
