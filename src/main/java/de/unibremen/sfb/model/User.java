@@ -37,8 +37,8 @@ public class User {
 
     // Die Rollen der Users
     @NonNull
-    @ElementCollection
-    private List<String> roleList;
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Role> roleList;
 
     /**
      * The user's name

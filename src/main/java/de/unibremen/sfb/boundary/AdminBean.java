@@ -116,7 +116,7 @@ public class AdminBean implements Serializable {
     /**
      * The roles the user has in the system
      */
-    private List<String> rollen = new ArrayList<>();
+    private List<Role> rollen = new ArrayList<>();
 
     /**
      * The jobs the user has in the system
@@ -307,20 +307,26 @@ public class AdminBean implements Serializable {
      * Help method for the List Roles to built
      */
     public void builtRollenList() {
-        if (technologe) {
-            rollen.add(userService.getRole("technologe"));
+        try {
+            if (technologe) {
+                rollen.add(userService.getRole("technologe"));
+            }
+            if (pkAdministrator) {
+                rollen.add(userService.getRole("pkAdmin"));
+            }
+            if (transporter) {
+                rollen.add(userService.getRole("transport"));
+            }
+            if (logistiker) {
+                rollen.add(userService.getRole("logistik"));
+            }
+            if (administrator) {
+                rollen.add(userService.getRole("admin"));
+            }
         }
-        if (pkAdministrator) {
-            rollen.add(userService.getRole("pkAdmin"));
-        }
-        if (transporter) {
-            rollen.add(userService.getRole("transport"));
-        }
-        if (logistiker) {
-            rollen.add(userService.getRole("logistik"));
-        }
-        if (administrator) {
-            rollen.add(userService.getRole("admin"));
+        catch (Exception e){
+            e.printStackTrace();
+            facesError("Couldn't add roles to user! ERROR 404");
         }
     }
 

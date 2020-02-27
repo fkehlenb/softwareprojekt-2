@@ -4,7 +4,8 @@ import de.unibremen.sfb.exception.DuplicateRoleException;
 import de.unibremen.sfb.model.Role;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.management.relation.RoleNotFoundException;
+import de.unibremen.sfb.exception.RoleNotFoundException;
+
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ public class RoleDao extends ObjectDAO<Role> {
      * @param b - the condition to add to the database
      * @throws DuplicateRoleException if the condition already exists in the database
      */
-    public void persist(Role b) {
+    public void persist(Role b) throws DuplicateRoleException {
         if (b != null) {
             synchronized (Role.class) {
                 if (em.contains(b)) {
@@ -83,6 +84,22 @@ public class RoleDao extends ObjectDAO<Role> {
         } catch (EntityNotFoundException e) {
 //            e.printStackTrace();
             throw new IllegalArgumentException();
+        }
+    }
+
+    /**
+     * Get a role using its type
+     *
+     * @param r - the role whichs object to fetch
+     * @return the role object matching the string
+     * @throws RoleNotFoundException on failure
+     */
+    public Role getObjByID(String r) throws RoleNotFoundException {
+        try {
+            return em.createNamedQuery("Role.getByName",get()).setParameter("name",r).getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RoleNotFoundException();
         }
     }
 }

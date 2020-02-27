@@ -1,4 +1,4 @@
 package de.unibremen.sfb.exception;
 
-public class DuplicateRoleException extends Throwable {
+public class DuplicateRoleException extends Exception {
 }

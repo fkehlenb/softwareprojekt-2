@@ -1,6 +1,7 @@
 package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.exception.DuplicateUserException;
+import de.unibremen.sfb.exception.RoleNotFoundException;
 import de.unibremen.sfb.exception.UserNotFoundException;
 import de.unibremen.sfb.model.ExperimentierStation;
 import de.unibremen.sfb.model.Role;
@@ -239,8 +240,13 @@ public class UserService implements Serializable {
         if (roles.isEmpty()) {
             roles = List.of(new Role(UUID.randomUUID().hashCode(), "technologe"), new Role(UUID.randomUUID().hashCode(), "transport"),
                     new Role(UUID.randomUUID().hashCode(), "admin"), new Role(UUID.randomUUID().hashCode(), "pkAdmin"), new Role(UUID.randomUUID().hashCode(), "logistik"));
-            for (Role r : roles){
-                roleDao.persist(r);
+            try {
+                for (Role r : roles){
+                    roleDao.persist(r);
+                }
+            }
+            catch (Exception e){
+                e.printStackTrace();
             }
         }
         return roles;
@@ -251,9 +257,10 @@ public class UserService implements Serializable {
      *
      * @param role the request Role
      * @return the Role
+     * @throws RoleNotFoundException on failure
      */
-    public String getRole(String role) {
-        return role;
+    public Role getRole(String role) throws RoleNotFoundException {
+        return roleDao.getObjByID(role);
     }
 
     /**
