@@ -94,6 +94,20 @@ public class RoleDao extends ObjectDAO<Role> {
      * @return the role object matching the string
      */
     public List<Role> getObjByID(String r) {
-            return em.createNamedQuery("Role.getByName",get()).setParameter("name",r).getResultList();
+        return em.createNamedQuery("Role.getByName", get()).setParameter("name", r).getResultList();
+    }
+
+    /** Get all the roles assigned to a specific user
+     * @param username - the username of the user whose roles to fetch
+     * @return a list of the users roles or an empty arraylist */
+    public List<Role> getRolesByUsername(String username){
+        List<Role> userRoles = new ArrayList<>();
+        try {
+            userRoles = em.createNamedQuery("Role.getByUser",get()).setParameter("username", username).getResultList();
         }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return userRoles;
+    }
 }
