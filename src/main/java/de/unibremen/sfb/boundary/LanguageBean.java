@@ -20,7 +20,7 @@ public class LanguageBean implements Serializable{
 
     private static Map<String,Object> countries;
     static{
-        countries = new LinkedHashMap<String,Object>();
+        countries = new LinkedHashMap<>();
          //label, value
         countries.put("Deutsch", Locale.GERMAN);
         countries.put("English", Locale.ENGLISH);

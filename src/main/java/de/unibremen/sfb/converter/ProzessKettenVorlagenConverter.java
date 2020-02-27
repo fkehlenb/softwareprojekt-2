@@ -48,7 +48,6 @@ public class ProzessKettenVorlagenConverter implements Converter<ProzessKettenVo
         if (matcher.find()) {
             id = matcher.group(1);
         }
-        var result = prozessKettenVorlageService.getPKV(99);
-        return result;
+        return prozessKettenVorlageService.getPKV(99);
     }
 }

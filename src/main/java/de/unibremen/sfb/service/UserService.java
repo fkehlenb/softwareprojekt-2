@@ -200,7 +200,7 @@ public class UserService implements Serializable {
     /**
      * Get the Current User
      * // FIXME because no persistence
-     * @return
+     * @return the the current User
      */
     public User getCurrentUser() {
         return userDAO.getAll().get(0);

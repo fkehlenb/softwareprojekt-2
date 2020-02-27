@@ -47,8 +47,8 @@ public class PKVView implements Serializable {
     @PostConstruct
     public void init() {
         sourcePSV = prozessSchrittVorlageService.getVorlagen();
-        targetPSV = new ArrayList<ProzessSchrittVorlage>();
-        psvs = new DualListModel<ProzessSchrittVorlage>(sourcePSV, targetPSV);
+        targetPSV = new ArrayList<>();
+        psvs = new DualListModel<>(sourcePSV, targetPSV);
         verPKV = prozessKettenVorlageService.getPKVs();
         //
     }

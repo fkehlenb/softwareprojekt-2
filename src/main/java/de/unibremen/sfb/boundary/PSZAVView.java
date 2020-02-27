@@ -45,9 +45,9 @@ public class PSZAVView implements Serializable {
      */
     @PostConstruct
     public void init() {
-        sourceZ = new ArrayList<String>();
+        sourceZ = new ArrayList<>();
         targetZ = prozessSchrittZustandsAutomatVorlageService.getByID(996699).getZustaende();//;
-        dualZ = new DualListModel<String>(sourceZ, targetZ);
+        dualZ = new DualListModel<>(sourceZ, targetZ);
         verpszav = prozessSchrittZustandsAutomatVorlageService.getProzessSchrittZustandsAutomatVorlagen();
         //
     }
@@ -111,14 +111,9 @@ public class PSZAVView implements Serializable {
             }
             counter++;
         }
-        if(counterAngenommen<counterInbearbeitung&&
-                counterInbearbeitung<counterBearbeitet&&
-                counterBearbeitet<counterWeitergeleitet
-               ){
-            return true;
-        }else{
-            return false;
-        }
+        return counterAngenommen < counterInbearbeitung &&
+                counterInbearbeitung < counterBearbeitet &&
+                counterBearbeitet < counterWeitergeleitet;
     }
 
     public void onRowCancel(RowEditEvent<ProzessSchrittVorlage> event) {

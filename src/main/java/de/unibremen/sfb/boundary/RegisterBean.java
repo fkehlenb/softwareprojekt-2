@@ -92,6 +92,7 @@ public class RegisterBean implements Serializable {
                     //e.printStackTrace();
                 }
                 try {
+                    assert u != null;
                     i = u.getId();
                     facesError("Zu dieser Email existiert schon ein Benutzer!");
                 }

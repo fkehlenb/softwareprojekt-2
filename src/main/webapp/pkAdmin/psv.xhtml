@@ -53,7 +53,7 @@
                                                      var="experimentierStation" style="width: 172px" filter="true"
                                                      filterMatchMode="startsWith">
                                         <f:selectItems value="#{psvErstellenBean.verfuegbareStationen}"
-                                                       var="experimentierStation" itemLabel="#{experimentierStation.standort}"
+                                                       var="experimentierStation" itemLabel="#{experimentierStation.standort.ort}"
                                                        itemValue="#{experimentierStation}" required="true"/>
                                         <p:column>
                                             <h:outputText value="#{experimentierStation.standort.ort}"/>

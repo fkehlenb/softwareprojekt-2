@@ -21,9 +21,9 @@ import java.util.stream.Collectors;
 @Data
 @Singleton
 
-/**
- * Service fuer ProzessSchrittVorlagen
- * Anwendungsfall: Bearbeiten einer Vorlage oder hinzufuegen einer ProzessSchrittVorlage in einer ProzessKettenVorlage
+/*
+  Service fuer ProzessSchrittVorlagen
+  Anwendungsfall: Bearbeiten einer Vorlage oder hinzufuegen einer ProzessSchrittVorlage in einer ProzessKettenVorlage
  */
 
 public class ProzessSchrittVorlageService implements Serializable {
@@ -74,8 +74,7 @@ public class ProzessSchrittVorlageService implements Serializable {
     /**
      * Bearbeiten der ProzessSchrittVorlage
      *
-     * @param psv
-     * @throws ProzessSchrittVorlageNotFoundException
+     * @param psv die zu bearbeitende ProzessSchrittVorlage
      */
     public void edit(ProzessSchrittVorlage psv) throws ProzessSchrittVorlageNotFoundException {
         try {
@@ -111,7 +110,6 @@ public class ProzessSchrittVorlageService implements Serializable {
      *
      * @param id die ID von psv
      * @return die PSV
-     * @throws ProzessSchrittVorlageNotFoundException
      */
     public ProzessSchrittVorlage getByID(int id) throws ProzessSchrittVorlageNotFoundException {
         return psvDAO.getObjById(id);
@@ -133,7 +131,7 @@ public class ProzessSchrittVorlageService implements Serializable {
     }
 
     public List<ProzessSchrittVorlage> akzeptiertePSV(){
-        List<ProzessSchrittVorlage> psv= new ArrayList<ProzessSchrittVorlage>();
+        List<ProzessSchrittVorlage> psv= new ArrayList<>();
         for (ProzessSchritt ps:
                 darftBearbeiten()) {
             psv.add(ps.getProzessSchrittVorlage());

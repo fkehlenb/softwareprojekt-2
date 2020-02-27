@@ -49,9 +49,10 @@ public class BackupService implements Serializable {
             if (file != null && file.getFileName() != null) {
                 toDisk(file);
             }
-            Query b = em.createNativeQuery(String.format("DROP ALL OBJECTS"));
+            Query b = em.createNativeQuery("DROP ALL OBJECTS");
             b.executeUpdate();
-            Query q = em.createNativeQuery(String.format("RUNSCRIPT FROM '" + file.getFileName() + "'"));
+            assert file != null;
+            Query q = em.createNativeQuery("RUNSCRIPT FROM '" + file.getFileName() + "'");
             q.executeUpdate();
             log.info("Backup was restored with Success!");
         }

@@ -90,9 +90,8 @@ public class TechnologeView implements Serializable {
      * @return a set containing all availabe jobs
      */
     public Set<ProzessSchritt> getAuftrag() {
-        Set<ProzessSchritt> res = new HashSet<>();
         //alle einträge in queues von experimentierstationen denene der user zugeordnet ist
-        return res;
+        return new HashSet<>();
     }
 
     /**
@@ -326,9 +325,8 @@ public class TechnologeView implements Serializable {
      * @return a list containing all the jobs
      */
     public List<ProzessSchritt> getJobs() {
-        List<ProzessSchritt> r = psService.getSchritteByUser(technologe);
         //r.sort(Comparator.comparing(o -> psService.getAuftrag(o).getPriority())); //FIXME
-        return r;
+        return psService.getSchritteByUser(technologe);
         //also nur ein technologe pro Station, und
         //kann erst auftrag annehmen, wenn er an dieser station nichts zu tun
         //nur ein auftrag pro station, und ein technologe pro station

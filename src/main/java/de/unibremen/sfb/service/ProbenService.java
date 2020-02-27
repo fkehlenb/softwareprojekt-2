@@ -163,11 +163,11 @@ public class ProbenService implements Serializable {
      * @return the string with the text of all comments
      */
     public String KommentarToString(Probe p) {
-        String res = "";
+        StringBuilder res = new StringBuilder();
         for(Kommentar k : p.getKommentar()) {
-            res += k.getText() + "\n";
+            res.append(k.getText()).append("\n");
         }
-        return res;
+        return res.toString();
     }
 
     /**

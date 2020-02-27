@@ -1,6 +1,6 @@
-package de.unibremen.sfb.boundary; /**
- * Very simple bean that authenticates the user via Apache Shiro, using JSF
- * @author Daniel Mascarenhas
+package de.unibremen.sfb.boundary; /*
+  Very simple bean that authenticates the user via Apache Shiro, using JSF
+  @author Daniel Mascarenhas
  */
 
 

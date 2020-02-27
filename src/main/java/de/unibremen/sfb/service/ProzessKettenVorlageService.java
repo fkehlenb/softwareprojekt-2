@@ -83,8 +83,8 @@ public class ProzessKettenVorlageService implements Serializable {
     /**
      * Bearbeiten der ProzessKettenVorlage
      *
-     * @param pkv
-     * @throws ProzessKettenVorlageNotFoundException
+     * @param pkv die zu bearbeitende Experimentier Station
+     * @throws ProzessKettenVorlageNotFoundException falls nicht gefunden
      */
     public void edit(ProzessKettenVorlage pkv) throws ProzessKettenVorlageNotFoundException {
 //        var old = pkVorlagen.stream().filter(p -> pkv.getPkID() == p.getPkID()).findFirst().orElse(null);
@@ -122,7 +122,7 @@ public class ProzessKettenVorlageService implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new ArrayList<ProzessKettenVorlage>();
+        return new ArrayList<>();
     }
 
 }

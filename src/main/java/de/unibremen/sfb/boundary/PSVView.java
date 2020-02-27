@@ -91,8 +91,8 @@ public class PSVView implements Serializable {
 
 
     @PostConstruct
-    /**
-     * Hier werden aus der Persitenz die benötigten Daten Geladen
+    /*
+      Hier werden aus der Persitenz die benötigten Daten Geladen
      */
     public void init() {
         verfuegbareBedingunen = bedingungService.getAll();

@@ -3,6 +3,7 @@ package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.exception.DuplicateUserException;
 import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
+import de.unibremen.sfb.exception.UserNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.*;
 import lombok.Getter;
@@ -250,6 +251,7 @@ public class AdminBean implements Serializable {
      * Edit a user
      *
      * @param id - the id of the user to be edited
+     * @throws UserNotFoundException if not found
      */
     public void adminEditUser(String id) {
         try {
@@ -266,12 +268,12 @@ public class AdminBean implements Serializable {
             this.email = user.getEmail();
             this.telefonNummer = user.getTelefonnummer();
             this.userName = user.getUsername();
-            this.password = new String(user.getPassword());
+            this.password = user.getPassword();
             this.wurdeVerifiziert = user.isWurdeVerifiziert();
             this.language = user.getLanguage();
             log.info("Updated User! ID: " + id);
             facesNotification("Updated user! ID: " + id);
-        } catch (Exception e) {
+        } catch (UserNotFoundException e) {
             e.printStackTrace();
             log.info("Couldn't edit user, Username: " + userName);
             facesError("Couldn't update user! ID: " + id);
@@ -389,10 +391,10 @@ public class AdminBean implements Serializable {
                 TraegerArt ta = traegerArtService.getById(id);
                 ta.setArt(newTa);
                 traegerArtService.updateTragerArt(ta);
-                log.info("Updated container type! ID: " + Integer.toString(id));
+                log.info("Updated container type! ID: " + id);
             } catch (Exception f) {
                 f.printStackTrace();
-                log.error("Couldn't edit container type! ID: " + Integer.toString(id));
+                log.error("Couldn't edit container type! ID: " + id);
             }
         }
     }
@@ -407,7 +409,7 @@ public class AdminBean implements Serializable {
             traegerArtService.removeTraegerArt(traegerArtService.getById(id));
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("Couldn't delete container type! ID: " + Integer.toString(id));
+            log.error("Couldn't delete container type! ID: " + id);
         }
     }
 

@@ -73,8 +73,7 @@ public class ProzessSchrittZustandsAutomatVorlageDAO extends ObjectDAO<ProzessSc
 
     public ProzessSchrittZustandsAutomatVorlage getById(int id) {
         try {
-            ProzessSchrittZustandsAutomatVorlage q =  em.find(ProzessSchrittZustandsAutomatVorlage.class, id);
-            return q;
+            return em.find(ProzessSchrittZustandsAutomatVorlage.class, id);
         } catch (Exception e) {
             throw new IllegalArgumentException("PS Automat not found");
         }

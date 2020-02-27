@@ -20,8 +20,8 @@ import java.util.List;
 @Setter
 @Slf4j
 
-/**
- * this bean manages the interaction of the gui with the backend system (for users who are transporters)
+/*
+  this bean manages the interaction of the gui with the backend system (for users who are transporters)
  */
 public class TransporterBean implements Serializable {
     private List<ProzessSchritt> ps;
@@ -35,11 +35,6 @@ public class TransporterBean implements Serializable {
     void init(){
         ps = auftragService.getTransportSchritt();
     }
-
-    /**
-     * the user managed by this beans
-     */
-    //public User transporter;
 
     /**
      * returns all jobs available to the transporter
@@ -70,16 +65,4 @@ public class TransporterBean implements Serializable {
      * the empty constructor
      */
     public TransporterBean(){}
-
-    /**
-     * returns the transporter managed by this bean
-     * @return the user
-     */
-    //public User getTransporter() { return transporter; }
-
-    /**
-     * sets the transporter managed by this bean
-     * @param t the user
-     */
-    //public void setTransporter(User t) { transporter = t; }
 }

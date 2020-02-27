@@ -41,7 +41,6 @@ public class QualitativeEigenschaftController {
      * @return the property name
      */
     public List<QualitativeEigenschaft> getEigenschaft() {
-        List<QualitativeEigenschaft> qualitativeEigenschafts = qualitativeEigenschaftDAO.getAll();
-        return qualitativeEigenschafts;
+        return qualitativeEigenschaftDAO.getAll();
     }
 }

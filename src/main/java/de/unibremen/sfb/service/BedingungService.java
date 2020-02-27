@@ -53,8 +53,7 @@ public class BedingungService implements Serializable {
      * @param id - the Bedingung's name */
     public Bedingung findByID(int id) {
         // FIXME Use String as ID or convert to String
-        Bedingung bs = bedingungDAO.findById(id);
-        return bs;
+        return bedingungDAO.findById(id);
     }
 
     /** @return a list of all bedingung in the system */

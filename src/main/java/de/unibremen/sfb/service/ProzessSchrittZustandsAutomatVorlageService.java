@@ -9,9 +9,9 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Singleton
-/**
- * Service fuer ProzessSchrittZustandsAutomatVorlagen
- * Anwendungsfall: Bearbeiten einer Vorlage oder hinzufuegen einer ProzessSchrittZustandsAutomatVorlage in einer ProzessKettenVorlage
+/*
+  Service fuer ProzessSchrittZustandsAutomatVorlagen
+  Anwendungsfall: Bearbeiten einer Vorlage oder hinzufuegen einer ProzessSchrittZustandsAutomatVorlage in einer ProzessKettenVorlage
  */
 public class ProzessSchrittZustandsAutomatVorlageService {
     private List<ProzessSchrittZustandsAutomatVorlage> psvVorlagen;

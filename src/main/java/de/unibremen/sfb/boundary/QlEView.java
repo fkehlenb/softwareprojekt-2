@@ -80,7 +80,7 @@ public class QlEView implements Serializable {
     }
 
     public String deleteQlE(String idQlE) {
-        if (abhangig(Integer.parseInt(idQlE)) == false) {
+        if (!abhangig(Integer.parseInt(idQlE))) {
             System.out.println("not abhangig");
             try {
                 qualitativeEigenschaftService.remove(qualitativeEigenschaftService.getQlEById(Integer.parseInt(idQlE)));

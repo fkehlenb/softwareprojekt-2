@@ -54,8 +54,9 @@ public class ProzessSchrittParameterDAO extends ObjectDAO<ProzessSchrittParamete
         return ProzessSchrittParameter.class;
     }
 
-    /** @return all process parameters
-     * @return empty ArrayList if there are none */
+    /**
+     * Fetches all PSP
+     * @return all process parameters empty ArrayList if there are none */
     public List<ProzessSchrittParameter> getAll(){
         try {
             return em.createQuery("SELECT psp FROM ProzessSchrittParameter psp", get()).getResultList();

@@ -41,15 +41,16 @@ public class FileUploadView {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Query b = em.createNativeQuery(String.format("DROP ALL OBJECTS"));
+            Query b = em.createNativeQuery("DROP ALL OBJECTS");
             b.executeUpdate();
 
-            Query q = em.createNativeQuery(String.format("RUNSCRIPT FROM '" + file.getFileName() + "'"));
+            Query q = em.createNativeQuery("RUNSCRIPT FROM '" + file.getFileName() + "'");
             q.executeUpdate();
             log.info("Backup was restored with Succes");
             FacesMessage message = new FacesMessage("Successfuly restored DB", file.getFileName() + " is uploaded.");
             FacesContext.getCurrentInstance().addMessage(null, message);
         } else {
+            assert file != null;
             FacesMessage message = new FacesMessage("No Success", file.getFileName() + " is uploaded.");
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
@@ -57,7 +58,7 @@ public class FileUploadView {
 
     /**
      * https://www.baeldung.com/java-write-to-file
-     * @throws IOException
+     * @throws IOException when an IO error occurs
      */
     public void toDisk(UploadedFile file)
             throws IOException {

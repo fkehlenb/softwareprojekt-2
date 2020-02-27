@@ -26,7 +26,7 @@ public class ProzessSchrittVorlageDAO extends ObjectDAO<ProzessSchrittVorlage> {
 
     /** Update a process chain step template in the database
      * @param psv - the process chain step template to update in the database
-     * @throws ProzessSchrittVorlageNotFoundException if the process chain step template couldn't be found */
+     * */
     public void update(ProzessSchrittVorlage psv) {
         if (psv!=null) {
             em.merge(psv);

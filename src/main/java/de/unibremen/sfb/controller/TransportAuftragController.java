@@ -34,7 +34,7 @@ public class TransportAuftragController {
     public ExperimentierStation getDestination() { return null; }
 
     public Set<String> getDefaults() {
-        Set<String> returns = new HashSet<String>();
+        Set<String> returns = new HashSet<>();
         returns.add("Abgeholt");
         returns.add("Abgegeben");
         return returns;

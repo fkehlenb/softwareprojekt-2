@@ -30,8 +30,8 @@ public class SingleSampleBean implements Serializable {
      * listener for edit of comment in singlesample view
      * @param e event
      */
-    public void KommentarEdit(CellEditEvent e) {
-        String ne = (String) e.getNewValue();
+    public void KommentarEdit(CellEditEvent<String> e) {
+        String ne = e.getNewValue();
         int row = e.getRowIndex();
         Kommentar k = p.getKommentar().get(row);
 

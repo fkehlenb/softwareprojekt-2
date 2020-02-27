@@ -10,7 +10,9 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @RequiredArgsConstructor
-/** Achive data class */
+/*
+  Achive data class
+ */
 public class Archiv {
 
     /** On delete set to invalid */
