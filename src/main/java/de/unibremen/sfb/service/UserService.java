@@ -110,6 +110,7 @@ public class UserService implements Serializable {
      *
      * @param u - the user to check
      * @return user exists in database?
+     * @throws UserNotFoundException if none is found
      */
     public boolean containsUser(User u) throws UserNotFoundException {
         try {
@@ -141,13 +142,13 @@ public class UserService implements Serializable {
      * Check if an email address has a user registered in the database
      *
      * @param email - the email address to check
-     * @return the user exists in the database?
+     * @return the user exists in the database
      */
     public boolean containsUserWithEmail(String email) {
         try {
             getUserByEmail(email);
             return true;
-        } catch (Exception e) {
+        } catch (UserNotFoundException e) {
             return false;
         }
     }

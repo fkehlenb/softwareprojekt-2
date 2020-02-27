@@ -1,9 +1,10 @@
-image: maven:latest
+image: jboss/wildfly
 
 stages:
   - build
-  - test
+  - package
   - deploy
+  - test
 
 cache:
   paths:
@@ -13,12 +14,18 @@ cache:
 compile_pdf:
   stage: build
   image: timnn/texlive  # use a Docker image for LaTeX from https://hub.docker.com/
-  script: 
+  script:
    - cd doc
    - pdflatex Architekturbeschreibung.tex   # build the pdf just as you would on your computer
   artifacts:
     paths:
       - doc/Architekturbeschreibung.pdf  # instruct GitLab to keep the main.pdf file
+
+package_service
+  stage: package
+  image: maven
+  script:
+    - mvn package
 
 pages:
   stage: deploy
@@ -33,11 +40,13 @@ pages:
     - doc
 
 test:
+  image: maven
   stage: test
   script:
     - mvn $MAVEN_CLI_OPTS test
 
 build:
+  image: maven
   tags:
     - docker
   stage: build

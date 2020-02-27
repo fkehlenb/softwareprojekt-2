@@ -51,17 +51,14 @@ public class ExperimentierStation {
     @NonNull
     private Enum<ExperimentierStationZustand> status;
 
-    /**
-     * The queue currently being processed at the experimenting station
-     */
-    @NonNull
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<ProzessSchritt> psQeue;
+    //TODO
+    /** The queue currently being processed at the experimenting station */
+//    @NonNull
+//    private Queue<ProzessSchritt> nextPS;
 
-    /**
-     * Conditions for using an experimenting station
-     */
-    @OneToMany(fetch = FetchType.LAZY)
+    /** Conditions for using an experimenting station */
+    @NonNull
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Bedingung> bedingungen;
 
     @NonNull

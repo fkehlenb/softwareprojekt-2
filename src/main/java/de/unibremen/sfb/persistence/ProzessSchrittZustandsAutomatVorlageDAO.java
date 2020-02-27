@@ -1,5 +1,6 @@
 package de.unibremen.sfb.persistence;
 
+
 import de.unibremen.sfb.exception.DuplicateProzessSchrittZustandsAutomatVorlageException;
 import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
 import de.unibremen.sfb.model.ProzessSchrittZustandsAutomatVorlage;
@@ -29,7 +30,7 @@ public class ProzessSchrittZustandsAutomatVorlageDAO extends ObjectDAO<ProzessSc
     /** Update an existing process step state template in the database
      * @param pszv - the process step state template to update in the database
      * @throws ProzessSchrittVorlageNotFoundException if the process step state template cannot be found in the database */
-    public void update(ProzessSchrittZustandsAutomatVorlage pszv) throws ProzessSchrittVorlageNotFoundException{
+    public void update(ProzessSchrittZustandsAutomatVorlage pszv) throws ProzessSchrittVorlageNotFoundException {
         if (pszv!=null){
             //if (!em.contains(pszv)){
             //    throw new ProzessSchrittVorlageNotFoundException();

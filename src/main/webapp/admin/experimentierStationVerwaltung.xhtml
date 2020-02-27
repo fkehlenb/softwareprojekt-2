@@ -61,6 +61,22 @@
                                                 </p:column>
                                             </p:selectOneMenu>
                                         </p:column>
+                                        <p:column colspan="1">
+                                            <h:outputText value="Bedinungen"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:selectCheckboxMenu id="PSPAuswahlTable"
+                                                                  value="#{adminBean.bedingungen}"
+                                                                  converter="omnifaces.SelectItemsConverter" effect="fade"
+                                                                  var="bedingung" style="width: 172px" filter="true"
+                                                                  filterMatchMode="contains" showCheckbox="true"
+                                                                  label="ProzessSchrittParameter" requiredMessage="Bitte Bedingung Zuweisen!"
+                                                                  required="true">
+                                                <f:selectItems value="#{adminBean.availableBedingungen}"
+                                                               var="bedingung" itemLabel="#{bedingung.name}"
+                                                               itemValue="#{bedingung}"/>
+                                            </p:selectCheckboxMenu>
+                                        </p:column>
                                     </p:row>
                                     <p:row>
                                         <p:column colspan="1">
@@ -140,6 +156,26 @@
                                                         <h:outputText value="#{standort.ort}"/>
                                                     </p:column>
                                                 </p:selectOneMenu>
+                                            </f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
+                                    <p:column headerText="Bedingungen">
+                                        <p:cellEditor>
+                                            <f:facet name="output">
+                                                <h:outputText value="#{station.bedingungen}"/>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <p:selectCheckboxMenu id="PSPAuswahlTable2"
+                                                                      value="#{adminBean.bedingungen}"
+                                                                      converter="omnifaces.SelectItemsConverter" effect="fade"
+                                                                      var="bedingung" style="width: 172px" filter="true"
+                                                                      filterMatchMode="contains" showCheckbox="true"
+                                                                      label="ProzessSchrittParameter" requiredMessage="Bitte Bedingung Zuweisen!"
+                                                                      required="true">
+                                                    <f:selectItems value="#{adminBean.availableBedingungen}"
+                                                                   var="bedingung" itemLabel="#{bedingung.name}"
+                                                                   itemValue="#{bedingung}"/>
+                                                </p:selectCheckboxMenu>
                                             </f:facet>
                                         </p:cellEditor>
                                     </p:column>

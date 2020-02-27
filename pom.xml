@@ -259,6 +259,12 @@
                             <goal>jar</goal>
                         </goals>
                         <configuration>
+                             <doclet>nl.talsmasoftware.umldoclet.UMLDoclet</doclet>
+                             <docletArtifact>
+                               <groupId>nl.talsmasoftware</groupId>
+                               <artifactId>umldoclet</artifactId>
+                                <version>2.0.7</version>/Uni/SWPNP/softwareprojekt-2/target
+                             </docletArtifact>
                             <additionalOptions>
                             </additionalOptions>
                         </configuration>

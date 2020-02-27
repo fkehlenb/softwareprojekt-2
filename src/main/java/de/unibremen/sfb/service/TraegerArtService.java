@@ -54,14 +54,18 @@ public class TraegerArtService implements Serializable {
 
     /** Get a container type by name
      * @param taName - the container type name
-     * @throws TraegerArtNotFoundException on failure */
+     * @return the Carrier which machtes the name
+     * @throws TraegerArtNotFoundException on failure
+     */
     public TraegerArt getByName(String taName) throws TraegerArtNotFoundException{
         return traegerArtDAO.getByName(taName);
     }
 
     /** Get a container type by id
      * @param id - the container type id
-     * @throws TraegerArtNotFoundException on failure */
+     * @return the Carrier which matches the id
+     * @throws TraegerArtNotFoundException on failure
+     */
     public TraegerArt getById(int id) throws TraegerArtNotFoundException{
         return traegerArtDAO.getById(id);
     }

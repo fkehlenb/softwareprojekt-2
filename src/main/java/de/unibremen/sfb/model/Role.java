@@ -1,14 +1,8 @@
 package de.unibremen.sfb.model;
 
-import de.unibremen.sfb.persistence.RoleE;
 import lombok.*;
 
-import javax.inject.Inject;
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Objects;
 
 /**
  * The roles a user can have

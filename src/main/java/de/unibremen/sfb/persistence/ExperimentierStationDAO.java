@@ -20,7 +20,7 @@ public class ExperimentierStationDAO extends ObjectDAO<ExperimentierStation> {
     public void persist(ExperimentierStation es) throws DuplicateExperimentierStationException {
         if (es != null) {
             synchronized (ExperimentierStation.class) {
-                if (em.contains(es)) {
+                if (em.contains(em.find(get(),es.getEsID()))) {
                     throw new DuplicateExperimentierStationException();
                 }
             }

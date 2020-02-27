@@ -37,7 +37,10 @@ public class QualitativeEigenschaftService implements Serializable {
         eigenschaften = qeDAO.getAll();
     }
 
-    /** Add a new qualitative descriptor */
+    /**
+     * Add a new qualitative descriptor
+     * @param qualitativeEigenschaft the one to be added
+     */
     public void addQualitativeEigenschaft(QualitativeEigenschaft qualitativeEigenschaft) {
         try {
             log.info("Trying Persis QualitativeEigenschaft");
@@ -47,7 +50,10 @@ public class QualitativeEigenschaftService implements Serializable {
         }
     }
 
-    /** Get all qualitative descriptors from the database */
+    /**
+     * Get all qualitative descriptors from the database
+     * @return all Descriptors
+     */
     public List<QualitativeEigenschaft> getAllQualitativeEigenschaften() {
         try {
             log.info("Trying QualitativeEigenschaft Methode = getAll");
@@ -58,7 +64,10 @@ public class QualitativeEigenschaftService implements Serializable {
         }
     }
 
-    /** Remove a qualitative descriptor from the database */
+    /**
+     * Remove a qualitative descriptor from the database
+     * @param qualitativeEigenschaft to be removed
+     */
     public void remove(QualitativeEigenschaft qualitativeEigenschaft) {
         try {
             log.info("Trying QualitativeEigenschaft Methode = remove");
@@ -68,7 +77,10 @@ public class QualitativeEigenschaftService implements Serializable {
         }
     }
 
-    /** Edit a qualitative descriptor in the database */
+    /**
+     * Edit a qualitative descriptor in the database
+     * @param qualitativeEigenschaft to be edited
+     */
     public void edit(QualitativeEigenschaft qualitativeEigenschaft) {
         try {
             log.info("Trying QualitativeEigenschaft Methode = edit");
@@ -90,7 +102,11 @@ public class QualitativeEigenschaftService implements Serializable {
     }
 
 
-    /** Get a qualitative descriptor using its id */
+    /**
+     * Get a qualitative descriptor using its id
+     * @param id which is queried
+     * @return the descriptor with the id
+     */
     public QualitativeEigenschaft getQlEById(int id) {
         return qeDAO.getQlEById(id);
     }

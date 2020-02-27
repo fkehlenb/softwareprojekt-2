@@ -24,7 +24,10 @@ public class QuantitativeEigenschaftService implements Serializable {
     @Inject
     private QuantitativeEigenschaftDAO qneDAO;
 
-    /** Add a new quantitative descriptor */
+    /**
+     * Add a new quantitative descriptor
+     * @param quantitativeEigenschaft to be added
+     */
     public void addQuantitativeEigenschaft(QuantitativeEigenschaft quantitativeEigenschaft) {
         try {
             log.info("Trying Persis QuantitativeEigenschaft");
@@ -34,7 +37,10 @@ public class QuantitativeEigenschaftService implements Serializable {
         }
     }
 
-    /** Get all quantitative descriptors in the database */
+    /**
+     * Get all quantitative descriptors in the database
+     * @return all Descriptors
+     */
     public List<QuantitativeEigenschaft> getAllQuantitativeEigenschaften() {
         try {
             log.info("Trying QuantitativeEigenschaft Methode = getAll");
@@ -45,7 +51,10 @@ public class QuantitativeEigenschaftService implements Serializable {
         }
     }
 
-    /** Remove a quantitative descriptor from the database */
+    /**
+     *  Remove a quantitative descriptor from the database
+     * @param quantitativeEigenschaft the one to be removed
+     */
     public void remove(QuantitativeEigenschaft quantitativeEigenschaft) {
         try {
             log.info("Trying QuantitativeEigenschaft Methode = remove");
@@ -55,7 +64,10 @@ public class QuantitativeEigenschaftService implements Serializable {
         }
     }
 
-    /** Edit a quantitative descriptor in the database */
+    /**
+     * Edit a quantitative descriptor in the database
+     * @param quantitativeEigenschaft to be deleted
+     */
     public void edit(QuantitativeEigenschaft quantitativeEigenschaft)  {
         try {
             log.info("Trying QuantitativeEigenschaft Methode = edit");
@@ -65,11 +77,19 @@ public class QuantitativeEigenschaftService implements Serializable {
         }
     }
 
+    /**
+     * Alle SI einheiten
+     * @return all SI Units
+     */
     public List<String> getEinheiten() {
         return List.of("second", "metre", "kilogram", "kilogram", "ampere", "mole", "candela");
     }
 
-    /** Get a quantitative descriptor using its id*/
+    /**
+     * Get a quantitative descriptor using its id
+     * @param parseInt the id
+     * @return the Descriptor which matches the id
+     */
     public QuantitativeEigenschaft getQlEById(int parseInt) {
         return qneDAO.findQnEById(parseInt);
     }
