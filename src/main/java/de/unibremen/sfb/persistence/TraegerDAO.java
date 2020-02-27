@@ -1,13 +1,8 @@
 package de.unibremen.sfb.persistence;
 
 import de.unibremen.sfb.exception.DuplicateTraegerException;
-import de.unibremen.sfb.exception.StandortNotFoundException;
-import de.unibremen.sfb.exception.TraegerArtNotFoundException;
 import de.unibremen.sfb.exception.TraegerNotFoundException;
-import de.unibremen.sfb.model.Probe;
-import de.unibremen.sfb.model.Standort;
 import de.unibremen.sfb.model.Traeger;
-import de.unibremen.sfb.model.TraegerArt;
 
 import java.util.ArrayList;
 import java.util.List;

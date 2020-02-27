@@ -4,7 +4,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.io.Serializable;
-import java.util.List;
 
 /** This class is the template database handler for its children
  * It handles the connection to the database using the EntityManager em*/

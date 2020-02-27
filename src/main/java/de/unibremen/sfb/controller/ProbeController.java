@@ -5,7 +5,6 @@ import de.unibremen.sfb.model.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.lang3.tuple.Pair;
 

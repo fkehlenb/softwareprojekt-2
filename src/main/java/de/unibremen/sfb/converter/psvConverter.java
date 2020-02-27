@@ -18,7 +18,6 @@ package de.unibremen.sfb.converter;
  */
 
 
-import de.unibremen.sfb.boundary.PSVView;
 import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
 import de.unibremen.sfb.model.ProzessSchrittVorlage;
 import de.unibremen.sfb.service.ProzessSchrittVorlageService;

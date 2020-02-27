@@ -6,7 +6,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.enterprise.context.SessionScoped;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.inject.Named;

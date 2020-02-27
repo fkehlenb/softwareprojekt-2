@@ -3,11 +3,9 @@ package de.unibremen.sfb.persistence;
 import de.unibremen.sfb.exception.BedingungNotFoundException;
 import de.unibremen.sfb.exception.DuplicateBedingungException;
 import de.unibremen.sfb.model.Bedingung;
-import de.unibremen.sfb.model.Standort;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.EntityNotFoundException;
-import javax.swing.text.html.parser.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +15,7 @@ public class BedingungDAO extends ObjectDAO<Bedingung> {
 
     /** Add a condition to the database
      * @param b - the condition to add to the database
-     * @throws DuplicateBedingungException if the condition already exists in the database */
+     */
     public void persist(Bedingung b)   {
         if (b!=null){
             synchronized (Bedingung.class){

@@ -3,9 +3,7 @@ package de.unibremen.sfb.persistence;
 import de.unibremen.sfb.exception.DuplicateExperimentierStationException;
 import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
 import de.unibremen.sfb.model.ExperimentierStation;
-import lombok.extern.slf4j.Slf4j;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 /**

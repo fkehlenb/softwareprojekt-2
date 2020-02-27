@@ -4,7 +4,6 @@ import de.unibremen.sfb.exception.DuplicateUserException;
 import de.unibremen.sfb.exception.UserNotFoundException;
 import de.unibremen.sfb.model.User;
 
-import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 

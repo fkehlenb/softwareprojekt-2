@@ -9,10 +9,7 @@ import de.unibremen.sfb.service.QuantitativeEigenschaftService;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.primefaces.event.RowEditEvent;
 
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -47,7 +44,7 @@ public class PSPView implements Serializable {
     private List<QualitativeEigenschaft> qualitativeEigenschaften = new ArrayList<>();
 
     public String creationLink() {
-        return "pSCreation?faces-redirect=true";
+        return "addPSP?faces-redirect=true";
 
     }
 
@@ -60,7 +57,7 @@ public class PSPView implements Serializable {
             prozessSchrittParameter.setQualitativeEigenschaften(qualitativeEigenschaften);
             prozessSchrittParameterService.addProcessSP(prozessSchrittParameter);
             log.info("Trying to persist der ProzzesSchritt"+prozessSchrittParameter.getName());
-            return "pS?faces-redirect=true";
+            return "psp?faces-redirect=true";
         } catch (Exception e) {
             log.info("Fail to persist der ProzzesSchritt");
             return "Not posible Creation";

@@ -1,9 +1,6 @@
 package de.unibremen.sfb.converter;
 
-import de.unibremen.sfb.exception.ProzessKettenVorlageNotFoundException;
 import de.unibremen.sfb.model.ProzessKettenVorlage;
-import de.unibremen.sfb.model.ProzessKettenVorlage;
-import de.unibremen.sfb.service.ProzessKettenVorlageService;
 import de.unibremen.sfb.service.ProzessKettenVorlageService;
 
 import javax.faces.component.UIComponent;

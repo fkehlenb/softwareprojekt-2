@@ -2,7 +2,6 @@ package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.model.ProzessSchrittParameter;
 import de.unibremen.sfb.model.QualitativeEigenschaft;
-import de.unibremen.sfb.model.QuantitativeEigenschaft;
 import de.unibremen.sfb.service.ProzessSchrittParameterService;
 import de.unibremen.sfb.service.QualitativeEigenschaftService;
 import de.unibremen.sfb.service.QuantitativeEigenschaftService;
@@ -13,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
@@ -61,7 +59,7 @@ public class PspQeAbhangView implements Serializable {
         qualitativeEigenschaftP.remove(quantitativeEigenschaftToRemove);
         prozessSchrittParameter.setQualitativeEigenschaften(qualitativeEigenschaftP);
         prozessSchrittParameterService.update(prozessSchrittParameter);
-        return "abhanPSundqEI?faces-redirect=true";
+        return "abEvPP?faces-redirect=true";
     }
 
     public String linkQIE(){

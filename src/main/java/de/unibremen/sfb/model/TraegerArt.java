@@ -3,7 +3,6 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 /** This class is the data class for container types */
 @Getter

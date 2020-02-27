@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
 import javax.inject.Inject;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
@@ -206,7 +205,7 @@ public class AuftragService implements Serializable {
      * <p>
      * Um dieses Problem zu Reproduzieren zu koenne, kann in init in psvErstellen zwischen dieser Methode und der Dao gewechselt werden
      *
-     * @return
+     * @return gibt die Erstellen Auftrage zurueck
      */
     public List<Auftrag> erstelleStandartAuftrag() {
 
@@ -285,8 +284,8 @@ public class AuftragService implements Serializable {
     /**
      * Bearbeiten der ProzessKettenVorlage
      *
-     * @param auftrag
-     * @throws ProzessKettenVorlageNotFoundException
+     * @param auftrag der Auftrag der Bearbeitet wird
+     * @throws ProzessKettenVorlageNotFoundException falls die Vorlage nicht gefunden wird
      */
     public void edit(Auftrag auftrag) throws ProzessKettenVorlageNotFoundException {
         var old = auftrage.stream().filter(p -> auftrag.getPkID() == p.getPkID()).findFirst().orElse(null);

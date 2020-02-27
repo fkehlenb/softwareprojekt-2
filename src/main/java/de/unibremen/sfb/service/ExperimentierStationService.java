@@ -8,10 +8,8 @@ import de.unibremen.sfb.persistence.ExperimentierStationDAO;
 import lombok.Getter;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
-import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;

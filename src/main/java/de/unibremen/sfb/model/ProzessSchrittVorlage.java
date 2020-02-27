@@ -3,8 +3,6 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.ws.rs.ext.ParamConverter;
-import java.time.Duration;
 import java.util.List;
 
 /** Data class for the process step templates */

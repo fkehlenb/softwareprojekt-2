@@ -1,6 +1,5 @@
 package de.unibremen.sfb.boundary;
 
-import de.unibremen.sfb.exception.AuftragNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.*;
 import lombok.Getter;

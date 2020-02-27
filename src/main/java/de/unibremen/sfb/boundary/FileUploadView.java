@@ -3,7 +3,6 @@ package de.unibremen.sfb.boundary;
 import lombok.extern.slf4j.Slf4j;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.file.UploadedFile;
-import org.primefaces.model.file.UploadedFiles;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;

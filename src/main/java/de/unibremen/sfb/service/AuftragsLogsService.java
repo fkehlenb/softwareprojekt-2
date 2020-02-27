@@ -9,7 +9,6 @@ import de.unibremen.sfb.persistence.AuftragsLogDAO;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -33,7 +32,7 @@ public class AuftragsLogsService {
 
 
     /**
-     * Add a new job to the database
+     * Add a new Auftrag Log to the database
      *
      * @param auftragsLog - the job to add
      * @throws DuplicateAuftragsLogException on failure
@@ -43,10 +42,10 @@ public class AuftragsLogsService {
     }
 
     /**
-     * Bearbeiten der ProzessKettenVorlage
+     * Bearbeiten der Auftrags Log
      *
-     * @param auftragsLog
-     * @throws ProzessKettenVorlageNotFoundException
+     * @param auftragsLog der Log der Bearbeitet wird
+     * @throws ProzessKettenVorlageNotFoundException falls die pkv nicht gefunden wurde
      */
     public void edit(AuftragsLog auftragsLog) throws ProzessKettenVorlageNotFoundException {
         var old = auftragsLogs.stream().filter(p -> auftragsLog.getId() == p.getId()).findFirst().orElse(null);

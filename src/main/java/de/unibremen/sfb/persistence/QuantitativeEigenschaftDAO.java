@@ -2,7 +2,6 @@ package de.unibremen.sfb.persistence;
 
 import de.unibremen.sfb.exception.DuplicateQuantitativeEigenschaftException;
 import de.unibremen.sfb.exception.QuantitativeEingenschaftNotFoundException;
-import de.unibremen.sfb.model.QualitativeEigenschaft;
 import de.unibremen.sfb.model.QuantitativeEigenschaft;
 
 import java.util.List;

@@ -1,8 +1,6 @@
 package de.unibremen.sfb.boundary;
 
 
-import de.unibremen.sfb.exception.DuplicateProzessSchrittZustandsAutomatVorlageException;
-import de.unibremen.sfb.exception.ProzessSchrittZustandsAutomatVorlageNotFoundException;
 import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.*;
@@ -21,7 +19,6 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 
 @Named("pszavView")
@@ -81,7 +78,7 @@ public class PSZAVView implements Serializable {
     public void onRowEdit(RowEditEvent<ProzessSchrittZustandsAutomatVorlage> event) throws ProzessSchrittVorlageNotFoundException {
         //When The Persistence gefit be, we can uncomment that.
         boolean a =checkOrdnung(event);
-        if(!a){
+        if(a){
         prozessSchrittZustandsAutomatVorlageService.edit(event.getObject());
         FacesMessage msg = new FacesMessage("PS Automat Edited", event.getObject().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);}
@@ -114,10 +111,10 @@ public class PSZAVView implements Serializable {
             }
             counter++;
         }
-        if(counterBearbeitet<counterInbearbeitung &&
-                counterAngenommen<counterInbearbeitung&&
-                counterAngenommen<counterBearbeitet &&
-                counterAngenommen<counterWeitergeleitet ){
+        if(counterAngenommen<counterInbearbeitung&&
+                counterInbearbeitung<counterBearbeitet&&
+                counterBearbeitet<counterWeitergeleitet
+               ){
             return true;
         }else{
             return false;
@@ -129,7 +126,7 @@ public class PSZAVView implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
     public void onRowCancelWegenOrdnung() {
-        FacesMessage msg = new FacesMessage("Bearbeitet darf nicht vor in Bearbeitung sein");
+        FacesMessage msg = new FacesMessage("Der Ordnung kann nicht gespeichern werden");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 }

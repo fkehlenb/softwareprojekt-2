@@ -3,8 +3,6 @@ package de.unibremen.sfb.persistence;
 import de.unibremen.sfb.exception.DuplicateProzessSchrittException;
 import de.unibremen.sfb.exception.ProzessSchrittNotFoundException;
 import de.unibremen.sfb.model.ProzessSchritt;
-import de.unibremen.sfb.model.QuantitativeEigenschaft;
-import org.w3c.dom.Entity;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
