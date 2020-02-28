@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * Experimenting stations data class
@@ -53,8 +54,8 @@ public class ExperimentierStation {
 
     //TODO
     /** The queue currently being processed at the experimenting station */
-//    @NonNull
-//    private Queue<ProzessSchritt> nextPS;
+    @OneToMany
+   private List<ProzessSchritt> nextPS;
 
     /** Conditions for using an experimenting station */
     @NonNull
