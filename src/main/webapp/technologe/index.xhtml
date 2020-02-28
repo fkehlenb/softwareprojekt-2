@@ -18,9 +18,16 @@
     <div class="ui-g-8">
         <h:body style="background: url('../background.png')">
             <h:form id="form" style="background-color: white; margin-top: 100px; width: 650px">
-                <h:panelGrid columns="1">
+                <p:growl>
+                    <p:autoUpdate/>
+                </p:growl>
+                <p:panelGrid columns="1">
                     <p:row>
                         <h1 style="color: cornflowerblue">Ihre aktuellen Aufträge</h1>
+                    </p:row>
+
+                    <p:row>
+                        <p>Hier können Sie alle Aufträge sehen, für die Sie verantwortlich sind.</p>
                     </p:row>
 
                     <p:dataTable var="auftrag" value="#{technologeView.getJobs()}"
@@ -38,7 +45,7 @@
                             </div>
                         </p:column>
                     </p:dataTable>
-                </h:panelGrid>
+                </p:panelGrid>
             </h:form>
         </h:body>
     </div>

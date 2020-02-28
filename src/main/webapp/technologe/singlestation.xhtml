@@ -18,9 +18,16 @@
         <div class="ui-g-8">
             <h:body style="background: url('../background.png')">
                 <h:form style="background-color: white; margin-top: 100px; width: 650px">
-                    <h:panelGrid columns="1">
+                    <p:growl>
+                        <p:autoUpdate/>
+                    </p:growl>
+                    <p:panelGrid columns="1">
                         <p:row>
                             <h1 style="color: cornflowerblue">Experimentierstation #{singleStationBean.station.name} Überblick</h1>
+                        </p:row>
+
+                        <p:row>
+                            <p>Hier haben Sie einen detaillierten Überblick über die Experimentierstation #{singleStationBean.station.name}</p>
                         </p:row>
 
                         <p:row>
@@ -33,7 +40,7 @@
                             <p> Status: #{singleStationBean.station.status}</p>
                         </p:row>
                         <div align="center">
-                            <h:commandButton action="#{technologeView.reportBroken(singleStationBean.station)}" value="Report as broken"/>
+                            <h:commandButton action="#{singleStationBean.reportBroken()}" value="Report as broken"/>
                         </div>
                         <p:row>
                             <p> ProzessSchritt: #{singleStationBean.station.currentPS.psID} </p>
@@ -61,7 +68,7 @@
                             </p:column>
 
                         </p:dataTable>
-                    </h:panelGrid>
+                    </p:panelGrid>
                 </h:form>
             </h:body>
         </div>

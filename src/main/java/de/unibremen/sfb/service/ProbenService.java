@@ -108,7 +108,10 @@ public class ProbenService implements Serializable {
      * @param c the new comment
      * @throws ProbeNotFoundException the sample could not be found in the database
      */
-    public void addProbenComment(Probe p, String c) throws ProbeNotFoundException {
+    public void addProbenComment(Probe p, String c) throws ProbeNotFoundException, IllegalArgumentException {
+        if(p== null || c == null) {
+            throw new IllegalArgumentException();
+        }
         Kommentar k = new Kommentar(LocalDateTime.now(), c);
         if(p.getKommentar() != null) {
             p.getKommentar().add(k);
@@ -128,8 +131,11 @@ public class ProbenService implements Serializable {
      * @param k the Class of the Comment
      * @throws ProbeNotFoundException the sample could not be found in the database
      */
-    public void editProbenComment(Probe p, Kommentar k, String c) throws ProbeNotFoundException {
-        if(p.getKommentar()!=null && p.getKommentar().contains(k)) {
+    public void editProbenComment(Probe p, Kommentar k, String c) throws ProbeNotFoundException, IllegalArgumentException {
+        if(p==null || k == null || c == null) {
+            throw new IllegalArgumentException();
+        }
+        if(p.getKommentar().contains(k)) {
             k.setText(c);
         }
         probeDAO.update(p);
@@ -141,8 +147,10 @@ public class ProbenService implements Serializable {
      * @param k the comment to be deleted //TODO macht das sinn so?
      * @throws ProbeNotFoundException the sample could not be found in the database
      */
-    public void deleteProbenComment(Probe p, Kommentar k) throws ProbeNotFoundException {
-        //TODO macht das alles überhaupt sinn so? idk... vor allem probedao update. nicht kommentardao update? (gibt es nicht, lel)
+    public void deleteProbenComment(Probe p, Kommentar k) throws ProbeNotFoundException, IllegalArgumentException {
+        if(p == null || k == null) {
+            throw new IllegalArgumentException();
+        }
         p.getKommentar().remove(k);
         probeDAO.update(p);
     }
@@ -169,6 +177,23 @@ public class ProbenService implements Serializable {
             res.append(k.getText()).append("\n");
         }
         return res.toString();
+    }
+
+    /**
+     * sets the state of a sample
+     * @param p the sample
+     * @param z the new state
+     * @throws ProbeNotFoundException sample not in database
+     * @throws IllegalArgumentException sample and/or state null
+     */
+    public void setZustandForProbe(Probe p, ProbenZustand z) throws ProbeNotFoundException, IllegalArgumentException{
+        if(p==null||z==null) {
+            throw new IllegalArgumentException();
+        }
+        else {
+            p.setZustand(z);
+            probeDAO.update(p);
+        }
     }
 
     /**

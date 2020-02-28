@@ -17,9 +17,16 @@
 
                 <h:body style="background: url('../background.png')">
                     <h:form style="background-color: white; margin-top: 100px; width: 650px">
-                        <h:panelGrid columns="1">
+                        <p:growl>
+                            <p:autoUpdate/>
+                        </p:growl>
+                        <p:panelGrid columns="1">
                             <p:row>
                                 <h1 style="color: cornflowerblue">Verfügbare Aufträge</h1>
+                            </p:row>
+
+                            <p:row>
+                                <p>Hier können Sie alle Aufträge sehen, die aktuell an Ihren Stationen offen sind, und sich denen zuordnen, die Sie bearbeiten wollen.</p>
                             </p:row>
 
                             <p:dataTable var="auftrag" value="#{technologeView.getAuftrag()}"
@@ -29,17 +36,10 @@
                                     <h:outputText value="#{auftrag.psID}"/>
                                 </p:column>
                                 <p:column headerText="Zustand">
-                                    <h:outputText value="#{auftrag.zustandsAutomat.current}"/>
-                                </p:column>
-                                <p:column headerText="Zuordnen">
-                                    <h:form>
-                                        <div align="center">
-                                            <h:commandButton action="#{technologeView.assignToAuftrag(auftrag)}" value="Assign"/>
-                                        </div>
-                                    </h:form>
+                                    <h:outputText value="#{auftrag.prozessSchrittZustandsAutomat.current}"/>
                                 </p:column>
                             </p:dataTable>
-                        </h:panelGrid>
+                        </p:panelGrid>
                     </h:form>
                 </h:body>
 

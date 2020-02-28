@@ -1,5 +1,6 @@
 package de.unibremen.sfb.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import de.unibremen.sfb.exception.ProzessSchrittParameterNotFoundException;
 import de.unibremen.sfb.model.ProzessSchrittParameter;
 import de.unibremen.sfb.model.QualitativeEigenschaft;
@@ -12,6 +13,8 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +72,13 @@ public class ProzessSchrittParameterService implements Serializable {
         return this.parameterList.stream().filter(c -> c.getName().equals(name)).findFirst().orElse(null);
     }
 
+    public File toJSON(List<ProzessSchrittParameter> psp) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        File file = new File("parameter.json");
+        mapper.writeValue(file, psp);
+        return file;
+    }
+
     //////// Santiago Implementierung ////
 //////////////////////////////////////////
     public void addProcessSP(ProzessSchrittParameter prozessSchrittParameter) {
@@ -114,5 +124,6 @@ public class ProzessSchrittParameterService implements Serializable {
         }
         return prozessSchrittParameters;
     }
+
 
 }

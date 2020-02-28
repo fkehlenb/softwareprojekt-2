@@ -1,6 +1,5 @@
 package de.unibremen.sfb.boundary;
 
-import de.unibremen.sfb.controller.ProbeController;
 import de.unibremen.sfb.exception.*;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.*;
@@ -35,22 +34,7 @@ public class TechnologeView implements Serializable {
      */
     private User technologe;
 
-    /**
-     * The user id
-     */
-    private int userID;
-
-    /**
-     * saves whether the user wants to see only samples that need info to be uploaded, or everything
-     */
-    private Boolean viewUploaded;
-
-    private ProzessSchritt singleJob;
-
-    private Kommentar singleKommentar;
-
     private LazyDataModel<Probe> lazyProben;
-
 
     @Inject
     private ExperimentierStationService esService;
@@ -62,23 +46,15 @@ public class TechnologeView implements Serializable {
     private UserService userService;
 
     @Inject
-    private AuftragService auftragService;
-
-    @Inject
-    private ProbeController probeController;
-
-    @Inject
     private ProzessSchrittService psService;
-
 
     /**
      * loads the initial data from the database
      */
     @PostConstruct
     public void init() {
-        userID = userService.getCurrentUser().getId();
         try {
-            technologe = userService.getUserById(userID); //TODO evtl updated das nicht richtig?
+            technologe = userService.getCurrentUser(); //TODO evtl updated das nicht richtig?
         } catch (Exception e) {
             e.printStackTrace();
             facesError("Couldn't grab current user! Error " + e.getMessage());
@@ -86,8 +62,23 @@ public class TechnologeView implements Serializable {
         }
 
         lazyProben = new LazyProbenDataModel();
+    }
 
-        viewUploaded = false;
+    /**
+     * returns the jobs this user is currently assigned to
+     * ProzessSchritte, not Auftrag, as the Technologe is
+     * not supposed to see entire job chains, just what they
+     * have to do
+     *
+     * @return a list containing all the jobs
+     */
+    public List<ProzessSchritt> getJobs() {
+        List<ProzessSchritt> r = psService.getSchritteByUser(technologe);
+        r.sort(Comparator.comparing(o -> psService.getAuftrag(o).getPriority()));
+        return r;
+        //also nur ein technologe pro Station, und
+        //kann erst auftrag annehmen, wenn er an dieser station nichts zu tun
+        //nur ein auftrag pro station, und ein technologe pro station
     }
 
     /**
@@ -138,46 +129,13 @@ public class TechnologeView implements Serializable {
      * @param es the station
      */
     public void reportBroken(ExperimentierStation es) {
-        if (es == null) {
-            errorMessage("invalid input");
-        } else {
-            try {
-                esService.setZustand(es, ExperimentierStationZustand.KAPUTT);
-                log.info("ExperimentierStation " + es.getEsID() + "was reported as broken.");
-            } catch (ExperimentierStationNotFoundException e) {
-                e.printStackTrace();
-                log.info("an error occurred trying to report ExperimentierStation " + es.getEsID() + " as broken: " + e.getMessage());
-            }
+        try {
+            esService.setZustand(es, ExperimentierStationZustand.KAPUTT);
+            log.info("ExperimentierStation " + es.getEsID() + "was reported as broken.");
+        } catch (ExperimentierStationNotFoundException e) {
+            e.printStackTrace();
+            log.info("an error occurred trying to report ExperimentierStation " + es.getEsID() + " as broken: " + e.getMessage());
         }
-    }
-
-    /**
-     * assigns this user to a job
-     *
-     * @param a the job
-     */
-    public void assignToAuftrag(Auftrag a) {
-        if (a == null) {
-            errorMessage("invalid input");
-        } else {
-            try {
-                auftragService.assignToAuftrag(technologe, a);
-                log.info("user " + technologe.getId() + " was assigned to Auftrag " + a.getPkID());
-            } catch (AuftragNotFoundException e) {
-                e.printStackTrace();
-                log.info("an error occurred trying to assign user " + technologe.getId() + "to Auftrag " + a.getPkID() + ": " + e.getMessage());
-            }
-        }
-    }
-
-    /**
-     * assigns this user to a prozessSchritt
-     *
-     * @param ps the prozessschritt
-     */
-    public void assignToAuftrag(ProzessSchritt ps) {
-        //find auftrag this prozessschritt belongs to
-        //then assignToAuftrag(a);
     }
 
     /**
@@ -256,10 +214,10 @@ public class TechnologeView implements Serializable {
      *
      * @return a set containing all those samples
      */
-    public List<Probe> viewToBeUploaded() {
+    public List<Probe> viewToBeUploaded() { //TODO nur die wo experimente abgeschlossen
         List<Probe> res = new LinkedList<>();
-        for (ProzessSchritt ps : getJobs()) {
-            if (!ps.isUploaded()) {
+        for(ProzessSchritt ps : getJobs()) {
+            if(!ps.isUploaded() && ps.getProzessSchrittZustandsAutomat().getCurrent().equals("Bearbeitet")) {
                 res.addAll(ps.getZugewieseneProben());
             }
         }
@@ -273,34 +231,6 @@ public class TechnologeView implements Serializable {
      */
     public void upload(Probe p) {
 
-    }
-
-    /**
-     * reports a sample as lost
-     *
-     * @param p the sample
-     */
-    public void reportLostProbe(Probe p) {
-        probeController.setZustandForProbe(p, ProbenZustand.VERLOREN);
-        log.info("sample " + p.getProbenID() + " was reported as missing");
-    }
-
-    /**
-     * reports a sample as lost by its id
-     *
-     * @param id the id of the sample to be reported
-     */
-    public void reportLostProbe(String id) {
-        if (id == null) {
-            errorMessage("invalid input");
-        } else {
-            try {
-                reportLostProbe(probeService.getProbeById(id));
-            } catch (ProbeNotFoundException e) {
-                e.printStackTrace();
-                log.info("an error occurred trying to report a sample as lost: sample " + id + "could not be found in the database");
-            }
-        }
     }
 
     /**
@@ -319,53 +249,10 @@ public class TechnologeView implements Serializable {
     public TechnologeView() {
     }
 
-    /**
-     * returns the technologist managed by this bean
-     *
-     * @return the user
-     */
-    public User getTechnologe() {
-        return technologe;
-    }
-
-    /**
-     * sets the technologist managed by this bean
-     *
-     * @param technologe the new user
-     */
-    public void setTechnologe(User technologe) {
-        this.technologe = technologe;
-
-    }
-
-    /**
-     * returns the jobs this user is currently assigned to
-     * ProzessSchritte, not Auftrag, as the Technologe is
-     * not supposed to see entire job chains, just what they
-     * have to do
-     *
-     * @return a list containing all the jobs
-     */
-    public List<ProzessSchritt> getJobs() {
-        //r.sort(Comparator.comparing(o -> psService.getAuftrag(o).getPriority())); //FIXME
-        return psService.getSchritteByUser(technologe);
-        //also nur ein technologe pro Station, und
-        //kann erst auftrag annehmen, wenn er an dieser station nichts zu tun
-        //nur ein auftrag pro station, und ein technologe pro station
-
-    }
-
-    public List<Probe> getSamples() {
-        System.out.println(viewUploaded);
-        if (viewUploaded) {
-            return viewToBeUploaded();
-        }
-        return probeService.getProbenByUser(technologe);
-    }
-
     public String KommentarToString(Probe p) {
         return probeService.KommentarToString(p);
     }
+
 
     /**
      * Adds a new SEVERITY_ERROR FacesMessage for the ui

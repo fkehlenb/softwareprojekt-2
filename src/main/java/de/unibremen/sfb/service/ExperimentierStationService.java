@@ -86,6 +86,9 @@ public class ExperimentierStationService implements Serializable {
      * @throws ExperimentierStationNotFoundException the station couldn't be found in the database
      */
     public void setZustand(ExperimentierStation e, ExperimentierStationZustand esz) throws ExperimentierStationNotFoundException {
+        if(e == null || esz == null) {
+            throw new IllegalArgumentException();
+        }
         /*
         von der anderen setZustand-Methode:
          */
