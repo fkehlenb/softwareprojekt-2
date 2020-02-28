@@ -40,8 +40,9 @@
                              value="#{pszavView.verpszav}"
                              editable="true"
                              selection="#{pszavView.selpszav}"
-                             style="margin-bottom:20px"
-                             rowKey="#{pszav.id}">
+                             rowKey="#{pszav.id}"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                             paginator="true" rows="50" style="margin-bottom:20px">
 
                     <p:ajax event="rowEdit" listener="#{pszavView.onRowEdit}" update=":form:msgs"/>
                     <p:ajax event="rowEditCancel" listener="#{pszavView.onRowCancel}" update=":form:msgs"/>

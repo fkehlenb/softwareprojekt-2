@@ -51,7 +51,8 @@
                 <p:growl id="msgs" showDetail="true"/>
 
                 <p:dataTable id="bedingungen" var="bedingung" value="#{bedingungBean.bedingungen}" editable="true"
-                             style="margin-bottom:20px" rowKey="#{bedingung.id}">
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                             paginator="true" rows="50" style="margin-bottom:20px" rowKey="#{bedingung.id}">
                     <f:facet name="header">
                         Row Editing
                     </f:facet>

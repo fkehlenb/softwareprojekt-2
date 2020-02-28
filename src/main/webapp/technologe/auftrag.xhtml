@@ -22,7 +22,9 @@
                                 <h1 style="color: cornflowerblue">Verfügbare Aufträge</h1>
                             </p:row>
 
-                            <p:dataTable var="auftrag" value="#{technologeView.getAuftrag()}">
+                            <p:dataTable var="auftrag" value="#{technologeView.getAuftrag()}"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                         paginator="true" rows="50" style="margin-bottom:20px">
                                 <p:column headerText="Id">
                                     <h:outputText value="#{auftrag.psID}"/>
                                 </p:column>

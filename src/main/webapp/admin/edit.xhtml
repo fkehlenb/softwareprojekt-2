@@ -21,7 +21,8 @@
                 <p:growl id="msgs" showDetail="true"/>
 
                 <p:dataTable id="cars1" var="car" value="#{dtEditView.cars1}" editable="true"
-                             style="margin-bottom:20px">
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                             paginator="true" rows="50" style="margin-bottom:20px">
                     <f:facet name="header">
                         Row Editing
                     </f:facet>

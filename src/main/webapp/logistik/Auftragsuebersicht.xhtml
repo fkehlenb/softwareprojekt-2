@@ -34,7 +34,9 @@
             <h:form id="form">
 
 
-            <p:dataTable id="table" var="auftrag" value="#{dtAuftragBean.auftrage}">
+            <p:dataTable id="table" var="auftrag" value="#{dtAuftragBean.auftrage}"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                         paginator="true" rows="50" style="margin-bottom:20px">
                 <p:column headerText="Id">
                     <h:outputText value="#{auftrag.pkID}"/>
                 </p:column>

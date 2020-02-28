@@ -23,7 +23,7 @@
                 <h:form id="form">
                     <p:dataTable id="table" var="ps" value="#{psView.allePS}" editable="true"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                 paginator="true" rows="5" style="margin-bottom:20px">
+                                 paginator="true" rows="50" style="margin-bottom:20px">
                         <p:ajax event="rowEdit" listener="#{psView.onRowEdit}"
                                 update="form:table"/>
                         <p:ajax event="rowEditCancel" listener="#{psView.onRowCancel}"
