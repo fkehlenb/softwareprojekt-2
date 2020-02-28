@@ -259,7 +259,7 @@ public class AdminBean implements Serializable {
             roleService.applyRoles(rollen,userName);
             String id = "";
             resetVariables();
-            log.info("User updated, ID: " + idOld);
+            log.info("User updated, ID: {}", idOld);
             facesNotification("User updated! ID: " + idOld);
         } catch (Exception e) {
             User user = new User(UUID.randomUUID().hashCode(), vorname, nachname, email, telefonNummer,
@@ -346,6 +346,8 @@ public class AdminBean implements Serializable {
         this.auftrags = null;
         this.language = null;
         //Control Variable for the Process -> Edit -> Add User
+        //FacesContext.getCurrentInstance().getExternalContext().getFlash().putNow();
+        //FacesContext.getCurrentInstance().getExternalContext().getFlash().get();
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("idx", id);
     }
 

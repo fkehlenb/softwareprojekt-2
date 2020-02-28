@@ -158,7 +158,8 @@ public class QlEView implements Serializable {
                 }
             }
         }
-        if (abhangigPSPID.size() > 0) {
+        //Anmerkungen
+        if (!abhangigPSPID.isEmpty()) {
             //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("abhangigPSPID", abhangigPSPID);
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("IDqEin", Integer.toString(idQle));
             return true;
