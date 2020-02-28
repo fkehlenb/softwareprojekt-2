@@ -5,6 +5,7 @@ import de.unibremen.sfb.service.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.primefaces.PrimeFaces;
 import org.primefaces.event.RowEditEvent;
 
 import javax.annotation.PostConstruct;
@@ -15,6 +16,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
+import org.primefaces.model.SelectableDataModel;
 
 
 @Named("dtAuftragBean")
@@ -26,7 +28,12 @@ public class AuftragView implements Serializable {
     private List<Auftrag> auftrage;
     private List<ProzessKettenVorlage> vorlagen;
     private AuftragsPrioritaet[] prios;
+    private Auftrag selected;
+    private List<Auftrag> filteredAuftrag;
+    private ProzessKettenZustandsAutomat[] prozessKettenZustandsAutomatList;
+
     //Der gewählte Auftrag
+
 
 
     @Inject
@@ -40,6 +47,8 @@ public class AuftragView implements Serializable {
         auftrage = auftragService.getAuftrage();
         vorlagen = getPKVs();
         prios = AuftragsPrioritaet.values();
+        prozessKettenZustandsAutomatList = ProzessKettenZustandsAutomat.values();
+
     }
 
     /**
@@ -47,6 +56,7 @@ public class AuftragView implements Serializable {
      */
     public void updateAuftragTabelle(){
         auftrage = auftragService.getAuftrage();
+        PrimeFaces.current().ajax().update("content-panel:content-panel");
     }
 
     public void onRowEdit(RowEditEvent<Auftrag> event) {
@@ -89,6 +99,20 @@ public class AuftragView implements Serializable {
      */
     private void facesNotification(String message) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
+    }
+
+    public void clearTableState() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        String viewId = context.getViewRoot().getViewId();
+        PrimeFaces.current().multiViewState().clearAll();
+        showMessage();
+
+    }
+
+    private void showMessage( ) {
+        FacesContext.getCurrentInstance()
+                .addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_INFO," multiview state has been cleared out", null));
     }
 }
 

@@ -3,7 +3,11 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
+
+import org.primefaces.model.SelectableDataModel;
 
 /**
  * Job data class
@@ -64,5 +68,20 @@ public class Auftrag {
 
     public String toString() {
         return "Auftrag: " + this.pkID;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Auftrag other = (Auftrag) obj;
+        if (!Objects.equals(this.pkID, other.pkID)) {
+            return false;
+        }
+        return true;
     }
 }
