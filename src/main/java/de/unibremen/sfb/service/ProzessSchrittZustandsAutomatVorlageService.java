@@ -71,7 +71,9 @@ public class ProzessSchrittZustandsAutomatVorlageService {
     /**
      * Get the ProzessSchrittZustandsAutomatVorlage by its ID
      * @param id of ProzessSchrittZustandsAutomatVorlage
-     * @return ProzessSchrittZustandsAutomatVorlage which corresponds to the ID
+     * @return ProzessSchrittZustandsAutomatVorlageNotFoundException which corresponds to the ID
+     *
+     *
      */
     public ProzessSchrittZustandsAutomatVorlage getByID(int id) throws ProzessSchrittZustandsAutomatVorlageNotFoundException {
         return prozessSchrittZustandsAutomatVorlageDAO.getById(id);

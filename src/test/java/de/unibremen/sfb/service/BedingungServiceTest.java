@@ -1,6 +1,7 @@
 package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.model.Bedingung;
+import de.unibremen.sfb.persistence.BedingungDAO;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -14,6 +15,8 @@ class BedingungServiceTest {
     BedingungService bedingungService;
     @Mock
     Bedingung bedingung;
+    @Mock
+    BedingungDAO bedingungDAO;
     @BeforeMethod(alwaysRun = true)
     public void injectInitializierung() {
         MockitoAnnotations.initMocks(this); //Notweding und Injection zu inizielizieren bitte nicht entfernen

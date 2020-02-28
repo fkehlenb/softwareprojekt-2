@@ -78,8 +78,11 @@ public class ProzessSchrittService implements Serializable {
 
       @param ps the ProzessSchritt
      * @param zustand the new state
-     * @return a list of all process steps
+     *
      * @throws ProzessSchrittNotFoundException the ProzessSchritt is not in the database
+     * @throws ProzessSchrittLogNotFoundException the ProzessSchritt is not in the database
+     *  @throws DuplicateProzessSchrittLogException the ProzessSchritt is not in the database
+     *   @throws ProzessSchrittZustandsAutomatNotFoundException the ProzessSchritt is not in the database
      */
     public void setZustand(ProzessSchritt ps, String zustand)
             throws ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException, DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException {
