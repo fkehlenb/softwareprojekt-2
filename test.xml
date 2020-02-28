@@ -2,8 +2,11 @@
 <suite name="Selenium" parallel="methods" thread-count="20" verbose="3" >
     <test name="Tests" >
         <classes>
+
             <class name="de.unibremen.sfb.service.QuantitativeEigenschaftServiceTest"></class>
-            <class name="de.unibremen.sfb.Selenium.QuantitativEingeschaftSelenium"></class>
+
+            <!-- Nicht ausKommentieren Santiago Rey
+            <class name="de.unibremen.sfb.Selenium.QuantitativEingeschaftSelenium"></class>-->
         </classes>
     </test>
 </suite>
