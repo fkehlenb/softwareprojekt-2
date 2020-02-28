@@ -39,6 +39,10 @@ package_service:
   image: maven
   script:
     - mvn package
+  artifacts:
+    paths:
+      - target  
+
 
 pages:
   stage: deploy
