@@ -68,8 +68,9 @@ public class ProzessKettenVorlageDAO extends ObjectDAO<ProzessKettenVorlage> {
      * Get a list of all process chain templates
      *
      * @return a list of all process chain templates
+     *
      */
-    public List<ProzessKettenVorlage> getAll() throws Exception {
+    public List<ProzessKettenVorlage> getAll()   {
         try {
             return em.createNamedQuery("PKV.getAll", get()).getResultList();
         } catch (EntityNotFoundException e) {

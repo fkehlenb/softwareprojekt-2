@@ -54,7 +54,8 @@ public class SingleSampleBean implements Serializable {
     /**
      * edits a comment belonging to a sample
      * @param p the sample
-     * @param c the comment
+     * @param c the String
+     * @param k the comment
      */
     public void editProbenComment(Probe p, Kommentar k, String c) {
         try {
