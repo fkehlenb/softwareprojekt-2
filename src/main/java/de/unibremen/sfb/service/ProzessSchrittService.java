@@ -78,12 +78,10 @@ public class ProzessSchrittService implements Serializable {
      * @throws ProzessSchrittNotFoundException the ProzessSchritt is not in the database
      */
     public void setZustand(ProzessSchritt ps, String zustand)
-            throws ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException, DuplicateProzessSchrittLogException
-    {
-        if(ps==null || zustand==null) {
+            throws ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException, DuplicateProzessSchrittLogException {
+        if (ps == null || zustand == null) {
             throw new IllegalArgumentException();
-        }
-        else if(! ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().contains(zustand)) {
+        } else if (!ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().contains(zustand)) {
             throw new IllegalArgumentException("state not possible for this ProzessSchritt");
         } else {
             ps.getProzessSchrittZustandsAutomat().setCurrent(zustand);
@@ -110,10 +108,16 @@ public class ProzessSchrittService implements Serializable {
         jeder auftrag, der den prozessschritt in seiner liste hat, kommt in ergebnis
         da das nur einer sein sollte, reicht findfirst
          */
-        return auftragService.getAuftrage().stream()
-                .filter((a) -> (a.getProzessSchritte().stream()
-                        .anyMatch((p) -> p.getPsID() == ps.getPsID()))
-                ).findFirst().orElse(null);
+        for (Auftrag a :
+                auftragService.getAuftrage()) {
+            for (ProzessSchritt p : a.getProzessSchritte()) {
+                if (p.getPsID() == ps.getPsID()) {
+                    return a;
+                }
+            }
+        }
+        log.info("No Auftrag Found for: "+ ps.getPsID());
+        return null;
 
     }
 
@@ -123,6 +127,7 @@ public class ProzessSchrittService implements Serializable {
 
     /**
      * JSON export
+     *
      * @return the JSON as a String
      */
     public String toJson() {

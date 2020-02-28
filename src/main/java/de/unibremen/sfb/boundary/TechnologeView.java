@@ -28,6 +28,12 @@ import java.util.*;
 @Slf4j
 public class TechnologeView implements Serializable {
 
+    @Inject
+    AuftragService auftragService;
+
+    @Inject
+    ProzessSchrittService prozessSchrittService;
+
     // TODO immer wieder neu laden mit der unteren id
     /**
      * the user managed by this bean
@@ -95,9 +101,14 @@ public class TechnologeView implements Serializable {
      *
      * @return a set containing all availabe jobs
      */
-    public Set<ProzessSchritt> getAuftrag() {
+    public List<ProzessSchritt> getAuftrag() {
         //alle einträge in queues von experimentierstationen denene der user zugeordnet ist
-        return new HashSet<>();
+        try {
+            return prozessSchrittService.getSchritteByUser(userService.getCurrentUser());
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<ProzessSchritt>();
     }
 
     /**
