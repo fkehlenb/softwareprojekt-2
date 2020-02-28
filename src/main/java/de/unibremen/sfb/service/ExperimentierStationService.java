@@ -151,5 +151,47 @@ public class ExperimentierStationService implements Serializable {
 //                .collect(Collectors.toList());
 //    }
 
+    /**
+     * sets the current process step of a station
+     * @param ps the process step
+     * @param es the station
+     * @throws IllegalArgumentException the station has a current step, or does not have ps in its list of next steps
+     * @throws ExperimentierStationNotFoundException the station was not found in the database
+     */
+    public void setCurrentPS(ProzessSchritt ps, ExperimentierStation es)
+            throws IllegalArgumentException, ExperimentierStationNotFoundException {
+        if(es.getCurrentPS()!=null || !es.getNextPS().contains(ps)) {
+            throw new IllegalArgumentException();
+        }
+        else {
+            es.setCurrentPS(ps);
+            es.getNextPS().remove(ps);
+            esDao.update(es);
+        }
+    }
+
+    /**
+     * deletes the current process step of a station
+     * @param ps the process step that is currently the current one
+     * @param es the station
+     * @throws IllegalArgumentException ps or es null, or ps not the current one at es
+     * @throws ExperimentierStationNotFoundException the es was not found in the database
+     */
+    public void deleteCurrent(ProzessSchritt ps, ExperimentierStation es)
+            throws IllegalArgumentException, ExperimentierStationNotFoundException{
+        if(ps == null || es==null) {
+            throw new IllegalArgumentException();
+        }
+        else {
+            if(es.getCurrentPS()==ps) {
+                es.setCurrentPS(null);
+                esDao.update(es);
+            }
+            else {
+                throw new IllegalArgumentException();
+            }
+        }
+    }
+
 
 }

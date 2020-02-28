@@ -2,6 +2,7 @@ package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.exception.*;
 import de.unibremen.sfb.model.*;
+import de.unibremen.sfb.service.ExperimentierStationService;
 import de.unibremen.sfb.service.ProbenService;
 import de.unibremen.sfb.service.ProzessSchrittParameterService;
 import de.unibremen.sfb.service.ProzessSchrittService;
@@ -43,6 +44,9 @@ public class SingleJobBean implements Serializable {
 
     @Inject
     private ProzessSchrittService psService;
+
+    @Inject
+    private ExperimentierStationService experimentierStationService;
 
     public String singlejob(ProzessSchritt ps) {
         this.ps = ps;
@@ -120,6 +124,14 @@ public class SingleJobBean implements Serializable {
     }
 
     /**
+     * finds the station this process step is currently at
+     * @return the station
+     */
+    public ExperimentierStation findStation() {
+        return psService.findStation(ps);
+    }
+
+    /**
      * sets the state of a ProzessSchritt on further than it was
      */
     public void setJobZustand() {
@@ -130,7 +142,10 @@ public class SingleJobBean implements Serializable {
             try {
                 try {
                     psService.setZustand(ps, ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().get(i+1));
-                } catch (ProzessSchrittZustandsAutomatNotFoundException e) {
+                    if(ps.getProzessSchrittZustandsAutomat().getCurrent().equals("Bearbeitet") && ps.isUploaded()) {
+                        experimentierStationService.deleteCurrent(ps, psService.findStation(ps));
+                    }
+                } catch (ProzessSchrittZustandsAutomatNotFoundException | IllegalArgumentException | ExperimentierStationNotFoundException e) {
                     e.printStackTrace();
                     log.error(e.getMessage());
                 }
@@ -143,10 +158,5 @@ public class SingleJobBean implements Serializable {
             catch(IllegalArgumentException e) {
                 errorMessage("invalid input");
             }
-
     }
-
-    /*public String nextState() {
-        return "f";
-    }*/
 }

@@ -100,13 +100,44 @@ public class TechnologeView implements Serializable {
      */
     public List<ProzessSchritt> getAuftrag() {
         //alle einträge in queues von experimentierstationen denene der user zugeordnet ist
-        try {
-            return prozessSchrittService.getSchritteByUser(userService.getCurrentUser());
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-        }
-        return new ArrayList<ProzessSchritt>();
+        return prozessSchrittService.getPotentialStepsByUser(technologe);
     }
+
+    /**
+     * puts the process step as the current one if the station does not have a current step
+     * otherwise, an error is displayed for the user, and nothing changes
+     * @param ps the process step
+     */
+    public void assignUser(ProzessSchritt ps) {
+        if(ps == null) {
+            errorMessage("invalid input");
+        }
+        else {
+            try {
+                esService.setCurrentPS(ps, findStandort(ps));
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+                errorMessage("process step " + ps.getPsID() + " could not be set as the current step of its station");
+            } catch (ExperimentierStationNotFoundException e) {
+                e.printStackTrace();
+                errorMessage("the station the step is at was not found in the database");
+            }
+        }
+    }
+
+    /**
+     * finds the station a process step is currently at
+     * the step belongs to a station this user is at
+     * @param ps the step
+     * @return the station
+     */
+    public ExperimentierStation findStandort(ProzessSchritt ps) { //TODO integrate into my xhtmls
+        return prozessSchrittService.findStation(ps);
+    }
+    //TODO prozessschritt als current löschen wenn fertig/bearbeitet
+    //problem: mit viewuploaded wird dann nicht angezeigt
+    //evtl liste in experimentierstation mit denen, die bearbeitet sind, aber upload brauchen?
+    //woher weiß ich ob ein schritt upload brauch/Brauchen das alle?
 
     /**
      * reports an experimentation station as broken

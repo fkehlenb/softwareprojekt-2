@@ -14,6 +14,7 @@ import javax.json.bind.JsonbConfig;
 import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -70,6 +71,29 @@ public class ProzessSchrittService implements Serializable {
             ps.add(e.getCurrentPS());
         }
         return ps;
+    }
+
+    /**
+     * returns the ProzessSchritte currently waiting in all experimenting stations the user is assigned to
+     * @param u the user (a Technologe)
+     * @return a list containing all process steps waiting
+     */
+    public List<ProzessSchritt> getPotentialStepsByUser(User u) {
+        List<ProzessSchritt> ps = new ArrayList<>();
+        for(ExperimentierStation e : experimentierStationService.getESByUser(u)) {
+            ps.addAll(e.getNextPS());
+        }
+        ps.removeAll(Collections.singleton(null));
+        return ps;
+    }
+
+    public ExperimentierStation findStation(ProzessSchritt ps) {
+        for(ExperimentierStation e : experimentierStationService.getAll()) { //TODO jeder schritt nur an einer station?
+            if(e.getNextPS().contains(ps) || e.getCurrentPS() == ps) {
+                return e;
+            }
+        }
+        return null;
     }
 
 
