@@ -5,7 +5,7 @@ stages:
   - package
   - deploy
   - test
-  
+
 # For merge requests do not `deploy` but only run `verify`.
 # See https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html
 .verify: &verify
@@ -15,7 +15,7 @@ stages:
   except:
     - master
 
-# Verify merge requests using JDK8
+# Verify merge requests using JDK13
 verify:jdk13:
   <<: *verify
 
@@ -46,7 +46,7 @@ pages:
     - mkdir public  # create a folder called public
     - mkdir public/apidocs
     - cp target/apidocs/ public/apidocs
-    - cp doc/Architekturbeschreibung.pdf public/Architekturbeschreibung.pdf# copy the pdf file into the public folder
+    - cp doc/Architekturbeschreibung.pdf public/Architekturbeschreibung.pdf # copy the pdf file into the public folder
   artifacts:
     paths:
       - public  # instruct GitLab to keep the public folder
