@@ -13,6 +13,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -22,7 +23,7 @@ import java.util.*;
  * this class manages the interaction of the gui with the backend system (for users who are technologists)
  */
 @Named
-@SessionScoped
+@ViewScoped
 @Getter
 @Setter
 @Slf4j

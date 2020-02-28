@@ -44,7 +44,7 @@ public class psvConverter implements Converter {
      * überschreibe getAs Object in dem psvFilter, so, dass er mit Regex nur die ID nimmt
      */
     public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
-              value  = value.replaceAll("^-?\\D*","");
+              value  = value.replaceAll("[\\w-]\\D*","");
         if (value != null && value.trim().length() > 0) {
             try {
                 try {

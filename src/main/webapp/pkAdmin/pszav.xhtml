@@ -16,7 +16,8 @@
                 <h:form>
                     <h:panelGrid columns="2" cellpadding="10">
                         <p:outputLabel for="zustandV" value="zustand Vorlagen: "/>
-                        <p:pickList id="zustandV" value="#{pszavView.dualZ}" var="zustand" itemLabel="#{zustand}" itemValue="#{zustand}"
+                        <p:pickList id="zustandV" value="#{pszavView.dualZ}" var="zustand" itemLabel="#{zustand}"
+                                    itemValue="#{zustand}"
                                     />
                     </h:panelGrid>
 
@@ -24,7 +25,6 @@
                     <p:commandButton value="Erstellen"
                                      action="#{pszavView.erstellePSZAV}" icon="pi pi-check"
                                      update="@form"/>
-
                 </h:form>
             </p:panel>
 
