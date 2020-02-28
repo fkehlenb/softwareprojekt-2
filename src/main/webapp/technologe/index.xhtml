@@ -4,6 +4,12 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
       xmlns:of="http://omnifaces.org/functions">
+<ui:define name="metadata">
+    <f:metadata>
+        <f:viewAction action="#{languageBean.setLanguage}" />
+    </f:metadata>
+</ui:define>
+
 <h:head>
     <title>SFB - Farbige Zustaende</title>
     <link rel="icon" href="../background.png"/>

@@ -39,8 +39,8 @@ public class LanguageBean implements Serializable{
     static{
         countries = new LinkedHashMap<>();
          //label, value
-        countries.put("Deutsch", Locale.GERMAN);
-        countries.put("English", Locale.ENGLISH);
+        countries.put("de", Locale.GERMAN);
+        countries.put("en", Locale.ENGLISH);
     }
 
     public Map<String, Object> getCountriesInMap() {
@@ -74,7 +74,6 @@ public class LanguageBean implements Serializable{
     public void countryLocaleCodeChanged(ValueChangeEvent e){
 
         String newLocaleValue = e.getNewValue().toString();
-
         //loop country map to compare the locale code
         for (Map.Entry<String, Object> entry : countries.entrySet()) {
 
@@ -88,5 +87,16 @@ public class LanguageBean implements Serializable{
         }
     }
    // private Res
+
+    public void setLanguage(){
+        try {
+            var lang =  userService.getCurrentUser().getLanguage();
+            FacesContext.getCurrentInstance()
+                    .getViewRoot().setLocale( new Locale(lang));
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+        }
+        }
+    // private Res
 
 }
