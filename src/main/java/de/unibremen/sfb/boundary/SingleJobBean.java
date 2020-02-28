@@ -144,7 +144,7 @@ public class SingleJobBean implements Serializable {
                     psService.setZustand(ps, ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().get(i+1));
                     if(ps.getProzessSchrittZustandsAutomat().getCurrent().equals("Bearbeitet") && ps.isUploaded()) {
                         experimentierStationService.deleteCurrent(ps, psService.findStation(ps));
-                    }
+                    } //TODO wie in zustand weitergeleitet?
                 } catch (ProzessSchrittZustandsAutomatNotFoundException | IllegalArgumentException | ExperimentierStationNotFoundException e) {
                     e.printStackTrace();
                     log.error(e.getMessage());
