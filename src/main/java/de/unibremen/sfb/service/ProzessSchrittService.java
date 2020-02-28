@@ -3,6 +3,7 @@ package de.unibremen.sfb.service;
 import de.unibremen.sfb.exception.*;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.ProzessSchrittDAO;
+import de.unibremen.sfb.persistence.ProzessSchrittZustandsAutomatDAO;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
@@ -40,6 +41,9 @@ public class ProzessSchrittService implements Serializable {
     @Inject
     private ProzessSchrittDAO prozessSchrittDAO;
 
+    @Inject
+    private ProzessSchrittZustandsAutomatDAO prozessSchrittZustandsAutomatDAO;
+
 
     @Inject
     private ProzessSchrittLogService pslService;
@@ -69,16 +73,16 @@ public class ProzessSchrittService implements Serializable {
     }
 
 
-    /* Get all process steps from the database
+    /** Get all process steps from the database
       sets the current state of this ProzessSchritt
 
-      @param ps      the ProzessSchritt
+      @param ps the ProzessSchritt
      * @param zustand the new state
      * @return a list of all process steps
      * @throws ProzessSchrittNotFoundException the ProzessSchritt is not in the database
      */
     public void setZustand(ProzessSchritt ps, String zustand)
-            throws ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException, DuplicateProzessSchrittLogException {
+            throws ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException, DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException {
         if (ps == null || zustand == null) {
             throw new IllegalArgumentException();
         } else if (!ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().contains(zustand)) {
@@ -87,6 +91,7 @@ public class ProzessSchrittService implements Serializable {
             ps.getProzessSchrittZustandsAutomat().setCurrent(zustand);
             pslService.closeLog(ps.getProzessSchrittLog().get(ps.getProzessSchrittLog().size() - 1));
             ps.getProzessSchrittLog().add(pslService.newLog(zustand));
+                prozessSchrittZustandsAutomatDAO.update(ps.getProzessSchrittZustandsAutomat());
             prozessSchrittDAO.update(ps);
         }
     }
