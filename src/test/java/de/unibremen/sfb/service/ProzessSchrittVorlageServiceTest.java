@@ -1,7 +1,22 @@
 package de.unibremen.sfb.service;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.testng.annotations.BeforeMethod;
 
+@RunWith(MockitoJUnitRunner.class)
 class ProzessSchrittVorlageServiceTest {
+    @InjectMocks
+    ProzessKettenVorlageService prozessKettenVorlageService;
 
+    @Mock
+    ProzessSchrittService prozessSchrittService;
+
+    @BeforeMethod(alwaysRun = true)
+    public void injectInitializierung() {
+        MockitoAnnotations.initMocks(this); //Notweding und Injection zu inizielizieren bitte nicht entfernen
+    }
 }
