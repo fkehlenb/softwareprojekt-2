@@ -79,7 +79,9 @@ public class ProzessSchrittService implements Serializable {
      */
     public void setZustand(ProzessSchritt ps, String zustand)
             throws ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException, DuplicateProzessSchrittLogException {
-        if (!ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().contains(zustand)) {
+        if (ps == null || zustand == null) {
+            throw new IllegalArgumentException();
+        } else if (!ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().contains(zustand)) {
             throw new IllegalArgumentException("state not possible for this ProzessSchritt");
         } else {
             ps.getProzessSchrittZustandsAutomat().setCurrent(zustand);
@@ -90,27 +92,22 @@ public class ProzessSchrittService implements Serializable {
     }
 
     /**
-     * searches for the Auftrag the ProzessSchritt belongs to //TODO yikes
+     * searches for the Auftrag the ProzessSchritt belongs to
      *
      * @param ps the ps which's Auftrag is looked for
      * @return the Auftrag (or null, if none was found)
      */
-    //TODO das funktioniert alles nicht... vllt mit Hibernate.initialize
-    /*
-    (aber müsste dafür dependency hinzufügen ...)
-    oder (extrem unschön) Fetch Type auf eager stellen in auftrag.java
-     */
     public Auftrag getAuftrag(ProzessSchritt ps) {
-        /*
-        filtert liste von allen aufträgen
-        jeder auftrag, der den prozessschritt in seiner liste hat, kommt in ergebnis
-        da das nur einer sein sollte, reicht findfirst
-         */
-        return auftragService.getAuftrage().stream()
-                .filter((a) -> (a.getProzessSchritte().stream()
-                        .anyMatch((p) -> p.getPsID() == ps.getPsID()))
-                ).findFirst().orElse(null);
-
+        for (Auftrag a :
+                auftragService.getAuftrage()) {
+            for (ProzessSchritt p : a.getProzessSchritte()) {
+                if (p.getPsID() == ps.getPsID()) {
+                    return a;
+                }
+            }
+        }
+        log.info("No Auftrag Found for: "+ ps.getPsID());
+        return null;
     }
 
     public List<ProzessSchritt> getAll() {
@@ -119,6 +116,7 @@ public class ProzessSchrittService implements Serializable {
 
     /**
      * JSON export
+     *
      * @return the JSON as a String
      */
     public String toJson() {

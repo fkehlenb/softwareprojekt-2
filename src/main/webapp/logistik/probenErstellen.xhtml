@@ -21,21 +21,21 @@
                 </p:growl>
                 <p:panelGrid columns="1">
                     <p:row>
-                        <h2 style="color: cornflowerblue">Proben Eunfuegen</h2>
+                        <h2 style="color: cornflowerblue">#{msg['logProbenE.jsf']}</h2>
                     </p:row>
                     <p:row>
-                        <p>Mit hilfe des unteren Formular koennen Sie neue Proben in das System einfuegen.</p>
+                        <p>#{msg['logProbenEText.jsf']}</p>
                     </p:row>
                     <p:row>
                         <h:form id="form">
                             <p:panelGrid>
                                 <p:row>
                                     <p:column colspan="1">
-                                        <h:outputText value="Proben ID:"/>
+                                        <h:outputText value="#{msg['logProbenID.jsf']}:"/>
                                     </p:column>
                                     <p:column colspan="1">
-                                        <p:inputText placeholder="Proben ID" required="true"
-                                                     requiredMessage="Bitte Proben ID Eingeben!"
+                                        <p:inputText placeholder="#{msg['logProbenID.jsf']}" required="true"
+                                                     requiredMessage="#{msg['logProbenEMeldung.jsf']}"
                                                      value="#{dtLogistikerBean.probenID}">
                                             <f:validateRegex pattern="[A-Z][0-9][0-9].[0-9]+(.[0-9]+)+"/>
                                         </p:inputText>
@@ -43,12 +43,12 @@
                                 </p:row>
                                 <p:row>
                                     <p:column colspan="1">
-                                        <p:commandButton value="Einfuegen" icon="pi pi-save"
+                                        <p:commandButton value="#{msg['saveU.jsf']}" icon="pi pi-save"
                                                          action="#{dtLogistikerBean.addProbe}" ajax="true"
                                                          update="form"/>
                                     </p:column>
                                     <p:column colspan="1">
-                                        <p:commandButton value="Reset" type="reset" icon="pi pi-times"/>
+                                        <p:commandButton value="#{msg['reset.jsf']}" type="reset" icon="pi pi-times"/>
                                     </p:column>
                                 </p:row>
                             </p:panelGrid>

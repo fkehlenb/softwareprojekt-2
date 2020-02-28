@@ -21,19 +21,19 @@
                 </p:growl>
                 <p:panelGrid columns="1">
                     <p:row>
-                        <h2 style="color: cornflowerblue">Probenstandort Uebersicht</h2>
+                        <h2 style="color: cornflowerblue">#{msg['logProbenSÜ.jsf']}</h2>
                     </p:row>
                     <p:row>
-                        <p>In der unteren Tabelle sehen Sie alle Proben und ihre Standorte.</p>
+                        <p>#{msg['logProbenSÜText.jsf']}</p>
                     </p:row>
                     <p:row>
                         <p:dataTable id="table" var="probe" value="#{dtLogistikerBean.proben}"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                                      paginator="true" rows="3" style="margin-bottom:20px">
-                            <p:column headerText="Proben ID">
+                            <p:column headerText="#{msg['logProbenID.jsf']}">
                                 <h:outputText value="#{probe.probenID}"/>
                             </p:column>
-                            <p:column headerText="Proben Standort">
+                            <p:column headerText="#{msg['logProbenStandort.jsf']}">
                                 <h:outputText value="#{probe.standort.ort}"/>
                             </p:column>
                         </p:dataTable>

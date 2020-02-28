@@ -20,7 +20,7 @@ public class ExperimentierStationDAO extends ObjectDAO<ExperimentierStation> {
     public void persist(ExperimentierStation es) throws DuplicateExperimentierStationException {
         if (es != null) {
             synchronized (ExperimentierStation.class) {
-                if (em.contains(em.find(get(),es.getEsID()))) {
+                if (em.contains(em.find(get(), es.getEsID()))) {
                     throw new DuplicateExperimentierStationException();
                 }
             }
@@ -36,7 +36,7 @@ public class ExperimentierStationDAO extends ObjectDAO<ExperimentierStation> {
      */
     public void update(ExperimentierStation es) throws ExperimentierStationNotFoundException {
         if (es != null) {
-            if (!em.contains(es)) {
+            if (!em.contains(em.find(get(), es.getEsID()))) {
                 throw new ExperimentierStationNotFoundException();
             }
             em.merge(es);
@@ -50,7 +50,7 @@ public class ExperimentierStationDAO extends ObjectDAO<ExperimentierStation> {
      */
     public void remove(ExperimentierStation es) throws ExperimentierStationNotFoundException {
         if (es != null) {
-            if (!em.contains(es)) {
+            if (!em.contains(em.find(get(), es.getEsID()))) {
                 throw new ExperimentierStationNotFoundException();
             }
             es.setValidData(false);

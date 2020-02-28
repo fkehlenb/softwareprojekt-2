@@ -24,7 +24,7 @@ public class ProzessKettenVorlageDAO extends ObjectDAO<ProzessKettenVorlage> {
     public void persist(ProzessKettenVorlage pkv) throws DuplicateProzessKettenVorlageException {
         if (pkv != null) {
             synchronized (ProzessKettenVorlage.class) {
-                if (em.contains(pkv)) {
+                if (em.contains(em.find(get(), pkv.getPkvID()))) {
                     throw new DuplicateProzessKettenVorlageException();
                 }
                 em.persist(pkv);
@@ -40,7 +40,7 @@ public class ProzessKettenVorlageDAO extends ObjectDAO<ProzessKettenVorlage> {
      */
     public void update(ProzessKettenVorlage pkv) throws ProzessKettenVorlageNotFoundException {
         if (pkv != null) {
-            if (!em.contains(pkv)) {
+            if (!em.contains(em.find(get(), pkv.getPkvID()))) {
                 throw new ProzessKettenVorlageNotFoundException();
             }
             em.merge(pkv);
@@ -55,7 +55,7 @@ public class ProzessKettenVorlageDAO extends ObjectDAO<ProzessKettenVorlage> {
      */
     public void remove(ProzessKettenVorlage pkv) throws ProzessKettenVorlageNotFoundException {
         if (pkv != null) {
-            if (!em.contains(pkv)) {
+            if (!em.contains(em.find(get(), pkv.getPkvID()))) {
                 throw new ProzessKettenVorlageNotFoundException();
             }
             pkv.setValidData(false);
@@ -64,11 +64,15 @@ public class ProzessKettenVorlageDAO extends ObjectDAO<ProzessKettenVorlage> {
     }
 
 
+    /**
+     * Get a list of all process chain templates
+     *
+     * @return a list of all process chain templates
+     */
     public List<ProzessKettenVorlage> getAll() throws Exception {
         try {
             return em.createNamedQuery("PKV.getAll", get()).getResultList();
-        }
-        catch (EntityNotFoundException e){
+        } catch (EntityNotFoundException e) {
             return new ArrayList<>();
         }
     }

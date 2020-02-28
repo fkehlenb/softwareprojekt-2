@@ -7,16 +7,21 @@ import de.unibremen.sfb.model.QualitativeEigenschaft;
 import java.util.ArrayList;
 import java.util.List;
 
-/** This class handles the qualitative descriptor objects in the database */
+/**
+ * This class handles the qualitative descriptor objects in the database
+ */
 public class QualitativeEigenschaftDAO extends ObjectDAO<QualitativeEigenschaft> {
 
-    /** Add a qualitative descriptor object to the database
+    /**
+     * Add a qualitative descriptor object to the database
+     *
      * @param q - the qualitative descriptor object to add to the database
-     * @throws DuplicateQualitativeEigenschaftException if the qualitative descriptor already exists in the database */
-    public void persist(QualitativeEigenschaft q) throws DuplicateQualitativeEigenschaftException{
-        if (q!=null){
-            synchronized (QualitativeEigenschaft.class){
-                if (em.contains(q)){
+     * @throws DuplicateQualitativeEigenschaftException if the qualitative descriptor already exists in the database
+     */
+    public void persist(QualitativeEigenschaft q) throws DuplicateQualitativeEigenschaftException {
+        if (q != null) {
+            synchronized (QualitativeEigenschaft.class) {
+                if (em.contains(em.find(get(), q.getId()))) {
                     throw new DuplicateQualitativeEigenschaftException();
                 }
                 em.persist(q);
@@ -24,24 +29,30 @@ public class QualitativeEigenschaftDAO extends ObjectDAO<QualitativeEigenschaft>
         }
     }
 
-    /** Update a qualitative descriptor object in the database
+    /**
+     * Update a qualitative descriptor object in the database
+     *
      * @param q - the qualitative descriptor object to update in the database
-     * @throws QualitativeEigenschaftNotFoundException if the qualitative descriptor couldn't be found in the database */
-    public void update(QualitativeEigenschaft q) throws QualitativeEigenschaftNotFoundException{
-        if (q!=null){
-            if (!em.contains(q)){
+     * @throws QualitativeEigenschaftNotFoundException if the qualitative descriptor couldn't be found in the database
+     */
+    public void update(QualitativeEigenschaft q) throws QualitativeEigenschaftNotFoundException {
+        if (q != null) {
+            if (!em.contains(em.find(get(), q.getId()))) {
                 throw new QualitativeEigenschaftNotFoundException();
             }
             em.merge(q);
         }
     }
 
-    /** Remove a qualitative descriptor object from the database
+    /**
+     * Remove a qualitative descriptor object from the database
+     *
      * @param q - the qualitative descriptor object to remove from the database
-     * @throws QualitativeEigenschaftNotFoundException if the qualitative descriptor couldn't be found in the database */
-    public void remove(QualitativeEigenschaft q) throws QualitativeEigenschaftNotFoundException{
-        if (q!=null){
-            if (!em.contains(q)){
+     * @throws QualitativeEigenschaftNotFoundException if the qualitative descriptor couldn't be found in the database
+     */
+    public void remove(QualitativeEigenschaft q) throws QualitativeEigenschaftNotFoundException {
+        if (q != null) {
+            if (!em.contains(em.find(get(), q.getId()))) {
                 throw new QualitativeEigenschaftNotFoundException();
             }
             q.setValidData(false);
@@ -49,11 +60,15 @@ public class QualitativeEigenschaftDAO extends ObjectDAO<QualitativeEigenschaft>
         }
     }
 
-    /** return the QualitativeEigenschaft class
-     * @return the class of qualitative descriptors */
-    public Class<QualitativeEigenschaft> get(){
+    /**
+     * return the QualitativeEigenschaft class
+     *
+     * @return the class of qualitative descriptors
+     */
+    public Class<QualitativeEigenschaft> get() {
         return QualitativeEigenschaft.class;
     }
+
     /**
      * @return a list of all qualitative descriptors in the database
      */
@@ -65,6 +80,7 @@ public class QualitativeEigenschaftDAO extends ObjectDAO<QualitativeEigenschaft>
             throw new IllegalArgumentException("failed!");
         }
     }
+
     /**
      * @return a list of all qualitative descriptors in the system without Quantitative
      */
@@ -79,8 +95,8 @@ public class QualitativeEigenschaftDAO extends ObjectDAO<QualitativeEigenschaft>
 
     public QualitativeEigenschaft getQlEById(int QlEId) {
         try {
-            QualitativeEigenschaft q =  em.find(QualitativeEigenschaft.class, QlEId);
-            if (!q.isValidData()){
+            QualitativeEigenschaft q = em.find(QualitativeEigenschaft.class, QlEId);
+            if (!q.isValidData()) {
                 throw new Exception();
             }
             return q;

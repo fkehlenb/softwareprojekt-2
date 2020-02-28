@@ -3,13 +3,16 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
-      xmlns:of="http://omnifaces.org/functions">
+      xmlns:of="http://omnifaces.org/functions"
+      xmlns:shiro="http://shiro.apache.org/tags">
 <h:head>
     <title>SFB - Farbige Zustände</title>
     <link rel="icon" href="../background.png"/>
 </h:head>
 
 <body>
+<shiro:authenticated>
+<shiro:hasRole name="technologe">
 <ui:composition template="../template/common/layout.xhtml">
     <ui:define name="content">
         <div class="ui-g-2"></div>
@@ -17,16 +20,18 @@
 
                 <h:body style="background: url('../background.png')">
                     <h:form style="background-color: white; margin-top: 100px; width: 650px">
-                        <h:panelGrid columns="1">
+                        <p:growl>
+                            <p:autoUpdate/>
+                        </p:growl>
+                        <p:panelGrid columns="1">
                             <p:row>
                                 <h1 style="color: cornflowerblue">Probenüberblick</h1>
-                                <div align="center">
-                                    <h:commandButton action="#{technologeView.setViewUploaded(!technologeView.getViewUploaded)}" value="Upload ausstehend"/>
-                                </div>
                             </p:row>
 
+                            <p>Hier können Sie alle Proben von Aufträgen, die Sie fertig bearbeitet haben, sehen, für die noch keine Informationen hochgeladen wurden. </p>
 
-                            <p:dataTable var="probe" value="#{technologeView.getSamples()}" paginator="true" rows="10"
+
+                            <p:dataTable var="probe" value="#{technologeView.viewToBeUploaded()}" paginator="true" rows="10"
                                          paginatorTemplate=
                                     "{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                                          rowsPerPageTemplate="5,10,15" lazy="true">
@@ -56,7 +61,7 @@
                                         </div>
                                 </p:column>
                             </p:dataTable>
-                        </h:panelGrid>
+                        </p:panelGrid>
                     </h:form>
                 </h:body>
 
@@ -64,6 +69,8 @@
             </div>
         </ui:define>
     </ui:composition>
+</shiro:hasRole>
+</shiro:authenticated>
 </body>
 </html>
 

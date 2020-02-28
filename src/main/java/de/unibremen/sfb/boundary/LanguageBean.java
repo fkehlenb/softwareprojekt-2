@@ -1,22 +1,39 @@
 package de.unibremen.sfb.boundary;
 
+import de.unibremen.sfb.exception.UserNotFoundException;
+import de.unibremen.sfb.model.User;
+import de.unibremen.sfb.service.UserService;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 @SessionScoped
 @Named
+@Slf4j
 public class LanguageBean implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
-    private String localeCode;
+    @Setter
+    private UserService userService;
+
+    @Getter
+    @Setter
+    private int userID;
+
+
 
     private static Map<String,Object> countries;
     static{
@@ -31,13 +48,26 @@ public class LanguageBean implements Serializable{
     }
 
 
-    public String getLocaleCode() {
-        return localeCode;
+    public String getLocaleCode() throws UserNotFoundException {
+        try {
+            return userService.getUserById(userID).getLanguage();
+        }
+        catch (Exception e){
+            return "DEUTSCH";
+        }
     }
 
 
     public void setLocaleCode(String localeCode) {
-        this.localeCode = localeCode;
+        try {
+            User u = userService.getUserById(userID);
+            u.setLanguage(localeCode);
+            userService.updateUser(u);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            log.error("Couldn't change user language! ID " + userID);
+        }
     }
 
     //value change event listener

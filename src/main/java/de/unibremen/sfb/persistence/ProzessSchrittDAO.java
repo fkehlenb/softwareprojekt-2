@@ -7,16 +7,21 @@ import de.unibremen.sfb.model.ProzessSchritt;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
-/** This class handles the instantiated process chain steps in the database */
+/**
+ * This class handles the instantiated process chain steps in the database
+ */
 public class ProzessSchrittDAO extends ObjectDAO<ProzessSchritt> {
 
-    /** Add a process chain step to the database
+    /**
+     * Add a process chain step to the database
+     *
      * @param ps - the process chain step to be added to the database
-     * @throws DuplicateProzessSchrittException if the process chain step already exists in the database */
+     * @throws DuplicateProzessSchrittException if the process chain step already exists in the database
+     */
     public void persist(ProzessSchritt ps) throws DuplicateProzessSchrittException {
-        if (ps!=null){
-            synchronized (ProzessSchritt.class){
-                if (em.contains(ps)){
+        if (ps != null) {
+            synchronized (ProzessSchritt.class) {
+                if (em.contains(em.find(get(), ps.getPsID()))) {
                     throw new DuplicateProzessSchrittException();
                 }
                 em.persist(ps);
@@ -24,24 +29,30 @@ public class ProzessSchrittDAO extends ObjectDAO<ProzessSchritt> {
         }
     }
 
-    /** Update a process chain step in the database
+    /**
+     * Update a process chain step in the database
+     *
      * @param ps - the process step to update in the database
-     * @throws ProzessSchrittNotFoundException if the process chain step object couldn't be found */
+     * @throws ProzessSchrittNotFoundException if the process chain step object couldn't be found
+     */
     public void update(ProzessSchritt ps) throws ProzessSchrittNotFoundException {
-        if (ps!=null){
-            if (!em.contains(ps)){
+        if (ps != null) {
+            if (!em.contains(em.find(get(), ps.getPsID()))) {
                 throw new ProzessSchrittNotFoundException();
             }
             em.merge(ps);
         }
     }
 
-    /** Remove a process chain step from the database
+    /**
+     * Remove a process chain step from the database
+     *
      * @param ps - the process step object to remove from the database
-     * @throws ProzessSchrittNotFoundException if the process chain step object couldn't be found */
-    public void remove(ProzessSchritt ps) throws ProzessSchrittNotFoundException{
-        if (ps!=null){
-            if (!em.contains(ps)){
+     * @throws ProzessSchrittNotFoundException if the process chain step object couldn't be found
+     */
+    public void remove(ProzessSchritt ps) throws ProzessSchrittNotFoundException {
+        if (ps != null) {
+            if (!em.contains(em.find(get(), ps.getPsID()))) {
                 throw new ProzessSchrittNotFoundException();
             }
             ps.setValidData(false);
@@ -49,38 +60,45 @@ public class ProzessSchrittDAO extends ObjectDAO<ProzessSchritt> {
         }
     }
 
-    /** Get the class of process steps
-     * @return the class of Process Steps */
-    public Class<ProzessSchritt> get(){
+    /**
+     * Get the class of process steps
+     *
+     * @return the class of Process Steps
+     */
+    public Class<ProzessSchritt> get() {
         return ProzessSchritt.class;
     }
 
-    /** Fetch a process chain step matching a specific id from the database
+    /**
+     * Fetch a process chain step matching a specific id from the database
+     *
      * @param id - the id whose process chain step to fetch from the database
      * @return the process chain step matching the given id
-     * @throws ProzessSchrittNotFoundException if the process chain step couldn't be found */
-    public ProzessSchritt getObjById(int id) throws ProzessSchrittNotFoundException{
-        try{
-            ProzessSchritt ps = em.find(get(),id);
-            if (ps==null || !ps.isValidData()){
+     * @throws ProzessSchrittNotFoundException if the process chain step couldn't be found
+     */
+    public ProzessSchritt getObjById(int id) throws ProzessSchrittNotFoundException {
+        try {
+            ProzessSchritt ps = em.find(get(), id);
+            if (ps == null || !ps.isValidData()) {
                 throw new ProzessSchrittNotFoundException();
             }
             return ps;
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             throw new ProzessSchrittNotFoundException();
         }
     }
 
-    /** Return a List quantitative descriptor object from the database
-     * @throws IllegalArgumentException if the quantitative descriptor couldn't be found in the database
+    /**
+     * Return a List quantitative descriptor object from the database
+     *
      * @return alle ProzessSchritte aus der Datenbank
+     * @throws IllegalArgumentException if the quantitative descriptor couldn't be found in the database
      */
-    public List<ProzessSchritt> getAll(){
+    public List<ProzessSchritt> getAll() {
         try {
             return em.createQuery("SELECT p from ProzessSchritt  p WHERE p.isValidData=true", get()).getResultList();
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new EntityNotFoundException();
         }
     }

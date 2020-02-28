@@ -28,10 +28,9 @@ public class Probe {
     private String probenID;
 
     /** Comment added to the sample and when it was added */
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Kommentar> kommentar;
-    /*@OneToOne(fetch = FetchType.LAZY)
-    private Kommentar kommentar;*/ //from master
+    /*@OneToOne(fetch = FetchType.LAZY)*/
 
     /** The sample's state */
     @NonNull

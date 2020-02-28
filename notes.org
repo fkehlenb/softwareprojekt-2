@@ -188,3 +188,22 @@ Services
 add comments to probeo
 
   Glossar
+
+* Dynamischer Zustandsautomat
+Frei Konfigurierbar, ohne Prüfung
+Proben als Gruppen Persitierien, nicht einzelen
+
+Durchlauf vom Zustandsautomaten durchschalten
+
+* Technologe
+Noch kein Zustandswechsel
+
+* Test
+Line Coverage
+Automatische Tests
+Manuelle Tests
+
+* Regex
+starts with - string.splitt if array is bigger
+
+* ES Zuweisen

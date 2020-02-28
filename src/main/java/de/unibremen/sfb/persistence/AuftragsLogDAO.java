@@ -4,16 +4,21 @@ import de.unibremen.sfb.exception.AuftragsLogNotFoundException;
 import de.unibremen.sfb.exception.DuplicateAuftragsLogException;
 import de.unibremen.sfb.model.AuftragsLog;
 
-/** This class handles the job logs in the database*/
+/**
+ * This class handles the job logs in the database
+ */
 public class AuftragsLogDAO extends ObjectDAO<AuftragsLog> {
 
-    /** Add a job log to the database
+    /**
+     * Add a job log to the database
+     *
      * @param a - the job log to add to the database
-     * @throws DuplicateAuftragsLogException if the job log already exists in the database */
-    public void persist(AuftragsLog a) throws DuplicateAuftragsLogException{
-        if (a!=null) {
+     * @throws DuplicateAuftragsLogException if the job log already exists in the database
+     */
+    public void persist(AuftragsLog a) throws DuplicateAuftragsLogException {
+        if (a != null) {
             synchronized (AuftragsLog.class) {
-                if (em.contains(a)) {
+                if (em.contains(em.find(get(), a.getId()))) {
                     throw new DuplicateAuftragsLogException();
                 }
                 em.persist(a);
@@ -21,24 +26,30 @@ public class AuftragsLogDAO extends ObjectDAO<AuftragsLog> {
         }
     }
 
-    /** Update a job log in the database
+    /**
+     * Update a job log in the database
+     *
      * @param a - the job log to update in the database
-     * @throws AuftragsLogNotFoundException  - is thrown when the job log cannot be found in the database */
+     * @throws AuftragsLogNotFoundException - is thrown when the job log cannot be found in the database
+     */
     public void update(AuftragsLog a) throws AuftragsLogNotFoundException {
-        if (a!=null){
-            if (!em.contains(a)){
+        if (a != null) {
+            if (!em.contains(em.find(get(), a.getId()))) {
                 throw new AuftragsLogNotFoundException();
             }
             em.merge(a);
         }
     }
 
-    /** Remove a job log from the database
+    /**
+     * Remove a job log from the database
+     *
      * @param a - the job log to remove from the database
-     * @throws AuftragsLogNotFoundException if the job log cannot be found in the database */
-    public void remove(AuftragsLog a) throws AuftragsLogNotFoundException{
-        if (a!=null){
-            if (!em.contains(a)){
+     * @throws AuftragsLogNotFoundException if the job log cannot be found in the database
+     */
+    public void remove(AuftragsLog a) throws AuftragsLogNotFoundException {
+        if (a != null) {
+            if (!em.contains(em.find(get(), a.getId()))) {
                 throw new AuftragsLogNotFoundException();
             }
             a.setValidData(false);
@@ -46,8 +57,10 @@ public class AuftragsLogDAO extends ObjectDAO<AuftragsLog> {
         }
     }
 
-    /** @return class of job logs */
-    public Class<AuftragsLog> get(){
+    /**
+     * @return class of job logs
+     */
+    public Class<AuftragsLog> get() {
         return AuftragsLog.class;
     }
 }

@@ -6,6 +6,19 @@ stages:
   - deploy
   - test
 
+# For merge requests do not `deploy` but only run `verify`.
+# See https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html
+.verify: &verify
+  stage: test
+  script:
+    - 'mvn $MAVEN_CLI_OPTS verify'
+  except:
+    - master
+
+# Verify merge requests using JDK13
+verify:jdk13:
+  <<: *verify
+
 cache:
   paths:
     - .m2/repository/
@@ -21,7 +34,7 @@ compile_pdf:
     paths:
       - doc/Architekturbeschreibung.pdf  # instruct GitLab to keep the main.pdf file
 
-package_service
+package_service:
   stage: package
   image: maven
   script:
@@ -31,13 +44,14 @@ pages:
   stage: deploy
   script:
     - mkdir public  # create a folder called public
-    - cp doc/Architekturbeschreibung.pdf public/Architekturbeschreibung.pdf  # copy the pdf file into the public folder
+    - mkdir public/apidocs
+    - cp target/apidocs/ public/apidocs
+    - cp doc/Architekturbeschreibung.pdf public/Architekturbeschreibung.pdf # copy the pdf file into the public folder
   artifacts:
     paths:
       - public  # instruct GitLab to keep the public folder
   only:
     - master  # deploy the pdf only for commits made to the master branch
-    - doc
 
 test:
   image: maven
@@ -59,3 +73,4 @@ build:
     when: on_success
     paths:
       - "target/*.jar"
+

@@ -9,6 +9,8 @@ import de.unibremen.sfb.model.User;
 import de.unibremen.sfb.persistence.RoleDao;
 import de.unibremen.sfb.persistence.UserDAO;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.SecurityUtils;
 
 import javax.annotation.PostConstruct;
 import java.io.Serializable;
@@ -19,6 +21,7 @@ import javax.transaction.Transactional;
 
 @Getter
 @Transactional
+@Slf4j
 public class UserService implements Serializable {
 
     /**
@@ -239,9 +242,10 @@ public class UserService implements Serializable {
     /**
      * Get the Current User
      * // FIXME because no persistence
+     *
      * @return the the current User
      */
-    public User getCurrentUser() {
-        return userDAO.getAll().get(0);
+    public User getCurrentUser() throws UserNotFoundException {
+            return userDAO.getUserByName(SecurityUtils.getSubject().getPrincipal().toString());
     }
 }

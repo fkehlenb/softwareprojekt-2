@@ -46,19 +46,29 @@ public class PSZAVView implements Serializable {
     @PostConstruct
     public void init() {
         sourceZ = new ArrayList<>();
-        targetZ = prozessSchrittZustandsAutomatVorlageService.getByID(996699).getZustaende();//;
+        try {
+            targetZ = prozessSchrittZustandsAutomatVorlageService.getByID(996699).getZustaende();//;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
         dualZ = new DualListModel<>(sourceZ, targetZ);
         verpszav = prozessSchrittZustandsAutomatVorlageService.getProzessSchrittZustandsAutomatVorlagen();
         //
     }
 
     public void toAdd(String id) throws ProzessSchrittVorlageNotFoundException {
-        ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage =  prozessSchrittZustandsAutomatVorlageService.getByID(Integer.parseInt(id));
-        List<String> newZustande = prozessSchrittZustandsAutomatVorlage.getZustaende();
-        newZustande.add(toaddd);
-        prozessSchrittZustandsAutomatVorlage.setZustaende(newZustande);
-        prozessSchrittZustandsAutomatVorlageService.edit(prozessSchrittZustandsAutomatVorlage);
-        verpszav = prozessSchrittZustandsAutomatVorlageService.getProzessSchrittZustandsAutomatVorlagen();
+        try {
+            ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage = prozessSchrittZustandsAutomatVorlageService.getByID(Integer.parseInt(id));
+            List<String> newZustande = prozessSchrittZustandsAutomatVorlage.getZustaende();
+            newZustande.add(toaddd);
+            prozessSchrittZustandsAutomatVorlage.setZustaende(newZustande);
+            prozessSchrittZustandsAutomatVorlageService.edit(prozessSchrittZustandsAutomatVorlage);
+            verpszav = prozessSchrittZustandsAutomatVorlageService.getProzessSchrittZustandsAutomatVorlagen();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
     public String erstellePSZAV() {
         // FIXME Implementation

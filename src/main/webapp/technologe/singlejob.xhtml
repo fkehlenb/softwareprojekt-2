@@ -3,13 +3,16 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
-      xmlns:of="http://omnifaces.org/functions">
+      xmlns:of="http://omnifaces.org/functions"
+      xmlns:shiro="http://shiro.apache.org/tags">
 <h:head>
     <title>SFB - Farbige Zustände</title>
     <link rel="icon" href="../background.png"/>
 </h:head>
 
 <body>
+<shiro:authenticated>
+<shiro:hasRole name="technologe">
 <ui:composition template="../template/common/layout.xhtml">
 
 
@@ -18,9 +21,16 @@
 <div class="ui-g-8">
     <h:body style="background: url('../background.png')">
         <h:form style="background-color: white; margin-top: 100px; width: 650px">
-            <h:panelGrid columns="1">
+            <p:growl>
+                <p:autoUpdate/>
+            </p:growl>
+            <p:panelGrid columns="1">
                 <p:row>
                     <h1 style="color: cornflowerblue">Auftrag #{singleJobBean.ps.psID}- Überblick</h1>
+                </p:row>
+
+                <p:row>
+                    <p> Hier haben Sie einen detaillierten Überblick über den Auftrag #{singleJobBean.ps.psID}</p>
                 </p:row>
                 <p:row>
                     <p>Daten hochgeladen: #{singleJobBean.ps.uploaded}</p>
@@ -28,7 +38,7 @@
                 <p:row>
                     <p>Zustand: #{singleJobBean.ps.prozessSchrittZustandsAutomat.current}</p>
                     <div align="center">
-                        <h:commandButton action="#{technologeView.setJobZustand(singleJobBean.ps)}" value="Weiterschalten"/>
+                        <h:commandButton action="#{singleJobBean.setJobZustand()}" value="Weiterschalten"/>
                     </div>
                 </p:row>
 
@@ -36,24 +46,29 @@
                     <p>Prozessschritt Art: #{singleJobBean.ps.prozessSchrittVorlage.psArt}</p>
                 </p:row>
 
-                    <p:outputLabel for="kommentar" value="Kommentar:"/>
-                    <p:inputMask id="kommentar" value="#{singleJobBean.kommentarForAll}" mask=""/>
-                    <p:commandButton value="Save" type="save"/>
-                    <p:commandButton action="#{singleJobBean.addComment(technologeView.singleJob, singleJobBean.kommentarForAll)}"/>
+                <p:outputLabel for="kommentar" value="Kommentar:"/>
+                <p:inputMask id="kommentar" value="#{singleJobBean.kommentarForAll}" mask=""/>
+                <p:commandButton value="Save" type="save"/>
+                <p:commandButton action="#{singleJobBean.addComment(singleJobBean.kommentarForAll)}"/>
 
                 <p:row>
-                    <p> Bedingungen: </p>
+                    <p> Prozessschritt Parameter: </p>
                 </p:row>
 
-                <p:dataTable var="bed" value="#{singleJobBean.ps.prozessSchrittVorlage.bedingungen}">
+                <p:dataTable var="para" value="#{singleJobBean.getParameter()}">
                     <p:column headerText="Id">
-                        <h:outputText value="#{bed.id}"/>
+                        <h:outputText value="#{para.id}"/>
                     </p:column>
                     <p:column headerText="Name">
-                        <h:outputText value="#{bed.name}"/>
+                        <h:outputText value="#{para.name}"/>
                     </p:column>
-
                 </p:dataTable>
+
+                <p:row>
+                    <div align="center">
+                        <h:commandButton action="#{singleJobBean.download()}" value="Download Parameter"/>
+                    </div>
+                </p:row>
 
                 <p:row>
                     <p> Proben: </p>
@@ -77,11 +92,13 @@
                     </p:column>
 
                 </p:dataTable>
-            </h:panelGrid>
+            </p:panelGrid>
         </h:form>
     </h:body>
 </div>
 </ui:define>
 </ui:composition>
+</shiro:hasRole>
+</shiro:authenticated>
 </body>
 </html>

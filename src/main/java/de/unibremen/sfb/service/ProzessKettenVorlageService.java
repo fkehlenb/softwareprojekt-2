@@ -61,12 +61,13 @@ public class ProzessKettenVorlageService implements Serializable {
 
     /**
      * Persistieren der ProzessKettenVorlage
+     *
      * @param pkv die Vorlage
      * @throws DuplicateProzessKettenVorlageException falls es sie schon gibt
      */
-    public void persist(ProzessKettenVorlage pkv) throws DuplicateProzessKettenVorlageException  {
-            pkvDAO.persist(pkv);
-            pkVorlagen.add(pkv);
+    public void persist(ProzessKettenVorlage pkv) throws DuplicateProzessKettenVorlageException {
+        pkvDAO.persist(pkv);
+        pkVorlagen.add(pkv);
     }
 
     public ProzessKettenVorlage ByID(int id) throws ProzessKettenVorlageNotFoundException {

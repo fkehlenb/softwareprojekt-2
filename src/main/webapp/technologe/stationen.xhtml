@@ -3,13 +3,16 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
-      xmlns:of="http://omnifaces.org/functions">
+      xmlns:of="http://omnifaces.org/functions"
+      xmlns:shiro="http://shiro.apache.org/tags">
 <h:head>
     <title>SFB - Farbige Zustände</title>
     <link rel="icon" href="../background.png"/>
 </h:head>
 
 <body>
+<shiro:authenticated>
+<shiro:hasRole name="technologe">
     <ui:composition template="../template/common/layout.xhtml">
 
 
@@ -19,12 +22,21 @@
 
                 <h:body style="background: url('../background.png')">
                     <h:form style="background-color: white; margin-top: 100px; width: 650px">
-                        <h:panelGrid columns="1">
+                        <p:growl>
+                            <p:autoUpdate/>
+                        </p:growl>
+                        <p:panelGrid columns="1">
                             <p:row>
                                 <h1 style="color: cornflowerblue">Experimentierstationen</h1>
                             </p:row>
 
-                            <p:dataTable var="station" value="#{technologeView.getStationen()}">
+                            <p:row>
+                                <p>Hier können Sie alle Stationen sehen, an denen Sie arbeiten, und zwischen den Sichtweisen der Stationen wechseln. </p>
+                            </p:row>
+
+                            <p:dataTable var="station" value="#{technologeView.getStationen()}"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                         paginator="true" rows="50" style="margin-bottom:20px">
                                 <p:column headerText="Id">
                                     <h:outputText value="#{station.esID}"/>
                                 </p:column>
@@ -50,7 +62,7 @@
                                     </div>
                                 </p:column>
                             </p:dataTable>
-                        </h:panelGrid>
+                        </p:panelGrid>
                     </h:form>
                 </h:body>
 
@@ -58,6 +70,8 @@
             </div>
         </ui:define>
     </ui:composition>
+</shiro:hasRole>
+</shiro:authenticated>
 </body>
 </html>
 

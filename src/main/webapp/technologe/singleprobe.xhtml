@@ -3,13 +3,16 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
-      xmlns:of="http://omnifaces.org/functions">
+      xmlns:of="http://omnifaces.org/functions"
+      xmlns:shiro="http://shiro.apache.org/tags">
 <h:head>
     <title>SFB - Farbige Zustände</title>
     <link rel="icon" href="../background.png"/>
 </h:head>
 
 <body>
+<shiro:authenticated>
+<shiro:hasRole name="technologe">
 <ui:composition template="../template/common/layout.xhtml">
 
 
@@ -18,10 +21,17 @@
 <div class="ui-g-8">
     <h:body style="background: url('../background.png')">
     <h:form id="form" style="background-color: white; margin-top: 100px; width: 650px">
-    <h:panelGrid columns="1">
+        <p:growl>
+            <p:autoUpdate/>
+        </p:growl>
+    <p:panelGrid columns="1">
 
         <p:row>
             <h1 style="color: cornflowerblue">Probe #{singleSampleBean.p.probenID} - Überblick</h1>
+        </p:row>
+
+        <p:row>
+            <p>Hier haben Sie eine detaillierte Übersicht über die Probe #{singleSampleBean.p.probenID}</p>
         </p:row>
 
         <p:row>
@@ -87,7 +97,7 @@
             <p:column headerText="Löschen">
                 <h:form>
                     <div align="center">
-                        <h:commandButton action="#{technologeView.deleteProbenComment(singleSampleBean.p, kommentar)}" value="Löschen"/>
+                        <h:commandButton action="#{singleSampleBean.deleteProbenComment(kommentar)}" value="Löschen"/>
                     </div>
                 </h:form>
             </p:column>
@@ -95,16 +105,18 @@
         </p:dataTable>
 
         <p:outputLabel for="kommentar" value="Kommentar:"/>
-        <p:inputMask id="kommentar" value="#{technologeView.kommentarForAll}"/>
+        <p:inputMask id="kommentar" value="#{singleSampleBean.singleKommentar}"/>
         <p:commandButton value="Save" type="save"/>
-        <p:commandButton action="#{technologeView.addProbenComment(singleSampleBean.p, kommentar)}"/>
+        <p:commandButton action="#{singleSampleBean.addProbenComment(kommentar)}"/>
 
-    </h:panelGrid>
+    </p:panelGrid>
     </h:form>
     </h:body>
 
 </div>
 </ui:define>
 </ui:composition>
+</shiro:hasRole>
+</shiro:authenticated>
 </body>
 </html>

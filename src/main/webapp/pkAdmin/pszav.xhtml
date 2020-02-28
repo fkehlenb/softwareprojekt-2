@@ -16,7 +16,8 @@
                 <h:form>
                     <h:panelGrid columns="2" cellpadding="10">
                         <p:outputLabel for="zustandV" value="zustand Vorlagen: "/>
-                        <p:pickList id="zustandV" value="#{pszavView.dualZ}" var="zustand" itemLabel="#{zustand}" itemValue="#{zustand}"
+                        <p:pickList id="zustandV" value="#{pszavView.dualZ}" var="zustand" itemLabel="#{zustand}"
+                                    itemValue="#{zustand}"
                                     />
                     </h:panelGrid>
 
@@ -24,7 +25,6 @@
                     <p:commandButton value="Erstellen"
                                      action="#{pszavView.erstellePSZAV}" icon="pi pi-check"
                                      update="@form"/>
-
                 </h:form>
             </p:panel>
 
@@ -40,8 +40,9 @@
                              value="#{pszavView.verpszav}"
                              editable="true"
                              selection="#{pszavView.selpszav}"
-                             style="margin-bottom:20px"
-                             rowKey="#{pszav.id}">
+                             rowKey="#{pszav.id}"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                             paginator="true" rows="50" style="margin-bottom:20px">
 
                     <p:ajax event="rowEdit" listener="#{pszavView.onRowEdit}" update=":form:msgs"/>
                     <p:ajax event="rowEditCancel" listener="#{pszavView.onRowCancel}" update=":form:msgs"/>

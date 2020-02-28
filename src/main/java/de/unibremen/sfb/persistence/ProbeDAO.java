@@ -25,7 +25,7 @@ public class ProbeDAO extends ObjectDAO<Probe> {
     public void persist(Probe p) throws DuplicateProbeException {
         if (p != null) {
             synchronized (Probe.class) {
-                if (em.contains(p)) {
+                if (em.contains(em.find(get(), p.getProbenID()))) {
                     throw new DuplicateProbeException();
                 }
                 em.persist(p);
@@ -41,7 +41,7 @@ public class ProbeDAO extends ObjectDAO<Probe> {
      */
     public void update(Probe p) throws ProbeNotFoundException {
         if (p != null) {
-            if (!em.contains(p)) {
+            if (!em.contains(em.find(get(), p.getProbenID()))) {
                 throw new ProbeNotFoundException();
             }
             em.merge(p);
@@ -56,7 +56,7 @@ public class ProbeDAO extends ObjectDAO<Probe> {
      */
     public void remove(Probe p) throws ProbeNotFoundException {
         if (p != null) {
-            if (!em.contains(p)) {
+            if (!em.contains(em.find(get(), p.getProbenID()))) {
                 throw new ProbeNotFoundException();
             }
             p.setValidData(false);
@@ -136,25 +136,26 @@ public class ProbeDAO extends ObjectDAO<Probe> {
     public List<Probe> getProbenByTraeger(Traeger t) throws ProbeNotFoundException {
         try {
             return em.createNamedQuery("Probe.getByTraeger", get()).setParameter("traeger", t).getResultList();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return new ArrayList<>();
         }
     }
 
     /**
      * counts the samples currently saved in the database
+     *
      * @return the amount of samples
      */
     public int getProbenCount() {
-        List<Probe> proben = em.createQuery("select p from Probe p where p.isValidData = true",get()).getResultList();
+        List<Probe> proben = em.createQuery("select p from Probe p where p.isValidData = true", get()).getResultList();
         return proben.size();
     }
 
     /**
      * returns a subset of all samples in the databse
+     *
      * @param first the index of first sample to be loaded
-     * @param size the maximum amount of samples
+     * @param size  the maximum amount of samples
      * @return a list containing a maximum of size samples
      */
     public List<Probe> getProben(int first, int size) {
@@ -164,33 +165,37 @@ public class ProbeDAO extends ObjectDAO<Probe> {
         return (List<Probe>) query.getResultList();
     }
 
-    /** Get all archived samples from the database
-     * @return a list of all archived samples in the database or an empty arraylist */
-    public List<Probe> getAllArchived(){
+    /**
+     * Get all archived samples from the database
+     *
+     * @return a list of all archived samples in the database or an empty arraylist
+     */
+    public List<Probe> getAllArchived() {
         List<Probe> probes = new ArrayList<>();
         try {
             List<Probe> probes1 = new ArrayList<>();
-            probes1 = em.createQuery("select p from Probe p where p.isValidData = true",get()).getResultList();
-            for (Probe p : probes1){
-                if (p.getZustand()== ProbenZustand.ARCHIVIERT){
+            probes1 = em.createQuery("select p from Probe p where p.isValidData = true", get()).getResultList();
+            for (Probe p : probes1) {
+                if (p.getZustand() == ProbenZustand.ARCHIVIERT) {
                     probes.add(p);
                 }
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return probes;
     }
 
-    /** Get all samples from the database
-     * @return a list of all samples or an empty arraylist */
-    public List<Probe> getAll(){
+    /**
+     * Get all samples from the database
+     *
+     * @return a list of all samples or an empty arraylist
+     */
+    public List<Probe> getAll() {
         List<Probe> probes = new ArrayList<>();
         try {
-            probes = em.createQuery("select p from Probe p where p.isValidData = true",get()).getResultList();
-        }
-        catch (Exception e){
+            probes = em.createQuery("select p from Probe p where p.isValidData = true", get()).getResultList();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return probes;
