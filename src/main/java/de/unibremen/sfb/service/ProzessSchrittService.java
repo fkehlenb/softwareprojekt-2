@@ -76,8 +76,7 @@ public class ProzessSchrittService implements Serializable {
     /** Get all process steps from the database
       sets the current state of this ProzessSchritt
      * @param ps the ProzessSchritt
-     * @param zustand the new state
-     * @return a list of all process steps
+     * @param zustand the new staten
      * @throws ProzessSchrittNotFoundException the ProzessSchritt is not in the database
      * @throws ProzessSchrittLogNotFoundException the ProzessSchritt is not in the database
      *  @throws DuplicateProzessSchrittLogException the ProzessSchritt is not in the database
