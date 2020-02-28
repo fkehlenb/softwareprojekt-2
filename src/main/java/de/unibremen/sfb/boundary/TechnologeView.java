@@ -138,7 +138,7 @@ public class TechnologeView implements Serializable {
      *
      * @return a set containing all those samples
      */
-    public List<Probe> viewToBeUploaded() { //TODO nur die wo experimente abgeschlossen
+    public List<Probe> viewToBeUploaded() { 
         List<Probe> res = new LinkedList<>();
         for(ProzessSchritt ps : getJobs()) {
             if(!ps.isUploaded() && ps.getProzessSchrittZustandsAutomat().getCurrent().equals("Bearbeitet")) {
