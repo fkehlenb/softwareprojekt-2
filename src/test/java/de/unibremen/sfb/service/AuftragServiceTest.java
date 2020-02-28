@@ -1,4 +1,22 @@
 package de.unibremen.sfb.service;
 
-public class AuftragServiceTest {
+import de.unibremen.sfb.model.Auftrag;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.testng.annotations.BeforeMethod;
+
+@RunWith(MockitoJUnitRunner.class)
+class AuftragServiceTest {
+    @InjectMocks
+    AuftragService auftragService;
+    @Mock
+    Auftrag auftrag;
+
+    @BeforeMethod(alwaysRun = true)
+    public void injectInitializierung() {
+        MockitoAnnotations.initMocks(this); //Notweding und Injection zu inizielizieren bitte nicht entfernen
+    }
 }

@@ -1,26 +1,71 @@
 package de.unibremen.sfb.service;
 
-
 import de.unibremen.sfb.model.QuantitativeEigenschaft;
-import de.unibremen.sfb.model.User;
+import de.unibremen.sfb.persistence.QuantitativeEigenschaftDAO;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mockito.Mockito.when;
+
+@RunWith(MockitoJUnitRunner.class)
+public class QuantitativeEigenschaftServiceTest {
+    @Mock
+    QuantitativeEigenschaftDAO quantitativeEigenschaftDAO;
+
+    @Mock
+    QuantitativeEigenschaft quantitativeEigenschaft;
+
+    @InjectMocks
+    QuantitativeEigenschaftService quantitativeEigenschaftService;
+
+    @BeforeMethod(alwaysRun=true)
+    public void injectDoubles() {
+        MockitoAnnotations.initMocks(this); //Notweding und Injection zu inizielizieren bitte nicht entfernen
+        when(quantitativeEigenschaftDAO.getAll()).thenReturn(new ArrayList<QuantitativeEigenschaft>());
+        when(quantitativeEigenschaftDAO.findQnEById(1)).thenReturn(quantitativeEigenschaft);
+        when(quantitativeEigenschaftDAO.findQnEById(1)).thenReturn(quantitativeEigenschaft);
+    }
+
+    @Test
+    public void testgetQuantitativeEingeschaft() {
+        quantitativeEigenschaftService.addQuantitativeEigenschaft(quantitativeEigenschaft);
+        Assert.assertEquals(quantitativeEigenschaft, quantitativeEigenschaftService.getQlEById(1));
+        Assert.assertEquals(quantitativeEigenschaftService.getAllQuantitativeEigenschaften(), new ArrayList<QuantitativeEigenschaft>());
+        Assert.assertEquals(quantitativeEigenschaftService.getEinheiten(), List.of("second", "metre", "kilogram", "kilogram", "ampere", "mole", "candela"));
+
+    }
+
+}
+
+
+
+/*
+import de.unibremen.sfb.exception.DuplicateQuantitativeEigenschaftException;
+import de.unibremen.sfb.model.QuantitativeEigenschaft;
 import de.unibremen.sfb.persistence.QuantitativeEigenschaftDAO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.testng.annotations.*;
 
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class QuantitativeEigenschaftServiceTest {
@@ -30,9 +75,6 @@ class QuantitativeEigenschaftServiceTest {
 
     @Mock
     QuantitativeEigenschaft quantitativeEigenschaft;
-
-    //@PersistenceContext(unitName = "sfb")
-    //protected EntityManager em;
 
     @InjectMocks
     QuantitativeEigenschaftService quantitativeEigenschaftService;
@@ -46,20 +88,22 @@ class QuantitativeEigenschaftServiceTest {
         //when(quantitativeEigenschaft.getEinheit()).thenReturn("Stones");
         when(quantitativeEigenschaftDAO.getAll()).thenReturn(new ArrayList<QuantitativeEigenschaft>());
         when(quantitativeEigenschaftDAO.findQnEById(1)).thenReturn(quantitativeEigenschaft);
-        List.of("second", "metre", "kilogram", "kilogram", "ampere", "mole", "candela");
+        when(quantitativeEigenschaftDAO.findQnEById(1)).thenReturn(quantitativeEigenschaft);
     }
 
-    @Test
+
+    @Test()
     public void testgetQuantitativeEingeschaft() {
-
-        assertEquals(quantitativeEigenschaftService.getQlEById(1), quantitativeEigenschaft);
+        quantitativeEigenschaftService.addQuantitativeEigenschaft(quantitativeEigenschaft);
+        assertEquals( quantitativeEigenschaft,quantitativeEigenschaftService.getQlEById(1));
         assertEquals(quantitativeEigenschaftService.getAllQuantitativeEigenschaften(), new ArrayList<QuantitativeEigenschaft>());
-        assertEquals(quantitativeEigenschaftService.getEinheiten(),List.of("second", "metre", "kilogram", "kilogram", "ampere", "mole", "candela"));
+        assertEquals(quantitativeEigenschaftService.getEinheiten(), List.of("second", "metre", "kilogram", "kilogram", "ampere", "mole", "candela"));
     }
 
-    public void getEinheiten(){
-
+    //@Test
+    public void testPErsistenceQuantitativeEigeschaft() throws DuplicateQuantitativeEigenschaftException {
+        //verify(quantitativeEigenschaftDAO,Haufigkeit).persist(quantitativeEigenschaft);
+        //quantitativeEigenschaftService.addQuantitativeEigenschaft(quantitativeEigenschaft);
+        //verify(quantitativeEigenschaftDAO).persist(any());
     }
-
-
-}
+*/

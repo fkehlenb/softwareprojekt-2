@@ -1,6 +1,6 @@
 package de.unibremen.sfb.service;
 
-import de.unibremen.sfb.model.QualitativeEigenschaft;
+import de.unibremen.sfb.model.ProzessSchritt;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -9,11 +9,11 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.testng.annotations.BeforeMethod;
 
 @RunWith(MockitoJUnitRunner.class)
-class QualitativeEigenschaftServiceTest {
+class ProzessSchrittServiceTest {
     @InjectMocks
-    QualitativeEigenschaftService qualitativeEigenschaftService;
+    ProzessSchrittService prozessSchrittService;
     @Mock
-    QualitativeEigenschaft qualitativeEigenschaft;
+    ProzessSchritt prozessSchritt;
 
     @BeforeMethod(alwaysRun = true)
     public void injectInitializierung() {

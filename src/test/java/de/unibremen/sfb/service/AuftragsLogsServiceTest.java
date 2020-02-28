@@ -1,6 +1,6 @@
 package de.unibremen.sfb.service;
 
-import de.unibremen.sfb.model.QualitativeEigenschaft;
+import de.unibremen.sfb.model.AuftragsLog;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -9,11 +9,11 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.testng.annotations.BeforeMethod;
 
 @RunWith(MockitoJUnitRunner.class)
-class QualitativeEigenschaftServiceTest {
+class AuftragsLogsServiceTest {
     @InjectMocks
-    QualitativeEigenschaftService qualitativeEigenschaftService;
+    AuftragsLogsService auftragsLogsService;
     @Mock
-    QualitativeEigenschaft qualitativeEigenschaft;
+    AuftragsLog auftragsLog;
 
     @BeforeMethod(alwaysRun = true)
     public void injectInitializierung() {
