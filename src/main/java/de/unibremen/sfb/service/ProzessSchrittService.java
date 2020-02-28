@@ -75,11 +75,14 @@ public class ProzessSchrittService implements Serializable {
 
     /** Get all process steps from the database
       sets the current state of this ProzessSchritt
-
-      @param ps the ProzessSchritt
+     * @param ps the ProzessSchritt
      * @param zustand the new state
-     * @return a list of all process steps
      * @throws ProzessSchrittNotFoundException the ProzessSchritt is not in the database
+     * @throws IllegalArgumentException DB Error
+     * @throws DuplicateProzessSchrittLogException DB Error
+     * @throws ProzessSchrittZustandsAutomatNotFoundException DB Error
+     * @throws ProzessSchrittLogNotFoundException DB Error
+     *
      */
     public void setZustand(ProzessSchritt ps, String zustand)
             throws ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException, DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException {
@@ -115,6 +118,10 @@ public class ProzessSchrittService implements Serializable {
         return null;
     }
 
+    /**
+     * Return all ProzessSchritte
+     * @return all PS
+     */
     public List<ProzessSchritt> getAll() {
         return prozessSchrittDAO.getAll();
     }
@@ -137,6 +144,11 @@ public class ProzessSchrittService implements Serializable {
         return result;
     }
 
+    /**
+     * Fuege den ProzessSchritt in die Datenbank ein
+     * @param ps wird eingefuegt
+     * @throws DuplicateProzessSchrittException falls es ihn schon gibt
+     */
     public void add(ProzessSchritt ps) throws DuplicateProzessSchrittException {
         prozessSchrittDAO.persist(ps);
     }
