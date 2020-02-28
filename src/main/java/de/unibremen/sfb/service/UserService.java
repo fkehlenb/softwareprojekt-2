@@ -239,6 +239,7 @@ public class UserService implements Serializable {
     /**
      * Get the Current User
      * // FIXME because no persistence
+     *
      * @return the the current User
      */
     public User getCurrentUser() {

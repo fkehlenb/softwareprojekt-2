@@ -9,89 +9,91 @@
 
     <ui:composition template="/template/common/layout.xhtml">
         <ui:define name="content">
-                <div class="ui-g-8">
-                    <h1 style="text-align: center">Neue Prozessschrittvorlage erstellen</h1>
-                    <p:panel id="psv" header="Daten Eingeben"
-                             style="margin-bottom: 20px">
+            <div class="ui-g-8">
+                <h1 style="text-align: center">Neue Prozessschrittvorlage erstellen</h1>
+                <p:panel id="psv" header="Daten Eingeben"
+                         style="margin-bottom: 20px">
 
-                        <h:form>
+                    <h:form>
 
-                                <h:panelGrid columns="2" cellpadding="10">
-                                    <p:outputLabel for="bedingungen" value="Bedingungen: "/>
-                                    <p:selectManyMenu id="bedingungen"
-                                                      value="#{psvErstellenBean.ausgewaehlteBedingungen}"
-                                                      converter="omnifaces.SelectItemsConverter" effect="fade"
-                                                      var="bedingungen" style="width: 172px" filter="true"
-                                                      filterMatchMode="startsWith">
-                                        <f:selectItems value="#{psvErstellenBean.verfuegbareBedingunen}"
-                                                       var="bedingungen" itemLabel="#{bedingungen.name}"
-                                                       itemValue="#{bedingungen}"/>
-                                        <p:column>
-                                            <h:outputText value="#{bedingungen.name}"/>
-                                        </p:column>
-                                        <p:column>
-                                            <h:outputText value="#{bedingungen.id}"/>
-                                        </p:column>
-                                    </p:selectManyMenu>
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <p:outputLabel for="bedingungen" value="Bedingungen: "/>
+                            <p:selectManyMenu id="bedingungen"
+                                              value="#{psvErstellenBean.ausgewaehlteBedingungen}"
+                                              converter="omnifaces.SelectItemsConverter" effect="fade"
+                                              var="bedingungen" style="width: 172px" filter="true"
+                                              filterMatchMode="startsWith">
+                                <f:selectItems value="#{psvErstellenBean.verfuegbareBedingunen}"
+                                               var="bedingungen" itemLabel="#{bedingungen.name}"
+                                               itemValue="#{bedingungen}"/>
+                                <p:column>
+                                    <h:outputText value="#{bedingungen.name}"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText value="#{bedingungen.id}"/>
+                                </p:column>
+                            </p:selectManyMenu>
 
-                                    <p:outputLabel for="art" value="ProzessSchritt Art:"/>
-                                    <p:selectOneButton id="art"
-                                                       value="#{psvErstellenBean.psArt}" required="true">
-                                        <f:selectItem itemLabel="Umformend" itemValue="Umformend"/>
-                                        <f:selectItem itemLabel="Faerbend" itemValue="Faerbend"/>
-                                        <f:selectItem itemLabel="Ermittelnd" itemValue="Ermittelnd"/>
-                                    </p:selectOneButton>
+                            <p:outputLabel for="art" value="ProzessSchritt Art:"/>
+                            <p:selectOneButton id="art"
+                                               value="#{psvErstellenBean.psArt}" required="true">
+                                <f:selectItem itemLabel="Umformend" itemValue="Umformend"/>
+                                <f:selectItem itemLabel="Faerbend" itemValue="Faerbend"/>
+                                <f:selectItem itemLabel="Ermittelnd" itemValue="Ermittelnd"/>
+                            </p:selectOneButton>
 
-                                    <p:outputLabel for="name" value=" Name: "/>
-                                    <p:inputMask id="name" value="#{psvErstellenBean.name}"
-                                                 required="true"/>
+                            <p:outputLabel for="name" value=" Name: "/>
+                            <p:inputMask id="name" value="#{psvErstellenBean.name}"
+                                         required="true"/>
 
-                                    <p:outputLabel for="dauer" value=" Dauer: "/>
-                                    <p:inputMask id="dauer" value="#{psvErstellenBean.dauer}"
-                                                 required="true"/>
+                            <p:outputLabel for="dauer" value=" Dauer: "/>
+                            <p:inputMask id="dauer" value="#{psvErstellenBean.dauer}"
+                                         required="true"/>
 
-                                    <p:outputLabel for="experimentierStation" value="ExperimentierStation: "/>
-                                    <p:selectManyMenu id="experimentierStation"
-                                                     value="#{psvErstellenBean.ausgewaehlteStationen}"
-                                                     converter="omnifaces.SelectItemsConverter" effect="fade"
-                                                     var="experimentierStation" style="width: 172px" filter="true"
-                                                     filterMatchMode="startsWith">
-                                        <f:selectItems value="#{psvErstellenBean.verfuegbareStationen}"
-                                                       var="experimentierStation" itemLabel="#{experimentierStation.standort.ort}"
-                                                       itemValue="#{experimentierStation}" required="true"/>
-                                        <p:column>
-                                            <h:outputText value="#{experimentierStation.standort.ort}"/>
-                                        </p:column>
-                                    </p:selectManyMenu>
+                            <p:outputLabel for="experimentierStation" value="ExperimentierStation: "/>
+                            <p:selectManyMenu id="experimentierStation"
+                                              value="#{psvErstellenBean.ausgewaehlteStationen}"
+                                              converter="omnifaces.SelectItemsConverter" effect="fade"
+                                              var="experimentierStation" style="width: 172px" filter="true"
+                                              filterMatchMode="startsWith">
+                                <f:selectItems value="#{psvErstellenBean.verfuegbareStationen}"
+                                               var="experimentierStation"
+                                               itemLabel="#{experimentierStation.standort.ort}"
+                                               itemValue="#{experimentierStation}" required="true"/>
+                                <p:column>
+                                    <h:outputText value="#{experimentierStation.standort.ort}"/>
+                                </p:column>
+                            </p:selectManyMenu>
 
-                                    <p:outputLabel for="ProzessSchrittZustandsAutomatVorlage" value="ProzessSchrittZustandsAutomatVorlage: "/>
-                                    <p:selectOneMenu id="ProzessSchrittZustandsAutomatVorlage"
-                                                      value="#{psvErstellenBean.ausProzessSchrittZustandsAutomatVorlage}"
-                                                      converter="omnifaces.SelectItemsConverter" effect="fade"
-                                                      var="ProzessSchrittZustandsAutomatVorlage" style="width: 172px" filter="true"
-                                                      filterMatchMode="startsWith">
-                                        <f:selectItems value="#{psvErstellenBean.verPSZAV}"
-                                                       var="pszav" itemLabel="#{pszav.name}"
-                                                       itemValue="#{pszav}" required="true"/>
+                            <p:outputLabel for="ProzessSchrittZustandsAutomatVorlage"
+                                           value="ProzessSchrittZustandsAutomatVorlage: "/>
+                            <p:selectOneMenu id="ProzessSchrittZustandsAutomatVorlage"
+                                             value="#{psvErstellenBean.ausProzessSchrittZustandsAutomatVorlage}"
+                                             converter="omnifaces.SelectItemsConverter" effect="fade"
+                                             var="ProzessSchrittZustandsAutomatVorlage" style="width: 172px"
+                                             filter="true"
+                                             filterMatchMode="startsWith">
+                                <f:selectItems value="#{psvErstellenBean.verPSZAV}"
+                                               var="pszav" itemLabel="#{pszav.name}"
+                                               itemValue="#{pszav}" required="true"/>
 
-                                        <p:column>
-                                            <h:outputText value="Vorlage: #{pszav.name}"/>
-                                        </p:column>
-                                    </p:selectOneMenu>
+                                <p:column>
+                                    <h:outputText value="Vorlage: #{pszav.name}"/>
+                                </p:column>
+                            </p:selectOneMenu>
 
-                                </h:panelGrid>
+                        </h:panelGrid>
 
-                                <p:commandButton value="Reset" type="reset"/>
-                                <p:commandButton value="Erstellen"
-                                                 action="#{psvErstellenBean.erstellePSV}" icon="pi pi-check"
-                                                 update="@form"/>
+                        <p:commandButton value="Reset" type="reset"/>
+                        <p:commandButton value="Erstellen"
+                                         action="#{psvErstellenBean.erstellePSV}" icon="pi pi-check"
+                                         update="@form"/>
 
-                            </h:form>
-                    </p:panel>
+                    </h:form>
+                </p:panel>
 
 
-
-            <br></br>
+                <br></br>
 
                 <h2>Tablele von PSV</h2>
                 <h:form id="form">
@@ -109,11 +111,11 @@
                         <p:ajax event="rowEdit" listener="#{psvErstellenBean.onRowEdit}" update=":form:msgs"/>
                         <p:ajax event="rowEditCancel" listener="#{psvErstellenBean.onRowCancel}" update=":form:msgs"/>
                         <p:column selectionMode="multiple"
-                                  style="width:16px;text-align:center" />
+                                  style="width:16px;text-align:center"/>
 
                         <p:column headerText="Id">
 
-                               <h:outputText value="#{psv.psVID}"/>
+                            <h:outputText value="#{psv.psVID}"/>
                         </p:column>
                         <p:column headerText="Name">
                             <p:cellEditor>
@@ -132,10 +134,8 @@
 
                                 <f:facet name="input">
                                     <p:inputText id="DauerEin" value="#{psv.dauer}"
-                                                                   style="width:100%" required="true"
-                                                                   >
-                                        <f:validatestandortView pattern="([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]"/>
-
+                                                 style="width:100%" required="true">
+                                        <f:validateRegex pattern="([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]"/>
                                     </p:inputText>
                                 </f:facet>
                             </p:cellEditor>
@@ -151,7 +151,8 @@
                                                           converter="omnifaces.SelectItemsConverter" effect="fade"
                                                           style="width: 172px" filter="true"
                                                           filterMatchMode="contains" showCheckbox="true"
-                                                          label="#{psv.stationen}" requiredMessage="Bitte Stationen Zuweisen!"
+                                                          label="#{psv.stationen}"
+                                                          requiredMessage="Bitte Stationen Zuweisen!"
                                                           required="true">
                                         <f:selectItems value="#{psvErstellenBean.verfuegbareStationen}"
                                                        var="stationen" itemLabel="#{stationen.name}"
@@ -188,7 +189,7 @@
                                                           converter="omnifaces.SelectItemsConverter" effect="fade"
                                                           style="width: 172px" filter="true"
                                                           filterMatchMode="contains" showCheckbox="true"
-                                                          label="eingabeTraeger" >
+                                                          label="eingabeTraeger">
                                         <f:selectItems value="#{psvErstellenBean.verfuegbareTraegerArt}"
                                                        var="traeger" itemLabel="#{traeger.art}"
                                                        itemValue="#{traeger}"/>
@@ -199,14 +200,15 @@
 
                         <p:column headerText="Austrager">
                             <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{psv.ausgabeTraeger}" label="Leer"/></f:facet>
+                                <f:facet name="output"><h:outputText value="#{psv.ausgabeTraeger}"
+                                                                     label="Leer"/></f:facet>
                                 <f:facet name="input">
                                     <p:selectCheckboxMenu id="AustragerTabele"
                                                           value="#{psvErstellenBean.ausAusTragArt}"
                                                           converter="omnifaces.SelectItemsConverter" effect="fade"
                                                           style="width: 172px" filter="true"
                                                           filterMatchMode="contains" showCheckbox="true"
-                                                          label="AustragerTabele" >
+                                                          label="AustragerTabele">
                                         <f:selectItems value="#{psvErstellenBean.verfuegbareTraegerArt}"
                                                        var="traeger" itemLabel="#{traeger.art}"
                                                        itemValue="#{traeger}"/>
@@ -222,7 +224,7 @@
 
                     <p:contextMenu for="PSVList">
                         <p:menuitem value="Delete selected" update="PSVList"
-                                    icon="pi pi-times" action="#{psvErstellenBean.deletePSV}" />
+                                    icon="pi pi-times" action="#{psvErstellenBean.deletePSV}"/>
                     </p:contextMenu>
 
                 </h:form>
