@@ -40,8 +40,6 @@ public class TechnologeView implements Serializable {
      */
     private User technologe;
 
-    private LazyDataModel<Probe> lazyProben;
-
     @Inject
     private ExperimentierStationService esService;
 
@@ -65,8 +63,6 @@ public class TechnologeView implements Serializable {
             e.printStackTrace();
             errorMessage("Couldn't grab current user! Error " + e.getMessage());
         }
-
-        lazyProben = new LazyProbenDataModel();
     }
 
     /**
