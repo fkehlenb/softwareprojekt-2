@@ -82,6 +82,9 @@ public class TechnologeView implements Serializable {
         List<ProzessSchritt> r = psService.getSchritteByUser(technologe);
         r.sort(Comparator.comparing(o -> psService.getAuftrag(o).getPriority()));
         return r;
+
+        //FIXME Aaron @karlaaron: Nullpointer wird hier geworfen
+        //(ProzessSchrittService.java:114)
         //also nur ein technologe pro Station, und
         //kann erst auftrag annehmen, wenn er an dieser station nichts zu tun
         //nur ein auftrag pro station, und ein technologe pro station

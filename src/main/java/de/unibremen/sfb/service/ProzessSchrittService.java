@@ -118,7 +118,6 @@ public class ProzessSchrittService implements Serializable {
         }
         log.info("No Auftrag Found for: "+ ps.getPsID());
         return null;
-
     }
 
     public List<ProzessSchritt> getAll() {
