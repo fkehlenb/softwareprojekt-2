@@ -1,9 +1,6 @@
 package de.unibremen.sfb.boundary;
 
-import de.unibremen.sfb.exception.DuplicateProzessSchrittLogException;
-import de.unibremen.sfb.exception.ProbeNotFoundException;
-import de.unibremen.sfb.exception.ProzessSchrittLogNotFoundException;
-import de.unibremen.sfb.exception.ProzessSchrittNotFoundException;
+import de.unibremen.sfb.exception.*;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.ProbenService;
 import de.unibremen.sfb.service.ProzessSchrittParameterService;
@@ -131,7 +128,12 @@ public class SingleJobBean implements Serializable {
                 i++;
             }
             try {
-                psService.setZustand(ps, ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().get(i+1));
+                try {
+                    psService.setZustand(ps, ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().get(i+1));
+                } catch (ProzessSchrittZustandsAutomatNotFoundException e) {
+                    e.printStackTrace();
+                    log.error(e.getMessage());
+                }
                 log.info("set state of ProzessSchritt " + ps.getPsID() + " to " + ps.getProzessSchrittZustandsAutomat().getCurrent());
             }
             catch(ProzessSchrittNotFoundException | ProzessSchrittLogNotFoundException | DuplicateProzessSchrittLogException e) {

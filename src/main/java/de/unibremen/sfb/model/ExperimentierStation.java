@@ -3,6 +3,7 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
@@ -55,7 +56,7 @@ public class ExperimentierStation {
     //TODO
     /** The queue currently being processed at the experimenting station */
     @OneToMany
-   private List<ProzessSchritt> nextPS;
+   private List<ProzessSchritt> nextPS = new ArrayList<ProzessSchritt>();
 
     /** Conditions for using an experimenting station */
     @NonNull
