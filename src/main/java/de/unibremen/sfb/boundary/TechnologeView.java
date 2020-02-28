@@ -60,11 +60,10 @@ public class TechnologeView implements Serializable {
     @PostConstruct
     public void init() {
         try {
-            technologe = userService.getCurrentUser(); //TODO evtl updated das nicht richtig?
+            technologe = userService.getCurrentUser();
         } catch (Exception e) {
             e.printStackTrace();
-            facesError("Couldn't grab current user! Error " + e.getMessage());
-            log.error("Couldn't grab current user! Error " + e.getMessage());
+            errorMessage("Couldn't grab current user! Error " + e.getMessage());
         }
 
         lazyProben = new LazyProbenDataModel();
@@ -115,29 +114,6 @@ public class TechnologeView implements Serializable {
     }
 
     /**
-     * sets the state of a ProzessSchritt on further than it was
-     *
-     * @param a the ProzessSchritt
-     */
-    public void setJobZustand(ProzessSchritt a) {
-        if (a == null) {
-            errorMessage("invalid input");
-        } else {
-            int i = 0;
-            while (!a.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().get(i).equals(a.getProzessSchrittZustandsAutomat().getCurrent())) {
-                i++;
-            }
-            try {
-                psService.setZustand(a, a.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().get(i + 1));
-                log.info("set state of ProzessSchritt " + a.getPsID() + " to " + a.getProzessSchrittZustandsAutomat().getCurrent());
-            } catch (ProzessSchrittNotFoundException | ProzessSchrittLogNotFoundException | DuplicateProzessSchrittLogException e) {
-                e.printStackTrace();
-                log.info("an error occurred trying to update the state of " + a.getPsID() + ": " + e.getMessage());
-            }
-        }
-    }
-
-    /**
      * reports an experimentation station as broken
      *
      * @param es the station
@@ -160,67 +136,6 @@ public class TechnologeView implements Serializable {
     public void createUrformend(String id) {
         //probeService.addNewSample(id);
         //TODO kann das der technologe wirklich selber?
-    }
-
-    /**
-     * adds a comment to a sample
-     *
-     * @param p the sample
-     * @param c the comment
-     */
-    public void addProbenComment(Probe p, String c) {
-        if (p == null || c == null) {
-            errorMessage("invalid input");
-        } else {
-            try {
-                probeService.addProbenComment(p, c);
-                log.info("the comment " + c + " was added to the sample " + p.getProbenID());
-            } catch (ProbeNotFoundException e) {
-                e.printStackTrace();
-                log.info("an error occurred trying to add comment " + c + " to sample " + p.getProbenID() + " : " + e.getMessage());
-            }
-        }
-    }
-
-    /**
-     * edits a comment belonging to a sample
-     *
-     * @param p the sample
-     * @param c the comment
-     * @param k the comment class
-     */
-    public void editProbenComment(Probe p, Kommentar k, String c) {
-        if (p == null || c == null || k == null) {
-            errorMessage("invalid input");
-        } else {
-            try {
-                probeService.editProbenComment(p, k, c);
-                log.info("the comment " + k.getId() + " of probe " + p.getProbenID() + " was edited to " + c);
-            } catch (ProbeNotFoundException e) {
-                e.printStackTrace();
-                log.info("an error occurred trying to update comment " + k.getId() + " of sample " + p.getProbenID() + " : " + e.getMessage());
-            }
-        }
-    }
-
-    /**
-     * deletes a comment belonging to a sample
-     *
-     * @param p the sample
-     * @param k the comment
-     */
-    public void deleteProbenComment(Probe p, Kommentar k) {
-        if (p == null || k == null) {
-            errorMessage("invalid input");
-        } else {
-            try {
-                probeService.deleteProbenComment(p, k);
-                log.info("comment " + k.getId() + " of probe " + p.getProbenID() + " was deleted");
-            } catch (ProbeNotFoundException e) {
-                e.printStackTrace();
-                log.info("an error occurred trying to delete comment " + k.getId() + " of sample " + p.getProbenID() + " : " + e.getMessage());
-            }
-        }
     }
 
     /**
@@ -265,15 +180,5 @@ public class TechnologeView implements Serializable {
 
     public String KommentarToString(Probe p) {
         return probeService.KommentarToString(p);
-    }
-
-
-    /**
-     * Adds a new SEVERITY_ERROR FacesMessage for the ui
-     *
-     * @param message Error Message
-     */
-    private void facesError(String message) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
     }
 }

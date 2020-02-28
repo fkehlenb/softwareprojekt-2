@@ -92,22 +92,12 @@ public class ProzessSchrittService implements Serializable {
     }
 
     /**
-     * searches for the Auftrag the ProzessSchritt belongs to //TODO yikes
+     * searches for the Auftrag the ProzessSchritt belongs to
      *
      * @param ps the ps which's Auftrag is looked for
      * @return the Auftrag (or null, if none was found)
      */
-    //TODO das funktioniert alles nicht... vllt mit Hibernate.initialize
-    /*
-    (aber müsste dafür dependency hinzufügen ...)
-    oder (extrem unschön) Fetch Type auf eager stellen in auftrag.java
-     */
     public Auftrag getAuftrag(ProzessSchritt ps) {
-        /*
-        filtert liste von allen aufträgen
-        jeder auftrag, der den prozessschritt in seiner liste hat, kommt in ergebnis
-        da das nur einer sein sollte, reicht findfirst
-         */
         for (Auftrag a :
                 auftragService.getAuftrage()) {
             for (ProzessSchritt p : a.getProzessSchritte()) {

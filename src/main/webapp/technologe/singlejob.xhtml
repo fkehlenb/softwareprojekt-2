@@ -3,13 +3,16 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
-      xmlns:of="http://omnifaces.org/functions">
+      xmlns:of="http://omnifaces.org/functions"
+      xmlns:shiro="http://shiro.apache.org/tags">
 <h:head>
     <title>SFB - Farbige Zustände</title>
     <link rel="icon" href="../background.png"/>
 </h:head>
 
 <body>
+<shiro:authenticated>
+<shiro:hasRole name="technologe">
 <ui:composition template="../template/common/layout.xhtml">
 
 
@@ -95,5 +98,7 @@
 </div>
 </ui:define>
 </ui:composition>
+</shiro:hasRole>
+</shiro:authenticated>
 </body>
 </html>
