@@ -11,13 +11,14 @@ public class TransportAuftragDAO extends ObjectDAO<TransportAuftrag> {
 
     /**
      * add a assignment to the database
+     *
      * @param a the new assignment
      * @throws DuplicateTransportAuftragException if the assignment already exists in the database
      */
     public void persist(TransportAuftrag a) throws DuplicateTransportAuftragException {
-        if (a!=null){
-            synchronized (TransportAuftrag.class){
-                if (em.contains(a)){
+        if (a != null) {
+            synchronized (TransportAuftrag.class) {
+                if (em.contains(em.find(get(), a.getId()))) {
                     throw new DuplicateTransportAuftragException();
                 }
                 em.persist(a);
@@ -27,12 +28,13 @@ public class TransportAuftragDAO extends ObjectDAO<TransportAuftrag> {
 
     /**
      * edit an assignment in the database
+     *
      * @param a the assignment that is updated
      * @throws TransportAuftragNotFoundException if the assignment cannot be found
      */
-    public void update(TransportAuftrag a) throws TransportAuftragNotFoundException{
-        if (a!=null){
-            if (!em.contains(a)){
+    public void update(TransportAuftrag a) throws TransportAuftragNotFoundException {
+        if (a != null) {
+            if (!em.contains(em.find(get(), a.getId()))) {
                 throw new TransportAuftragNotFoundException();
             }
             em.merge(a);
@@ -41,12 +43,13 @@ public class TransportAuftragDAO extends ObjectDAO<TransportAuftrag> {
 
     /**
      * remove an assignment from the database
+     *
      * @param a the assignment that will be removed
      * @throws TransportAuftragNotFoundException if the assignment cannot be found
      */
     public void remove(TransportAuftrag a) throws TransportAuftragNotFoundException {
-        if (a!=null){
-            if (!em.contains(a)){
+        if (a != null) {
+            if (!em.contains(em.find(get(), a.getId()))) {
                 throw new TransportAuftragNotFoundException();
             }
             a.setValidData(false);
@@ -55,10 +58,9 @@ public class TransportAuftragDAO extends ObjectDAO<TransportAuftrag> {
     }
 
     /**
-     *
      * @return the class of assignment
      */
-    public Class<TransportAuftrag> get(){
+    public Class<TransportAuftrag> get() {
         return TransportAuftrag.class;
     }
 }

@@ -8,17 +8,22 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.List;
 
-/** This class handles the location objects in the database*/
+/**
+ * This class handles the location objects in the database
+ */
 @Slf4j
 public class StandortDAO extends ObjectDAO<Standort> {
 
-    /** Add a location object to the database
+    /**
+     * Add a location object to the database
+     *
      * @param s - the location object to add to the database
-     * @throws DuplicateStandortException if the location already exists in the database */
+     * @throws DuplicateStandortException if the location already exists in the database
+     */
     public void persist(Standort s) throws DuplicateStandortException {
-        if (s!=null){
-            synchronized (Standort.class){
-                if (em.contains(s)){
+        if (s != null) {
+            synchronized (Standort.class) {
+                if (em.contains(em.find(get(), s.getId()))) {
                     throw new DuplicateStandortException();
                 }
                 em.persist(s);
@@ -26,24 +31,30 @@ public class StandortDAO extends ObjectDAO<Standort> {
         }
     }
 
-    /** Update a location object in the database
+    /**
+     * Update a location object in the database
+     *
      * @param s - the location to update in the database
-     * @throws StandortNotFoundException if the location couldn't be found in the database */
-    public void update(Standort s) throws StandortNotFoundException{
-        if (s!=null){
-            if (!em.contains(s)){
+     * @throws StandortNotFoundException if the location couldn't be found in the database
+     */
+    public void update(Standort s) throws StandortNotFoundException {
+        if (s != null) {
+            if (!em.contains(em.find(get(), s.getId()))) {
                 throw new StandortNotFoundException();
             }
             em.merge(s);
         }
     }
 
-    /** Remove a location object from the database
+    /**
+     * Remove a location object from the database
+     *
      * @param s - the location object to remove from the database
-     * @throws StandortNotFoundException if the location object couldn't be found in the database */
-    public void remove(Standort s) throws StandortNotFoundException{
-        if (s!=null){
-            if (!em.contains(s)) {
+     * @throws StandortNotFoundException if the location object couldn't be found in the database
+     */
+    public void remove(Standort s) throws StandortNotFoundException {
+        if (s != null) {
+            if (!em.contains(em.find(get(), s.getId()))) {
                 em.merge(s);
             }
             s.setValidData(false);
@@ -51,55 +62,61 @@ public class StandortDAO extends ObjectDAO<Standort> {
         }
     }
 
-    /** @return the class of location */
-    public Class<Standort> get(){
+    /**
+     * @return the class of location
+     */
+    public Class<Standort> get() {
         return Standort.class;
     }
 
-    /** Get a location object from the database using its unique id
-     * @return the location object with an id matching the entered one
+    /**
+     * Get a location object from the database using its unique id
+     *
      * @param id - Die ID des Standortes
-     * @throws StandortNotFoundException if the location object couldn't be found in the database */
-    public Standort getObjById(int id) throws StandortNotFoundException{
-        try{
-            Standort s = em.find(get(),id);
-            if (s==null || !s.isValidData()){
+     * @return the location object with an id matching the entered one
+     * @throws StandortNotFoundException if the location object couldn't be found in the database
+     */
+    public Standort getObjById(int id) throws StandortNotFoundException {
+        try {
+            Standort s = em.find(get(), id);
+            if (s == null || !s.isValidData()) {
                 throw new StandortNotFoundException();
             }
             return s;
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             throw new StandortNotFoundException();
         }
     }
 
-    /** Get a location object using the location string
+    /**
+     * Get a location object using the location string
+     *
      * @param l - the location String
      * @return the location object with a matching string
-     * @throws StandortNotFoundException if a location with that string cannot be found */
-    public Standort getByOrt(String l) throws StandortNotFoundException{
+     * @throws StandortNotFoundException if a location with that string cannot be found
+     */
+    public Standort getByOrt(String l) throws StandortNotFoundException {
         try {
             return em.createNamedQuery("Standort.getByOrt", get()).setParameter("ort", l).getSingleResult();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             throw new StandortNotFoundException();
         }
     }
 
-    /** @return all locations */
-    public List<Standort> getAll(){
+    /**
+     * @return all locations
+     */
+    public List<Standort> getAll() {
         try {
-            List<Standort> es = em.createQuery("SELECT es FROM Standort es WHERE es.isValidData=true",get()).getResultList();
-            if (es.isEmpty()){
+            List<Standort> es = em.createQuery("SELECT es FROM Standort es WHERE es.isValidData=true", get()).getResultList();
+            if (es.isEmpty()) {
                 log.info("No Standorte Found");
                 return new ArrayList<>();
             }
             return es;
-        }
-        catch (Exception e){
-//            e.printStackTrace();
+        } catch (Exception e) {
             throw new IllegalArgumentException();
         }
     }

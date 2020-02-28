@@ -25,7 +25,7 @@ public class RoleDao extends ObjectDAO<Role> {
     public void persist(Role b) throws DuplicateRoleException {
         if (b != null) {
             synchronized (Role.class) {
-                if (em.contains(b)) {
+                if (em.contains(em.find(get(), b.getId()))) {
                     try {
                         throw new DuplicateRoleException();
                     } catch (DuplicateRoleException e) {
@@ -45,6 +45,9 @@ public class RoleDao extends ObjectDAO<Role> {
      */
     public void update(Role b) throws RoleNotFoundException {
         if (b != null) {
+            if (!em.contains(em.find(get(), b.getId()))) {
+                throw new RoleNotFoundException();
+            }
             em.merge(b);
         }
     }
@@ -57,7 +60,7 @@ public class RoleDao extends ObjectDAO<Role> {
      */
     public void remove(Role b) throws RoleNotFoundException {
         if (b != null) {
-            if (!em.contains(b)) {
+            if (!em.contains(em.find(get(), b.getId()))) {
                 throw new RoleNotFoundException();
             }
             b.setValidData(false);
@@ -82,7 +85,6 @@ public class RoleDao extends ObjectDAO<Role> {
             }
             return es;
         } catch (EntityNotFoundException e) {
-//            e.printStackTrace();
             throw new IllegalArgumentException();
         }
     }
@@ -97,15 +99,17 @@ public class RoleDao extends ObjectDAO<Role> {
         return em.createNamedQuery("Role.getByName", get()).setParameter("name", r).getResultList();
     }
 
-    /** Get all the roles assigned to a specific user
+    /**
+     * Get all the roles assigned to a specific user
+     *
      * @param username - the username of the user whose roles to fetch
-     * @return a list of the users roles or an empty arraylist */
-    public List<Role> getRolesByUsername(String username){
+     * @return a list of the users roles or an empty arraylist
+     */
+    public List<Role> getRolesByUsername(String username) {
         List<Role> userRoles = new ArrayList<>();
         try {
-            userRoles = em.createNamedQuery("Role.getByUser",get()).setParameter("username", username).getResultList();
-        }
-        catch (Exception e){
+            userRoles = em.createNamedQuery("Role.getByUser", get()).setParameter("username", username).getResultList();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return userRoles;

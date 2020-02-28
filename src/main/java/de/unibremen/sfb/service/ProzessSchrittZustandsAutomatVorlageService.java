@@ -1,5 +1,6 @@
 package de.unibremen.sfb.service;
 import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
+import de.unibremen.sfb.exception.ProzessSchrittZustandsAutomatVorlageNotFoundException;
 import de.unibremen.sfb.model.ProzessSchrittZustandsAutomatVorlage;
 import de.unibremen.sfb.persistence.ProzessSchrittZustandsAutomatVorlageDAO;
 
@@ -72,7 +73,7 @@ public class ProzessSchrittZustandsAutomatVorlageService {
      * @param id of ProzessSchrittZustandsAutomatVorlage
      * @return ProzessSchrittZustandsAutomatVorlage which corresponds to the ID
      */
-    public ProzessSchrittZustandsAutomatVorlage getByID(int id) {
+    public ProzessSchrittZustandsAutomatVorlage getByID(int id) throws ProzessSchrittZustandsAutomatVorlageNotFoundException {
         return prozessSchrittZustandsAutomatVorlageDAO.getById(id);
     }
 }

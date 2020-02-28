@@ -21,7 +21,7 @@ public class ProzessSchrittVorlageDAO extends ObjectDAO<ProzessSchrittVorlage> {
     public void persist(ProzessSchrittVorlage psv) throws DuplicateProzessSchrittVorlageException {
         if (psv != null) {
             synchronized (ProzessSchrittVorlage.class) {
-                if (em.contains(psv)) {
+                if (em.contains(em.find(get(), psv.getPsVID()))) {
                     throw new DuplicateProzessSchrittVorlageException();
                 }
                 em.persist(psv);
@@ -36,7 +36,9 @@ public class ProzessSchrittVorlageDAO extends ObjectDAO<ProzessSchrittVorlage> {
      */
     public void update(ProzessSchrittVorlage psv) {
         if (psv != null) {
-            em.merge(psv);
+            if (em.contains(em.find(get(), psv.getPsVID()))) {
+                em.merge(psv);
+            }
         }
     }
 
@@ -48,7 +50,7 @@ public class ProzessSchrittVorlageDAO extends ObjectDAO<ProzessSchrittVorlage> {
      */
     public void remove(ProzessSchrittVorlage psv) throws ProzessSchrittVorlageNotFoundException {
         if (psv != null) {
-            if (!em.contains(psv)) {
+            if (!em.contains(em.find(get(), psv.getPsVID()))) {
                 throw new ProzessSchrittVorlageNotFoundException();
             }
             psv.setValidData(false);
@@ -88,6 +90,7 @@ public class ProzessSchrittVorlageDAO extends ObjectDAO<ProzessSchrittVorlage> {
 
     /**
      * Return a List quantitative descriptor object from the database
+     *
      * @return all PSV from the db
      * @throws IllegalArgumentException if the quantitative descriptor couldn't be found in the database
      */

@@ -9,17 +9,21 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-/** This class handles the conditions in the database */
+/**
+ * This class handles the conditions in the database
+ */
 @Slf4j
 public class BedingungDAO extends ObjectDAO<Bedingung> {
 
-    /** Add a condition to the database
+    /**
+     * Add a condition to the database
+     *
      * @param b - the condition to add to the database
      */
-    public void persist(Bedingung b)   {
-        if (b!=null){
-            synchronized (Bedingung.class){
-                if (em.contains(b)){
+    public void persist(Bedingung b) {
+        if (b != null) {
+            synchronized (Bedingung.class) {
+                if (em.contains(em.find(get(), b.getId()))) {
                     try {
                         throw new DuplicateBedingungException();
                     } catch (DuplicateBedingungException e) {
@@ -31,53 +35,63 @@ public class BedingungDAO extends ObjectDAO<Bedingung> {
         }
     }
 
-    /** Update a condition in the database
+    /**
+     * Update a condition in the database
+     *
      * @param b - the condition to update in the database
-     * @throws BedingungNotFoundException if the condition couldn't be found */
-    public void update(Bedingung b) throws BedingungNotFoundException{
-        if (b!=null){
-            em.merge(b);
+     * @throws BedingungNotFoundException if the condition couldn't be found
+     */
+    public void update(Bedingung b) throws BedingungNotFoundException {
+        if (b != null) {
+            if (!em.contains(em.find(get(), b.getId()))) {
+                em.merge(b);
+            }
         }
     }
 
-    /** Remove a condition from the database
+    /**
+     * Remove a condition from the database
+     *
      * @param b - the condition to remove from the database
-     * @throws BedingungNotFoundException if the condition couldn't be found */
-    public void remove(Bedingung b) throws BedingungNotFoundException{
-        if (b!=null){
-           // if (!em.contains(b)){
-           //     throw new BedingungNotFoundException();
-           // }
+     * @throws BedingungNotFoundException if the condition couldn't be found
+     */
+    public void remove(Bedingung b) throws BedingungNotFoundException {
+        if (b != null) {
+            if (!em.contains(em.find(get(), b.getId()))) {
+                throw new BedingungNotFoundException();
+            }
             b.setValidData(false);
             update(b);
         }
     }
 
-    /** @return the class of condition */
-    public Class<Bedingung> get(){
+    /**
+     * @return the class of condition
+     */
+    public Class<Bedingung> get() {
         return Bedingung.class;
     }
 
 
-    public List<Bedingung> getAll(){
+    public List<Bedingung> getAll() {
         try {
-            List<Bedingung> es = em.createQuery("SELECT b FROM Bedingung b WHERE b.isValidData=true",get()).getResultList();
-            if (es.isEmpty()){
+            List<Bedingung> es = em.createQuery("SELECT b FROM Bedingung b WHERE b.isValidData=true", get()).getResultList();
+            if (es.isEmpty()) {
                 log.info("No Bedingungen Found");
                 return new ArrayList<>();
             }
             return es;
-        }
-        catch (EntityNotFoundException e){
+        } catch (EntityNotFoundException e) {
 //            e.printStackTrace();
             throw new IllegalArgumentException();
         }
     }
-    public Bedingung findById(int id){
+
+    public Bedingung findById(int id) {
         try {
             log.info("Trying to find Bedingungen");
-            return em.find(Bedingung.class,id);
-        }catch (Exception e){
+            return em.find(Bedingung.class, id);
+        } catch (Exception e) {
             log.info("No Bedingungen Found");
             return null;
         }

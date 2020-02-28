@@ -13,7 +13,7 @@ import java.util.List;
  * This class handles the users in the database
  */
 @Slf4j
-public class  UserDAO extends ObjectDAO<User> {
+public class UserDAO extends ObjectDAO<User> {
 
     /**
      * Add a user object to the database
@@ -24,7 +24,7 @@ public class  UserDAO extends ObjectDAO<User> {
     public void persist(User u) throws DuplicateUserException {
         if (u != null) {
             synchronized (User.class) {
-                if (em.contains(u)) {
+                if (em.contains(em.find(get(), u.getId()))) {
                     throw new DuplicateUserException();
                 }
                 em.persist(u);
@@ -40,7 +40,7 @@ public class  UserDAO extends ObjectDAO<User> {
      */
     public void update(User u) throws UserNotFoundException {
         if (u != null) {
-            if (!em.contains(u)) {
+            if (!em.contains(em.find(get(), u.getId()))) {
                 throw new UserNotFoundException();
             }
             em.merge(u);
@@ -55,7 +55,7 @@ public class  UserDAO extends ObjectDAO<User> {
      */
     public void remove(User u) throws UserNotFoundException {
         if (u != null) {
-            if (!em.contains(u)) {
+            if (!em.contains(em.find(get(), u.getId()))) {
                 throw new UserNotFoundException();
             }
             u.setValidData(false);
