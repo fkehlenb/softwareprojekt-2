@@ -21,34 +21,33 @@
                     </p:growl>
                     <p:panelGrid columns="1">
                         <p:row>
-                            <h2 style="color: cornflowerblue">Standort Verwaltung</h2>
+                            <h2 style="color: cornflowerblue">#{msg['sV.jsf']}</h2>
                         </p:row>
                         <p:row>
-                            <p>In der unteren Tabelle sehen Sie alle Standorte die im System existieren.<br/>
-                                Mit dem Formular koennen Sie neue Standorte einfuegen. In der tabelle
-                                koennen Sie existierende Standorte veraendern.</p>
+                            <p>#{msg['svText.jsf']}<br/>
+                                #{msg['svText2.jsf']}</p>
                         </p:row>
                         <p:row>
-                            <h3 style="color: cornflowerblue">Standort Einfuegen</h3>
+                            <h3 style="color: cornflowerblue">#{msg['svEinfügen.jsf']}</h3>
                             <h:form id="form">
                                 <p:panelGrid>
                                     <p:row>
                                         <p:column colspan="1">
-                                            <h:outputText value="Standort:"/>
+                                            <h:outputText value="#{msg['standort.jsf']}:"/>
                                         </p:column>
                                         <p:column colspan="1">
-                                            <p:inputText placeholder="Standort" required="true"
-                                                         requiredMessage="Bitte Standort Angeben!"
-                                                         value="#{standortView.standortName}"/>
+                                            <p:inputText placeholder="#{msg['standort.jsf']}" required="true"
+                                                         requiredMessage="#{msg['esVerwaltungMeldung.jsf']}"
+                                                         value="#{standortBean.standortName}"/>
                                         </p:column>
                                     </p:row>
                                     <p:row>
                                         <p:column colspan="1">
-                                            <p:commandButton value="Reset" type="reset" ajax="true" update="form"/>
+                                            <p:commandButton value="#{msg['reset.jsf']}" type="reset" ajax="true" update="form"/>
                                         </p:column>
                                         <p:column colspan="1">
-                                            <p:commandButton value="Erstellen" ajax="true" update="form2:table"
-                                                             action="#{standortView.addStandort}"/>
+                                            <p:commandButton value="#{msg['erstellen.jsf']}" ajax="true" update="form2:table"
+                                                             action="#{standortBean.addStandort}"/>
                                         </p:column>
                                     </p:row>
                                 </p:panelGrid>
@@ -63,7 +62,7 @@
                                             update="form2:table"/>
                                     <p:ajax event="rowEditCancel" listener="#{standortView.onRowEditCancel}"
                                             update="form2:table"/>
-                                    <p:column headerText="Standort">
+                                    <p:column headerText="#{msg['standort.jsf']}">
                                         <p:cellEditor>
                                             <f:facet name="output">
                                                 <h:outputText value="#{standort.ort}"/>

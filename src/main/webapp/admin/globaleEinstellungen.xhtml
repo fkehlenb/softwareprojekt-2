@@ -22,10 +22,10 @@
                     </p:growl>
                     <p:panelGrid columns="1">
                         <p:row>
-                            <h2 style="color: cornflowerblue">Globale Einstellungen</h2>
+                            <h2 style="color: cornflowerblue">#{msg['gloEin.jsf']}</h2>
                         </p:row>
                         <p:row>
-                            <p>Hier koennen Sie die Zeiten von alten Auftraegen verwalten und veraendern</p>
+                            <p>#{msg['gloText.jsf']}</p>
                         </p:row>
                         <p:row>
                             <h:form id="form">
@@ -38,10 +38,10 @@
                                     <p:ajax event="rowEditCancel"
                                             listener="#{adminBean.onRowEditCancelGlobaleEinstellungen}"
                                             update="form:table"/>
-                                    <p:column headerText="Auftrags ID">
+                                    <p:column headerText="#{msg['auftragID.jsf']}">
                                         <h:outputText value="#{auftrag.pkID}"/>
                                     </p:column>
-                                    <p:column headerText="Erstellt">
+                                    <p:column headerText="#{msg['erstellt.jsf']}">
                                         <p:cellEditor>
                                             <f:facet name="output">
                                                 <h:outputText value="#{auftrag.log.erstellt}"/>
@@ -50,12 +50,12 @@
                                                 <p:inputMask mask="YYYY:MM:DDTHH:MM"
                                                              placeholder="YYYY:MM:DDTHH:MM"
                                                              required="true"
-                                                             requiredMessage="Bitte Zeit und Datum angeben!"
+                                                             requiredMessage="#{msg['gloMeldung.jsf']}"
                                                              value="#{adminBean.erstellt}"/>
                                             </f:facet>
                                         </p:cellEditor>
                                     </p:column>
-                                    <p:column headerText="Gestartet">
+                                    <p:column headerText="#{msg['gestartet.jsf']}">
                                         <p:cellEditor>
                                             <f:facet name="output">
                                                 <h:outputText value="#{auftrag.log.start}"/>
@@ -64,12 +64,12 @@
                                                 <p:inputMask mask="YYYY:MM:DDTHH:MM"
                                                              placeholder="YYYY:MM:DDTHH:MM"
                                                              required="true"
-                                                             requiredMessage="Bitte Zeit und Datum angeben!"
+                                                             requiredMessage="#{msg['gloMeldung.jsf']}"
                                                              value="#{adminBean.gestartet}"/>
                                             </f:facet>
                                         </p:cellEditor>
                                     </p:column>
-                                    <p:column headerText="Beendet">
+                                    <p:column headerText="#{msg['beendet.jsf']}">
                                         <p:cellEditor>
                                             <f:facet name="output">
                                                 <h:outputText value="#{auftrag.log.beendet}"/>
@@ -78,12 +78,12 @@
                                                 <p:inputMask mask="YYYY:MM:DDTHH:MM"
                                                              placeholder="YYYY:MM:DDTHH:MM"
                                                              required="true"
-                                                             requiredMessage="Bitte Zeit und Datum angeben!"
+                                                             requiredMessage="#{msg['gloMeldung.jsf']}"
                                                              value="#{adminBean.beendet}"/>
                                             </f:facet>
                                         </p:cellEditor>
                                     </p:column>
-                                    <p:column headerText="Archiviert">
+                                    <p:column headerText="#{msg['archiviert.jsf']}">
                                         <p:cellEditor>
                                             <f:facet name="output">
                                                 <h:outputText value="#{auftrag.log.archiviert}"/>
@@ -92,7 +92,7 @@
                                                 <p:inputMask mask="YYYY:MM:DDTHH:MM"
                                                              placeholder="YYYY:MM:DDTHH:MM"
                                                              required="true"
-                                                             requiredMessage="Bitte Zeit und Datum angeben!"
+                                                             requiredMessage="#{msg['gloMeldung.jsf']}"
                                                              value="#{adminBean.archiviert}"/>
                                             </f:facet>
                                         </p:cellEditor>
