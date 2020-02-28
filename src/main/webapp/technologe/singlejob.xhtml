@@ -33,6 +33,9 @@
                     <p> Hier haben Sie einen detaillierten Überblick über den Auftrag #{singleJobBean.ps.psID}</p>
                 </p:row>
                 <p:row>
+                    <p> Standort: #{singleJobBean.findStation()}</p>
+                </p:row>
+                <p:row>
                     <p>Daten hochgeladen: #{singleJobBean.ps.uploaded}</p>
                 </p:row>
                 <p:row>

@@ -42,6 +42,9 @@
                         <p:column headerText="Status">
                             <h:outputText value="#{auftrag.prozessSchrittZustandsAutomat.current}"/>
                         </p:column>
+                        <p:column headerText="Station">
+                            <h:outputText value="#{technologeView.findStandort(auftrag)}"/>
+                        </p:column>
                         <p:column headerText="Auswählen">
                             <div align="center">
                                 <h:commandButton value="Choose" action="#{singleJobBean.singlejob(auftrag)}" />
