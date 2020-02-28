@@ -7,67 +7,160 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:shiro="http://shiro.apache.org/tags">
-
-
 <h:head>
     <title>Auftragsübersicht - SFB - Farbige Zustaende</title>
     <link rel="icon" href="../background.png"/>
 
 </h:head>
-<body background="../background.png">
-<shiro:authenticated>
-<shiro:hasRole name="logistik">
+<style type="text/css">
+    .ui-datatable .ui-datatable-header {
+        text-align: right !important;
+    }
 
-<ui:composition template="/template/common/layout.xhtml">
-    <ui:define name="content">
-        <p:growl>
-            <p:autoUpdate/>
-        </p:growl>
-        <p:panelGrid columns="1">
-            <p:row>
-                <h2 style="color:cornflowerblue">Alle Aufträge</h2>
-            </p:row>
-            <p:row>
-                <p>In der unteren Tabelle sehen Sie alle Aufträge die Instanziiert wurden.<br/>
-                    Mit dem Formular können sie den Auftrag verwalten und starten.</p>
-            </p:row>
-            <h:form id="form">
+    .ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+        display: none;
+    }
+</style>
 
 
-            <p:dataTable id="table" var="auftrag" value="#{dtAuftragBean.auftrage}"
-                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                         paginator="true" rows="50" style="margin-bottom:20px">
-                <p:column headerText="Id">
-                    <h:outputText value="#{auftrag.pkID}"/>
-                </p:column>
+<p:panel id="content-panel">
+    <h:form id="form">
+        <p:messages id="messages"/>
 
-                <p:column headerText="Priorität">
-                    <h:outputText value="#{auftrag.priority}"/>
-                </p:column>
+        <p:dataTable id="table" var="auftrag" value="#{dtAuftragBean.auftrage}" widgetVar="table"
+                     multiViewState="true"
+                     rows="10" paginator="true"
+                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     rowsPerPageTemplate="5,10,15"
+                     selectionMode="single" selection="#{dtAuftragBean.selected}" rowKey="#{auftrag.pkID}"
+                     emptyMessage="No cars found with given criteria" filteredValue="#{dtAuftragBean.filteredAuftrag}">
 
-                <p:column headerText="Prozessschritte">
-                    <h:outputText value="#{auftrag.prozessSchritte}" />
-                </p:column>
+            <f:facet name="header">
+                <p:outputPanel>
+                    <h:outputText value="Search all fields:"/>
+                    <p:inputText id="globalFilter" onkeyup="PF('table').filter()" style="width:150px"
+                                 placeholder="Enter keyword"/>
+                </p:outputPanel>
+            </f:facet>
 
-                <p:column headerText="Zustand">
-                    <h:outputText value="#{auftrag.prozessKettenZustandsAutomat}"/>
-                </p:column>
+            <p:ajax event="rowSelect" update=":form:table"/>
+            <p:column headerText="Id" filterBy="#{auftrag.pkID}" sortBy="#{auftrag.pkID}" filterMatchMode="contains">
+                <h:outputText value="#{auftrag.pkID}"/>
+            </p:column>
 
-                <p:column>
-                    <p:inputText value="#{dtLogistikerBean.errorMessage}" placeholder="error"/>
-                    <p:commandButton value="Ablehnen" ajax="true" action="#{dtLogistikerBean.refuseAuftrag(auftrag.pkID)}" icon="pi pi-ban" update="form:table" />
-                    <p:commandButton value="Annehmen" ajax="true" action="#{dtLogistikerBean.startAuftrag(auftrag.pkID)}" icon="pi pi-check" update="form:table" />
+            <p:column headerText="Prozessschritte" filterBy="#{auftrag.prozessSchritte}"
+                      sortBy="#{auftrag.prozessSchritte}" filterMatchMode="startsWith">
+                <h:outputText value="#{auftrag.prozessSchritte}"/>
+            </p:column>
 
-                </p:column>
-            </p:dataTable>
+            <p:column headerText="Prioritäten" filterBy="#{auftrag.priority}" sortBy="#{auftrag.priority}"
+                      filterMatchMode="exact">
+                <f:facet name="filter">
+                    <p:selectOneMenu onchange="PF('table').filter()" style="width:100%; box-sizing: border-box;">
+                        <f:selectItem itemLabel="Select One" itemValue="#{null}" noSelectionOption="true"/>
+                        <f:selectItems value="#{dtAuftragBean.prios}"/>
+                    </p:selectOneMenu>
+                </f:facet>
+                <h:outputText value="#{auftrag.priority}"/>
+            </p:column>
 
-            </h:form>
-        </p:panelGrid>
-    </ui:define>
+            <p:column headerText="Brand" filterBy="#{auftrag.prozessKettenZustandsAutomat}"
+                      sortBy="#{auftrag.prozessKettenZustandsAutomat}" filterMatchMode="exact">
+                <f:facet name="filter">
+                    <p:selectOneMenu onchange="PF('table').filter()" style="width:100%; box-sizing: border-box;">
+                        <f:selectItem itemLabel="Select One" itemValue="#{null}" noSelectionOption="true"/>
+                        <f:selectItems value="#{dtAuftragBean.prozessKettenZustandsAutomatList}"/>
+                    </p:selectOneMenu>
+                </f:facet>
+                <h:outputText value="#{auftrag.prozessKettenZustandsAutomat}"/>
+            </p:column>
+
+            <p:column>
+                <p:inputText value="#{dtLogistikerBean.errorMessage}" placeholder="error"/>
+                <p:commandButton value="Ablehnen" ajax="true" action="#{dtLogistikerBean.refuseAuftrag(auftrag.pkID)}"
+                                 icon="pi pi-ban" update="form"/>
+                <p:commandButton value="Annehmen" ajax="true" action="#{dtLogistikerBean.startAuftrag(auftrag.pkID)}"
+                                 icon="pi pi-check" update="form:table"/>
+
+            </p:column>
 
 
-</ui:composition>
-</shiro:hasRole>
-</shiro:authenticated>
-</body>
+            <f:facet name="paginatorTopLeft">
+                <p:commandButton value="Clear table state" action="#{dtAuftragBean.clearTableState}" update="@form"/>
+            </f:facet>
+        </p:dataTable>
+    </h:form>
+</p:panel>
 </html>
+        <!--
+        <?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        <html xmlns="http://www.w3.org/1999/xhtml"
+              xmlns:h="http://xmlns.jcp.org/jsf/html"
+              xmlns:f="http://xmlns.jcp.org/jsf/core"
+              xmlns:p="http://primefaces.org/ui"
+              xmlns:ui="http://java.sun.com/jsf/facelets"
+              xmlns:shiro="http://shiro.apache.org/tags">
+
+        <h:head>
+            <title>Auftragsübersicht - SFB - Farbige Zustaende</title>
+            <link rel="icon" href="../background.png"/>
+
+        </h:head>
+        <body background="../background.png">
+        <shiro:authenticated>
+        <shiro:hasRole name="logistik">
+
+        <ui:composition template="/template/common/layout.xhtml">
+            <ui:define name="content">
+                <p:growl>
+                    <p:autoUpdate/>
+                </p:growl>
+                <p:panelGrid columns="1">
+                    <p:row>
+                        <h2 style="color:cornflowerblue">Alle Aufträge</h2>
+                    </p:row>
+                    <p:row>
+                        <p>In der unteren Tabelle sehen Sie alle Aufträge die Instanziiert wurden.<br/>
+                            Mit dem Formular können sie den Auftrag verwalten und starten.</p>
+                    </p:row>
+                    <h:form id="form">
+
+
+                    <p:dataTable id="table" var="auftrag" value="#{dtAuftragBean.auftrage}"
+                                 rows="10" paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15"
+                                 selectionMode="single" selection="#{dtAuftragBean.auftrage}" rowKey="#{dtAuftragBean.selected}"
+                                 emptyMessage="No cars found with given criteria" filteredValue="#{dtAuftragBean.auftrage}">
+
+                        <p:column headerText="Id">
+                            <h:outputText value="#{auftrag.pkID}"/>
+                        </p:column>
+
+                        <p:column headerText="Priorität">
+                            <h:outputText value="#{auftrag.priority}"/>
+                        </p:column>
+
+                        <p:column headerText="Prozessschritte">
+                            <h:outputText value="#{auftrag.prozessSchritte}" />
+                        </p:column>
+
+                        <p:column headerText="Zustand">
+                            <h:outputText value="#{auftrag.prozessKettenZustandsAutomat}"/>
+                        </p:column>
+
+
+                    </p:dataTable>
+
+                    </h:form>
+                </p:panelGrid>
+            </ui:define>
+
+
+        </ui:composition>
+        </shiro:hasRole>
+        </shiro:authenticated>
+        </body>
+        </html>-->
