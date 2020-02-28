@@ -4,6 +4,7 @@ package de.unibremen.sfb.boundary; /*
  */
 
 
+import de.unibremen.sfb.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
@@ -12,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.IOException;
 import java.io.Serializable;
@@ -22,9 +24,16 @@ import java.io.Serializable;
 public class ShiroLoginBean implements Serializable {
 //    private static final Logger log = LoggerFactory.getLogger(ShiroLoginBean.class);
 
+
     private String username;
     private String password;
     private Boolean rememberMe;
+
+    @Inject
+    private LanguageBean languageBean;
+
+    @Inject
+    private UserService userService;
 
     public ShiroLoginBean() {
     }
@@ -39,7 +48,15 @@ public class ShiroLoginBean implements Serializable {
 
         try {
             subject.login(token);
-
+            try {
+                languageBean.setUserService(userService);
+                languageBean.setUserID(userService.getUserByUsername(getUsername()).getId());
+                System.out.println("Set language to " + userService.getUserByUsername(getUsername()).getLanguage());
+            }
+            catch (Exception f){
+                f.printStackTrace();
+                System.out.println("Set language to default!");
+            }
             if (subject.hasRole("admin")) {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");
             } //FIXME other Roles
