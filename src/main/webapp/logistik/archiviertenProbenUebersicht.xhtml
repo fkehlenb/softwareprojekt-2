@@ -21,16 +21,16 @@
                 </p:growl>
                 <p:panelGrid columns="1">
                     <p:row>
-                        <h2 style="color: cornflowerblue">Proben im Archiv</h2>
+                        <h2 style="color: cornflowerblue">#{msg['logArchivÜ.jsf']}</h2>
                     </p:row>
                     <p:row>
-                        <p>In der unteren Tabelle sehen Sie alle Proben die im Archiv liegen.</p>
+                        <p>#{msg['logArchivÜText.jsf']}</p>
                     </p:row>
                     <p:row>
                         <p:dataTable id="table" var="probe" value="#{dtLogistikerBean.archiviert}"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                                      paginator="true" rows="5" style="margin-bottom:20px">
-                            <p:column headerText="Proben ID">
+                            <p:column headerText="#{msg['logProbenID.jsf']}">
                                 <h:outputText value="#{probe.probenID}"/>
                             </p:column>
                         </p:dataTable>

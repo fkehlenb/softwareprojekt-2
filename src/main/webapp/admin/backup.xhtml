@@ -24,22 +24,21 @@
                     <p:panelGrid>
                         <p:row>
                             <p:column colspan="3">
-                                <h2 style="color: cornflowerblue">Backup und Restore</h2>
+                                <h2 style="color: cornflowerblue">#{msg['backup.jsf']}</h2>
                             </p:column>
                         </p:row>
                         <p:row>
                             <p:column colspan="3">
-                                <p>Hier können Sie die aktuelle Datenbank mit all ihrer Daten exportieren, oder neue Daten aus
-                                    einer existierenden Datenbank importieren.</p>
+                                <p>#{msg['backText.jsf']}</p>
                             </p:column>
                         </p:row>
                         <p:row>
                             <p:column colspan="1">
-                                <h3 style="color: cornflowerblue">Datenbank Backup</h3>
+                                <h3 style="color: cornflowerblue">#{msg['datenBack.jsf']}</h3>
                             </p:column>
                             <p:column colspan="2">
                                 <h:form style="width: 100%">
-                                    <p:commandButton value="Create Backup" id="withIcon" action="#{adminBean.backup}"
+                                    <p:commandButton value="#{msg['backErst.jsf']}" id="withIcon" action="#{adminBean.backup}"
                                                      update="growl" style="margin-right:20px;" icon="pi pi-save"/>
                                 </h:form>
                             </p:column>
@@ -47,7 +46,7 @@
                         <br/>
                         <p:row>
                             <p:column colspan="1">
-                                <h3 style="color: cornflowerblue">Daten Importieren</h3>
+                                <h3 style="color: cornflowerblue">#{msg['datenImp.jsf']}</h3>
                             </p:column>
                             <h:form enctype="multipart/form-data">
                                 <p:column colspan="1">
@@ -55,7 +54,7 @@
                                                   required="true" requiredMessage="Bitte Backup-File aussuchen!"/>
                                 </p:column>
                                 <p:column colspan="1">
-                                    <p:commandButton value="Submit" ajax="false" action="#{adminBean.databaseImport}"/>
+                                    <p:commandButton value="#{msg['submit.jsf']}" ajax="false" action="#{adminBean.databaseImport}"/>
                                 </p:column>
                             </h:form>
                         </p:row>
