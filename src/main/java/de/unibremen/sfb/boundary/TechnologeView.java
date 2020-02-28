@@ -79,14 +79,9 @@ public class TechnologeView implements Serializable {
      */
     public List<ProzessSchritt> getJobs() {
         List<ProzessSchritt> r = psService.getSchritteByUser(technologe);
+        r.removeAll(Collections.singleton(null));
         r.sort(Comparator.comparing(o -> psService.getAuftrag(o).getPriority()));
         return r;
-
-        //FIXME Aaron @karlaaron: Nullpointer wird hier geworfen
-        //(ProzessSchrittService.java:114)
-        //also nur ein technologe pro Station, und
-        //kann erst auftrag annehmen, wenn er an dieser station nichts zu tun
-        //nur ein auftrag pro station, und ein technologe pro station
     }
 
     /**
@@ -161,6 +156,26 @@ public class TechnologeView implements Serializable {
     public void upload(Probe p) {
 
     }
+
+    /**
+     * reports a sample as lost
+     * @param p the sample
+     */
+    public void reportLostProbe(Probe p) {
+        try {
+            probeService.setZustandForProbe(p, ProbenZustand.VERLOREN);
+            log.info("sample " + p.getProbenID() + " was reported as missing");
+        }
+        catch(ProbeNotFoundException e) {
+            e.printStackTrace();
+            log.info("sample " +p.getProbenID()+ " could not be found when trying to report as missing");
+        }
+        catch(IllegalArgumentException e) {
+            errorMessage("invalid input");
+        }
+    }
+
+
 
     /**
      * creates and sends an error message
