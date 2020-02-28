@@ -78,8 +78,12 @@ public class ProzessSchrittService implements Serializable {
      * @throws ProzessSchrittNotFoundException the ProzessSchritt is not in the database
      */
     public void setZustand(ProzessSchritt ps, String zustand)
-            throws ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException, DuplicateProzessSchrittLogException {
-        if (!ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().contains(zustand)) {
+            throws ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException, DuplicateProzessSchrittLogException
+    {
+        if(ps==null || zustand==null) {
+            throw new IllegalArgumentException();
+        }
+        else if(! ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().contains(zustand)) {
             throw new IllegalArgumentException("state not possible for this ProzessSchritt");
         } else {
             ps.getProzessSchrittZustandsAutomat().setCurrent(zustand);
