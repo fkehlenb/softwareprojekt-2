@@ -242,6 +242,7 @@ public class UserService implements Serializable {
      * @return the the current User
      */
     public User getCurrentUser() {
+        //TODO
         return userDAO.getAll().get(0);
     }
 }

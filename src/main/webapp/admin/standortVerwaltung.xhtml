@@ -38,7 +38,7 @@
                                         <p:column colspan="1">
                                             <p:inputText placeholder="#{msg['standort.jsf']}" required="true"
                                                          requiredMessage="#{msg['esVerwaltungMeldung.jsf']}"
-                                                         value="#{standortBean.standortName}"/>
+                                                         value="#{standortView.standortName}"/>
                                         </p:column>
                                     </p:row>
                                     <p:row>
@@ -47,7 +47,7 @@
                                         </p:column>
                                         <p:column colspan="1">
                                             <p:commandButton value="#{msg['erstellen.jsf']}" ajax="true" update="form2:table"
-                                                             action="#{standortBean.addStandort}"/>
+                                                             action="#{standortView.addStandort}"/>
                                         </p:column>
                                     </p:row>
                                 </p:panelGrid>
@@ -57,7 +57,7 @@
                             <h:form id="form2">
                                 <p:dataTable id="table" var="standort" value="#{standortView.all}" editable="true"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                             paginator="true" rows="50" style="margin-bottom:20px">
+                                             paginator="true" rows="15" style="margin-bottom:20px">
                                     <p:ajax event="rowEdit" listener="#{standortView.updateOnRowEdit(standort.id)}"
                                             update="form2:table"/>
                                     <p:ajax event="rowEditCancel" listener="#{standortView.onRowEditCancel}"

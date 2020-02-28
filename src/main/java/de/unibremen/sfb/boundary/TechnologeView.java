@@ -28,10 +28,16 @@ import java.util.*;
 @Slf4j
 public class TechnologeView implements Serializable {
 
+    // TODO immer wieder neu laden mit der unteren id
     /**
      * the user managed by this bean
      */
     private User technologe;
+
+    /**
+     * The user id
+     */
+    private int userID;
 
     /**
      * saves whether the user wants to see only samples that need info to be uploaded, or everything
@@ -64,13 +70,19 @@ public class TechnologeView implements Serializable {
     private ProzessSchrittService psService;
 
 
-
     /**
      * loads the initial data from the database
      */
     @PostConstruct
     public void init() {
-        technologe = userService.getCurrentUser(); //TODO evtl updated das nicht richtig?
+        userID = userService.getCurrentUser().getId();
+        try {
+            technologe = userService.getUserById(userID); //TODO evtl updated das nicht richtig?
+        } catch (Exception e) {
+            e.printStackTrace();
+            facesError("Couldn't grab current user! Error " + e.getMessage());
+            log.error("Couldn't grab current user! Error " + e.getMessage());
+        }
 
         lazyProben = new LazyProbenDataModel();
 
@@ -79,6 +91,7 @@ public class TechnologeView implements Serializable {
 
     /**
      * returns the experimentation stations this user is assigned to
+     *
      * @return a list containing all stations this user is assigned to
      */
     public List<ExperimentierStation> getStationen() {
@@ -87,6 +100,7 @@ public class TechnologeView implements Serializable {
 
     /**
      * returns the assignments currently available for this user
+     *
      * @return a set containing all availabe jobs
      */
     public Set<ProzessSchritt> getAuftrag() {
@@ -96,22 +110,21 @@ public class TechnologeView implements Serializable {
 
     /**
      * sets the state of a ProzessSchritt on further than it was
+     *
      * @param a the ProzessSchritt
      */
     public void setJobZustand(ProzessSchritt a) {
-        if(a == null) {
+        if (a == null) {
             errorMessage("invalid input");
-        }
-        else {
+        } else {
             int i = 0;
-            while(!a.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().get(i).equals(a.getProzessSchrittZustandsAutomat().getCurrent())) {
+            while (!a.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().get(i).equals(a.getProzessSchrittZustandsAutomat().getCurrent())) {
                 i++;
             }
             try {
-                psService.setZustand(a, a.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().get(i+1));
+                psService.setZustand(a, a.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().get(i + 1));
                 log.info("set state of ProzessSchritt " + a.getPsID() + " to " + a.getProzessSchrittZustandsAutomat().getCurrent());
-            }
-            catch(ProzessSchrittNotFoundException|ProzessSchrittLogNotFoundException|DuplicateProzessSchrittLogException e) {
+            } catch (ProzessSchrittNotFoundException | ProzessSchrittLogNotFoundException | DuplicateProzessSchrittLogException e) {
                 e.printStackTrace();
                 log.info("an error occurred trying to update the state of " + a.getPsID() + ": " + e.getMessage());
             }
@@ -120,13 +133,13 @@ public class TechnologeView implements Serializable {
 
     /**
      * reports an experimentation station as broken
+     *
      * @param es the station
      */
     public void reportBroken(ExperimentierStation es) {
-        if(es == null) {
+        if (es == null) {
             errorMessage("invalid input");
-        }
-        else {
+        } else {
             try {
                 esService.setZustand(es, ExperimentierStationZustand.KAPUTT);
                 log.info("ExperimentierStation " + es.getEsID() + "was reported as broken.");
@@ -139,13 +152,13 @@ public class TechnologeView implements Serializable {
 
     /**
      * assigns this user to a job
+     *
      * @param a the job
      */
     public void assignToAuftrag(Auftrag a) {
-        if(a==null) {
+        if (a == null) {
             errorMessage("invalid input");
-        }
-        else {
+        } else {
             try {
                 auftragService.assignToAuftrag(technologe, a);
                 log.info("user " + technologe.getId() + " was assigned to Auftrag " + a.getPkID());
@@ -158,6 +171,7 @@ public class TechnologeView implements Serializable {
 
     /**
      * assigns this user to a prozessSchritt
+     *
      * @param ps the prozessschritt
      */
     public void assignToAuftrag(ProzessSchritt ps) {
@@ -167,6 +181,7 @@ public class TechnologeView implements Serializable {
 
     /**
      * creates a new sample (happens in "urformende" process chains)
+     *
      * @param id the sample id of the new sample
      */
     public void createUrformend(String id) {
@@ -176,40 +191,39 @@ public class TechnologeView implements Serializable {
 
     /**
      * adds a comment to a sample
+     *
      * @param p the sample
      * @param c the comment
      */
     public void addProbenComment(Probe p, String c) {
-        if(p == null || c == null) {
+        if (p == null || c == null) {
             errorMessage("invalid input");
-        }
-        else {
+        } else {
             try {
                 probeService.addProbenComment(p, c);
                 log.info("the comment " + c + " was added to the sample " + p.getProbenID());
             } catch (ProbeNotFoundException e) {
                 e.printStackTrace();
-                log.info("an error occurred trying to add comment " + c + " to sample " + p.getProbenID() + " : " +e.getMessage());
+                log.info("an error occurred trying to add comment " + c + " to sample " + p.getProbenID() + " : " + e.getMessage());
             }
         }
     }
 
     /**
      * edits a comment belonging to a sample
+     *
      * @param p the sample
      * @param c the comment
      * @param k the comment class
      */
     public void editProbenComment(Probe p, Kommentar k, String c) {
-        if(p == null || c == null || k == null) {
+        if (p == null || c == null || k == null) {
             errorMessage("invalid input");
-        }
-        else {
+        } else {
             try {
                 probeService.editProbenComment(p, k, c);
                 log.info("the comment " + k.getId() + " of probe " + p.getProbenID() + " was edited to " + c);
-            }
-            catch(ProbeNotFoundException e) {
+            } catch (ProbeNotFoundException e) {
                 e.printStackTrace();
                 log.info("an error occurred trying to update comment " + k.getId() + " of sample " + p.getProbenID() + " : " + e.getMessage());
             }
@@ -218,33 +232,33 @@ public class TechnologeView implements Serializable {
 
     /**
      * deletes a comment belonging to a sample
+     *
      * @param p the sample
      * @param k the comment
      */
     public void deleteProbenComment(Probe p, Kommentar k) {
-        if(p == null || k == null) {
+        if (p == null || k == null) {
             errorMessage("invalid input");
-        }
-        else {
+        } else {
             try {
                 probeService.deleteProbenComment(p, k);
                 log.info("comment " + k.getId() + " of probe " + p.getProbenID() + " was deleted");
-            }
-            catch(ProbeNotFoundException e) {
+            } catch (ProbeNotFoundException e) {
                 e.printStackTrace();
-                log.info("an error occurred trying to delete comment " + k.getId() + " of sample " + p.getProbenID() + " : " +e.getMessage());
+                log.info("an error occurred trying to delete comment " + k.getId() + " of sample " + p.getProbenID() + " : " + e.getMessage());
             }
         }
     }
 
     /**
      * returns all samples to which the user has not yet uploaded data
+     *
      * @return a set containing all those samples
      */
     public List<Probe> viewToBeUploaded() {
         List<Probe> res = new LinkedList<>();
-        for(ProzessSchritt ps : getJobs()) {
-            if(!ps.isUploaded()) {
+        for (ProzessSchritt ps : getJobs()) {
+            if (!ps.isUploaded()) {
                 res.addAll(ps.getZugewieseneProben());
             }
         }
@@ -253,6 +267,7 @@ public class TechnologeView implements Serializable {
 
     /**
      * uploads a sample
+     *
      * @param p the sample
      */
     public void upload(Probe p) {
@@ -261,6 +276,7 @@ public class TechnologeView implements Serializable {
 
     /**
      * reports a sample as lost
+     *
      * @param p the sample
      */
     public void reportLostProbe(Probe p) {
@@ -270,13 +286,13 @@ public class TechnologeView implements Serializable {
 
     /**
      * reports a sample as lost by its id
+     *
      * @param id the id of the sample to be reported
      */
     public void reportLostProbe(String id) {
-        if(id==null) {
+        if (id == null) {
             errorMessage("invalid input");
-        }
-        else {
+        } else {
             try {
                 reportLostProbe(probeService.getProbeById(id));
             } catch (ProbeNotFoundException e) {
@@ -288,6 +304,7 @@ public class TechnologeView implements Serializable {
 
     /**
      * creates and sends an error message
+     *
      * @param e error messsage
      */
     public void errorMessage(String e) {
@@ -298,10 +315,12 @@ public class TechnologeView implements Serializable {
     /**
      * the empty constructor
      */
-    public TechnologeView() {}
+    public TechnologeView() {
+    }
 
     /**
      * returns the technologist managed by this bean
+     *
      * @return the user
      */
     public User getTechnologe() {
@@ -310,6 +329,7 @@ public class TechnologeView implements Serializable {
 
     /**
      * sets the technologist managed by this bean
+     *
      * @param technologe the new user
      */
     public void setTechnologe(User technologe) {
@@ -336,7 +356,7 @@ public class TechnologeView implements Serializable {
 
     public List<Probe> getSamples() {
         System.out.println(viewUploaded);
-        if(viewUploaded) {
+        if (viewUploaded) {
             return viewToBeUploaded();
         }
         return probeService.getProbenByUser(technologe);
@@ -344,5 +364,14 @@ public class TechnologeView implements Serializable {
 
     public String KommentarToString(Probe p) {
         return probeService.KommentarToString(p);
+    }
+
+    /**
+     * Adds a new SEVERITY_ERROR FacesMessage for the ui
+     *
+     * @param message Error Message
+     */
+    private void facesError(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
     }
 }
