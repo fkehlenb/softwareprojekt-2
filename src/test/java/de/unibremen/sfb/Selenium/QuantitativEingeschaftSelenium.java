@@ -12,7 +12,7 @@ public class QuantitativEingeschaftSelenium {
 
         //chromedriver().version("77.0.3865.40").setup()
     @Test
-    public void testLogin() throws InterruptedException {
+    public void testLogin() throws Exception {
         WebDriverManager.firefoxdriver().setup();
         WebDriver driver = new FirefoxDriver();
         driver.manage().window().maximize();
@@ -34,9 +34,10 @@ public class QuantitativEingeschaftSelenium {
         Thread.sleep(500);
         //Assert.assertEquals(driver.getCurrentUrl(),"http://localhost:8080/login.xhtml");
         }catch (Exception e){
-
+            driver.quit();
+            throw new Exception("testLoginFalse FAILED");
         }
-        driver.quit();
+
     }
 
     @AfterMethod
@@ -67,11 +68,12 @@ public class QuantitativEingeschaftSelenium {
             button.click();
             Thread.sleep(500);
         }catch (Exception e){
-           throw new Exception("jhg");
+            driver.close();
+           throw new Exception("testLoginFalse FAILED");
         }
 
         //Assert.assertEquals(driver.getCurrentUrl(),"http://localhost:8080/login.xhtml");
-        driver.close();
+
     }
 
 }
