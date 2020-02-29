@@ -196,6 +196,15 @@ public class TechnologeView implements Serializable {
         }
     }
 
+    /**
+     * finds the priority of a process step
+     * @param ps the step
+     * @return the priority of the Auftrag the process step belongs to
+     */
+    public AuftragsPrioritaet getPriority(ProzessSchritt ps) {
+        return psService.getAuftrag(ps).getPriority();
+    }
+
 
 
     /**

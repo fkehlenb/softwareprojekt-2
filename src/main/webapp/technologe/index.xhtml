@@ -45,6 +45,9 @@
                         <p:column headerText="Station">
                             <h:outputText value="#{technologeView.findStandort(auftrag)}"/>
                         </p:column>
+                        <p:column headerText="Priorität">
+                            <h:outputText value="#{technologeView.getPriority(auftrag)}"/>
+                        </p:column>
                         <p:column headerText="Auswählen">
                             <div align="center">
                                 <h:commandButton value="Choose" action="#{singleJobBean.singlejob(auftrag)}" />
