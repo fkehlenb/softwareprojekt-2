@@ -36,8 +36,7 @@ class ProzessSchrittParameterServiceTest {
 
     @Test
     void testInit() {
-        when(prozessSchrittParameterDAO.getAll()).thenReturn(Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(null))));
-
+        when(prozessSchrittParameterDAO.getAll()).thenReturn(parameterList);
         prozessSchrittParameterService.init();
     }
 

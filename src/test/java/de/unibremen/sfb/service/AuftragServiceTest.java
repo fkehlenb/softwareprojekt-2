@@ -48,8 +48,11 @@ class AuftragServiceTest {
     Logger log;
     @Mock
     ProzessSchrittLog prozessSchrittLog;
+    @Mock
+    ProzessKettenVorlage prozessKettenVorlage;
     @InjectMocks
     AuftragService auftragService;
+
 
     @BeforeEach
     void setUp() {
@@ -67,19 +70,13 @@ class AuftragServiceTest {
 
     @Test
     void testGetPKV() {
-        when(auftrag.getVorlage()).thenReturn(new ProzessKettenVorlage(0, Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(new ExperimentierStation()), Arrays.<Bedingung>asList(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), 0)), new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")))));
+        when(auftrag.getVorlage()).thenReturn(prozessKettenVorlage);
 
         ProzessKettenVorlage result = auftragService.getPKV();
-        Assertions.assertEquals(new ProzessKettenVorlage(0, Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(new ExperimentierStation()), Arrays.<Bedingung>asList(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), 0)), new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")))), result);
+        Assertions.assertEquals(prozessKettenVorlage, result);
     }
 
-    @Test
-    void testGetLog() {
-        when(auftrag.getLog()).thenReturn(new AuftragsLog(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 28, 9)));
 
-        AuftragsLog result = auftragService.getLog();
-        Assertions.assertEquals(new AuftragsLog(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 28, 9)), result);
-    }
 
     @Test
     void testSetLog() {

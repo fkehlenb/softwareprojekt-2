@@ -19,6 +19,7 @@ import static org.mockito.Mockito.*;
 class ProzessSchrittLogServiceTest {
     @Mock
     ProzessSchrittLogDAO pslDAO;
+
     @InjectMocks
     ProzessSchrittLogService prozessSchrittLogService;
 
@@ -41,16 +42,18 @@ class ProzessSchrittLogServiceTest {
         ProzessSchrittLog result = null;
         try {
             result = prozessSchrittLogService.newLog("z");
+            verify(pslDAO).persist(result);
         } catch (DuplicateProzessSchrittLogException e) {
             e.printStackTrace();
         }
-        Assertions.assertEquals(new ProzessSchrittLog(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 29, 20), "zustandsAutomat"), result);
-    }
+
+   }
 
     @Test
     void testAdd() {
         try {
             prozessSchrittLogService.add(new ProzessSchrittLog(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 29, 20), "zustandsAutomat"));
+            verify(pslDAO).persist(any());
         } catch (DuplicateProzessSchrittLogException e) {
             e.printStackTrace();
         }
