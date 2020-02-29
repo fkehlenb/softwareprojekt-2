@@ -37,15 +37,15 @@ public class ProbenService implements Serializable {
         var s2 = new Standort(UUID.randomUUID().hashCode(), "Lager");
         var qEs = qualitativeEigenschaftService.getEigenschaften();
         var bs = bedingungService.getBs();
-        var p1 = new Probe(UUID.randomUUID().toString(), ProbenZustand.VORHANDEN, s);
+        var p1 = new Probe(UUID.randomUUID().toString(),4,  ProbenZustand.VORHANDEN , s);
         p1.setQualitativeEigenschaften(qEs);
-        var p2 = new Probe(UUID.randomUUID().toString(), ProbenZustand.VORHANDEN, s);
+        var p2 = new Probe(UUID.randomUUID().toString(),6,  ProbenZustand.VORHANDEN, s);
         p2.setBedingungen(bs);
 
         proben = new ArrayList<>();
         proben.add(p1);
         proben.add(p2);
-        proben.add(new Probe(UUID.randomUUID().toString(), ProbenZustand.VORHANDEN, s2));
+        proben.add(new Probe(UUID.randomUUID().toString(), 6, ProbenZustand.VORHANDEN, s2));
 
     }
 
@@ -210,7 +210,7 @@ public class ProbenService implements Serializable {
         if(!id.matches("[A-Z][0-9][0-9].[0-9]+(.[0-9]+)+")) {
             throw new IllegalArgumentException();
         }
-        Probe p = new Probe(id, pz, s);
+        Probe p = new Probe(id, 5,  pz, s);
         List<Kommentar> ks = new LinkedList<>();
         ks.add(k);
         p.setKommentar(ks);

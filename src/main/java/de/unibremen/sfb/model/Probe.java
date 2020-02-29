@@ -27,6 +27,9 @@ public class Probe {
     @Id
     private String probenID;
 
+    @NonNull
+    private int anzahl;
+
     /** Comment added to the sample and when it was added */
     @OneToMany(fetch = FetchType.LAZY)
     private List<Kommentar> kommentar;

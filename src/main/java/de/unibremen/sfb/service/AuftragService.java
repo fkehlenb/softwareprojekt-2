@@ -304,14 +304,14 @@ public class AuftragService implements Serializable {
      * @param auftrag der Auftrag
      * @return der Auftrag mit den neuen Proben
      */
-    public Auftrag probenZuweisen(Auftrag auftrag) {
-//        for (ProzessSchritt ps :
-//                auftrag.getProzessSchritte()) {
+    public Auftrag probenZuweisen(Auftrag auftrag, List<Probe> proben) {
+        for (ProzessSchritt ps :
+                auftrag.getProzessSchritte()) {
 //            var proben = switch( ps.getProzessSchrittVorlage().getPsArt()) {
 //                case "ERZEUGEND" :
 //                    yield fori
 //            }
-//        }
+        }
         return null;
     }
 
@@ -325,7 +325,7 @@ public class AuftragService implements Serializable {
     private List<Probe> erzeugeProbenNachBeding(Bedingung b, Standort s) {
         var result = new ArrayList<Probe>();
         for (int i = 0; i < b.getGewuenschteAnzahl(); i++) {
-            var p = new Probe(UUID.randomUUID().toString(), ProbenZustand.VORHANDEN, s);
+            var p = new Probe(UUID.randomUUID().toString(), 5, ProbenZustand.VORHANDEN, s);
             p.setBedingungen(List.of(b));
             result.add(p);
         }

@@ -211,7 +211,7 @@ public class LogistikerBean implements Serializable {
             catch (Exception e){
                 e.printStackTrace();
             }
-            Probe p = new Probe(probenID,ProbenZustand.ARCHIVIERT,standort);
+            Probe p = new Probe(probenID,7, ProbenZustand.ARCHIVIERT,standort);
             try {
                 Probe a = probenService.getProbeById(probenID);
                 facesError("Probe with id already exists! ID: " + probenID);
