@@ -309,7 +309,7 @@ public class AuftragService implements Serializable {
      * @param auftrag der Auftrag
      * @return der Auftrag mit den neuen Proben
      */
-    public Auftrag probenZuweisen(Auftrag auftrag, List<Probe> proben, String startID) throws AuftragNotFoundException {
+    public Auftrag probenZuweisen(Auftrag auftrag, List<Probe> proben, String startID) throws AuftragNotFoundException, DuplicateProbeException {
         Standort lager = null;
         int i = 0;
         for (Bedingung b :
@@ -338,7 +338,7 @@ public class AuftragService implements Serializable {
      * @param s       der Standort wo die Proben sind, normalerweise die Station and der sie erstellt werden
      * @param startID die Proben ID vom Logstiker / pkAdmin festgelegt
      * @return die liste mit proben die erzeugt wurden
-     */ //TODO warum nicht in ProbeService?
+     */
     private List<Probe> erzeugeProbenNachBeding(Bedingung b, Standort s, String startID) throws DuplicateProbeException {
         var result = new ArrayList<Probe>();
             var p = new Probe(startID, b.getGewuenschteAnzahl(), ProbenZustand.VORHANDEN, s);
