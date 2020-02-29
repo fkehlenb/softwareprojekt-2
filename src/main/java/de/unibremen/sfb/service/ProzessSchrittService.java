@@ -99,6 +99,19 @@ public class ProzessSchrittService implements Serializable {
 
     /** Get all process steps from the database
       sets the current state of this ProzessSchritt
+
+     // TODO Add service which determines last Element of ProzessSchrittZustandsAutomatVorlage
+     //      Check if there are any more special states
+             If has reached Last State Continue with next PS
+               - FIFO pop of nextPS with next step into currentPS
+               - Upgrade Technologen View
+
+     // This allows us to dynamically use the pszav, in doing so we let the pkAdmin make pszav
+        <- Dynamische Zustandsautomaten
+
+     // TODO Liam
+     Add Field to Model for Calculating Average PS Time in PSV
+
       @param ps the ProzessSchritt
      * @param zustand the new state
      * @throws ProzessSchrittNotFoundException the ProzessSchritt is not in the database
