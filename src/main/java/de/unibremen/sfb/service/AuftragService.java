@@ -3,6 +3,7 @@ package de.unibremen.sfb.service;
 import de.unibremen.sfb.exception.*;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.AuftragDAO;
+import de.unibremen.sfb.persistence.ProbeDAO;
 import de.unibremen.sfb.persistence.ProzessSchrittDAO;
 import lombok.Data;
 import lombok.Getter;
@@ -53,7 +54,12 @@ public class AuftragService implements Serializable {
     @Inject
     ProzessSchrittDAO prozessSchrittDAO;
 
+    @Inject
+    StandortService standortService;
+
     private Auftrag auftrag;
+    @Inject
+    private ProbeDAO probeDao;
 
     /**
      * returns the ID of this Auftrag
@@ -140,6 +146,7 @@ public class AuftragService implements Serializable {
 
     /**
      * sets the current Prioritaet (priority) of this Auftrag
+     *
      * @param prio the prio whih sould be set
      */
     public void setPrio(AuftragsPrioritaet prio) {
@@ -179,7 +186,6 @@ public class AuftragService implements Serializable {
         return auftragDAO.getAll();
         // FIXME DAO Persistence LEo
     }
-
 
 
     /**
@@ -222,8 +228,9 @@ public class AuftragService implements Serializable {
 
     /**
      * Loeschen von ProzessKettenVorlagen
-     * @throws AuftragNotFoundException falls es diesen Auftrag nicht gibt
+     *
      * @param auftrags die Vorlagen
+     * @throws AuftragNotFoundException falls es diesen Auftrag nicht gibt
      */
     public void delete(List<Auftrag> auftrags) throws AuftragNotFoundException {
         for (Auftrag auftrag :
@@ -235,6 +242,7 @@ public class AuftragService implements Serializable {
 
     /**
      * Converts all Auftraege tojson
+     *
      * @return the json as a Sting
      */
     public String toJson() {
@@ -292,44 +300,51 @@ public class AuftragService implements Serializable {
     /**
      * Weise einen Auftrag Proben zu
      * Vorgehen:
-     * - Fuer jeden ProzessSchritt
-     * - Falls die Art erstellend ist, so koennen diese an der Station erstellt werden
-     * - Ansonsten
-     * - Gucke ob sich die Bedingen zu dem vorhergen ProzessSchritt veraendert haben
-     * - Wenn nicht ueberneme die vorehrigen Proben
-     * - Weise TODO andere Proben dann ins archiv
-     * - Gucke welche existierenden freie Proben den Bediungen und Eigenschaften entsprechcen
-     * - Teile dem ProzessSchritt diese Proben zu
+     * Wir kennen den Auftrag, vieleicht gibt es eine Liste von Proben die wir dem Auftrag zuweisen wollen
+     * oder die Proben muessen erst erstellt werden
+     * Dies finden wir raus, in dem wir prüfen, ob es der Erste PS die PS Art erstellend ist
+     *   falls er erstellen ist, muessen wir die Proben erzeugen
+     *   ansonsten nehmen wir die proben und weisen dem auftrag proben zu
      *
      * @param auftrag der Auftrag
      * @return der Auftrag mit den neuen Proben
      */
-    public Auftrag probenZuweisen(Auftrag auftrag, List<Probe> proben) {
-        for (ProzessSchritt ps :
-                auftrag.getProzessSchritte()) {
-//            var proben = switch( ps.getProzessSchrittVorlage().getPsArt()) {
-//                case "ERZEUGEND" :
-//                    yield fori
-//            }
+    public Auftrag probenZuweisen(Auftrag auftrag, List<Probe> proben, String startID) throws AuftragNotFoundException {
+        Standort lager = null;
+        int i = 0;
+        for (Bedingung b :
+                auftrag.getProzessSchritte().get(0).getProzessSchrittVorlage().getBedingungen()) {
+            try {
+                lager = standortService.findByLocation("lager");
+            } catch (StandortNotFoundException e) {
+                e.printStackTrace();
+            }
+            proben = switch (auftrag.getProzessSchritte().get(0).getProzessSchrittVorlage().getPsArt()) {
+                case "ERZEUGEND" ->  new ArrayList<Probe>();
+                default -> erzeugeProbenNachBeding(b, lager, startID + i++);
+            };
         }
-        return null;
+
+
+        auftrag.setZugewieseneProben(proben);
+        auftragDAO.update(auftrag);
+        return auftrag;
     }
 
     /**
      * Erstelle Proben die einer Bedingung entsprechen, dies koenne wir fuer erzeugende Prozessschritte nutzen
      *
-     * @param b Die Bedingung
-     * @param s der Standort wo die Proben sind, normalerweise die Station and der sie erstellt werden
+     * @param b       Die Bedingung
+     * @param s       der Standort wo die Proben sind, normalerweise die Station and der sie erstellt werden
+     * @param startID die Proben ID vom Logstiker / pkAdmin festgelegt
      * @return die liste mit proben die erzeugt wurden
      */ //TODO warum nicht in ProbeService?
-    private List<Probe> erzeugeProbenNachBeding(Bedingung b, Standort s) {
+    private List<Probe> erzeugeProbenNachBeding(Bedingung b, Standort s, String startID) throws DuplicateProbeException {
         var result = new ArrayList<Probe>();
-        for (int i = 0; i < b.getGewuenschteAnzahl(); i++) {
-            var p = new Probe(UUID.randomUUID().toString(), 5, ProbenZustand.VORHANDEN, s);
+            var p = new Probe(startID, b.getGewuenschteAnzahl(), ProbenZustand.VORHANDEN, s);
             p.setBedingungen(List.of(b));
             result.add(p);
-        }
-        // TODO persist
+            probeDao.persist(p);
         return result;
     }
 
@@ -400,7 +415,7 @@ public class AuftragService implements Serializable {
             // Transport Auftrag // FIXME
 
             // PS erstellen
-            var ps = new ProzessSchritt(UUID.randomUUID().hashCode(), List.of(l) , psv, psAutomat);
+            var ps = new ProzessSchritt(UUID.randomUUID().hashCode(), List.of(l), psv, psAutomat);
             try {
                 prozessSchrittDAO.persist(ps);
             } catch (DuplicateProzessSchrittException e) {

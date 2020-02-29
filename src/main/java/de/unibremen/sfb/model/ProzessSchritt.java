@@ -48,10 +48,6 @@ public class ProzessSchritt {
     @ManyToOne
     private ProzessSchrittVorlage prozessSchrittVorlage;
 
-    /** Die Zugewiesenen Proben fuer diesen Schritt */
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Probe> zugewieseneProben;
-
     /** The process step state automaton template the automaton was created from (containing all possible states) */
     @NonNull
     @OneToOne
