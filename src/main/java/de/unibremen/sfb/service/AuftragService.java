@@ -309,7 +309,7 @@ public class AuftragService implements Serializable {
      * @param auftrag der Auftrag
      * @return der Auftrag mit den neuen Proben
      */
-    public Auftrag probenZuweisen(Auftrag auftrag, List<Probe> proben, String startID) throws AuftragNotFoundException, DuplicateProbeException {
+    public Auftrag probenZuweisen(@org.jetbrains.annotations.NotNull Auftrag auftrag, List<Probe> proben, String startID) throws AuftragNotFoundException, DuplicateProbeException {
         Standort lager = null;
         int i = 0;
         for (Bedingung b :
@@ -319,14 +319,14 @@ public class AuftragService implements Serializable {
             } catch (StandortNotFoundException e) {
                 e.printStackTrace();
             }
-            proben = switch (auftrag.getProzessSchritte().get(0).getProzessSchrittVorlage().getPsArt()) {
-                case "ERZEUGEND" ->  new ArrayList<Probe>();
-                default -> erzeugeProbenNachBeding(b, lager, startID + i++);
-            };
+            if (auftrag.getProzessSchritte().get(0).getProzessSchrittVorlage().getPsArt().equals("ERZEUGEND")) {
+                auftrag.setZugewieseneProben(erzeugeProbenNachBeding(b, lager, startID + i++));
+            } else {
+                auftrag.setZugewieseneProben(proben);
+                // FIXME only once
+                // fixme schleife korrekt?
+            }
         }
-
-
-        auftrag.setZugewieseneProben(proben);
         auftragDAO.update(auftrag);
         return auftrag;
     }
