@@ -53,25 +53,24 @@ public class SingleJobBean implements Serializable {
 
     /**
      * adds a comment to a process step
-     * @param c the comment
      */
-    public void addComment(String c) {
+    public void addComment() {
         if(ps == null) {
             errorMessage("invalid input");
         }
         else {
-            Kommentar k = new Kommentar(LocalDateTime.now(), c);
             for (Probe p : ps.getZugewieseneProben()) {
                 try {
-                    probeService.addProbenComment(p, c); //TODO
+                    probeService.addProbenComment(p, kommentarForAll);
                 } catch (ProbeNotFoundException | DuplicateKommentarException e) {
                     e.printStackTrace();
-                    log.info("the sample " + p.getProbenID() + " could not be found while trying to add comment " + c);
+                    log.info("the sample " + p.getProbenID() + " could not be found while trying to add comment " + kommentarForAll);
                 }
                 catch(IllegalArgumentException e) {
                     errorMessage("invalid input");
                 }
             }
+            message("added comment to all samples");
         }
         kommentarForAll = "";
     }
@@ -102,6 +101,11 @@ public class SingleJobBean implements Serializable {
     public void errorMessage(String e) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e, null));
         log.info("an error occurred" + e);
+    }
+
+    public void message(String e) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, e, null));
+        log.info("displayed message to user: " +e);
     }
 
     /**

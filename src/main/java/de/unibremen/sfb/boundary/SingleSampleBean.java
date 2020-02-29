@@ -93,8 +93,7 @@ public class SingleSampleBean implements Serializable {
     }
 
     /**
-     * adds a comment to a sample
-     * @param c the comment
+     * adds the singleComment to this sample to a sample
      */
     public void addProbenComment() {
         try {
@@ -107,6 +106,7 @@ public class SingleSampleBean implements Serializable {
         catch(IllegalArgumentException e) {
             errorMessage("invalid input");
         }
+        singleKommentar=""; //TODO feld leer wenn fertig gespeichert
     }
 
     public SingleSampleBean() {}
