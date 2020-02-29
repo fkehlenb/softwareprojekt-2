@@ -50,9 +50,6 @@ public class SingleJobBean implements Serializable {
         return "singlejob.xhtml";
     }
 
-    public String KommentarToString(Probe p) {
-        return probeService.KommentarToString(p);
-    }
 
     /**
      * adds a comment to a process step
@@ -67,7 +64,7 @@ public class SingleJobBean implements Serializable {
             for (Probe p : ps.getZugewieseneProben()) {
                 try {
                     probeService.addProbenComment(p, c); //TODO
-                } catch (ProbeNotFoundException e) {
+                } catch (ProbeNotFoundException | DuplicateKommentarException e) {
                     e.printStackTrace();
                     log.info("the sample " + p.getProbenID() + " could not be found while trying to add comment " + c);
                 }

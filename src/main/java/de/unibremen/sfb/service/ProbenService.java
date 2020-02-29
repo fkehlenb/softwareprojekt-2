@@ -1,8 +1,11 @@
 package de.unibremen.sfb.service;
 
+import de.unibremen.sfb.exception.DuplicateKommentarException;
 import de.unibremen.sfb.exception.DuplicateProbeException;
+import de.unibremen.sfb.exception.KommentarNotFoundException;
 import de.unibremen.sfb.exception.ProbeNotFoundException;
 import de.unibremen.sfb.model.*;
+import de.unibremen.sfb.persistence.KommentarDAO;
 import de.unibremen.sfb.persistence.ProbeDAO;
 import lombok.Getter;
 
@@ -22,7 +25,10 @@ public class ProbenService implements Serializable {
 
 
     @Inject
-    ProbeDAO probeDAO;
+    private ProbeDAO probeDAO;
+
+    @Inject
+    private KommentarDAO kommentarDAO;
 
     @Inject
     QualitativeEigenschaftService qualitativeEigenschaftService;
@@ -108,11 +114,13 @@ public class ProbenService implements Serializable {
      * @param c the new comment
      * @throws ProbeNotFoundException the sample could not be found in the database
      */
-    public void addProbenComment(Probe p, String c) throws ProbeNotFoundException, IllegalArgumentException {
+    public void addProbenComment(Probe p, String c)
+            throws ProbeNotFoundException, IllegalArgumentException, DuplicateKommentarException {
         if(p== null || c == null) {
             throw new IllegalArgumentException();
         }
         Kommentar k = new Kommentar(LocalDateTime.now(), c);
+        kommentarDAO.persist(k);
         if(p.getKommentar() != null) {
             p.getKommentar().add(k);
         }
@@ -131,12 +139,14 @@ public class ProbenService implements Serializable {
      * @param k the Class of the Comment
      * @throws ProbeNotFoundException the sample could not be found in the database
      */
-    public void editProbenComment(Probe p, Kommentar k, String c) throws ProbeNotFoundException, IllegalArgumentException {
+    public void editProbenComment(Probe p, Kommentar k, String c)
+            throws ProbeNotFoundException, IllegalArgumentException, KommentarNotFoundException {
         if(p==null || k == null || c == null) {
             throw new IllegalArgumentException();
         }
         if(p.getKommentar().contains(k)) {
             k.setText(c);
+            kommentarDAO.update(k);
         }
         probeDAO.update(p);
     }
@@ -147,11 +157,13 @@ public class ProbenService implements Serializable {
      * @param k the comment to be deleted //TODO macht das sinn so?
      * @throws ProbeNotFoundException the sample could not be found in the database
      */
-    public void deleteProbenComment(Probe p, Kommentar k) throws ProbeNotFoundException, IllegalArgumentException {
+    public void deleteProbenComment(Probe p, Kommentar k)
+            throws ProbeNotFoundException, IllegalArgumentException, KommentarNotFoundException {
         if(p == null || k == null) {
             throw new IllegalArgumentException();
         }
         p.getKommentar().remove(k);
+        kommentarDAO.remove(k);
         probeDAO.update(p);
     }
 

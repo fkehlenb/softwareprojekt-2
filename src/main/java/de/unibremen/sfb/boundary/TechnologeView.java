@@ -104,7 +104,13 @@ public class TechnologeView implements Serializable {
      * @return the station
      */
     public ExperimentierStation findStandort(ProzessSchritt ps) { //TODO integrate into my xhtmls
-        return prozessSchrittService.findStation(ps);
+        try {
+            return prozessSchrittService.findStation(ps);
+        }
+        catch(IllegalArgumentException e) {
+            errorMessage("invalid input");
+            return null;
+        }
     }
 
     /**

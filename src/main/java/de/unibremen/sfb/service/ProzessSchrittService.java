@@ -87,9 +87,17 @@ public class ProzessSchrittService implements Serializable {
         return ps;
     }
 
-    public ExperimentierStation findStation(ProzessSchritt ps) {
+    public ExperimentierStation findStation(ProzessSchritt ps)
+        throws IllegalArgumentException {
+        if(ps==null) {
+            throw new IllegalArgumentException();
+        }
         for(ExperimentierStation e : experimentierStationService.getAll()) { //TODO jeder schritt nur an einer station?
-            if(e.getNextPS().contains(ps) || e.getCurrentPS() == ps) {
+            List<Integer> psids = new ArrayList<>();
+            for(ProzessSchritt p : e.getNextPS()) {
+                psids.add(p.getPsID());
+            }
+            if(psids.contains(ps.getPsID()) || (e.getCurrentPS()!= null && e.getCurrentPS().getPsID() == ps.getPsID())) {
                 return e;
             }
         }
@@ -99,19 +107,8 @@ public class ProzessSchrittService implements Serializable {
 
     /** Get all process steps from the database
       sets the current state of this ProzessSchritt
-
-     // TODO Add service which determines last Element of ProzessSchrittZustandsAutomatVorlage
-     //      Check if there are any more special states
-             If has reached Last State Continue with next PS
-               - FIFO pop of nextPS with next step into currentPS --deletes the current one to allow technologe to choose
-               - Upgrade Technologen View
-
-     // This allows us to dynamically use the pszav, in doing so we let the pkAdmin make pszav
-        <- Dynamische Zustandsautomaten
-
      // TODO Liam
      Add Field to Model for Calculating Average PS Time in PSV
-
       @param ps the ProzessSchritt
      * @param zustand the new state
      * @throws ExperimentierStationNotFoundException the station of the step was not found in the database
