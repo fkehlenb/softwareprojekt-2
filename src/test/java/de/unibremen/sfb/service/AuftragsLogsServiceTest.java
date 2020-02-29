@@ -23,6 +23,8 @@ class AuftragsLogsServiceTest {
     @Mock
     List<AuftragsLog> auftragsLogs;
     @Mock
+    List<ProzessKettenVorlage> pkv;
+    @Mock
     AuftragsLogDAO auftragsLogDAO;
     @Mock
     Logger log;
@@ -61,8 +63,5 @@ class AuftragsLogsServiceTest {
         }
     }
 
-    @Test
-    void testDelete() {
-        auftragsLogsService.delete(Arrays.<ProzessKettenVorlage>asList(new ProzessKettenVorlage(0, Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(new ExperimentierStation()), Arrays.<Bedingung>asList(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), 0)), new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name"))))));
-    }
+
 }

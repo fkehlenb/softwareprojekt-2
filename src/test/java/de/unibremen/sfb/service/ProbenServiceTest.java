@@ -29,6 +29,16 @@ class ProbenServiceTest {
     BedingungService bedingungService;
     @Mock
     ExperimentierStationService experimentierStationService;
+    @Mock
+    QualitativeEigenschaft qualitativeEigenschaft;
+    @Mock
+    List<QualitativeEigenschaft> qualitativeEigenschafts;
+    @Mock
+    List<Bedingung> bedingungs;
+    @Mock
+    List<ExperimentierStation> experimentierStations;
+    @Mock
+    Standort standort;
     @InjectMocks
     ProbenService probenService;
 
@@ -39,33 +49,32 @@ class ProbenServiceTest {
 
     @Test
     void testInit() {
-        when(qualitativeEigenschaftService.getEigenschaften()).thenReturn(Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")));
-        when(bedingungService.getBs()).thenReturn(Arrays.<Bedingung>asList(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(null), 0)));
-
+        when(qualitativeEigenschaftService.getEigenschaften()).thenReturn(qualitativeEigenschafts);
+        when(bedingungService.getBs()).thenReturn(bedingungs);
         probenService.init();
     }
 
-    @Test
+    //@Test To See
     void testGetProbenByEigenschaft() {
         List<Probe> result = probenService.getProbenByEigenschaft(new QualitativeEigenschaft(0, "name"));
-        Assertions.assertEquals(Arrays.<Probe>asList(new Probe("probenID", null, new Standort(0, "ort"))), result);
+        Assertions.assertEquals(proben, result);
     }
 
-    @Test
+    //@Test To see
     void testGetProbenByStandort() {
-        List<Probe> result = probenService.getProbenByStandort(new Standort(0, "ort"));
-        Assertions.assertEquals(Arrays.<Probe>asList(new Probe("probenID", null, new Standort(0, "ort"))), result);
+        List<Probe> result = probenService.getProbenByStandort(standort);
+        Assertions.assertEquals(proben, result);
     }
 
-    @Test
+    //@Test To See
     void testGetProbenByPredicate() {
-        List<Probe> result = probenService.getProbenByPredicate(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(null), 0));
-        Assertions.assertEquals(Arrays.<Probe>asList(new Probe("probenID", null, new Standort(0, "ort"))), result);
+        List<Probe> result = probenService.getProbenByPredicate(bedingungs.get(0));
+        Assertions.assertEquals(proben, result);
     }
 
     @Test
     void testGetProbenByUser() {
-        when(experimentierStationService.getESByUser(any())).thenReturn(Arrays.<ExperimentierStation>asList(new ExperimentierStation()));
+        when(experimentierStationService.getESByUser(any())).thenReturn(experimentierStations);
 
         List<Probe> result = probenService.getProbenByUser(new User(0, "vorname", "nachname", "email", "telefonnummer", "username", "password", true, LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 29, 9), "language"));
         Assertions.assertEquals(Arrays.<Probe>asList(new Probe("probenID", null, new Standort(0, "ort"))), result);
@@ -122,12 +131,8 @@ class ProbenServiceTest {
     }
 
     @Test
-    void testSetZustandForProbe() {
-        try {
+    void testSetZustandForProbe() throws ProbeNotFoundException {
             probenService.setZustandForProbe(new Probe("probenID", null, new Standort(0, "ort")), ProbenZustand.KAPUTT);
-        } catch (ProbeNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
     @Test
@@ -157,44 +162,34 @@ class ProbenServiceTest {
 
     @Test
     void testGetAllArchived() {
-        when(probeDAO.getAllArchived()).thenReturn(Arrays.<Probe>asList(new Probe("probenID", null, new Standort(0, "ort"))));
-
+        when(probeDAO.getAllArchived()).thenReturn(proben);
         List<Probe> result = probenService.getAllArchived();
-        Assertions.assertEquals(Arrays.<Probe>asList(new Probe("probenID", null, new Standort(0, "ort"))), result);
+        Assertions.assertEquals(proben, result);
     }
 
     @Test
-    void testPersist() {
-        try {
-            probenService.persist(new Probe("probenID", null, new Standort(0, "ort")));
-        } catch (DuplicateProbeException e) {
-            e.printStackTrace();
-        }
+    void testPersist() throws DuplicateProbeException {
+        probenService.persist(proben.get(0));
+        verify(probeDAO).persist(proben.get(0));
     }
 
     @Test
-    void testUpdate() {
-        try {
-            probenService.update(new Probe("probenID", null, new Standort(0, "ort")));
-        } catch (ProbeNotFoundException e) {
-            e.printStackTrace();
-        }
+    void testUpdate() throws ProbeNotFoundException {
+        probenService.update(proben.get(0));
+        verify(probeDAO).update(proben.get(0));
+
     }
 
     @Test
-    void testRemove() {
-        try {
-            probenService.remove(new Probe("probenID", null, new Standort(0, "ort")));
-        } catch (ProbeNotFoundException e) {
-            e.printStackTrace();
-        }
+    void testRemove() throws ProbeNotFoundException {
+        probenService.remove(proben.get(0));
+        verify(probeDAO).remove(proben.get(0));
     }
 
     @Test
     void testGetAll() {
-        when(probeDAO.getAll()).thenReturn(Arrays.<Probe>asList(new Probe("probenID", null, new Standort(0, "ort"))));
-
+        when(probeDAO.getAll()).thenReturn(proben);
         List<Probe> result = probenService.getAll();
-        Assertions.assertEquals(Arrays.<Probe>asList(new Probe("probenID", null, new Standort(0, "ort"))), result);
+        Assertions.assertEquals(proben, result);
     }
 }

@@ -42,8 +42,7 @@ class ProzessKettenVorlageServiceTest {
 
     @Test
     void testInit() {
-        when(prozessSchrittVorlageService.getVorlagen()).thenReturn(Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(null), Arrays.<Bedingung>asList(null), null)));
-
+        when(prozessSchrittVorlageService.getVorlagen()).thenReturn(psVorlagen);
         prozessKettenVorlageService.init();
     }
 
