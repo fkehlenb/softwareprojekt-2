@@ -2,108 +2,73 @@ package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.model.QuantitativeEigenschaft;
 import de.unibremen.sfb.persistence.QuantitativeEigenschaftDAO;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.slf4j.Logger;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import static org.mockito.Mockito.when;
-
-@RunWith(MockitoJUnitRunner.class)
-public class QuantitativeEigenschaftServiceTest {
-    @Mock
-    QuantitativeEigenschaftDAO quantitativeEigenschaftDAO;
-
-    @Mock
-    QuantitativeEigenschaft quantitativeEigenschaft;
-
-    @InjectMocks
-    QuantitativeEigenschaftService quantitativeEigenschaftService;
-
-    @BeforeMethod(alwaysRun=true)
-    public void injectDoubles() {
-        MockitoAnnotations.initMocks(this); //Notweding und Injection zu inizielizieren bitte nicht entfernen
-        when(quantitativeEigenschaftDAO.getAll()).thenReturn(new ArrayList<QuantitativeEigenschaft>());
-        when(quantitativeEigenschaftDAO.findQnEById(1)).thenReturn(quantitativeEigenschaft);
-        when(quantitativeEigenschaftDAO.findQnEById(1)).thenReturn(quantitativeEigenschaft);
-    }
-
-    @Test
-    public void testgetQuantitativeEingeschaft() {
-        quantitativeEigenschaftService.addQuantitativeEigenschaft(quantitativeEigenschaft);
-        Assert.assertEquals(quantitativeEigenschaft, quantitativeEigenschaftService.getQlEById(1));
-        Assert.assertEquals(quantitativeEigenschaftService.getAllQuantitativeEigenschaften(), new ArrayList<QuantitativeEigenschaft>());
-        Assert.assertEquals(quantitativeEigenschaftService.getEinheiten(), List.of("second", "metre", "kilogram", "kilogram", "ampere", "mole", "candela"));
-
-    }
-
-}
-
-
-
-/*
-import de.unibremen.sfb.exception.DuplicateQuantitativeEigenschaftException;
-import de.unibremen.sfb.model.QuantitativeEigenschaft;
-import de.unibremen.sfb.persistence.QuantitativeEigenschaftDAO;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.testng.annotations.*;
-
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
 class QuantitativeEigenschaftServiceTest {
-
     @Mock
-    QuantitativeEigenschaftDAO quantitativeEigenschaftDAO;
-
+    QuantitativeEigenschaftDAO qneDAO;
     @Mock
-    QuantitativeEigenschaft quantitativeEigenschaft;
-
+    Logger log;
     @InjectMocks
     QuantitativeEigenschaftService quantitativeEigenschaftService;
 
     @BeforeEach
-    public void setUp() throws Exception {
-        //MockitoAnnotations.initMocks(this);
-        //when(quantitativeEigenschaft.isValidData()).thenReturn(true);
-        //when(quantitativeEigenschaft.getId()).thenReturn(1);
-        //when(quantitativeEigenschaft.getWert()).thenReturn(10);
-        //when(quantitativeEigenschaft.getEinheit()).thenReturn("Stones");
-        when(quantitativeEigenschaftDAO.getAll()).thenReturn(new ArrayList<QuantitativeEigenschaft>());
-        when(quantitativeEigenschaftDAO.findQnEById(1)).thenReturn(quantitativeEigenschaft);
-        when(quantitativeEigenschaftDAO.findQnEById(1)).thenReturn(quantitativeEigenschaft);
+    void setUp() {
+        MockitoAnnotations.initMocks(this);
     }
 
-
-    @Test()
-    public void testgetQuantitativeEingeschaft() {
-        quantitativeEigenschaftService.addQuantitativeEigenschaft(quantitativeEigenschaft);
-        assertEquals( quantitativeEigenschaft,quantitativeEigenschaftService.getQlEById(1));
-        assertEquals(quantitativeEigenschaftService.getAllQuantitativeEigenschaften(), new ArrayList<QuantitativeEigenschaft>());
-        assertEquals(quantitativeEigenschaftService.getEinheiten(), List.of("second", "metre", "kilogram", "kilogram", "ampere", "mole", "candela"));
+    @Test
+    void testAddQuantitativeEigenschaft() {
+        quantitativeEigenschaftService.addQuantitativeEigenschaft(new QuantitativeEigenschaft(0, "name"));
     }
 
-    //@Test
-    public void testPErsistenceQuantitativeEigeschaft() throws DuplicateQuantitativeEigenschaftException {
-        //verify(quantitativeEigenschaftDAO,Haufigkeit).persist(quantitativeEigenschaft);
-        //quantitativeEigenschaftService.addQuantitativeEigenschaft(quantitativeEigenschaft);
-        //verify(quantitativeEigenschaftDAO).persist(any());
+    @Test
+    void testGetAllQuantitativeEigenschaften() {
+        when(qneDAO.getAll()).thenReturn(Arrays.<QuantitativeEigenschaft>asList(new QuantitativeEigenschaft(0, "name")));
+
+        List<QuantitativeEigenschaft> result = quantitativeEigenschaftService.getAllQuantitativeEigenschaften();
+        Assertions.assertEquals(Arrays.<QuantitativeEigenschaft>asList(new QuantitativeEigenschaft(0, "name")), result);
     }
-*/
+
+    @Test
+    void testRemove() {
+        quantitativeEigenschaftService.remove(new QuantitativeEigenschaft(0, "name"));
+    }
+
+    @Test
+    void testEdit() {
+        quantitativeEigenschaftService.edit(new QuantitativeEigenschaft(0, "name"));
+    }
+
+    @Test
+    void testGetEinheiten() {
+        List<String> result = quantitativeEigenschaftService.getEinheiten();
+        Assertions.assertEquals(Arrays.<String>asList("String"), result);
+    }
+
+    @Test
+    void testGetQlEById() {
+        when(qneDAO.findQnEById(anyInt())).thenReturn(new QuantitativeEigenschaft(0, "name"));
+
+        QuantitativeEigenschaft result = quantitativeEigenschaftService.getQlEById(0);
+        Assertions.assertEquals(new QuantitativeEigenschaft(0, "name"), result);
+    }
+
+    @Test
+    void testSetQneDAO() {
+        quantitativeEigenschaftService.setQneDAO(new QuantitativeEigenschaftDAO());
+    }
+}
+
+//Generated with love by TestMe :) Please report issues and submit feature requests at: http://weirddev.com/forum#!/testme

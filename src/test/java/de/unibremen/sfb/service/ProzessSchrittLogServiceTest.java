@@ -1,21 +1,60 @@
 package de.unibremen.sfb.service;
 
+import de.unibremen.sfb.exception.DuplicateProzessSchrittLogException;
+import de.unibremen.sfb.exception.ProzessSchrittLogNotFoundException;
 import de.unibremen.sfb.model.ProzessSchrittLog;
-import org.junit.runner.RunWith;
+import de.unibremen.sfb.persistence.ProzessSchrittLogDAO;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.testng.annotations.BeforeMethod;
 
-@RunWith(MockitoJUnitRunner.class)
+import java.time.LocalDateTime;
+import java.time.Month;
+
+import static org.mockito.Mockito.*;
+
 class ProzessSchrittLogServiceTest {
+    @Mock
+    ProzessSchrittLogDAO pslDAO;
     @InjectMocks
     ProzessSchrittLogService prozessSchrittLogService;
-    @Mock
-    ProzessSchrittLog prozessSchrittLog;
-    @BeforeMethod(alwaysRun = true)
-    public void injectInitializierung() {
-        MockitoAnnotations.initMocks(this); //Notweding und Injection zu inizielizieren bitte nicht entfernen
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.initMocks(this);
+    }
+
+    @Test
+    void testCloseLog() {
+        try {
+            prozessSchrittLogService.closeLog(new ProzessSchrittLog(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 29, 20), "zustandsAutomat"));
+        } catch (ProzessSchrittLogNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void testNewLog() {
+        ProzessSchrittLog result = null;
+        try {
+            result = prozessSchrittLogService.newLog("z");
+        } catch (DuplicateProzessSchrittLogException e) {
+            e.printStackTrace();
+        }
+        Assertions.assertEquals(new ProzessSchrittLog(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 29, 20), "zustandsAutomat"), result);
+    }
+
+    @Test
+    void testAdd() {
+        try {
+            prozessSchrittLogService.add(new ProzessSchrittLog(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 29, 20), "zustandsAutomat"));
+        } catch (DuplicateProzessSchrittLogException e) {
+            e.printStackTrace();
+        }
     }
 }
+
+//Generated with love by TestMe :) Please report issues and submit feature requests at: http://weirddev.com/forum#!/testme
