@@ -47,6 +47,7 @@ public class SingleJobBean implements Serializable {
 
     public String singlejob(ProzessSchritt ps) {
         this.ps = ps;
+        System.out.println(ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende());
         return "singlejob.xhtml";
     }
 
@@ -133,25 +134,15 @@ public class SingleJobBean implements Serializable {
      * sets the state of a ProzessSchritt on further than it was
      */
     public void setJobZustand() {
-            int i = 0;
-            while(!ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().get(i).equals(ps.getProzessSchrittZustandsAutomat().getCurrent())) {
-                i++;
-            }
-            try {
-                try {
-                    psService.setZustand(ps, ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().get(i+1));
-                } catch (ProzessSchrittZustandsAutomatNotFoundException | IllegalArgumentException | ExperimentierStationNotFoundException e) {
-                    e.printStackTrace();
-                    log.error(e.getMessage());
-                }
-                log.info("set state of ProzessSchritt " + ps.getPsID() + " to " + ps.getProzessSchrittZustandsAutomat().getCurrent());
-            }
-            catch(ProzessSchrittNotFoundException | ProzessSchrittLogNotFoundException | DuplicateProzessSchrittLogException e) {
+        try {
+            psService.oneFurther(ps);
+        }
+        catch(ProzessSchrittNotFoundException | ProzessSchrittLogNotFoundException | DuplicateProzessSchrittLogException | ExperimentierStationNotFoundException | ProzessSchrittZustandsAutomatNotFoundException e) {
                 e.printStackTrace();
                 log.info("an error occurred trying to update the state of " + ps.getPsID() + ": " + e.getMessage());
-            }
-            catch(IllegalArgumentException e) {
+        }
+        catch(IllegalArgumentException e) {
                 errorMessage("invalid input");
-            }
+        }
     }
 }

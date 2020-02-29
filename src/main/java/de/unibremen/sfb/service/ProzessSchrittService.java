@@ -123,9 +123,10 @@ public class ProzessSchrittService implements Serializable {
             throw new IllegalArgumentException();
         } else if (!ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().contains(zustand)) {
             throw new IllegalArgumentException("state not possible for this ProzessSchritt");
-        } else if(lastZustand(ps, zustand)) {
-            experimentierStationService.updateCurrent(ps, findStation(ps));
         } else {
+            if(lastZustand(ps, zustand)) {
+                experimentierStationService.updateCurrent(ps, findStation(ps));
+            }
             ps.getProzessSchrittZustandsAutomat().setCurrent(zustand);
             pslService.closeLog(ps.getProzessSchrittLog().get(ps.getProzessSchrittLog().size() - 1));
             ps.getProzessSchrittLog().add(pslService.newLog(zustand));
@@ -144,6 +145,24 @@ public class ProzessSchrittService implements Serializable {
         return ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende()
                 .get(ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().size() - 1)
                 .equals(z);
+    }
+
+    /**
+     * sets the state of the step one further
+     * @param ps the process step
+     */
+    public void oneFurther(ProzessSchritt ps)
+    throws IllegalArgumentException, ExperimentierStationNotFoundException, ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException, DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException{
+        if (ps == null) {
+            throw new IllegalArgumentException();
+        }
+        if (!lastZustand(ps, ps.getProzessSchrittZustandsAutomat().getCurrent())) {
+            int i = 0;
+            while (!ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().get(i).equals(ps.getProzessSchrittZustandsAutomat().getCurrent())) {
+                i++;
+            }
+            setZustand(ps, ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().get(i+1));
+        }
     }
 
     /**

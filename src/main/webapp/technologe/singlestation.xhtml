@@ -40,11 +40,11 @@
                             <p> Standort: #{singleStationBean.station.standort.ort}</p>
                         </p:row>
                         <p:row>
-                            <p> Status: #{singleStationBean.station.status}</p>
+                            <p> Status: <h:outputText id="status" value="#{singleStationBean.station.status}"/> </p>
                         </p:row>
-                        <div align="center">
-                            <p:commandButton action="#{singleStationBean.reportBroken()}" value="Report as broken"/>
-                        </div>
+
+                        <p:commandButton update="status" action="#{singleStationBean.reportBroken()}" value="Report as broken"/>
+
                         <p:row>
                             <p> ProzessSchritt: #{singleStationBean.station.currentPS.psID} </p>
                         </p:row>

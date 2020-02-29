@@ -39,7 +39,7 @@
                     <p>Daten hochgeladen: #{singleJobBean.ps.uploaded}</p>
                 </p:row>
                 <p:row>
-                    <h:outputText id="zustand" value="#{singleJobBean.ps.prozessSchrittZustandsAutomat.current}"/>
+                    <p> Zustand: <h:outputText id="zustand" value="#{singleJobBean.ps.prozessSchrittZustandsAutomat.current}"/> </p>
                     <p:commandButton update="zustand" action="#{singleJobBean.setJobZustand()}" value="Weiterschalten"/>
                 </p:row>
 
