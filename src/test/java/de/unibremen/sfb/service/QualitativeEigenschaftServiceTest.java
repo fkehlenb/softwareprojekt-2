@@ -1,6 +1,7 @@
 package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.model.QualitativeEigenschaft;
+import de.unibremen.sfb.persistence.QualitativeEigenschaftDAO;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -14,6 +15,8 @@ class QualitativeEigenschaftServiceTest {
     QualitativeEigenschaftService qualitativeEigenschaftService;
     @Mock
     QualitativeEigenschaft qualitativeEigenschaft;
+    @Mock
+    QualitativeEigenschaftDAO qualitativeEigenschaftDAO;
 
     @BeforeMethod(alwaysRun = true)
     public void injectInitializierung() {

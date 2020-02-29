@@ -1,6 +1,7 @@
 package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.model.ProzessSchrittParameter;
+import de.unibremen.sfb.persistence.ProzessSchrittParameterDAO;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -15,6 +16,8 @@ class ProzessSchrittParameterServiceTest {
 
     @Mock
     ProzessSchrittParameter prozessSchrittParameter;
+    @Mock
+    ProzessSchrittParameterDAO prozessSchrittParameterDAO;
 
     @BeforeMethod(alwaysRun = true)
     public void injectInitializierung() {

@@ -1,12 +1,12 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Selenium" parallel="methods" thread-count="20" verbose="3" >
+<suite name="SFB-Farbing-Test" parallel="methods" thread-count="1" verbose="3" >
     <test name="Tests" >
         <classes>
-
             <class name="de.unibremen.sfb.service.QuantitativeEigenschaftServiceTest"></class>
-
-            <!-- Nicht ausKommentieren Santiago Rey
-            <class name="de.unibremen.sfb.Selenium.QuantitativEingeschaftSelenium"></class>-->
+            <class name="de.unibremen.sfb.service.AuftragServiceTest"></class>
+            <class name="de.unibremen.sfb.service.AuftragsLogsServiceTest"></class>
+            <class name="de.unibremen.sfb.service.BedingungServiceTest"></class>
+            <class name="de.unibremen.sfb.service.ExperimentierStationServiceTest"></class>
         </classes>
     </test>
 </suite>

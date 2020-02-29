@@ -1,6 +1,7 @@
 package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.model.Standort;
+import de.unibremen.sfb.persistence.StandortDAO;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -15,6 +16,9 @@ class StandortServiceTest {
 
     @Mock
     Standort standort;
+
+    @Mock
+    StandortDAO standortDAO;
 
     @BeforeMethod(alwaysRun = true)
     public void injectInitializierung() {

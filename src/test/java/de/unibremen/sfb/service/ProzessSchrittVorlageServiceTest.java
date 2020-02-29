@@ -1,5 +1,7 @@
 package de.unibremen.sfb.service;
 
+import de.unibremen.sfb.model.ProzessKettenVorlage;
+import de.unibremen.sfb.persistence.ProzessKettenVorlageDAO;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -13,7 +15,9 @@ class ProzessSchrittVorlageServiceTest {
     ProzessKettenVorlageService prozessKettenVorlageService;
 
     @Mock
-    ProzessSchrittService prozessSchrittService;
+    ProzessKettenVorlage prozessKettenVorlage;
+    @Mock
+    ProzessKettenVorlageDAO prozessKettenVorlageDAO;
 
     @BeforeMethod(alwaysRun = true)
     public void injectInitializierung() {

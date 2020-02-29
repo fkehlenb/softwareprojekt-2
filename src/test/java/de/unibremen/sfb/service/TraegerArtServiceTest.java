@@ -1,6 +1,7 @@
 package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.model.TraegerArt;
+import de.unibremen.sfb.persistence.TraegerArtDAO;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -15,6 +16,8 @@ class TraegerArtServiceTest {
 
     @Mock
     TraegerArt traegerArt;
+    @Mock
+    TraegerArtDAO traegerArtDAO;
 
     @BeforeMethod(alwaysRun = true)
     public void injectInitializierung() {

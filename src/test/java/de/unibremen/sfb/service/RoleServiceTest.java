@@ -1,6 +1,7 @@
 package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.model.Role;
+import de.unibremen.sfb.persistence.RoleDao;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -14,6 +15,8 @@ class RoleServiceTest {
     RoleService roleService;
     @Mock
     Role role;
+    @Mock
+    RoleDao roleDao;
 
     @BeforeMethod(alwaysRun = true)
     public void injectInitializierung() {

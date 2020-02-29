@@ -1,6 +1,7 @@
 package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.model.ProzessSchrittZustandsAutomat;
+import de.unibremen.sfb.persistence.ProzessSchrittZustandsAutomatDAO;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -15,6 +16,8 @@ class ProzessSchrittZustandsAutomatServiceTest {
 
     @Mock
     ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat;
+    @Mock
+    ProzessSchrittZustandsAutomatDAO prozessSchrittZustandsAutomatDAO;
 
     @BeforeMethod(alwaysRun = true)
     public void injectInitializierung() {

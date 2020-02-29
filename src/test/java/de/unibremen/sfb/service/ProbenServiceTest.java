@@ -1,6 +1,7 @@
 package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.model.Probe;
+import de.unibremen.sfb.persistence.ProbeDAO;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -14,6 +15,8 @@ class ProbenServiceTest {
     ProbenService probenService;
     @Mock
     Probe probe;
+    @Mock
+    ProbeDAO probeDAO;
 
     @BeforeMethod(alwaysRun = true)
     public void injectInitializierung() {
