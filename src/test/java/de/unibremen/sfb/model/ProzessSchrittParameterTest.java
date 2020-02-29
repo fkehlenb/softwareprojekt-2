@@ -49,5 +49,3 @@ class ProzessSchrittParameterTest {
         prozessSchrittParameter.setQualitativeEigenschaften(Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")));
     }
 }
-
-//Generated with love by TestMe :) Please report issues and submit feature requests at: http://weirddev.com/forum#!/testme

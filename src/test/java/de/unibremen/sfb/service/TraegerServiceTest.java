@@ -81,5 +81,3 @@ class TraegerServiceTest {
         Assertions.assertEquals(Arrays.<Traeger>asList(new Traeger(0, new TraegerArt("art"), new Standort(0, "ort"))), result);
     }
 }
-
-//Generated with love by TestMe :) Please report issues and submit feature requests at: http://weirddev.com/forum#!/testme

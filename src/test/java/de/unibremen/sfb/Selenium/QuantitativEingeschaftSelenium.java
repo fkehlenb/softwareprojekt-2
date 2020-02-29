@@ -1,10 +1,9 @@
 package de.unibremen.sfb.Selenium;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
-import org.testng.annotations.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -37,11 +36,6 @@ public class QuantitativEingeschaftSelenium {
             driver.quit();
             throw new Exception("testLoginFalse FAILED");
         }
-
-    }
-
-    @AfterMethod
-    public void close(){
 
     }
 

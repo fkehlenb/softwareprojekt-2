@@ -22,5 +22,3 @@ class TraegerArtTest {
         traegerArt.setArt("art");
     }
 }
-
-//Generated with love by TestMe :) Please report issues and submit feature requests at: http://weirddev.com/forum#!/testme

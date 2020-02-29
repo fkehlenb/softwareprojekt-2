@@ -115,5 +115,3 @@ class ProzessKettenVorlageServiceTest {
         Assertions.assertEquals(Arrays.<ProzessKettenVorlage>asList(new ProzessKettenVorlage(0, Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(null), Arrays.<Bedingung>asList(null), null)))), result);
     }
 }
-
-//Generated with love by TestMe :) Please report issues and submit feature requests at: http://weirddev.com/forum#!/testme
