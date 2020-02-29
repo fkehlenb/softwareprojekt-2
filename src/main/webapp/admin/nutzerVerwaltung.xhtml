@@ -91,13 +91,13 @@
                                         </p:column>
                                         <p:column colspan="1">
                                             <p:selectBooleanCheckbox value="#{adminBean.technologe}"
-                                                                     itemLabel="Technologe">
+                                                                     itemLabel="#{msg['technologe.jsf']}">
                                                 <p:ajax event="change" global="false"/>
                                             </p:selectBooleanCheckbox>
                                         </p:column>
                                         <p:column colspan="1">
                                             <p:selectBooleanCheckbox value="#{adminBean.administrator}"
-                                                                     itemLabel="Admin"/>
+                                                                     itemLabel="#{msg['admin.jsf']}"/>
                                         </p:column>
                                     </p:row>
                                     <p:row>
@@ -117,11 +117,11 @@
                                         </p:column>
                                         <p:column colspan="1">
                                             <p:selectBooleanCheckbox value="#{adminBean.pkAdministrator}"
-                                                                     itemLabel="PKAdmin"/>
+                                                                     itemLabel="#{msg['pkAdmin.jsf']}"/>
                                         </p:column>
                                         <p:column colspan="1">
                                             <p:selectBooleanCheckbox value="#{adminBean.logistiker}"
-                                                                     itemLabel="Logistiker"/>
+                                                                     itemLabel="#{msg['logistiker.jsf']}"/>
                                         </p:column>
                                     </p:row>
                                     <p:row>
@@ -149,7 +149,7 @@
                                         </p:column>
                                         <p:column colspan="1">
                                             <p:selectBooleanCheckbox value="#{adminBean.transporter}"
-                                                                     itemLabel="Transporter"/>
+                                                                     itemLabel="#{msg['transporter.jsf']}"/>
                                         </p:column>
                                     </p:row>
                                     <p:row>
