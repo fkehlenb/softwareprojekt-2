@@ -26,5 +26,3 @@ class MailingServiceTest {
         mailingService.sendmail("addr", "message", "subject");
     }
 }
-
-//Generated with love by TestMe :) Please report issues and submit feature requests at: http://weirddev.com/forum#!/testme

@@ -42,5 +42,3 @@ class AuftragsLogTest {
         auftragsLog.setArchiviert(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 49, 4));
     }
 }
-
-//Generated with love by TestMe :) Please report issues and submit feature requests at: http://weirddev.com/forum#!/testme

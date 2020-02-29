@@ -43,5 +43,3 @@ class ArchivTest {
         archiv.setDatum(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 48, 34));
     }
 }
-
-//Generated with love by TestMe :) Please report issues and submit feature requests at: http://weirddev.com/forum#!/testme
