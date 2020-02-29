@@ -103,7 +103,7 @@ public class ProzessSchrittService implements Serializable {
      // TODO Add service which determines last Element of ProzessSchrittZustandsAutomatVorlage
      //      Check if there are any more special states
              If has reached Last State Continue with next PS
-               - FIFO pop of nextPS with next step into currentPS
+               - FIFO pop of nextPS with next step into currentPS --deletes the current one to allow technologe to choose
                - Upgrade Technologen View
 
      // This allows us to dynamically use the pszav, in doing so we let the pkAdmin make pszav
@@ -114,24 +114,40 @@ public class ProzessSchrittService implements Serializable {
 
       @param ps the ProzessSchritt
      * @param zustand the new state
+     * @throws ExperimentierStationNotFoundException the station of the step was not found in the database
      * @throws ProzessSchrittNotFoundException the ProzessSchritt is not in the database
      * @throws ProzessSchrittLogNotFoundException the ProzessSchritt is not in the database
      *  @throws DuplicateProzessSchrittLogException the ProzessSchritt is not in the database
      *   @throws ProzessSchrittZustandsAutomatNotFoundException the ProzessSchritt is not in the database
      */
     public void setZustand(ProzessSchritt ps, String zustand)
-            throws ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException, DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException {
+            throws ExperimentierStationNotFoundException, ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException, DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException {
         if (ps == null || zustand == null) {
             throw new IllegalArgumentException();
         } else if (!ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().contains(zustand)) {
             throw new IllegalArgumentException("state not possible for this ProzessSchritt");
+        } else if(lastZustand(ps, zustand)) {
+            experimentierStationService.deleteCurrent(ps, findStation(ps));
+            //experimentierStationService.updateCurrent(ps, findStation(ps)); if not manual decision by Technologe
         } else {
             ps.getProzessSchrittZustandsAutomat().setCurrent(zustand);
             pslService.closeLog(ps.getProzessSchrittLog().get(ps.getProzessSchrittLog().size() - 1));
             ps.getProzessSchrittLog().add(pslService.newLog(zustand));
-                prozessSchrittZustandsAutomatDAO.update(ps.getProzessSchrittZustandsAutomat());
+            prozessSchrittZustandsAutomatDAO.update(ps.getProzessSchrittZustandsAutomat());
             prozessSchrittDAO.update(ps);
         }
+    }
+
+    /***
+     * if a state is the last state of a process step
+     * @param ps the process step
+     * @param z the state to check
+     * @return true, if last; otherwise false
+     */
+    private boolean lastZustand(ProzessSchritt ps, String z) {
+        return ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende()
+                .get(ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().size() - 1)
+                .equals(z);
     }
 
     /**

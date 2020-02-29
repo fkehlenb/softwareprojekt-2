@@ -193,5 +193,21 @@ public class ExperimentierStationService implements Serializable {
         }
     }
 
+    /**
+     * updates the currentPS to the next one in the stations waiting queue
+     * @param ps the current process step
+     * @param es the station
+     * @throws IllegalArgumentException ps or es null, or ps not the current one at es
+     * @throws ExperimentierStationNotFoundException the es was not found in the database
+     */
+    public void updateCurrent(ProzessSchritt ps, ExperimentierStation es)
+            throws IllegalArgumentException, ExperimentierStationNotFoundException{
+        deleteCurrent(ps, es);
+        if(es.getNextPS() != null && es.getNextPS().get(0) != null) {
+            es.setCurrentPS(es.getNextPS().get(0));
+            esDao.update(es);
+        }
+    }
+
 
 }

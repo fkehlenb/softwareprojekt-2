@@ -45,9 +45,6 @@ public class SingleJobBean implements Serializable {
     @Inject
     private ProzessSchrittService psService;
 
-    @Inject
-    private ExperimentierStationService experimentierStationService;
-
     public String singlejob(ProzessSchritt ps) {
         this.ps = ps;
         return "singlejob.xhtml";
@@ -142,9 +139,6 @@ public class SingleJobBean implements Serializable {
             try {
                 try {
                     psService.setZustand(ps, ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().get(i+1));
-                    if(ps.getProzessSchrittZustandsAutomat().getCurrent().equals("Bearbeitet") && ps.isUploaded()) {
-                        experimentierStationService.deleteCurrent(ps, psService.findStation(ps));
-                    } //TODO wie in zustand weitergeleitet?
                 } catch (ProzessSchrittZustandsAutomatNotFoundException | IllegalArgumentException | ExperimentierStationNotFoundException e) {
                     e.printStackTrace();
                     log.error(e.getMessage());

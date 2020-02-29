@@ -6,10 +6,8 @@ import de.unibremen.sfb.service.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.primefaces.model.LazyDataModel;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -130,10 +128,6 @@ public class TechnologeView implements Serializable {
     public ExperimentierStation findStandort(ProzessSchritt ps) { //TODO integrate into my xhtmls
         return prozessSchrittService.findStation(ps);
     }
-    //TODO prozessschritt als current löschen wenn fertig/bearbeitet
-    //problem: mit viewuploaded wird dann nicht angezeigt
-    //evtl liste in experimentierstation mit denen, die bearbeitet sind, aber upload brauchen?
-    //woher weiß ich ob ein schritt upload brauch/Brauchen das alle?
 
     /**
      * reports an experimentation station as broken
@@ -157,7 +151,7 @@ public class TechnologeView implements Serializable {
      */
     public void createUrformend(String id) {
         //probeService.addNewSample(id);
-        //TODO kann das der technologe wirklich selber?
+        //TODO wie soll ich das integrieren?
     }
 
     /**
@@ -209,7 +203,7 @@ public class TechnologeView implements Serializable {
      *
      * @param e error messsage
      */
-    public void errorMessage(String e) {
+    private void errorMessage(String e) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e, null));
         log.info("an error occurred" + e);
     }
