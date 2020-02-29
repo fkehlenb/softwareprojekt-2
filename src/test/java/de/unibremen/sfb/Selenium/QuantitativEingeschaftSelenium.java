@@ -2,16 +2,19 @@ package de.unibremen.sfb.Selenium;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
 
 public class QuantitativEingeschaftSelenium {
 
         //chromedriver().version("77.0.3865.40").setup()
     @Test
     public void testLogin() throws Exception {
+        System.out.println(":::::SeleniumTest");
         WebDriverManager.firefoxdriver().setup();
         WebDriver driver = new FirefoxDriver();
         driver.manage().window().maximize();
