@@ -98,28 +98,6 @@ public class TechnologeView implements Serializable {
     }
 
     /**
-     * puts the process step as the current one if the station does not have a current step
-     * otherwise, an error is displayed for the user, and nothing changes
-     * @param ps the process step
-     */
-    public void assignUser(ProzessSchritt ps) {
-        if(ps == null) {
-            errorMessage("invalid input");
-        }
-        else {
-            try {
-                esService.setCurrentPS(ps, findStandort(ps));
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-                errorMessage("process step " + ps.getPsID() + " could not be set as the current step of its station");
-            } catch (ExperimentierStationNotFoundException e) {
-                e.printStackTrace();
-                errorMessage("the station the step is at was not found in the database");
-            }
-        }
-    }
-
-    /**
      * finds the station a process step is currently at
      * the step belongs to a station this user is at
      * @param ps the step

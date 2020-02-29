@@ -127,8 +127,7 @@ public class ProzessSchrittService implements Serializable {
         } else if (!ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().contains(zustand)) {
             throw new IllegalArgumentException("state not possible for this ProzessSchritt");
         } else if(lastZustand(ps, zustand)) {
-            experimentierStationService.deleteCurrent(ps, findStation(ps));
-            //experimentierStationService.updateCurrent(ps, findStation(ps)); if not manual decision by Technologe
+            experimentierStationService.updateCurrent(ps, findStation(ps));
         } else {
             ps.getProzessSchrittZustandsAutomat().setCurrent(zustand);
             pslService.closeLog(ps.getProzessSchrittLog().get(ps.getProzessSchrittLog().size() - 1));
