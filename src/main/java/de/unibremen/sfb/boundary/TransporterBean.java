@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 
@@ -19,21 +20,28 @@ import java.util.List;
 @Getter
 @Setter
 @Slf4j
+@Transactional
 
 /*
   this bean manages the interaction of the gui with the backend system (for users who are transporters)
  */
 public class TransporterBean implements Serializable {
     private List<ProzessSchritt> ps;
+    private List<ProzessSchritt> ps2;
+    private List<TransportAuftrag> transportAuftragSelected;
 
     @Inject
-    AuftragService auftragService;
+    private AuftragService auftragService;
     @Inject
-    ProzessKettenVorlageService prozessKettenVorlageService;
+    private ProzessKettenVorlageService prozessKettenVorlageService;
+    @Inject
+    private TransportAuftrag transportAuftrag;
 
     @PostConstruct
     void init(){
         ps = auftragService.getTransportSchritt();
+        ps2 = auftragService.getTransportSchritt2();
+
     }
 
     /**
@@ -42,12 +50,25 @@ public class TransporterBean implements Serializable {
      */
     public List<ProzessSchritt> getAuftragList() {
 
-        return auftragService.getTransportSchritt(); }
+        return auftragService.getTransportSchritt();
+    }
 
     /**
      * sets the status of the job this transporter is currently working on
      */
-    public void setAuftragStatus() {}
+    public void changeTransportZustandAbgeholt(int TransportID) {
+      try {
+          TransportAuftrag tr = auftragService.getTransportAuftragByID(TransportID);
+          auftragService.setTransportZustandAbgeholt(tr);
+          log.info("TransportAuftragZustand wurde gewechselt auf Abgeholt " + TransportID);
+
+      }
+      catch (Exception e){
+          e.printStackTrace();
+          log.error("Failed to change state" + TransportID);
+      }
+        log.info("Erfolg");
+    }
 
     /**
      * reports a sample as lost
@@ -65,4 +86,8 @@ public class TransporterBean implements Serializable {
      * the empty constructor
      */
     public TransporterBean(){}
+
+
+
+
 }

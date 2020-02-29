@@ -135,7 +135,7 @@ class ProbenServiceTest {
     @Test
     void testAddNewSample() {
         try {
-            probenService.addNewSample("id", new Kommentar(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 29, 9), "text"), ProbenZustand.KAPUTT, new Standort(0, "ort"), Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")), new Traeger(0, new TraegerArt("art"), new Standort(0, "ort")));
+            probenService.addNewSample("id", new Kommentar(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 29, 9), "text"), ProbenZustand.KAPUTT, new Standort(0, "ort"), Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")), new Traeger(0, nn ew TraegerArt("art"), new Standort(0, "ort")));
         } catch (DuplicateProbeException e) {
             e.printStackTrace();
         }

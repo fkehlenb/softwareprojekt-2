@@ -5,6 +5,7 @@ import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.AuftragDAO;
 import de.unibremen.sfb.persistence.ProbeDAO;
 import de.unibremen.sfb.persistence.ProzessSchrittDAO;
+import de.unibremen.sfb.persistence.TransportAuftragDAO;
 import lombok.Data;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +32,9 @@ import java.util.stream.Collectors;
 @Transactional
 public class AuftragService implements Serializable {
     private List<Auftrag> auftrage;
+
+    @Inject
+    TransportAuftragDAO transportAuftragDAO;
 
     @Inject
     AuftragDAO auftragDAO;
@@ -193,7 +197,9 @@ public class AuftragService implements Serializable {
     public void update(Auftrag auftrag) throws AuftragNotFoundException {
         auftragDAO.update(auftrag);
     }
-
+    public void updateTransportZustand(TransportAuftrag transportAuftrag) throws TransportAuftragNotFoundException {
+        transportAuftragDAO.update(transportAuftrag);
+    }
 
     /**
      * Add a new job to the database
@@ -253,6 +259,16 @@ public class AuftragService implements Serializable {
 
     public Auftrag getAuftrag(int value) throws AuftragNotFoundException {
         return auftragDAO.getObjById(value);
+    }
+
+    /**
+     *
+     * @param value
+     * @return The TransportAuftag with the specified value
+     * @throws TransportAuftragNotFoundException
+     */
+    public TransportAuftrag getTransportAuftragByID(int value) throws TransportAuftragNotFoundException {
+        return transportAuftragDAO.getTransportAuftragById(value);
     }
 
     /**
@@ -360,6 +376,17 @@ public class AuftragService implements Serializable {
         return s.isEmpty() ? new ArrayList<>() : List.copyOf(s);
     }
 
+    public List<ProzessSchritt> getTransportSchritt2() {
+        var s = new HashSet<ProzessSchritt>();
+        for (Auftrag a :
+                getAuftrage()) {
+            s.addAll(a.getProzessSchritte().stream()
+                    .filter(p -> p.getTransportAuftrag().getZustandsAutomat() == TransportAuftragZustand.ABGEHOLT)
+                    .collect(Collectors.toSet()));
+        }
+        return s.isEmpty() ? new ArrayList<>() : List.copyOf(s);
+    }
+
 
     public int erstelleAuftrag(ProzessKettenVorlage ausPKV, AuftragsPrioritaet ausPrio) {
         // Auftrags Log
@@ -421,5 +448,12 @@ public class AuftragService implements Serializable {
             r.add(ps);
         }
         return r;
+    }
+
+
+    public void setTransportZustandAbgeholt(TransportAuftrag t) throws TransportAuftragNotFoundException {
+        t.setAbgeholt(LocalDateTime.now());
+        updateTransportZustand(t);
+
     }
 }

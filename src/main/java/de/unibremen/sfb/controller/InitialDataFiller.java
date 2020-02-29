@@ -237,7 +237,7 @@ public class InitialDataFiller {
             r.add(ps);
 
             // Weise den PS auch Stationen zu.
-            // Wenn es einen akutellen Schritt gibt, dann werdne die weiteren Schritte in Warteschlange eingreiht.
+            // Wenn es einen akutellen Schritt gibt, dann werden die weiteren Schritte in Warteschlange eingreiht.
             ExperimentierStation es;
             try {
                 es = ps.getProzessSchrittVorlage().getStationen().get(0);
