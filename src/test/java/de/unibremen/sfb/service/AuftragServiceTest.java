@@ -195,21 +195,6 @@ class AuftragServiceTest {
     }
 
     @Test
-    void testAssignToAuftrag() {
-        try {
-            auftragService.assignToAuftrag(new User(0, "vorname", "nachname", "email", "telefonnummer", "username", "password", true, LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 28, 9), "language"), new Auftrag());
-        } catch (AuftragNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-//    @Test
-//    void testProbenZuweisen() {
-//        Auftrag result = auftragService.probenZuweisen(new Auftrag());
-//        Assertions.assertEquals(new Auftrag(), result);
-//    } FIXME das erigibt kein SInn
-
-    @Test
     void testGetTransportSchritt() {
         when(auftragDAO.getAll()).thenReturn(Arrays.<Auftrag>asList(new Auftrag()));
         when(auftrag.getProzessSchritte()).thenReturn(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, Arrays.<ProzessSchrittLog>asList(new ProzessSchrittLog(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 28, 9), "zustandsAutomat")), new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(new ExperimentierStation()), Arrays.<Bedingung>asList(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), 0)), new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")), new ProzessSchrittZustandsAutomat(0, "current", new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")))));

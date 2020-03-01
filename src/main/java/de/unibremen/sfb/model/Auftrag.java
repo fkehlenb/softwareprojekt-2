@@ -65,10 +65,6 @@ public class Auftrag implements Serializable {
     @NonNull
     private Enum<ProzessKettenZustandsAutomat> prozessKettenZustandsAutomat;
 
-    /** Die Zugewiesenen Proben fuer diesen Schritt */
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Probe> zugewieseneProben;
-
     @Override
     public String toString() {
         return "Auftrag: " + this.pkID;

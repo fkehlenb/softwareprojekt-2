@@ -283,17 +283,6 @@ public class AuftragService implements Serializable {
         auftragDAO.update(a);
     }
 
-    /**
-     * assigns a user to a job
-     *
-     * @param t the user to be assigned
-     * @param a the job to which they will be assigned
-     * @throws AuftragNotFoundException the job couldn't be found in the database
-     */
-    public void assignToAuftrag(User t, Auftrag a) throws AuftragNotFoundException {
-        //a.setAssigned(t); //TODO
-        auftragDAO.update(a);
-    }
 
     /*
       Bestimme was der naechste Prozessschritt ist, der noch nicht ausgefuehrt wurde
@@ -332,15 +321,20 @@ public class AuftragService implements Serializable {
                 e.printStackTrace();
             }
             if (auftrag.getProzessSchritte().get(0).getProzessSchrittVorlage().getPsArt().equals("ERZEUGEND")) {
-                auftrag.setZugewieseneProben(erzeugeProbenNachBeding(b, lager, startID + i++));
+                for (ProzessSchritt ps :
+                        auftrag.getProzessSchritte()) {
+                    ps.setZugewieseneProben(erzeugeProbenNachBeding(b, lager, startID + i++));
+
+                }
             } else {
-                auftrag.setZugewieseneProben(proben);
-                // FIXME only once
-                // fixme schleife korrekt?
+                for (ProzessSchritt ps :
+                        auftrag.getProzessSchritte()) {
+                    ps.setZugewieseneProben(proben);
+                }
             }
         }
-        auftragDAO.update(auftrag);
-        return auftrag;
+            auftragDAO.update(auftrag);
+            return auftrag;
     }
 
     /**
