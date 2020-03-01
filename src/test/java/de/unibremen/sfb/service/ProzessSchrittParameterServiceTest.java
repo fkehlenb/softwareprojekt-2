@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,6 +27,10 @@ class ProzessSchrittParameterServiceTest {
     ProzessSchrittParameterDAO prozessSchrittParameterDAO;
     @Mock
     Logger log;
+    @Mock
+    ProzessSchrittParameter prozessSchrittParameter;
+    @Mock
+    List<QualitativeEigenschaft> qualitativeEigenschafts;
     @InjectMocks
     ProzessSchrittParameterService prozessSchrittParameterService;
 
@@ -42,25 +47,23 @@ class ProzessSchrittParameterServiceTest {
 
     @Test
     void testGetEigenschaften() {
-        List<QualitativeEigenschaft> result = prozessSchrittParameterService.getEigenschaften(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(null)));
-        Assertions.assertEquals(Arrays.<QualitativeEigenschaft>asList(null), result);
+        when(prozessSchrittParameter.getQualitativeEigenschaften()).thenReturn(qualitativeEigenschafts);
+        List<QualitativeEigenschaft> result = prozessSchrittParameterService.getEigenschaften(prozessSchrittParameter);
+        Assertions.assertEquals(prozessSchrittParameter.getQualitativeEigenschaften(), result);
     }
 
     @Test
-    void testLoscheParameter() {
-        prozessSchrittParameterService.loscheParameter(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(null)));
+    void testLoscheParameter() throws ProzessSchrittParameterNotFoundException {
+        prozessSchrittParameterService.loscheParameter(prozessSchrittParameter);
+        verify(prozessSchrittParameterDAO).remove(prozessSchrittParameter);
     }
 
     @Test
-    void testGetPSPByID() {
-        try {
-            when(prozessSchrittParameterDAO.getPSPByID(anyInt())).thenReturn(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(null)));
-        } catch (ProzessSchrittParameterNotFoundException e) {
-            e.printStackTrace();
-        }
+    void testGetPSPByID() throws ProzessSchrittParameterNotFoundException {
 
+        when(prozessSchrittParameterDAO.getPSPByID(anyInt())).thenReturn(prozessSchrittParameter);
         ProzessSchrittParameter result = prozessSchrittParameterService.getPSPByID(0);
-        Assertions.assertEquals(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(null)), result);
+        Assertions.assertEquals(prozessSchrittParameter, result);
     }
 
     @Test
