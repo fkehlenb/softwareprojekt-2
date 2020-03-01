@@ -16,17 +16,23 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProzessSchritt {
 
-    /** On delete set to invalid */
+    /**
+     * On delete set to invalid
+     */
     @NonNull
     private boolean isValidData = true;
 
-    /** The process step id */
+    /**
+     * The process step id
+     */
     @NonNull
     @Id
     private int psID;
 
 
-    /** Whether or not the process step has been uploaded */
+    /**
+     * Whether or not the process step has been uploaded
+     */
     private boolean uploaded;
 
 //    /** The experimenting station where the current process step is being carried out */
@@ -34,19 +40,40 @@ public class ProzessSchritt {
 //    @OneToOne
 //    private ExperimentierStation current;
 
-    /** The transport job to be carried out */
+    /**
+     * The transport job to be carried out
+     */
     @OneToOne
     private TransportAuftrag transportAuftrag;
 
-    /** The process step's log */
+    /**
+     * The process step's log
+     */
     @NonNull
     @OneToMany(fetch = FetchType.LAZY)
     private List<ProzessSchrittLog> prozessSchrittLog;
 
-    /** The process step template the process step was created from */
+    /**
+     * The process step template the process step was created from
+     */
     @NonNull
     @ManyToOne
     private ProzessSchrittVorlage prozessSchrittVorlage;
+
+    /**
+     * Die Zugewiesenen Proben fuer diesen Schritt
+     */
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Probe> zugewieseneProben;
+
+    @Override
+    public String toString() {
+        return
+                 " Eigenschaften=" +prozessSchrittVorlage.getName() + " Art=" + prozessSchrittVorlage.getPsArt() + "||"
+                ;
+    }
+
+
 
     /** The process step state automaton template the automaton was created from (containing all possible states) */
     @NonNull

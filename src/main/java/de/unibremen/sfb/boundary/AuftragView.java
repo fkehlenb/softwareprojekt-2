@@ -26,6 +26,7 @@ import org.primefaces.model.SelectableDataModel;
 @Slf4j
 public class AuftragView implements Serializable {
     private List<Auftrag> auftrage;
+    private List<ProzessSchritt> auftragPS;
     private List<ProzessKettenVorlage> vorlagen;
     private AuftragsPrioritaet[] prios;
     private Auftrag selected;
@@ -54,6 +55,7 @@ public class AuftragView implements Serializable {
         prios = AuftragsPrioritaet.values();
         prozessKettenZustandsAutomatList = ProzessKettenZustandsAutomat.values();
 
+
     }
 
     public void erstelleAuftrag() {
@@ -67,7 +69,8 @@ public class AuftragView implements Serializable {
      */
     public void updateAuftragTabelle() {
         auftrage = auftragService.getAuftrage();
-        PrimeFaces.current().ajax().update("content-panel:content-panel");
+
+        PrimeFaces.current().ajax().update("form:form");
     }
 
     public void onRowEdit(RowEditEvent<Auftrag> event) {
