@@ -110,22 +110,6 @@ public class ProbeController implements Serializable {
      */
     public Archiv getArchiv() { return null; }
 
-    /**
-     * returns all properties this sample has
-     * @return a set containing all properties of this sample
-     *
-     */
-    public List<QualitativeEigenschaft> getEigenschaften() {
-        return probe.getQualitativeEigenschaften();
-    }
-
-    /**
-     *sets the properties of this sample
-     * @param eigenschaft a set containing all properties this sample is supposed to have
-     */
-    public void setEigenschaften(List<QualitativeEigenschaft> eigenschaft) {
-        probe.setQualitativeEigenschaften(eigenschaft);
-    }
 
     /**
      * Return the JSON Representation of a Probe

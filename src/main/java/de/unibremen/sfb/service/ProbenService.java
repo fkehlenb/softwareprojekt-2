@@ -31,7 +31,7 @@ public class ProbenService implements Serializable {
     private KommentarDAO kommentarDAO;
 
     @Inject
-    QualitativeEigenschaftService qualitativeEigenschaftService;
+    ProzessSchrittParameterService prozessSchrittParameterService;
 
     @Inject
     BedingungService bedingungService;
@@ -44,10 +44,10 @@ public class ProbenService implements Serializable {
         // FIXME LOADING
         var s = new Standort(UUID.randomUUID().hashCode(), "Archiv");
         var s2 = new Standort(UUID.randomUUID().hashCode(), "Lager");
-        var qEs = qualitativeEigenschaftService.getEigenschaften();
+        var pSPs = prozessSchrittParameterService.getParameterList();
         var bs = bedingungService.getBs();
         var p1 = new Probe(UUID.randomUUID().toString(),4,  ProbenZustand.VORHANDEN , s);
-        p1.setQualitativeEigenschaften(qEs);
+        p1.setParameter(pSPs);
         var p2 = new Probe(UUID.randomUUID().toString(),6,  ProbenZustand.VORHANDEN, s);
         p2.setBedingungen(bs);
 
@@ -61,13 +61,13 @@ public class ProbenService implements Serializable {
     // https://www.primefaces.org/showcase/ui/data/datatable/filter.xhtml
 
     /**
-     * Suche nach Proben die diese Eigenschaft erfuellen
-     * @param q Eigenschaft
-     * @return alle Proben die diese Eigenschaft besitzen
+     * Suche nach Proben die diese Parameter erfuellen
+     * @param q Parameter
+     * @return alle Proben die diese Parameter besitzen
      */
-    public List<Probe> getProbenByEigenschaft(QualitativeEigenschaft q) {
+    public List<Probe> getProbenByParameter(ProzessSchrittParameter q) {
         return proben.stream()
-                .filter(e -> e.getQualitativeEigenschaften().contains(q))
+                .filter(e -> e.getParameter().contains(q))
                 .collect(Collectors.toList());
     }
 
@@ -220,8 +220,9 @@ public class ProbenService implements Serializable {
      * @param qe a list of  (optional)
      * @param t the carrier the sample is currently in (optional)
      * @throws DuplicateProbeException there is already a sample with this id
+     * //FIXME change qe to psp, any bugs?
      */
-    public void addNewSample(String id, Kommentar k, ProbenZustand pz, Standort s, List<QualitativeEigenschaft> qe, Traeger t) throws DuplicateProbeException {
+    public void addNewSample(String id, Kommentar k, ProbenZustand pz, Standort s, List<ProzessSchrittParameter> qe, Traeger t) throws DuplicateProbeException {
         if(!id.matches("[A-Z][0-9][0-9].[0-9]+(.[0-9]+)+")) {
             throw new IllegalArgumentException();
         }
@@ -229,7 +230,7 @@ public class ProbenService implements Serializable {
         List<Kommentar> ks = new LinkedList<>();
         ks.add(k);
         p.setKommentar(ks);
-        p.setQualitativeEigenschaften(qe);
+        p.setParameter(qe);
         p.setCurrentTraeger(t);
         probeDAO.persist(p);
     }

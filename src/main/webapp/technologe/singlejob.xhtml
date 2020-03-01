@@ -70,6 +70,26 @@
                     </p:column>
                 </p:dataTable>
 
+                <h:form>
+                    <p:outputLabel for="PSPAuswahlTable" value="PSP: "/>
+                    <p:selectCheckboxMenu id="PSPAuswahlTable"
+                                          value="#{singleJobBean.ausProzessSchrittParameters}"
+                                          converter="omnifaces.SelectItemsConverter" effect="fade"
+                                          var="psp" style="width: 172px" filter="true"
+                                          filterMatchMode="contains" showCheckbox="true"
+                                          label="ProzessSchrittParamiter" requiredMessage="Bitte Bedingung Zuweisen!"
+                                          required="true">
+                        <f:selectItems value="#{singleJobBean.verProzessSchrittParameters}"
+                                       var="psp" itemLabel="#{psp.name}"
+                                       itemValue="#{psp}"/>
+                    </p:selectCheckboxMenu>
+                    <p:commandButton value="Reset" type="reset"/>
+                    <p:commandButton value="Zuweisen"
+                                     action="#{singleJobBean.zuweisen}" icon="pi pi-check"
+                                     update="@form"/>
+
+                </h:form>
+
                 <p:row>
                     <p:commandButton action="#{singleJobBean.download()}" value="Download Parameter"/>
                 </p:row>

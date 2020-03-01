@@ -50,7 +50,7 @@ public class Probe {
 
     /** The qualitative/quantitative descriptors of the sample */
     @ManyToMany(fetch = FetchType.LAZY)
-    private List<QualitativeEigenschaft> qualitativeEigenschaften;
+    private List<ProzessSchrittParameter> parameter;
 
     /** The container the sample is currently located in */
     @ManyToOne

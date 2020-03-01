@@ -31,6 +31,9 @@ public class SingleJobBean implements Serializable {
 
     private ProzessSchritt ps;
 
+    private List<ProzessSchrittParameter> verProzessSchrittParameters;
+    private List<ProzessSchrittParameter> ausProzessSchrittParameters;
+
     /**
      * saves a comment the user can type in to be added to all samples of a prozessschritt
      */
@@ -78,6 +81,23 @@ public class SingleJobBean implements Serializable {
 
     public List<Probe> getProben() {
         return psService.getProben(ps);
+    }
+
+    /**
+     * weise den Proben des akutellen ProzessSchrittes Proben zu
+     */
+    public void zuweisen() {
+        for (Probe p :
+                ps.getZugewieseneProben()) {
+            var list = p.getParameter();
+            list.addAll(ausProzessSchrittParameters);
+            p.setParameter(list);
+            try {
+                probeService.update(p);
+            } catch (ProbeNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**

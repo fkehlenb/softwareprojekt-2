@@ -13,6 +13,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,12 +45,7 @@ class ProbenServiceTest {
 
         probenService.init();
     }
-
-    @Test
-    void testGetProbenByEigenschaft() {
-        List<Probe> result = probenService.getProbenByEigenschaft(new QualitativeEigenschaft(0, "name"));
-        Assertions.assertEquals(Arrays.<Probe>asList(new Probe("probenID", 9, null, new Standort(0, "ort"))), result);
-    }
+     // FIXME add get Probe by parameter
 
     @Test
     void testGetProbenByStandort() {
@@ -133,7 +129,7 @@ class ProbenServiceTest {
     @Test
     void testAddNewSample() {
         try {
-            probenService.addNewSample("id", new Kommentar(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 29, 9), "text"), ProbenZustand.KAPUTT, new Standort(0, "ort"), Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")), new Traeger(0, new TraegerArt("art"), new Standort(0, "ort")));
+            probenService.addNewSample("id", new Kommentar(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 29, 9), "text"), ProbenZustand.KAPUTT, new Standort(0, "ort"), Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", new ArrayList<>())), new Traeger(0, new TraegerArt("art"), new Standort(0, "ort")));
         } catch (DuplicateProbeException e) {
             e.printStackTrace();
         }
