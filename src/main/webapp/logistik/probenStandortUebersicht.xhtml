@@ -7,6 +7,13 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:shiro="http://shiro.apache.org/tags">
+
+<ui:define name="metadata">
+    <f:metadata>
+        <f:viewAction action="#{languageBean.setLanguage}" />
+    </f:metadata>
+</ui:define>
+
 <h:head>
     <title>Probenstandortuebersicht - SFB Farbige Zustaende</title>
     <link rel="icon" href="../background.png"/>

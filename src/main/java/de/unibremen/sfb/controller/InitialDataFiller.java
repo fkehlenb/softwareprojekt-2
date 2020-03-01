@@ -288,7 +288,7 @@ public class InitialDataFiller {
             List<Role> a = new ArrayList<>();
             testUser = new User(UUID.randomUUID().hashCode(), "Default", "Technologe", "l@g.c", f.phoneNumber().cellPhone(),
                     "t", matcher.getPasswordService().encryptPassword("12345678"), true, LocalDateTime.now(),
-                    "ENGLISH");
+                    "en");
             roleService.applyRoles(List.of("technologe"), "t");
             tTechnologe = testUser;
             List users = new ArrayList<>();
@@ -298,14 +298,14 @@ public class InitialDataFiller {
 
             testUser = new User(UUID.randomUUID().hashCode(), "Default", "PKAdmin", "l@g.c", f.phoneNumber().cellPhone(),
                     "pk", matcher.getPasswordService().encryptPassword("12345678"), true, LocalDateTime.now(),
-                    "DEUTSCH");
+                    "de");
             roleService.applyRoles(List.of("pkAdmin"), "pk");
             // Add to user Lost
 
 
             testUser = new User(UUID.randomUUID().hashCode(), "Default", "Admin", "l@g.c", f.phoneNumber().cellPhone(),
                     "admin", matcher.getPasswordService().encryptPassword("12345678"), true, LocalDateTime.now(),
-                    "ENGLISH");
+                    "en");
             roleService.applyRoles(List.of("admin", "transport", "pkAdmin", "logistik", "technologe"), "admin");
             // Add to user Lost
 
@@ -314,7 +314,7 @@ public class InitialDataFiller {
 
             testUser = new User(UUID.randomUUID().hashCode(), "Default", "Transport", "l@g.c", f.phoneNumber().cellPhone(),
                     "tr", matcher.getPasswordService().encryptPassword("12345678"), true, LocalDateTime.now(),
-                    "DEUTSCH");
+                    "de");
             roleService.applyRoles(List.of("transport"), "tr");
 
             // Add to user Lost
@@ -322,7 +322,7 @@ public class InitialDataFiller {
 
             testUser = new User(UUID.randomUUID().hashCode(), "Default", "Logistik", "l@g.c", f.phoneNumber().cellPhone(),
                     "l", matcher.getPasswordService().encryptPassword("12345678"), true, LocalDateTime.now(),
-                    "DEUTSCH");
+                    "de");
             roleService.applyRoles(List.of("logistik"), "l");
             // Add to user Lost
             users.add(testUser);
