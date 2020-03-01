@@ -37,4 +37,5 @@ public class TransportAuftrag implements Serializable {
     /** The transport job's current state */
     @NonNull
     private Enum<TransportAuftragZustand> zustandsAutomat;
+
 }
