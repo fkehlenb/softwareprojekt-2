@@ -220,7 +220,6 @@ class AuftragServiceTest {
     void testSetAuftragDAO() {
         auftragService.setAuftragDAO(new AuftragDAO());
     }
-test
 
     @Test
     void testSetProzessKettenVorlageService() {
