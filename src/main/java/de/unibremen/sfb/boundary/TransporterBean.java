@@ -59,7 +59,7 @@ public class TransporterBean implements Serializable {
     public void changeTransportZustandAbgeholt(int TransportID) {
       try {
           TransportAuftrag tr = auftragService.getTransportAuftragByID(TransportID);
-          auftragService.setTransportZustandAbgeholt(tr);
+          auftragService.sedTransportZustandAbgeholt(tr);
           log.info("TransportAuftragZustand wurde gewechselt auf Abgeholt " + TransportID);
 
       }

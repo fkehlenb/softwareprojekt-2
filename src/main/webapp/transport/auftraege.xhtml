@@ -71,8 +71,12 @@
                             Verfügbare Aufträge
                         </f:facet>
 
+                        <p:column headerText="psID">
+                            <h:outputText value="#{ps.psID}"/>
+                        </p:column>
+
                         <p:column headerText="TrägerID">
-                            <h:outputText value="#{ps.prozessSchrittVorlage.eingabeTraeger}"/>5
+                            <h:outputText value="#{ps.prozessSchrittVorlage.eingabeTraeger}"/>
                         </p:column>
 
                         <p:column headerText="Abholort">

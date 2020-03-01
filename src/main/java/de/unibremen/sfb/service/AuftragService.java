@@ -440,7 +440,7 @@ public class AuftragService implements Serializable {
     }
 
 
-    public void setTransportZustandAbgeholt(TransportAuftrag t) throws TransportAuftragNotFoundException {
+    public void sedTransportZustandAbgeholt(TransportAuftrag t) throws TransportAuftragNotFoundException {
         t.setAbgeholt(LocalDateTime.now());
         updateTransportZustand(t);
 
