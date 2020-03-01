@@ -53,17 +53,14 @@
                                 <p:column headerText="Träger-ID">
                                     <h:outputText value="#{probe.currentTraeger.id}"/>
                                 </p:column>
-                                <p:column headerText="Kommentar">
-                                    <h:outputText value="#{technologeView.KommentarToString(probe)}"/>
-                                </p:column>
                                 <p:column headerText="Auswählen">
                                         <div align="center">
-                                            <h:commandButton value="Choose" action="#{singleSampleBean.singleprobe(probe)}" />
+                                            <p:commandButton value="Choose" action="#{singleSampleBean.singleprobe(probe)}" />
                                         </div>
                                 </p:column>
                                 <p:column headerText="Verloren">
                                         <div align="center">
-                                            <h:commandButton action="#{technologeView.reportLostProbe(probe)}" value="Verloren"/>
+                                            <p:commandButton action="#{technologeView.reportLostProbe(probe)}" value="Verloren"/>
                                         </div>
                                 </p:column>
                             </p:dataTable>

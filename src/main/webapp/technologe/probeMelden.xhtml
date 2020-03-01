@@ -42,8 +42,7 @@
                             <p>Proben-ID: </p>
                             <p:outputLabel for="pid" value="ID: "/>
                             <p:inputMask id="pid" value="#{probeMeldenView.probeMeldenID}"/>
-                            <p:commandButton value="Submit" type="submit"/>
-                            <p:commandButton action="#{probeMeldenView.reportLostProbe()}"/>
+                            <p:commandButton value="Submit" action="#{probeMeldenView.reportLostProbe()}"/>
                         </p:row>
 
                     </p:panelGrid>

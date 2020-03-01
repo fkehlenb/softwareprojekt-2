@@ -45,10 +45,8 @@
                     <p>Daten hochgeladen: #{singleJobBean.ps.uploaded}</p>
                 </p:row>
                 <p:row>
-                    <p>Zustand: #{singleJobBean.ps.prozessSchrittZustandsAutomat.current}</p>
-                    <div align="center">
-                        <h:commandButton action="#{singleJobBean.setJobZustand()}" value="Weiterschalten"/>
-                    </div>
+                    <p> Zustand: <h:outputText id="zustand" value="#{singleJobBean.ps.prozessSchrittZustandsAutomat.current}"/> </p>
+                    <p:commandButton update="zustand" action="#{singleJobBean.setJobZustand()}" value="Weiterschalten"/>
                 </p:row>
 
                 <p:row>
@@ -57,8 +55,7 @@
 
                 <p:outputLabel for="kommentar" value="Kommentar:"/>
                 <p:inputMask id="kommentar" value="#{singleJobBean.kommentarForAll}" mask=""/>
-                <p:commandButton value="Save" type="save"/>
-                <p:commandButton action="#{singleJobBean.addComment(singleJobBean.kommentarForAll)}"/>
+                <p:commandButton value="Save" action="#{singleJobBean.addComment()}"/>
 
                 <p:row>
                     <p> Prozessschritt Parameter: </p>
@@ -74,16 +71,14 @@
                 </p:dataTable>
 
                 <p:row>
-                    <div align="center">
-                        <h:commandButton action="#{singleJobBean.download()}" value="Download Parameter"/>
-                    </div>
+                    <p:commandButton action="#{singleJobBean.download()}" value="Download Parameter"/>
                 </p:row>
 
                 <p:row>
                     <p> Proben: </p>
                 </p:row>
 
-                <p:dataTable var="probe" value="#{singleJobBean.ps.zugewieseneProben}">
+                <p:dataTable var="probe" value="#{singleJobBean.getProben()}">
 
                     <p:column headerText="Id">
                         <h:outputText value="#{probe.probenID}"/>
@@ -96,7 +91,7 @@
                     </p:column>
                     <p:column headerText="Auswählen">
                         <div align="center">
-                            <h:commandButton value="Choose" action="#{singleSampleBean.singleprobe(probe)}" />
+                            <p:commandButton value="Choose" action="#{singleSampleBean.singleprobe(probe)}" />
                         </div>
                     </p:column>
 

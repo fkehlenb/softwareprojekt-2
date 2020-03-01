@@ -1,7 +1,13 @@
 package de.unibremen.sfb.controller;
 
 import com.github.javafaker.Faker;
+import de.unibremen.sfb.exception.DuplicateKommentarException;
+import de.unibremen.sfb.exception.DuplicateProbeException;
+import de.unibremen.sfb.exception.DuplicateTraegerException;
 import de.unibremen.sfb.model.*;
+import de.unibremen.sfb.persistence.KommentarDAO;
+import de.unibremen.sfb.persistence.ProbeDAO;
+import de.unibremen.sfb.persistence.TraegerDAO;
 import de.unibremen.sfb.persistence.UserDAO;
 import de.unibremen.sfb.service.RoleService;
 import de.unibremen.sfb.service.UserService;
@@ -39,6 +45,8 @@ public class InitialDataFiller {
     private List<String> psZustaende = new ArrayList<>();
     private List<String> pkZustaende = new ArrayList<>();
 
+    private List<TraegerArt> tas = new ArrayList<>();
+
     @Inject
     private UserDAO userDAO;
 
@@ -47,6 +55,15 @@ public class InitialDataFiller {
 
     @Inject
     RoleService roleService;
+
+    @Inject
+    private ProbeDAO probeDAO;
+
+    @Inject
+    private KommentarDAO kommentarDAO;
+
+    @Inject
+    private TraegerDAO traegerDAO;
 
     @PersistenceContext
     private EntityManager em;
@@ -86,6 +103,14 @@ public class InitialDataFiller {
                     createDefaulStandort()) {
                 log.info("Trying to  persist Standort " + s.toString());
                 em.persist(s);
+            }
+
+            // Persistiere Traeger Arten
+            tas = erstelleTraeger();
+            for (TraegerArt t :
+                    tas) {
+                log.info("Persisting Traegerart " + t.getArt());
+                em.persist(t);
             }
 
             for (ProzessSchrittZustandsAutomatVorlage p :
@@ -129,7 +154,7 @@ public class InitialDataFiller {
             em.persist(b);
 
             // Erstelle die Liste aus den Parametern
-            List<ProzessSchrittVorlage> psvListe = getProzessSchrittVorlages(parameters);
+            List<ProzessSchrittVorlage> psvListe = getProzessSchrittVorlages(b);
             for (ProzessSchrittVorlage pSV :
                     psvListe) {
                 log.info("Trying to persist ProzessSchrittVorlage " + pSV.toString());
@@ -151,13 +176,6 @@ public class InitialDataFiller {
             log.info("Try to persist ProzessSchrittZustandsAutomat " + prozessSchrittZustandsAutomat.toString());
             em.persist(prozessSchrittZustandsAutomat);
             erstelleAuftrag(psvListe);
-
-            // Persistiere Traeger Arten
-            for (TraegerArt t :
-                    erstelleTraeger()) {
-                log.info("Persisting Traegerart " + t.getArt());
-                em.persist(t);
-            }
 
         } else {
             log.info("Data already exists");
@@ -220,18 +238,19 @@ public class InitialDataFiller {
 
             // Weise den PS auch Stationen zu.
             // Wenn es einen akutellen Schritt gibt, dann werdne die weiteren Schritte in Warteschlange eingreiht.
-            ExperimentierStation es;
+            /*ExperimentierStation es;
             try {
                 es = ps.getProzessSchrittVorlage().getStationen().get(0);
                 if (es.getCurrentPS() == null) {
                     es.setCurrentPS(ps);
+                    ps.setZugewieseneProben(erstelleProben(es.getStandort()));
                 } else {
                     es.getNextPS().add(ps);
                 }
                 em.persist(es);
             } catch (NullPointerException e) {
                 log.info("Es gibt keine Stationen für diesen Schritt");
-            }
+            }*/
         }
         return r;
     }
@@ -337,16 +356,16 @@ public class InitialDataFiller {
     }
 
 
-    public List<ProzessSchrittVorlage> getProzessSchrittVorlages(List<ProzessSchrittParameter> parameters) {
+    public List<ProzessSchrittVorlage> getProzessSchrittVorlages(Bedingung b) {
         // PSVA
         List<ProzessSchrittVorlage> psListe = new ArrayList<>();
         for (int i = 0; i < limit; i++) {
-            psListe.add(getProzessSchrittVorlage(parameters));
+            psListe.add(getProzessSchrittVorlage(b));
         }
         return psListe;
     }
 
-    public ProzessSchrittVorlage getProzessSchrittVorlage(List<ProzessSchrittParameter> parameters) {
+    public ProzessSchrittVorlage getProzessSchrittVorlage(Bedingung b) {
         // ProzessSchrittVorlage Setup
         ProzessSchrittZustandsAutomatVorlage v = new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(),
                 psZustaende, "Test pszvav");
@@ -354,8 +373,10 @@ public class InitialDataFiller {
         var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "ANGENOMMEN", sVorlage);
         em.persist(a);
         Faker faker = new Faker();
+        List<Bedingung> bs = new ArrayList<>();
+        bs.add(b);
         return  new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), "42",faker.gameOfThrones().character(),
-                "Ermittlend", experimentierStations, new ArrayList<>(), v);
+                "Ermittlend", experimentierStations, bs, v);
     }
 
     public List<QualitativeEigenschaft> getQualitativeEigenschaften() {
@@ -386,6 +407,49 @@ public class InitialDataFiller {
         sVorlage = new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(), zustaende, "Standart");
         ergebnis.add(sVorlage);
         return ergebnis;
+    }
+
+    /**
+     * erstellt proben für einen prozessschritt
+     * @return a list of samples
+     */
+    public List<Probe> erstelleProben(Standort s) {
+        List<Probe> r = new ArrayList<>();
+        Traeger t = new Traeger(666, tas.get(0), s);
+        try {
+            traegerDAO.persist(t);
+        }
+        catch(DuplicateTraegerException e) {
+            e.printStackTrace();
+        }
+        /*for(int i=0; i<limit; i++){
+            Probe p1 = new Probe("FDGHJ"+i, ProbenZustand.VORHANDEN, s);
+            p1.setCurrentTraeger(t);
+            p1.setKommentar(erstelleKommentare());
+            r.add(p1);
+            try {
+                probeDAO.persist(p1);
+            }
+            catch(DuplicateProbeException e) {
+                e.printStackTrace();
+            }
+        }*/
+        return r;
+    }
+
+    public List<Kommentar> erstelleKommentare() {
+        List<Kommentar> r = new ArrayList<>();
+        for(int i=0; i<limit; i++) {
+            Kommentar k = new Kommentar(LocalDateTime.now(), "hallo"+i);
+            try {
+                kommentarDAO.persist(k);
+            }
+            catch(DuplicateKommentarException e) {
+                e.printStackTrace();
+            }
+            r.add(k);
+        }
+        return r;
     }
 
 }
