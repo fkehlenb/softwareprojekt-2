@@ -43,9 +43,6 @@ public class AuftragService implements Serializable {
     AuftragDAO auftragDAO;
 
     @Inject
-    AuftragDAO auftragDAO;
-
-    @Inject
     ProzessKettenVorlageService prozessKettenVorlageService;
 
     @Inject
@@ -203,10 +200,6 @@ public class AuftragService implements Serializable {
     public void update(Auftrag auftrag) throws AuftragNotFoundException {
         auftragDAO.update(auftrag);
     }
-    public void updateTransportZustand(TransportAuftrag transportAuftrag) throws TransportAuftragNotFoundException {
-        transportAuftragDAO.update(transportAuftrag);
-    }
-
     /**
      * Update an existing transport Job in the database
      *
