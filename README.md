@@ -70,7 +70,7 @@
 </ul>
 <h5 id="prozesskettenplaner">Prozesskettenplaner</h5>
 <ul>
-<li>Übersicht über alle Prozessschritte<ul>
+<strike><li>Übersicht über alle Prozessschritte<ul>
 <li>Anlegen neuer Prozessschritte  <em>FIXME LEO</em> <ul>
 <li>Auswahl von vordefinierten Abläufen (Zustandsautomat) <em>FIXME SANTI add List</em</li>
 <li>Auswahl von dyn. Abläufen (<strong>O«Dynamische Zustandsautomaten»</strong>)</li>
@@ -83,6 +83,7 @@
 <li>Löschen bestehender Prozessschritte</li>
 <li>Bearbeiten von "nicht gestarteten" Prozessschritten</li>
 <li>Hervorhebung der Prozessschritte, die im Zustand auf kaputt gesetzt sind</li>
+</strike>
 </ul>
 </li>
 <li>Übersicht über dynamische Abläufe (<strong>O«Dynamische Zustandsautomaten»</strong>)<ul>
