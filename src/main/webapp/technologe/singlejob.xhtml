@@ -97,7 +97,7 @@
                     <p> Proben: </p>
                 </p:row>
 
-                <p:dataTable var="probe" value="#{singleJobBean.getProben()}">
+                <p:dataTable var="probe" value="#{singleJobBean.ps.zugewieseneProben}">
 
                     <p:column headerText="Id">
                         <h:outputText value="#{probe.probenID}"/>
@@ -110,7 +110,7 @@
                     </p:column>
                     <p:column headerText="Auswählen">
                         <div align="center">
-                            <p:commandButton value="Choose" action="#{singleSampleBean.singleprobe(probe)}" />
+                            <h:commandButton value="Choose" action="#{singleSampleBean.singleprobe(probe)}" />
                         </div>
                     </p:column>
 

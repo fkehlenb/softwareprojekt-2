@@ -37,7 +37,7 @@
                             <p>Hier können Sie alle Proben von Aufträgen, die Sie fertig bearbeitet haben, sehen, für die noch keine Informationen hochgeladen wurden. </p>
 
 
-                            <p:dataTable var="probe" value="#{technologeView.viewToBeUploaded()}" paginator="true" rows="10"
+                            <p:dataTable id="proben" var="probe" value="#{technologeView.viewToBeUploaded()}" paginator="true" rows="10"
                                          paginatorTemplate=
                                     "{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
                                          rowsPerPageTemplate="5,10,15" lazy="true">
@@ -63,7 +63,7 @@
                                 </p:column>
                                 <p:column headerText="Verloren">
                                         <div align="center">
-                                            <p:commandButton action="#{technologeView.reportLostProbe(probe)}" value="Verloren"/>
+                                            <p:commandButton update="proben" action="#{technologeView.reportLostProbe(probe)}" value="Verloren"/>
                                         </div>
                                 </p:column>
                             </p:dataTable>

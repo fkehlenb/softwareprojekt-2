@@ -40,7 +40,7 @@
                                 <p>Hier können Sie alle Stationen sehen, an denen Sie arbeiten, und zwischen den Sichtweisen der Stationen wechseln. </p>
                             </p:row>
 
-                            <p:dataTable var="station" value="#{technologeView.getStationen()}"
+                            <p:dataTable id="stationen" var="station" value="#{technologeView.getStationen()}"
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                                          paginator="true" rows="50" style="margin-bottom:20px">
                                 <p:column headerText="Id">
@@ -57,7 +57,7 @@
                                 </p:column>
                                 <p:column headerText="Als kaputt melden">
                                         <div align="center">
-                                            <p:commandButton action="#{technologeView.reportBroken(station)}" value="REPORT"/>
+                                            <p:commandButton update="stationen" action="#{technologeView.reportBroken(station)}" value="REPORT"/>
                                         </div>
                                 </p:column>
                                 <p:column headerText="Auswählen">
