@@ -6,10 +6,8 @@ import de.unibremen.sfb.service.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.primefaces.model.LazyDataModel;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -100,40 +98,20 @@ public class TechnologeView implements Serializable {
     }
 
     /**
-     * puts the process step as the current one if the station does not have a current step
-     * otherwise, an error is displayed for the user, and nothing changes
-     * @param ps the process step
-     */
-    public void assignUser(ProzessSchritt ps) {
-        if(ps == null) {
-            errorMessage("invalid input");
-        }
-        else {
-            try {
-                esService.setCurrentPS(ps, findStandort(ps));
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-                errorMessage("process step " + ps.getPsID() + " could not be set as the current step of its station");
-            } catch (ExperimentierStationNotFoundException e) {
-                e.printStackTrace();
-                errorMessage("the station the step is at was not found in the database");
-            }
-        }
-    }
-
-    /**
      * finds the station a process step is currently at
      * the step belongs to a station this user is at
      * @param ps the step
      * @return the station
      */
     public ExperimentierStation findStandort(ProzessSchritt ps) { //TODO integrate into my xhtmls
-        return prozessSchrittService.findStation(ps);
+        try {
+            return prozessSchrittService.findStation(ps);
+        }
+        catch(IllegalArgumentException e) {
+            errorMessage("invalid input");
+            return null;
+        }
     }
-    //TODO prozessschritt als current löschen wenn fertig/bearbeitet
-    //problem: mit viewuploaded wird dann nicht angezeigt
-    //evtl liste in experimentierstation mit denen, die bearbeitet sind, aber upload brauchen?
-    //woher weiß ich ob ein schritt upload brauch/Brauchen das alle?
 
     /**
      * reports an experimentation station as broken
@@ -157,7 +135,7 @@ public class TechnologeView implements Serializable {
      */
     public void createUrformend(String id) {
         //probeService.addNewSample(id);
-        //TODO kann das der technologe wirklich selber?
+        //TODO wie soll ich das integrieren?
     }
 
     /**
@@ -169,7 +147,7 @@ public class TechnologeView implements Serializable {
         List<Probe> res = new LinkedList<>();
         for(ProzessSchritt ps : getJobs()) {
             if(!ps.isUploaded() && ps.getProzessSchrittZustandsAutomat().getCurrent().equals("Bearbeitet")) {
-                res.addAll(ps.getZugewieseneProben());
+                res.addAll(psService.getProben(ps));
             }
         }
         return res;
@@ -202,6 +180,15 @@ public class TechnologeView implements Serializable {
         }
     }
 
+    /**
+     * finds the priority of a process step
+     * @param ps the step
+     * @return the priority of the Auftrag the process step belongs to
+     */
+    public AuftragsPrioritaet getPriority(ProzessSchritt ps) {
+        return psService.getAuftrag(ps).getPriority();
+    }
+
 
 
     /**
@@ -209,7 +196,7 @@ public class TechnologeView implements Serializable {
      *
      * @param e error messsage
      */
-    public void errorMessage(String e) {
+    private void errorMessage(String e) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e, null));
         log.info("an error occurred" + e);
     }

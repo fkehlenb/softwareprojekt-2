@@ -1,5 +1,7 @@
 package de.unibremen.sfb.boundary;
 
+import de.unibremen.sfb.exception.DuplicateKommentarException;
+import de.unibremen.sfb.exception.KommentarNotFoundException;
 import de.unibremen.sfb.exception.ProbeNotFoundException;
 import de.unibremen.sfb.model.Kommentar;
 import de.unibremen.sfb.model.Probe;
@@ -62,7 +64,7 @@ public class SingleSampleBean implements Serializable {
             probenService.editProbenComment(p, k, c);
             log.info("the comment " + k.getId() + " of probe " + p.getProbenID() + " was edited to " + c);
         }
-        catch(ProbeNotFoundException e) {
+        catch(ProbeNotFoundException | KommentarNotFoundException e) {
             e.printStackTrace();
             log.info("an error occurred trying to update comment " + k.getId() + " of sample " + p.getProbenID() + " : " + e.getMessage());
         }
@@ -80,7 +82,7 @@ public class SingleSampleBean implements Serializable {
             probenService.deleteProbenComment(p, k);
             log.info("comment " + k.getId() + " of probe " + p.getProbenID() + " was deleted");
         }
-        catch(ProbeNotFoundException e) {
+        catch(ProbeNotFoundException | KommentarNotFoundException e) {
             e.printStackTrace();
             log.info("an error occurred trying to delete comment " + k.getId() + " of sample " + p.getProbenID() + " : " +e.getMessage());
         }
@@ -91,20 +93,20 @@ public class SingleSampleBean implements Serializable {
     }
 
     /**
-     * adds a comment to a sample
-     * @param c the comment
+     * adds the singleComment to this sample to a sample
      */
-    public void addProbenComment(String c) {
+    public void addProbenComment() {
         try {
-            probenService.addProbenComment(p, c);
-            log.info("the comment " + c + " was added to the sample " + p.getProbenID());
-        } catch (ProbeNotFoundException e) {
+            probenService.addProbenComment(p, singleKommentar);
+            log.info("the comment " + singleKommentar + " was added to the sample " + p.getProbenID());
+        } catch (ProbeNotFoundException | DuplicateKommentarException e) {
             e.printStackTrace();
-            log.info("an error occurred trying to add comment " + c + " to sample " + p.getProbenID() + " : " +e.getMessage());
+            log.info("an error occurred trying to add comment " + singleKommentar + " to sample " + p.getProbenID() + " : " +e.getMessage());
         }
         catch(IllegalArgumentException e) {
             errorMessage("invalid input");
         }
+        singleKommentar=""; //TODO feld leer wenn fertig gespeichert
     }
 
     public SingleSampleBean() {}

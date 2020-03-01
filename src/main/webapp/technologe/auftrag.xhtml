@@ -40,16 +40,11 @@
                                 <p:column headerText="Id">
                                     <h:outputText value="#{ps.prozessSchrittVorlage.name}"/>
                                 </p:column>
-                                <p:column headerText="Zustand">
-                                    <h:outputText value="#{ps.prozessSchrittZustandsAutomat.current}"/>
+                                <p:column headerText="Priorität">
+                                    <h:outputText value="#{technologeView.getPriority(ps)}"/>
                                 </p:column>
                                 <p:column headerText="Station">
                                     <h:outputText value="#{technologeView.findStandort(ps)}"/>
-                                </p:column>
-                                <p:column headerText="Bearbeiten">
-                                    <div align="center">
-                                        <h:commandButton value="Choose" action="#{technologeView.assignUser(ps)}" />
-                                    </div>
                                 </p:column>
                             </p:dataTable>
                         </p:panelGrid>

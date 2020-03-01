@@ -31,13 +31,9 @@ import java.util.stream.Collectors;
 @Transactional
 public class AuftragService implements Serializable {
     private List<Auftrag> auftrage;
-    private
 
     @Inject
     AuftragDAO auftragDAO;
-
-    @Inject
-    ProbenService probenService;
 
     @Inject
     ProzessKettenVorlageService prozessKettenVorlageService;
@@ -46,13 +42,13 @@ public class AuftragService implements Serializable {
     AuftragsLogsService auftragsLogsService;
 
     @Inject
-    ProzessSchrittZustandsAutomatService prozessSchrittZustandsAutomatService;
+    private ProzessSchrittDAO prozessSchrittDAO;
 
     @Inject
-    ProzessSchrittLogService prozessSchrittLogService;
+    private ProzessSchrittZustandsAutomatService prozessSchrittZustandsAutomatService;
 
     @Inject
-    ProzessSchrittDAO prozessSchrittDAO;
+    private ProzessSchrittLogService prozessSchrittLogService;
 
     @Inject
     StandortService standortService;
@@ -389,7 +385,7 @@ public class AuftragService implements Serializable {
         return pk.getPkID();
     }
 
-    private List<ProzessSchritt> erstelePS(List<ProzessSchrittVorlage> psvListe) {
+    public List<ProzessSchritt> erstelePS(List<ProzessSchrittVorlage> psvListe) {
         var r = new ArrayList<ProzessSchritt>();
 
         for (ProzessSchrittVorlage psv :
