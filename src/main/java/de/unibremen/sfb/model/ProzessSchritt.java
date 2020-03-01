@@ -57,4 +57,11 @@ public class ProzessSchritt {
     @NonNull
     @OneToOne
     private ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat;
+
+    @Override
+    public String toString() {
+        return
+                " Eigenschaften=" +prozessSchrittVorlage.getName()  + prozessSchrittVorlage.getBedingungen() + " ||"
+                ;
+    }
 }

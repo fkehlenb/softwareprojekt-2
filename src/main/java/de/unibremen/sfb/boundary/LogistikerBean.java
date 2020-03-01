@@ -300,17 +300,17 @@ public class LogistikerBean implements Serializable {
      * @param auftrag the job
      *
      */
-    public String refuseAuftrag(int auftrag) {
+    public void refuseAuftrag(int auftrag) {
         try {
             Auftrag a = auftragService.getAuftrag(auftrag);
             auftragService.zustandswechsel(a, ABGELEHNT);
             log.info("Auftrag wurde abgelehnt! ID: " + auftrag);
             facesNotification("Auftrag wurde abgelehnt! ID: " + auftrag);
             //Aktualisiert Auftragsliste
-            //auftragView.updateAuftragTabelle();
+            auftragView.updateAuftragTabelle();
             auftragService.update(a);
             Thread.sleep(100);
-            return "Auftragsuebersicht?faces-redirect=true";
+            //return "Auftragsuebersicht?faces-redirect=true";
             //PrimeFaces.current().ajax().update("content-panel");
 
 
@@ -319,7 +319,7 @@ public class LogistikerBean implements Serializable {
             log.error("Failed to change auftrag state! ID: " + auftrag);
             facesError("Failed to change auftrag state! ID: " + auftrag);
         }
-        return null;
+        //return null;
     }
 
     /**
