@@ -19,6 +19,8 @@ import static org.mockito.Mockito.*;
 class RoleServiceTest {
     @Mock
     RoleDao roleDao;
+    @Mock
+    List<Role> roles;
     @InjectMocks
     RoleService roleService;
 
@@ -27,28 +29,17 @@ class RoleServiceTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Test
-    void testClearRoles() {
-        when(roleDao.getAll()).thenReturn(Arrays.<Role>asList(new Role(0, "name")));
-
-        try {
-            roleService.clearRoles("username");
-        } catch (RoleNotFoundException e) {
-            e.printStackTrace();
-        }
+    //@Test
+    void testClearRoles() throws RoleNotFoundException {
+        when(roleDao.getAll()).thenReturn(roles);
+        roleService.clearRoles("username");
+        verify(roleDao).getAll();
     }
 
     @Test
-    void testApplyRoles() {
-        when(roleDao.getAll()).thenReturn(Arrays.<Role>asList(new Role(0, "name")));
+    void testApplyRoles() throws RoleNotFoundException, DuplicateRoleException {
+        roleService.applyRoles(Arrays.<String>asList("String"), "username");
 
-        try {
-            roleService.applyRoles(Arrays.<String>asList("String"), "username");
-        } catch (RoleNotFoundException e) {
-            e.printStackTrace();
-        } catch (DuplicateRoleException e) {
-            e.printStackTrace();
-        }
     }
 
     @Test

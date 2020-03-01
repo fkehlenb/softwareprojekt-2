@@ -1,7 +1,10 @@
 package de.unibremen.sfb.service;
 
+import de.unibremen.sfb.exception.DuplicateProzessSchrittVorlageException;
 import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
-import de.unibremen.sfb.model.*;
+import de.unibremen.sfb.model.Auftrag;
+import de.unibremen.sfb.model.ProzessSchritt;
+import de.unibremen.sfb.model.ProzessSchrittVorlage;
 import de.unibremen.sfb.persistence.ProzessSchrittVorlageDAO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,9 +14,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -25,12 +25,16 @@ class ProzessSchrittVorlageServiceTest {
     ProzessSchrittVorlageDAO psvDAO;
     @Mock
     AuftragService auftragService;
-
+    @Mock
+    ProzessSchrittVorlage prozessKettenVorlage;
     @Mock
     Logger log;
     @Mock
     List<ProzessSchrittVorlage> prozessSchrittVorlages;
-
+    @Mock
+    List<Auftrag> auftrags;
+    @Mock
+    ProzessSchritt prozessSchritt;
     @InjectMocks
     ProzessSchrittVorlageService prozessSchrittVorlageService;
 
@@ -39,11 +43,6 @@ class ProzessSchrittVorlageServiceTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Test
-    void testInit() {
-        when(psvDAO.getAll()).thenReturn(prozessSchrittVorlages);
-        prozessSchrittVorlageService.init();
-    }
 
     @Test
     void testGetProzessSchrittVorlagen() {
@@ -53,78 +52,41 @@ class ProzessSchrittVorlageServiceTest {
     }
 
     @Test
-    void testPersist() {
-        prozessSchrittVorlageService.persist(new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(null), Arrays.<Bedingung>asList(null), null));
+    void testPersist() throws DuplicateProzessSchrittVorlageException {
+        prozessSchrittVorlageService.persist(prozessKettenVorlage);
+        verify(psvDAO).persist(any());
     }
 
     @Test
-    void testByID() {
-        try {
-            when(psvDAO.getObjById(anyInt())).thenReturn(new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(null), Arrays.<Bedingung>asList(null), new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")));
-        } catch (ProzessSchrittVorlageNotFoundException e) {
-            e.printStackTrace();
-        }
+    void testByID() throws ProzessSchrittVorlageNotFoundException {
 
-        ProzessSchrittVorlage result = null;
-        try {
-            result = prozessSchrittVorlageService.ByID(0);
-        } catch (ProzessSchrittVorlageNotFoundException e) {
-            e.printStackTrace();
-        }
-        Assertions.assertEquals(new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(null), Arrays.<Bedingung>asList(null), new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")), result);
+        when(psvDAO.getObjById(anyInt())).thenReturn(prozessKettenVorlage);
+
+        ProzessSchrittVorlage result = prozessSchrittVorlageService.ByID(0);
+
+        Assertions.assertEquals(prozessKettenVorlage, result);
     }
 
     @Test
-    void testEdit() {
-        try {
-            prozessSchrittVorlageService.edit(new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(null), Arrays.<Bedingung>asList(null), new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")));
-        } catch (ProzessSchrittVorlageNotFoundException e) {
-            e.printStackTrace();
-        }
+    void testEdit() throws ProzessSchrittVorlageNotFoundException {
+        prozessSchrittVorlageService.edit(prozessKettenVorlage);
+        verify(psvDAO).update(prozessKettenVorlage);
     }
+
 
     @Test
-    void testDelete() {
-        prozessSchrittVorlageService.delete(Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(null), Arrays.<Bedingung>asList(null), null)));
+    void testGetByID() throws ProzessSchrittVorlageNotFoundException {
+
+        when(psvDAO.getObjById(anyInt())).thenReturn(prozessKettenVorlage);
+
+        ProzessSchrittVorlage result = prozessSchrittVorlageService.getByID(0);
+
+        Assertions.assertEquals(prozessKettenVorlage, result);
     }
 
-    @Test
-    void testGetByID() {
-        try {
-            when(psvDAO.getObjById(anyInt())).thenReturn(new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(null), Arrays.<Bedingung>asList(null), new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")));
-        } catch (ProzessSchrittVorlageNotFoundException e) {
-            e.printStackTrace();
-        }
 
-        ProzessSchrittVorlage result = null;
-        try {
-            result = prozessSchrittVorlageService.getByID(0);
-        } catch (ProzessSchrittVorlageNotFoundException e) {
-            e.printStackTrace();
-        }
-        Assertions.assertEquals(new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(null), Arrays.<Bedingung>asList(null), new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")), result);
-    }
 
-    @Test
-    void testDarftBearbeiten() {
-        when(auftragService.getAuftrage()).thenReturn(Arrays.<Auftrag>asList(new Auftrag()));
 
-        List<ProzessSchritt> result = prozessSchrittVorlageService.darftBearbeiten();
-        Assertions.assertEquals(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, Arrays.<ProzessSchrittLog>asList(new ProzessSchrittLog(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 29, 32), "zustandsAutomat")), new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(null), Arrays.<Bedingung>asList(null), new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")), new ProzessSchrittZustandsAutomat(0, "current", new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")))), result);
-    }
-
-    @Test
-    void testAkzeptiertePSV() {
-        when(auftragService.getAuftrage()).thenReturn(Arrays.<Auftrag>asList(new Auftrag()));
-
-        List<ProzessSchrittVorlage> result = prozessSchrittVorlageService.akzeptiertePSV();
-        Assertions.assertEquals(Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(null), Arrays.<Bedingung>asList(null), null)), result);
-    }
-
-    @Test
-    void testSetVorlagen() {
-        prozessSchrittVorlageService.setVorlagen(Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(null), Arrays.<Bedingung>asList(null), null)));
-    }
 
     @Test
     void testSetPsvDAO() {
@@ -139,24 +101,19 @@ class ProzessSchrittVorlageServiceTest {
     @Test
     void testEquals() {
         boolean result = prozessSchrittVorlageService.equals("o");
-        Assertions.assertEquals(true, result);
+        Assertions.assertEquals(false, result);
     }
 
     @Test
     void testCanEqual() {
         boolean result = prozessSchrittVorlageService.canEqual("other");
-        Assertions.assertEquals(true, result);
+        Assertions.assertEquals(false, result);
     }
 
-    @Test
-    void testHashCode() {
-        int result = prozessSchrittVorlageService.hashCode();
-        Assertions.assertEquals(0, result);
-    }
 
     @Test
     void testToString() {
         String result = prozessSchrittVorlageService.toString();
-        Assertions.assertEquals("replaceMeWithExpectedResult", result);
+        Assertions.assertEquals("ProzessSchrittVorlageService(vorlagen=vorlagen, psvDAO=psvDAO, auftragService=auftragService)", result);
     }
 }

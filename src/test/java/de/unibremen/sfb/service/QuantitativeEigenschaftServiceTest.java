@@ -51,11 +51,6 @@ class QuantitativeEigenschaftServiceTest {
         quantitativeEigenschaftService.edit(new QuantitativeEigenschaft(0, "name"));
     }
 
-    @Test
-    void testGetEinheiten() {
-        List<String> result = quantitativeEigenschaftService.getEinheiten();
-        Assertions.assertEquals(Arrays.<String>asList("String"), result);
-    }
 
     @Test
     void testGetQlEById() {
