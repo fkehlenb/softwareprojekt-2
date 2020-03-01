@@ -82,7 +82,11 @@ class ProzessSchrittServiceTest {
         }
 
         try {
-            prozessSchrittService.setZustand(new ProzessSchritt(0, Arrays.<ProzessSchrittLog>asList(null), new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(new ExperimentierStation()), Arrays.<Bedingung>asList(null), new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")), new ProzessSchrittZustandsAutomat(0, "current", new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name"))), "zustand");
+            try {
+                prozessSchrittService.setZustand(new ProzessSchritt(0, Arrays.<ProzessSchrittLog>asList(null), new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(new ExperimentierStation()), Arrays.<Bedingung>asList(null), new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")), new ProzessSchrittZustandsAutomat(0, "current", new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name"))), "zustand");
+            } catch (ExperimentierStationNotFoundException e) {
+                e.printStackTrace();
+            }
         } catch (ProzessSchrittNotFoundException e) {
             e.printStackTrace();
         } catch (ProzessSchrittLogNotFoundException e) {
