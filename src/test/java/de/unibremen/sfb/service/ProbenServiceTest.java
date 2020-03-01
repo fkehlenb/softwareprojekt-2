@@ -1,9 +1,12 @@
 package de.unibremen.sfb.service;
 
+import de.unibremen.sfb.exception.DuplicateKommentarException;
 import de.unibremen.sfb.exception.DuplicateProbeException;
+import de.unibremen.sfb.exception.KommentarNotFoundException;
 import de.unibremen.sfb.exception.ProbeNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.ProbeDAO;
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -70,12 +73,17 @@ class ProbenServiceTest {
     @Test
     void testAddProbenComment() {
         try {
-            probenService.addProbenComment(new Probe("probenID", 9, null, new Standort(0, "ort")), "c");
+            try {
+                probenService.addProbenComment(new Probe("probenID", 9, null, new Standort(0, "ort")), "c");
+            } catch (DuplicateKommentarException e) {
+                e.printStackTrace();
+            }
         } catch (ProbeNotFoundException e) {
             e.printStackTrace();
         }
     }
 
+    @SneakyThrows
     @Test
     void testEditProbenComment() {
         try {
@@ -88,7 +96,11 @@ class ProbenServiceTest {
     @Test
     void testDeleteProbenComment() {
         try {
-            probenService.deleteProbenComment(new Probe("probenID", 9, null, new Standort(0, "ort")), new Kommentar(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 29, 9), "text"));
+            try {
+                probenService.deleteProbenComment(new Probe("probenID", 9, null, new Standort(0, "ort")), new Kommentar(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 29, 9), "text"));
+            } catch (KommentarNotFoundException e) {
+                e.printStackTrace();
+            }
         } catch (ProbeNotFoundException e) {
             e.printStackTrace();
         }

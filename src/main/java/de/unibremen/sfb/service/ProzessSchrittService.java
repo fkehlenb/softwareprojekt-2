@@ -229,7 +229,7 @@ public class ProzessSchrittService implements Serializable {
      * @return a list containing the samples
      */
     public List<Probe> getProben(ProzessSchritt ps) {
-        return getAuftrag(ps).getZugewieseneProben();
+        return ps.getZugewieseneProben();
     }
 
 }
