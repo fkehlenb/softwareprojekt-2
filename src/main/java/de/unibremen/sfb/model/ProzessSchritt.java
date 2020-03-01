@@ -63,4 +63,11 @@ public class ProzessSchritt {
     /** Location the process step is processed */
     @ManyToOne
     private ExperimentierStation experimentierStation = null;
+
+    @Override
+    public String toString() {
+        return
+                " Eigenschaften=" +prozessSchrittVorlage.getName()  + prozessSchrittVorlage.getBedingungen() + " ||"
+                ;
+    }
 }

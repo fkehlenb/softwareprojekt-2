@@ -34,22 +34,24 @@
                 <h:form id="form">
                     <p:growl id="msgs" showDetail="true"/>
 
-
                     <p:dataTable id="ps1" var="ps" value="#{transportBean.ps2}" editable="true"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                                  paginator="true" rows="10" style="margin-bottom:20px"
-                                 rowIndexVar="#{ps.psID}"
-                    >
+                                 rowIndexVar="#{ps.psID}">
                         <f:facet name="header">
                             Angenommene Aufträge
                         </f:facet>
 
-                        <p:column headerText="TrägerID">
-                            <h:outputText value="#{ps.psID}"/>
+                        <p:column headerText="Transportauftrag ID">
+                            <h:outputText value="#{ps.transportAuftrag.id}"/>
+                        </p:column>
+
+                        <p:column headerText="Priorität">
+                            <h:outputText value="#{dtAuftragBean.prios}"/>
                         </p:column>
 
                         <p:column headerText="Abholort">
-                            <h:outputText value="#{ps.psID}"/>
+                            <h:outputText value="#{dtAuftragBean.ausPrio}"/>
                         </p:column>
 
                         <p:column headerText="Ablieferort">
@@ -61,8 +63,8 @@
                         </p:column>
 
                         <p:column headerText="Abgeliefert?">
-                            <p:commandButton value="Abgeliefert" ajax="true" action="#{transportBean.auftragStatusAbgeholt(ps.transportAuftrag.id)}"
-                                             icon="pi pi-check" update="ps1"/>
+                            <p:commandButton value="Abgeliefert" ajax="true" action="#{transportBean.changeTransportZustandAbgeliefert(ps.transportAuftrag.id)}"
+                                             icon="pi pi-check" update="form"/>
                         </p:column>
 
 
@@ -77,8 +79,12 @@
                             Verfügbare Aufträge
                         </f:facet>
 
+                        <p:column headerText="Transportauftrag ID">
+                            <h:outputText value="#{ps.transportAuftrag.id}"/>
+                        </p:column>
+
                         <p:column headerText="TrägerID">
-                            <h:outputText value="#{ps.prozessSchrittVorlage.eingabeTraeger}"/>5
+                            <h:outputText value="#{ps.prozessSchrittVorlage.eingabeTraeger}"/>
                         </p:column>
 
                         <p:column headerText="Abholort">
@@ -95,7 +101,7 @@
 
                         <p:column headerText="Annehmen?">
                             <p:commandButton value="Annehmen" ajax="true" action="#{transportBean.changeTransportZustandAbgeholt(ps.transportAuftrag.id)}"
-                                             icon="pi pi-check" update="ps2"/>
+                                             icon="pi pi-check" update="form"/>
                         </p:column>
 
                     </p:dataTable>
