@@ -1,22 +1,63 @@
 package de.unibremen.sfb.service;
 
+import de.unibremen.sfb.exception.DuplicateRoleException;
+import de.unibremen.sfb.exception.RoleNotFoundException;
 import de.unibremen.sfb.model.Role;
-import org.junit.runner.RunWith;
+import de.unibremen.sfb.persistence.RoleDao;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.testng.annotations.BeforeMethod;
 
-@RunWith(MockitoJUnitRunner.class)
+import java.util.Arrays;
+import java.util.List;
+
+import static org.mockito.Mockito.*;
+
 class RoleServiceTest {
+    @Mock
+    RoleDao roleDao;
     @InjectMocks
     RoleService roleService;
-    @Mock
-    Role role;
 
-    @BeforeMethod(alwaysRun = true)
-    public void injectInitializierung() {
-        MockitoAnnotations.initMocks(this); //Notweding und Injection zu inizielizieren bitte nicht entfernen
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.initMocks(this);
+    }
+
+    @Test
+    void testClearRoles() {
+        when(roleDao.getAll()).thenReturn(Arrays.<Role>asList(new Role(0, "name")));
+
+        try {
+            roleService.clearRoles("username");
+        } catch (RoleNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void testApplyRoles() {
+        when(roleDao.getAll()).thenReturn(Arrays.<Role>asList(new Role(0, "name")));
+
+        try {
+            roleService.applyRoles(Arrays.<String>asList("String"), "username");
+        } catch (RoleNotFoundException e) {
+            e.printStackTrace();
+        } catch (DuplicateRoleException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void testGetRolesByUser() {
+        when(roleDao.getRolesByUsername(anyString())).thenReturn(Arrays.<Role>asList(new Role(0, "name")));
+
+        List<Role> result = roleService.getRolesByUser("username");
+        Assertions.assertEquals(Arrays.<Role>asList(new Role(0, "name")), result);
     }
 }
+
+//Generated with love by TestMe :) Please report issues and submit feature requests at: http://weirddev.com/forum#!/testme

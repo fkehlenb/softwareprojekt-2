@@ -1,7 +1,26 @@
 package de.unibremen.sfb.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 class TraegerArtTest {
+    TraegerArt traegerArt = new TraegerArt("art");
 
+    @Test
+    void testToString() {
+        String result = traegerArt.toString();
+        Assertions.assertEquals("replaceMeWithExpectedResult", result);
+    }
+
+    @Test
+    void testSetValidData() {
+        traegerArt.setValidData(true);
+    }
+
+    @Test
+    void testSetArt() {
+        traegerArt.setArt("art");
+    }
 }
+
+//Generated with love by TestMe :) Please report issues and submit feature requests at: http://weirddev.com/forum#!/testme
