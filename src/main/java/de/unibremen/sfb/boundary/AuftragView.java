@@ -70,7 +70,7 @@ public class AuftragView implements Serializable {
     public void updateAuftragTabelle() {
         auftrage = auftragService.getAuftrage();
 
-        PrimeFaces.current().ajax().update("form:form");
+        PrimeFaces.current().ajax().update("content");
     }
 
     public void onRowEdit(RowEditEvent<Auftrag> event) {
