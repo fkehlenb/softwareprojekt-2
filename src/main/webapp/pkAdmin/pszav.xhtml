@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui">
 <ui:define name="metadata">
     <f:metadata>
-        <f:viewAction action="#{languageBean.setLanguage}" />
+        <f:viewAction action="#{languageBean.setLanguage}"/>
     </f:metadata>
 </ui:define>
 
@@ -15,82 +15,92 @@
 
     <ui:composition template="/template/common/layout.xhtml">
         <ui:define name="content">
+            <p:panelGrid columns="1">
+                <p:row>
+                    <h2 style="color: cornflowerblue">Prozessschrittzustandsautomaten Verwaltung</h2>
+                </p:row>
+                <p:row>
+                    In der unteren Tabelle sehen Sie alle Prozesschrittzustandsautomaten die sich im System befinden.
+                    Mit dem unteren formular koennen Sie sowohl neue Zustaende, als auch neue Zustandsautomatenvorlagen anlegen, welche
+                    von den Prozessschritten anschliessend benutzt werden koennen.
+                </p:row>
+                <p:row>
+                    <p:panel id="pszav" header="Daten Eingeben"
+                             style="margin-bottom: 20px">
 
-            <p:panel id="pszav" header="Daten Eingeben"
-                     style="margin-bottom: 20px">
+                        <h:form>
+                            <h:panelGrid columns="2" cellpadding="10">
+                                <p:outputLabel for="zustandV" value="zustand Vorlagen: "/>
+                                <p:pickList id="zustandV" value="#{pszavView.dualZ}" var="zustand"
+                                            itemLabel="#{zustand}"
+                                            itemValue="#{zustand}"/>
+                            </h:panelGrid>
 
-                <h:form>
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <p:outputLabel for="zustandV" value="zustand Vorlagen: "/>
-                        <p:pickList id="zustandV" value="#{pszavView.dualZ}" var="zustand" itemLabel="#{zustand}"
-                                    itemValue="#{zustand}"
-                                    />
-                    </h:panelGrid>
+                            <p:commandButton value="Reset" type="reset"/>
+                            <p:commandButton value="Erstellen"
+                                             action="#{pszavView.erstellePSZAV}" icon="pi pi-check"
+                                             update="@form"/>
+                        </h:form>
+                    </p:panel>
+                </p:row>
+                <p:row>
+                    <h:form id="form">
+                        <p:growl id="msgs" showDetail="true" sticky="true"/>
 
-                    <p:commandButton value="Reset" type="reset"/>
-                    <p:commandButton value="Erstellen"
-                                     action="#{pszavView.erstellePSZAV}" icon="pi pi-check"
-                                     update="@form"/>
-                </h:form>
-            </p:panel>
+                        <p:inputText id="add" value="#{pszavView.toaddd}" placeholder="ADD"/>
 
+                        <p:dataTable widgetVar="PSKList"
+                                     id="PSKList"
+                                     var="pszav"
+                                     value="#{pszavView.verpszav}"
+                                     editable="true"
+                                     selection="#{pszavView.selpszav}"
+                                     rowKey="#{pszav.id}"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                     paginator="true" rows="50" style="margin-bottom:20px">
 
-            <h:form id="form">
-                <p:growl id="msgs" showDetail="true" sticky="true"/>
+                            <p:ajax event="rowEdit" listener="#{pszavView.onRowEdit}" update=":form:msgs"/>
+                            <p:ajax event="rowEditCancel" listener="#{pszavView.onRowCancel}" update=":form:msgs"/>
+                            <p:column selectionMode="multiple"
+                                      style="width:16px;text-align:center"/>
 
-                <p:inputText id="add" value="#{pszavView.toaddd}" placeholder="ADD"/>
+                            <p:column headerText="Id">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{pszav.id}"/></f:facet>
+                                    <f:facet name="input"><p:inputText id="ID" value="#{pszav.id}"
+                                                                       style="width:100%"/></f:facet>
+                                </p:cellEditor>
+                            </p:column>
 
-                <p:dataTable widgetVar="PSKList"
-                             id="PSKList"
-                             var="pszav"
-                             value="#{pszavView.verpszav}"
-                             editable="true"
-                             selection="#{pszavView.selpszav}"
-                             rowKey="#{pszav.id}"
-                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                             paginator="true" rows="50" style="margin-bottom:20px">
+                            <p:column headerText="Schritt Vorlagen">
+                                <p:cellEditor>
+                                    <f:facet name="output"><h:outputText value="#{pszav.zustaende}"/></f:facet>
+                                    <f:facet name="input">
+                                        <p:orderList value="#{pszav.zustaende}" var="zustand" controlsLocation="none"
+                                                     itemLabel="#{zustand}"
+                                                     itemValue="#{zustand}"/>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Hinzufungen">
 
-                    <p:ajax event="rowEdit" listener="#{pszavView.onRowEdit}" update=":form:msgs"/>
-                    <p:ajax event="rowEditCancel" listener="#{pszavView.onRowCancel}" update=":form:msgs"/>
-                    <p:column selectionMode="multiple"
-                              style="width:16px;text-align:center"/>
+                                <p:commandButton value="ADD"
+                                                 action="#{pszavView.toAdd(pszav.id)}" icon="pi pi-plus"
+                                                 update="@form"/>
+                            </p:column>
+                            <p:column style="width:35px">
+                                <p:rowEditor/>
+                            </p:column>
+                        </p:dataTable>
 
-                    <p:column headerText="Id">
-                        <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{pszav.id}"/></f:facet>
-                            <f:facet name="input"><p:inputText id="ID" value="#{pszav.id}"
-                                                               style="width:100%"/></f:facet>
-                        </p:cellEditor>
-                    </p:column>
+                        <p:contextMenu for="PSKList">
+                            <p:menuitem value="Delete selected" update="PSKList"
+                                        icon="pi pi-times" action="#{pszavView.deletePSZAV}"/>
+                        </p:contextMenu>
 
-                    <p:column headerText="Schritt Vorlagen">
-                        <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{pszav.zustaende}"/></f:facet>
-                            <f:facet name="input">
-                                <p:orderList value="#{pszav.zustaende}" var="zustand" controlsLocation="none"
-                                             itemLabel="#{zustand}"
-                                             itemValue="#{zustand}"/>
-                            </f:facet>
-                        </p:cellEditor>
-                    </p:column>
-                    <p:column headerText="Hinzufungen">
-
-                        <p:commandButton value="ADD"
-                                         action="#{pszavView.toAdd(pszav.id)}" icon="pi pi-plus"
-                                         update="@form"/>
-                    </p:column>
-                    <p:column style="width:35px">
-                        <p:rowEditor/>
-                    </p:column>
-                </p:dataTable>
-
-                <p:contextMenu for="PSKList">
-                    <p:menuitem value="Delete selected" update="PSKList"
-                                icon="pi pi-times" action="#{pszavView.deletePSZAV}"/>
-                </p:contextMenu>
-
-            </h:form>
-
+                    </h:form>
+                </p:row>
+            </p:panelGrid>
         </ui:define>
     </ui:composition>
 </h:body>

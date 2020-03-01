@@ -10,7 +10,7 @@
 
 <ui:define name="metadata">
     <f:metadata>
-        <f:viewAction action="#{languageBean.setLanguage}" />
+        <f:viewAction action="#{languageBean.setLanguage}"/>
     </f:metadata>
 </ui:define>
 
@@ -23,95 +23,93 @@
     <shiro:hasRole name="admin">
         <ui:composition template="/template/common/layout.xhtml">
             <ui:define name="content">
-                <div class="ui-g-8">
-                    <p:growl>
-                        <p:autoUpdate/>
-                    </p:growl>
-                    <p:panelGrid columns="1">
-                        <p:row>
-                            <h2 style="color: cornflowerblue">#{msg['gloEin.jsf']}</h2>
-                        </p:row>
-                        <p:row>
-                            <p>#{msg['gloText.jsf']}</p>
-                        </p:row>
-                        <p:row>
-                            <h:form id="form">
-                                <p:dataTable id="table" var="auftrag" value="#{adminBean.auftrage}" editable="true"
-                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                             paginator="true" rows="6" style="margin-bottom:20px">
-                                    <p:ajax event="rowEdit"
-                                            listener="#{adminBean.onRowEditGlobaleEinstellungen(auftrag.pkID)}"
-                                            update="form:table"/>
-                                    <p:ajax event="rowEditCancel"
-                                            listener="#{adminBean.onRowEditCancelGlobaleEinstellungen}"
-                                            update="form:table"/>
-                                    <p:column headerText="#{msg['auftragID.jsf']}">
-                                        <h:outputText value="#{auftrag.pkID}"/>
-                                    </p:column>
-                                    <p:column headerText="#{msg['erstellt.jsf']}">
-                                        <p:cellEditor>
-                                            <f:facet name="output">
-                                                <h:outputText value="#{auftrag.log.erstellt}"/>
-                                            </f:facet>
-                                            <f:facet name="input">
-                                                <p:inputMask mask="YYYY:MM:DDTHH:MM"
-                                                             placeholder="YYYY:MM:DDTHH:MM"
-                                                             required="true"
-                                                             requiredMessage="#{msg['gloMeldung.jsf']}"
-                                                             value="#{adminBean.erstellt}"/>
-                                            </f:facet>
-                                        </p:cellEditor>
-                                    </p:column>
-                                    <p:column headerText="#{msg['gestartet.jsf']}">
-                                        <p:cellEditor>
-                                            <f:facet name="output">
-                                                <h:outputText value="#{auftrag.log.start}"/>
-                                            </f:facet>
-                                            <f:facet name="input">
-                                                <p:inputMask mask="YYYY:MM:DDTHH:MM"
-                                                             placeholder="YYYY:MM:DDTHH:MM"
-                                                             required="true"
-                                                             requiredMessage="#{msg['gloMeldung.jsf']}"
-                                                             value="#{adminBean.gestartet}"/>
-                                            </f:facet>
-                                        </p:cellEditor>
-                                    </p:column>
-                                    <p:column headerText="#{msg['beendet.jsf']}">
-                                        <p:cellEditor>
-                                            <f:facet name="output">
-                                                <h:outputText value="#{auftrag.log.beendet}"/>
-                                            </f:facet>
-                                            <f:facet name="input">
-                                                <p:inputMask mask="YYYY:MM:DDTHH:MM"
-                                                             placeholder="YYYY:MM:DDTHH:MM"
-                                                             required="true"
-                                                             requiredMessage="#{msg['gloMeldung.jsf']}"
-                                                             value="#{adminBean.beendet}"/>
-                                            </f:facet>
-                                        </p:cellEditor>
-                                    </p:column>
-                                    <p:column headerText="#{msg['archiviert.jsf']}">
-                                        <p:cellEditor>
-                                            <f:facet name="output">
-                                                <h:outputText value="#{auftrag.log.archiviert}"/>
-                                            </f:facet>
-                                            <f:facet name="input">
-                                                <p:inputMask mask="YYYY:MM:DDTHH:MM"
-                                                             placeholder="YYYY:MM:DDTHH:MM"
-                                                             required="true"
-                                                             requiredMessage="#{msg['gloMeldung.jsf']}"
-                                                             value="#{adminBean.archiviert}"/>
-                                            </f:facet>
-                                        </p:cellEditor>
-                                    </p:column>
-                                    <p:column>
-                                        <p:rowEditor/>
-                                    </p:column>
-                                </p:dataTable>
-                            </h:form>
-                        </p:row>
-                    </p:panelGrid>
-                </div>
+                <p:growl>
+                    <p:autoUpdate/>
+                </p:growl>
+                <p:panelGrid columns="1">
+                    <p:row>
+                        <h2 style="color: cornflowerblue">#{msg['gloEin.jsf']}</h2>
+                    </p:row>
+                    <p:row>
+                        <p>#{msg['gloText.jsf']}</p>
+                    </p:row>
+                    <p:row>
+                        <h:form id="form">
+                            <p:dataTable id="table" var="auftrag" value="#{adminBean.auftrage}" editable="true"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                         paginator="true" rows="6" style="margin-bottom:20px">
+                                <p:ajax event="rowEdit"
+                                        listener="#{adminBean.onRowEditGlobaleEinstellungen(auftrag.pkID)}"
+                                        update="form:table"/>
+                                <p:ajax event="rowEditCancel"
+                                        listener="#{adminBean.onRowEditCancelGlobaleEinstellungen}"
+                                        update="form:table"/>
+                                <p:column headerText="#{msg['auftragID.jsf']}">
+                                    <h:outputText value="#{auftrag.pkID}"/>
+                                </p:column>
+                                <p:column headerText="#{msg['erstellt.jsf']}">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputText value="#{auftrag.log.erstellt}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:inputMask mask="YYYY:MM:DDTHH:MM"
+                                                         placeholder="YYYY:MM:DDTHH:MM"
+                                                         required="true"
+                                                         requiredMessage="#{msg['gloMeldung.jsf']}"
+                                                         value="#{adminBean.erstellt}"/>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="#{msg['gestartet.jsf']}">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputText value="#{auftrag.log.start}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:inputMask mask="YYYY:MM:DDTHH:MM"
+                                                         placeholder="YYYY:MM:DDTHH:MM"
+                                                         required="true"
+                                                         requiredMessage="#{msg['gloMeldung.jsf']}"
+                                                         value="#{adminBean.gestartet}"/>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="#{msg['beendet.jsf']}">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputText value="#{auftrag.log.beendet}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:inputMask mask="YYYY:MM:DDTHH:MM"
+                                                         placeholder="YYYY:MM:DDTHH:MM"
+                                                         required="true"
+                                                         requiredMessage="#{msg['gloMeldung.jsf']}"
+                                                         value="#{adminBean.beendet}"/>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="#{msg['archiviert.jsf']}">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputText value="#{auftrag.log.archiviert}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:inputMask mask="YYYY:MM:DDTHH:MM"
+                                                         placeholder="YYYY:MM:DDTHH:MM"
+                                                         required="true"
+                                                         requiredMessage="#{msg['gloMeldung.jsf']}"
+                                                         value="#{adminBean.archiviert}"/>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column>
+                                    <p:rowEditor/>
+                                </p:column>
+                            </p:dataTable>
+                        </h:form>
+                    </p:row>
+                </p:panelGrid>
             </ui:define>
         </ui:composition>
     </shiro:hasRole>
