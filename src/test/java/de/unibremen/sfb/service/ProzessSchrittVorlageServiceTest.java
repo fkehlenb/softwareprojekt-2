@@ -25,8 +25,12 @@ class ProzessSchrittVorlageServiceTest {
     ProzessSchrittVorlageDAO psvDAO;
     @Mock
     AuftragService auftragService;
+
     @Mock
     Logger log;
+    @Mock
+    List<ProzessSchrittVorlage> prozessSchrittVorlages;
+
     @InjectMocks
     ProzessSchrittVorlageService prozessSchrittVorlageService;
 
@@ -37,17 +41,15 @@ class ProzessSchrittVorlageServiceTest {
 
     @Test
     void testInit() {
-        when(psvDAO.getAll()).thenReturn(Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(null), Arrays.<Bedingung>asList(null), null)));
-
+        when(psvDAO.getAll()).thenReturn(prozessSchrittVorlages);
         prozessSchrittVorlageService.init();
     }
 
     @Test
     void testGetProzessSchrittVorlagen() {
-        when(psvDAO.getAll()).thenReturn(Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(null), Arrays.<Bedingung>asList(null), null)));
-
+        when(psvDAO.getAll()).thenReturn(prozessSchrittVorlages);
         List<ProzessSchrittVorlage> result = prozessSchrittVorlageService.getProzessSchrittVorlagen();
-        Assertions.assertEquals(Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(null), Arrays.<Bedingung>asList(null), null)), result);
+        Assertions.assertEquals(prozessSchrittVorlages,result);
     }
 
     @Test

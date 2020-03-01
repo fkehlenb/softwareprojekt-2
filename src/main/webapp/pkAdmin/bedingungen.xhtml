@@ -3,6 +3,12 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+<ui:define name="metadata">
+    <f:metadata>
+        <f:viewAction action="#{languageBean.setLanguage}" />
+    </f:metadata>
+</ui:define>
+
 <h:head>
 </h:head>
 <h:body>
@@ -23,18 +29,18 @@
                         <p:inputText id="anzahl" value="#{bedingungBean.anzahl}"
                                      placeholder="Anzahl" required="true"/>
 
-                        <p:outputLabel for="PSPAuswahlTable" value="PSP: "/>
-                        <p:selectCheckboxMenu id="PSPAuswahlTable"
-                                              value="#{bedingungBean.ausProzessSchrittParameters}"
-                                              converter="omnifaces.SelectItemsConverter" effect="fade"
-                                              var="psp" style="width: 172px" filter="true"
-                                              filterMatchMode="contains" showCheckbox="true"
-                                              label="ProzessSchrittParamiter" requiredMessage="Bitte Bedingung Zuweisen!"
-                                              required="true">
-                            <f:selectItems value="#{bedingungBean.verProzessSchrittParameters}"
-                                           var="psp" itemLabel="#{psp.name}"
-                                           itemValue="#{psp}"/>
-                        </p:selectCheckboxMenu>
+                            <p:outputLabel for="PSPAuswahlTable" value="PSP: "/>
+                            <p:selectCheckboxMenu id="PSPAuswahlTable"
+                                                  value="#{bedingungBean.ausProzessSchrittParameters}"
+                                                  converter="omnifaces.SelectItemsConverter" effect="fade"
+                                                  var="psp" style="width: 172px" filter="true"
+                                                  filterMatchMode="contains" showCheckbox="true"
+                                                  label="ProzessSchrittParamiter" requiredMessage="Bitte Bedingung Zuweisen!"
+                                                  required="true">
+                                <f:selectItems value="#{bedingungBean.verProzessSchrittParameters}"
+                                               var="psp" itemLabel="#{psp.name}"
+                                               itemValue="#{psp}"/>
+                            </p:selectCheckboxMenu>
 
 
                     </h:panelGrid>

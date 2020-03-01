@@ -5,6 +5,12 @@
       xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
       xmlns:of="http://omnifaces.org/functions"
       xmlns:shiro="http://shiro.apache.org/tags">
+<ui:define name="metadata">
+    <f:metadata>
+        <f:viewAction action="#{languageBean.setLanguage}" />
+    </f:metadata>
+</ui:define>
+
 <h:head>
     <title>SFB - Farbige Zustände</title>
     <link rel="icon" href="../background.png"/>
@@ -36,8 +42,7 @@
                             <p>Proben-ID: </p>
                             <p:outputLabel for="pid" value="ID: "/>
                             <p:inputMask id="pid" value="#{probeMeldenView.probeMeldenID}"/>
-                            <p:commandButton value="Submit" type="submit"/>
-                            <p:commandButton action="#{probeMeldenView.reportLostProbe()}"/>
+                            <p:commandButton value="Submit" action="#{probeMeldenView.reportLostProbe()}"/>
                         </p:row>
 
                     </p:panelGrid>

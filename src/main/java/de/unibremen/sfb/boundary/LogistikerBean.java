@@ -7,11 +7,13 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
+import org.primefaces.PrimeFaces;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
@@ -27,7 +29,7 @@ import static de.unibremen.sfb.model.ProzessKettenZustandsAutomat.GESTARTET;
  * this class manages the interaction between the gui and the backend system for users who are logistic experts
  */
 @Named("dtLogistikerBean")
-@RequestScoped
+@ViewScoped
 @Getter
 @Setter
 @Slf4j
@@ -211,7 +213,7 @@ public class LogistikerBean implements Serializable {
             catch (Exception e){
                 e.printStackTrace();
             }
-            Probe p = new Probe(probenID,ProbenZustand.ARCHIVIERT,standort);
+            Probe p = new Probe(probenID,7, ProbenZustand.ARCHIVIERT,standort);
             try {
                 Probe a = probenService.getProbeById(probenID);
                 facesError("Probe with id already exists! ID: " + probenID);
@@ -279,6 +281,10 @@ public class LogistikerBean implements Serializable {
             facesNotification("Auftrag wurde gestartet! ID: " + auftrag);
             //Aktualisiert Auftragsliste
             auftragView.updateAuftragTabelle();
+            auftragService.update(a);
+            PrimeFaces.current().ajax().update("form:data");
+
+
         } catch (Exception e) {
             e.printStackTrace();
             log.error("Failed to change auftrag state! ID: " + auftrag);
@@ -294,20 +300,26 @@ public class LogistikerBean implements Serializable {
      * @param auftrag the job
      *
      */
-    public void refuseAuftrag(int auftrag) {
+    public String refuseAuftrag(int auftrag) {
         try {
             Auftrag a = auftragService.getAuftrag(auftrag);
             auftragService.zustandswechsel(a, ABGELEHNT);
             log.info("Auftrag wurde abgelehnt! ID: " + auftrag);
             facesNotification("Auftrag wurde abgelehnt! ID: " + auftrag);
             //Aktualisiert Auftragsliste
-            auftragView.updateAuftragTabelle();
+            //auftragView.updateAuftragTabelle();
+            auftragService.update(a);
+            Thread.sleep(100);
+            return "Auftragsuebersicht?faces-redirect=true";
+            //PrimeFaces.current().ajax().update("content-panel");
+
 
         } catch (Exception e) {
             e.printStackTrace();
             log.error("Failed to change auftrag state! ID: " + auftrag);
             facesError("Failed to change auftrag state! ID: " + auftrag);
         }
+        return null;
     }
 
     /**

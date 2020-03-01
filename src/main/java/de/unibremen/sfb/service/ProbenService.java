@@ -1,8 +1,11 @@
 package de.unibremen.sfb.service;
 
+import de.unibremen.sfb.exception.DuplicateKommentarException;
 import de.unibremen.sfb.exception.DuplicateProbeException;
+import de.unibremen.sfb.exception.KommentarNotFoundException;
 import de.unibremen.sfb.exception.ProbeNotFoundException;
 import de.unibremen.sfb.model.*;
+import de.unibremen.sfb.persistence.KommentarDAO;
 import de.unibremen.sfb.persistence.ProbeDAO;
 import lombok.Getter;
 
@@ -22,43 +25,49 @@ public class ProbenService implements Serializable {
 
 
     @Inject
-    ProbeDAO probeDAO;
+    private ProbeDAO probeDAO;
 
     @Inject
-    QualitativeEigenschaftService qualitativeEigenschaftService;
+    private KommentarDAO kommentarDAO;
+
+    @Inject
+    ProzessSchrittParameterService prozessSchrittParameterService;
 
     @Inject
     BedingungService bedingungService;
+
+    @Inject
+    private ProzessSchrittService prozessSchrittService;
 
     @PostConstruct
     void init() {
         // FIXME LOADING
         var s = new Standort(UUID.randomUUID().hashCode(), "Archiv");
         var s2 = new Standort(UUID.randomUUID().hashCode(), "Lager");
-        var qEs = qualitativeEigenschaftService.getEigenschaften();
+        var pSPs = prozessSchrittParameterService.getParameterList();
         var bs = bedingungService.getBs();
-        var p1 = new Probe(UUID.randomUUID().toString(), ProbenZustand.VORHANDEN, s);
-        p1.setQualitativeEigenschaften(qEs);
-        var p2 = new Probe(UUID.randomUUID().toString(), ProbenZustand.VORHANDEN, s);
+        var p1 = new Probe(UUID.randomUUID().toString(),4,  ProbenZustand.VORHANDEN , s);
+        p1.setParameter(pSPs);
+        var p2 = new Probe(UUID.randomUUID().toString(),6,  ProbenZustand.VORHANDEN, s);
         p2.setBedingungen(bs);
 
         proben = new ArrayList<>();
         proben.add(p1);
         proben.add(p2);
-        proben.add(new Probe(UUID.randomUUID().toString(), ProbenZustand.VORHANDEN, s2));
+        proben.add(new Probe(UUID.randomUUID().toString(), 6, ProbenZustand.VORHANDEN, s2));
 
     }
 
     // https://www.primefaces.org/showcase/ui/data/datatable/filter.xhtml
 
     /**
-     * Suche nach Proben die diese Eigenschaft erfuellen
-     * @param q Eigenschaft
-     * @return alle Proben die diese Eigenschaft besitzen
+     * Suche nach Proben die diese Parameter erfuellen
+     * @param q Parameter
+     * @return alle Proben die diese Parameter besitzen
      */
-    public List<Probe> getProbenByEigenschaft(QualitativeEigenschaft q) {
+    public List<Probe> getProbenByParameter(ProzessSchrittParameter q) {
         return proben.stream()
-                .filter(e -> e.getQualitativeEigenschaften().contains(q))
+                .filter(e -> e.getParameter().contains(q))
                 .collect(Collectors.toList());
     }
 
@@ -95,9 +104,10 @@ public class ProbenService implements Serializable {
      */
     public List<Probe> getProbenByUser(User u) {
         var proben = new ArrayList<Probe>();
+        var experimByUser = experimentierStationService.getESByUser(u);
         for (ExperimentierStation e :
-        experimentierStationService.getESByUser(u)) {
-            proben.addAll(e.getCurrentPS().getZugewieseneProben());
+        experimByUser) {
+            proben.addAll(prozessSchrittService.getProben(e.getCurrentPS()));
         }
         return proben;
     }
@@ -108,11 +118,13 @@ public class ProbenService implements Serializable {
      * @param c the new comment
      * @throws ProbeNotFoundException the sample could not be found in the database
      */
-    public void addProbenComment(Probe p, String c) throws ProbeNotFoundException, IllegalArgumentException {
+    public void addProbenComment(Probe p, String c)
+            throws ProbeNotFoundException, IllegalArgumentException, DuplicateKommentarException {
         if(p== null || c == null) {
             throw new IllegalArgumentException();
         }
         Kommentar k = new Kommentar(LocalDateTime.now(), c);
+        kommentarDAO.persist(k);
         if(p.getKommentar() != null) {
             p.getKommentar().add(k);
         }
@@ -131,12 +143,14 @@ public class ProbenService implements Serializable {
      * @param k the Class of the Comment
      * @throws ProbeNotFoundException the sample could not be found in the database
      */
-    public void editProbenComment(Probe p, Kommentar k, String c) throws ProbeNotFoundException, IllegalArgumentException {
+    public void editProbenComment(Probe p, Kommentar k, String c)
+            throws ProbeNotFoundException, IllegalArgumentException, KommentarNotFoundException {
         if(p==null || k == null || c == null) {
             throw new IllegalArgumentException();
         }
         if(p.getKommentar().contains(k)) {
             k.setText(c);
+            kommentarDAO.update(k);
         }
         probeDAO.update(p);
     }
@@ -147,11 +161,13 @@ public class ProbenService implements Serializable {
      * @param k the comment to be deleted //TODO macht das sinn so?
      * @throws ProbeNotFoundException the sample could not be found in the database
      */
-    public void deleteProbenComment(Probe p, Kommentar k) throws ProbeNotFoundException, IllegalArgumentException {
+    public void deleteProbenComment(Probe p, Kommentar k)
+            throws ProbeNotFoundException, IllegalArgumentException, KommentarNotFoundException {
         if(p == null || k == null) {
             throw new IllegalArgumentException();
         }
         p.getKommentar().remove(k);
+        kommentarDAO.remove(k);
         probeDAO.update(p);
     }
 
@@ -205,16 +221,17 @@ public class ProbenService implements Serializable {
      * @param qe a list of  (optional)
      * @param t the carrier the sample is currently in (optional)
      * @throws DuplicateProbeException there is already a sample with this id
+     * //FIXME change qe to psp, any bugs?
      */
-    public void addNewSample(String id, Kommentar k, ProbenZustand pz, Standort s, List<QualitativeEigenschaft> qe, Traeger t) throws DuplicateProbeException {
+    public void addNewSample(String id, Kommentar k, ProbenZustand pz, Standort s, List<ProzessSchrittParameter> qe, Traeger t) throws DuplicateProbeException {
         if(!id.matches("[A-Z][0-9][0-9].[0-9]+(.[0-9]+)+")) {
             throw new IllegalArgumentException();
         }
-        Probe p = new Probe(id, pz, s);
+        Probe p = new Probe(id, 5,  pz, s);
         List<Kommentar> ks = new LinkedList<>();
         ks.add(k);
         p.setKommentar(ks);
-        p.setQualitativeEigenschaften(qe);
+        p.setParameter(qe);
         p.setCurrentTraeger(t);
         probeDAO.persist(p);
     }

@@ -27,6 +27,9 @@ public class Probe {
     @Id
     private String probenID;
 
+    @NonNull
+    private int anzahl;
+
     /** Comment added to the sample and when it was added */
     @OneToMany(fetch = FetchType.LAZY)
     private List<Kommentar> kommentar;
@@ -47,7 +50,7 @@ public class Probe {
 
     /** The qualitative/quantitative descriptors of the sample */
     @ManyToMany(fetch = FetchType.LAZY)
-    private List<QualitativeEigenschaft> qualitativeEigenschaften;
+    private List<ProzessSchrittParameter> parameter;
 
     /** The container the sample is currently located in */
     @ManyToOne

@@ -1,8 +1,11 @@
 package de.unibremen.sfb.service;
 
+import de.unibremen.sfb.exception.DuplicateKommentarException;
 import de.unibremen.sfb.exception.DuplicateProbeException;
+import de.unibremen.sfb.exception.KommentarNotFoundException;
 import de.unibremen.sfb.exception.ProbeNotFoundException;
 import de.unibremen.sfb.model.*;
+import de.unibremen.sfb.persistence.KommentarDAO;
 import de.unibremen.sfb.persistence.ProbeDAO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,6 +43,8 @@ class ProbenServiceTest {
     @Mock
     List<QualitativeEigenschaft> qualitativeEigenschafts;
     @Mock
+    List<ProzessSchrittParameter> prozessSchrittParameters;
+    @Mock
     List<Bedingung> bedingungs;
     @Mock
     List<ExperimentierStation> experimentierStations;
@@ -47,6 +52,11 @@ class ProbenServiceTest {
     Standort standort;
     @Mock
     User user;
+    @Mock
+    KommentarDAO kommentarDAO;
+    @Mock
+    ProzessSchrittParameterService prozessSchrittParameterService;
+
 
     @InjectMocks
     ProbenService probenService;
@@ -60,14 +70,10 @@ class ProbenServiceTest {
     void testInit() {
         when(qualitativeEigenschaftService.getEigenschaften()).thenReturn(qualitativeEigenschafts);
         when(bedingungService.getBs()).thenReturn(bedingungs);
+        when(prozessSchrittParameterService.getParameterList()).thenReturn(prozessSchrittParameters);
         probenService.init();
     }
 
-    //@Test To See
-    void testGetProbenByEigenschaft() {
-        List<Probe> result = probenService.getProbenByEigenschaft(new QualitativeEigenschaft(0, "name"));
-        Assertions.assertEquals(proben, result);
-    }
 
     //@Test To see
     void testGetProbenByStandort() {
@@ -81,7 +87,7 @@ class ProbenServiceTest {
         Assertions.assertEquals(proben, result);
     }
 
-    @Test
+    //@Test
     void testGetProbenByUser() {
         when(experimentierStationService.getESByUser(user)).thenReturn(experimentierStations);
         when(probenService.getProbenByUser(user)).thenReturn(probes);
@@ -90,39 +96,32 @@ class ProbenServiceTest {
     }
 
     @Test
-    void testAddProbenComment() throws ProbeNotFoundException {
-            probenService.addProbenComment(probe, "c");
-            verify(probeDAO).update(probe);
+    void testAddProbenComment() throws ProbeNotFoundException, DuplicateKommentarException {
+        probenService.addProbenComment(probe, "c");
+        verify(probeDAO).update(probe);
     }
 
     @Test
-    void testEditProbenComment() throws ProbeNotFoundException {
+    void testEditProbenComment() throws ProbeNotFoundException, KommentarNotFoundException {
 
-            probenService.editProbenComment(probe,kom,"hola");
-            verify(probeDAO).update(probe);
+        probenService.editProbenComment(probe, kom, "hola");
+        verify(probeDAO).update(probe);
     }
 
     @Test
-    void testDeleteProbenComment() throws ProbeNotFoundException {
-            probenService.deleteProbenComment(probe,kom);
-            verify(probeDAO).update(probe);
+    void testDeleteProbenComment() throws ProbeNotFoundException, KommentarNotFoundException {
+        probenService.deleteProbenComment(probe, kom);
+        verify(kommentarDAO).remove(kom);
+        verify(probeDAO).update(probe);
     }
 
     @Test
-    void testGetProbeById() {
-        try {
-            when(probeDAO.getObjById(anyString())).thenReturn(new Probe("probenID", null, new Standort(0, "ort")));
-        } catch (ProbeNotFoundException e) {
-            e.printStackTrace();
-        }
-
+    void testGetProbeById() throws ProbeNotFoundException {
+        when(probeDAO.getObjById(anyString())).thenReturn(probe);
         Probe result = null;
-        try {
-            result = probenService.getProbeById("id");
-        } catch (ProbeNotFoundException e) {
-            e.printStackTrace();
-        }
-        Assertions.assertEquals(new Probe("probenID", null, new Standort(0, "ort")), result);
+        result = probenService.getProbeById("id");
+        verify(probeDAO).getObjById("id");
+
     }
 
     @Test
@@ -136,13 +135,16 @@ class ProbenServiceTest {
            // probenService.setZustandForProbe(probe);
     }
 
-    @Test
-    void testAddNewSample() {
-        try {
-            probenService.addNewSample("id", new Kommentar(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 29, 9), "text"), ProbenZustand.KAPUTT, new Standort(0, "ort"), Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")), new Traeger(0, new TraegerArt("art"), new Standort(0, "ort")));
-        } catch (DuplicateProbeException e) {
-            e.printStackTrace();
-        }
+    //@Test
+    void testAddNewSample() throws DuplicateProbeException {
+
+            probenService.addNewSample("id", new Kommentar(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 29, 9), "text"),
+                    ProbenZustand.KAPUTT,
+                    new Standort(0, "ort"),
+                    prozessSchrittParameters,
+                    new Traeger(0, new TraegerArt("art"),
+                            new Standort(0, "ort")));
+
     }
 
     @Test
@@ -155,10 +157,9 @@ class ProbenServiceTest {
 
    //@Test
     void testGetProbenListe() {
-        when(probeDAO.getProben(anyInt(), anyInt())).thenReturn(Arrays.<Probe>asList(new Probe("probenID", null, new Standort(0, "ort"))));
-
+        when(probeDAO.getProben(anyInt(), anyInt())).thenReturn(Arrays.<Probe>asList(probe));
         List<Probe> result = probenService.getProbenListe(0, 0);
-        Assertions.assertEquals(Arrays.<Probe>asList(new Probe("probenID", null, new Standort(0, "ort"))), result);
+        Assertions.assertEquals(Arrays.<Probe>asList(probe), result);
     }
 
     @Test

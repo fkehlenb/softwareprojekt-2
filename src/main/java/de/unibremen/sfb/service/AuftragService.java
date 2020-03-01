@@ -3,7 +3,9 @@ package de.unibremen.sfb.service;
 import de.unibremen.sfb.exception.*;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.AuftragDAO;
+import de.unibremen.sfb.persistence.ProbeDAO;
 import de.unibremen.sfb.persistence.ProzessSchrittDAO;
+import de.unibremen.sfb.persistence.TransportAuftragDAO;
 import lombok.Data;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -30,13 +32,12 @@ import java.util.stream.Collectors;
 @Transactional
 public class AuftragService implements Serializable {
     private List<Auftrag> auftrage;
-    private
+
+    @Inject
+    TransportAuftragDAO transportAuftragDAO;
 
     @Inject
     AuftragDAO auftragDAO;
-
-    @Inject
-    ProbenService probenService;
 
     @Inject
     ProzessKettenVorlageService prozessKettenVorlageService;
@@ -45,15 +46,20 @@ public class AuftragService implements Serializable {
     AuftragsLogsService auftragsLogsService;
 
     @Inject
-    ProzessSchrittZustandsAutomatService prozessSchrittZustandsAutomatService;
+    private ProzessSchrittDAO prozessSchrittDAO;
 
     @Inject
-    ProzessSchrittLogService prozessSchrittLogService;
+    private ProzessSchrittZustandsAutomatService prozessSchrittZustandsAutomatService;
 
     @Inject
-    ProzessSchrittDAO prozessSchrittDAO;
+    private ProzessSchrittLogService prozessSchrittLogService;
+
+    @Inject
+    StandortService standortService;
 
     private Auftrag auftrag;
+    @Inject
+    private ProbeDAO probeDao;
 
     /**
      * returns the ID of this Auftrag
@@ -140,6 +146,7 @@ public class AuftragService implements Serializable {
 
     /**
      * sets the current Prioritaet (priority) of this Auftrag
+     *
      * @param prio the prio whih sould be set
      */
     public void setPrio(AuftragsPrioritaet prio) {
@@ -181,7 +188,6 @@ public class AuftragService implements Serializable {
     }
 
 
-
     /**
      * Update an existing job in the database
      *
@@ -191,7 +197,9 @@ public class AuftragService implements Serializable {
     public void update(Auftrag auftrag) throws AuftragNotFoundException {
         auftragDAO.update(auftrag);
     }
-
+    public void updateTransportZustand(TransportAuftrag transportAuftrag) throws TransportAuftragNotFoundException {
+        transportAuftragDAO.update(transportAuftrag);
+    }
 
     /**
      * Add a new job to the database
@@ -222,8 +230,9 @@ public class AuftragService implements Serializable {
 
     /**
      * Loeschen von ProzessKettenVorlagen
-     * @throws AuftragNotFoundException falls es diesen Auftrag nicht gibt
+     *
      * @param auftrags die Vorlagen
+     * @throws AuftragNotFoundException falls es diesen Auftrag nicht gibt
      */
     public void delete(List<Auftrag> auftrags) throws AuftragNotFoundException {
         for (Auftrag auftrag :
@@ -235,6 +244,7 @@ public class AuftragService implements Serializable {
 
     /**
      * Converts all Auftraege tojson
+     *
      * @return the json as a Sting
      */
     public String toJson() {
@@ -252,6 +262,16 @@ public class AuftragService implements Serializable {
     }
 
     /**
+     *
+     * @param value
+     * @return The TransportAuftag with the specified value
+     * @throws TransportAuftragNotFoundException
+     */
+    public TransportAuftrag getTransportAuftragByID(int value) throws TransportAuftragNotFoundException {
+        return transportAuftragDAO.getTransportAuftragById(value);
+    }
+
+    /**
      * sets the status of a job
      *
      * @param a       the job
@@ -263,17 +283,6 @@ public class AuftragService implements Serializable {
         auftragDAO.update(a);
     }
 
-    /**
-     * assigns a user to a job
-     *
-     * @param t the user to be assigned
-     * @param a the job to which they will be assigned
-     * @throws AuftragNotFoundException the job couldn't be found in the database
-     */
-    public void assignToAuftrag(User t, Auftrag a) throws AuftragNotFoundException {
-        //a.setAssigned(t); //TODO
-        auftragDAO.update(a);
-    }
 
     /*
       Bestimme was der naechste Prozessschritt ist, der noch nicht ausgefuehrt wurde
@@ -292,44 +301,56 @@ public class AuftragService implements Serializable {
     /**
      * Weise einen Auftrag Proben zu
      * Vorgehen:
-     * - Fuer jeden ProzessSchritt
-     * - Falls die Art erstellend ist, so koennen diese an der Station erstellt werden
-     * - Ansonsten
-     * - Gucke ob sich die Bedingen zu dem vorhergen ProzessSchritt veraendert haben
-     * - Wenn nicht ueberneme die vorehrigen Proben
-     * - Weise TODO andere Proben dann ins archiv
-     * - Gucke welche existierenden freie Proben den Bediungen und Eigenschaften entsprechcen
-     * - Teile dem ProzessSchritt diese Proben zu
+     * Wir kennen den Auftrag, vieleicht gibt es eine Liste von Proben die wir dem Auftrag zuweisen wollen
+     * oder die Proben muessen erst erstellt werden
+     * Dies finden wir raus, in dem wir prüfen, ob es der Erste PS die PS Art erstellend ist
+     *   falls er erstellen ist, muessen wir die Proben erzeugen
+     *   ansonsten nehmen wir die proben und weisen dem auftrag proben zu
      *
      * @param auftrag der Auftrag
      * @return der Auftrag mit den neuen Proben
      */
-    public Auftrag probenZuweisen(Auftrag auftrag) {
-//        for (ProzessSchritt ps :
-//                auftrag.getProzessSchritte()) {
-//            var proben = switch( ps.getProzessSchrittVorlage().getPsArt()) {
-//                case "ERZEUGEND" :
-//                    yield fori
-//            }
-//        }
-        return null;
+    public Auftrag probenZuweisen(@org.jetbrains.annotations.NotNull Auftrag auftrag, List<Probe> proben, String startID) throws AuftragNotFoundException, DuplicateProbeException {
+        Standort lager = null;
+        int i = 0;
+        for (Bedingung b :
+                auftrag.getProzessSchritte().get(0).getProzessSchrittVorlage().getBedingungen()) {
+            try {
+                lager = standortService.findByLocation("lager");
+            } catch (StandortNotFoundException e) {
+                e.printStackTrace();
+            }
+            if (auftrag.getProzessSchritte().get(0).getProzessSchrittVorlage().getPsArt().equals("ERZEUGEND")) {
+                for (ProzessSchritt ps :
+                        auftrag.getProzessSchritte()) {
+                    ps.setZugewieseneProben(erzeugeProbenNachBeding(b, lager, startID + i++));
+
+                }
+            } else {
+                for (ProzessSchritt ps :
+                        auftrag.getProzessSchritte()) {
+                    ps.setZugewieseneProben(proben);
+                }
+            }
+        }
+            auftragDAO.update(auftrag);
+            return auftrag;
     }
 
     /**
      * Erstelle Proben die einer Bedingung entsprechen, dies koenne wir fuer erzeugende Prozessschritte nutzen
      *
-     * @param b Die Bedingung
-     * @param s der Standort wo die Proben sind, normalerweise die Station and der sie erstellt werden
+     * @param b       Die Bedingung
+     * @param s       der Standort wo die Proben sind, normalerweise die Station and der sie erstellt werden
+     * @param startID die Proben ID vom Logstiker / pkAdmin festgelegt
      * @return die liste mit proben die erzeugt wurden
-     */ //TODO warum nicht in ProbeService?
-    private List<Probe> erzeugeProbenNachBeding(Bedingung b, Standort s) {
+     */
+    private List<Probe> erzeugeProbenNachBeding(Bedingung b, Standort s, String startID) throws DuplicateProbeException {
         var result = new ArrayList<Probe>();
-        for (int i = 0; i < b.getGewuenschteAnzahl(); i++) {
-            var p = new Probe(UUID.randomUUID().toString(), ProbenZustand.VORHANDEN, s);
+            var p = new Probe(startID, b.getGewuenschteAnzahl(), ProbenZustand.VORHANDEN, s);
             p.setBedingungen(List.of(b));
             result.add(p);
-        }
-        // TODO persist
+            probeDao.persist(p);
         return result;
     }
 
@@ -345,6 +366,17 @@ public class AuftragService implements Serializable {
                 pp) {
             s.addAll(a.getProzessSchritte().stream()
                     .filter(p -> p.getTransportAuftrag().getZustandsAutomat() == TransportAuftragZustand.ERSTELLT)
+                    .collect(Collectors.toSet()));
+        }
+        return s.isEmpty() ? new ArrayList<>() : List.copyOf(s);
+    }
+
+    public List<ProzessSchritt> getTransportSchritt2() {
+        var s = new HashSet<ProzessSchritt>();
+        for (Auftrag a :
+                getAuftrage()) {
+            s.addAll(a.getProzessSchritte().stream()
+                    .filter(p -> p.getTransportAuftrag().getZustandsAutomat() == TransportAuftragZustand.ABGEHOLT)
                     .collect(Collectors.toSet()));
         }
         return s.isEmpty() ? new ArrayList<>() : List.copyOf(s);
@@ -375,7 +407,7 @@ public class AuftragService implements Serializable {
         return pk;
     }
 
-    private List<ProzessSchritt> erstelePS(List<ProzessSchrittVorlage> psvListe) {
+    public List<ProzessSchritt> erstelePS(List<ProzessSchrittVorlage> psvListe) {
         var r = new ArrayList<ProzessSchritt>();
 
         for (ProzessSchrittVorlage psv :
@@ -401,7 +433,7 @@ public class AuftragService implements Serializable {
             // Transport Auftrag // FIXME
 
             // PS erstellen
-            var ps = new ProzessSchritt(UUID.randomUUID().hashCode(), List.of(l) , psv, psAutomat);
+            var ps = new ProzessSchritt(UUID.randomUUID().hashCode(), List.of(l), psv, psAutomat);
             try {
                 prozessSchrittDAO.persist(ps);
             } catch (DuplicateProzessSchrittException e) {
@@ -411,5 +443,12 @@ public class AuftragService implements Serializable {
             r.add(ps);
         }
         return r;
+    }
+
+
+    public void setTransportZustandAbgeholt(TransportAuftrag t) throws TransportAuftragNotFoundException {
+        t.setAbgeholt(LocalDateTime.now());
+        updateTransportZustand(t);
+
     }
 }

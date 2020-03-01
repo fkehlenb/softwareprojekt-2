@@ -192,21 +192,8 @@ class AuftragServiceTest {
     }
 
 
-    @Test
-    void testAssignToAuftrag() {
-        try {
-            auftragService.assignToAuftrag(new User(0, "vorname", "nachname", "email", "telefonnummer", "username", "password", true, LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 28, 9), "language"), new Auftrag());
-        } catch (AuftragNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 
-    //@Test Methode probenZuweisen() ist auskommentiert.
-    //TODO
-    void testProbenZuweisen() {
-        Auftrag result = auftragService.probenZuweisen(new Auftrag());
-        Assertions.assertEquals(new Auftrag(), result);
-    }
+
 
 
    // @Test
@@ -226,10 +213,7 @@ class AuftragServiceTest {
         auftragService.setAuftragDAO(new AuftragDAO());
     }
 
-    @Test
-    void testSetProbenService() {
-        auftragService.setProbenService(new ProbenService());
-    }
+
 
     @Test
     void testSetProzessKettenVorlageService() {
@@ -280,6 +264,14 @@ class AuftragServiceTest {
         when(auftragDAO.getAll()).thenReturn(Arrays.<Auftrag>asList(new Auftrag()));
 
         String result = auftragService.toString();
-        Assertions.assertEquals("AuftragService(auftrage=[Auftrag: 0], auftragDAO=auftragDAO, probenService=probenService, prozessKettenVorlageService=prozessKettenVorlageService, auftragsLogsService=auftragsLogsService, prozessSchrittZustandsAutomatService=prozessSchrittZustandsAutomatService, prozessSchrittLogService=prozessSchrittLogService, prozessSchrittDAO=prozessSchrittDAO, auftrag=auftrag)", result);
+        Assertions.assertEquals("AuftragService(auftrage=[Auftrag: 0]," +
+                " transportAuftragDAO=null," +
+                " auftragDAO=auftragDAO," +
+                " prozessKettenVorlageService=prozessKettenVorlageService," +
+                " auftragsLogsService=auftragsLogsService," +
+                " prozessSchrittDAO=prozessSchrittDAO," +
+                " prozessSchrittZustandsAutomatService=prozessSchrittZustandsAutomatService," +
+                " prozessSchrittLogService=prozessSchrittLogService," +
+                " standortService=null, auftrag=auftrag, probeDao=null)", result);
     }
 }

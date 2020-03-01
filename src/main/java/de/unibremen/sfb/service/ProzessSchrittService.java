@@ -13,9 +13,11 @@ import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbConfig;
 import javax.transaction.Transactional;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Service fuer ProzessSchritt
@@ -36,6 +38,12 @@ public class ProzessSchrittService implements Serializable {
     @Inject
     private ExperimentierStationService experimentierStationService;
 
+    @Inject
+    private ProzessSchrittLogService prozessSchrittLogService;
+
+    @Inject
+    private ProzessSchrittZustandsAutomatService prozessSchrittZustandsAutomatService;
+
     /**
      * Process step dao
      */
@@ -44,10 +52,6 @@ public class ProzessSchrittService implements Serializable {
 
     @Inject
     private ProzessSchrittZustandsAutomatDAO prozessSchrittZustandsAutomatDAO;
-
-
-    @Inject
-    private ProzessSchrittLogService pslService;
 
     @Inject
     AuftragService auftragService;
@@ -87,9 +91,17 @@ public class ProzessSchrittService implements Serializable {
         return ps;
     }
 
-    public ExperimentierStation findStation(ProzessSchritt ps) {
+    public ExperimentierStation findStation(ProzessSchritt ps)
+        throws IllegalArgumentException {
+        if(ps==null) {
+            throw new IllegalArgumentException();
+        }
         for(ExperimentierStation e : experimentierStationService.getAll()) { //TODO jeder schritt nur an einer station?
-            if(e.getNextPS().contains(ps) || e.getCurrentPS() == ps) {
+            List<Integer> psids = new ArrayList<>();
+            for(ProzessSchritt p : e.getNextPS()) {
+                psids.add(p.getPsID());
+            }
+            if(psids.contains(ps.getPsID()) || (e.getCurrentPS()!= null && e.getCurrentPS().getPsID() == ps.getPsID())) {
                 return e;
             }
         }
@@ -99,38 +111,61 @@ public class ProzessSchrittService implements Serializable {
 
     /** Get all process steps from the database
       sets the current state of this ProzessSchritt
-
-     // TODO Add service which determines last Element of ProzessSchrittZustandsAutomatVorlage
-     //      Check if there are any more special states
-             If has reached Last State Continue with next PS
-               - FIFO pop of nextPS with next step into currentPS
-               - Upgrade Technologen View
-
-     // This allows us to dynamically use the pszav, in doing so we let the pkAdmin make pszav
-        <- Dynamische Zustandsautomaten
-
      // TODO Liam
      Add Field to Model for Calculating Average PS Time in PSV
-
       @param ps the ProzessSchritt
      * @param zustand the new state
+     * @throws ExperimentierStationNotFoundException the station of the step was not found in the database
      * @throws ProzessSchrittNotFoundException the ProzessSchritt is not in the database
      * @throws ProzessSchrittLogNotFoundException the ProzessSchritt is not in the database
      *  @throws DuplicateProzessSchrittLogException the ProzessSchritt is not in the database
      *   @throws ProzessSchrittZustandsAutomatNotFoundException the ProzessSchritt is not in the database
      */
     public void setZustand(ProzessSchritt ps, String zustand)
-            throws ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException, DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException {
+            throws ExperimentierStationNotFoundException, ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException, DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException {
         if (ps == null || zustand == null) {
             throw new IllegalArgumentException();
         } else if (!ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().contains(zustand)) {
             throw new IllegalArgumentException("state not possible for this ProzessSchritt");
         } else {
+            if(lastZustand(ps, zustand)) {
+                experimentierStationService.updateCurrent(ps, findStation(ps));
+            }
             ps.getProzessSchrittZustandsAutomat().setCurrent(zustand);
-            pslService.closeLog(ps.getProzessSchrittLog().get(ps.getProzessSchrittLog().size() - 1));
-            ps.getProzessSchrittLog().add(pslService.newLog(zustand));
-                prozessSchrittZustandsAutomatDAO.update(ps.getProzessSchrittZustandsAutomat());
+            prozessSchrittLogService.closeLog(ps.getProzessSchrittLog().get(ps.getProzessSchrittLog().size() - 1));
+            ps.getProzessSchrittLog().add(prozessSchrittLogService.newLog(zustand));
+            prozessSchrittZustandsAutomatDAO.update(ps.getProzessSchrittZustandsAutomat());
             prozessSchrittDAO.update(ps);
+        }
+    }
+
+    /***
+     * if a state is the last state of a process step
+     * @param ps the process step
+     * @param z the state to check
+     * @return true, if last; otherwise false
+     */
+    private boolean lastZustand(ProzessSchritt ps, String z) {
+        return ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende()
+                .get(ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().size() - 1)
+                .equals(z);
+    }
+
+    /**
+     * sets the state of the step one further
+     * @param ps the process step
+     */
+    public void oneFurther(ProzessSchritt ps)
+    throws IllegalArgumentException, ExperimentierStationNotFoundException, ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException, DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException{
+        if (ps == null) {
+            throw new IllegalArgumentException();
+        }
+        if (!lastZustand(ps, ps.getProzessSchrittZustandsAutomat().getCurrent())) {
+            int i = 0;
+            while (!ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().get(i).equals(ps.getProzessSchrittZustandsAutomat().getCurrent())) {
+                i++;
+            }
+            setZustand(ps, ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().get(i+1));
         }
     }
 
@@ -187,5 +222,15 @@ public class ProzessSchrittService implements Serializable {
     public void add(ProzessSchritt ps) throws DuplicateProzessSchrittException {
         prozessSchrittDAO.persist(ps);
     }
+
+    /**
+     * returns the samples of this prozessschritt
+     * @param ps the process step
+     * @return a list containing the samples
+     */
+    public List<Probe> getProben(ProzessSchritt ps) {
+        return ps.getZugewieseneProben();
+    }
+
 }
 

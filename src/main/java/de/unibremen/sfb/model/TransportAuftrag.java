@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /** The transport jobs' data class */
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @RequiredArgsConstructor
-public class TransportAuftrag {
+public class TransportAuftrag implements Serializable {
 
     /** On delete set to invalid */
     @NonNull

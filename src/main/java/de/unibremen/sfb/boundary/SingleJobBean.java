@@ -11,6 +11,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.omnifaces.util.Faces;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -31,6 +32,9 @@ public class SingleJobBean implements Serializable {
 
     private ProzessSchritt ps;
 
+    private List<ProzessSchrittParameter> verProzessSchrittParameters;
+    private List<ProzessSchrittParameter> ausProzessSchrittParameters;
+
     /**
      * saves a comment the user can type in to be added to all samples of a prozessschritt
      */
@@ -45,41 +49,63 @@ public class SingleJobBean implements Serializable {
     @Inject
     private ProzessSchrittService psService;
 
-    @Inject
-    private ExperimentierStationService experimentierStationService;
+    @PostConstruct
+    public void init() {
+        verProzessSchrittParameters = prozessSchrittParameterService.getParameterList();
+        // FIXME Zustandswehcsel
+    }
 
     public String singlejob(ProzessSchritt ps) {
         this.ps = ps;
+        System.out.println(ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende());
         return "singlejob.xhtml";
     }
 
-    public String KommentarToString(Probe p) {
-        return probeService.KommentarToString(p);
-    }
+
 
     /**
      * adds a comment to a process step
-     * @param c the comment
      */
-    public void addComment(String c) {
+    public void addComment() {
         if(ps == null) {
             errorMessage("invalid input");
         }
         else {
-            Kommentar k = new Kommentar(LocalDateTime.now(), c);
-            for (Probe p : ps.getZugewieseneProben()) {
+            for (Probe p : psService.getProben(ps)) {
                 try {
-                    probeService.addProbenComment(p, c); //TODO
-                } catch (ProbeNotFoundException e) {
+                    probeService.addProbenComment(p, kommentarForAll);
+                } catch (ProbeNotFoundException | DuplicateKommentarException e) {
                     e.printStackTrace();
-                    log.info("the sample " + p.getProbenID() + " could not be found while trying to add comment " + c);
+                    log.info("the sample " + p.getProbenID() + " could not be found while trying to add comment " + kommentarForAll);
                 }
                 catch(IllegalArgumentException e) {
                     errorMessage("invalid input");
                 }
             }
+            message("added comment to all samples");
         }
         kommentarForAll = "";
+    }
+
+    public List<Probe> getProben() {
+        return psService.getProben(ps);
+    }
+
+    /**
+     * weise den Proben des akutellen ProzessSchrittes Proben zu
+     */
+    public void zuweisen() {
+        for (Probe p :
+                ps.getZugewieseneProben()) {
+            var list = p.getParameter();
+            list.addAll(ausProzessSchrittParameters);
+            p.setParameter(list);
+            try {
+                probeService.update(p);
+            } catch (ProbeNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -110,6 +136,11 @@ public class SingleJobBean implements Serializable {
         log.info("an error occurred" + e);
     }
 
+    public void message(String e) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, e, null));
+        log.info("displayed message to user: " +e);
+    }
+
     /**
      * downloads a process step parameter
      * @param psp the parameter
@@ -135,28 +166,15 @@ public class SingleJobBean implements Serializable {
      * sets the state of a ProzessSchritt on further than it was
      */
     public void setJobZustand() {
-            int i = 0;
-            while(!ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().get(i).equals(ps.getProzessSchrittZustandsAutomat().getCurrent())) {
-                i++;
-            }
-            try {
-                try {
-                    psService.setZustand(ps, ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende().get(i+1));
-                    if(ps.getProzessSchrittZustandsAutomat().getCurrent().equals("Bearbeitet") && ps.isUploaded()) {
-                        experimentierStationService.deleteCurrent(ps, psService.findStation(ps));
-                    } //TODO wie in zustand weitergeleitet?
-                } catch (ProzessSchrittZustandsAutomatNotFoundException | IllegalArgumentException | ExperimentierStationNotFoundException e) {
-                    e.printStackTrace();
-                    log.error(e.getMessage());
-                }
-                log.info("set state of ProzessSchritt " + ps.getPsID() + " to " + ps.getProzessSchrittZustandsAutomat().getCurrent());
-            }
-            catch(ProzessSchrittNotFoundException | ProzessSchrittLogNotFoundException | DuplicateProzessSchrittLogException e) {
+        try {
+            psService.oneFurther(ps);
+        }
+        catch(ProzessSchrittNotFoundException | ProzessSchrittLogNotFoundException | DuplicateProzessSchrittLogException | ExperimentierStationNotFoundException | ProzessSchrittZustandsAutomatNotFoundException e) {
                 e.printStackTrace();
                 log.info("an error occurred trying to update the state of " + ps.getPsID() + ": " + e.getMessage());
-            }
-            catch(IllegalArgumentException e) {
+        }
+        catch(IllegalArgumentException e) {
                 errorMessage("invalid input");
-            }
+        }
     }
 }
