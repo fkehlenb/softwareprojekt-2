@@ -52,6 +52,7 @@ public class SingleJobBean implements Serializable {
     @PostConstruct
     public void init() {
         verProzessSchrittParameters = prozessSchrittParameterService.getParameterList();
+        // FIXME Zustandswehcsel
     }
 
     public String singlejob(ProzessSchritt ps) {
