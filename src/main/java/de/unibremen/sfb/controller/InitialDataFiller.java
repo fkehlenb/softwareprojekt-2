@@ -238,19 +238,19 @@ public class InitialDataFiller {
 
             // Weise den PS auch Stationen zu.
             // Wenn es einen akutellen Schritt gibt, dann werdne die weiteren Schritte in Warteschlange eingreiht.
-            /*ExperimentierStation es;
+            ExperimentierStation es;
             try {
                 es = ps.getProzessSchrittVorlage().getStationen().get(0);
                 if (es.getCurrentPS() == null) {
                     es.setCurrentPS(ps);
-                    ps.setZugewieseneProben(erstelleProben(es.getStandort()));
                 } else {
                     es.getNextPS().add(ps);
                 }
                 em.persist(es);
             } catch (NullPointerException e) {
                 log.info("Es gibt keine Stationen für diesen Schritt");
-            }*/
+            }
+            
         }
         return r;
     }
@@ -422,8 +422,8 @@ public class InitialDataFiller {
         catch(DuplicateTraegerException e) {
             e.printStackTrace();
         }
-        /*for(int i=0; i<limit; i++){
-            Probe p1 = new Probe("FDGHJ"+i, ProbenZustand.VORHANDEN, s);
+        for(int i=0; i<limit; i++){
+            Probe p1 = new Probe("FDGHJ"+i, 9, ProbenZustand.VORHANDEN, s);
             p1.setCurrentTraeger(t);
             p1.setKommentar(erstelleKommentare());
             r.add(p1);
@@ -433,7 +433,7 @@ public class InitialDataFiller {
             catch(DuplicateProbeException e) {
                 e.printStackTrace();
             }
-        }*/
+        }
         return r;
     }
 

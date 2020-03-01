@@ -60,12 +60,6 @@ public class ProzessSchritt {
     @ManyToOne
     private ProzessSchrittVorlage prozessSchrittVorlage;
 
-    /**
-     * Die Zugewiesenen Proben fuer diesen Schritt
-     */
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Probe> zugewieseneProben;
-
     @Override
     public String toString() {
         return
