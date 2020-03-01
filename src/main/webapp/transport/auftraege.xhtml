@@ -27,7 +27,7 @@
 
                 <h:form id="form">
                     <p:growl id="msgs" showDetail="true"/>
-                    
+
                     <p:dataTable id="ps1" var="ps" value="#{transportBean.ps2}" editable="true"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                                  paginator="true" rows="10" style="margin-bottom:20px"
@@ -36,12 +36,16 @@
                             Angenommene Aufträge
                         </f:facet>
 
-                        <p:column headerText="TrägerID">
-                            <h:outputText value="#{ps.psID}"/>
+                        <p:column headerText="Transportauftrag ID">
+                            <h:outputText value="#{ps.transportAuftrag.id}"/>
+                        </p:column>
+
+                        <p:column headerText="Priorität">
+                            <h:outputText value="#{dtAuftragBean.prios}"/>
                         </p:column>
 
                         <p:column headerText="Abholort">
-                            <h:outputText value="#{ps.psID}"/>
+                            <h:outputText value="#{dtAuftragBean.ausPrio}"/>
                         </p:column>
 
                         <p:column headerText="Ablieferort">
@@ -67,8 +71,8 @@
                             Verfügbare Aufträge
                         </f:facet>
 
-                        <p:column headerText="psID">
-                            <h:outputText value="#{ps.psID}"/>
+                        <p:column headerText="Transportauftrag ID">
+                            <h:outputText value="#{ps.transportAuftrag.id}"/>
                         </p:column>
 
                         <p:column headerText="TrägerID">
