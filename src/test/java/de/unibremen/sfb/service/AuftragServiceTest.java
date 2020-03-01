@@ -217,6 +217,7 @@ class AuftragServiceTest {
     }
 
     @Test
+
     void testSetAuftragDAO() {
         auftragService.setAuftragDAO(new AuftragDAO());
     }

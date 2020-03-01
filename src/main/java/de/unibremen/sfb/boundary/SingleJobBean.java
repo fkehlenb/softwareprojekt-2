@@ -11,6 +11,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.omnifaces.util.Faces;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -48,11 +49,17 @@ public class SingleJobBean implements Serializable {
     @Inject
     private ProzessSchrittService psService;
 
+    @PostConstruct
+    public void init() {
+        verProzessSchrittParameters = prozessSchrittParameterService.getParameterList();
+    }
+
     public String singlejob(ProzessSchritt ps) {
         this.ps = ps;
         System.out.println(ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende());
         return "singlejob.xhtml";
     }
+
 
 
     /**
