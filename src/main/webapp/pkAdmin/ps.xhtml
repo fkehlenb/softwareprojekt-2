@@ -100,6 +100,45 @@
                                         </f:facet>
                                     </p:cellEditor>
                                 </p:column>
+                                <p:column headerText="Dauer">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputText value="#{psView.getDuration(ps.psID)}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:inputText placeholder="Dauer" requiredMessage="Bitte Dauer angeben!" required="true"
+                                                         value="#{psView.psDauer}"/>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="Experimentierstation">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputText value="#{psView.getES(ps.psID)}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:selectOneMenu id="experimentierstation"
+                                                             value="#{psView.experimentierStation}"
+                                                             converter="omnifaces.SelectItemsConverter"
+                                                             effect="fade"
+                                                             var="experimentierstation" style="width: 172px" filter="true"
+                                                             filterMatchMode="contains" required="true"
+                                                             requiredMessage="Bitte experimentierstation waehlen!">
+                                                <f:selectItems value="#{psView.experimentierStations}"
+                                                               var="experimentierstation" itemLabel="#{experimentierstation.name}"
+                                                               itemValue="#{experimentierstation}" required="true"/>
+                                                <p:column>
+                                                    <h:outputText value="#{experimentierstation.name}"/>
+                                                </p:column>
+                                            </p:selectOneMenu>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="Prozessschritt Parameter">
+                                    <p:commandButton value="Anzeigen"/>
+                                </p:column>
+                                <p:column headerText="Eigenschaften">
+                                </p:column>
                                 <p:column headerText="Prozessschritt Log">
                                     <p:commandButton value="Show Log" onclick="PF('dlg2').show();"/>
                                     <p:dialog header="Prozessschritt Log Uebersicht" widgetVar="dlg2" modal="true"

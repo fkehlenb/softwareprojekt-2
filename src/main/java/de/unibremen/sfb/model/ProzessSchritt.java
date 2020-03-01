@@ -1,8 +1,11 @@
 package de.unibremen.sfb.model;
 
 import lombok.*;
+import org.apache.commons.lang3.tuple.Pair;
 
 import javax.persistence.*;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 /** Data class for process chain steps */
@@ -29,11 +32,6 @@ public class ProzessSchritt {
     /** Whether or not the process step has been uploaded */
     private boolean uploaded;
 
-//    /** The experimenting station where the current process step is being carried out */
-//    //@NonNull TOOD Wann beginnt die Zuweisung?
-//    @OneToOne
-//    private ExperimentierStation current;
-
     /** The transport job to be carried out */
     @OneToOne
     private TransportAuftrag transportAuftrag;
@@ -57,4 +55,12 @@ public class ProzessSchritt {
     @NonNull
     @OneToOne
     private ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat;
+
+    /** The duration of the process step */
+    @NonNull
+    private String dauer = "";
+
+    /** Location the process step is processed */
+    @ManyToOne
+    private ExperimentierStation experimentierStation = null;
 }

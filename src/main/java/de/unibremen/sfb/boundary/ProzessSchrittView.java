@@ -74,9 +74,32 @@ public class ProzessSchrittView implements Serializable {
     @Inject
     private ProzessSchrittZustandsAutomatVorlageService prozessSchrittZustandsAutomatVorlageService;
 
-    /** Process step state automaton service */
+    /**
+     * Process step state automaton service
+     */
     @Inject
     private ProzessSchrittZustandsAutomatService prozessSchrittZustandsAutomatService;
+
+    /**
+     * Process step template duration
+     */
+    private String psDauer;
+
+    /**
+     * Experimenting station
+     */
+    private ExperimentierStation experimentierStation;
+
+    /**
+     * List of all available experimenting stations
+     */
+    private List<ExperimentierStation> experimentierStations;
+
+    /**
+     * Experimenting station service
+     */
+    @Inject
+    private ExperimentierStationService experimentierStationService;
 
 
     /**
@@ -88,6 +111,7 @@ public class ProzessSchrittView implements Serializable {
         allePSV = prozessSchrittVorlageService.getProzessSchrittVorlagen();
         prozessSchrittVorlages = prozessSchrittVorlageService.getVorlagen();
         prozessSchrittZustandsAutomatVorlages = prozessSchrittZustandsAutomatVorlageService.getProzessSchrittZustandsAutomatVorlagen();
+        experimentierStations = experimentierStationService.getAll();
     }
 
 
@@ -101,6 +125,8 @@ public class ProzessSchrittView implements Serializable {
             ProzessSchritt prozessSchritt = prozessSchrittService.getObjById(id);
             if (prozessSchritt.getProzessSchrittZustandsAutomat().getCurrent().equals("Erstellt")) {
                 prozessSchritt.setProzessSchrittVorlage(prozessSchrittVorlage);
+                prozessSchritt.setDauer(psDauer);
+                prozessSchritt.setExperimentierStation(experimentierStation);
                 ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = prozessSchritt.getProzessSchrittZustandsAutomat();
                 prozessSchrittZustandsAutomat.setProzessSchrittZustandsAutomatVorlage(prozessSchrittZustandsAutomatVorlage);
                 prozessSchrittZustandsAutomatService.edit(prozessSchrittZustandsAutomat);
@@ -132,18 +158,54 @@ public class ProzessSchrittView implements Serializable {
      */
     public void delete(int id) {
         try {
-            if (prozessSchrittService.getObjById(id).getProzessSchrittZustandsAutomat().getCurrent().equals("Erstellt")) {
-                prozessSchrittService.remove(prozessSchrittService.getObjById(id));
-                log.info("Removed process step with ID " + id);
-                facesNotification("Removed process step with ID " + id);
-            } else {
-                facesError("Cannot remove an already started process step!");
-            }
+            prozessSchrittService.remove(prozessSchrittService.getObjById(id));
+            log.info("Removed process step with ID " + id);
+            facesNotification("Removed process step with ID " + id);
             allePS = prozessSchrittService.getAll();
         } catch (Exception e) {
             e.printStackTrace();
             log.error("Couldn't delete process step with ID " + id);
             facesError("Couldn't delete process step with ID " + id);
+        }
+
+    }
+
+    /**
+     * Get process step duration
+     *
+     * @param id - the id of the process step whichs duration to get
+     * @return the duration
+     */
+    public String getDuration(int id) {
+        try {
+            String dur = prozessSchrittService.getObjById(id).getDauer();
+            if (dur.equals("")) {
+                return prozessSchrittService.getObjById(id).getProzessSchrittVorlage().getDauer();
+            }
+            return dur;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    /**
+     * Get a process step experimenting station
+     *
+     * @param id - the id of the process step whichs experimenting station to get
+     * @return the experimenting station
+     */
+    public String getES(int id) {
+        try {
+            ExperimentierStation experimentierStation = prozessSchrittService.getObjById(id).getExperimentierStation();
+            if (experimentierStation == null) {
+                return "Not specified!";
+            } else {
+                return experimentierStation.getName();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Not specified";
         }
     }
 
