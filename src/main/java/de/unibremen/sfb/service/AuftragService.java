@@ -34,6 +34,9 @@ public class AuftragService implements Serializable {
     private
 
     @Inject
+    TransportAuftrag transportAuftrag;
+
+    @Inject
     TransportAuftragDAO transportAuftragDAO;
 
     @Inject
@@ -195,6 +198,13 @@ public class AuftragService implements Serializable {
     public void update(Auftrag auftrag) throws AuftragNotFoundException {
         auftragDAO.update(auftrag);
     }
+
+    /**
+     * Update an existing transport Job in the database
+     *
+     * @param transportAuftrag the transport job to update
+     * @throws TransportAuftragNotFoundException on failure
+     */
     public void updateTransportZustand(TransportAuftrag transportAuftrag) throws TransportAuftragNotFoundException {
         transportAuftragDAO.update(transportAuftrag);
     }
@@ -441,8 +451,14 @@ public class AuftragService implements Serializable {
 
 
     public void sedTransportZustandAbgeholt(TransportAuftrag t) throws TransportAuftragNotFoundException {
+        t.setZustandsAutomat(TransportAuftragZustand.ABGEHOLT);
         t.setAbgeholt(LocalDateTime.now());
         updateTransportZustand(t);
+    }
 
+    public void sedTransportZustandAbgeliefert(TransportAuftrag t) throws TransportAuftragNotFoundException {
+        t.setZustandsAutomat(TransportAuftragZustand.ABGELIEFERT);
+        t.setAbgeholt(LocalDateTime.now());
+        updateTransportZustand(t);
     }
 }

@@ -27,13 +27,11 @@
 
                 <h:form id="form">
                     <p:growl id="msgs" showDetail="true"/>
-
-
+                    
                     <p:dataTable id="ps1" var="ps" value="#{transportBean.ps2}" editable="true"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                                  paginator="true" rows="10" style="margin-bottom:20px"
-                                 rowIndexVar="#{ps.psID}"
-                    >
+                                 rowIndexVar="#{ps.psID}">
                         <f:facet name="header">
                             Angenommene Aufträge
                         </f:facet>
@@ -51,15 +49,13 @@
                         </p:column>
 
                         <p:column headerText="Zustand">
-                            <h:outputText value="#{ps.psID}"/>
+                            <h:outputText value="#{ps.transportAuftrag.zustandsAutomat}"/>
                         </p:column>
 
                         <p:column headerText="Abgeliefert?">
-                            <p:commandButton value="Abgeliefert" ajax="true" action="#{transportBean.auftragStatusAbgeholt(ps.transportAuftrag.id)}"
-                                             icon="pi pi-check" update="ps1"/>
+                            <p:commandButton value="Abgeliefert" ajax="true" action="#{transportBean.changeTransportZustandAbgeliefert(ps.transportAuftrag.id)}"
+                                             icon="pi pi-check" update="form"/>
                         </p:column>
-
-
 
                     </p:dataTable>
 
@@ -93,7 +89,7 @@
 
                         <p:column headerText="Annehmen?">
                             <p:commandButton value="Annehmen" ajax="true" action="#{transportBean.changeTransportZustandAbgeholt(ps.transportAuftrag.id)}"
-                                             icon="pi pi-check" update="ps2"/>
+                                             icon="pi pi-check" update="form"/>
                         </p:column>
 
                     </p:dataTable>

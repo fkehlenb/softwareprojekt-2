@@ -63,11 +63,26 @@ public class TransporterBean implements Serializable {
           log.info("TransportAuftragZustand wurde gewechselt auf Abgeholt " + TransportID);
 
       }
-      catch (Exception e){
+      catch (Exception e) {
           e.printStackTrace();
-          log.error("Failed to change state" + TransportID);
+          log.error("Failed to change state to Abgeholt" + TransportID);
       }
-        log.info("Erfolg");
+    }
+
+    /**
+     * sets the status of the job this transporter is currently working on
+     */
+    public void changeTransportZustandAbgeliefert(int TransportID) {
+        try {
+            TransportAuftrag tr = auftragService.getTransportAuftragByID(TransportID);
+            auftragService.sedTransportZustandAbgeliefert(tr);
+            log.info("TransportAuftragZustand wurde gewechselt auf Abgeliefert " + TransportID);
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            log.error("Failed to change state to Abgeliefert" + TransportID);
+        }
     }
 
     /**
