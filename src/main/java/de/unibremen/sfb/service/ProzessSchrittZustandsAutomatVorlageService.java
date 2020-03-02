@@ -8,14 +8,11 @@ import de.unibremen.sfb.persistence.ProzessSchrittZustandsAutomatVorlageDAO;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
+import java.io.Serializable;
 import java.util.List;
 
-@Singleton
-/*
-  Service fuer ProzessSchrittZustandsAutomatVorlagen
-  Anwendungsfall: Bearbeiten einer Vorlage oder hinzufuegen einer ProzessSchrittZustandsAutomatVorlage in einer ProzessKettenVorlage
- */
-public class ProzessSchrittZustandsAutomatVorlageService {
+
+public class ProzessSchrittZustandsAutomatVorlageService implements Serializable {
     private List<ProzessSchrittZustandsAutomatVorlage> psvVorlagen;
 
     @Inject

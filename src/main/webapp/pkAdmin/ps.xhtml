@@ -83,7 +83,7 @@
                                         <p:commandButton value="Reset" type="reset" icon="pi pi-trash"/>
                                     </p:column>
                                     <p:column colspan="1">
-                                        <p:commandButton value="Erstellen" icon="pi pi-check" action="#{psView.createPS}"/>
+                                        <p:commandButton value="Erstellen" icon="pi pi-check" action="#{psView.createPS}" ajax="false"/>
                                     </p:column>
                                 </p:row>
                             </p:panelGrid>
@@ -218,8 +218,7 @@
                                 </p:column>
                                 <p:column>
                                     <p:commandButton value="Delete" icon="pi pi-trash"
-                                                     action="#{psView.removePS(ps.id)}" ajax="true"
-                                                     update="form:table"/>
+                                                     action="#{psView.removePS(ps.id)}" ajax="false"/>
                                 </p:column>
                                 <p:column style="width:35px">
                                     <p:rowEditor/>
