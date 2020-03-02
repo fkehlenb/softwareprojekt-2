@@ -66,9 +66,24 @@ public class PKVView implements Serializable {
         return "pkv?faces-redirect=true";
     }
 
-    public void deletePSV() {
-        prozessKettenVorlageService.delete(selPKV);
+    /**
+     * Adds a new SEVERITY_INFO FacesMessage for the ui
+     *
+     * @param message Info Message
+     */
+    private void facesNotification(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
+    }
 
+    public void deletePKV() {
+        try {
+            prozessKettenVorlageService.delete(selPKV);
+            facesNotification("Erfolgreich Gelöscht");
+            verPKV = prozessKettenVorlageService.getPKVs();
+        } catch (DuplicateProzessKettenVorlageException e) {
+            e.printStackTrace();
+            facesNotification("Fehler im Löschen");
+        }
     }
 
     public void onRowEdit(RowEditEvent<ProzessKettenVorlage> event) throws ProzessSchrittVorlageNotFoundException {
