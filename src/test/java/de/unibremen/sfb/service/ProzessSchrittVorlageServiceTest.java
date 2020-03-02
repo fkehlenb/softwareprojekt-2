@@ -104,11 +104,11 @@ class ProzessSchrittVorlageServiceTest {
         Assertions.assertEquals(false, result);
     }
 
-    @Test
-    void testCanEqual() {
-        boolean result = prozessSchrittVorlageService.canEqual("other");
-        Assertions.assertEquals(false, result);
-    }
+//    @Test
+//    void testCanEqual() {
+//        boolean result = prozessSchrittVorlageService.canEqual("other");
+//        Assertions.assertEquals(false, result);
+//    }
 
 
     @Test

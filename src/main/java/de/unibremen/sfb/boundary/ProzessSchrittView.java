@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -19,7 +20,7 @@ import java.util.UUID;
 
 
 @Named("psView")
-@ViewScoped
+@RequestScoped
 @Getter
 @Setter
 @Slf4j

@@ -9,7 +9,7 @@ import java.util.List;
 /** Data class for the process step templates */
 @Data
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @RequiredArgsConstructor
 public class ProzessSchrittVorlage {
 

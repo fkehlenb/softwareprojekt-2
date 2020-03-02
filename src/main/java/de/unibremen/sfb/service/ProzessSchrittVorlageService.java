@@ -7,6 +7,8 @@ import de.unibremen.sfb.model.ProzessSchritt;
 import de.unibremen.sfb.model.ProzessSchrittVorlage;
 import de.unibremen.sfb.persistence.ProzessSchrittVorlageDAO;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
@@ -18,7 +20,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-@Data
+@Getter
+@Setter
 public class ProzessSchrittVorlageService implements Serializable {
 
     public List<ProzessSchrittVorlage> vorlagen;

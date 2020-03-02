@@ -105,7 +105,6 @@ public class PSZAVView implements Serializable {
             ProzessSchrittZustandsAutomatZustaende pszaz = new ProzessSchrittZustandsAutomatZustaende(123, new ArrayList<>());
             prozessSchrittZustandsAutomatZustaendeDAO.persist(pszaz);
             sourceZ.add("Erstellt");
-            sourceZ.add("Freigegeben");
             pszaz.setZustaende(sourceZ);
             prozessSchrittZustandsAutomatZustaendeDAO.update(pszaz);
         } catch (Exception e) {
@@ -149,14 +148,14 @@ public class PSZAVView implements Serializable {
         try {
             List<String> selected = dualZ.getTarget();
             try {
-                if (selected.get(0).equals("Erstellt") && selected.get(1).equals("Freigegeben")) {
+                if (selected.get(0).equals("Erstellt")) {
                     prozessSchrittZustandsAutomatVorlageService.addVorlage(new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(), selected, name));
                 } else {
-                    facesError("Der erste Zustand muss Erstellt, und der zweite Freigegeben sein!");
+                    facesError("Der erste Zustand muss Erstellt sein!");
                 }
                 refresh();
             } catch (Exception f) {
-                facesError("Bitte suchen Sie mindestens 2 Zustaende aus!");
+                facesError("Bitte suchen Sie mindestens 1 Zustaend aus!");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -189,14 +188,14 @@ public class PSZAVView implements Serializable {
     public void onRowEdit(int id) {
         try {
             List<String> selected = dualZ.getTarget();
-            if (selected.get(0).equals("Erstellt") && selected.get(1).equals("Freigegeben")) {
+            if (selected.get(0).equals("Erstellt")) {
                 ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage = prozessSchrittZustandsAutomatVorlageService.getByID(id);
                 prozessSchrittZustandsAutomatVorlage.setName(name);
                 prozessSchrittZustandsAutomatVorlage.setZustaende(selected);
                 prozessSchrittZustandsAutomatVorlageService.edit(prozessSchrittZustandsAutomatVorlage);
                 refresh();
             } else {
-                facesError("Der erste Zustand muss Erstellt, und der zweite Freigegeben sein!");
+                facesError("Der erste Zustand muss Erstellt sein!");
             }
         }
         catch (Exception e){
