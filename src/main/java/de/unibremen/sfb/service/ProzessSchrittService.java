@@ -35,7 +35,7 @@ public class ProzessSchrittService implements Serializable {
     /** Create a new process step
      * @param ps - the process step to add
      * @throws DuplicateProzessSchrittException failure */
-    private void createPS(ProzessSchritt ps) throws DuplicateProzessSchrittException{
+    public void createPS(ProzessSchritt ps) throws DuplicateProzessSchrittException{
         prozessSchrittDAO.persist(ps);
     }
 

@@ -63,8 +63,7 @@ public class ProzessSchritt {
      * Process step attributes
      */
     @NonNull
-    @ElementCollection
-    private List<String> attribute;
+    private String attribute;
 
     /** Process step transport job */
     @ManyToOne

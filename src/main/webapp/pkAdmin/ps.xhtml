@@ -36,43 +36,96 @@
                     </p:row>
                     <p:row>
                         <p>In der unteren Tabelle sehen Sie alle im System existierende Prozessschritte.
-                            Sie koennen noch nicht gestartete Prozessschritte beliebig verwalten, bei gestarteten
-                            Prozessschritten koennen nur eingeschraenkt sachen veraendert werden!</p>
+                            Sie koennen noch nicht gestartete Prozessschritte beliebig verwalten. Mit dem unteren Formular
+                            koennen Sie neue Prozessschritte aus Prozessschrittvorlagen erstellen.</p>
                     </p:row>
                     <p:row>
+                        <h:form id="psForm">
+                            <p:panelGrid>
+                                <p:row>
+                                    <p:column colspan="1">
+                                        <h:outputText value="Prozessschrittvorlage"/>
+                                    </p:column>
+                                    <p:column colspan="1">
+                                        <p:selectOneMenu id="prozessschrittvorlage"
+                                                         value="#{psView.selectedProzessSchrittVorlage}"
+                                                         converter="omnifaces.SelectItemsConverter" effect="fade"
+                                                         var="prozessschrittvorlage" style="width: 172px" filter="true"
+                                                         filterMatchMode="contains" required="true"
+                                                         requiredMessage="Bitte prozessschritt vorlage eingeben!">
+                                            <f:selectItems value="#{psView.prozessSchrittVorlagen}"
+                                                           var="prozessschrittvorlage" itemLabel="#{prozessschrittvorlage.name}"
+                                                           itemValue="#{prozessschrittvorlage}" required="true"/>
+                                            <p:column>
+                                                <h:outputText value="#{prozessschrittvorlage.name}"/>
+                                            </p:column>
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                    <p:column colspan="1">
+                                        <h:outputText value="Prozessschritt Name"/>
+                                    </p:column>
+                                    <p:column colspan="1">
+                                        <p:inputText placeholder="Prozessschritt Name" required="true" requiredMessage="Bitte prozessschrittname eingeben!"
+                                                     value="#{psView.prozessSchrittName}"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column colspan="1">
+                                        <h:outputText value="Attribute"/>
+                                    </p:column>
+                                    <p:column colspan="1">
+                                        <p:inputText value="#{psView.prozessSchrittAttribute}" required="true" requiredMessage="Bitte prozessschritt attribute eingebem!"
+                                                     placeholder="Attribute"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column colspan="1">
+                                        <p:commandButton value="Reset" type="reset" icon="pi pi-trash"/>
+                                    </p:column>
+                                    <p:column colspan="1">
+                                        <p:commandButton value="Erstellen" icon="pi pi-check" action="#{psView.createPS}"/>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
+                        </h:form>
+                    </p:row>
+                    <style type="text/css">
+                        .broken {
+                            background-color: red !important;
+                        }
+                    </style>
+                    <p:row>
                         <h:form id="form">
-                            <p:dataTable id="table" var="ps" value="#{psView.allePS}" editable="true"
+                            <p:dataTable id="table" var="ps" value="#{psView.prozessSchritte}" editable="true"
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                         paginator="true"  rowStyleClass="#{ps.prozessSchrittZustandsAutomat.current eq 'Kapputt' ? 'broken' : null}" style="margin-bottom:20px">r
-                            rows="15" style="margin-bottom:20px">
-                                <p:ajax event="rowEdit" listener="#{psView.onRowEdit(ps.psID)}"
+                                         paginator="true"
+                                         rowStyleClass="#{ps.prozessSchrittZustandsAutomat.current eq 'Kapputt' ? 'broken' : null}"
+                                         style="margin-bottom:20px">r
+                                rows="15" style="margin-bottom:20px">
+                                <p:ajax event="rowEdit" listener="#{psView.onRowEdit(ps.id)}"
                                         update="form:table"/>
-                                <p:ajax event="rowEditCancel" listener="#{psView.onRowCancel}"
+                                <p:ajax event="rowEditCancel" listener="#{psView.onRowEditCancelled}"
                                         update="form:table"/>
-                                <p:column headerText="Prozessschritt Vorlage">
+                                <p:column headerText="Prozesschritt Name">
                                     <p:cellEditor>
                                         <f:facet name="output">
-                                            <h:outputText value="#{ps.prozessSchrittVorlage.name}"/>
+                                            <h:outputText value="#{ps.name}"/>
                                         </f:facet>
                                         <f:facet name="input">
-                                            <p:selectOneMenu id="prozessschritt"
-                                                             value="#{psView.prozessSchrittVorlage}"
-                                                             converter="omnifaces.SelectItemsConverter" effect="fade"
-                                                             var="prozessschritt" style="width: 172px" filter="true"
-                                                             filterMatchMode="contains" required="true"
-                                                             requiredMessage="Bitte prozessschritt vorlage eingeben!">
-                                                <f:selectItems value="#{psView.prozessSchrittVorlages}"
-                                                               var="prozessschritt" itemLabel="#{prozessschritt.name}"
-                                                               itemValue="#{prozessschritt}" required="true"/>
-                                                <p:column>
-                                                    <h:outputText value="#{prozessschritt.name}"/>
-                                                </p:column>
-                                            </p:selectOneMenu>
+                                            <p:inputText placeholder="Prozessschritt Name" required="true" requiredMessage="Bitte prozessschrittname eingeben!"
+                                                         value="#{psView.prozessSchrittName}"/>
                                         </f:facet>
                                     </p:cellEditor>
                                 </p:column>
-                                <p:column headerText="Prozessschritt ID">
-                                    <h:outputText value="#{ps.psID}"/>
+                                <p:column headerText="Dauer">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputText value="#{ps.duration}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:inputText placeholder="Dauer" value="#{psView.psDuration}" requiredMessage="Bitte dauer eingeben!" required="true"/>
+                                        </f:facet>
+                                    </p:cellEditor>
                                 </p:column>
                                 <p:column headerText="Status">
                                     <h:outputText value="#{ps.prozessSchrittZustandsAutomat.current}"/>
@@ -80,18 +133,17 @@
                                 <p:column headerText="Zustandsautomat">
                                     <p:cellEditor>
                                         <f:facet name="output">
-                                            <h:outputText
-                                                    value="#{ps.prozessSchrittZustandsAutomat.prozessSchrittZustandsAutomatVorlage.name}"/>
+                                            <h:outputText value="#{ps.prozessSchrittZustandsAutomat.name}"/>
                                         </f:facet>
                                         <f:facet name="input">
                                             <p:selectOneMenu id="zustandsautomat"
-                                                             value="#{psView.prozessSchrittZustandsAutomatVorlage}"
+                                                             value="#{psView.selectedProzessSchrittZustandsAutomatVorlage}"
                                                              converter="omnifaces.SelectItemsConverter" effect="fade"
                                                              var="zustandsautomat" style="width: 172px" filter="true"
                                                              filterMatchMode="contains" required="true"
                                                              requiredMessage="Bitte prozessschritt vorlage eingeben!">
                                                 <f:selectItems
-                                                        value="#{psView.prozessSchrittZustandsAutomatVorlages}"
+                                                        value="#{psView.prozessSchrittZustandsAutomatVorlagen}"
                                                         var="zustandsautomat" itemLabel="#{zustandsautomat.name}"
                                                         itemValue="#{zustandsautomat}" required="true"/>
                                                 <p:column>
@@ -101,32 +153,23 @@
                                         </f:facet>
                                     </p:cellEditor>
                                 </p:column>
-                                <p:column headerText="Dauer">
-                                    <p:cellEditor>
-                                        <f:facet name="output">
-                                            <h:outputText value="#{psView.getDuration(ps.id)}"/>
-                                        </f:facet>
-                                        <f:facet name="input">
-                                            <p:inputText placeholder="Dauer" requiredMessage="Bitte Dauer angeben!" required="true"
-                                                         value="#{psView.psDauer}"/>
-                                        </f:facet>
-                                    </p:cellEditor>
-                                </p:column>
                                 <p:column headerText="Experimentierstation">
                                     <p:cellEditor>
                                         <f:facet name="output">
-                                            <h:outputText value="#{psView.getES(ps.id)}"/>
+                                            <h:outputText value="#{ps.experimentierStation}"/>
                                         </f:facet>
                                         <f:facet name="input">
                                             <p:selectOneMenu id="experimentierstation"
                                                              value="#{psView.experimentierStation}"
                                                              converter="omnifaces.SelectItemsConverter"
                                                              effect="fade"
-                                                             var="experimentierstation" style="width: 172px" filter="true"
+                                                             var="experimentierstation" style="width: 172px"
+                                                             filter="true"
                                                              filterMatchMode="contains" required="true"
                                                              requiredMessage="Bitte experimentierstation waehlen!">
-                                                <f:selectItems value="#{psView.experimentierStations}"
-                                                               var="experimentierstation" itemLabel="#{experimentierstation.name}"
+                                                <f:selectItems value="#{psView.experimentierStationen}"
+                                                               var="experimentierstation"
+                                                               itemLabel="#{experimentierstation.name}"
                                                                itemValue="#{experimentierstation}" required="true"/>
                                                 <p:column>
                                                     <h:outputText value="#{experimentierstation.name}"/>
@@ -138,7 +181,16 @@
                                 <p:column headerText="Prozessschritt Parameter">
                                     <p:commandButton value="Anzeigen"/>
                                 </p:column>
-                                <p:column headerText="Eigenschaften">
+                                <p:column headerText="Attribute">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputText value="#{ps.attribute}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:inputText value="#{psView.prozessSchrittAttribute}" required="true" requiredMessage="Bitte prozessschritt attribute eingebem!"
+                                                         placeholder="Attribute"/>
+                                        </f:facet>
+                                    </p:cellEditor>
                                 </p:column>
                                 <p:column headerText="Prozessschritt Log">
                                     <p:commandButton value="Show Log" onclick="PF('dlg2').show();"/>
@@ -166,7 +218,7 @@
                                 </p:column>
                                 <p:column>
                                     <p:commandButton value="Delete" icon="pi pi-trash"
-                                                     action="#{psView.delete(ps.id)}" ajax="true"
+                                                     action="#{psView.removePS(ps.id)}" ajax="true"
                                                      update="form:table"/>
                                 </p:column>
                                 <p:column style="width:35px">

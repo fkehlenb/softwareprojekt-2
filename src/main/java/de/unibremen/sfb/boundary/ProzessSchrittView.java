@@ -1,13 +1,10 @@
 package de.unibremen.sfb.boundary;
 
-import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
-import de.unibremen.sfb.service.*;
 import de.unibremen.sfb.model.*;
+import de.unibremen.sfb.service.*;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
-import org.primefaces.event.RowEditEvent;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -16,7 +13,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 
 @Named("psView")
@@ -26,21 +25,6 @@ import java.util.List;
 @Slf4j
 public class ProzessSchrittView implements Serializable {
 
-    /**
-     * All process steps
-     */
-    private List<ProzessSchritt> allePS;
-
-    /**
-     * All process step templates
-     */
-    private List<ProzessSchrittVorlage> allePSV;
-
-    /**
-     * Process step service
-     */
-    @Inject
-    private ProzessSchrittService prozessSchrittService;
 
     /**
      * Process step template service
@@ -49,174 +33,154 @@ public class ProzessSchrittView implements Serializable {
     private ProzessSchrittVorlageService prozessSchrittVorlageService;
 
     /**
-     * Process step template
+     * Process step service
      */
-    private ProzessSchrittVorlage prozessSchrittVorlage;
+    @Inject
+    private ProzessSchrittService prozessSchrittService;
 
     /**
-     * List of all available process step templates
+     * Process step log service
      */
-    private List<ProzessSchrittVorlage> prozessSchrittVorlages;
+    @Inject
+    private ProzessSchrittLogService prozessSchrittLogService;
 
-    /**
-     * Process step state automaton template
-     */
-    private ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage;
-
-    /**
-     * List of all process step state automaton templatese
-     */
-    private List<ProzessSchrittZustandsAutomatVorlage> prozessSchrittZustandsAutomatVorlages;
-
-    /**
-     * Process step state automaton template service
-     */
+    /** Process step state automaton template service */
     @Inject
     private ProzessSchrittZustandsAutomatVorlageService prozessSchrittZustandsAutomatVorlageService;
 
-    /**
-     * Process step state automaton service
-     */
+    /** Process step state automaton service */
     @Inject
     private ProzessSchrittZustandsAutomatService prozessSchrittZustandsAutomatService;
 
-    /**
-     * Process step template duration
-     */
-    private String psDauer;
-
-    /**
-     * Experimenting station
-     */
-    private ExperimentierStation experimentierStation;
-
-    /**
-     * List of all available experimenting stations
-     */
-    private List<ExperimentierStation> experimentierStations;
-
-    /**
-     * Experimenting station service
-     */
+    /** Experimenting station service */
     @Inject
     private ExperimentierStationService experimentierStationService;
 
+    /**
+     * List of all process step templates
+     */
+    private List<ProzessSchrittVorlage> prozessSchrittVorlagen;
 
     /**
-     * Hier werden aus der Persitenz die benötigten Daten Geladen
+     * Selected process step template
+     */
+    private ProzessSchrittVorlage selectedProzessSchrittVorlage;
+
+    /**
+     * All process steps in the system
+     */
+    private List<ProzessSchritt> prozessSchritte;
+
+    /** Process step attributes */
+    private String prozessSchrittAttribute;
+
+    /** Process step name */
+    private String prozessSchrittName;
+
+    /** List of all process step state automaton templates */
+    private List<ProzessSchrittZustandsAutomatVorlage> prozessSchrittZustandsAutomatVorlagen;
+
+    /** Selected process step state automaton template */
+    private ProzessSchrittZustandsAutomatVorlage selectedProzessSchrittZustandsAutomatVorlage;
+
+    /** List of all experimenting stations */
+    private List<ExperimentierStation> experimentierStationen;
+
+    /** Process step duration */
+    private String psDuration;
+
+    /** Experimenting station */
+    private ExperimentierStation experimentierStation;
+
+    /**
+     * Init called on bean initialization
      */
     @PostConstruct
-    public void init() {
-        allePS = prozessSchrittService.getAll();
-        allePSV = prozessSchrittVorlageService.getProzessSchrittVorlagen();
-        prozessSchrittVorlages = prozessSchrittVorlageService.getVorlagen();
-        prozessSchrittZustandsAutomatVorlages = prozessSchrittZustandsAutomatVorlageService.getProzessSchrittZustandsAutomatVorlagen();
-        experimentierStations = experimentierStationService.getAll();
+    private void init() {
+        refetchData();
     }
 
+    /** Update all lists */
+    private void refetchData(){
+        prozessSchrittVorlagen = prozessSchrittVorlageService.getProzessSchrittVorlagen();
+        prozessSchritte = prozessSchrittService.getAll();
+        prozessSchrittZustandsAutomatVorlagen = prozessSchrittZustandsAutomatVorlageService.getProzessSchrittZustandsAutomatVorlagen();
+        experimentierStationen = experimentierStationService.getAll();
+    }
 
     /**
-     * Update a process step that has not been startet yet
-     *
-     * @param id - the id of the process step
+     * Create a new process step
      */
-    public void onRowEdit(int id) {
+    public void createPS() {
+        try {
+            int id = selectedProzessSchrittVorlage.getPsVID();
+            ProzessSchrittVorlage prozessSchrittVorlage = prozessSchrittVorlageService.getByID(id);
+            ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(),
+                    prozessSchrittVorlage.getZustandsAutomatVorlage().getZustaende().get(0), prozessSchrittVorlage.getZustandsAutomatVorlage());
+            ProzessSchrittLog prozessSchrittLog = new ProzessSchrittLog(LocalDateTime.now(),"ERSTELLT");
+            ProzessSchritt prozessSchritt = new ProzessSchritt(UUID.randomUUID().hashCode(),prozessSchrittVorlage,prozessSchrittZustandsAutomat,prozessSchrittVorlage.getDauer(),
+                    prozessSchrittVorlage.getProzessSchrittParameters(),prozessSchrittVorlage.getExperimentierStation(),prozessSchrittAttribute,prozessSchrittLog,prozessSchrittName);
+            prozessSchrittZustandsAutomatService.add(prozessSchrittZustandsAutomat);
+            prozessSchrittLogService.add(prozessSchrittLog);
+            prozessSchrittService.createPS(prozessSchritt);
+            log.info("Created new process step with name " + prozessSchrittName);
+            facesNotification("Created new process step with name " + prozessSchrittName);
+            refetchData();
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("Couldn't create new process step! Error " + e.getMessage());
+            facesError("Couldn't create new process step! Error " + e.getMessage());
+        }
+    }
+
+    /** On row edit
+     * @param id - the id of the process step to edit */
+    public void onRowEdit(int id){
         try {
             ProzessSchritt prozessSchritt = prozessSchrittService.getObjById(id);
-            if (prozessSchritt.getProzessSchrittZustandsAutomat().getCurrent().equals("Erstellt")) {
-                prozessSchritt.setProzessSchrittVorlage(prozessSchrittVorlage);
-                prozessSchritt.setDuration(psDauer);
+            if (prozessSchritt.getProzessSchrittZustandsAutomat().getCurrent().equals("Erstellt")){
+                prozessSchritt.setName(prozessSchrittName);
+                prozessSchritt.setDuration(psDuration);
+                ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(),selectedProzessSchrittZustandsAutomatVorlage.getZustaende().get(0),selectedProzessSchrittZustandsAutomatVorlage);
+                prozessSchritt.setProzessSchrittZustandsAutomat(prozessSchrittZustandsAutomat);
                 prozessSchritt.setExperimentierStation(experimentierStation);
-                ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = prozessSchritt.getProzessSchrittZustandsAutomat();
-                prozessSchrittZustandsAutomat.setProzessSchrittZustandsAutomatVorlage(prozessSchrittZustandsAutomatVorlage);
-                prozessSchrittZustandsAutomatService.edit(prozessSchrittZustandsAutomat);
+                prozessSchritt.setAttribute(prozessSchrittAttribute);
+                // PROZESSSCHRITTPARAMETER FEHLEN
+                prozessSchrittZustandsAutomatService.add(prozessSchrittZustandsAutomat);
                 prozessSchrittService.editPS(prozessSchritt);
-                log.info("Updated process step with ID " + id);
-                facesNotification("Updated process step with ID " + id);
-                allePS = prozessSchrittService.getAll();
-            } else {
-                facesError("Cannot update a process step that has already been started!");
+                log.info("Updated process step with id " + id);
+                facesNotification("Successfully updated process step!");
             }
-        } catch (Exception e) {
+            else {
+                facesError("Cannot edit an already started process step!");
+            }
+        }
+        catch (Exception e){
             e.printStackTrace();
-            log.error("Couldn't update process step with ID " + id);
-            facesError("Couldn't update process step with ID " + id);
+            log.error("Failed to edit process step with id " + id + " Error " + e.getMessage());
+            facesError("Failed to edit process step!");
         }
     }
 
-    /**
-     * Row edit canceled
-     */
-    public void onRowCancel(RowEditEvent<ProzessSchrittVorlage> event) {
-        facesNotification("Canceled Edit!");
+    /** Row edit canceled */
+    public void onRowEditCancelled(){
+        facesNotification("Cancelled edit!");
     }
 
-    /**
-     * Delete a non started process step
-     *
-     * @param id - the id of the process step to delete
-     */
-    public void delete(int id) {
+    /** Remove a process step
+     * @param id - the id of the process step to remove */
+    public void removePS(int id){
         try {
             prozessSchrittService.removePS(prozessSchrittService.getObjById(id));
-            log.info("Removed process step with ID " + id);
-            facesNotification("Removed process step with ID " + id);
-            allePS = prozessSchrittService.getAll();
-        } catch (Exception e) {
-            e.printStackTrace();
-            log.error("Couldn't delete process step with ID " + id);
-            facesError("Couldn't delete process step with ID " + id);
+            log.info("Deleted process step with id " + id);
+            facesNotification("Successfully deleted process step!");
         }
-
-    }
-
-    /**
-     * Get process step duration
-     *
-     * @param id - the id of the process step whichs duration to get
-     * @return the duration
-     */
-    public String getDuration(int id) {
-        try {
-            String dur = prozessSchrittService.getObjById(id).getDuration();
-            if (dur.equals("")) {
-                return prozessSchrittService.getObjById(id).getProzessSchrittVorlage().getDauer();
-            }
-            return dur;
-        } catch (Exception e) {
+        catch (Exception e){
             e.printStackTrace();
-            return "";
+            log.error("Failed to remove process step with id " + id + " Error " + e.getMessage());
+            facesError("Failed to remove process step!");
         }
     }
-
-    /**
-     * Get a process step experimenting station
-     *
-     * @param id - the id of the process step whichs experimenting station to get
-     * @return the experimenting station
-     */
-    public String getES(int id) {
-        try {
-            ExperimentierStation experimentierStation = prozessSchrittService.getObjById(id).getExperimentierStation();
-            if (experimentierStation == null) {
-                return "Not specified!";
-            } else {
-                return experimentierStation.getName();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "Not specified";
-        }
-    }
-
-    /**
-     * JSON export
-     *
-     * @return the JSON fo all PS
-     */
-//    public String json() {
-//        //return prozessSchrittService.toJson();
-//    }
 
     /**
      * Adds a new SEVERITY_ERROR FacesMessage for the ui

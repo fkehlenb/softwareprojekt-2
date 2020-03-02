@@ -17,6 +17,14 @@ public class ProzessSchrittVorlage {
     @NonNull
     private boolean isValidData = true;
 
+    /** Process step parameters */
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<ProzessSchrittParameter> prozessSchrittParameters;
+
+    /** The experimenting station the process step is being carried out at */
+    @ManyToOne
+    private ExperimentierStation experimentierStation;
+
     /** Process step template id */
     @Id
     @Generated
@@ -35,8 +43,9 @@ public class ProzessSchrittVorlage {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<TraegerArt> ausgabeTraeger;
 
+    /** Process step template name */
     @NonNull
-    String name;
+    private String name;
     /** The process step type */
     @NonNull
     private String psArt;
