@@ -43,22 +43,34 @@
 
                 <p:inputText id="add" value="#{pszavView.toaddd}" placeholder="ADD"/>
 
-                <p:dataTable widgetVar="PSKList"
-                             id="PSKList"
+                <p:dataTable widgetVar="table"
+                             id="pszavList"
                              var="pszav"
                              value="#{pszavView.verpszav}"
                              editable="true"
                              selection="#{pszavView.selpszav}"
+                             filteredValue="#{pszavView.filteredpszav}"
+                             emptyMessage="No pszav found with given criteria"
                              rowKey="#{pszav.id}"
                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                              paginator="true" rows="50" style="margin-bottom:20px">
+
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <h:outputText value="Search all fields:"/>
+                            <p:inputText id="globalFilter" onkeyup="PF('table').filter()" style="width:150px"
+                                         placeholder="Enter keyword"/>
+                        </p:outputPanel>
+                    </f:facet>
 
                     <p:ajax event="rowEdit" listener="#{pszavView.onRowEdit}" update=":form:msgs"/>
                     <p:ajax event="rowEditCancel" listener="#{pszavView.onRowCancel}" update=":form:msgs"/>
                     <p:column selectionMode="multiple"
                               style="width:16px;text-align:center"/>
 
-                    <p:column headerText="Id">
+
+
+                    <p:column headerText="Id" filterBy="#{pszav.id}" footerText="in" filterMatchMode="contains" >
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{pszav.id}"/></f:facet>
                             <f:facet name="input"><p:inputText id="ID" value="#{pszav.id}"
@@ -66,14 +78,14 @@
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column headerText="nameEdit">
+                    <p:column headerText="Name Bearbeiten" filterBy="#{pszav.name}" footerText="in" filterMatchMode="contains">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{pszav.name}"/> </f:facet>
-                            <f:facet name="input"><p:inputText id="nameEdit" value="#{pszav.name}"/>  </f:facet>
+                            <f:facet name="input"><p:inputText value="#{pszav.name}"/>  </f:facet>
                         </p:cellEditor>
                     </p:column>
 
-                    <p:column headerText="Schritt Vorlagen">
+                    <p:column headerText="Schritt Vorlagen" filterBy="#{pszav.zustaende}" footerText="in" filterMatchMode="contains">
                         <p:cellEditor>
                             <f:facet name="output"><h:outputText value="#{pszav.zustaende}"/></f:facet>
                             <f:facet name="input">
@@ -94,8 +106,8 @@
                     </p:column>
                 </p:dataTable>
 
-                <p:contextMenu for="PSKList">
-                    <p:menuitem value="Delete selected" update="PSKList"
+                <p:contextMenu for="pszavList">
+                    <p:menuitem value="Delete selected" update="pszavList"
                                 icon="pi pi-times" action="#{pszavView.deletePSZAV}"/>
                 </p:contextMenu>
 

@@ -55,13 +55,14 @@ public class PKVView implements Serializable {
 
     public String erstellePSK() {
         // FIXME
-        var pk = new ProzessKettenVorlage(UUID.randomUUID().hashCode(), psvs.getTarget() );
+        var target = psvs.getTarget();
+        var pk = new ProzessKettenVorlage(UUID.randomUUID().hashCode(), target);
         try {
             prozessKettenVorlageService.persist(pk);
         } catch (DuplicateProzessKettenVorlageException e) {
             e.printStackTrace();
         }
-        return "?faces-redirect=true";
+        return "pkv?faces-redirect=true";
     }
 
     public void deletePSV() {

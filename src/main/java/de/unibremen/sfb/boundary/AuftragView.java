@@ -30,11 +30,11 @@ public class AuftragView implements Serializable {
     private List<ProzessKettenVorlage> vorlagen;
     private AuftragsPrioritaet[] prios;
     private Auftrag selected;
-    private List<Auftrag> filteredAuftrag;
     private ProzessKettenZustandsAutomat[] prozessKettenZustandsAutomatList;
 
     private List<Auftrag> selectedAuftraege;
-    private List<Auftrag> filteredAuftraege;
+    private List<Auftrag> filteredAuftrag;
+
     //Der gewählte Auftrag
 
     // Auftrag Erstellen

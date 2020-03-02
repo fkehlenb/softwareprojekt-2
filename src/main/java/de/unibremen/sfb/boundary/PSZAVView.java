@@ -31,6 +31,7 @@ import java.util.UUID;
 public class PSZAVView implements Serializable {
     private List<ProzessSchrittZustandsAutomatVorlage> selpszav;
     private List<ProzessSchrittZustandsAutomatVorlage> verpszav;
+    private List<ProzessSchrittZustandsAutomatVorlage> filteredpszav;
     private List<String> sourceZ;
     private List<String> targetZ;
     private DualListModel<String> dualZ;

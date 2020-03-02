@@ -71,6 +71,7 @@ public class PSVView implements Serializable {
     private List<ExperimentierStation> verfuegbareStationen;
     private List<ProzessSchrittVorlage> verfuegbarePSV;
     private List<ProzessSchrittVorlage> selectedPSV;
+    private List<ProzessSchrittVorlage> filteredPSV;
     private List<TraegerArt> verfuegbareTraegerArt;
     private List<ProzessSchrittZustandsAutomatVorlage> verPSZAV;
 
