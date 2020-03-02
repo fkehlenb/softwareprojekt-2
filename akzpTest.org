@@ -1,0 +1,37 @@
+Beim Bearbeiten Growl
+
+- Funkt nicht: Nicht mehr einlogen
+- Bearbeiten Funkt nicht: Weil nicht das Passwort nicht kennt
+  Der Admin darf dass Passwort nicht kennen und muss trotzdem
+  den Account aendern koennen
+
+- Meldung wenn ES geloescht wird, die PS beinahltet
+- SMTP Server über den Admin Konfigurieren
+- Es liegt in der Aufgabe vom Wildfly admin die SMTP Server zu KOnfigueren
+
+Fuer jeden einzelen PS werden in den Freitext fedlern werte beim erstellen des Auftrags persiteiert
+- Regex muster anpassen
+
+PSP: Welche Attribute wirken sich auf die P aus
+
+ps hat parameter und ps fuegt atribute hinzu
+ps rot wenn Fehler
+Wenn psza geloscht wird, dann confirm dialog
+Auuftrag nur ps anzeigen
+boolean freigeben
+
+pk stoppen
+Tauftrag erstellen, wenn auftrag gestoppt
+tAuftrag verstekcen wenn angenommen
+
+Porben Eigenschaften
+
+T A georndet nach Prio
+PS Transitiosn dauer Zeit
+Rot hervorheben
+Urformende Prozesse erstellen nach beenden des Zustandes die Probe mit Paramtern
+
+Test Abedeckung mit Units Tests
+	Wie Testen
+    Branch Abdeckung C1 / C2 /c3
+    Seleium Test Browser
