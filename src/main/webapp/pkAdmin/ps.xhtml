@@ -104,7 +104,7 @@
                                 <p:column headerText="Dauer">
                                     <p:cellEditor>
                                         <f:facet name="output">
-                                            <h:outputText value="#{psView.getDuration(ps.psID)}"/>
+                                            <h:outputText value="#{psView.getDuration(ps.id)}"/>
                                         </f:facet>
                                         <f:facet name="input">
                                             <p:inputText placeholder="Dauer" requiredMessage="Bitte Dauer angeben!" required="true"
@@ -115,7 +115,7 @@
                                 <p:column headerText="Experimentierstation">
                                     <p:cellEditor>
                                         <f:facet name="output">
-                                            <h:outputText value="#{psView.getES(ps.psID)}"/>
+                                            <h:outputText value="#{psView.getES(ps.id)}"/>
                                         </f:facet>
                                         <f:facet name="input">
                                             <p:selectOneMenu id="experimentierstation"
@@ -166,14 +166,13 @@
                                 </p:column>
                                 <p:column>
                                     <p:commandButton value="Delete" icon="pi pi-trash"
-                                                     action="#{psView.delete(ps.psID)}" ajax="true"
+                                                     action="#{psView.delete(ps.id)}" ajax="true"
                                                      update="form:table"/>
                                 </p:column>
                                 <p:column style="width:35px">
                                     <p:rowEditor/>
                                 </p:column>
                             </p:dataTable>
-                            <h:outputText value="#{psView.json()}"/>
                         </h:form>
                     </p:row>
                 </p:panelGrid>

@@ -207,14 +207,14 @@ public class LogistikerBean implements Serializable {
         }
         //Anzahl ins xhtml
             //FIXME
-            Probe p = new Probe(probenID,7, ProbenZustand.ARCHIVIERT,standort);
-        try {
-            probenService.persist(p);
-        } catch (DuplicateProbeException e) {
-            facesError("Die Probe existiert bereits!: " + e.getMessage());
-            e.printStackTrace();
-        }
-        facesNotification("ERFOLG " + p.getProbenID());
+//            Probe p = new Probe(probenID,7, ProbenZustand.ARCHIVIERT,standort);
+//        try {
+//            probenService.persist(p);
+//        } catch (DuplicateProbeException e) {
+//            facesError("Die Probe existiert bereits!: " + e.getMessage());
+//            e.printStackTrace();
+//        }
+//        facesNotification("ERFOLG " + p.getProbenID());
     }
 
     /**

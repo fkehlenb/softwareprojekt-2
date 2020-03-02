@@ -66,10 +66,6 @@ public class ProzessSchritt {
     @ElementCollection
     private List<String> attribute;
 
-    /** Process step samples */
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<Probe> zugewieseneProben;
-
     /** Process step transport job */
     @ManyToOne
     private TransportAuftrag transportAuftrag;

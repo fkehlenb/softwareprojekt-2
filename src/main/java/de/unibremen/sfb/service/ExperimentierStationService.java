@@ -45,21 +45,21 @@ public class ExperimentierStationService implements Serializable {
     }
 
 
-    public List<Probe> getProben(ExperimentierStation es) {
-        List<Probe> r = new ArrayList<>();
-        if(es.getCurrentPS()!=null && es.getCurrentPS().getZugewieseneProben()!=null) {
-            r.addAll(es.getCurrentPS().getZugewieseneProben());
-        }
-        if(es.getNextPS()!=null) {
-            for(ProzessSchritt ps : es.getNextPS()) {
-                if(ps.getZugewieseneProben()!=null) {
-                    r.addAll(ps.getZugewieseneProben());
-                }
-            }
-        }
-        r.removeAll(Collections.singleton(null));
-        return r;
-    }
+//    public List<Probe> getProben(ExperimentierStation es) {
+//        List<Probe> r = new ArrayList<>();
+//        if(es.getCurrentPS()!=null && es.getCurrentPS().getZugewieseneProben()!=null) {
+//            r.addAll(es.getCurrentPS().getZugewieseneProben());
+//        }
+//        if(es.getNextPS()!=null) {
+//            for(ProzessSchritt ps : es.getNextPS()) {
+//                if(ps.getZugewieseneProben()!=null) {
+//                    r.addAll(ps.getZugewieseneProben());
+//                }
+//            }
+//        }
+//        r.removeAll(Collections.singleton(null));
+//        return r;
+//    }
 
     /**
      * Add a new experimenting station

@@ -136,16 +136,16 @@ class ProbenServiceTest {
     }
 
     //@Test
-    void testAddNewSample() throws DuplicateProbeException {
-
-            probenService.addNewSample("id", new Kommentar(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 29, 9), "text"),
-                    ProbenZustand.KAPUTT,
-                    new Standort(0, "ort"),
-                    prozessSchrittParameters,
-                    new Traeger(0, new TraegerArt("art"),
-                            new Standort(0, "ort")));
-
-    }
+//    void testAddNewSample() throws DuplicateProbeException {
+//
+//            probenService.addNewSample("id", new Kommentar(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 29, 9), "text"),
+//                    ProbenZustand.KAPUTT,
+//                    new Standort(0, "ort"),
+//                    prozessSchrittParameters,
+//                    new Traeger(0, new TraegerArt("art"),
+//                            new Standort(0, "ort")));
+//
+//    }
 
     @Test
     void testGetProbenTotalCount() {

@@ -46,15 +46,15 @@ public class ProbenService implements Serializable {
         var s2 = new Standort(UUID.randomUUID().hashCode(), "Lager");
         var pSPs = prozessSchrittParameterService.getParameterList();
         var bs = bedingungService.getBs();
-        var p1 = new Probe(UUID.randomUUID().toString(),4,  ProbenZustand.VORHANDEN , s);
-        p1.setParameter(pSPs);
-        var p2 = new Probe(UUID.randomUUID().toString(),6,  ProbenZustand.VORHANDEN, s);
-        p2.setBedingungen(bs);
-
-        proben = new ArrayList<>();
-        proben.add(p1);
-        proben.add(p2);
-        proben.add(new Probe(UUID.randomUUID().toString(), 6, ProbenZustand.VORHANDEN, s2));
+//        var p1 = new Probe(UUID.randomUUID().toString(),4,  ProbenZustand.VORHANDEN , s);
+//        p1.setParameter(pSPs);
+//        var p2 = new Probe(UUID.randomUUID().toString(),6,  ProbenZustand.VORHANDEN, s);
+//        p2.setBedingungen(bs);
+//
+//        proben = new ArrayList<>();
+//        proben.add(p1);
+//        proben.add(p2);
+//        proben.add(new Probe(UUID.randomUUID().toString(), 6, ProbenZustand.VORHANDEN, s2));
 
     }
 
@@ -178,7 +178,7 @@ public class ProbenService implements Serializable {
      * @throws ProbeNotFoundException there is no sample with this id
      */
     public Probe getProbeById(String id) throws ProbeNotFoundException {
-        return probeDAO.getObjById(id); //TODO in DAO id als string
+        return probeDAO.getObjById(id);
     }
 
     /**
@@ -212,29 +212,29 @@ public class ProbenService implements Serializable {
         }
     }
 
-    /**
-     * adds a new sample to the database
-     * @param id the id of the new sample
-     * @param k a comment (optional)
-     * @param pz the current status
-     * @param s the location
-     * @param qe a list of  (optional)
-     * @param t the carrier the sample is currently in (optional)
-     * @throws DuplicateProbeException there is already a sample with this id
-     * //FIXME change qe to psp, any bugs?
-     */
-    public void addNewSample(String id, Kommentar k, ProbenZustand pz, Standort s, List<ProzessSchrittParameter> qe, Traeger t) throws DuplicateProbeException {
-        if(!id.matches("[A-Z][0-9][0-9].[0-9]+(.[0-9]+)+")) {
-            throw new IllegalArgumentException();
-        }
-        Probe p = new Probe(id, 5,  pz, s);
-        List<Kommentar> ks = new LinkedList<>();
-        ks.add(k);
-        p.setKommentar(ks);
-        p.setParameter(qe);
-        p.setCurrentTraeger(t);
-        probeDAO.persist(p);
-    }
+//    /**
+//     * adds a new sample to the database
+//     * @param id the id of the new sample
+//     * @param k a comment (optional)
+//     * @param pz the current status
+//     * @param s the location
+//     * @param qe a list of  (optional)
+//     * @param t the carrier the sample is currently in (optional)
+//     * @throws DuplicateProbeException there is already a sample with this id
+//     * //FIXME change qe to psp, any bugs?
+//     */
+//    public void addNewSample(String id, Kommentar k, ProbenZustand pz, Standort s, List<ProzessSchrittParameter> qe, Traeger t) throws DuplicateProbeException {
+//        if(!id.matches("[A-Z][0-9][0-9].[0-9]+(.[0-9]+)+")) {
+//            throw new IllegalArgumentException();
+//        }
+//        Probe p = new Probe(id, 5,  pz, s);
+//        List<Kommentar> ks = new LinkedList<>();
+//        ks.add(k);
+//        p.setKommentar(ks);
+//        p.setParameter(qe);
+//        p.setCurrentTraeger(t);
+//        probeDAO.persist(p);
+//    }
 
     /**
      * counts the samples in the database

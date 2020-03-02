@@ -423,18 +423,18 @@ public class InitialDataFiller {
         catch(DuplicateTraegerException e) {
             e.printStackTrace();
         }
-        for(int i=0; i<limit; i++){
-            Probe p1 = new Probe("FDGHJ"+i, 9, ProbenZustand.VORHANDEN, s);
-            p1.setCurrentTraeger(t);
-            p1.setKommentar(erstelleKommentare());
-            r.add(p1);
-            try {
-                probeDAO.persist(p1);
-            }
-            catch(DuplicateProbeException e) {
-                e.printStackTrace();
-            }
-        }
+//        for(int i=0; i<limit; i++){
+//            Probe p1 = new Probe("FDGHJ"+i, 9, ProbenZustand.VORHANDEN, s);
+//            p1.setCurrentTraeger(t);
+//            p1.setKommentar(erstelleKommentare());
+//            r.add(p1);
+//            try {
+//                probeDAO.persist(p1);
+//            }
+//            catch(DuplicateProbeException e) {
+//                e.printStackTrace();
+//            }
+//        }
         return r;
     }
 

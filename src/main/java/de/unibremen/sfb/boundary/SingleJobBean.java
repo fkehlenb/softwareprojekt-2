@@ -70,17 +70,17 @@ public class SingleJobBean implements Serializable {
             errorMessage("invalid input");
         }
         else {
-            for (Probe p : ps.getZugewieseneProben()) {
-                try {
-                    probeService.addProbenComment(p, kommentarForAll);
-                } catch (ProbeNotFoundException | DuplicateKommentarException e) {
-                    e.printStackTrace();
-                    log.info("the sample " + p.getProbenID() + " could not be found while trying to add comment " + kommentarForAll);
-                }
-                catch(IllegalArgumentException e) {
-                    errorMessage("invalid input");
-                }
-            }
+//            for (Probe p : ps.getZugewieseneProben()) {
+//                try {
+//                    probeService.addProbenComment(p, kommentarForAll);
+//                } catch (ProbeNotFoundException | DuplicateKommentarException e) {
+//                    e.printStackTrace();
+//                    log.info("the sample " + p.getProbenID() + " could not be found while trying to add comment " + kommentarForAll);
+//                }
+//                catch(IllegalArgumentException e) {
+//                    errorMessage("invalid input");
+//                }
+//            }
             message("added comment to all samples");
         }
         kommentarForAll = "";
@@ -94,17 +94,17 @@ public class SingleJobBean implements Serializable {
      * weise den Proben des akutellen ProzessSchrittes Proben zu
      */
     public void zuweisen() {
-        for (Probe p :
-                ps.getZugewieseneProben()) {
-            var list = p.getParameter();
-            list.addAll(ausProzessSchrittParameters);
-            p.setParameter(list);
-            try {
-                probeService.update(p);
-            } catch (ProbeNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
+//        for (Probe p :
+//                ps.getZugewieseneProben()) {
+//            var list = p.getParameter();
+//            list.addAll(ausProzessSchrittParameters);
+//            p.setParameter(list);
+//            try {
+//                probeService.update(p);
+//            } catch (ProbeNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     /**
