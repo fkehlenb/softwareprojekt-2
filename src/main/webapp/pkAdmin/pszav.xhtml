@@ -25,6 +25,9 @@
                         <p:pickList id="zustandV" value="#{pszavView.dualZ}" var="zustand" itemLabel="#{zustand}"
                                     itemValue="#{zustand}"
                                     />
+
+                        <p:outputLabel value="Name:" for="name" />
+                        <p:inputText value="#{pszavView.name}" id="name" />
                     </h:panelGrid>
 
                     <p:commandButton value="Reset" type="reset"/>
@@ -60,6 +63,13 @@
                             <f:facet name="output"><h:outputText value="#{pszav.id}"/></f:facet>
                             <f:facet name="input"><p:inputText id="ID" value="#{pszav.id}"
                                                                style="width:100%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="nameEdit">
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{pszav.name}"/> </f:facet>
+                            <f:facet name="input"><p:inputText id="nameEdit" value="#{pszav.name}"/>  </f:facet>
                         </p:cellEditor>
                     </p:column>
 
