@@ -212,6 +212,32 @@ public class ProbenService implements Serializable {
     }
 
     /**
+     * sets the state of a number of samples
+     * @param p the sample
+     * @param anzahl number of samples, which should be changed
+     * @param z the new state
+     * @throws ProbeNotFoundException sample not in database
+     * @throws IllegalArgumentException sample and/or state null
+     * @throws DuplicateProbeException sample allready exists in the db
+     */
+    public void setZustandForProbe(Probe p, int anzahl, ProbenZustand z) throws ProbeNotFoundException, IllegalArgumentException, DuplicateProbeException {
+        if(p==null||z==null) {
+            throw new IllegalArgumentException();
+        }
+        else {
+            p.setAnzahl(p.getAnzahl()-anzahl);
+            probeDAO.update(p);
+            Probe probeVerloren = p;
+
+
+            probeVerloren.setProbenID(probeVerloren.getProbenID()+".VERLOREN");
+            probeVerloren.setAnzahl(anzahl);
+            probeVerloren.setZustand(z);
+            probeDAO.persist(probeVerloren);
+        }
+    }
+
+    /**
      * adds a new sample to the database
      * @param id the id of the new sample
      * @param k a comment (optional)
