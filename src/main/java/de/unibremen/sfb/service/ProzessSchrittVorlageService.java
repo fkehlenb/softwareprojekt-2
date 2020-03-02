@@ -108,10 +108,10 @@ public class ProzessSchrittVorlageService implements Serializable {
 
     public List<ProzessSchrittVorlage> akzeptiertePSV() {
         List<ProzessSchrittVorlage> psv = new ArrayList<>();
-        for (ProzessSchritt ps :
-                darftBearbeiten()) {
-            psv.add(ps.getProzessSchrittVorlage());
-        }
+//        for (ProzessSchritt ps :
+//                darftBearbeiten()) {
+//            psv.add(ps.getProzessSchrittVorlage());
+//        }
         return psv;
     }
 }

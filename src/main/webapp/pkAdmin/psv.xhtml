@@ -216,12 +216,14 @@
                                     </f:facet>
                                 </p:cellEditor>
                             </p:column>
+                            <p:column>
+                                <p:commandButton value="Delete" icon="pi pi-trash" update="form:PSVList" ajax="false"
+                                                 action="#{psvErstellenBean.removePSV(psv.psVID)}"/>
+                            </p:column>
                             <p:column style="width:35px">
                                 <p:rowEditor/>
                             </p:column>
                         </p:dataTable>
-                        <p:commandButton value="Delete" icon="pi pi-trash" update="form:PSVList" ajax="true"
-                                         action="#{psvErstellenBean.removePSV(psv.psVID)}"/>
                     </h:form>
                 </p:row>
             </p:panelGrid>
