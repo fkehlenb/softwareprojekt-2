@@ -37,7 +37,7 @@
                                              placeholder="name" required="true"/>
                                 <p:commandButton value="Reset" type="reset"/>
                                 <p:commandButton ajax="false" action="#{qlEView.addQualitativeEigenschaft()}"
-                                                 value="Spichern"/>
+                                                 value="Spichern" update="j_idt58:j_idt62"/>
                             </h:panelGrid>
                         </h:form>
                     </p:outputPanel>
@@ -46,7 +46,7 @@
                 <p:panel id="form">
                     <h2>List Qualitative Eingeschaft </h2>
 
-                    <p:dataTable id="tbl" var="qlE" value="#{qlEView.findAllQual()}" widgetVar="qualList"
+                    <p:dataTable id="tbl" var="qlE" value="#{qlEView.qual}" widgetVar="qualList"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                                  filteredValue="#{qlEView.filteredQual}"
                                  paginator="true" rows="5" style="margin-bottom:20px">
