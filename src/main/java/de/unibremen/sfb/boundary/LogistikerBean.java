@@ -1,5 +1,6 @@
 package de.unibremen.sfb.boundary;
 
+import de.unibremen.sfb.exception.AuftragNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.ProbeDAO;
 import de.unibremen.sfb.service.*;
@@ -54,7 +55,6 @@ public class LogistikerBean implements Serializable {
     @Inject
     private ProzessKettenVorlageService prozessKettenVorlageService;
 
-
     @Inject
     private AuftragView auftragView;
 
@@ -85,7 +85,7 @@ public class LogistikerBean implements Serializable {
 
     /** Container Location */
     private Standort traegerLocation;
-
+    /** Contains errorMessage for pkAdmin*/
     private String errorMessage;
 
     /**
@@ -95,6 +95,7 @@ public class LogistikerBean implements Serializable {
 
     /** Sample ID */
     private String probenID;
+
 
     @PostConstruct
     void init() {
@@ -300,17 +301,22 @@ public class LogistikerBean implements Serializable {
      * @param auftrag the job
      *
      */
-    public String refuseAuftrag(int auftrag) {
+    public void refuseAuftrag(int auftrag) {
         try {
             Auftrag a = auftragService.getAuftrag(auftrag);
             auftragService.zustandswechsel(a, ABGELEHNT);
             log.info("Auftrag wurde abgelehnt! ID: " + auftrag);
             facesNotification("Auftrag wurde abgelehnt! ID: " + auftrag);
+
             //Aktualisiert Auftragsliste
-            //auftragView.updateAuftragTabelle();
+
+            log.info(errorMessage);
+            errorMessageAnPkA(a);
             auftragService.update(a);
+            log.info("Test" + auftrag);
+            auftragView.updateAuftragTabelle();
             Thread.sleep(100);
-            return "Auftragsuebersicht?faces-redirect=true";
+            //return "Auftragsuebersicht?faces-redirect=true";
             //PrimeFaces.current().ajax().update("content-panel");
 
 
@@ -319,7 +325,7 @@ public class LogistikerBean implements Serializable {
             log.error("Failed to change auftrag state! ID: " + auftrag);
             facesError("Failed to change auftrag state! ID: " + auftrag);
         }
-        return null;
+        //return null;
     }
 
     /**
@@ -389,5 +395,11 @@ public class LogistikerBean implements Serializable {
      */
     private void facesNotification(String message) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(javax.faces.application.FacesMessage.SEVERITY_INFO, message, null));
+    }
+
+    public void errorMessageAnPkA(Auftrag a) throws AuftragNotFoundException {
+        a.setErrorMessage(errorMessage);
+        auftragService.update(a);
+        log.info("Auftrag wurde aktualisiert mit errotText!" +a );
     }
 }

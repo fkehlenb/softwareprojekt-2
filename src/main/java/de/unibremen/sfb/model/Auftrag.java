@@ -65,6 +65,9 @@ public class Auftrag implements Serializable {
     @NonNull
     private Enum<ProzessKettenZustandsAutomat> prozessKettenZustandsAutomat;
 
+
+    private String ErrorMessage;
+
     @Override
     public String toString() {
         return "Auftrag: " + this.pkID;

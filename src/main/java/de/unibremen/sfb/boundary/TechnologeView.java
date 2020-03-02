@@ -147,7 +147,7 @@ public class TechnologeView implements Serializable {
         List<Probe> res = new LinkedList<>();
         for(ProzessSchritt ps : getJobs()) {
             if(!ps.isUploaded() && ps.getProzessSchrittZustandsAutomat().getCurrent().equals("Bearbeitet")) {
-                res.addAll(psService.getProben(ps));
+                res.addAll(ps.getZugewieseneProben());
             }
         }
         return res;

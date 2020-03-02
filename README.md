@@ -128,9 +128,9 @@
 </ul>
 <h5 id="logistiker">Logistiker</h5>
 <ul>
-<strike><li>Übersicht über Träger<ul>
+<strike><li>Übersicht über Träger<ul></strike>
 <li>Anlegen von neuen Trägern</li>
-<li>Löschen von alten Trägern</li></strike>
+<li>Löschen von alten Trägern</li>
 </ul>
 </li>
 <li>Übersicht über freigegebene Aufträge<ul>

@@ -57,7 +57,6 @@ public class SingleJobBean implements Serializable {
 
     public String singlejob(ProzessSchritt ps) {
         this.ps = ps;
-        System.out.println(ps.getProzessSchrittZustandsAutomat().getProzessSchrittZustandsAutomatVorlage().getZustaende());
         return "singlejob.xhtml";
     }
 
@@ -71,7 +70,7 @@ public class SingleJobBean implements Serializable {
             errorMessage("invalid input");
         }
         else {
-            for (Probe p : psService.getProben(ps)) {
+            for (Probe p : ps.getZugewieseneProben()) {
                 try {
                     probeService.addProbenComment(p, kommentarForAll);
                 } catch (ProbeNotFoundException | DuplicateKommentarException e) {

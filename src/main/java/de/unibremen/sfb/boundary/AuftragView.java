@@ -1,5 +1,6 @@
 package de.unibremen.sfb.boundary;
 
+import de.unibremen.sfb.exception.AuftragNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.*;
 import lombok.Getter;
@@ -30,11 +31,11 @@ public class AuftragView implements Serializable {
     private List<ProzessKettenVorlage> vorlagen;
     private AuftragsPrioritaet[] prios;
     private Auftrag selected;
-    private List<Auftrag> filteredAuftrag;
     private ProzessKettenZustandsAutomat[] prozessKettenZustandsAutomatList;
 
     private List<Auftrag> selectedAuftraege;
-    private List<Auftrag> filteredAuftraege;
+    private List<Auftrag> filteredAuftrag;
+
     //Der gewählte Auftrag
 
     // Auftrag Erstellen
@@ -70,7 +71,7 @@ public class AuftragView implements Serializable {
     public void updateAuftragTabelle() {
         auftrage = auftragService.getAuftrage();
 
-        PrimeFaces.current().ajax().update("form:form");
+        PrimeFaces.current().ajax().update("content");
     }
 
     public void onRowEdit(RowEditEvent<Auftrag> event) {
@@ -141,5 +142,6 @@ public class AuftragView implements Serializable {
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO," multiview state has been cleared out", null));
     }
+
 }
 

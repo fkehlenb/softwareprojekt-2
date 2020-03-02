@@ -4,6 +4,7 @@ import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
 import de.unibremen.sfb.model.ExperimentierStation;
 import de.unibremen.sfb.model.ExperimentierStationZustand;
 import de.unibremen.sfb.model.Probe;
+import de.unibremen.sfb.service.ExperimentierStationService;
 import de.unibremen.sfb.service.ProbenService;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -25,8 +26,8 @@ public class SingleStationBean implements Serializable {
     @Inject
     private ProbenService probenService;
 
-    /*@Inject
-    private ExperimentierStationService esService; FIXME findet nicht? */
+    @Inject
+    private ExperimentierStationService esService;
 
     @Inject
     private TechnologeView technologeView;
@@ -41,18 +42,18 @@ public class SingleStationBean implements Serializable {
      */
     public void reportBroken() {
         technologeView.reportBroken(station); //FIXME hier wie unten aufrufen
-        /*
+
         try {
             esService.setZustand(station, ExperimentierStationZustand.KAPUTT);
             log.info("ExperimentierStation " + station.getEsID() + "was reported as broken.");
         } catch (ExperimentierStationNotFoundException e) {
             e.printStackTrace();
             log.info("an error occurred trying to report ExperimentierStation " + station.getEsID() + " as broken: " + e.getMessage());
-        }*/
+        }
     }
 
     public List<Probe> getProben() {
-        return probenService.getProbenByStandort(station.getStandort());
+        return esService.getProben(station);
     }
 
     public SingleStationBean() {}

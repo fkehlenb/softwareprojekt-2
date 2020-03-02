@@ -36,6 +36,6 @@ public class Bedingung {
 
     @Override
     public String toString() {
-        return "Bed: " + name;
+        return "Bedingung: " + name;
     }
 }

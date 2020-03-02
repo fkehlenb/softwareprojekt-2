@@ -3,8 +3,7 @@ package de.unibremen.sfb.boundary;
 import de.unibremen.sfb.exception.DuplicateKommentarException;
 import de.unibremen.sfb.exception.KommentarNotFoundException;
 import de.unibremen.sfb.exception.ProbeNotFoundException;
-import de.unibremen.sfb.model.Kommentar;
-import de.unibremen.sfb.model.Probe;
+import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.ProbenService;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +16,10 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 @Named
 @SessionScoped
@@ -118,6 +121,15 @@ public class SingleSampleBean implements Serializable {
     public void errorMessage(String e) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e, null));
         log.info("an error occurred" + e);
+    }
+
+    public List<QualitativeEigenschaft> getEigenschaften() {
+        List<QualitativeEigenschaft> r = new ArrayList<>();
+        for(ProzessSchrittParameter ps : p.getParameter()) {
+            r.addAll(ps.getQualitativeEigenschaften());
+        }
+        r.removeAll(Collections.singleton(null));
+        return r;
     }
 
 }

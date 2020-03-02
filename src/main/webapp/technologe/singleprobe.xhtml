@@ -60,7 +60,7 @@
             <p>Eigenschaften: </p>
         </p:row>
 
-        <p:dataTable var="eig" value="#{singleSampleBean.p.qualitativeEigenschaften}">
+        <p:dataTable var="eig" value="#{singleSampleBean.getEigenschaften()}">
             <p:column headerText="Id">
                 <h:outputText value="#{eig.id}"/>
             </p:column>
@@ -106,7 +106,7 @@
             </p:column>
             <p:column headerText="Löschen">
                     <div align="center">
-                        <p:commandButton action="#{singleSampleBean.deleteProbenComment(kommentar)}" value="Löschen"/>
+                        <p:commandButton update="comments" action="#{singleSampleBean.deleteProbenComment(kommentar)}" value="Löschen"/>
                     </div>
             </p:column>
 
