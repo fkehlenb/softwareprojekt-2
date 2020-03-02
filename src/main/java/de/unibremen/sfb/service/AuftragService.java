@@ -442,14 +442,14 @@ public class AuftragService implements Serializable {
             // Transport Auftrag // FIXME
 
             // PS erstellen
-            var ps = new ProzessSchritt(UUID.randomUUID().hashCode(), List.of(l), psv, psAutomat);
-            try {
-                prozessSchrittDAO.persist(ps);
-            } catch (DuplicateProzessSchrittException e) {
-                e.printStackTrace();
-                log.error(e.getMessage());
-            }
-            r.add(ps);
+           // var ps = new ProzessSchritt(UUID.randomUUID().hashCode(), List.of(l), psv, psAutomat);
+//            try {
+//                prozessSchrittDAO.persist(ps);
+//            } catch (DuplicateProzessSchrittException e) {
+//                e.printStackTrace();
+//                log.error(e.getMessage());
+//            }
+//            r.add(ps);
         }
         return r;
     }

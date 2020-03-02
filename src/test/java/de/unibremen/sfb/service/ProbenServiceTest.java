@@ -88,12 +88,12 @@ class ProbenServiceTest {
     }
 
     //@Test
-    void testGetProbenByUser() {
-        when(experimentierStationService.getESByUser(user)).thenReturn(experimentierStations);
-        when(probenService.getProbenByUser(user)).thenReturn(probes);
-        List<Probe> result = probenService.getProbenByUser(user);
-        Assertions.assertEquals(probes, result);
-    }
+//    void testGetProbenByUser() {
+//        when(experimentierStationService.getESByUser(user)).thenReturn(experimentierStations);
+//        when(probenService.getProbenByUser(user)).thenReturn(probes);
+//        List<Probe> result = probenService.getProbenByUser(user);
+//        Assertions.assertEquals(probes, result);
+//    }
 
     @Test
     void testAddProbenComment() throws ProbeNotFoundException, DuplicateKommentarException {

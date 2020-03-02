@@ -86,9 +86,9 @@ public class SingleJobBean implements Serializable {
         kommentarForAll = "";
     }
 
-    public List<Probe> getProben() {
-        return psService.getProben(ps);
-    }
+//    public List<Probe> getProben() {
+//        return psService.getProben(ps);
+//    }
 
     /**
      * weise den Proben des akutellen ProzessSchrittes Proben zu
@@ -157,35 +157,35 @@ public class SingleJobBean implements Serializable {
      * finds the station this process step is currently at
      * @return the station
      */
-    public ExperimentierStation findStation() {
-        return psService.findStation(ps);
-    }
+//    public ExperimentierStation findStation() {
+//        return psService.findStation(ps);
+//    }
 
     /**
      * sets the state of a ProzessSchritt on further than it was
      */
-    public void setJobZustand() {
-        try {
-            psService.oneFurther(ps);
-        }
-        catch(ProzessSchrittNotFoundException | ProzessSchrittLogNotFoundException | DuplicateProzessSchrittLogException | ExperimentierStationNotFoundException | ProzessSchrittZustandsAutomatNotFoundException e) {
-                e.printStackTrace();
-                log.info("an error occurred trying to update the state of " + ps.getPsID() + ": " + e.getMessage());
-        }
-        catch(IllegalArgumentException e) {
-                errorMessage("invalid input");
-        }
-        String letzterZustand = ps.getProzessSchrittVorlage().getZustandsAutomatVorlage().getZustaende().get(ps.getProzessSchrittVorlage().
-                getZustandsAutomatVorlage().getZustaende().size()-1);
-        if(letzterZustand.equals(ps.getProzessSchrittZustandsAutomat().getCurrent())){
-            facesNotification("prozessSchritt wurde beendet! ");
-        }
-        else{
-            facesNotification("ProzessSchritt gewechselt auf: " + ps.getProzessSchrittZustandsAutomat().getCurrent());
-        }
-
-
-    }
+//    public void setJobZustand() {
+//        try {
+////            psService.oneFurther(ps);
+//        }
+//        catch(ProzessSchrittNotFoundException | ProzessSchrittLogNotFoundException | DuplicateProzessSchrittLogException | ExperimentierStationNotFoundException | ProzessSchrittZustandsAutomatNotFoundException e) {
+//                e.printStackTrace();
+////                log.info("an error occurred trying to update the state of " + ps.getPsID() + ": " + e.getMessage());
+//        }
+//        catch(IllegalArgumentException e) {
+//                errorMessage("invalid input");
+//        }
+//        String letzterZustand = ps.getProzessSchrittVorlage().getZustandsAutomatVorlage().getZustaende().get(ps.getProzessSchrittVorlage().
+//                getZustandsAutomatVorlage().getZustaende().size()-1);
+//        if(letzterZustand.equals(ps.getProzessSchrittZustandsAutomat().getCurrent())){
+//            facesNotification("prozessSchritt wurde beendet! ");
+//        }
+//        else{
+//            facesNotification("ProzessSchritt gewechselt auf: " + ps.getProzessSchrittZustandsAutomat().getCurrent());
+//        }
+//
+//
+//    }
 
     /**
      * Adds a new SEVERITY_ERROR FacesMessage for the ui

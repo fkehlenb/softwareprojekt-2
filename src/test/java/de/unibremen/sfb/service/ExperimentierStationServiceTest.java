@@ -156,13 +156,13 @@ class ExperimentierStationServiceTest {
     }
 
     //@Test
-    void testSetCurrentPS() {
-        try {
-            experimentierStationService.setCurrentPS(new ProzessSchritt(0, Arrays.<ProzessSchrittLog>asList(new ProzessSchrittLog(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 28, 52), "zustandsAutomat")), new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(new ExperimentierStation()), Arrays.<Bedingung>asList(null), new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")), new ProzessSchrittZustandsAutomat(0, "current", new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name"))), new ExperimentierStation());
-        } catch (ExperimentierStationNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+//    void testSetCurrentPS() {
+//        try {
+//            experimentierStationService.setCurrentPS(new ProzessSchritt(0, Arrays.<ProzessSchrittLog>asList(new ProzessSchrittLog(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 28, 52), "zustandsAutomat")), new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(new ExperimentierStation()), Arrays.<Bedingung>asList(null), new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")), new ProzessSchrittZustandsAutomat(0, "current", new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name"))), new ExperimentierStation());
+//        } catch (ExperimentierStationNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     //@Test
     void testDeleteCurrent() throws ExperimentierStationNotFoundException {

@@ -102,15 +102,15 @@ public class ProbenService implements Serializable {
      * @param u der Benutzer
      * @return Alle akutell fuer den Benuzter relevanten Proben
      */
-    public List<Probe> getProbenByUser(User u) {
-        var proben = new ArrayList<Probe>();
-        var experimByUser = experimentierStationService.getESByUser(u);
-        for (ExperimentierStation e :
-        experimByUser) {
-            proben.addAll(prozessSchrittService.getProben(e.getCurrentPS()));
-        }
-        return proben;
-    }
+//    public List<Probe> getProbenByUser(User u) {
+//        var proben = new ArrayList<Probe>();
+//        var experimByUser = experimentierStationService.getESByUser(u);
+//        for (ExperimentierStation e :
+//        experimByUser) {
+//            proben.addAll(prozessSchrittService.getProben(e.getCurrentPS()));
+//        }
+//        return proben;
+//    }
 
     /**
      * adds a comment to a sample

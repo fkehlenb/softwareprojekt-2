@@ -38,25 +38,25 @@ class ProzessSchrittTest {
         prozessSchritt.setValidData(true);
     }
 
-    @Test
-    void testSetPsID() {
-        prozessSchritt.setPsID(0);
-    }
+//    @Test
+//    void testSetPsID() {
+//        prozessSchritt.setPsID(0);
+//    }
 
-    @Test
-    void testSetUploaded() {
-        prozessSchritt.setUploaded(true);
-    }
+//    @Test
+//    void testSetUploaded() {
+//        prozessSchritt.setUploaded(true);
+//    }
 
     @Test
     void testSetTransportAuftrag() {
         prozessSchritt.setTransportAuftrag(new TransportAuftrag());
     }
 
-    @Test
-    void testSetProzessSchrittLog() {
-        prozessSchritt.setProzessSchrittLog(Arrays.<ProzessSchrittLog>asList(new ProzessSchrittLog(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 50, 22), "zustandsAutomat")));
-    }
+//    @Test
+//    void testSetProzessSchrittLog() {
+//        prozessSchritt.setProzessSchrittLog(Arrays.<ProzessSchrittLog>asList(new ProzessSchrittLog(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 50, 22), "zustandsAutomat")));
+//    }
 
     @Test
     void testSetProzessSchrittVorlage() {

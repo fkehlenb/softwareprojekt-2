@@ -52,27 +52,27 @@ class ProzessSchrittServiceTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Test
-    void testInit() {
-        when(prozessSchrittDAO.getAll()).thenReturn(prozessSchritts);
-        prozessSchrittService.init();
-    }
-
-
-
-    // @Test Landa Expericon to see
-    void testGetPotentialStepsByUser() {
-        when(experimentierStationService.getESByUser(any())).thenReturn(experimentierStations);
-        List<ProzessSchritt> result = prozessSchrittService.getPotentialStepsByUser(user);
-        Assertions.assertEquals(prozessSchritts, result);
-    }
-
-    //@Test
-    void testFindStation() {
-        when(experimentierStationService.getAll()).thenReturn(experimentierStations);
-        ExperimentierStation result = prozessSchrittService.findStation(prozessSchritt);
-        Assertions.assertEquals(new ExperimentierStation(), result);
-    }
+//    @Test
+//    void testInit() {
+//        when(prozessSchrittDAO.getAll()).thenReturn(prozessSchritts);
+//        prozessSchrittService.init();
+//    }
+//
+//
+//
+//    // @Test Landa Expericon to see
+//    void testGetPotentialStepsByUser() {
+//        when(experimentierStationService.getESByUser(any())).thenReturn(experimentierStations);
+//        List<ProzessSchritt> result = prozessSchrittService.getPotentialStepsByUser(user);
+//        Assertions.assertEquals(prozessSchritts, result);
+//    }
+//
+//    //@Test
+//    void testFindStation() {
+//        when(experimentierStationService.getAll()).thenReturn(experimentierStations);
+//        ExperimentierStation result = prozessSchrittService.findStation(prozessSchritt);
+//        Assertions.assertEquals(new ExperimentierStation(), result);
+//    }
 
 
 
@@ -83,15 +83,15 @@ class ProzessSchrittServiceTest {
         Assertions.assertEquals(prozessSchritts, result);
     }
 
-    @Test
-    void testToJson() {
-        String result = prozessSchrittService.toJson();
-        Assertions.assertEquals("JSON IS Broken", result);
-    }
-
-    @Test
-    void testAdd() throws DuplicateProzessSchrittException {
-        prozessSchrittService.add(prozessSchritt);
-        verify(prozessSchrittDAO).persist(prozessSchritt);
-    }
+//    @Test
+//    void testToJson() {
+//        String result = prozessSchrittService.toJson();
+//        Assertions.assertEquals("JSON IS Broken", result);
+//    }
+//
+//    @Test
+//    void testAdd() throws DuplicateProzessSchrittException {
+//        prozessSchrittService.add(prozessSchritt);
+//        verify(prozessSchrittDAO).persist(prozessSchritt);
+//    }
 }

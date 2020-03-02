@@ -201,7 +201,7 @@ public class ExperimentierStationService implements Serializable {
             throw new IllegalArgumentException();
         }
         else {
-            if(es.getCurrentPS().getPsID()==ps.getPsID()) {
+            if(es.getCurrentPS().getId()==ps.getId()) {
                 es.setCurrentPS(null);
                 esDao.update(es);
             }

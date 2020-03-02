@@ -125,12 +125,12 @@ public class ProzessSchrittView implements Serializable {
             ProzessSchritt prozessSchritt = prozessSchrittService.getObjById(id);
             if (prozessSchritt.getProzessSchrittZustandsAutomat().getCurrent().equals("Erstellt")) {
                 prozessSchritt.setProzessSchrittVorlage(prozessSchrittVorlage);
-                prozessSchritt.setDauer(psDauer);
+                prozessSchritt.setDuration(psDauer);
                 prozessSchritt.setExperimentierStation(experimentierStation);
                 ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = prozessSchritt.getProzessSchrittZustandsAutomat();
                 prozessSchrittZustandsAutomat.setProzessSchrittZustandsAutomatVorlage(prozessSchrittZustandsAutomatVorlage);
                 prozessSchrittZustandsAutomatService.edit(prozessSchrittZustandsAutomat);
-                prozessSchrittService.update(prozessSchritt);
+                prozessSchrittService.editPS(prozessSchritt);
                 log.info("Updated process step with ID " + id);
                 facesNotification("Updated process step with ID " + id);
                 allePS = prozessSchrittService.getAll();
@@ -158,7 +158,7 @@ public class ProzessSchrittView implements Serializable {
      */
     public void delete(int id) {
         try {
-            prozessSchrittService.remove(prozessSchrittService.getObjById(id));
+            prozessSchrittService.removePS(prozessSchrittService.getObjById(id));
             log.info("Removed process step with ID " + id);
             facesNotification("Removed process step with ID " + id);
             allePS = prozessSchrittService.getAll();
@@ -178,7 +178,7 @@ public class ProzessSchrittView implements Serializable {
      */
     public String getDuration(int id) {
         try {
-            String dur = prozessSchrittService.getObjById(id).getDauer();
+            String dur = prozessSchrittService.getObjById(id).getDuration();
             if (dur.equals("")) {
                 return prozessSchrittService.getObjById(id).getProzessSchrittVorlage().getDauer();
             }
@@ -214,9 +214,9 @@ public class ProzessSchrittView implements Serializable {
      *
      * @return the JSON fo all PS
      */
-    public String json() {
-        return prozessSchrittService.toJson();
-    }
+//    public String json() {
+//        //return prozessSchrittService.toJson();
+//    }
 
     /**
      * Adds a new SEVERITY_ERROR FacesMessage for the ui

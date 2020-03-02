@@ -218,15 +218,15 @@ public class InitialDataFiller {
             em.persist(a);
             var logs = new ArrayList<ProzessSchrittLog>();
             var l = new ProzessSchrittLog(LocalDateTime.now(), a.getCurrent());
-            var ps = new ProzessSchritt(UUID.randomUUID().hashCode(), logs, psvListe.get(0), a);
+            //var ps = new ProzessSchritt(UUID.randomUUID().hashCode(),ps);
             var psLogs = List.of(new ProzessSchrittLog(LocalDateTime.now(), "Gestartet"),
                     new ProzessSchrittLog(LocalDateTime.now(), "Veraendert"));
             for (ProzessSchrittLog psl :
                     psLogs) {
                 em.persist(psl);
             }
-            ps.setProzessSchrittLog(psLogs);
-            log.info("Try to persist TEST ProzessSchritt " + ps.getPsID());
+            //ps.setProzessSchrittLog(psLogs);
+            log.info("Try to persist TEST ProzessSchritt " + ps.getId());
 
             var transportAuftrag = new TransportAuftrag(LocalDateTime.now(), TransportAuftragZustand.ERSTELLT);
             em.persist(transportAuftrag);
