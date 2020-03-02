@@ -59,6 +59,7 @@ public class PKVView implements Serializable {
         var pk = new ProzessKettenVorlage(UUID.randomUUID().hashCode(), target);
         try {
             prozessKettenVorlageService.persist(pk);
+            log.info("Succesfully Added pkv: "+ pk.getPkvID());
         } catch (DuplicateProzessKettenVorlageException e) {
             e.printStackTrace();
         }
