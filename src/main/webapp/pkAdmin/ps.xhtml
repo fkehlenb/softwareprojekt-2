@@ -43,7 +43,8 @@
                         <h:form id="form">
                             <p:dataTable id="table" var="ps" value="#{psView.allePS}" editable="true"
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                         paginator="true" rows="15" style="margin-bottom:20px">
+                                         paginator="true"  rowStyleClass="#{ps.prozessSchrittZustandsAutomat.current eq 'Kapputt' ? 'broken' : null}" style="margin-bottom:20px">r
+                            rows="15" style="margin-bottom:20px">
                                 <p:ajax event="rowEdit" listener="#{psView.onRowEdit(ps.psID)}"
                                         update="form:table"/>
                                 <p:ajax event="rowEditCancel" listener="#{psView.onRowCancel}"

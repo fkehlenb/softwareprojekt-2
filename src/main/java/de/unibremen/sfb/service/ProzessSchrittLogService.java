@@ -6,9 +6,10 @@ import de.unibremen.sfb.model.ProzessSchrittLog;
 import de.unibremen.sfb.persistence.ProzessSchrittLogDAO;
 
 import javax.inject.Inject;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class ProzessSchrittLogService {
+public class ProzessSchrittLogService implements Serializable {
 
     @Inject
     private ProzessSchrittLogDAO pslDAO;

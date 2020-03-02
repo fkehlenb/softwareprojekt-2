@@ -3,6 +3,7 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 /** Data class for the process step templates */
@@ -24,6 +25,7 @@ public class ProzessSchrittVorlage {
 
     /** Duration of the process step template */
     @NonNull
+    @Pattern(regexp = "[0-1]*:[0-9][0-9]")
     private String dauer;
 
     /** Accepted container input types */
