@@ -104,8 +104,9 @@ public class ProbenService implements Serializable {
      */
     public List<Probe> getProbenByUser(User u) {
         var proben = new ArrayList<Probe>();
+        var experimByUser = experimentierStationService.getESByUser(u);
         for (ExperimentierStation e :
-        experimentierStationService.getESByUser(u)) {
+        experimByUser) {
             proben.addAll(prozessSchrittService.getProben(e.getCurrentPS()));
         }
         return proben;

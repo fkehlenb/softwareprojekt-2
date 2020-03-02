@@ -21,6 +21,8 @@ class StandortServiceTest {
     StandortDAO standortDAO;
     @Mock
     List<Standort> standorte;
+    @Mock
+    Standort standort;
     @InjectMocks
     StandortService standortService;
 
@@ -43,10 +45,9 @@ class StandortServiceTest {
 
     @Test
     void testGetStandorte() {
-        when(standortDAO.getAll()).thenReturn(Arrays.<Standort>asList(new Standort(0, "ort")));
-
+        when(standortDAO.getAll()).thenReturn(standorte);
         List<Standort> result = standortService.getStandorte();
-        Assertions.assertEquals(Arrays.<Standort>asList(new Standort(0, "ort")), result);
+        Assertions.assertEquals(standorte, result);
     }
 
     @Test
@@ -59,37 +60,23 @@ class StandortServiceTest {
     }
 
     @Test
-    void testFindByLocation() {
-        try {
-            when(standortDAO.getByOrt(anyString())).thenReturn(new Standort(0, "ort"));
-        } catch (StandortNotFoundException e) {
-            e.printStackTrace();
-        }
+    void testFindByLocation() throws StandortNotFoundException {
 
-        Standort result = null;
-        try {
-            result = standortService.findByLocation("standort");
-        } catch (StandortNotFoundException e) {
-            e.printStackTrace();
-        }
-        Assertions.assertEquals(new Standort(0, "ort"), result);
+        when(standortDAO.getByOrt(anyString())).thenReturn(standort);
+
+        Standort result = standortService.findByLocation("standort");
+
+        Assertions.assertEquals(standort, result);
     }
 
     @Test
-    void testFindById() {
-        try {
-            when(standortDAO.getObjById(anyInt())).thenReturn(new Standort(0, "ort"));
-        } catch (StandortNotFoundException e) {
-            e.printStackTrace();
-        }
+    void testFindById() throws StandortNotFoundException {
 
-        Standort result = null;
-        try {
-            result = standortService.findById(0);
-        } catch (StandortNotFoundException e) {
-            e.printStackTrace();
-        }
-        Assertions.assertEquals(new Standort(0, "ort"), result);
+        when(standortDAO.getObjById(anyInt())).thenReturn(standort);
+
+        Standort result =standortService.findById(0);
+
+        Assertions.assertEquals(standort, result);
     }
 
     @Test

@@ -1,7 +1,8 @@
 package de.unibremen.sfb.selenium;
 
 import de.unibremen.sfb.env.EnvironmentManager;
-import de.unibremen.sfb.env.RunEnvironment;
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 import org.junit.jupiter.api.AfterEach; //has been changed from org.junit.After
 
 import org.junit.jupiter.api.BeforeEach; //has been changed from org.junit.Before
@@ -12,18 +13,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals; //has been changed 
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 
 public class DemoTest {
 
     @BeforeEach //has been changed from @Before
     public void startBrowser() {
-        EnvironmentManager.initWebDriver();
+        WebDriverManager.firefoxdriver().setup();
+
     }
 
     @Test
     public void demo() {
-        WebDriver driver = RunEnvironment.getWebDriver();
+        WebDriver driver = new FirefoxDriver();
+        driver.manage().window().maximize();
         driver.get("http://localhost:8080/");
         String homeUrl = driver.findElement(By.cssSelector("div#logo> a#logo_image ")).getAttribute("href");
         assertEquals(homeUrl, "https://www.blazemeter.com/");

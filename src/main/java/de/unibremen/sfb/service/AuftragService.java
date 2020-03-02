@@ -370,8 +370,9 @@ public class AuftragService implements Serializable {
      */
     public List<ProzessSchritt> getTransportSchritt() {
         var s = new HashSet<ProzessSchritt>();
+        var pp=getAuftrage();
         for (Auftrag a :
-                getAuftrage()) {
+                pp) {
             s.addAll(a.getProzessSchritte().stream()
                     .filter(p -> p.getTransportAuftrag().getZustandsAutomat() == TransportAuftragZustand.ERSTELLT)
                     .collect(Collectors.toSet()));
@@ -391,7 +392,7 @@ public class AuftragService implements Serializable {
     }
 
 
-    public int erstelleAuftrag(ProzessKettenVorlage ausPKV, AuftragsPrioritaet ausPrio) {
+    public Auftrag erstelleAuftrag(ProzessKettenVorlage ausPKV, AuftragsPrioritaet ausPrio) {
         // Auftrags Log
         AuftragsLog aLog = new AuftragsLog(LocalDateTime.now());
         aLog.setErstellt(LocalDateTime.now());
@@ -412,7 +413,7 @@ public class AuftragService implements Serializable {
             e.printStackTrace();
             log.error(e.getMessage());
         }
-        return pk.getPkID();
+        return pk;
     }
 
     public List<ProzessSchritt> erstelePS(List<ProzessSchrittVorlage> psvListe) {

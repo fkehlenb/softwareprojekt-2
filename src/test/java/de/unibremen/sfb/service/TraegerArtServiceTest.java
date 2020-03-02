@@ -11,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -23,6 +22,9 @@ class TraegerArtServiceTest {
     TraegerArtDAO traegerArtDAO;
     @Mock
     List<TraegerArt> traegerArt;
+    @Mock
+    TraegerArt traegerAr;
+
     @InjectMocks
     TraegerArtService traegerArtService;
 
@@ -59,44 +61,28 @@ class TraegerArtServiceTest {
     }
 
     @Test
-    void testGetByName() {
-        try {
-            when(traegerArtDAO.getByName(anyString())).thenReturn(new TraegerArt("art"));
-        } catch (TraegerArtNotFoundException e) {
-            e.printStackTrace();
-        }
+    void testGetByName() throws TraegerArtNotFoundException {
 
-        TraegerArt result = null;
-        try {
-            result = traegerArtService.getByName("taName");
-        } catch (TraegerArtNotFoundException e) {
-            e.printStackTrace();
-        }
-        Assertions.assertEquals(new TraegerArt("art"), result);
+        when(traegerArtDAO.getByName(anyString())).thenReturn(traegerAr);
+
+        TraegerArt result = traegerArtService.getByName("taName");
+
+        Assertions.assertEquals(traegerAr, result);
     }
 
     @Test
-    void testGetById() {
-        try {
-            when(traegerArtDAO.getById(anyInt())).thenReturn(new TraegerArt("art"));
-        } catch (TraegerArtNotFoundException e) {
-            e.printStackTrace();
-        }
+    void testGetById() throws TraegerArtNotFoundException {
 
-        TraegerArt result = null;
-        try {
-            result = traegerArtService.getById(0);
-        } catch (TraegerArtNotFoundException e) {
-            e.printStackTrace();
-        }
-        Assertions.assertEquals(new TraegerArt("art"), result);
+        when(traegerArtDAO.getById(anyInt())).thenReturn(traegerAr);
+        TraegerArt result = traegerArtService.getById(0);
+        Assertions.assertEquals(traegerAr, result);
     }
 
     @Test
     void testGetAll() {
-        when(traegerArtDAO.getAll()).thenReturn(Arrays.<TraegerArt>asList(new TraegerArt("art")));
+        when(traegerArtDAO.getAll()).thenReturn(traegerArt);
 
         List<TraegerArt> result = traegerArtService.getAll();
-        Assertions.assertEquals(Arrays.<TraegerArt>asList(new TraegerArt("art")), result);
+        Assertions.assertEquals(traegerArt, result);
     }
 }

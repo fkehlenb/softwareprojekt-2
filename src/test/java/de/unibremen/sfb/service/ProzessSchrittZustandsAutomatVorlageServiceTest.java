@@ -24,7 +24,10 @@ class ProzessSchrittZustandsAutomatVorlageServiceTest {
     ProzessSchrittZustandsAutomatVorlageDAO prozessSchrittZustandsAutomatVorlageDAO;
     @InjectMocks
     ProzessSchrittZustandsAutomatVorlageService prozessSchrittZustandsAutomatVorlageService;
-
+    @Mock
+    ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage;
+    @Mock
+    List<ProzessSchrittZustandsAutomatVorlage> prozessSchrittZustandsAutomatVorlages;
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -57,10 +60,9 @@ class ProzessSchrittZustandsAutomatVorlageServiceTest {
 
     @Test
     void testGetProzessSchrittZustandsAutomatVorlagen() {
-        when(prozessSchrittZustandsAutomatVorlageDAO.getAll()).thenReturn(Arrays.<ProzessSchrittZustandsAutomatVorlage>asList(new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")));
-
+        when(prozessSchrittZustandsAutomatVorlageDAO.getAll()).thenReturn(prozessSchrittZustandsAutomatVorlages);
         List<ProzessSchrittZustandsAutomatVorlage> result = prozessSchrittZustandsAutomatVorlageService.getProzessSchrittZustandsAutomatVorlagen();
-        Assertions.assertEquals(Arrays.<ProzessSchrittZustandsAutomatVorlage>asList(new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")), result);
+        Assertions.assertEquals(prozessSchrittZustandsAutomatVorlages, result);
     }
 
     @Test
@@ -73,19 +75,12 @@ class ProzessSchrittZustandsAutomatVorlageServiceTest {
     }
 
     @Test
-    void testGetByID() {
-        try {
-            when(prozessSchrittZustandsAutomatVorlageDAO.getById(anyInt())).thenReturn(new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name"));
-        } catch (ProzessSchrittZustandsAutomatVorlageNotFoundException e) {
-            e.printStackTrace();
-        }
+    void testGetByID() throws ProzessSchrittZustandsAutomatVorlageNotFoundException {
 
-        ProzessSchrittZustandsAutomatVorlage result = null;
-        try {
-            result = prozessSchrittZustandsAutomatVorlageService.getByID(0);
-        } catch (ProzessSchrittZustandsAutomatVorlageNotFoundException e) {
-            e.printStackTrace();
-        }
-        Assertions.assertEquals(new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name"), result);
+            when(prozessSchrittZustandsAutomatVorlageDAO.getById(anyInt())).thenReturn(prozessSchrittZustandsAutomatVorlage);
+
+        ProzessSchrittZustandsAutomatVorlage result =  prozessSchrittZustandsAutomatVorlageService.getByID(0);
+
+        Assertions.assertEquals(prozessSchrittZustandsAutomatVorlage, result);
     }
 }

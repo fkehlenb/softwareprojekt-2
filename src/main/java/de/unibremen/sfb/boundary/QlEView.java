@@ -50,6 +50,9 @@ public class QlEView implements Serializable {
     private List<QualitativeEigenschaft> filteredQual;
     private List<QuantitativeEigenschaft> filteredQuant;
 
+    private List<QualitativeEigenschaft> verQualE;
+    private List<QualitativeEigenschaft> verQuantE;
+
     @PostConstruct
     public void init() {
         einheiten = quantitativeEigenschaftService.getEinheiten();

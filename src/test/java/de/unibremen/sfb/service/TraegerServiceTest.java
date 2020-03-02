@@ -21,6 +21,10 @@ import static org.mockito.Mockito.*;
 class TraegerServiceTest {
     @Mock
     TraegerDAO traegerDAO;
+    @Mock
+    Traeger traeger;
+    @Mock
+    List<Traeger> traegers;
     @InjectMocks
     TraegerService traegerService;
 
@@ -57,27 +61,20 @@ class TraegerServiceTest {
     }
 
     @Test
-    void testGetTraegerById() {
-        try {
-            when(traegerDAO.getObjById(anyInt())).thenReturn(new Traeger(0, new TraegerArt("art"), new Standort(0, "ort")));
-        } catch (TraegerNotFoundException e) {
-            e.printStackTrace();
-        }
+    void testGetTraegerById() throws TraegerNotFoundException {
 
-        Traeger result = null;
-        try {
-            result = traegerService.getTraegerById(0);
-        } catch (TraegerNotFoundException e) {
-            e.printStackTrace();
-        }
-        Assertions.assertEquals(new Traeger(0, new TraegerArt("art"), new Standort(0, "ort")), result);
+        when(traegerDAO.getObjById(anyInt())).thenReturn(traeger);
+
+        Traeger result = traegerService.getTraegerById(0);
+
+        Assertions.assertEquals(traeger, result);
     }
 
     @Test
     void testGetAll() {
-        when(traegerDAO.getAll()).thenReturn(Arrays.<Traeger>asList(new Traeger(0, new TraegerArt("art"), new Standort(0, "ort"))));
-
+        when(traegerDAO.getAll()).thenReturn(traegers);
         List<Traeger> result = traegerService.getAll();
-        Assertions.assertEquals(Arrays.<Traeger>asList(new Traeger(0, new TraegerArt("art"), new Standort(0, "ort"))), result);
+        Assertions.assertEquals(traegers, result);
+        verify(traegerDAO).getAll();
     }
 }

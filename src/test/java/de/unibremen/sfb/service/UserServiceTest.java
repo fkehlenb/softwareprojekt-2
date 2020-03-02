@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,6 +38,10 @@ class UserServiceTest {
     List<Role> roles;
     @Mock
     Logger log;
+    @Mock
+    User user;
+    @Mock
+    List<ExperimentierStation> experimentierStations;
     @InjectMocks
     UserService userService;
 
@@ -171,14 +176,9 @@ class UserServiceTest {
     }
 
     @Test
-    void testRemoveUser() {
-        when(experimentierStationService.getAll()).thenReturn(Arrays.<ExperimentierStation>asList(new ExperimentierStation()));
-
-        try {
-            userService.removeUser(new User(0, "vorname", "nachname", "email", "telefonnummer", "username", "password", true, LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 30, 1), "language"));
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-        }
+    void testRemoveUser() throws UserNotFoundException {
+        userService.removeUser(user);
+        verify(userDAO).remove(user);
     }
 
     @Test
@@ -228,8 +228,8 @@ class UserServiceTest {
 
     @Test
     void testGetEsByUser() {
-        List<ExperimentierStation> result = userService.getEsByUser(new User(0, "vorname", "nachname", "email", "telefonnummer", "username", "password", true, LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 30, 1), "language"));
-        Assertions.assertEquals(Arrays.<ExperimentierStation>asList(new ExperimentierStation()), result);
+        List<ExperimentierStation> result = userService.getEsByUser(user);
+        Assertions.assertEquals(new ArrayList<>(), result);
     }
 
     @Test
@@ -237,20 +237,5 @@ class UserServiceTest {
         userService.sendMail(new User(0, "vorname", "nachname", "email", "telefonnummer", "username", "password", true, LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 30, 1), "language"), "subject", "message");
     }
 
-    @Test
-    void testGetCurrentUser() {
-        try {
-            when(userDAO.getUserByName(anyString())).thenReturn(new User(0, "vorname", "nachname", "email", "telefonnummer", "username", "password", true, LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 30, 1), "language"));
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-        }
 
-        User result = null;
-        try {
-            result = userService.getCurrentUser();
-        } catch (UserNotFoundException e) {
-            e.printStackTrace();
-        }
-        Assertions.assertEquals(new User(0, "vorname", "nachname", "email", "telefonnummer", "username", "password", true, LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 30, 1), "language"), result);
-    }
 }
