@@ -35,3 +35,22 @@ Test Abedeckung mit Units Tests
 	Wie Testen
     Branch Abdeckung C1 / C2 /c3
     Seleium Test Browser
+
+
+* PSV
+** Liste von ES Rausnehmen
+  - Nur eine Station
+  - pszav
+    Brauchen Paramter von Vorlagen
+  - pszav auswählen
+  - name und einheit auswählen, kein Wert
+  - kein I/O Traeger
+
+
+
+** PS Erstllelen
+    *** Atribute als Strings
+    *** JSON download
+
+* Services
+  * Nur Aufrage an T die Zustand haben

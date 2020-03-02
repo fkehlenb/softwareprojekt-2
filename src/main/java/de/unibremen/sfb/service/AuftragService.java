@@ -330,6 +330,10 @@ public class AuftragService implements Serializable {
                 e.printStackTrace();
             }
             if (auftrag.getProzessSchritte().get(0).getProzessSchrittVorlage().getPsArt().equals("ERZEUGEND")) {
+                for (ProzessSchritt ps :
+                        auftrag.getProzessSchritte()) {
+           //         ps.setZugewieseneProben(erzeugeProbenNachBeding(b, lager, startID + i++));
+                }
 //                for (ProzessSchritt ps :
 //                        auftrag.getProzessSchritte()) {
 ////                    ps.setZugewieseneProben(erzeugeProbenNachBeding(b, lager, startID + i++));
@@ -344,6 +348,23 @@ public class AuftragService implements Serializable {
         }
             auftragDAO.update(auftrag);
             return auftrag;
+    }
+
+    /**
+     * Erstelle Proben die einer Bedingung entsprechen, dies koenne wir fuer erzeugende Prozessschritte nutzen
+     *
+     * @param b       Die Bedingung
+     * @param s       der Standort wo die Proben sind, normalerweise die Station and der sie erstellt werden
+     * @param startID die Proben ID vom Logstiker / pkAdmin festgelegt
+     * @return die liste mit proben die erzeugt wurden
+     */
+    private List<Probe> erzeugeProbenNachBeding(Bedingung b, Standort s, String startID) throws DuplicateProbeException {
+        var result = new ArrayList<Probe>();
+            var p = new Probe(startID, b.getGewuenschteAnzahl(), ProbenZustand.VORHANDEN, s);
+            p.setBedingungen(List.of(b));
+            result.add(p);
+            probeDao.persist(p);
+        return result;
     }
 
     /**
