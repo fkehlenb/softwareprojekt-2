@@ -69,20 +69,21 @@
 <li><strike>Backup der Systemdaten</strike></li>
 </ul>
 <h5 id="prozesskettenplaner">Prozesskettenplaner</h5>
-<ul>
-    <strike><li>Übersicht über alle Prozessschritte<ul>
+<ul><strike>
+    <li>Übersicht über alle Prozessschritte<ul>
     <li>Anlegen neuer Prozessschritte<ul>
     <li>Auswahl von vordefinierten Abläufen (Zustandsautomat)</li>
     <li>Auswahl von dyn. Abläufen (<strong>O«Dynamische Zustandsautomaten»</strong>)</li>
     <li>Eingabe von voraussichtlicher Prozessschrittdauer</li>
     <li>Definition von Prozessschrittparametern (Name, Einheit)</li>
     <li>Zuordnung von Experimentierstation</li>
-    <li>Setzen von Attributen wie "einfärbend", Präparationsart</li></strike>
+    <li>Setzen von Attributen wie "einfärbend", Präparationsart</li>
 </ul>
 </li>
-    <strike><li>Löschen bestehender Prozessschritte</li>
+    <li>Löschen bestehender Prozessschritte</li>
     <li>Bearbeiten von "nicht gestarteten" Prozessschritten</li>
-    <li>Hervorhebung der Prozessschritte, die im Zustand auf kaputt gesetzt sind</li></strike>
+    <li>Hervorhebung der Prozessschritte, die im Zustand auf kaputt gesetzt sind</li>
+    </strike>
 </ul>
 </li>
     <strike><li>Übersicht über dynamische Abläufe (<strong>O«Dynamische Zustandsautomaten»</strong>)<ul>
