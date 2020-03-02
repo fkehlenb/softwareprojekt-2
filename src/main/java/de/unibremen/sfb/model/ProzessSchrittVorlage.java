@@ -25,7 +25,6 @@ public class ProzessSchrittVorlage {
 
     /** Duration of the process step template */
     @NonNull
-    @Pattern(regexp = "[0-1]*:[0-9][0-9]")
     private String dauer;
 
     /** Accepted container input types */
