@@ -14,6 +14,7 @@ import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.DualListModel;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -22,13 +23,14 @@ import javax.inject.Named;
 import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
 
 @Transactional
 @Named("pszavView")
-@ViewScoped
+@RequestScoped
 @Getter
 @Setter
 @Slf4j
@@ -63,7 +65,9 @@ public class PSZAVView implements Serializable {
 
     private String toaddd;
 
-    /** Process step state automaton template name */
+    /**
+     * Process step state automaton template name
+     */
     private String name;
 
     /**
@@ -84,8 +88,13 @@ public class PSZAVView implements Serializable {
     @Inject
     private ProzessSchrittVorlageService prozessSchrittVorlageService;
 
-    /** Process step state name */
+    /**
+     * Process step state name
+     */
     private String zustandsname;
+
+    /** Array containing the newly ordered process step state automaton states */
+    private String[] newOrder;
 
     /**
      * Hier werden aus der Persitenz die benötigten Daten Geladen
@@ -106,17 +115,21 @@ public class PSZAVView implements Serializable {
         dualZ = new DualListModel<>(sourceZ, targetZ);
     }
 
-    /** Refresh data */
-    public void refresh(){
+    /**
+     * Refresh data
+     */
+    public void refresh() {
         sourceZ = prozessSchrittZustandsAutomatZustaendeDAO.getById(123).getZustaende();
         targetZ = new ArrayList<>();
         verpszav = prozessSchrittZustandsAutomatVorlageService.getProzessSchrittZustandsAutomatVorlagen();
         dualZ = new DualListModel<>(sourceZ, targetZ);
     }
 
-    /** Add a new step to the state automaton */
-    public void addToAutomaton(){
-        if (!prozessSchrittZustandsAutomatZustaendeDAO.getById(123).getZustaende().contains(zustandsname)){
+    /**
+     * Add a new step to the state automaton
+     */
+    public void addToAutomaton() {
+        if (!prozessSchrittZustandsAutomatZustaendeDAO.getById(123).getZustaende().contains(zustandsname)) {
             ProzessSchrittZustandsAutomatZustaende pszaz = prozessSchrittZustandsAutomatZustaendeDAO.getById(123);
             List<String> current = pszaz.getZustaende();
             current.add(zustandsname);
@@ -125,25 +138,13 @@ public class PSZAVView implements Serializable {
             refresh();
             log.info("Added new Process Step state to automaton! Name " + zustandsname);
             facesNotification("Added new Process Step state to automaton! Name " + zustandsname);
-        }
-    }
-
-    /** Update a process step state automaton template */
-    public void toAdd(String id) throws ProzessSchrittVorlageNotFoundException {
-        try {
-            ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage =
-                    prozessSchrittZustandsAutomatVorlageService.getByID(Integer.parseInt(id));
-            List<String> newZustande = prozessSchrittZustandsAutomatVorlage.getZustaende();
-            newZustande.add(toaddd);
-            prozessSchrittZustandsAutomatVorlage.setZustaende(newZustande);
-            prozessSchrittZustandsAutomatVorlageService.edit(prozessSchrittZustandsAutomatVorlage);
             refresh();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
-    /** Create a new process step state automaton template */
+    /**
+     * Create a new process step state automaton template
+     */
     public void erstellePSZAV() {
         try {
             List<String> selected = dualZ.getTarget();
@@ -154,50 +155,60 @@ public class PSZAVView implements Serializable {
                     facesError("Der erste Zustand muss Erstellt, und der zweite Freigegeben sein!");
                 }
                 refresh();
-            }
-            catch (Exception f){
+            } catch (Exception f) {
                 facesError("Bitte suchen Sie mindestens 2 Zustaende aus!");
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             log.error("Couldn't create new process step automaton with name " + name);
             facesError("Couldn't create new process step automaton with name " + name);
         }
     }
 
-    public void deletePSZAV() {
+    /**
+     * Delete a process step state automaton template
+     *
+     * @param id - the id of the process step state automaton to delete
+     */
+    public void deletePSZAV(int id) {
         try {
-            prozessSchrittZustandsAutomatVorlageService.delete(selpszav);
-            FacesMessage msg = new FacesMessage("PS Automat Delete");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        } catch (ProzessSchrittVorlageNotFoundException e) {
+            prozessSchrittZustandsAutomatVorlageService.remove(prozessSchrittZustandsAutomatVorlageService.getByID(id));
+            log.info("Removed process step state automaton template with ID " + id);
+            facesNotification("Removed process step state automaton template!");
+            refresh();
+        } catch (Exception e) {
             e.printStackTrace();
+            log.error("Couldn't remove process step state automaton with ID " + id);
+            facesError("Couldn't remove process step state automaton!");
         }
-        verpszav = prozessSchrittZustandsAutomatVorlageService.getProzessSchrittZustandsAutomatVorlagen();
+        refresh();
     }
 
-    public void onRowEdit(RowEditEvent<ProzessSchrittZustandsAutomatVorlage> event) throws ProzessSchrittVorlageNotFoundException {
-        //When The Persistence gefit be, we can uncomment that.
-        boolean a = true;
-        if (a) {
-            prozessSchrittZustandsAutomatVorlageService.edit(event.getObject());
-            FacesMessage msg = new FacesMessage("PS Automat Edited", event.getObject().toString());
-            FacesContext.getCurrentInstance().addMessage(null, msg);
-        } else {
-            onRowCancelWegenOrdnung();
+    /** Edit a process step state automaton template
+     * @param id - the id of the process step state automaton to edit */
+    public void onRowEdit(int id) {
+        try {
+            List<String> selected = dualZ.getTarget();
+            if (selected.get(0).equals("Erstellt") && selected.get(1).equals("Freigegeben")) {
+                ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage = prozessSchrittZustandsAutomatVorlageService.getByID(id);
+                prozessSchrittZustandsAutomatVorlage.setName(name);
+                prozessSchrittZustandsAutomatVorlage.setZustaende(selected);
+                prozessSchrittZustandsAutomatVorlageService.edit(prozessSchrittZustandsAutomatVorlage);
+                refresh();
+            } else {
+                facesError("Der erste Zustand muss Erstellt, und der zweite Freigegeben sein!");
+            }
         }
-
+        catch (Exception e){
+            e.printStackTrace();
+            log.error("Couldn't edit process step automaton with name " + name);
+            facesError("Couldn't edit process step automaton with name " + name);
+        }
     }
 
-    public void onRowCancel(RowEditEvent<ProzessSchrittVorlage> event) {
-        FacesMessage msg = new FacesMessage("Edit Cancelled", event.getObject().toString());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
-
-    public void onRowCancelWegenOrdnung() {
-        FacesMessage msg = new FacesMessage("Der Ordnung kann nicht gespeichern werden /n [Erstellt, Angenommen, In Bearbeitung, Bearbeitet, Weitergeleitet]");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+    /** Canceled row edit */
+    public void onRowCancel() {
+        facesNotification("Edit canceled!");
     }
 
     /**

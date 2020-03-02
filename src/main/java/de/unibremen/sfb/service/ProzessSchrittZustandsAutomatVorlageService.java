@@ -26,7 +26,7 @@ public class ProzessSchrittZustandsAutomatVorlageService {
      * @param selpszav die zu loeschenden ProzessSchrittZustandsAutomatVorlage
      * @throws ProzessSchrittVorlageNotFoundException falls es sie nicht gibt
      */
-    public void delete(List<ProzessSchrittZustandsAutomatVorlage> selpszav) throws ProzessSchrittVorlageNotFoundException {
+    public void delete(List<ProzessSchrittZustandsAutomatVorlage> selpszav) throws ProzessSchrittZustandsAutomatVorlageNotFoundException {
         for (ProzessSchrittZustandsAutomatVorlage p :
                 selpszav) {
             prozessSchrittZustandsAutomatVorlageDAO.remove(p);
@@ -37,9 +37,9 @@ public class ProzessSchrittZustandsAutomatVorlageService {
     /**
      * Edit alle diese ProzessSchrittZustandsAutomatVorlage
      * @param selpszav die zu bearbeitende ProzessSchrittZustandsAutomatVorlage
-     * @throws ProzessSchrittVorlageNotFoundException falls es sie nicht gibt
+     * @throws ProzessSchrittZustandsAutomatVorlageNotFoundException falls es sie nicht gibt
      */
-    public void edit(ProzessSchrittZustandsAutomatVorlage selpszav) throws ProzessSchrittVorlageNotFoundException {
+    public void edit(ProzessSchrittZustandsAutomatVorlage selpszav) throws ProzessSchrittZustandsAutomatVorlageNotFoundException {
         prozessSchrittZustandsAutomatVorlageDAO.update(selpszav);
     }
 
@@ -68,6 +68,13 @@ public class ProzessSchrittZustandsAutomatVorlageService {
     public void addVorlage(ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage) throws DuplicateProzessSchrittZustandsAutomatVorlageException {
         this.psvVorlagen.add(prozessSchrittZustandsAutomatVorlage);
         prozessSchrittZustandsAutomatVorlageDAO.persist(prozessSchrittZustandsAutomatVorlage);
+    }
+
+    /** Remove a process step state automaton template
+     * @param pszav - the process step state automaton template to remove
+     * @throws ProzessSchrittZustandsAutomatVorlageNotFoundException on failure */
+    public void remove(ProzessSchrittZustandsAutomatVorlage pszav) throws ProzessSchrittZustandsAutomatVorlageNotFoundException{
+        prozessSchrittZustandsAutomatVorlageDAO.remove(pszav);
     }
 
     /**

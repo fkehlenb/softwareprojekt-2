@@ -39,10 +39,10 @@ public class ProzessSchrittZustandsAutomatVorlageDAO extends ObjectDAO<ProzessSc
      * @param pszv - the process step state template to update in the database
      * @throws ProzessSchrittVorlageNotFoundException if the process step state template cannot be found in the database
      */
-    public void update(ProzessSchrittZustandsAutomatVorlage pszv) throws ProzessSchrittVorlageNotFoundException {
+    public void update(ProzessSchrittZustandsAutomatVorlage pszv) throws ProzessSchrittZustandsAutomatVorlageNotFoundException {
         if (pszv != null) {
             if (!em.contains(em.find(get(), pszv.getId()))) {
-                throw new ProzessSchrittVorlageNotFoundException();
+                throw new ProzessSchrittZustandsAutomatVorlageNotFoundException();
             }
             em.merge(pszv);
         }
@@ -52,15 +52,20 @@ public class ProzessSchrittZustandsAutomatVorlageDAO extends ObjectDAO<ProzessSc
      * Remove an existing process step state template from the database
      *
      * @param pszv - the process step state template to remove from the database
-     * @throws ProzessSchrittVorlageNotFoundException if the process step state template cannot be found in the database
+     * @throws ProzessSchrittZustandsAutomatVorlageNotFoundException if the process step state template cannot be found in the database
      */
-    public void remove(ProzessSchrittZustandsAutomatVorlage pszv) throws ProzessSchrittVorlageNotFoundException {
-        if (pszv != null) {
-            if (!em.contains(em.find(get(), pszv.getId()))) {
-                throw new ProzessSchrittVorlageNotFoundException();
+    public void remove(ProzessSchrittZustandsAutomatVorlage pszv) throws ProzessSchrittZustandsAutomatVorlageNotFoundException {
+        try {
+            if (pszv != null) {
+                if (!em.contains(em.find(get(), pszv.getId()))) {
+                    throw new ProzessSchrittZustandsAutomatVorlageNotFoundException();
+                }
+                pszv.setValidData(false);
+                update(pszv);
             }
-            pszv.setValidData(false);
-            update(pszv);
+        }
+        catch (Exception e){
+            throw new ProzessSchrittZustandsAutomatVorlageNotFoundException();
         }
     }
 
