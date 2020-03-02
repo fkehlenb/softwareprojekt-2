@@ -175,5 +175,33 @@ public class SingleJobBean implements Serializable {
         catch(IllegalArgumentException e) {
                 errorMessage("invalid input");
         }
+        String letzterZustand = ps.getProzessSchrittVorlage().getZustandsAutomatVorlage().getZustaende().get(ps.getProzessSchrittVorlage().
+                getZustandsAutomatVorlage().getZustaende().size()-1);
+        if(letzterZustand.equals(ps.getProzessSchrittZustandsAutomat().getCurrent())){
+            facesNotification("prozessSchritt wurde beendet! ");
+        }
+        else{
+            facesNotification("ProzessSchritt gewechselt auf: " + ps.getProzessSchrittZustandsAutomat().getCurrent());
+        }
+
+
+    }
+
+    /**
+     * Adds a new SEVERITY_ERROR FacesMessage for the ui
+     *
+     * @param message Error Message
+     */
+    private void facesError(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(javax.faces.application.FacesMessage.SEVERITY_ERROR, message, null));
+    }
+
+    /**
+     * Adds a new SEVERITY_INFO FacesMessage for the ui
+     *
+     * @param message Info Message
+     */
+    private void facesNotification(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(javax.faces.application.FacesMessage.SEVERITY_INFO, message, null));
     }
 }

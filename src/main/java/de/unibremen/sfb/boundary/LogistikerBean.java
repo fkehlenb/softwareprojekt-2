@@ -1,6 +1,8 @@
 package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.exception.AuftragNotFoundException;
+import de.unibremen.sfb.exception.DuplicateProbeException;
+import de.unibremen.sfb.exception.StandortNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.ProbeDAO;
 import de.unibremen.sfb.service.*;
@@ -195,42 +197,24 @@ public class LogistikerBean implements Serializable {
 
     /** Add a new sample to the system */
     public void addProbe(){
-        try{
-            Standort standort = new Standort(UUID.randomUUID().hashCode(),"Lager");
-            try{
-                List<Standort> standorts = standortService.getStandorte();
-                for (Standort s : standorts){
-                    if (s.getOrt().equals("Lager")){
-                        standort = s;
-                    }
-                }
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
-            try{
-                standortService.add(standort);
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
-            Probe p = new Probe(probenID,7, ProbenZustand.ARCHIVIERT,standort);
-            try {
-                Probe a = probenService.getProbeById(probenID);
-                facesError("Probe with id already exists! ID: " + probenID);
-                log.error("Probe with id already exists! ID: " + probenID);
-            }
-            catch (Exception e) {
-                probenService.persist(p);
-                facesNotification("Added new sample! ID: " + probenID);
-                log.info("Added new sample! ID: " + probenID);
-            }
-        }
-        catch (Exception e){
+
+        Standort standort = null;
+        try {
+            standort = standortService.findByLocation("Lager");
+        } catch (StandortNotFoundException e) {
+            facesError("Der Standort wurde nicht gefunden!");
             e.printStackTrace();
-            facesError("Couldn't add probe! ID: " + probenID);
-            log.error("Couldn't add probe! ID: " + probenID);
         }
+        //Anzahl ins xhtml
+            //FIXME
+            Probe p = new Probe(probenID,7, ProbenZustand.ARCHIVIERT,standort);
+        try {
+            probenService.persist(p);
+        } catch (DuplicateProbeException e) {
+            facesError("Die Probe existiert bereits!: " + e.getMessage());
+            e.printStackTrace();
+        }
+        facesNotification("ERFOLG " + p.getProbenID());
     }
 
     /**

@@ -374,7 +374,7 @@ public class AuftragService implements Serializable {
         for (Auftrag a :
                 pp) {
             s.addAll(a.getProzessSchritte().stream()
-                    .filter(p -> p.getTransportAuftrag().getZustandsAutomat() == TransportAuftragZustand.ERSTELLT)
+                    .filter(p ->(p.getTransportAuftrag() !=null) && (p.getTransportAuftrag().getZustandsAutomat() == TransportAuftragZustand.ERSTELLT))
                     .collect(Collectors.toSet()));
         }
         return s.isEmpty() ? new ArrayList<>() : List.copyOf(s);
@@ -385,7 +385,7 @@ public class AuftragService implements Serializable {
         for (Auftrag a :
                 getAuftrage()) {
             s.addAll(a.getProzessSchritte().stream()
-                    .filter(p -> p.getTransportAuftrag().getZustandsAutomat() == TransportAuftragZustand.ABGEHOLT)
+                    .filter(p ->(p.getTransportAuftrag() !=null) && p.getTransportAuftrag().getZustandsAutomat() == TransportAuftragZustand.ABGEHOLT)
                     .collect(Collectors.toSet()));
         }
         return s.isEmpty() ? new ArrayList<>() : List.copyOf(s);

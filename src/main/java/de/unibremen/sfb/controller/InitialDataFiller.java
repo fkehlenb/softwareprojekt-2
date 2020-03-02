@@ -264,7 +264,7 @@ public class InitialDataFiller {
     private List<Standort> createDefaulStandort() {
 
         standorte = new ArrayList<>();
-
+        standorte.add(new Standort(UUID.randomUUID().hashCode(),"Lager"));
         for (int i = 0; i < limit; i++) {
             Standort s = new Standort(UUID.randomUUID().hashCode(), "Station " + i);
             log.info("Persisiting Experimentierstation " + i);
