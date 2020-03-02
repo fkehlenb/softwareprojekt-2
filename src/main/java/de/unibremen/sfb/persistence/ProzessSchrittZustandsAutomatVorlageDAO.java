@@ -78,7 +78,8 @@ public class ProzessSchrittZustandsAutomatVorlageDAO extends ObjectDAO<ProzessSc
             }
             return es;
         } catch (Exception e) {
-            throw new IllegalArgumentException();
+            e.printStackTrace();
+            return new ArrayList<>();
         }
     }
 

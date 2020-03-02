@@ -59,11 +59,11 @@ public class AuftragView implements Serializable {
 
     }
 
-    public void erstelleAuftrag() {
-        int id = auftragService.erstelleAuftrag(ausPKV, ausPrio).getPkID();
-        facesNotification("Erfolgreich Auftrag: " + id + " erstellt");
-        updateAuftragTabelle();
-    }
+//    public void erstelleAuftrag() {
+//        int id = auftragService.erstelleAuftrag(ausPKV, ausPrio).getPkID();
+//        facesNotification("Erfolgreich Auftrag: " + id + " erstellt");
+//        updateAuftragTabelle();
+//    }
 
     /**
      * Aktualisiert die Tabelle

@@ -72,15 +72,15 @@ class ProzessSchrittVorlageTest {
         prozessSchrittVorlage.setPsArt("psArt");
     }
 
-    @Test
-    void testSetStationen() {
-        prozessSchrittVorlage.setStationen(Arrays.<ExperimentierStation>asList(new ExperimentierStation()));
-    }
+//    @Test
+//    void testSetStationen() {
+//        prozessSchrittVorlage.setStationen(Arrays.<ExperimentierStation>asList(new ExperimentierStation()));
+//    }
 
-    @Test
-    void testSetBedingungen() {
-        prozessSchrittVorlage.setBedingungen(Arrays.<Bedingung>asList(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), 0)));
-    }
+//    @Test
+//    void testSetBedingungen() {
+//        prozessSchrittVorlage.setBedingungen(Arrays.<Bedingung>asList(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), 0)));
+//    }
 
     @Test
     void testSetZustandsAutomatVorlage() {

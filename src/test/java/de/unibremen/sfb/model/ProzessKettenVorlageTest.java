@@ -33,10 +33,10 @@ class ProzessKettenVorlageTest {
         prozessKettenVorlage.setPkvID(0);
     }
 
-    @Test
-    void testSetProzessSchrittVorlagen() {
-        prozessKettenVorlage.setProzessSchrittVorlagen(Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(new ExperimentierStation()), Arrays.<Bedingung>asList(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), 0)), new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name"))));
-    }
+//    @Test
+//    void testSetProzessSchrittVorlagen() {
+//        prozessKettenVorlage.setProzessSchrittVorlagen(Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(new ExperimentierStation()), Arrays.<Bedingung>asList(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), 0)), new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name"))));
+//    }
 
     @Test
     void testEquals() {
