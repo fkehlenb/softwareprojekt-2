@@ -63,7 +63,7 @@ public class psvConverter implements Converter {
     @Override
     public String getAsString(FacesContext fc, UIComponent uic, Object object) {
         if (object != null) {
-            return "PSV:" + ((ProzessSchrittVorlage) object).getPsVID();
+            return "PSV: " + ((ProzessSchrittVorlage) object).getName();
         } else {
             return null;
         }

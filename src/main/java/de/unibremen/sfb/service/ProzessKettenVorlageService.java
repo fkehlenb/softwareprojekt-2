@@ -6,6 +6,7 @@ import de.unibremen.sfb.model.ProzessKettenVorlage;
 import de.unibremen.sfb.model.ProzessSchrittVorlage;
 import de.unibremen.sfb.persistence.ProzessKettenVorlageDAO;
 import lombok.Getter;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
@@ -29,6 +30,9 @@ public class ProzessKettenVorlageService implements Serializable {
 
     @Inject
     ProzessSchrittVorlageService prozessSchrittVorlageService;
+
+    @Inject
+    ProzessKettenVorlageService prozessKettenVorlageService;
 
     @PostConstruct
     public void init() {
@@ -109,10 +113,11 @@ public class ProzessKettenVorlageService implements Serializable {
      *
      * @param pkvs die Vorlagen
      */
-    public void delete(List<ProzessKettenVorlage> pkvs) {
+    @SneakyThrows
+    public void delete(List<ProzessKettenVorlage> pkvs) throws DuplicateProzessKettenVorlageException {
         for (ProzessKettenVorlage pkv :
                 pkvs) {
-            pkVorlagen.remove(pkv);
+            pkvDAO.remove(pkv);
         }
     }
 

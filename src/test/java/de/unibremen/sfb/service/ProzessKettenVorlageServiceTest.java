@@ -104,7 +104,11 @@ class ProzessKettenVorlageServiceTest {
 
     @Test
     void testDelete() {
-        prozessKettenVorlageService.delete(Arrays.<ProzessKettenVorlage>asList(new ProzessKettenVorlage(0, Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(null), Arrays.<Bedingung>asList(null), null)))));
+        try {
+            prozessKettenVorlageService.delete(Arrays.<ProzessKettenVorlage>asList(new ProzessKettenVorlage(0, Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(null), Arrays.<Bedingung>asList(null), null)))));
+        } catch (DuplicateProzessKettenVorlageException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
