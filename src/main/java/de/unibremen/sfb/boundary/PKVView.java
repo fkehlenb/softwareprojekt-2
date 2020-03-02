@@ -63,6 +63,10 @@ public class PKVView implements Serializable {
         } catch (DuplicateProzessKettenVorlageException e) {
             e.printStackTrace();
         }
+        catch (NullPointerException n){
+            n.printStackTrace();
+            log.info("NullPointer Exception");
+        }
         return "pkv?faces-redirect=true";
     }
 
