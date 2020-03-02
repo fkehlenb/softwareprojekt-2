@@ -60,6 +60,7 @@ class BedingungServiceTest {
         when(bedingungDAO.findById(anyInt())).thenReturn(bedingung);
         Bedingung result = bedingungService.findByID(0);
         Assertions.assertEquals(bedingung, result);
+        verify(bedingungDAO).findById(0);
     }
 
     @Test
