@@ -36,6 +36,7 @@ public class ProbeMeldenView implements Serializable {
         try {
             probenService.setZustandForProbe(p, ProbenZustand.VERLOREN);
             log.info("sample " + p.getProbenID() + " was reported as missing");
+            message("sample " + p.getProbenID() + " was reported as missing");
         }
         catch(ProbeNotFoundException e) {
             e.printStackTrace();
@@ -78,6 +79,10 @@ public class ProbeMeldenView implements Serializable {
     public void errorMessage(String e) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e, null));
         log.info("an error occurred" + e);
+    }
+
+    public void message(String e) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, e, null));
     }
 
 }
