@@ -1,5 +1,6 @@
 package de.unibremen.sfb.boundary;
 
+import de.unibremen.sfb.exception.AuftragNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.*;
 import lombok.Getter;
@@ -141,5 +142,6 @@ public class AuftragView implements Serializable {
                 .addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO," multiview state has been cleared out", null));
     }
+
 }
 

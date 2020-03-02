@@ -467,5 +467,4 @@ public class AuftragService implements Serializable {
     }
 
 
-
 }
