@@ -64,7 +64,7 @@ public class TransporterBean implements Serializable {
           TransportAuftrag tr = auftragService.getTransportAuftragByID(TransportID);
           auftragService.sedTransportZustandAbgeholt(tr);
           log.info("TransportAuftragZustand wurde gewechselt auf Abgeholt " + TransportID);
-          facesNotification("TransportAuftragZustand wurde gewechselt auf Abgeholt " + TransportID);
+          facesNotification("Der Zustand von " + TransportID + " wurde auf Abgeholt gesetzt.");
           updateTabellen();
 
       }
@@ -83,7 +83,7 @@ public class TransporterBean implements Serializable {
             TransportAuftrag tr = auftragService.getTransportAuftragByID(TransportID);
             auftragService.sedTransportZustandAbgeliefert(tr);
             log.info("TransportAuftragZustand wurde gewechselt auf Abgeliefert " + TransportID);
-            facesNotification("TransportAuftragZustand wurde gewechselt auf Abgeliefert " + TransportID);
+            facesNotification("Der Zustand von " + TransportID + " wurde auf Abgeliefert gesetzt.");
             updateTabellen();
 
         }
