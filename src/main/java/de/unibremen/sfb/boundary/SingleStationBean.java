@@ -52,9 +52,9 @@ public class SingleStationBean implements Serializable {
         }
     }
 
-    public List<Probe> getProben() {
-        return esService.getProben(station);
-    }
+//    public List<Probe> getProben() {
+//        return esService.getProben(station);
+//    }
 
     public SingleStationBean() {}
 }

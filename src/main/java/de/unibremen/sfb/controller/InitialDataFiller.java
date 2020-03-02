@@ -154,7 +154,7 @@ public class InitialDataFiller {
             em.persist(b);
 
             // Erstelle die Liste aus den Parametern
-            List<ProzessSchrittVorlage> psvListe = getProzessSchrittVorlages(b);
+            List<ProzessSchrittVorlage> psvListe = getProzessSchrittVorlages(parameters);
             for (ProzessSchrittVorlage pSV :
                     psvListe) {
                 log.info("Trying to persist ProzessSchrittVorlage " + pSV.toString());
@@ -175,7 +175,7 @@ public class InitialDataFiller {
                     UUID.randomUUID().hashCode(), "ERSTELLT", pszaVorlage);
             log.info("Try to persist ProzessSchrittZustandsAutomat " + prozessSchrittZustandsAutomat.toString());
             em.persist(prozessSchrittZustandsAutomat);
-            erstelleAuftrag(psvListe);
+//            erstelleAuftrag(psvListe);
 
         } else {
             log.info("Data already exists");
@@ -183,78 +183,78 @@ public class InitialDataFiller {
 
     }
 
-    private void erstelleAuftrag(List<ProzessSchrittVorlage> psvListe) {
-        for (int i = 0; i < limit; i++) {
-            // Auftrag Setup
-            AuftragsLog aLog = new AuftragsLog(LocalDateTime.now());
-            aLog.setErstellt(LocalDateTime.now());
-            em.persist(aLog);
-            log.info("Try to persist AuftragsLog " + aLog.toString());
-            Auftrag pk = new Auftrag(UUID.randomUUID().hashCode(), pkv, AuftragsPrioritaet.HOCH, erstelePS(psvListe),
-                    aLog, ProzessKettenZustandsAutomat.INSTANZIIERT);
+//    private void erstelleAuftrag(List<ProzessSchrittVorlage> psvListe) {
+//        for (int i = 0; i < limit; i++) {
+//            // Auftrag Setup
+//            AuftragsLog aLog = new AuftragsLog(LocalDateTime.now());
+//            aLog.setErstellt(LocalDateTime.now());
+//            em.persist(aLog);
+//            log.info("Try to persist AuftragsLog " + aLog.toString());
+////            Auftrag pk = new Auftrag(UUID.randomUUID().hashCode(), pkv, AuftragsPrioritaet.HOCH, erstelePS(psvListe),
+////                    aLog, ProzessKettenZustandsAutomat.INSTANZIIERT);
+//
+//            // Erstelle neuen PSZA
+//            var automat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "AKZEPTIERT", pszaVorlage);
+//            em.persist(automat);
+//
+//            // PS Setup
+//            ArrayList<ProzessSchrittLog> logs = new ArrayList<>();
+//            logs.add(new ProzessSchrittLog(LocalDateTime.now(), "INSTANZIERT"));
+//            for (ProzessSchrittLog pSL :
+//                    logs) {
+//                log.info("Try to persist logs " + pSL.getGestartet().toString());
+//                em.persist(pSL);
+//            }
+//            // PS aufuellen
+////            log.info("Try to persist TEST ProzessKette " + pk.getPkID());
+////            em.persist(pk);
+//        }
+//    }
 
-            // Erstelle neuen PSZA
-            var automat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "AKZEPTIERT", pszaVorlage);
-            em.persist(automat);
-
-            // PS Setup
-            ArrayList<ProzessSchrittLog> logs = new ArrayList<>();
-            logs.add(new ProzessSchrittLog(LocalDateTime.now(), "INSTANZIERT"));
-            for (ProzessSchrittLog pSL :
-                    logs) {
-                log.info("Try to persist logs " + pSL.getGestartet().toString());
-                em.persist(pSL);
-            }
-            // PS aufuellen
-            log.info("Try to persist TEST ProzessKette " + pk.getPkID());
-            em.persist(pk);
-        }
-    }
-
-    private List<ProzessSchritt> erstelePS(List<ProzessSchrittVorlage> psvListe) {
-        var r = new ArrayList<ProzessSchritt>();
-        for (int i = 0; i < limit * 0.5; i++) {
-            var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "Erstellt", pszaVorlage);
-            em.persist(a);
-            var logs = new ArrayList<ProzessSchrittLog>();
-            var l = new ProzessSchrittLog(LocalDateTime.now(), a.getCurrent());
-            var ps = new ProzessSchritt(UUID.randomUUID().hashCode(), logs, psvListe.get(0), a);
-            var psLogs = List.of(new ProzessSchrittLog(LocalDateTime.now(), "Gestartet"),
-                    new ProzessSchrittLog(LocalDateTime.now(), "Veraendert"));
-            for (ProzessSchrittLog psl :
-                    psLogs) {
-                em.persist(psl);
-            }
-            ps.setProzessSchrittLog(psLogs);
-            log.info("Try to persist TEST ProzessSchritt " + ps.getPsID());
-
-            var transportAuftrag = new TransportAuftrag(LocalDateTime.now(), TransportAuftragZustand.ERSTELLT);
-            em.persist(transportAuftrag);
-            log.info("Persisting Transport Auftag " + transportAuftrag.getZustandsAutomat());
-            em.persist(transportAuftrag);
-            ps.setTransportAuftrag(transportAuftrag);
-            em.persist(ps);
-            r.add(ps);
-
-            // Weise den PS auch Stationen zu.
-            // Wenn es einen akutellen Schritt gibt, dann werden die weiteren Schritte in Warteschlange eingreiht.
-            ExperimentierStation es;
-            try {
-                es = ps.getProzessSchrittVorlage().getStationen().get(0);
-                if (es.getCurrentPS() == null) {
-                    es.setCurrentPS(ps);
-                    ps.setZugewieseneProben(erstelleProben(es.getStandort()));
-                } else {
-                    es.getNextPS().add(ps);
-                }
-                em.persist(es);
-            } catch (NullPointerException e) {
-                log.info("Es gibt keine Stationen für diesen Schritt");
-            }
-            
-        }
-        return r;
-    }
+//    private List<ProzessSchritt> erstelePS(List<ProzessSchrittVorlage> psvListe) {
+//        var r = new ArrayList<ProzessSchritt>();
+//        for (int i = 0; i < limit * 0.5; i++) {
+//            var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "Erstellt", pszaVorlage);
+//            em.persist(a);
+//            var logs = new ArrayList<ProzessSchrittLog>();
+//            var l = new ProzessSchrittLog(LocalDateTime.now(), a.getCurrent());
+//            //var ps = new ProzessSchritt(UUID.randomUUID().hashCode(),ps);
+//            var psLogs = List.of(new ProzessSchrittLog(LocalDateTime.now(), "Gestartet"),
+//                    new ProzessSchrittLog(LocalDateTime.now(), "Veraendert"));
+//            for (ProzessSchrittLog psl :
+//                    psLogs) {
+//                em.persist(psl);
+//            }
+//            //ps.setProzessSchrittLog(psLogs);
+//            log.info("Try to persist TEST ProzessSchritt " + ps.getId());
+//
+//            var transportAuftrag = new TransportAuftrag(LocalDateTime.now(), TransportAuftragZustand.ERSTELLT);
+//            em.persist(transportAuftrag);
+//            log.info("Persisting Transport Auftag " + transportAuftrag.getZustandsAutomat());
+//            em.persist(transportAuftrag);
+//            ps.setTransportAuftrag(transportAuftrag);
+//            em.persist(ps);
+//            r.add(ps);
+//
+//            // Weise den PS auch Stationen zu.
+//            // Wenn es einen akutellen Schritt gibt, dann werden die weiteren Schritte in Warteschlange eingreiht.
+//            ExperimentierStation es;
+//            try {
+//                es = ps.getProzessSchrittVorlage().getStationen().get(0);
+//                if (es.getCurrentPS() == null) {
+//                    es.setCurrentPS(ps);
+//                    ps.setZugewieseneProben(erstelleProben(es.getStandort()));
+//                } else {
+//                    es.getNextPS().add(ps);
+//                }
+//                em.persist(es);
+//            } catch (NullPointerException e) {
+//                log.info("Es gibt keine Stationen für diesen Schritt");
+//            }
+//
+//        }
+//        return r;
+//    }
 
     /**
      * Erstelle Standorte
@@ -264,7 +264,7 @@ public class InitialDataFiller {
     private List<Standort> createDefaulStandort() {
 
         standorte = new ArrayList<>();
-
+        standorte.add(new Standort(UUID.randomUUID().hashCode(),"Lager"));
         for (int i = 0; i < limit; i++) {
             Standort s = new Standort(UUID.randomUUID().hashCode(), "Station " + i);
             log.info("Persisiting Experimentierstation " + i);
@@ -357,16 +357,16 @@ public class InitialDataFiller {
     }
 
 
-    public List<ProzessSchrittVorlage> getProzessSchrittVorlages(Bedingung b) {
+    public List<ProzessSchrittVorlage> getProzessSchrittVorlages(List<ProzessSchrittParameter> parameters) {
         // PSVA
         List<ProzessSchrittVorlage> psListe = new ArrayList<>();
         for (int i = 0; i < limit; i++) {
-            psListe.add(getProzessSchrittVorlage(b));
+            psListe.add(getProzessSchrittVorlage(parameters));
         }
         return psListe;
     }
 
-    public ProzessSchrittVorlage getProzessSchrittVorlage(Bedingung b) {
+    public ProzessSchrittVorlage getProzessSchrittVorlage(List<ProzessSchrittParameter> parameters) {
         // ProzessSchrittVorlage Setup
         ProzessSchrittZustandsAutomatVorlage v = new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(),
                 psZustaende, "Test pszvav");
@@ -374,10 +374,8 @@ public class InitialDataFiller {
         var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "ANGENOMMEN", sVorlage);
         em.persist(a);
         Faker faker = new Faker();
-        List<Bedingung> bs = new ArrayList<>();
-        bs.add(b);
         return  new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), "42",faker.gameOfThrones().character(),
-                "Ermittlend", experimentierStations, bs, v);
+                "Ermittlend", experimentierStations.get(0), parameters, v);
     }
 
     public List<QualitativeEigenschaft> getQualitativeEigenschaften() {
@@ -423,18 +421,18 @@ public class InitialDataFiller {
         catch(DuplicateTraegerException e) {
             e.printStackTrace();
         }
-        for(int i=0; i<limit; i++){
-            Probe p1 = new Probe("FDGHJ"+i, 9, ProbenZustand.VORHANDEN, s);
-            p1.setCurrentTraeger(t);
-            p1.setKommentar(erstelleKommentare());
-            r.add(p1);
-            try {
-                probeDAO.persist(p1);
-            }
-            catch(DuplicateProbeException e) {
-                e.printStackTrace();
-            }
-        }
+//        for(int i=0; i<limit; i++){
+//            Probe p1 = new Probe("FDGHJ"+i, 9, ProbenZustand.VORHANDEN, s);
+//            p1.setCurrentTraeger(t);
+//            p1.setKommentar(erstelleKommentare());
+//            r.add(p1);
+//            try {
+//                probeDAO.persist(p1);
+//            }
+//            catch(DuplicateProbeException e) {
+//                e.printStackTrace();
+//            }
+//        }
         return r;
     }
 

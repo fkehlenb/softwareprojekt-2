@@ -18,7 +18,6 @@ import javax.inject.Named;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -49,13 +48,10 @@ public class PSVView implements Serializable {
     private String psArt;
 
     @NonNull
-    private List<ExperimentierStation> stationen;
-
-    @NonNull
     private ProzessSchrittZustandsAutomatVorlage zustandsAutomatenVorlage;
 
      @NonNull
-     private List<Bedingung> ausgewaehlteBedingungen;
+     private List<ProzessSchrittParameter> ausgewaehltePSP;
 
     @NonNull
     private List<ExperimentierStation> ausgewaehlteStationen;
@@ -67,7 +63,8 @@ public class PSVView implements Serializable {
     private List<TraegerArt> ausAusTragArt;
 
     // Wir benoetigen die Parameter und Eigenschaften um diese dann auszuwaehlen
-    private List<Bedingung> verfuegbareBedingunen;
+    private List<ProzessSchrittParameter> verfuegbarePSP;
+    private ExperimentierStation es;
     private List<ExperimentierStation> verfuegbareStationen;
     private List<ProzessSchrittVorlage> verfuegbarePSV;
     private List<ProzessSchrittVorlage> selectedPSV;
@@ -80,6 +77,9 @@ public class PSVView implements Serializable {
 
     @Inject
     transient private BedingungService bedingungService; // FIXME WhyThow https://stackoverflow.com/a/32284585
+    
+    @Inject
+    ProzessSchrittParameterService prozessSchrittParameterService;
 
     @Inject
     private ExperimentierStationService experimentierStationService;
@@ -100,7 +100,7 @@ public class PSVView implements Serializable {
       Hier werden aus der Persitenz die benötigten Daten Geladen
      */
     public void init() {
-        verfuegbareBedingunen = bedingungService.getAll();
+        verfuegbarePSP = prozessSchrittParameterService.getAll();
         verfuegbarePSV = prozessSchrittVorlageService.getVorlagen();
         verfuegbareStationen = experimentierStationService.getESListe();
         verfuegbareTraegerArt = traegerArtService.getVerTraeger();
@@ -111,8 +111,8 @@ public class PSVView implements Serializable {
         log.info("Erstelle Prozessschritt");
         // FIXME Wehre is es, persist auf  de.unibremen.sfb.model.ProzessSchrittVorlage.zustandsAutomat -> de.unibremen.sfb.model.ProzessSchrittZustandsAutomatVorlage
 
-        ProzessSchrittVorlage psv = new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), dauer, name,psArt,
-                ausgewaehlteStationen, ausgewaehlteBedingungen, ausProzessSchrittZustandsAutomatVorlage);
+        ProzessSchrittVorlage psv = new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), dauer, name, psArt,
+           es,   ausgewaehltePSP ,  ausProzessSchrittZustandsAutomatVorlage);
         prozessSchrittVorlageService.persist(psv);
 
         FacesContext context = FacesContext.getCurrentInstance();

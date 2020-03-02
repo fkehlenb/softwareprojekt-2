@@ -24,6 +24,9 @@ public class ProzessSchrittZustandsAutomat {
     @NonNull
     private String current;
 
+    /** State automaton name */
+    private String name;
+
     @NonNull
     @ManyToOne
     private ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage;

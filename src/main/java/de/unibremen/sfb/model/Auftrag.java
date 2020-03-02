@@ -65,6 +65,9 @@ public class Auftrag implements Serializable {
     @NonNull
     private Enum<ProzessKettenZustandsAutomat> prozessKettenZustandsAutomat;
 
+    /** The Carrier */
+    private Traeger traeger;
+
 
     private String ErrorMessage;
 

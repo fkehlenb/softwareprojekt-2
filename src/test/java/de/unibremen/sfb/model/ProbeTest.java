@@ -9,7 +9,6 @@ import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -66,10 +65,6 @@ class ProbeTest {
         probe.setBedingungen(Arrays.<Bedingung>asList(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), 0)));
     }
 
-    @Test
-    void testSetPSP() {
-        probe.setParameter(Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", new ArrayList<>())));
-    }
 
     @Test
     void testSetCurrentTraeger() {

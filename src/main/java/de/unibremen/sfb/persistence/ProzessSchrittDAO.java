@@ -5,6 +5,7 @@ import de.unibremen.sfb.exception.ProzessSchrittNotFoundException;
 import de.unibremen.sfb.model.ProzessSchritt;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +22,7 @@ public class ProzessSchrittDAO extends ObjectDAO<ProzessSchritt> {
     public void persist(ProzessSchritt ps) throws DuplicateProzessSchrittException {
         if (ps != null) {
             synchronized (ProzessSchritt.class) {
-                if (em.contains(em.find(get(), ps.getPsID()))) {
+                if (em.contains(em.find(get(), ps.getId()))) {
                     throw new DuplicateProzessSchrittException();
                 }
                 em.persist(ps);
@@ -37,7 +38,7 @@ public class ProzessSchrittDAO extends ObjectDAO<ProzessSchritt> {
      */
     public void update(ProzessSchritt ps) throws ProzessSchrittNotFoundException {
         if (ps != null) {
-            if (!em.contains(em.find(get(), ps.getPsID()))) {
+            if (!em.contains(em.find(get(), ps.getId()))) {
                 throw new ProzessSchrittNotFoundException();
             }
             em.merge(ps);
@@ -52,7 +53,7 @@ public class ProzessSchrittDAO extends ObjectDAO<ProzessSchritt> {
      */
     public void remove(ProzessSchritt ps) throws ProzessSchrittNotFoundException {
         if (ps != null) {
-            if (!em.contains(em.find(get(), ps.getPsID()))) {
+            if (!em.contains(em.find(get(), ps.getId()))) {
                 throw new ProzessSchrittNotFoundException();
             }
             ps.setValidData(false);
@@ -93,13 +94,14 @@ public class ProzessSchrittDAO extends ObjectDAO<ProzessSchritt> {
      * Return a List quantitative descriptor object from the database
      *
      * @return alle ProzessSchritte aus der Datenbank
-     * @throws IllegalArgumentException if the quantitative descriptor couldn't be found in the database
      */
     public List<ProzessSchritt> getAll() {
+        List<ProzessSchritt> ps = new ArrayList<>();
         try {
-            return em.createQuery("SELECT p from ProzessSchritt  p WHERE p.isValidData=true", get()).getResultList();
+            ps = em.createQuery("SELECT p from ProzessSchritt  p WHERE p.isValidData=true", get()).getResultList();
         } catch (Exception e) {
-            throw new EntityNotFoundException();
+            e.printStackTrace();
         }
+        return ps;
     }
 }

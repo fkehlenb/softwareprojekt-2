@@ -319,11 +319,13 @@ public class AuftragService implements Serializable {
      * @param auftrag der Auftrag
      * @return der Auftrag mit den neuen Proben
      */
-    public Auftrag probenZuweisen(@org.jetbrains.annotations.NotNull Auftrag auftrag, List<Probe> proben, String startID) throws AuftragNotFoundException, DuplicateProbeException {
+    public Auftrag traegerZuweisen(@org.jetbrains.annotations.NotNull Auftrag auftrag, Traeger t) throws AuftragNotFoundException, DuplicateProbeException {
+            auftrag.setTraeger(t);
+
         Standort lager = null;
         int i = 0;
         for (Bedingung b :
-                auftrag.getProzessSchritte().get(0).getProzessSchrittVorlage().getBedingungen()) {
+          //      auftrag.getProzessSchritte().get(0).getProzessSchrittVorlage().getBedingungen()) {
             try {
                 lager = standortService.findByLocation("lager");
             } catch (StandortNotFoundException e) {
@@ -332,36 +334,24 @@ public class AuftragService implements Serializable {
             if (auftrag.getProzessSchritte().get(0).getProzessSchrittVorlage().getPsArt().equals("ERZEUGEND")) {
                 for (ProzessSchritt ps :
                         auftrag.getProzessSchritte()) {
-                    ps.setZugewieseneProben(erzeugeProbenNachBeding(b, lager, startID + i++));
-
+           //         ps.setZugewieseneProben(erzeugeProbenNachBeding(b, lager, startID + i++));
                 }
+//                for (ProzessSchritt ps :
+//                        auftrag.getProzessSchritte()) {
+////                    ps.setZugewieseneProben(erzeugeProbenNachBeding(b, lager, startID + i++));
+//
+//                }
             } else {
-                for (ProzessSchritt ps :
-                        auftrag.getProzessSchritte()) {
-                    ps.setZugewieseneProben(proben);
-                }
+//                for (ProzessSchritt ps :
+//                        auftrag.getProzessSchritte()) {
+//                    ps.setZugewieseneProben(proben);
+//                }
             }
         }
             auftragDAO.update(auftrag);
             return auftrag;
     }
 
-    /**
-     * Erstelle Proben die einer Bedingung entsprechen, dies koenne wir fuer erzeugende Prozessschritte nutzen
-     *
-     * @param b       Die Bedingung
-     * @param s       der Standort wo die Proben sind, normalerweise die Station and der sie erstellt werden
-     * @param startID die Proben ID vom Logstiker / pkAdmin festgelegt
-     * @return die liste mit proben die erzeugt wurden
-     */
-    private List<Probe> erzeugeProbenNachBeding(Bedingung b, Standort s, String startID) throws DuplicateProbeException {
-        var result = new ArrayList<Probe>();
-            var p = new Probe(startID, b.getGewuenschteAnzahl(), ProbenZustand.VORHANDEN, s);
-            p.setBedingungen(List.of(b));
-            result.add(p);
-            probeDao.persist(p);
-        return result;
-    }
 
     /**
      * Hole Alle ProzessSchritte die als Transport Zustand ERSTELLT haben
@@ -370,10 +360,11 @@ public class AuftragService implements Serializable {
      */
     public List<ProzessSchritt> getTransportSchritt() {
         var s = new HashSet<ProzessSchritt>();
+        var pp=getAuftrage();
         for (Auftrag a :
-                getAuftrage()) {
+                pp) {
             s.addAll(a.getProzessSchritte().stream()
-                    .filter(p -> p.getTransportAuftrag().getZustandsAutomat() == TransportAuftragZustand.ERSTELLT)
+                    .filter(p ->(p.getTransportAuftrag() !=null) && (p.getTransportAuftrag().getZustandsAutomat() == TransportAuftragZustand.ERSTELLT))
                     .collect(Collectors.toSet()));
         }
         return s.isEmpty() ? new ArrayList<>() : List.copyOf(s);
@@ -384,14 +375,14 @@ public class AuftragService implements Serializable {
         for (Auftrag a :
                 getAuftrage()) {
             s.addAll(a.getProzessSchritte().stream()
-                    .filter(p -> p.getTransportAuftrag().getZustandsAutomat() == TransportAuftragZustand.ABGEHOLT)
+                    .filter(p ->(p.getTransportAuftrag() !=null) && p.getTransportAuftrag().getZustandsAutomat() == TransportAuftragZustand.ABGEHOLT)
                     .collect(Collectors.toSet()));
         }
         return s.isEmpty() ? new ArrayList<>() : List.copyOf(s);
     }
 
 
-    public int erstelleAuftrag(ProzessKettenVorlage ausPKV, AuftragsPrioritaet ausPrio) {
+    public Auftrag erstelleAuftrag(ProzessKettenVorlage ausPKV, AuftragsPrioritaet ausPrio) {
         // Auftrags Log
         AuftragsLog aLog = new AuftragsLog(LocalDateTime.now());
         aLog.setErstellt(LocalDateTime.now());
@@ -412,7 +403,7 @@ public class AuftragService implements Serializable {
             e.printStackTrace();
             log.error(e.getMessage());
         }
-        return pk.getPkID();
+        return pk;
     }
 
     public List<ProzessSchritt> erstelePS(List<ProzessSchrittVorlage> psvListe) {
@@ -441,14 +432,14 @@ public class AuftragService implements Serializable {
             // Transport Auftrag // FIXME
 
             // PS erstellen
-            var ps = new ProzessSchritt(UUID.randomUUID().hashCode(), List.of(l), psv, psAutomat);
-            try {
-                prozessSchrittDAO.persist(ps);
-            } catch (DuplicateProzessSchrittException e) {
-                e.printStackTrace();
-                log.error(e.getMessage());
-            }
-            r.add(ps);
+           // var ps = new ProzessSchritt(UUID.randomUUID().hashCode(), List.of(l), psv, psAutomat);
+//            try {
+//                prozessSchrittDAO.persist(ps);
+//            } catch (DuplicateProzessSchrittException e) {
+//                e.printStackTrace();
+//                log.error(e.getMessage());
+//            }
+//            r.add(ps);
         }
         return r;
     }

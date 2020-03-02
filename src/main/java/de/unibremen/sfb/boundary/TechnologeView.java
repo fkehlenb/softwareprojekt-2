@@ -71,12 +71,12 @@ public class TechnologeView implements Serializable {
      *
      * @return a list containing all the jobs
      */
-    public List<ProzessSchritt> getJobs() {
-        List<ProzessSchritt> r = psService.getSchritteByUser(technologe);
-        r.removeAll(Collections.singleton(null));
-        r.sort(Comparator.comparing(o -> psService.getAuftrag(o).getPriority()));
-        return r;
-    }
+//    public List<ProzessSchritt> getJobs() {
+//        List<ProzessSchritt> r = psService.getSchritteByUser(technologe);
+//        r.removeAll(Collections.singleton(null));
+//        r.sort(Comparator.comparing(o -> psService.getAuftrag(o).getPriority()));
+//        return r;
+//    }
 
     /**
      * returns the experimentation stations this user is assigned to
@@ -92,10 +92,10 @@ public class TechnologeView implements Serializable {
      *
      * @return a set containing all availabe jobs
      */
-    public List<ProzessSchritt> getAuftrag() {
-        //alle einträge in queues von experimentierstationen denene der user zugeordnet ist
-        return prozessSchrittService.getPotentialStepsByUser(technologe);
-    }
+//    public List<ProzessSchritt> getAuftrag() {
+//        //alle einträge in queues von experimentierstationen denene der user zugeordnet ist
+//        return prozessSchrittService.getPotentialStepsByUser(technologe);
+//    }
 
     /**
      * finds the station a process step is currently at
@@ -103,15 +103,15 @@ public class TechnologeView implements Serializable {
      * @param ps the step
      * @return the station
      */
-    public ExperimentierStation findStandort(ProzessSchritt ps) { //TODO integrate into my xhtmls
-        try {
-            return prozessSchrittService.findStation(ps);
-        }
-        catch(IllegalArgumentException e) {
-            errorMessage("invalid input");
-            return null;
-        }
-    }
+//    public ExperimentierStation findStandort(ProzessSchritt ps) { //TODO integrate into my xhtmls
+//        try {
+//            return prozessSchrittService.findStation(ps);
+//        }
+//        catch(IllegalArgumentException e) {
+//            errorMessage("invalid input");
+//            return null;
+//        }
+//    }
 
     /**
      * reports an experimentation station as broken
@@ -143,15 +143,15 @@ public class TechnologeView implements Serializable {
      *
      * @return a set containing all those samples
      */
-    public List<Probe> viewToBeUploaded() { 
-        List<Probe> res = new LinkedList<>();
-        for(ProzessSchritt ps : getJobs()) {
-            if(!ps.isUploaded() && ps.getProzessSchrittZustandsAutomat().getCurrent().equals("Bearbeitet")) {
-                res.addAll(ps.getZugewieseneProben());
-            }
-        }
-        return res;
-    }
+//    public List<Probe> viewToBeUploaded() {
+//        List<Probe> res = new LinkedList<>();
+//        for(ProzessSchritt ps : getJobs()) {
+//            if(!ps.isUploaded() && ps.getProzessSchrittZustandsAutomat().getCurrent().equals("Bearbeitet")) {
+//                res.addAll(ps.getZugewieseneProben());
+//            }
+//        }
+//        return res;
+//    }
 
     /**
      * uploads a sample
@@ -185,9 +185,9 @@ public class TechnologeView implements Serializable {
      * @param ps the step
      * @return the priority of the Auftrag the process step belongs to
      */
-    public AuftragsPrioritaet getPriority(ProzessSchritt ps) {
-        return psService.getAuftrag(ps).getPriority();
-    }
+//    public AuftragsPrioritaet getPriority(ProzessSchritt ps) {
+//        return psService.getAuftrag(ps).getPriority();
+//    }
 
 
 

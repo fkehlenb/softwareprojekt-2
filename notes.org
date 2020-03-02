@@ -207,3 +207,7 @@ Manuelle Tests
 starts with - string.splitt if array is bigger
 
 * ES Zuweisen
+
+
+* Marcel Tips
+Teile referenzieren das Ganze

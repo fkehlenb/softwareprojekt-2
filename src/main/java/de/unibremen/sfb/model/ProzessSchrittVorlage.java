@@ -3,6 +3,7 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 /** Data class for the process step templates */
@@ -15,6 +16,14 @@ public class ProzessSchrittVorlage {
     /** On delete set to invalid */
     @NonNull
     private boolean isValidData = true;
+
+    /** Process step parameters */
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<ProzessSchrittParameter> prozessSchrittParameters;
+
+    /** The experimenting station the process step is being carried out at */
+    @ManyToOne
+    private ExperimentierStation experimentierStation;
 
     /** Process step template id */
     @Id
@@ -34,21 +43,22 @@ public class ProzessSchrittVorlage {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<TraegerArt> ausgabeTraeger;
 
+    /** Process step template name */
     @NonNull
-    String name;
+    private String name;
     /** The process step type */
     @NonNull
     private String psArt;
 
     /** The experimenting stations accepted in the process step template */
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToOne
     @NonNull
-    private  List<ExperimentierStation> stationen;
+    private  ExperimentierStation stationen;
 
     /** The process step predicates */
     @ManyToMany(fetch = FetchType.LAZY)
     @NonNull
-    private List<Bedingung> bedingungen;
+    private List<ProzessSchrittParameter> parameter;
 
     /** The state Automaton for the process step */
     @NonNull

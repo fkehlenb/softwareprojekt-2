@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
@@ -24,7 +25,7 @@ import java.util.UUID;
 
 @Transactional
 @Named
-@RequestScoped
+@ViewScoped
 @Slf4j
 @Data   // Warum Data
 public class QlEView implements Serializable {
@@ -47,23 +48,30 @@ public class QlEView implements Serializable {
     private String einheit;
     private List<String> einheiten;
 
+    private List<QualitativeEigenschaft> qual;
     private List<QualitativeEigenschaft> filteredQual;
     private List<QuantitativeEigenschaft> filteredQuant;
+
+    private List<QualitativeEigenschaft> verQualE;
+    private List<QualitativeEigenschaft> verQuantE;
 
     @PostConstruct
     public void init() {
         einheiten = quantitativeEigenschaftService.getEinheiten();
+        findAllQual();
     }
 
-    public void addQualitativeEigenschaft() throws DuplicateQualitativeEigenschaftException {
+    public void addQualitativeEigenschaft() {
         QualitativeEigenschaft qualitativeEigenschaft = new QualitativeEigenschaft(UUID.randomUUID().hashCode(), nameQualitativeEigenschaft);
         qualitativeEigenschaftService.addQualitativeEigenschaft(qualitativeEigenschaft);
         nameQualitativeEigenschaft=null;
+        findAllQual();
     }
 
     public List<QualitativeEigenschaft> findAllQual() {
         try {
-            return qualitativeEigenschaftService.getAllQualitativeEigenschaften();
+            qual = qualitativeEigenschaftService.getAllQualitativeEigenschaften();
+            return qual;
         } catch (Exception e) {
             return null;
         }
@@ -76,6 +84,7 @@ public class QlEView implements Serializable {
             qualitativeEigenschaft.setName(nameQualitativeEigenschaft);
             qualitativeEigenschaftService.edit(qualitativeEigenschaft);
             nameQualitativeEigenschaft = null;
+            findAllQual();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -89,11 +98,13 @@ public class QlEView implements Serializable {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            findAllQual();
             return "Succes";
         } else {
             System.out.println("abhanging");
             return "abEvPP?faces-redirect=true";
         }
+
     }
 
     //

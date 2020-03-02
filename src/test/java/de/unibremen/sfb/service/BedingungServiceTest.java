@@ -25,6 +25,8 @@ class BedingungServiceTest {
     BedingungDAO bedingungDAO;
     @Mock
     Logger log;
+    @Mock
+    Bedingung bedingung;
     @InjectMocks
     BedingungService bedingungService;
 
@@ -35,75 +37,63 @@ class BedingungServiceTest {
 
     @Test
     void testInit() {
-        when(bedingungDAO.getAll()).thenReturn(Arrays.<Bedingung>asList(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(null), 0)));
-
         bedingungService.init();
     }
 
     @Test
-    void testAddES() {
-        try {
-            bedingungService.addES(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(null), 0));
-        } catch (DuplicateBedingungException e) {
-            e.printStackTrace();
-        }
+    void testAddES() throws DuplicateBedingungException {
+
+
+        bedingungService.addES(bedingung);
+        verify(bedingungDAO).persist(bedingung);
+
     }
 
     @Test
-    void testLoescheES() {
-        when(bedingungDAO.getAll()).thenReturn(Arrays.<Bedingung>asList(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(null), 0)));
-
-        try {
-            bedingungService.loescheES(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(null), 0));
-        } catch (BedingungNotFoundException e) {
-            e.printStackTrace();
-        }
+    void testLoescheES() throws BedingungNotFoundException {
+        bedingungService.loescheES(bedingung);
+        verify(bedingungDAO).remove(bedingung);
     }
 
     @Test
     void testFindByID() {
-        when(bedingungDAO.findById(anyInt())).thenReturn(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(null), 0));
-
+        when(bedingungDAO.findById(anyInt())).thenReturn(bedingung);
         Bedingung result = bedingungService.findByID(0);
-        Assertions.assertEquals(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(null), 0), result);
+        Assertions.assertEquals(bedingung, result);
+        verify(bedingungDAO).findById(0);
     }
 
     @Test
     void testGetAll() {
-        when(bedingungDAO.getAll()).thenReturn(Arrays.<Bedingung>asList(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(null), 0)));
-
+        when(bedingungDAO.getAll()).thenReturn(bs);
         List<Bedingung> result = bedingungService.getAll();
-        Assertions.assertEquals(Arrays.<Bedingung>asList(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(null), 0)), result);
+        Assertions.assertEquals(bs, result);
     }
 
     @Test
-    void testUpdateES() {
-        try {
-            bedingungService.updateES(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(null), 0));
-        } catch (BedingungNotFoundException e) {
-            e.printStackTrace();
-        }
+    void testUpdateES() throws BedingungNotFoundException {
+        bedingungService.updateES(bedingung);
+        verify(bedingungDAO).update(bedingung);
     }
 
     @Test
     void testAddBedingung() {
-        bedingungService.addBedingung(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(null), 0));
+        bedingungService.addBedingung(bedingung);
+        verify(bedingungDAO).persist(bedingung);
     }
 
     @Test
-    void testRemove() {
-        bedingungService.remove(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(null), 0));
+    void testRemove() throws BedingungNotFoundException {
+        bedingungService.remove(bedingung);
+        verify(bedingungDAO).remove(bedingung);
     }
 
     @Test
-    void testEdit() {
-        bedingungService.edit(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(null), 0));
+    void testEdit() throws BedingungNotFoundException {
+        bedingungService.edit(bedingung);
+        verify(bedingungDAO).update(bedingung);
     }
 
-    @Test
-    void testSetBs() {
-        bedingungService.setBs(Arrays.<Bedingung>asList(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(null), 0)));
-    }
 
     @Test
     void testSetBedingungDAO() {
