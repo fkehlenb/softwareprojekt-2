@@ -319,7 +319,9 @@ public class AuftragService implements Serializable {
      * @param auftrag der Auftrag
      * @return der Auftrag mit den neuen Proben
      */
-    public Auftrag probenZuweisen(@org.jetbrains.annotations.NotNull Auftrag auftrag, List<Probe> proben, String startID) throws AuftragNotFoundException, DuplicateProbeException {
+    public Auftrag traegerZuweisen(@org.jetbrains.annotations.NotNull Auftrag auftrag, Traeger t) throws AuftragNotFoundException, DuplicateProbeException {
+            auftrag.setTraeger(t);
+
         Standort lager = null;
         int i = 0;
         for (Bedingung b :
@@ -350,22 +352,6 @@ public class AuftragService implements Serializable {
             return auftrag;
     }
 
-    /**
-     * Erstelle Proben die einer Bedingung entsprechen, dies koenne wir fuer erzeugende Prozessschritte nutzen
-     *
-     * @param b       Die Bedingung
-     * @param s       der Standort wo die Proben sind, normalerweise die Station and der sie erstellt werden
-     * @param startID die Proben ID vom Logstiker / pkAdmin festgelegt
-     * @return die liste mit proben die erzeugt wurden
-     */
-    private List<Probe> erzeugeProbenNachBeding(Bedingung b, Standort s, String startID) throws DuplicateProbeException {
-        var result = new ArrayList<Probe>();
-            var p = new Probe(startID, b.getGewuenschteAnzahl(), ProbenZustand.VORHANDEN, s);
-            p.setBedingungen(List.of(b));
-            result.add(p);
-            probeDao.persist(p);
-        return result;
-    }
 
     /**
      * Hole Alle ProzessSchritte die als Transport Zustand ERSTELLT haben

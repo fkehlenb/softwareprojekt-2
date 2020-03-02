@@ -23,20 +23,17 @@
                     <h:form>
 
                         <h:panelGrid columns="2" cellpadding="10">
-                            <p:outputLabel for="bedingungen" value="Bedingungen: "/>
-                            <p:selectManyMenu id="bedingungen"
-                                              value="#{psvErstellenBean.ausgewaehlteBedingungen}"
+                            <p:outputLabel for="psp" value="psp: "/>
+                            <p:selectManyMenu id="psp"
+                                              value="#{psvErstellenBean.ausgewaehltePSP}"
                                               converter="omnifaces.SelectItemsConverter" effect="fade"
-                                              var="bedingungen" style="width: 172px" filter="true"
+                                              var="psp" style="width: 172px" filter="true"
                                               filterMatchMode="startsWith">
-                                <f:selectItems value="#{psvErstellenBean.verfuegbareBedingunen}"
-                                               var="bedingungen" itemLabel="#{bedingungen.name}"
-                                               itemValue="#{bedingungen}"/>
+                                <f:selectItems value="#{psvErstellenBean.verfuegbarePSP}"
+                                               var="psp" itemLabel="#{psp.name}"
+                                               itemValue="#{psp}"/>
                                 <p:column>
-                                    <h:outputText value="#{bedingungen.name}"/>
-                                </p:column>
-                                <p:column>
-                                    <h:outputText value="#{bedingungen.id}"/>
+                                    <h:outputText value="#{psp}"/>
                                 </p:column>
                             </p:selectManyMenu>
 
@@ -59,7 +56,7 @@
                             </p:inputText>
 
                             <p:outputLabel for="experimentierStation" value="ExperimentierStation: "/>
-                            <p:selectManyMenu id="experimentierStation"
+                            <p:selectOneMenu id="experimentierStation"
                                               value="#{psvErstellenBean.ausgewaehlteStationen}"
                                               converter="omnifaces.SelectItemsConverter" effect="fade"
                                               var="experimentierStation" style="width: 172px" filter="true"
@@ -71,7 +68,7 @@
                                 <p:column>
                                     <h:outputText value="#{experimentierStation.standort.ort}"/>
                                 </p:column>
-                            </p:selectManyMenu>
+                            </p:selectOneMenu>
 
                             <p:outputLabel for="ProzessSchrittZustandsAutomatVorlage"
                                            value="ProzessSchrittZustandsAutomatVorlage: "/>
@@ -163,72 +160,36 @@
                             <p:cellEditor>
                                 <f:facet name="output"><h:outputText value="#{psv.stationen}"/></f:facet>
                                 <f:facet name="input">
-                                    <p:selectCheckboxMenu id="stationenTable"
-                                                          value="#{psv.stationen}"
+                                    <p:selectOneMenu id="stationenTable"
+                                                          value="#{psv.es}"
                                                           converter="omnifaces.SelectItemsConverter" effect="fade"
                                                           style="width: 172px" filter="true"
                                                           filterMatchMode="contains" showCheckbox="true"
-                                                          label="#{psv.stationen}"
+                                                          label="#{psv.es}"
                                                           requiredMessage="Bitte Stationen Zuweisen!"
                                                           required="true">
                                         <f:selectItems value="#{psvErstellenBean.verfuegbareStationen}"
                                                        var="stationen" itemLabel="#{stationen.name}"
                                                        itemValue="#{stationen}"/>
-                                    </p:selectCheckboxMenu>
+                                    </p:selectOneMenu>>
                                 </f:facet>
                             </p:cellEditor>
                         </p:column>
 
-                        <p:column headerText="Bedingungen" filterBy="#{psv.bedingungen}"  filterMatchMode="contains">
+                        <p:column headerText="Bedingungen" filterBy="#{psv.parameter}"  filterMatchMode="contains">
                             <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{psv.bedingungen}"/></f:facet>
+                                <f:facet name="output"><h:outputText value="#{psv.parameter}"/></f:facet>
                                 <f:facet name="input">
-                                    <p:selectCheckboxMenu id="bedingungTable"
-                                                          value="#{psvErstellenBean.ausgewaehlteBedingungen}"
+                                    <p:selectCheckboxMenu id="pspTable"
+                                                          value="#{psvErstellenBean.ausgewaehltePSP}"
                                                           converter="omnifaces.SelectItemsConverter" effect="fade"
                                                           style="width: 172px" filter="true"
                                                           filterMatchMode="contains" showCheckbox="true"
-                                                          label="Bedigungen" requiredMessage="Bitte Bedingung Zuweisen!"
+                                                          label="Parameter" requiredMessage="Bitte Parameter Zuweisen!"
                                                           required="true">
-                                        <f:selectItems value="#{psvErstellenBean.verfuegbareBedingunen}"
-                                                       var="bedingung" itemLabel="#{bedingung.name}"
-                                                       itemValue="#{bedingung}"/>
-                                    </p:selectCheckboxMenu>
-                                </f:facet>
-                            </p:cellEditor>
-                        </p:column>
-                        <p:column headerText="Eintrager" filterBy="#{psv.eingabeTraeger}"  filterMatchMode="contains">
-                            <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{psv.eingabeTraeger}"/></f:facet>
-                                <f:facet name="input">
-                                    <p:selectCheckboxMenu id="EintragerTabele"
-                                                          value="#{psvErstellenBean.ausEInTragArt}"
-                                                          converter="omnifaces.SelectItemsConverter" effect="fade"
-                                                          style="width: 172px" filter="true"
-                                                          filterMatchMode="contains" showCheckbox="true"
-                                                          label="eingabeTraeger">
-                                        <f:selectItems value="#{psvErstellenBean.verfuegbareTraegerArt}"
-                                                       var="traeger" itemLabel="#{traeger.art}"
-                                                       itemValue="#{traeger}"/>
-                                    </p:selectCheckboxMenu>
-                                </f:facet>
-                            </p:cellEditor>
-                        </p:column>
-
-                        <p:column headerText="Austrager" filterBy="#{psv.ausgabeTraeger}"  filterMatchMode="contains">
-                            <p:cellEditor>
-                                <f:facet name="output"><h:outputText value="#{psv.ausgabeTraeger}"
-                                                                     label="Leer"/></f:facet>
-                                <f:facet name="input">
-                                    <p:selectCheckboxMenu id="AustragerTabele"
-                                                          value="#{psvErstellenBean.ausAusTragArt}"
-                                                          converter="omnifaces.SelectItemsConverter" effect="fade"
-                                                          style="width: 172px" filter="true"
-                                                          filterMatchMode="contains" showCheckbox="true"
-                                                          label="AustragerTabele">
-                                        <f:selectItems value="#{psvErstellenBean.verfuegbareTraegerArt}"
-                                                       var="traeger" itemLabel="#{traeger.art}"
-                                                       itemValue="#{traeger}"/>
+                                        <f:selectItems value="#{psvErstellenBean.verfuegbarePSP}"
+                                                       var="psp" itemLabel="#{psp.qualitativeEigenschaften}"
+                                                       itemValue="#{psp}"/>
                                     </p:selectCheckboxMenu>
                                 </f:facet>
                             </p:cellEditor>

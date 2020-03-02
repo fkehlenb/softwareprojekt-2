@@ -154,7 +154,7 @@ public class InitialDataFiller {
             em.persist(b);
 
             // Erstelle die Liste aus den Parametern
-            List<ProzessSchrittVorlage> psvListe = getProzessSchrittVorlages(b);
+            List<ProzessSchrittVorlage> psvListe = getProzessSchrittVorlages(parameters);
             for (ProzessSchrittVorlage pSV :
                     psvListe) {
                 log.info("Trying to persist ProzessSchrittVorlage " + pSV.toString());
@@ -357,16 +357,16 @@ public class InitialDataFiller {
     }
 
 
-    public List<ProzessSchrittVorlage> getProzessSchrittVorlages(Bedingung b) {
+    public List<ProzessSchrittVorlage> getProzessSchrittVorlages(List<ProzessSchrittParameter> parameters) {
         // PSVA
         List<ProzessSchrittVorlage> psListe = new ArrayList<>();
         for (int i = 0; i < limit; i++) {
-            psListe.add(getProzessSchrittVorlage(b));
+            psListe.add(getProzessSchrittVorlage(parameters));
         }
         return psListe;
     }
 
-    public ProzessSchrittVorlage getProzessSchrittVorlage(Bedingung b) {
+    public ProzessSchrittVorlage getProzessSchrittVorlage(List<ProzessSchrittParameter> parameters) {
         // ProzessSchrittVorlage Setup
         ProzessSchrittZustandsAutomatVorlage v = new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(),
                 psZustaende, "Test pszvav");
@@ -374,10 +374,8 @@ public class InitialDataFiller {
         var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "ANGENOMMEN", sVorlage);
         em.persist(a);
         Faker faker = new Faker();
-        List<Bedingung> bs = new ArrayList<>();
-        bs.add(b);
         return  new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), "42",faker.gameOfThrones().character(),
-                "Ermittlend", experimentierStations, bs, v);
+                "Ermittlend", experimentierStations.get(0), parameters, v);
     }
 
     public List<QualitativeEigenschaft> getQualitativeEigenschaften() {

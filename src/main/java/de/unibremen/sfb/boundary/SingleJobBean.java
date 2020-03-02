@@ -112,11 +112,7 @@ public class SingleJobBean implements Serializable {
      * @return a list containing the prozessSchrittParameter
      */
     public List<ProzessSchrittParameter> getParameter() {
-        List<ProzessSchrittParameter> r = new LinkedList<>();
-        for(Bedingung b : ps.getProzessSchrittVorlage().getBedingungen()) {
-            r.addAll(b.getProzessSchrittParameter());
-        }
-        return r;
+      return ps.getProzessSchrittParameters();
     }
 
     /**
