@@ -13,59 +13,35 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProzessSchrittVorlage {
 
+    /** Process step template id */
+    @Id
+    @NonNull
+    private int psVID;
+
     /** On delete set to invalid */
     @NonNull
     private boolean isValidData = true;
 
     /** Process step parameters */
     @ManyToMany(fetch = FetchType.LAZY)
+    @NonNull
     private List<ProzessSchrittParameter> prozessSchrittParameters;
 
     /** The experimenting station the process step is being carried out at */
     @ManyToOne
-    private ExperimentierStation experimentierStation;
-
-    /** Process step template id */
-    @Id
     @NonNull
-    private int psVID;
+    private ExperimentierStation experimentierStation;
 
     /** Duration of the process step template */
     @NonNull
     private String dauer;
 
-    /** Accepted container input types */
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<TraegerArt> eingabeTraeger;
-
-    /** Accepted container output types */
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<TraegerArt> ausgabeTraeger;
-
     /** Process step template name */
     @NonNull
     private String name;
-    /** The process step type */
-    @NonNull
-    private String psArt;
-
-    /** The experimenting stations accepted in the process step template */
-    @ManyToOne
-    @NonNull
-    private  ExperimentierStation stationen;
-
-    /** The process step predicates */
-    @ManyToMany(fetch = FetchType.LAZY)
-    @NonNull
-    private List<ProzessSchrittParameter> parameter;
 
     /** The state Automaton for the process step */
     @NonNull
     @ManyToOne
     private ProzessSchrittZustandsAutomatVorlage zustandsAutomatVorlage;
-
-    @Override
-    public String toString() {
-        return "PSV" + this.psVID;
-    }
 }

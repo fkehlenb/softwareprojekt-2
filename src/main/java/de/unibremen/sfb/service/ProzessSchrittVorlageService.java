@@ -19,13 +19,6 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Data
-@Singleton
-
-/*
-  Service fuer ProzessSchrittVorlagen
-  Anwendungsfall: Bearbeiten einer Vorlage oder hinzufuegen einer ProzessSchrittVorlage in einer ProzessKettenVorlage
- */
-
 public class ProzessSchrittVorlageService implements Serializable {
 
     public List<ProzessSchrittVorlage> vorlagen;
@@ -35,75 +28,45 @@ public class ProzessSchrittVorlageService implements Serializable {
         this.vorlagen = getProzessSchrittVorlagen();
     }
 
+    @Inject
+    private ProzessSchrittVorlageDAO psvDAO;
 
     @Inject
-    ProzessSchrittVorlageDAO psvDAO;
-    @Inject
-    AuftragService auftragService;
+    private AuftragService auftragService;
 
 
     public List<ProzessSchrittVorlage> getProzessSchrittVorlagen() {
         return psvDAO.getAll();
     }
 
-    /**
-     * Persistieren der ProzessSchrittVorlage
-     *
-     * @param psv die Vorlage
-     */
-    public void persist(ProzessSchrittVorlage psv) {
-        try {
-            psvDAO.persist(psv);
-        } catch (DuplicateProzessSchrittVorlageException e) {
-            e.printStackTrace();
-        }
+    /** Add a new process step template to the database
+     * @param psv - the process step template to add
+     * @throws DuplicateProzessSchrittVorlageException on failure */
+    public void persist(ProzessSchrittVorlage psv) throws DuplicateProzessSchrittVorlageException {
+        psvDAO.persist(psv);
         vorlagen.add(psv);
     }
 
+    /** Get a process step template using its id
+     * @param id - the id of the process step template
+     * @return the requested process step template
+     * @throws ProzessSchrittVorlageNotFoundException on failure */
     public ProzessSchrittVorlage ByID(int id) throws ProzessSchrittVorlageNotFoundException {
-        try {
-            log.info("Trying to find a PSP by ID");
-            return psvDAO.getObjById(id);
-        } catch (Exception e) {
-            log.info("Error ProzessSchrittVorlageNotFoundException in PSVView");
-            return null;
-        }
-
+        return psvDAO.getObjById(id);
     }
 
-    /**
-     * Bearbeiten der ProzessSchrittVorlage
-     *
-     * @param psv die zu bearbeitende ProzessSchrittVorlage
-     * @throws ProzessSchrittVorlageNotFoundException falls es die PSV nicht gibt
-     */
+    /** Update a process step template
+     * @param psv - the process step template to update
+     * @throws ProzessSchrittVorlageNotFoundException on failure */
     public void edit(ProzessSchrittVorlage psv) throws ProzessSchrittVorlageNotFoundException {
-        try {
-            log.info("Trying try to update a PSV" + psv+ "Class=ProzessSchrittVorlageService");
-            psvDAO.update(psv);
-        } catch (Exception e) {
-            log.info("Error try to update a PSV" + psv+ "Class=ProzessSchrittVorlageService");
-        }
-
-        //var old = vorlagen.stream().filter(p -> psv.getPsVID() == p.getPsVID()).findFirst().orElse(null);
-        //if (Collections.replaceAll(vorlagen, old, psv)) {
-        //    log.info("Succesful edit " + psv);
-        //} else {
-        //    log.info("Failed to edit " + psv);
-       // }
+        psvDAO.update(psv);
     }
 
-    /**
-     * Loeschen von ProzessSchrittVorlagen
-     * @param psvs die Vorlagen
-     */
-    public void delete(List<ProzessSchrittVorlage> psvs) {
-        for (ProzessSchrittVorlage psv :
-                psvs) {
-
-            vorlagen.remove(psv);
-
-        }
+    /** Remove a process step template
+     * @param psv - the process step template to remove
+     * @throws ProzessSchrittVorlageNotFoundException on failure */
+    public void remove(ProzessSchrittVorlage psv) throws ProzessSchrittVorlageNotFoundException{
+        psvDAO.remove(psv);
     }
 
     /**
@@ -119,6 +82,7 @@ public class ProzessSchrittVorlageService implements Serializable {
 
     /**
      * Duerfen diese PS bearbeitet werden
+     *
      * @return die Liste welche bearbeitet werden darf
      */
     public List<ProzessSchritt> darftBearbeiten() {
@@ -127,23 +91,24 @@ public class ProzessSchrittVorlageService implements Serializable {
                 auftragService.getAuftrage()) {
             istBearbeitbar(r, a);
         }
-        return  r;
+        return r;
     }
 
     /**
      * Fuege alle PS r in den Auftrag a ein
+     *
      * @param r die PS
      * @param a der Auftrag
      */
     private void istBearbeitbar(ArrayList<ProzessSchritt> r, Auftrag a) {
-        r.addAll( a.getProzessSchritte().stream().filter(p -> !p.getProzessSchrittZustandsAutomat().
+        r.addAll(a.getProzessSchritte().stream().filter(p -> !p.getProzessSchrittZustandsAutomat().
                 getCurrent().equals("In Bearbeitung")).
                 collect(Collectors.toList()));
     }
 
-    public List<ProzessSchrittVorlage> akzeptiertePSV(){
-        List<ProzessSchrittVorlage> psv= new ArrayList<>();
-        for (ProzessSchritt ps:
+    public List<ProzessSchrittVorlage> akzeptiertePSV() {
+        List<ProzessSchrittVorlage> psv = new ArrayList<>();
+        for (ProzessSchritt ps :
                 darftBearbeiten()) {
             psv.add(ps.getProzessSchrittVorlage());
         }

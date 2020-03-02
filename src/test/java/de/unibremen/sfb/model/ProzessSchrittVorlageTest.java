@@ -52,25 +52,25 @@ class ProzessSchrittVorlageTest {
         prozessSchrittVorlage.setDauer("dauer");
     }
 
-    @Test
-    void testSetEingabeTraeger() {
-        prozessSchrittVorlage.setEingabeTraeger(Arrays.<TraegerArt>asList(new TraegerArt("art")));
-    }
+//    @Test
+//    void testSetEingabeTraeger() {
+//        prozessSchrittVorlage.setEingabeTraeger(Arrays.<TraegerArt>asList(new TraegerArt("art")));
+//    }
 
-    @Test
-    void testSetAusgabeTraeger() {
-        prozessSchrittVorlage.setAusgabeTraeger(Arrays.<TraegerArt>asList(new TraegerArt("art")));
-    }
+//    @Test
+//    void testSetAusgabeTraeger() {
+//        prozessSchrittVorlage.setAusgabeTraeger(Arrays.<TraegerArt>asList(new TraegerArt("art")));
+//    }
 
     @Test
     void testSetName() {
         prozessSchrittVorlage.setName("name");
     }
-
-    @Test
-    void testSetPsArt() {
-        prozessSchrittVorlage.setPsArt("psArt");
-    }
+//
+//    @Test
+//    void testSetPsArt() {
+//        prozessSchrittVorlage.setPsArt("psArt");
+//    }
 
 //    @Test
 //    void testSetStationen() {
