@@ -46,14 +46,23 @@
                 <p:panel id="form">
                     <h2>List Qualitative Eingeschaft </h2>
 
-                    <p:dataTable id="tbl" var="qlE" value="#{qlEView.findAllQual()}"
+                    <p:dataTable id="tbl" var="qlE" value="#{qlEView.findAllQual()}" widgetVar="qualList"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                 filteredValue="#{qlEView.filteredQual}"
                                  paginator="true" rows="5" style="margin-bottom:20px">
 
-                        <p:column headerText="Id">
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Search all fields:"/>
+                                <p:inputText id="globalFilter" onkeyup="PF('qualList').filter()" style="width:150px"
+                                             placeholder="Enter keyword"/>
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:column headerText="Id" filterBy="#{qlE.id}"  filterMatchMode="contains">
                             <h:outputText value="#{qlE.id}"/>
                         </p:column>
-                        <p:column headerText="Name">
+                        <p:column headerText="Name" filterBy="#{qlE.name}"  filterMatchMode="contains">
                             <h:outputText value="#{qlE.name}"/>
                         </p:column>
                         <p:column headerText="Edit">
@@ -103,18 +112,28 @@
                 <p:panel id="QuantEingenschatenList">
                     <h2>List Quantitavite Eingeschaft </h2>
                     <p:dataTable id="QuantEingenschatenTabele" var="qnE" value="#{qlEView.findAllQuan()}"
+                                 widgetVar="quantList"
+                                 filteredValue="#{qlEView.filteredQuant}"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                                  paginator="true" rows="5" style="margin-bottom:20px">
-                        <p:column headerText="Id">
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Search all fields:"/>
+                                <p:inputText id="globalFilterQuant" onkeyup="PF('quantList').filter()" style="width:150px"
+                                             placeholder="Enter keyword"/>
+                            </p:outputPanel>
+                        </f:facet>
+                        <p:column headerText="Id" filterBy="#{qnE.id}"  filterMatchMode="contains">
                             <h:outputText value="#{qnE.id}"/>
                         </p:column>
-                        <p:column headerText="Name">
+                        <p:column headerText="Name"  filterBy="#{qnE.name}"  filterMatchMode="contains">
                             <h:outputText value="#{qnE.name}"/>
                         </p:column>
-                        <p:column headerText="Value">
+                        <p:column headerText="Value"  filterBy="#{qnE.wert}"  filterMatchMode="contains">
                             <h:outputText value="#{qnE.wert}"/>
                         </p:column>
-                        <p:column headerText="Einheit">
+                        <p:column headerText="Einheit"  filterBy="#{qnE.einheit}"  filterMatchMode="contains">
                             <h:outputText value="#{qnE.einheit}" />
                         </p:column>
                         <p:column headerText="Edit">

@@ -6,8 +6,11 @@ import de.unibremen.sfb.service.ProzessKettenVorlageService;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.primefaces.PrimeFaces;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -59,15 +62,36 @@ public class TransporterBean implements Serializable {
     public void changeTransportZustandAbgeholt(int TransportID) {
       try {
           TransportAuftrag tr = auftragService.getTransportAuftragByID(TransportID);
-          auftragService.setTransportZustandAbgeholt(tr);
+          auftragService.sedTransportZustandAbgeholt(tr);
           log.info("TransportAuftragZustand wurde gewechselt auf Abgeholt " + TransportID);
+          facesNotification("Der Zustand von " + TransportID + " wurde auf Abgeholt gesetzt.");
+          updateTabellen();
 
       }
-      catch (Exception e){
+      catch (Exception e) {
           e.printStackTrace();
-          log.error("Failed to change state" + TransportID);
+          log.error("Failed to change state to Abgeholt" + TransportID);
+          facesError("Failed to change state to Abgeholt" + TransportID);
       }
-        log.info("Erfolg");
+    }
+
+    /**
+     * sets the status of the job this transporter is currently working on
+     */
+    public void changeTransportZustandAbgeliefert(int TransportID) {
+        try {
+            TransportAuftrag tr = auftragService.getTransportAuftragByID(TransportID);
+            auftragService.sedTransportZustandAbgeliefert(tr);
+            log.info("TransportAuftragZustand wurde gewechselt auf Abgeliefert " + TransportID);
+            facesNotification("Der Zustand von " + TransportID + " wurde auf Abgeliefert gesetzt.");
+            updateTabellen();
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            log.error("Failed to change state to Abgeliefert" + TransportID);
+            facesError("Failed to change state to Abgeliefert" + TransportID);
+        }
     }
 
     /**
@@ -86,6 +110,34 @@ public class TransporterBean implements Serializable {
      * the empty constructor
      */
     public TransporterBean(){}
+
+
+    /**
+     * Adds a new SEVERITY_ERROR FacesMessage for the ui
+     *
+     * @param message Error Message
+     */
+    private void facesError(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(javax.faces.application.FacesMessage.SEVERITY_ERROR, message, null));
+    }
+
+    /**
+     * Adds a new SEVERITY_INFO FacesMessage for the ui
+     *
+     * @param message Info Message
+     */
+    private void facesNotification(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(javax.faces.application.FacesMessage.SEVERITY_INFO, message, null));
+    }
+
+    /**
+     * Aktualisiert die Tabellen
+     */
+    public void updateTabellen() {
+        ps = auftragService.getTransportSchritt();
+        ps2 = auftragService.getTransportSchritt2();
+        PrimeFaces.current().ajax().update("content-panel:content-panel");
+    }
 
 
 

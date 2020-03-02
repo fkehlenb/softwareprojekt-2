@@ -111,19 +111,28 @@
                                  value="#{psvErstellenBean.verfuegbarePSV}"
                                  editable="true"
                                  selection="#{psvErstellenBean.selectedPSV}"
+                                 filteredValue="#{psvErstellenBean.filteredPSV}"
                                  style="margin-bottom:20px"
                                  rowKey="#{psv.psVID}">
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Search all fields:"/>
+                                <p:inputText id="globalFilter" onkeyup="PF('PSVList').filter()" style="width:150px"
+                                             placeholder="Enter keyword"/>
+                            </p:outputPanel>
+                        </f:facet>
 
                         <p:ajax event="rowEdit" listener="#{psvErstellenBean.onRowEdit}" update=":form:msgs"/>
                         <p:ajax event="rowEditCancel" listener="#{psvErstellenBean.onRowCancel}" update=":form:msgs"/>
                         <p:column selectionMode="multiple"
                                   style="width:16px;text-align:center"/>
 
-                        <p:column headerText="Id">
+                        <p:column headerText="Id" filterBy="#{psv.psVID}"  filterMatchMode="contains" >
 
                             <h:outputText value="#{psv.psVID}"/>
                         </p:column>
-                        <p:column headerText="Name">
+                        <p:column headerText="Name" filterBy="#{psv.name}"  filterMatchMode="contains">
                             <p:cellEditor>
                                 <f:facet name="output"><h:outputText value="#{psv.name}"/></f:facet>
 
@@ -134,7 +143,7 @@
                                 </f:facet>
                             </p:cellEditor>
                         </p:column>
-                        <p:column headerText="Dauer">
+                        <p:column headerText="Dauer" filterBy="#{psv.dauer}"  filterMatchMode="contains">
                             <p:cellEditor>
                                 <f:facet name="output"><h:outputText value="#{psv.dauer}"/></f:facet>
 
@@ -148,7 +157,7 @@
                         </p:column>
 
 
-                        <p:column headerText="Stationen">
+                        <p:column headerText="Stationen" filterBy="#{psv.stationen}"  filterMatchMode="contains">
                             <p:cellEditor>
                                 <f:facet name="output"><h:outputText value="#{psv.stationen}"/></f:facet>
                                 <f:facet name="input">
@@ -168,7 +177,7 @@
                             </p:cellEditor>
                         </p:column>
 
-                        <p:column headerText="Bedingungen">
+                        <p:column headerText="Bedingungen" filterBy="#{psv.bedingungen}"  filterMatchMode="contains">
                             <p:cellEditor>
                                 <f:facet name="output"><h:outputText value="#{psv.bedingungen}"/></f:facet>
                                 <f:facet name="input">
@@ -186,7 +195,7 @@
                                 </f:facet>
                             </p:cellEditor>
                         </p:column>
-                        <p:column headerText="Eintrager">
+                        <p:column headerText="Eintrager" filterBy="#{psv.eingabeTraeger}"  filterMatchMode="contains">
                             <p:cellEditor>
                                 <f:facet name="output"><h:outputText value="#{psv.eingabeTraeger}"/></f:facet>
                                 <f:facet name="input">
@@ -204,7 +213,7 @@
                             </p:cellEditor>
                         </p:column>
 
-                        <p:column headerText="Austrager">
+                        <p:column headerText="Austrager" filterBy="#{psv.ausgabeTraeger}"  filterMatchMode="contains">
                             <p:cellEditor>
                                 <f:facet name="output"><h:outputText value="#{psv.ausgabeTraeger}"
                                                                      label="Leer"/></f:facet>

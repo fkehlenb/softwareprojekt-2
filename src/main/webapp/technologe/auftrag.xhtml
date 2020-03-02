@@ -44,7 +44,7 @@
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                                          paginator="true" rows="50" style="margin-bottom:20px">
                                 <p:column headerText="Id">
-                                    <h:outputText value="#{ps.prozessSchrittVorlage.name}"/>
+                                    <h:outputText value="#{ps.psID}"/>
                                 </p:column>
                                 <p:column headerText="Priorität">
                                     <h:outputText value="#{technologeView.getPriority(ps)}"/>

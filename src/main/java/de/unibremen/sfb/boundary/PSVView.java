@@ -15,6 +15,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.transaction.Transactional;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Slf4j
+@Transactional
 public class PSVView implements Serializable {
 
     @NotEmpty
@@ -58,7 +60,6 @@ public class PSVView implements Serializable {
     @NonNull
     private List<ExperimentierStation> ausgewaehlteStationen;
 
-
     private ProzessSchrittZustandsAutomatVorlage ausProzessSchrittZustandsAutomatVorlage;
 
     private List<TraegerArt> ausEInTragArt;
@@ -70,6 +71,7 @@ public class PSVView implements Serializable {
     private List<ExperimentierStation> verfuegbareStationen;
     private List<ProzessSchrittVorlage> verfuegbarePSV;
     private List<ProzessSchrittVorlage> selectedPSV;
+    private List<ProzessSchrittVorlage> filteredPSV;
     private List<TraegerArt> verfuegbareTraegerArt;
     private List<ProzessSchrittZustandsAutomatVorlage> verPSZAV;
 
@@ -131,7 +133,7 @@ public class PSVView implements Serializable {
         //When The Persistence gefit be, we can uncomment that.
         //NO WORK AGAIN org.hibernate.LazyInitializationException
 
-         prozessSchrittVorlageService.edit(event.getObject());
+        prozessSchrittVorlageService.edit(event.getObject());
         FacesMessage msg = new FacesMessage("PSV Edited", event.getObject().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }

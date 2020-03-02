@@ -1,4 +1,5 @@
 package de.unibremen.sfb.service;
+import de.unibremen.sfb.exception.DuplicateProzessSchrittZustandsAutomatVorlageException;
 import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
 import de.unibremen.sfb.exception.ProzessSchrittZustandsAutomatVorlageNotFoundException;
 import de.unibremen.sfb.model.ProzessSchrittZustandsAutomatVorlage;
@@ -62,10 +63,11 @@ public class ProzessSchrittZustandsAutomatVorlageService {
 
     /**
      * Add a new process step template
-     * @param ProzessSchrittZustandsAutomatVorlage the one to be added
+     * @param prozessSchrittZustandsAutomatVorlage the one to be added
      */
-    public void addVorlage(ProzessSchrittZustandsAutomatVorlage ProzessSchrittZustandsAutomatVorlage) {
-        this.psvVorlagen.add(ProzessSchrittZustandsAutomatVorlage);
+    public void addVorlage(ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage) throws DuplicateProzessSchrittZustandsAutomatVorlageException {
+        this.psvVorlagen.add(prozessSchrittZustandsAutomatVorlage);
+        prozessSchrittZustandsAutomatVorlageDAO.persist(prozessSchrittZustandsAutomatVorlage);
     }
 
     /**

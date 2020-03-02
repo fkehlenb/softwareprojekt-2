@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import java.util.HashMap;
 
 /**
  * The location data class
@@ -40,4 +41,5 @@ public class Standort {
     public String toString() {
         return Integer.toString(id);
     }
+
 }

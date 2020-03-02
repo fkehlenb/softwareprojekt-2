@@ -1,6 +1,7 @@
 package de.unibremen.sfb.boundary;
 
 
+import de.unibremen.sfb.exception.DuplicateProzessSchrittZustandsAutomatVorlageException;
 import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.*;
@@ -19,6 +20,7 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 @Named("pszavView")
@@ -29,10 +31,12 @@ import java.util.List;
 public class PSZAVView implements Serializable {
     private List<ProzessSchrittZustandsAutomatVorlage> selpszav;
     private List<ProzessSchrittZustandsAutomatVorlage> verpszav;
+    private List<ProzessSchrittZustandsAutomatVorlage> filteredpszav;
     private List<String> sourceZ;
     private List<String> targetZ;
     private DualListModel<String> dualZ;
     private String toaddd;
+    private String name;
 
     @Inject
     private ProzessSchrittZustandsAutomatVorlageService prozessSchrittZustandsAutomatVorlageService;
@@ -59,7 +63,8 @@ public class PSZAVView implements Serializable {
 
     public void toAdd(String id) throws ProzessSchrittVorlageNotFoundException {
         try {
-            ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage = prozessSchrittZustandsAutomatVorlageService.getByID(Integer.parseInt(id));
+            ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage =
+                    prozessSchrittZustandsAutomatVorlageService.getByID(Integer.parseInt(id));
             List<String> newZustande = prozessSchrittZustandsAutomatVorlage.getZustaende();
             newZustande.add(toaddd);
             prozessSchrittZustandsAutomatVorlage.setZustaende(newZustande);
@@ -73,7 +78,13 @@ public class PSZAVView implements Serializable {
     public String erstellePSZAV() {
         // FIXME Implementation
         log.info("Selected Zustaende: " + dualZ.getTarget());
-        return "?faces-redirect=true";
+        try {
+            prozessSchrittZustandsAutomatVorlageService.addVorlage(new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID()
+                    .hashCode(), dualZ.getTarget(), "Test Automat"));
+        } catch (DuplicateProzessSchrittZustandsAutomatVorlageException e) {
+            e.printStackTrace();
+        }
+        return "pszav?faces-redirect=true";
     }
 
     public void deletePSZAV() {
@@ -101,31 +112,32 @@ public class PSZAVView implements Serializable {
     }
 
     private boolean checkOrdnung(RowEditEvent<ProzessSchrittZustandsAutomatVorlage> event) {
-        int counterInbearbeitung =0;
-        int counterBearbeitet = 0;
-        int counterAngenommen =0;
-        int counterWeitergeleitet = 0;
-        int counter=0;
-        var list = event.getObject().getZustaende();
-        for (String listz:
-        list) {
-            if(listz.equals("Angenommen")){
-                counterAngenommen=counter;
-            }
-            if(listz.equals("In Bearbeitung")){
-                counterInbearbeitung=counter;
-            }
-            if(listz.equals("Bearbeitet")){
-                counterBearbeitet=counter;
-            }
-            if(listz.equals("Weitergeleitet")){
-                counterWeitergeleitet=counter;
-            }
-            counter++;
-        }
-        return counterAngenommen < counterInbearbeitung &&
-                counterInbearbeitung < counterBearbeitet &&
-                counterBearbeitet < counterWeitergeleitet;
+//        int counterInbearbeitung =0;
+//        int counterBearbeitet = 0;
+//        int counterAngenommen =0;
+//        int counterWeitergeleitet = 0;
+//        int counter=0;
+//        var list = event.getObject().getZustaende();
+//        for (String listz:
+//        list) {
+//            if(listz.equals("Angenommen")){
+//                counterAngenommen=counter;
+//            }
+//            if(listz.equals("In Bearbeitung")){
+//                counterInbearbeitung=counter;
+//            }
+//            if(listz.equals("Bearbeitet")){
+//                counterBearbeitet=counter;
+//            }
+//            if(listz.equals("Weitergeleitet")){
+//                counterWeitergeleitet=counter;
+//            }
+//            counter++;
+//        }
+//        return counterAngenommen < counterInbearbeitung &&
+//                counterInbearbeitung < counterBearbeitet &&
+//                counterBearbeitet < counterWeitergeleitet;
+        return true;
     }
 
     public void onRowCancel(RowEditEvent<ProzessSchrittVorlage> event) {

@@ -243,6 +243,7 @@ public class InitialDataFiller {
                 es = ps.getProzessSchrittVorlage().getStationen().get(0);
                 if (es.getCurrentPS() == null) {
                     es.setCurrentPS(ps);
+                    ps.setZugewieseneProben(erstelleProben(es.getStandort()));
                 } else {
                     es.getNextPS().add(ps);
                 }

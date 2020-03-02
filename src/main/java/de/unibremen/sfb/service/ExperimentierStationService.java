@@ -12,6 +12,8 @@ import javax.ejb.Startup;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,6 +44,22 @@ public class ExperimentierStationService implements Serializable {
         return esDao.getAll();
     }
 
+
+    public List<Probe> getProben(ExperimentierStation es) {
+        List<Probe> r = new ArrayList<>();
+        if(es.getCurrentPS()!=null && es.getCurrentPS().getZugewieseneProben()!=null) {
+            r.addAll(es.getCurrentPS().getZugewieseneProben());
+        }
+        if(es.getNextPS()!=null) {
+            for(ProzessSchritt ps : es.getNextPS()) {
+                if(ps.getZugewieseneProben()!=null) {
+                    r.addAll(ps.getZugewieseneProben());
+                }
+            }
+        }
+        r.removeAll(Collections.singleton(null));
+        return r;
+    }
 
     /**
      * Add a new experimenting station

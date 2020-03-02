@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * Service fuer ProzessSchritt
@@ -232,5 +233,26 @@ public class ProzessSchrittService implements Serializable {
         return ps.getZugewieseneProben();
     }
 
+    /** Update a process step that hasn't been startet yet
+     * @param ps - the process step to update
+     * @throws ProzessSchrittNotFoundException on failure */
+    public void update(ProzessSchritt ps) throws ProzessSchrittNotFoundException{
+        prozessSchrittDAO.update(ps);
+    }
+
+    /** Get a process step using its id
+     * @param id - the id of the process step
+     * @return the requested process step
+     * @throws ProzessSchrittNotFoundException on failure */
+    public ProzessSchritt getObjById(int id) throws ProzessSchrittNotFoundException{
+        return prozessSchrittDAO.getObjById(id);
+    }
+
+    /** Remove a process step
+     * @param ps - the process step to remove
+     * @throws ProzessSchrittNotFoundException on failure */
+    public void remove(ProzessSchritt ps) throws ProzessSchrittNotFoundException{
+        prozessSchrittDAO.remove(ps);
+    }
 }
 

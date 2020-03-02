@@ -47,6 +47,9 @@ public class QlEView implements Serializable {
     private String einheit;
     private List<String> einheiten;
 
+    private List<QualitativeEigenschaft> filteredQual;
+    private List<QuantitativeEigenschaft> filteredQuant;
+
 
     @PostConstruct
     public void init() {
