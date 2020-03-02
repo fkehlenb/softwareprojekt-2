@@ -325,7 +325,7 @@ public class AuftragService implements Serializable {
         Standort lager = null;
         int i = 0;
         for (Bedingung b :
-                auftrag.getProzessSchritte().get(0).getProzessSchrittVorlage().getBedingungen()) {
+          //      auftrag.getProzessSchritte().get(0).getProzessSchrittVorlage().getBedingungen()) {
             try {
                 lager = standortService.findByLocation("lager");
             } catch (StandortNotFoundException e) {
