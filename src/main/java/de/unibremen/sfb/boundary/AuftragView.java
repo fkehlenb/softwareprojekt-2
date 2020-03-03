@@ -140,6 +140,7 @@ public class AuftragView implements Serializable {
             for (ProzessSchrittVorlage psv : selectedProzesskettenVorlage.getProzessSchrittVorlagen()) {
                 ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(),
                         "Erstellt", psv.getZustandsAutomatVorlage().getZustaende());
+                prozessSchrittZustandsAutomat.setName(psv.getZustandsAutomatVorlage().getName());
                 prozessSchrittZustandsAutomatService.add(prozessSchrittZustandsAutomat);
                 ProzessSchrittLog prozessSchrittLog = new ProzessSchrittLog(LocalDateTime.now(), "GESTARTET");
                 prozessSchrittLogService.add(prozessSchrittLog);
