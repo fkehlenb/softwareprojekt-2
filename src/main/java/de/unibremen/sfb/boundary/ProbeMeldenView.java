@@ -57,6 +57,19 @@ public class ProbeMeldenView implements Serializable {
         }
     }
 
+    public boolean alleLost (){
+        try {
+            if(probenService.getProbeById(probeMeldenID).getAnzahl() ==0){
+                return true;
+            }
+        } catch (ProbeNotFoundException e) {
+            e.printStackTrace();
+            log.info("Probe " + probeMeldenID + " wurde nicht gefunden!");
+            facesError("Probe " + probeMeldenID + " wurde nicht gefunden!");
+        }
+        return false;
+    }
+
     /**
      * Reports samples as lost with the Sample and number.
      *
