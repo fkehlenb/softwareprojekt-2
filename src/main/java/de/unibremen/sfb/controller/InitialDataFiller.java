@@ -150,18 +150,18 @@ public class InitialDataFiller {
             pszaVorlage = new ProzessSchrittZustandsAutomatVorlage(996699,
                     psZustaende, "Standart");
             log.info("Try to persist ProzessSchrittZustandsAutomatVorlage " + pszaVorlage.toString());
-            em.persist(pszaVorlage);
+//            em.persist(pszaVorlage);
 
             // Erstelle die Liste aus den Parametern
             List<ProzessSchrittVorlage> psvListe = getProzessSchrittVorlage(parameters);
             for (ProzessSchrittVorlage pSV :
                     psvListe) {
                 log.info("Trying to persist ProzessSchrittVorlage " + pSV.toString());
-                em.persist(pSV);
+//                //em.persist(pSV); FINDME
             }
             pkv = new ProzessKettenVorlage(UUID.randomUUID().hashCode(), f.gameOfThrones().house(), psvListe);
             log.info("Try to persist ProzessSchrittVorlage " + pkv.getPkvID());
-            em.persist(pkv);
+            //em.persist(pkv);
 
 
             // Setup PSZA
@@ -171,7 +171,7 @@ public class InitialDataFiller {
             ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(
                     UUID.randomUUID().hashCode(), "ERSTELLT", z);
             log.info("Try to persist ProzessSchrittZustandsAutomat " + prozessSchrittZustandsAutomat.toString());
-            em.persist(prozessSchrittZustandsAutomat);
+            //em.persist(prozessSchrittZustandsAutomat);
             erstelleAuftrag(psvListe);
 
         } else {
@@ -184,7 +184,7 @@ public class InitialDataFiller {
             //  Auftrag Setup
             AuftragsLog aLog = new AuftragsLog(LocalDateTime.now());
             aLog.setErstellt(LocalDateTime.now());
-            em.persist(aLog);
+            //em.persist(aLog);
             log.info("Try to persist AuftragsLog " + aLog.toString());
             Auftrag pk = new Auftrag(UUID.randomUUID().hashCode(), f.gameOfThrones().character(), AuftragsPrioritaet.HOCH, erstelePS(psvListe),
                     aLog, ProzessKettenZustandsAutomat.INSTANZIIERT);
@@ -196,7 +196,7 @@ public class InitialDataFiller {
                 z.add(s);
             }
             var automat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "AKZEPTIERT", z);
-            em.persist(automat);
+            //em.persist(automat);
 
             // PS Setup
             List<ProzessSchrittLog> logs = new ArrayList<>();
@@ -204,7 +204,7 @@ public class InitialDataFiller {
             for (ProzessSchrittLog pSL :
                     logs) {
                 log.info("Try to persist logs " + pSL.getGestartet().toString());
-                em.persist(pSL);
+                //em.persist(pSL);
             }
             // PS aufuellen
             log.info("Try to persist TEST ProzessKette " + pk.getPkID());
@@ -221,13 +221,13 @@ public class InitialDataFiller {
             Collections.addAll(z, pszaVorlage.getZustaende());
             z.addAll(pszaVorlage.getZustaende());
             var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "Erstellt", z);
-            em.persist(a);
+//            em.persist(a);
             var psv = psvListe.get(i);
             var psLogs = List.of(new ProzessSchrittLog(LocalDateTime.now(), "Gestartet"),
                     new ProzessSchrittLog(LocalDateTime.now(), "Veraendert"));
             for (ProzessSchrittLog psl :
                     psLogs) {
-                em.persist(psl);
+//                em.persist(psl);
             }
 
             List<ProzessSchrittParameter> prozessSchrittParameterList = new ArrayList<>();
@@ -238,11 +238,10 @@ public class InitialDataFiller {
             log.info("Try to persist TEST ProzessSchritt " + ps.getId());
 
             var transportAuftrag = new TransportAuftrag(LocalDateTime.now(), TransportAuftragZustand.ERSTELLT);
-            em.persist(transportAuftrag);
+//            em.persist(transportAuftrag);
             log.info("Persisting Transport Auftag " + transportAuftrag.getZustandsAutomat());
-            em.persist(transportAuftrag);
             ps.setTransportAuftrag(transportAuftrag);
-            em.persist(ps);
+//            em.persist(ps);
             r.add(ps);
 
             // Weise den PS auch Stationen zu.
@@ -374,10 +373,8 @@ public class InitialDataFiller {
             List z = new ArrayList();
             Collections.addAll(z, pszaVorlage.getZustaende());
             z.addAll(pszaVorlage.getZustaende());
-            var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "ANGENOMMEN", z);
-            em.persist(a);
             Faker faker = new Faker();
-            result.add(new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), parameters, experimentierStations.get(0), "42:00", faker.gameOfThrones().dragon(),
+            result.add(new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), List.of(parameters.get(i)), experimentierStations.get(0), "42:00", faker.gameOfThrones().dragon(),
                     v, true, f.random().nextInt(0, 999)));
         }
         return result;
