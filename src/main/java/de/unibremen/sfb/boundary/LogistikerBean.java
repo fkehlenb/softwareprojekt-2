@@ -97,7 +97,8 @@ public class LogistikerBean implements Serializable {
 
     /** Sample ID */
     private String probenID;
-
+    /** Sample amount    */
+    private int anzahl;
 
     @PostConstruct
     void init() {
@@ -198,23 +199,26 @@ public class LogistikerBean implements Serializable {
     /** Add a new sample to the system */
     public void addProbe(){
 
-        Standort standort = null;
+        Standort standort;
+
         try {
             standort = standortService.findByLocation("Lager");
         } catch (StandortNotFoundException e) {
-            facesError("Der Standort wurde nicht gefunden!");
-            e.printStackTrace();
+            facesError("Der Standort Lager wurde nicht gefunden! Er wird nun erstellt!");
+            standort = new Standort(UUID.randomUUID().hashCode(),"Lager");
+            standortService.persist(standort);
         }
         //Anzahl ins xhtml
             //FIXME
-//            Probe p = new Probe(probenID,7, ProbenZustand.ARCHIVIERT,standort);
-//        try {
-//            probenService.persist(p);
-//        } catch (DuplicateProbeException e) {
-//            facesError("Die Probe existiert bereits!: " + e.getMessage());
-//            e.printStackTrace();
-//        }
-//        facesNotification("ERFOLG " + p.getProbenID());
+            Probe p = new Probe(probenID, anzahl, ProbenZustand.ARCHIVIERT,standort);
+        try {
+            probenService.persist(p);
+            facesNotification("ERFOLG " + p.getProbenID());
+
+        } catch (DuplicateProbeException e) {
+            facesError("Die Probe existiert bereits!: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     /**

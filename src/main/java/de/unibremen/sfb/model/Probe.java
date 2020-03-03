@@ -28,16 +28,10 @@ public class Probe {
     private boolean isValidData = true;
 
     /**
-     * Database ID
+     * samples ID
      */
     @NonNull
     @Id
-    private int id;
-
-    /**
-     * The sample's id
-     */
-    @NonNull
     private String probenID;
 
     /** Amount of samples */
