@@ -88,4 +88,9 @@ public class ProzessSchritt {
     /** If urformend, amount created */
     @NonNull
     private int amountCreated;
+
+    @Override
+    public String toString(){
+        return name;
+    }
 }

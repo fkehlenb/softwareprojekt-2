@@ -71,7 +71,9 @@
                                         <h:outputText value="Auftragsname"/>
                                     </p:column>
                                     <p:column colspan="1">
-                                        <p:inputText placeholder="Name" required="true" requiredMessage="Bitte Auftragsname eingeben!" value="#{dtAuftragBean.selectedName}"/>
+                                        <p:inputText placeholder="Name" required="true"
+                                                     requiredMessage="Bitte Auftragsname eingeben!"
+                                                     value="#{dtAuftragBean.selectedName}"/>
                                     </p:column>
                                     <p:column colspan="1">
                                         <p:commandButton value="Reset" type="reset" icon="pi pi-trash"/>
@@ -85,7 +87,65 @@
                         </p:panelGrid>
                     </p:panel>
                 </p:row>
-
+                <p:row>
+                    <p:panel header="Auftrag aus bestehenden Prozesssschritten erstellen">
+                        <p:panelGrid>
+                            <h:form>
+                                <p:row>
+                                    <p:column colspan="1">
+                                        <h:outputText value="Prozesschritt Reihenfolge"/>
+                                    </p:column>
+                                    <p:column colspan="3">
+                                        <p:pickList id="pk" value="#{dtAuftragBean.dualListModel}" var="pk"
+                                                    itemLabel="#{pk}"
+                                                    itemValue="#{pk}" required="true" requiredMessage="Bitte prozesschrittreihenfolge eingeben!">
+                                            <o:converter converterId="omnifaces.ListConverter"
+                                                         list="#{dtAuftragBean.dualListModel.source}"/>
+                                        </p:pickList>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column colspan="1">
+                                        <h:outputText value="Auftragsname"/>
+                                    </p:column>
+                                    <p:column colspan="1">
+                                        <p:inputText placeholder="Name" required="true"
+                                                     requiredMessage="Bitte Auftragsname eingeben!"
+                                                     value="#{dtAuftragBean.selectedName}"/>
+                                    </p:column>
+                                    <p:column colspan="1">
+                                        <h:outputText value="Prioritaet"/>
+                                    </p:column>
+                                    <p:column colspan="1">
+                                        <p:selectOneMenu id="priority3"
+                                                         value="#{dtAuftragBean.selectedPriority}"
+                                                         converter="omnifaces.SelectItemsConverter" effect="fade"
+                                                         var="priority" style="width: 172px" filter="true"
+                                                         filterMatchMode="contains" required="true"
+                                                         requiredMessage="Bitte Prozesskettenvorlage eingeben!">
+                                            <f:selectItems value="#{dtAuftragBean.availablePriorities}"
+                                                           var="priority" itemLabel="#{priority}"
+                                                           itemValue="#{priority}" required="true"/>
+                                            <p:column>
+                                                <h:outputText value="#{priority}"/>
+                                            </p:column>
+                                        </p:selectOneMenu>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column colspan="1">
+                                        <p:commandButton value="Reset" type="reset" icon="pi pi-trash"/>
+                                    </p:column>
+                                    <p:column colspan="1">
+                                        <p:commandButton value="Erstellen"
+                                                         action="#{dtAuftragBean.createJobFromAvailable}"
+                                                         icon="pi pi-check" ajax="false"/>
+                                    </p:column>
+                                </p:row>
+                            </h:form>
+                        </p:panelGrid>
+                    </p:panel>
+                </p:row>
                 <p:row>
                     <h:form id="form">
                         <p:dataTable id="table" var="job" value="#{dtAuftragBean.availableJobs}"
@@ -102,7 +162,9 @@
                                         <h:outputText value="#{job.name}"/>
                                     </f:facet>
                                     <f:facet name="input">
-                                        <p:inputText placeholder="Name" required="true" requiredMessage="Bitte Auftragsname eingeben!" value="#{dtAuftragBean.selectedName}"/>
+                                        <p:inputText placeholder="Name" required="true"
+                                                     requiredMessage="Bitte Auftragsname eingeben!"
+                                                     value="#{dtAuftragBean.selectedName}"/>
                                     </f:facet>
                                 </p:cellEditor>
                             </p:column>
@@ -132,13 +194,31 @@
                                 </p:cellEditor>
                             </p:column>
                             <p:column headerText="Prozessschritte">
-                                <p:commandButton value="Anzeigen" icon="pi pi-external-link"/>
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <p:commandButton value="Anzeigen" icon="pi pi-external-link"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:pickList id="pk2" value="#{dtAuftragBean.dualListModel}" var="pk"
+                                                    itemLabel="#{pk}"
+                                                    itemValue="#{pk}" required="true" requiredMessage="Bitte prozesschrittreihenfolge eingeben!">
+                                            <o:converter converterId="omnifaces.ListConverter"
+                                                         list="#{dtAuftragBean.dualListModel.source}"/>
+                                        </p:pickList>
+                                    </f:facet>
+                                </p:cellEditor>
                             </p:column>
                             <p:column headerText="Freigabe">
-                                <p:commandButton value="Freigeben" action="#{dtAuftragBean.setStarted(job.pkID)}" ajax="false" icon="pi pi-check"/>
+                                <p:commandButton value="Freigeben" action="#{dtAuftragBean.setStarted(job.pkID)}"
+                                                 ajax="false" icon="pi pi-check"/>
                             </p:column>
                             <p:column>
-                                <p:commandButton value="Delete" icon="pi pi-trash" ajax="false" action="#{dtAuftragBean.remove(job.pkID)}"/>
+                                <p:commandButton value="Abbrechen" action="#{dtAuftragBean.stopJob(job.pkID)}"
+                                                 ajax="false" icon="pi pi-trash"/>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton value="Delete" icon="pi pi-trash" ajax="false"
+                                                 action="#{dtAuftragBean.remove(job.pkID)}"/>
                             </p:column>
                             <p:column>
                                 <p:rowEditor/>

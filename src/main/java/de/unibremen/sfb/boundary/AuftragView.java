@@ -5,6 +5,7 @@ import de.unibremen.sfb.service.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.primefaces.model.DualListModel;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -77,6 +78,9 @@ public class AuftragView implements Serializable {
      */
     private List<ProzessSchritt> selectedProzessSchritte;
 
+    /** Dual list for picker */
+    private DualListModel<ProzessSchritt> dualListModel;
+
     /**
      * List of all available process chain templates
      */
@@ -123,6 +127,8 @@ public class AuftragView implements Serializable {
         availablePriorities.add(AuftragsPrioritaet.VIEL);
         availablePriorities.add(AuftragsPrioritaet.HOCH);
         availablePriorities.add(AuftragsPrioritaet.SEHR_HOCH);
+        selectedProzessSchritte = new ArrayList<>();
+        dualListModel = new DualListModel<>(availableProzessSchritte,selectedProzessSchritte);
     }
 
     /**
@@ -164,7 +170,7 @@ public class AuftragView implements Serializable {
         try {
             AuftragsLog auftragsLog = new AuftragsLog(LocalDateTime.now());
             auftragsLogsService.add(auftragsLog);
-            for (ProzessSchritt p : selectedProzessSchritte) {
+            for (ProzessSchritt p : dualListModel.getTarget()) {
                 p.setAssigned(true);
                 prozessSchrittService.editPS(p);
             }
@@ -192,10 +198,10 @@ public class AuftragView implements Serializable {
                 for (ProzessSchritt p : a.getProzessSchritte()) {
                     p.setAssigned(false);
                 }
-                for (ProzessSchritt p : selectedProzessSchritte) {
+                for (ProzessSchritt p : dualListModel.getTarget()) {
                     p.setAssigned(true);
                 }
-                a.setProzessSchritte(selectedProzessSchritte);
+                a.setProzessSchritte(dualListModel.getTarget());
                 a.setName(selectedName);
                 auftragService.update(a);
                 log.info("Updated job with id " + id);
@@ -231,6 +237,27 @@ public class AuftragView implements Serializable {
             e.printStackTrace();
             log.error("Failed to remove job with id " + id);
             facesError("Failed to remove job!");
+        }
+    }
+
+    /** Stop a job
+     * @param id - the id of the job to stop */
+    public void stopJob(int id){
+        try {
+            Auftrag a = auftragService.getObjById(id);
+            for (ProzessSchritt p : a.getProzessSchritte()) {
+                prozessSchrittService.removePS(p);
+            }
+
+            auftragService.remove(a);
+            log.info("Stopped job with id " + id);
+            facesNotification("Stopped job!");
+            refresh();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            log.error("Failed to stop job with id " + id);
+            facesError("Failed to stop job!");
         }
     }
 
