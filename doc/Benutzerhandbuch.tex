@@ -147,6 +147,8 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \section*{Version und Änderungsgeschichte}
 
 {\em Die aktuelle Versionsnummer des Dokumentes sollte eindeutig und gut zu
@@ -156,7 +158,8 @@ identifizieren sein, hier und optimalerweise auf dem Titelblatt.}
 Version & Datum & Änderungen \\
 \hline
 %0.1 & TT.MM.JJJJ & Dokumentvorlage als initiale Fassung kopiert \\
-0.1 & 03.03.2020 & Erste Schritte
+0.1 & 03.03.2020 & Erste Schritte \\
+0.2 & 03.03.2020 & Administrator \\
 \end{tabular}
 
 
@@ -182,6 +185,7 @@ Version & Datum & Änderungen \\
 \section{Erste Schritte für Anwender}
 \subsection{Anmeldung}
 \subsection{Abmeldung}
+\subsection{Sprachauswahl}
 \subsection{Navigationsleiste}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -190,6 +194,39 @@ Version & Datum & Änderungen \\
 \section{Farbige Zustände für Administratoren}
 \subsection{Installation der Applikation}
 \subsection{Benutzer}
+Die Aktionen bezüglich der Benutzer des Systems können Sie unter dem Unterpunkt Nutzer Verwalten aufrufen. 
+Hier haben Sie eine Tabelle, die alle Benutzer anzeigt, die aktuell im System vorhanden sind. Die Benutzer werden für bessere Übersicht seitenweise angezeigt, mit den Knöpfen oberhalb und unterhalb der Tabelle können Sie durch diese Seiten navigieren.\\
+ In dieser Tabelle können Sie durch drücken auf den Knopf Löschen einen User aus dem System entfernen.  
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/admin/nutzerloeschen.png}
+  \caption{Nutzer erfolgreich gelöscht}
+  \label{fig:boat2}
+\end{center}
+\end{figure}
+Durch drücken auf den Knopf Bearbeiten werden die Daten des Users in das Formular oberhalb der Tabelle geschrieben, wo Sie Änderungen vornehmen können. 
+Bitte beachten Sie, in dem Feld Email nur Eingaben in der Form []@[].[] einzugeben, wobei die Endung länger als zwei Zeichen sein muss. Des weiteren dürfen für die Telefonnummer nur Zahlen eingegeben werden. Sollten Sie Fehler in den Eingaben machen, werden Ihnen die fehlerhaften Felder rot unterlegt. Die ID eines Benutzers können Sie nicht bearbeiten, da diese vom System verwaltet werden. \\
+Mit Drücken auf Reset werden die bisher gespeicherten Daten wieder hergestellt. Mit Drücken auf Speichern können Sie Ihre Änderungen speichern. \\
+//TODO Bild
+
+Über der Tabelle befindet sich ein Formular, in dem Sie die Daten für einen neuen Benutzer eingeben können. Wenn sie alle Daten eingegeben haben, klicken Sie auf Speichern, um den Benutzer zu speichern. Die ID müssen Sie nicht selber eingeben, da sie vom System generiert wird. 
+Hier gelten die gleichen Beschränkungen wie oben für die Bearbeitung von Benutzern genannt. 
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/admin/nutzerformularausgefuellt.png}
+  \caption{Nutzerformular ausgefüllt}
+  \label{fig:boat3}
+\end{center}
+\end{figure}
+Bei erfolgreicher Erstellung eines Benutzer werden Sie eine Nachricht am rechten Rand des Fensters sehen, der neue Benutzer wird in der Tabelle erscheinen und eine Email bekommen. 
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/admin/nutzererfolgreich.png}
+  \caption{Nutzer erfolgreich gespeichert}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+Wenn sie das Formular zurücksetzen wollen, drücken Sie auf Reset. 
 \subsection{Experimentierstationen}
 \subsection{Globale Einstellungen}
 \subsection{Backup der Systemdaten}
@@ -200,7 +237,7 @@ Version & Datum & Änderungen \\
 \section{Farbige Zustände für andere Mitarbeiter}
 \subsection{Prozesskettenadministrator}
 \subsubsection{Übersicht über Prozessschritte}
-\subsubsection{Überisicht über dynamische Abläufe}
+\subsubsection{Übersicht über dynamische Abläufe}
 \subsubsection{Übersicht über Prozessketten}
 \subsubsection{Übersicht über Aufträge}
 \subsection{Logistiker}

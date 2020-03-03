@@ -325,9 +325,9 @@ public class InitialDataFiller {
 
 
             testUser = new User(UUID.randomUUID().hashCode(), "Default", "Admin", "l@g.c", f.phoneNumber().cellPhone(),
-                    "admin", matcher.getPasswordService().encryptPassword("12345678"), true, LocalDateTime.now(),
+                    "admin", matcher.getPasswordService().encryptPassword("admin"), true, LocalDateTime.now(),
                     "en");
-            roleService.applyRoles(List.of("admin", "transport", "pkAdmin", "logistik", "technologe"), "admin");
+            roleService.applyRoles(List.of("admin"), "admin");
             // Add to user Lost
 
 
