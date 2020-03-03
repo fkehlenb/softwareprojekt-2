@@ -2,6 +2,7 @@ package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.exception.AuftragNotFoundException;
 import de.unibremen.sfb.exception.DuplicateProbeException;
+import de.unibremen.sfb.exception.ProbeNotFoundException;
 import de.unibremen.sfb.exception.StandortNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.ProbeDAO;
@@ -208,17 +209,28 @@ public class LogistikerBean implements Serializable {
             standort = new Standort(UUID.randomUUID().hashCode(),"Lager");
             standortService.persist(standort);
         }
-        //Anzahl ins xhtml
-            //FIXME
-            Probe p = new Probe(probenID, anzahl, ProbenZustand.ARCHIVIERT,standort);
-        try {
-            probenService.persist(p);
-            facesNotification("ERFOLG! die Probe wurde hinzugefügt" + p.getProbenID());
 
-        } catch (DuplicateProbeException e) {
-            facesError("Die Probe existiert bereits!: " + e.getMessage());
+        int vorherigeAnzahl = 0;
+        try {
+            vorherigeAnzahl = probeDAO.getObjById(probenID).getAnzahl();
+        } catch (ProbeNotFoundException e) {
             e.printStackTrace();
         }
+        Probe p = new Probe(probenID, vorherigeAnzahl + anzahl, ProbenZustand.ARCHIVIERT,standort);
+        try {
+            probenService.update(p);
+            facesNotification("ERFOLG! die Probe wurde hinzugefügt" + p.getProbenID());
+        } catch (Exception e){
+            try {
+                probenService.persist(p);
+                facesNotification("ERFOLG! die Probe wurde hinzugefügt" + p.getProbenID());
+
+            } catch (DuplicateProbeException ex) {
+                facesError("Die Probe existiert bereits!: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
     }
 
     /**
