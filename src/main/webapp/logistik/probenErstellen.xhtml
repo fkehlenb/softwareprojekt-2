@@ -50,6 +50,17 @@
                                 </p:row>
                                 <p:row>
                                     <p:column colspan="1">
+                                        <h:outputText value="Anzahl:"/>
+                                    </p:column>
+                                    <p:column colspan="1">
+                                        <p:inputText placeholder="Anzahl" required="true"
+                                                     requiredMessage="Anzahl wird benötigt"
+                                                     value="#{dtLogistikerBean.anzahl}">
+                                        </p:inputText>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column colspan="1">
                                         <p:commandButton value="#{msg['saveU.jsf']}" icon="pi pi-save"
                                                          action="#{dtLogistikerBean.addProbe}" ajax="true"
                                                          update="form"/>

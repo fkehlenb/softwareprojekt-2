@@ -253,7 +253,7 @@ public class ProbenService implements Serializable {
         if(!id.matches("[A-Z][0-9][0-9].[0-9]+(.[0-9]+)+")) {
             throw new IllegalArgumentException();
         }
-        Probe p = new Probe(UUID.randomUUID().hashCode(),id, 5,  pz, s);
+        Probe p = new Probe(id,  5,  pz, s);
         List<Kommentar> ks = new LinkedList<>();
         ks.add(k);
         p.setKommentar(ks);
