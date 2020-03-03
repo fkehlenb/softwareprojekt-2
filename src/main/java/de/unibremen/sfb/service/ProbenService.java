@@ -239,13 +239,13 @@ public class ProbenService implements Serializable {
         }
     }
 
-    public void probeVerloren(Probe p, int anzahl, int lostAnzahl) throws ProbeNotFoundException {
+    public void probeVerloren(Probe p, int anzahl, int lostAnzahl, int vorherLost) throws ProbeNotFoundException {
         if(p==null){
             throw new IllegalArgumentException();
         }
         else {
             p.setAnzahl(anzahl-lostAnzahl);
-            p.setLost(lostAnzahl);
+            p.setLost(vorherLost+lostAnzahl);
             probeDAO.update(p);
         }
     }
