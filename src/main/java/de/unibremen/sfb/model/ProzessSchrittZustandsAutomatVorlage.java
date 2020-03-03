@@ -5,7 +5,9 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 
-/** Data class for the process step automaton templates */
+/**
+ * Data class for the process step automaton templates
+ */
 @Getter
 @Setter
 @RequiredArgsConstructor
@@ -13,7 +15,9 @@ import java.util.List;
 @NoArgsConstructor
 public class ProzessSchrittZustandsAutomatVorlage {
 
-    /** On delete set to invalid */
+    /**
+     * On delete set to invalid
+     */
     @NonNull
     private boolean isValidData = true;
 
@@ -21,10 +25,12 @@ public class ProzessSchrittZustandsAutomatVorlage {
     @NonNull
     private int id;
 
-    /** The states the process step automatons can be in */
+    /**
+     * The states the process step automatons can be in
+     */
     @NonNull
-     @ElementCollection(fetch = FetchType.LAZY)
-     private List<String> zustaende;
+    @ElementCollection(fetch = FetchType.LAZY)
+    private List<String> zustaende;
 
     //Leo Möglische Loesung
     //@OneToMany

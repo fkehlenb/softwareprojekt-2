@@ -3,6 +3,7 @@ package de.unibremen.sfb.persistence;
 import de.unibremen.sfb.exception.DuplicateProzessKettenVorlageException;
 import de.unibremen.sfb.exception.ProzessKettenVorlageNotFoundException;
 import de.unibremen.sfb.model.ProzessKettenVorlage;
+import de.unibremen.sfb.model.ProzessSchrittVorlage;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.EntityNotFoundException;
@@ -68,9 +69,8 @@ public class ProzessKettenVorlageDAO extends ObjectDAO<ProzessKettenVorlage> {
      * Get a list of all process chain templates
      *
      * @return a list of all process chain templates
-     *
      */
-    public List<ProzessKettenVorlage> getAll()   {
+    public List<ProzessKettenVorlage> getAll() {
         try {
             return em.createNamedQuery("PKV.getAll", get()).getResultList();
         } catch (EntityNotFoundException e) {
@@ -99,5 +99,4 @@ public class ProzessKettenVorlageDAO extends ObjectDAO<ProzessKettenVorlage> {
         }
         return pkv;
     }
-
 }

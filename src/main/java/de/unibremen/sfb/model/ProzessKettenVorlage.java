@@ -7,7 +7,8 @@ import java.io.Serializable;
 import java.util.List;
 
 /** Data class for the process chain templates */
-@Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @NamedQueries({
@@ -24,6 +25,10 @@ public class ProzessKettenVorlage implements Serializable {
     @Id
     @NonNull
     private int pkvID;
+
+    /** Process chain template name */
+    @NonNull
+    private String name;
 
     /** The process chain template's process steps (as templates hence not yet instantiated) */
     @NonNull

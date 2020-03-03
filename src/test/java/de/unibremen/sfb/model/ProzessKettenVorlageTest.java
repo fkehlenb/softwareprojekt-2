@@ -45,11 +45,11 @@ class ProzessKettenVorlageTest {
         Assertions.assertEquals(true, result);
     }
 
-    @Test
-    void testCanEqual() {
-        boolean result = prozessKettenVorlage.canEqual(new ProzessKettenVorlage());
-        Assertions.assertEquals(true, result);
-    }
+//    @Test
+//    void testCanEqual() {
+//        boolean result = prozessKettenVorlage.canEqual(new ProzessKettenVorlage());
+//        Assertions.assertEquals(true, result);
+//    }
 
 
     @Test

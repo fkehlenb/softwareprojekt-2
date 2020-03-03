@@ -14,7 +14,6 @@ public class ProzessSchrittZustandsAutomatZustaendeDAO extends ObjectDAO<Prozess
             }
         }
         catch (Exception e){
-            e.printStackTrace();
             throw new IllegalArgumentException();
         }
     }

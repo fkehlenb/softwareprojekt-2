@@ -7,7 +7,8 @@ import javax.validation.constraints.Pattern;
 import java.util.List;
 
 /** Data class for the process step templates */
-@Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @RequiredArgsConstructor
@@ -44,4 +45,9 @@ public class ProzessSchrittVorlage {
     @NonNull
     @ManyToOne
     private ProzessSchrittZustandsAutomatVorlage zustandsAutomatVorlage;
+
+    @Override
+    public String toString(){
+        return name;
+    }
 }
