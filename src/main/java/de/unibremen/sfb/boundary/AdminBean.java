@@ -251,7 +251,9 @@ public class AdminBean implements Serializable {
             user.setEmail(email);
             user.setTelefonnummer(telefonNummer);
             user.setUsername(userName);
-            user.setPassword(matcher.getPasswordService().encryptPassword(password));
+            if (!password.equals("")) {
+                user.setPassword(matcher.getPasswordService().encryptPassword(password));
+            }
             user.setWurdeVerifiziert(wurdeVerifiziert);
             user.setErstellungsDatum(date1);
             user.setLanguage(language);
@@ -313,7 +315,7 @@ public class AdminBean implements Serializable {
             this.email = user.getEmail();
             this.telefonNummer = user.getTelefonnummer();
             this.userName = user.getUsername();
-            this.password = user.getPassword();
+            this.password = "";
             this.wurdeVerifiziert = user.isWurdeVerifiziert();
             this.language = user.getLanguage();
             log.info("Updated User! ID: " + id);
