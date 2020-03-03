@@ -59,6 +59,29 @@
                                         </p:inputText>
                                     </p:column>
                                 </p:row>
+                                <p:column headerText="#{msg['standort.jsf']}">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputText value="#{station.standort.ort}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:selectOneMenu id="standortTable"
+                                                             value="#{adminBean.experimentierStationStandort}"
+                                                             converter="omnifaces.SelectItemsConverter"
+                                                             effect="fade"
+                                                             var="standort" style="width: 172px" filter="true"
+                                                             filterMatchMode="contains" required="true"
+                                                             requiredMessage="#{msg['esVerwaltungMeldung.jsf']}">
+                                                <f:selectItems value="#{adminBean.allLocations}"
+                                                               var="standort" itemLabel="#{standort.ort}"
+                                                               itemValue="#{standort}" required="true"/>
+                                                <p:column>
+                                                    <h:outputText value="#{standort.ort}"/>
+                                                </p:column>
+                                            </p:selectOneMenu>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
                                 <p:row>
                                     <p:column colspan="1">
                                         <p:commandButton value="#{msg['saveU.jsf']}" icon="pi pi-save"

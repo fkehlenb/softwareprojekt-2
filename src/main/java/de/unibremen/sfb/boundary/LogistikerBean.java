@@ -213,7 +213,7 @@ public class LogistikerBean implements Serializable {
             Probe p = new Probe(probenID, anzahl, ProbenZustand.ARCHIVIERT,standort);
         try {
             probenService.persist(p);
-            facesNotification("ERFOLG " + p.getProbenID());
+            facesNotification("ERFOLG! die Probe wurde hinzugefügt" + p.getProbenID());
 
         } catch (DuplicateProbeException e) {
             facesError("Die Probe existiert bereits!: " + e.getMessage());
