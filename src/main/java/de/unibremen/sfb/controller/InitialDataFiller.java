@@ -150,28 +150,30 @@ public class InitialDataFiller {
             pszaVorlage = new ProzessSchrittZustandsAutomatVorlage(996699,
                     psZustaende, "Standart");
             log.info("Try to persist ProzessSchrittZustandsAutomatVorlage " + pszaVorlage.toString());
-//            em.persist(pszaVorlage);
+            em.persist(pszaVorlage);
 
             // Erstelle die Liste aus den Parametern
             List<ProzessSchrittVorlage> psvListe = getProzessSchrittVorlage(parameters);
             for (ProzessSchrittVorlage pSV :
                     psvListe) {
                 log.info("Trying to persist ProzessSchrittVorlage " + pSV.toString());
-//                //em.persist(pSV); FINDME
+                em.persist(pSV); //FINDME
             }
             pkv = new ProzessKettenVorlage(UUID.randomUUID().hashCode(), f.gameOfThrones().house(), psvListe);
             log.info("Try to persist ProzessSchrittVorlage " + pkv.getPkvID());
-            //em.persist(pkv);
+            em.persist(pkv);
 
 
             // Setup PSZA
             List z = new ArrayList();
-            Collections.addAll(z, pszaVorlage.getZustaende());
-            z.addAll(pszaVorlage.getZustaende());
+            for (String s :
+                    pszaVorlage.getZustaende()) {
+                z.add(s);
+            }
             ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(
                     UUID.randomUUID().hashCode(), "ERSTELLT", z);
             log.info("Try to persist ProzessSchrittZustandsAutomat " + prozessSchrittZustandsAutomat.toString());
-            //em.persist(prozessSchrittZustandsAutomat);
+            em.persist(prozessSchrittZustandsAutomat);
             erstelleAuftrag(psvListe);
 
         } else {
