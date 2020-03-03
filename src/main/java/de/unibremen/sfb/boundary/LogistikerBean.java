@@ -101,7 +101,7 @@ public class LogistikerBean implements Serializable {
 
     @PostConstruct
     void init() {
-        auftrage = auftragService.getAuftrage();
+        auftrage = auftragService.getAll();
         proben = getProben();
         traegers = getTraegerList();
         archiviert = getAllArchviert();
@@ -258,26 +258,26 @@ public class LogistikerBean implements Serializable {
      *
      * @param auftrag the job to be started
      */
-    public void startAuftrag(int auftrag) {
-        try {
-            Auftrag a = auftragService.getAuftrag(auftrag);
-            auftragService.zustandswechsel(a, GESTARTET);
-            log.info("Auftrag wurde gestartet! ID: " + auftrag);
-            facesNotification("Auftrag wurde gestartet! ID: " + auftrag);
-            //Aktualisiert Auftragsliste
-            auftragView.updateAuftragTabelle();
-            auftragService.update(a);
-            PrimeFaces.current().ajax().update("form:data");
+//    public void startAuftrag(int auftrag) {
+//        try {
+//            Auftrag a = auftragService.getAll(auftrag);
+//            auftragService.zustandswechsel(a, GESTARTET);
+//            log.info("Auftrag wurde gestartet! ID: " + auftrag);
+//            facesNotification("Auftrag wurde gestartet! ID: " + auftrag);
+//            //Aktualisiert Auftragsliste
+//            auftragView.updateAuftragTabelle();
+//            auftragService.update(a);
+//            PrimeFaces.current().ajax().update("form:data");
+//
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            log.error("Failed to change auftrag state! ID: " + auftrag);
+//            facesError("Failed to change auftrag state! ID: " + auftrag);
+//        }
 
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            log.error("Failed to change auftrag state! ID: " + auftrag);
-            facesError("Failed to change auftrag state! ID: " + auftrag);
-        }
-
-
-    }
+//    }
 
     /**
      * refuses a job (signals to the process chain administrator that this job cannot be started in the current form)
@@ -285,32 +285,32 @@ public class LogistikerBean implements Serializable {
      * @param auftrag the job
      *
      */
-    public void refuseAuftrag(int auftrag) {
-        try {
-            Auftrag a = auftragService.getAuftrag(auftrag);
-            auftragService.zustandswechsel(a, ABGELEHNT);
-            log.info("Auftrag wurde abgelehnt! ID: " + auftrag);
-            facesNotification("Auftrag wurde abgelehnt! ID: " + auftrag);
-
-            //Aktualisiert Auftragsliste
-
-            log.info(errorMessage);
-            errorMessageAnPkA(a);
-            auftragService.update(a);
-            log.info("Test" + auftrag);
-            auftragView.updateAuftragTabelle();
-            Thread.sleep(100);
-            //return "Auftragsuebersicht?faces-redirect=true";
-            //PrimeFaces.current().ajax().update("content-panel");
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            log.error("Failed to change auftrag state! ID: " + auftrag);
-            facesError("Failed to change auftrag state! ID: " + auftrag);
-        }
-        //return null;
-    }
+//    public void refuseAuftrag(int auftrag) {
+//        try {
+//            Auftrag a = auftragService.getAuftrag(auftrag);
+//            auftragService.zustandswechsel(a, ABGELEHNT);
+//            log.info("Auftrag wurde abgelehnt! ID: " + auftrag);
+//            facesNotification("Auftrag wurde abgelehnt! ID: " + auftrag);
+//
+//            //Aktualisiert Auftragsliste
+//
+//            log.info(errorMessage);
+//            errorMessageAnPkA(a);
+//            auftragService.update(a);
+//            log.info("Test" + auftrag);
+//            auftragView.updateAuftragTabelle();
+//            Thread.sleep(100);
+//            //return "Auftragsuebersicht?faces-redirect=true";
+//            //PrimeFaces.current().ajax().update("content-panel");
+//
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            log.error("Failed to change auftrag state! ID: " + auftrag);
+//            facesError("Failed to change auftrag state! ID: " + auftrag);
+//        }
+//        //return null;
+//    }
 
     /**
      * returns an error message

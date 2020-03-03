@@ -46,6 +46,14 @@ public class ProzessSchrittVorlage {
     @ManyToOne
     private ProzessSchrittZustandsAutomatVorlage zustandsAutomatVorlage;
 
+    /** Urformend */
+    @NonNull
+    private boolean urformend;
+
+    /** If urformend, amount created */
+    @NonNull
+    private int amountCreated;
+
     @Override
     public String toString(){
         return name;

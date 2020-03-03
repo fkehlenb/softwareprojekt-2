@@ -68,10 +68,10 @@ class ProzessSchrittTest {
 //        prozessSchritt.setZugewieseneProben(Arrays.<Probe>asList(new Probe()));
 //    }
 
-    @Test
-    void testSetProzessSchrittZustandsAutomat() {
-        prozessSchritt.setProzessSchrittZustandsAutomat(new ProzessSchrittZustandsAutomat(0, "current", new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")));
-    }
+//    @Test
+//    void testSetProzessSchrittZustandsAutomat() {
+//        prozessSchritt.setProzessSchrittZustandsAutomat(new ProzessSchrittZustandsAutomat(0, "current", new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")));
+//    }
 
     @Test
     void testEquals() {

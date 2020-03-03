@@ -26,30 +26,30 @@ class ProzessSchrittZustandsAutomatServiceTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Test
-    void testDelete() {
-        try {
-            prozessSchrittZustandsAutomatService.delete(Arrays.<ProzessSchrittZustandsAutomat>asList(new ProzessSchrittZustandsAutomat(0, "current", new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name"))));
-        } catch (ProzessSchrittZustandsAutomatNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    void testEdit() {
-        try {
-            prozessSchrittZustandsAutomatService.edit(new ProzessSchrittZustandsAutomat(0, "current", new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")));
-        } catch (ProzessSchrittZustandsAutomatNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    void testAdd() {
-        try {
-            prozessSchrittZustandsAutomatService.add(new ProzessSchrittZustandsAutomat(0, "current", new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")));
-        } catch (DuplicateProzessSchrittZustandsAutomatException e) {
-            e.printStackTrace();
-        }
-    }
+//    @Test
+//    void testDelete() {
+//        try {
+//            prozessSchrittZustandsAutomatService.delete(Arrays.<ProzessSchrittZustandsAutomat>asList(new ProzessSchrittZustandsAutomat(0, "current", new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name"))));
+//        } catch (ProzessSchrittZustandsAutomatNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    @Test
+//    void testEdit() {
+//        try {
+//            prozessSchrittZustandsAutomatService.edit(new ProzessSchrittZustandsAutomat(0, "current", new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")));
+//        } catch (ProzessSchrittZustandsAutomatNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    @Test
+//    void testAdd() {
+//        try {
+//            prozessSchrittZustandsAutomatService.add(new ProzessSchrittZustandsAutomat(0, "current", new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")));
+//        } catch (DuplicateProzessSchrittZustandsAutomatException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

@@ -221,7 +221,7 @@ public class AdminBean implements Serializable {
         allUsers = userService.getAll();
         experimentierStations = experimentierStationService.getAll();
         availableBedingungen = bedingungService.getAll();
-        for (Auftrag a : auftragService.getAuftrage()) {
+        for (Auftrag a : auftragService.getAll()) {
             if (a.getProzessKettenZustandsAutomat() == ProzessKettenZustandsAutomat.DURCHGEFUEHRT) {
                 auftrage.add(a);
             }
@@ -577,7 +577,7 @@ public class AdminBean implements Serializable {
             LocalDateTime hierGestartet = getDateTimeFromCharArray(aufGestartet);
             LocalDateTime hierBeendet = getDateTimeFromCharArray(aufBeendet);
             LocalDateTime hierArchiviert = getDateTimeFromCharArray(aufArchiviert);
-            Auftrag a = auftragService.getAuftrag(id);
+            Auftrag a = auftragService.getObjById(id);
             AuftragsLog alog = a.getLog();
             alog.setErstellt(hierErstellt);
             alog.setStart(hierGestartet);
