@@ -100,7 +100,7 @@ public class ProbeDAO extends ObjectDAO<Probe> {
      */
     public Probe getObjById(String probenID) throws ProbeNotFoundException {
         try {
-            Probe p = em.createNamedQuery("Probe.getByProbenID",get()).setParameter("probenID",probenID).getSingleResult();
+            Probe p = em.createNamedQuery("Probe.getById",get()).setParameter("probenID",probenID).getSingleResult();
             if (p == null) {
                 throw new ProbeNotFoundException();
             }

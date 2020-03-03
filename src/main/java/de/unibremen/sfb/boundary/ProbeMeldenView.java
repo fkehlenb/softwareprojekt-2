@@ -34,13 +34,15 @@ public class ProbeMeldenView implements Serializable {
 
 
     /**
-     *
+     * Reports samples as lost.
      */
     public void reportLost() {
         try {
             probenService.probeVerloren( probenService.getProbeById(probeMeldenID),probenService.getProbeById(probeMeldenID).getAnzahl(), probenAnzahl);
+            log.info(probenAnzahl + " Samples of " + probeMeldenID + " were reported as missing.");
         } catch (ProbeNotFoundException e) {
             e.printStackTrace();
+            log.info("sample " +probeMeldenID+ " could not be found when trying to report as missing.");
         }
     }
 
