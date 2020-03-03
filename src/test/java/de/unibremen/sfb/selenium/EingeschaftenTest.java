@@ -23,8 +23,7 @@ import org.openqa.selenium.Keys;
 import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-public class AdminTest {
+public class EingeschaftenTest {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
@@ -40,7 +39,7 @@ public class AdminTest {
     driver.quit();
   }
   @Test
-  public void admin() throws InterruptedException {
+  public void eingeschaftenTest() throws InterruptedException {
     //Anmeldung
     driver.get("http://localhost:8080/");
     driver.manage().window().setSize(new Dimension(1440, 900));
@@ -53,59 +52,28 @@ public class AdminTest {
     Thread.sleep(500);
     driver.findElement(By.xpath("//button/span")).click();
     Thread.sleep(500);
-    //UserVerwaltung
     driver.findElement(By.xpath("//div[2]/div/h3")).click();
     Thread.sleep(500);
-    driver.findElement(By.xpath("//div[2]/div/div/ul/li/a")).click();
+    driver.findElement(By.xpath("//div[2]/div/div/ul/li[2]/a/span[2]")).click();
     Thread.sleep(500);
-    driver.findElement(By.xpath("//li/ul/li/a/span")).click();
+    driver.findElement(By.xpath("//li[7]/a/span")).click();
     Thread.sleep(500);
-    //DatenFiller
-    driver.findElement(By.id("form:vorname")).click();
+    driver.findElement(By.xpath("//td[2]/input")).click();
     Thread.sleep(500);
-    driver.findElement(By.id("form:vorname")).sendKeys("prueba");
+    //Formular
+    driver.findElement(By.id("j_idt63:nameQl")).sendKeys("pruebaTest");
     Thread.sleep(500);
-    driver.findElement(By.id("form:nachname")).click();
+    driver.findElement(By.xpath("//td[4]/button/span")).click();
     Thread.sleep(500);
-    driver.findElement(By.id("form:nachname")).sendKeys("prueba");
+    driver.findElement(By.xpath("//td[3]/div/a/span")).click();
     Thread.sleep(500);
-    driver.findElement(By.id("form:email")).click();
+    driver.findElement(By.xpath("//div[2]/input")).click();
     Thread.sleep(500);
-    driver.findElement(By.id("form:email")).sendKeys("prueba@prueba.de");
+    driver.findElement(By.id("form2:qEin:0:nameQl2")).sendKeys("other");
     Thread.sleep(500);
-    driver.findElement(By.id("form:telefon")).click();
+    driver.findElement(By.xpath("//td[3]/div/a[2]/span")).click();
     Thread.sleep(500);
-    driver.findElement(By.id("form:telefon")).sendKeys("12345678");
-    Thread.sleep(500);
-    driver.findElement(By.id("form:userName")).click();
-    Thread.sleep(500);
-    driver.findElement(By.id("form:userName")).sendKeys("prueba");
-    Thread.sleep(500);
-    driver.findElement(By.id("form:password")).click();
-    Thread.sleep(500);
-    driver.findElement(By.id("form:password")).sendKeys("prueba");
-    Thread.sleep(500);
-    driver.findElement(By.id("form:console_label")).click();
-    Thread.sleep(500);
-    driver.findElement(By.id("form:console_1")).click();
-    Thread.sleep(500);
-    driver.findElement(By.xpath("//div[2]/span")).click();
-    Thread.sleep(500);
-    driver.findElement(By.cssSelector("#form\\3Avalue1 > .ui-button-text")).click();
-    Thread.sleep(500);
-    driver.findElement(By.cssSelector("#tbl\\3A 0\\3Aj_idt140\\3Aj_idt142 > .ui-button-text")).click();
-    Thread.sleep(500);
-    driver.findElement(By.id("form:vorname")).click();
-    Thread.sleep(500);
-    driver.findElement(By.id("form:vorname")).sendKeys("prueb");
-    Thread.sleep(500);
-    driver.findElement(By.xpath("//td[5]/div/div[2]/span")).click();
-    Thread.sleep(500);
-    driver.findElement(By.xpath("//tr[5]/td[5]/div/div[2]/span")).click();
-    Thread.sleep(500);
-    driver.findElement(By.xpath("//td[2]/button/span[2]")).click();
-    Thread.sleep(500);
-    driver.findElement(By.xpath("//div/button/span[2]")).click();
+    driver.findElement(By.xpath("//button/span[2]")).click();
     Thread.sleep(500);
   }
 }

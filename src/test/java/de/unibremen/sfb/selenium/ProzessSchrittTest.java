@@ -23,7 +23,7 @@ import org.openqa.selenium.Keys;
 import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-public class QuEingenschaftTest {
+public class ProzessSchrittTest {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
@@ -39,52 +39,36 @@ public class QuEingenschaftTest {
     driver.quit();
   }
   @Test
-  public void quEingenschaft() throws InterruptedException {
+  public void prozessSchritt() throws InterruptedException {
     //Anmeldung
     driver.get("http://localhost:8080/");
     driver.manage().window().setSize(new Dimension(1440, 900));
     driver.findElement(By.linkText("Zur Anmeldung")).click();
     driver.findElement(By.id("username")).click();
-    Thread.sleep(400);
+    Thread.sleep(500);
     driver.findElement(By.id("username")).sendKeys("admin");
-    Thread.sleep(400);
+    Thread.sleep(500);
     driver.findElement(By.id("password")).sendKeys("12345678");
-    Thread.sleep(400);
+    Thread.sleep(500);
     driver.findElement(By.xpath("//button/span")).click();
-    //EingeschaftMenu
-    Thread.sleep(400);
+    Thread.sleep(500);
     driver.findElement(By.xpath("//div[2]/div/h3")).click();
-    Thread.sleep(400);
-    driver.findElement(By.xpath("//div[2]/div/div/ul/li[2]/a")).click();
-    Thread.sleep(400);
-    driver.findElement(By.xpath("//li[7]/a/span")).click();
-    Thread.sleep(400);
-    //QualittivForm
+    Thread.sleep(500);
+    driver.findElement(By.xpath("//div[2]/div/div/ul/li[2]/a/span[2]")).click();
+    Thread.sleep(500);
+    driver.findElement(By.xpath("//li[2]/ul/li/a")).click();
+    Thread.sleep(500);
+    driver.findElement(By.xpath("//td[4]/input")).click();
+    Thread.sleep(500);
+    driver.findElement(By.id("psForm:j_idt75")).sendKeys("pspTest");
+    Thread.sleep(500);
     driver.findElement(By.xpath("//td[2]/input")).click();
-    Thread.sleep(400);
-    driver.findElement(By.id("j_idt58:nameQl")).sendKeys("pruebaEin");
-    Thread.sleep(400);
-    driver.findElement(By.xpath("//td[2]/button/span")).click();
-    Thread.sleep(400);
-    driver.findElement(By.xpath("//td[4]/form/div/button/span[2]")).click();
-    Thread.sleep(400);
-    driver.findElement(By.xpath("//td[2]/input")).click();
-    Thread.sleep(400);
-    driver.findElement(By.id("j_idt58:nameQl")).sendKeys("quilEinTest");
-    Thread.sleep(400);
-    driver.findElement(By.xpath("//td[2]/button/span")).click();
-    Thread.sleep(400);
-    driver.findElement(By.xpath("//div[2]/div/div/div/form/table/tbody/tr/td[2]/input")).click();
-    Thread.sleep(400);
-    driver.findElement(By.id("j_idt84:name")).sendKeys("quant");
-    Thread.sleep(400);
-    driver.findElement(By.xpath("//tr[2]/td[2]/input")).click();
-    Thread.sleep(400);
-    driver.findElement(By.id("j_idt84:value")).sendKeys("50");
-    Thread.sleep(400);
-    driver.findElement(By.xpath("//tr[4]/td[2]/button/span")).click();
-    Thread.sleep(400);
-    driver.findElement(By.xpath("//td[6]/form/div/button/span[2]")).click();
-    Thread.sleep(400);
+    Thread.sleep(500);
+    driver.findElement(By.id("psForm:j_idt80")).sendKeys("test");
+    Thread.sleep(500);
+    driver.findElement(By.xpath("//td[2]/button/span[2]")).click();
+    Thread.sleep(500);
+    driver.findElement(By.xpath("//td[9]/button/span[2]")).click();
+    Thread.sleep(500);
   }
 }
