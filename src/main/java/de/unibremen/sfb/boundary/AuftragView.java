@@ -107,6 +107,24 @@ public class AuftragView implements Serializable {
     private String selectedName;
 
     /**
+     * selected part from the job
+     */
+    private List<Auftrag> selectedAuftraege;
+    private List<Auftrag> filteredAuftrag;
+    /**
+     * A var for the job used in the front end
+     */
+    private List<Auftrag> auftrage;
+    /**
+     * a list of prioritys
+     */
+    private AuftragsPrioritaet[] prios;
+    /**
+     * a list of prozesskettenZustandsAutomaten
+     */
+    private ProzessKettenZustandsAutomat[] prozessKettenZustandsAutomatList;
+
+    /**
      * Init called on start
      */
     @PostConstruct
@@ -129,6 +147,7 @@ public class AuftragView implements Serializable {
         availablePriorities.add(AuftragsPrioritaet.SEHR_HOCH);
         selectedProzessSchritte = new ArrayList<>();
         dualListModel = new DualListModel<>(availableProzessSchritte,selectedProzessSchritte);
+        auftrage = auftragService.getAll();
     }
 
     /**
@@ -146,7 +165,7 @@ public class AuftragView implements Serializable {
                 prozessSchrittLogService.add(prozessSchrittLog);
                 ProzessSchritt ps = new ProzessSchritt(UUID.randomUUID().hashCode(), prozessSchrittZustandsAutomat,
                         psv.getDauer(), psv.getProzessSchrittParameters(), psv.getExperimentierStation(), "",
-                        prozessSchrittLog, psv.getName(), psv.isUrformend(), psv.getAmountCreated());
+                        List.of(prozessSchrittLog), psv.getName(), psv.isUrformend(), psv.getAmountCreated());
                 ps.setAssigned(true);
                 prozessSchrittService.createPS(ps);
                 prozessSchritts.add(ps);
