@@ -221,7 +221,7 @@ public class AdminBean implements Serializable {
         allUsers = userService.getAll();
         experimentierStations = experimentierStationService.getAll();
         availableBedingungen = bedingungService.getAll();
-        for (Auftrag a : auftragService.getAuftrage()) {
+        for (Auftrag a : auftragService.getAll()) {
             if (a.getProzessKettenZustandsAutomat() == ProzessKettenZustandsAutomat.DURCHGEFUEHRT) {
                 auftrage.add(a);
             }
@@ -251,7 +251,9 @@ public class AdminBean implements Serializable {
             user.setEmail(email);
             user.setTelefonnummer(telefonNummer);
             user.setUsername(userName);
-            user.setPassword(matcher.getPasswordService().encryptPassword(password));
+            if (!password.equals("")) {
+                user.setPassword(matcher.getPasswordService().encryptPassword(password));
+            }
             user.setWurdeVerifiziert(wurdeVerifiziert);
             user.setErstellungsDatum(date1);
             user.setLanguage(language);
@@ -313,7 +315,7 @@ public class AdminBean implements Serializable {
             this.email = user.getEmail();
             this.telefonNummer = user.getTelefonnummer();
             this.userName = user.getUsername();
-            this.password = user.getPassword();
+            this.password = "";
             this.wurdeVerifiziert = user.isWurdeVerifiziert();
             this.language = user.getLanguage();
             log.info("Updated User! ID: " + id);
@@ -577,7 +579,7 @@ public class AdminBean implements Serializable {
             LocalDateTime hierGestartet = getDateTimeFromCharArray(aufGestartet);
             LocalDateTime hierBeendet = getDateTimeFromCharArray(aufBeendet);
             LocalDateTime hierArchiviert = getDateTimeFromCharArray(aufArchiviert);
-            Auftrag a = auftragService.getAuftrag(id);
+            Auftrag a = auftragService.getObjById(id);
             AuftragsLog alog = a.getLog();
             alog.setErstellt(hierErstellt);
             alog.setStart(hierGestartet);

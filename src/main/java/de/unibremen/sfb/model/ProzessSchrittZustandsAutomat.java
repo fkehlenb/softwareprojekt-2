@@ -3,6 +3,7 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 /** Data class for process step state automatons */
 @Getter
@@ -27,7 +28,10 @@ public class ProzessSchrittZustandsAutomat {
     /** State automaton name */
     private String name;
 
+    /**
+     * The states the process step automatons can be in
+     */
     @NonNull
-    @ManyToOne
-    private ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage;
+    @ElementCollection(fetch = FetchType.LAZY)
+    private List<String> zustaende;
 }

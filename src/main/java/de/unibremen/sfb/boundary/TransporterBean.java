@@ -59,40 +59,40 @@ public class TransporterBean implements Serializable {
     /**
      * sets the status of the job this transporter is currently working on
      */
-    public void changeTransportZustandAbgeholt(int TransportID) {
-      try {
-          TransportAuftrag tr = auftragService.getTransportAuftragByID(TransportID);
-//          auftragService.sedTransportZustandAbgeholt(tr);
-          log.info("TransportAuftragZustand wurde gewechselt auf Abgeholt " + TransportID);
-          facesNotification("Der Zustand von " + TransportID + " wurde auf Abgeholt gesetzt.");
-          updateTabellen();
-
-      }
-      catch (Exception e) {
-          e.printStackTrace();
-          log.error("Failed to change state to Abgeholt" + TransportID);
-          facesError("Failed to change state to Abgeholt" + TransportID);
-      }
-    }
+//    public void changeTransportZustandAbgeholt(int TransportID) {
+//      try {
+//          TransportAuftrag tr = auftragService.getTransportAuftragByID(TransportID);
+////          auftragService.sedTransportZustandAbgeholt(tr);
+//          log.info("TransportAuftragZustand wurde gewechselt auf Abgeholt " + TransportID);
+//          facesNotification("Der Zustand von " + TransportID + " wurde auf Abgeholt gesetzt.");
+//          updateTabellen();
+//
+//      }
+//      catch (Exception e) {
+//          e.printStackTrace();
+//          log.error("Failed to change state to Abgeholt" + TransportID);
+//          facesError("Failed to change state to Abgeholt" + TransportID);
+//      }
+//    }
 
     /**
      * sets the status of the job this transporter is currently working on
      */
-    public void changeTransportZustandAbgeliefert(int TransportID) {
-        try {
-            TransportAuftrag tr = auftragService.getTransportAuftragByID(TransportID);
-//            auftragService.sedTransportZustandAbgeliefert(tr);
-            log.info("TransportAuftragZustand wurde gewechselt auf Abgeliefert " + TransportID);
-            facesNotification("Der Zustand von " + TransportID + " wurde auf Abgeliefert gesetzt.");
-            updateTabellen();
-
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            log.error("Failed to change state to Abgeliefert" + TransportID);
-            facesError("Failed to change state to Abgeliefert" + TransportID);
-        }
-    }
+//    public void changeTransportZustandAbgeliefert(int TransportID) {
+//        try {
+//            TransportAuftrag tr = auftragService.getTransportAuftragByID(TransportID);
+////            auftragService.sedTransportZustandAbgeliefert(tr);
+//            log.info("TransportAuftragZustand wurde gewechselt auf Abgeliefert " + TransportID);
+//            facesNotification("Der Zustand von " + TransportID + " wurde auf Abgeliefert gesetzt.");
+//            updateTabellen();
+//
+//        }
+//        catch (Exception e){
+//            e.printStackTrace();
+//            log.error("Failed to change state to Abgeliefert" + TransportID);
+//            facesError("Failed to change state to Abgeliefert" + TransportID);
+//        }
+//    }
 
     /**
      * reports a sample as lost

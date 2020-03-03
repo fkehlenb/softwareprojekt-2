@@ -32,12 +32,9 @@ public class Auftrag implements Serializable {
     @Id
     private int pkID;
 
-    /**
-     * The process chain template this job was created from
-     */
+    /** The job name */
     @NonNull
-    @ManyToOne
-    private ProzessKettenVorlage vorlage;
+    private String name;
 
     /**
      * The job's priority

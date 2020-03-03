@@ -92,11 +92,12 @@
     <li>Bearbeiten von unbenutzten Zustandsautomaten</li></strike>
 </ul>
 </li>
-    <li><strike>Übersicht über alle Prozessketten</strike><ul>
+    <li><strike>Übersicht über alle Prozessketten<ul>
     <li>Anlegen von neuen Prozessketten aus bestehenden Prozessschritten</li>
     <li>Löschen von bestehenden Prozessketten</li>
     <li>Bearbeiten von bestehenden Prozessketten (nicht durchgeführt oder freigegeben)</li>
 </ul>
+</strike>
 </li>
 <li><strike>Übersicht über Aufträge</strike><ul>
 <li>Anlegen von Aufträgen<ul>

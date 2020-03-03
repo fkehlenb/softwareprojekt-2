@@ -1,114 +1,294 @@
 package de.unibremen.sfb.boundary;
 
-import de.unibremen.sfb.exception.AuftragNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.primefaces.PrimeFaces;
-import org.primefaces.event.RowEditEvent;
+import org.primefaces.model.DualListModel;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import org.primefaces.model.SelectableDataModel;
+import java.util.UUID;
 
 
 @Named("dtAuftragBean")
-@ViewScoped
+@RequestScoped
 @Getter
 @Setter
 @Slf4j
 public class AuftragView implements Serializable {
-    private List<Auftrag> auftrage;
-    private List<ProzessSchritt> auftragPS;
-    private List<ProzessKettenVorlage> vorlagen;
-    private AuftragsPrioritaet[] prios;
-    private Auftrag selected;
-    private ProzessKettenZustandsAutomat[] prozessKettenZustandsAutomatList;
-
-    private List<Auftrag> selectedAuftraege;
-    private List<Auftrag> filteredAuftrag;
-
-    //Der gewählte Auftrag
-
-    // Auftrag Erstellen
-    private ProzessKettenVorlage ausPKV;
-    private AuftragsPrioritaet ausPrio;
-
-
-    @Inject
-    AuftragService auftragService;
-
-    @Inject
-    ProzessKettenVorlageService prozessKettenVorlageService;
-
-    @PostConstruct
-    void init() {
-        auftrage = auftragService.getAuftrage();
-//        vorlagen = getPKVs();
-        prios = AuftragsPrioritaet.values();
-        prozessKettenZustandsAutomatList = ProzessKettenZustandsAutomat.values();
-
-
-    }
-
-//    public void erstelleAuftrag() {
-//        int id = auftragService.erstelleAuftrag(ausPKV, ausPrio).getPkID();
-//        facesNotification("Erfolgreich Auftrag: " + id + " erstellt");
-//        updateAuftragTabelle();
-//    }
 
     /**
-     * Aktualisiert die Tabelle
+     * Job service
      */
-    public void updateAuftragTabelle() {
-        auftrage = auftragService.getAuftrage();
+    @Inject
+    private AuftragService auftragService;
 
-        PrimeFaces.current().ajax().update("content");
+    /**
+     * Process step service
+     */
+    @Inject
+    private ProzessSchrittService prozessSchrittService;
+
+    /**
+     * Job template service
+     */
+    @Inject
+    private ProzessKettenVorlageService prozessKettenVorlageService;
+
+    /**
+     * Process step state automaton service
+     */
+    @Inject
+    private ProzessSchrittZustandsAutomatService prozessSchrittZustandsAutomatService;
+
+    /**
+     * Process step log service
+     */
+    @Inject
+    private ProzessSchrittLogService prozessSchrittLogService;
+
+    /**
+     * Job log service
+     */
+    @Inject
+    private AuftragsLogsService auftragsLogsService;
+
+    /**
+     * List of all available jobs
+     */
+    private List<Auftrag> availableJobs;
+
+    /**
+     * List of all available process steps
+     */
+    private List<ProzessSchritt> availableProzessSchritte;
+
+    /**
+     * Selected process steps
+     */
+    private List<ProzessSchritt> selectedProzessSchritte;
+
+    /** Dual list for picker */
+    private DualListModel<ProzessSchritt> dualListModel;
+
+    /**
+     * List of all available process chain templates
+     */
+    private List<ProzessKettenVorlage> availableProzessKettenVorlagen;
+
+    /**
+     * Selected job template
+     */
+    private ProzessKettenVorlage selectedProzesskettenVorlage;
+
+    /**
+     * List of all available priorities
+     */
+    private List<AuftragsPrioritaet> availablePriorities;
+
+    /**
+     * Job priority
+     */
+    private AuftragsPrioritaet selectedPriority;
+
+    /**
+     * Job name
+     */
+    private String selectedName;
+
+    /**
+     * Init called on start
+     */
+    @PostConstruct
+    private void init() {
+        refresh();
     }
 
-    public void onRowEdit(RowEditEvent<Auftrag> event) {
-        log.info("Updating: " + event.getObject().getPkID());
+    /**
+     * Refresh lists
+     */
+    private void refresh() {
+        availableJobs = auftragService.getAll();
+        availableProzessKettenVorlagen = prozessKettenVorlageService.getAll();
+        availableProzessSchritte = prozessSchrittService.getAllAvailable();
+        availablePriorities = new ArrayList<>();
+        availablePriorities.add(AuftragsPrioritaet.KEINE);
+        availablePriorities.add(AuftragsPrioritaet.ETWAS);
+        availablePriorities.add(AuftragsPrioritaet.VIEL);
+        availablePriorities.add(AuftragsPrioritaet.HOCH);
+        availablePriorities.add(AuftragsPrioritaet.SEHR_HOCH);
+        selectedProzessSchritte = new ArrayList<>();
+        dualListModel = new DualListModel<>(availableProzessSchritte,selectedProzessSchritte);
+    }
+
+    /**
+     * Create a new job
+     */
+    public void createJob() {
         try {
-            auftragService.update(event.getObject());
-        } catch (de.unibremen.sfb.exception.AuftragNotFoundException e) {
-            e.printStackTrace();
-            log.error(e.getMessage());
-        }
-        FacesMessage msg = new FacesMessage("Auftrag Edited", event.getObject().toString());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
-
-    public void onRowCancel(RowEditEvent<Auftrag> event) {
-        FacesMessage msg = new FacesMessage("Edit Cancelled", event.getObject().toString());
-        FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
-
-    public String json() {
-        return auftragService.toJson();
-    }
-
-//    public List<ProzessKettenVorlage> getPKVs() {
-//        return prozessKettenVorlageService.getPKVs();
-//    }
-
-    public void delete() {
-        try {
-            auftragService.delete(selectedAuftraege); //FIXME LIAM
-            FacesMessage msg = new FacesMessage("Deleted", selectedAuftraege.toString());
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+            List<ProzessSchritt> prozessSchritts = new ArrayList<>();
+            for (ProzessSchrittVorlage psv : selectedProzesskettenVorlage.getProzessSchrittVorlagen()) {
+                ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(),
+                        psv.getZustandsAutomatVorlage().getZustaende().get(0), psv.getZustandsAutomatVorlage().getZustaende());
+                prozessSchrittZustandsAutomatService.add(prozessSchrittZustandsAutomat);
+                ProzessSchrittLog prozessSchrittLog = new ProzessSchrittLog(LocalDateTime.now(), "GESTARTET");
+                prozessSchrittLogService.add(prozessSchrittLog);
+                ProzessSchritt ps = new ProzessSchritt(UUID.randomUUID().hashCode(), prozessSchrittZustandsAutomat,
+                        psv.getDauer(), psv.getProzessSchrittParameters(), psv.getExperimentierStation(), "",
+                        prozessSchrittLog, psv.getName(), psv.isUrformend(), psv.getAmountCreated());
+                ps.setAssigned(true);
+                prozessSchrittService.createPS(ps);
+                prozessSchritts.add(ps);
+            }
+            AuftragsLog auftragsLog = new AuftragsLog(LocalDateTime.now());
+            auftragsLogsService.add(auftragsLog);
+            auftragService.add(new Auftrag(UUID.randomUUID().hashCode(), selectedName, selectedPriority, prozessSchritts, auftragsLog, ProzessKettenZustandsAutomat.INSTANZIIERT));
+            log.info("Created new job with name " + selectedName);
+            facesNotification("Created new job with name " + selectedName);
+            refresh();
         } catch (Exception e) {
             e.printStackTrace();
-            log.error(e.getMessage());
-            facesError("Failed to delete Selection");
+            log.error("Couldn't create new job! Error " + e.getMessage());
+            facesError("Couldn't create new job!");
         }
+    }
+
+    /**
+     * Create a job from existing process steps
+     */
+    public void createJobFromAvailable() {
+        try {
+            AuftragsLog auftragsLog = new AuftragsLog(LocalDateTime.now());
+            auftragsLogsService.add(auftragsLog);
+            for (ProzessSchritt p : dualListModel.getTarget()) {
+                p.setAssigned(true);
+                prozessSchrittService.editPS(p);
+            }
+            auftragService.add(new Auftrag(UUID.randomUUID().hashCode(), selectedName, selectedPriority, selectedProzessSchritte, auftragsLog, ProzessKettenZustandsAutomat.INSTANZIIERT));
+            log.info("Created new job with name " + selectedName);
+            facesNotification("Created new job with name " + selectedName);
+            refresh();
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("Couldn't create new job! Error " + e.getMessage());
+            facesError("Couldn't create new job!");
+        }
+    }
+
+    /**
+     * Edit a job
+     *
+     * @param id - the id of the job to edit
+     */
+    public void edit(int id) {
+        try {
+            Auftrag a = auftragService.getObjById(id);
+            if (a.getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.INSTANZIIERT)) {
+                a.setPriority(selectedPriority);
+                for (ProzessSchritt p : a.getProzessSchritte()) {
+                    p.setAssigned(false);
+                }
+                for (ProzessSchritt p : dualListModel.getTarget()) {
+                    p.setAssigned(true);
+                }
+                a.setProzessSchritte(dualListModel.getTarget());
+                a.setName(selectedName);
+                auftragService.update(a);
+                log.info("Updated job with id " + id);
+                facesNotification("Updated job!");
+                refresh();
+            }
+            else{
+                facesError("Can't edit an already started job!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("Couldn't edit job with id " + id + " Error " + e.getMessage());
+            facesError("Couldn't edit job!");
+        }
+    }
+
+    /**
+     * Remove a job
+     *
+     * @param id - the id of the job to remove
+     */
+    public void remove(int id) {
+        try {
+            Auftrag a = auftragService.getObjById(id);
+            for (ProzessSchritt p : a.getProzessSchritte()) {
+                prozessSchrittService.removePS(p);
+            }
+            auftragService.remove(a);
+            log.info("Removed job with id " + id);
+            facesNotification("Removed job!");
+            refresh();
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("Failed to remove job with id " + id);
+            facesError("Failed to remove job!");
+        }
+    }
+
+    /** Stop a job
+     * @param id - the id of the job to stop */
+    public void stopJob(int id){
+        try {
+            Auftrag a = auftragService.getObjById(id);
+            for (ProzessSchritt p : a.getProzessSchritte()) {
+                prozessSchrittService.removePS(p);
+            }
+
+            auftragService.remove(a);
+            log.info("Stopped job with id " + id);
+            facesNotification("Stopped job!");
+            refresh();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            log.error("Failed to stop job with id " + id);
+            facesError("Failed to stop job!");
+        }
+    }
+
+    /**
+     * Start a job
+     *
+     * @param id - the id of the job to start
+     */
+    public void setStarted(int id) {
+        try {
+            Auftrag a = auftragService.getObjById(id);
+            if (a.getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.INSTANZIIERT)) {
+                a.setProzessKettenZustandsAutomat(ProzessKettenZustandsAutomat.GESTARTET);
+                auftragService.update(a);
+                log.info("Started job with id " + id);
+                facesNotification("Started job!");
+                refresh();
+            }
+            else{
+                facesError("Job has already been started!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("Couldn't start job with id " + id + " Error " + e.getMessage());
+            facesError("Couldn't start job!");
+        }
+    }
+
+    /** Row edit canceled */
+    public void onRowEditCanceled(){
+        facesNotification("Canceled!");
     }
 
     /**
@@ -127,20 +307,6 @@ public class AuftragView implements Serializable {
      */
     private void facesNotification(String message) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
-    }
-
-    public void clearTableState() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        String viewId = context.getViewRoot().getViewId();
-        PrimeFaces.current().multiViewState().clearAll();
-        showMessage();
-
-    }
-
-    private void showMessage( ) {
-        FacesContext.getCurrentInstance()
-                .addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_INFO," multiview state has been cleared out", null));
     }
 
 }

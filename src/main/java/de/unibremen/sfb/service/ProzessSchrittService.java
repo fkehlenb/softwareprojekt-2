@@ -66,5 +66,11 @@ public class ProzessSchrittService implements Serializable {
     public List<ProzessSchritt> getAll(){
         return prozessSchrittDAO.getAll();
     }
+
+    /** Get all process steps that are not assigned
+     * @return a list of all process steps not yet assigned or an empty arraylist */
+    public List<ProzessSchritt> getAllAvailable(){
+        return prozessSchrittDAO.getAllAvailable();
+    }
 }
 

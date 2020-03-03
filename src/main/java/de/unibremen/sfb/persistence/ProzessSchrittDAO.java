@@ -104,4 +104,17 @@ public class ProzessSchrittDAO extends ObjectDAO<ProzessSchritt> {
         }
         return ps;
     }
+
+    /** Get a list of all not yet assigned process steps
+     * @return a list of all not assigned process steps or an empty arraylist */
+    public List<ProzessSchritt> getAllAvailable(){
+        List<ProzessSchritt> a = new ArrayList<>();
+        try {
+            a = em.createNamedQuery("PS.getAllAvailable",get()).getResultList();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return a;
+    }
 }

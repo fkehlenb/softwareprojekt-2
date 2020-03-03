@@ -13,6 +13,9 @@ import java.util.List;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @RequiredArgsConstructor
+@NamedQueries({
+        @NamedQuery(name = "PS.getAllAvailable", query = "select ps from ProzessSchritt ps where ps.isValidData=true and ps.assigned = false")
+})
 public class ProzessSchritt {
 
     /**
@@ -26,6 +29,9 @@ public class ProzessSchritt {
     @Id
     @NonNull
     private int id;
+
+    /** Whether this step is assigned to a job */
+    private boolean assigned = false;
 
     /**
      * Process step state automaton
@@ -74,4 +80,17 @@ public class ProzessSchritt {
      */
     @NonNull
     private String name;
+
+    /** Urformend */
+    @NonNull
+    private boolean urformend;
+
+    /** If urformend, amount created */
+    @NonNull
+    private int amountCreated;
+
+    @Override
+    public String toString(){
+        return name;
+    }
 }

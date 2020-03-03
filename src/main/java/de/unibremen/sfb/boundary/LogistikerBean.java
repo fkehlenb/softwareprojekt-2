@@ -97,11 +97,12 @@ public class LogistikerBean implements Serializable {
 
     /** Sample ID */
     private String probenID;
-
+    /** Sample amount    */
+    private int anzahl;
 
     @PostConstruct
     void init() {
-        auftrage = auftragService.getAuftrage();
+        auftrage = auftragService.getAll();
         proben = getProben();
         traegers = getTraegerList();
         archiviert = getAllArchviert();
@@ -198,23 +199,26 @@ public class LogistikerBean implements Serializable {
     /** Add a new sample to the system */
     public void addProbe(){
 
-        Standort standort = null;
+        Standort standort;
+
         try {
             standort = standortService.findByLocation("Lager");
         } catch (StandortNotFoundException e) {
-            facesError("Der Standort wurde nicht gefunden!");
-            e.printStackTrace();
+            facesError("Der Standort Lager wurde nicht gefunden! Er wird nun erstellt!");
+            standort = new Standort(UUID.randomUUID().hashCode(),"Lager");
+            standortService.persist(standort);
         }
         //Anzahl ins xhtml
             //FIXME
-//            Probe p = new Probe(probenID,7, ProbenZustand.ARCHIVIERT,standort);
-//        try {
-//            probenService.persist(p);
-//        } catch (DuplicateProbeException e) {
-//            facesError("Die Probe existiert bereits!: " + e.getMessage());
-//            e.printStackTrace();
-//        }
-//        facesNotification("ERFOLG " + p.getProbenID());
+            Probe p = new Probe(probenID, anzahl, ProbenZustand.ARCHIVIERT,standort);
+        try {
+            probenService.persist(p);
+            facesNotification("ERFOLG " + p.getProbenID());
+
+        } catch (DuplicateProbeException e) {
+            facesError("Die Probe existiert bereits!: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -258,26 +262,26 @@ public class LogistikerBean implements Serializable {
      *
      * @param auftrag the job to be started
      */
-    public void startAuftrag(int auftrag) {
-        try {
-            Auftrag a = auftragService.getAuftrag(auftrag);
-            auftragService.zustandswechsel(a, GESTARTET);
-            log.info("Auftrag wurde gestartet! ID: " + auftrag);
-            facesNotification("Auftrag wurde gestartet! ID: " + auftrag);
-            //Aktualisiert Auftragsliste
-            auftragView.updateAuftragTabelle();
-            auftragService.update(a);
-            PrimeFaces.current().ajax().update("form:data");
+//    public void startAuftrag(int auftrag) {
+//        try {
+//            Auftrag a = auftragService.getAll(auftrag);
+//            auftragService.zustandswechsel(a, GESTARTET);
+//            log.info("Auftrag wurde gestartet! ID: " + auftrag);
+//            facesNotification("Auftrag wurde gestartet! ID: " + auftrag);
+//            //Aktualisiert Auftragsliste
+//            auftragView.updateAuftragTabelle();
+//            auftragService.update(a);
+//            PrimeFaces.current().ajax().update("form:data");
+//
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            log.error("Failed to change auftrag state! ID: " + auftrag);
+//            facesError("Failed to change auftrag state! ID: " + auftrag);
+//        }
 
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            log.error("Failed to change auftrag state! ID: " + auftrag);
-            facesError("Failed to change auftrag state! ID: " + auftrag);
-        }
-
-
-    }
+//    }
 
     /**
      * refuses a job (signals to the process chain administrator that this job cannot be started in the current form)
@@ -285,32 +289,32 @@ public class LogistikerBean implements Serializable {
      * @param auftrag the job
      *
      */
-    public void refuseAuftrag(int auftrag) {
-        try {
-            Auftrag a = auftragService.getAuftrag(auftrag);
-            auftragService.zustandswechsel(a, ABGELEHNT);
-            log.info("Auftrag wurde abgelehnt! ID: " + auftrag);
-            facesNotification("Auftrag wurde abgelehnt! ID: " + auftrag);
-
-            //Aktualisiert Auftragsliste
-
-            log.info(errorMessage);
-            errorMessageAnPkA(a);
-            auftragService.update(a);
-            log.info("Test" + auftrag);
-            auftragView.updateAuftragTabelle();
-            Thread.sleep(100);
-            //return "Auftragsuebersicht?faces-redirect=true";
-            //PrimeFaces.current().ajax().update("content-panel");
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            log.error("Failed to change auftrag state! ID: " + auftrag);
-            facesError("Failed to change auftrag state! ID: " + auftrag);
-        }
-        //return null;
-    }
+//    public void refuseAuftrag(int auftrag) {
+//        try {
+//            Auftrag a = auftragService.getAuftrag(auftrag);
+//            auftragService.zustandswechsel(a, ABGELEHNT);
+//            log.info("Auftrag wurde abgelehnt! ID: " + auftrag);
+//            facesNotification("Auftrag wurde abgelehnt! ID: " + auftrag);
+//
+//            //Aktualisiert Auftragsliste
+//
+//            log.info(errorMessage);
+//            errorMessageAnPkA(a);
+//            auftragService.update(a);
+//            log.info("Test" + auftrag);
+//            auftragView.updateAuftragTabelle();
+//            Thread.sleep(100);
+//            //return "Auftragsuebersicht?faces-redirect=true";
+//            //PrimeFaces.current().ajax().update("content-panel");
+//
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            log.error("Failed to change auftrag state! ID: " + auftrag);
+//            facesError("Failed to change auftrag state! ID: " + auftrag);
+//        }
+//        //return null;
+//    }
 
     /**
      * returns an error message

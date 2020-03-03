@@ -59,42 +59,42 @@ class AuftragServiceTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Test
-    void testGetID() {
-        when(auftrag.getPkID()).thenReturn(0);
+//    @Test
+//    void testGetID() {
+//        when(auftrag.getPkID()).thenReturn(0);
+//
+//        int result = auftragService.getID();
+//        Assertions.assertEquals(0, result);
+//
+//    }
 
-        int result = auftragService.getID();
-        Assertions.assertEquals(0, result);
-
-    }
-
-    @Test
-    void testGetPKV() {
-        when(auftrag.getVorlage()).thenReturn(prozessKettenVorlage);
-
-        ProzessKettenVorlage result = auftragService.getPKV();
-        Assertions.assertEquals(prozessKettenVorlage, result);
-    }
+//    @Test
+//    void testGetPKV() {
+//        when(auftrag.getVorlage()).thenReturn(prozessKettenVorlage);
+//
+//        ProzessKettenVorlage result = auftragService.getPKV();
+//        Assertions.assertEquals(prozessKettenVorlage, result);
+//    }
 
 
 
-    @Test
-    void testSetLog() {
-        auftragService.setLog(new AuftragsLog(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 28, 9)));
-    }
+//    @Test
+//    void testSetLog() {
+//        auftragService.setLog(new AuftragsLog(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 28, 9)));
+//    }
 
-    @Test
-    void testGetPKZ() {
-        when(auftrag.getProzessKettenZustandsAutomat()).thenReturn(null);
-
-        Enum<ProzessKettenZustandsAutomat> result = auftragService.getPKZ();
-        Assertions.assertEquals(null, result);
-    }
-
-    @Test
-    void testSetPrio() {
-        auftragService.setPrio(AuftragsPrioritaet.KEINE);
-    }
+//    @Test
+//    void testGetPKZ() {
+//        when(auftrag.getProzessKettenZustandsAutomat()).thenReturn(null);
+//
+//        Enum<ProzessKettenZustandsAutomat> result = auftragService.getPKZ();
+//        Assertions.assertEquals(null, result);
+//    }
+//
+//    @Test
+//    void testSetPrio() {
+//        auftragService.setPrio(AuftragsPrioritaet.KEINE);
+//    }
 
 //    @Test
 //    void testGetPS() {
@@ -106,90 +106,90 @@ class AuftragServiceTest {
 //                prozessSchrittZustandsAutomat)).toString(), result.toString());
 //    }
 
-    @Test
-    void testZustandswechsel() {
-        try {
-            auftragService.zustandswechsel(new Auftrag(), ProzessKettenZustandsAutomat.INSTANZIIERT);
-        } catch (AuftragNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+//    @Test
+//    void testZustandswechsel() {
+//        try {
+//            auftragService.zustandswechsel(new Auftrag(), ProzessKettenZustandsAutomat.INSTANZIIERT);
+//        } catch (AuftragNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    @Test
+//    void testInit() {
+//        when(auftragDAO.getAll()).thenReturn(Arrays.<Auftrag>asList(new Auftrag()));
+//
+//        auftragService.init();
+//    }
+//
+//    @Test
+//    void testGetAuftrage() {
+//        when(auftragDAO.getAll()).thenReturn(Arrays.<Auftrag>asList(new Auftrag()));
+//
+//        List<Auftrag> result = auftragService.getAuftrage();
+//        Assertions.assertEquals(Arrays.<Auftrag>asList(new Auftrag()), result);
+//    }
 
-    @Test
-    void testInit() {
-        when(auftragDAO.getAll()).thenReturn(Arrays.<Auftrag>asList(new Auftrag()));
+//    @Test
+//    void testUpdate() {
+//        try {
+//            auftragService.update(new Auftrag());
+//        } catch (AuftragNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-        auftragService.init();
-    }
+//    @Test
+//    void testAdd() {
+//        try {
+//            auftragService.add(new Auftrag());
+//        } catch (DuplicateAuftragException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-    @Test
-    void testGetAuftrage() {
-        when(auftragDAO.getAll()).thenReturn(Arrays.<Auftrag>asList(new Auftrag()));
+//    @Test
+//    void testEdit() {
+//        when(auftrag.getPkID()).thenReturn(0);
+//
+//        try {
+//            auftragService.edit(new Auftrag());
+//        } catch (ProzessKettenVorlageNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-        List<Auftrag> result = auftragService.getAuftrage();
-        Assertions.assertEquals(Arrays.<Auftrag>asList(new Auftrag()), result);
-    }
+//    @Test
+//    void testDelete() {
+//        try {
+//            auftragService.delete(Arrays.<Auftrag>asList(new Auftrag()));
+//        } catch (AuftragNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-    @Test
-    void testUpdate() {
-        try {
-            auftragService.update(new Auftrag());
-        } catch (AuftragNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+//    @Test
+//    void testToJson() {
+//        String result = auftragService.toJson();
+//        Assertions.assertEquals("NO JSON", result);
+//    }
 
-    @Test
-    void testAdd() {
-        try {
-            auftragService.add(new Auftrag());
-        } catch (DuplicateAuftragException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    void testEdit() {
-        when(auftrag.getPkID()).thenReturn(0);
-
-        try {
-            auftragService.edit(new Auftrag());
-        } catch (ProzessKettenVorlageNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    void testDelete() {
-        try {
-            auftragService.delete(Arrays.<Auftrag>asList(new Auftrag()));
-        } catch (AuftragNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    void testToJson() {
-        String result = auftragService.toJson();
-        Assertions.assertEquals("NO JSON", result);
-    }
-
-    @Test
-    void testGetAuftrag() {
-        try {
-            when(auftragDAO.getObjById(anyInt())).thenReturn(new Auftrag());
-        } catch (AuftragNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        Auftrag result = null;
-        try {
-            result = auftragService.getAuftrag(0);
-        } catch (AuftragNotFoundException e) {
-            e.printStackTrace();
-        }
-        Assertions.assertEquals(new Auftrag(), result);
-    }
+//    @Test
+//    void testGetAuftrag() {
+//        try {
+//            when(auftragDAO.getObjById(anyInt())).thenReturn(new Auftrag());
+//        } catch (AuftragNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//
+//        Auftrag result = null;
+//        try {
+//            result = auftragService.getAuftrag(0);
+//        } catch (AuftragNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        Assertions.assertEquals(new Auftrag(), result);
+//    }
 
 
 
@@ -203,10 +203,10 @@ class AuftragServiceTest {
 //        Assertions.assertEquals(any(), result);
 //    }
 
-    @Test
-    void testSetAuftrage() {
-        auftragService.setAuftrage(Arrays.<Auftrag>asList(new Auftrag()));
-    }
+//    @Test
+//    void testSetAuftrage() {
+//        auftragService.setAuftrage(Arrays.<Auftrag>asList(new Auftrag()));
+//    }
 
     @Test
     void testSetAuftragDAO() {
@@ -215,63 +215,63 @@ class AuftragServiceTest {
 
 
 
-    @Test
-    void testSetProzessKettenVorlageService() {
-        auftragService.setProzessKettenVorlageService(new ProzessKettenVorlageService());
-    }
-
-    @Test
-    void testSetAuftragsLogsService() {
-        auftragService.setAuftragsLogsService(new AuftragsLogsService());
-    }
-
-    @Test
-    void testSetProzessSchrittZustandsAutomatService() {
-        auftragService.setProzessSchrittZustandsAutomatService(new ProzessSchrittZustandsAutomatService());
-    }
-
-    @Test
-    void testSetProzessSchrittLogService() {
-        auftragService.setProzessSchrittLogService(new ProzessSchrittLogService());
-    }
-
-    @Test
-    void testSetProzessSchrittDAO() {
-        auftragService.setProzessSchrittDAO(new ProzessSchrittDAO());
-    }
-
-    @Test
-    void testSetAuftrag() {
-        auftragService.setAuftrag(new Auftrag());
-    }
-
-    @Test
-    void testEquals() {
-        when(auftragDAO.getAll()).thenReturn(Arrays.<Auftrag>asList(new Auftrag()));
-
-        boolean result = auftragService.equals(auftragService);
-        Assertions.assertEquals(true, result);
-    }
-
-    @Test
-    void testCanEqual() {
-        boolean result = auftragService.canEqual(auftragService);
-        Assertions.assertEquals(true, result);
-    }
-
-    @Test
-    void testToString() {
-        when(auftragDAO.getAll()).thenReturn(Arrays.<Auftrag>asList(new Auftrag()));
-
-        String result = auftragService.toString();
-        Assertions.assertEquals("AuftragService(auftrage=[Auftrag: 0]," +
-                " transportAuftragDAO=null," +
-                " auftragDAO=auftragDAO," +
-                " prozessKettenVorlageService=prozessKettenVorlageService," +
-                " auftragsLogsService=auftragsLogsService," +
-                " prozessSchrittDAO=prozessSchrittDAO," +
-                " prozessSchrittZustandsAutomatService=prozessSchrittZustandsAutomatService," +
-                " prozessSchrittLogService=prozessSchrittLogService," +
-                " standortService=null, auftrag=auftrag, probeDao=null)", result);
-    }
+//    @Test
+//    void testSetProzessKettenVorlageService() {
+//        auftragService.setProzessKettenVorlageService(new ProzessKettenVorlageService());
+//    }
+//
+//    @Test
+//    void testSetAuftragsLogsService() {
+//        auftragService.setAuftragsLogsService(new AuftragsLogsService());
+//    }
+//
+//    @Test
+//    void testSetProzessSchrittZustandsAutomatService() {
+//        auftragService.setProzessSchrittZustandsAutomatService(new ProzessSchrittZustandsAutomatService());
+//    }
+//
+//    @Test
+//    void testSetProzessSchrittLogService() {
+//        auftragService.setProzessSchrittLogService(new ProzessSchrittLogService());
+//    }
+//
+//    @Test
+//    void testSetProzessSchrittDAO() {
+//        auftragService.setProzessSchrittDAO(new ProzessSchrittDAO());
+//    }
+//
+//    @Test
+//    void testSetAuftrag() {
+//        auftragService.setAuftrag(new Auftrag());
+//    }
+//
+//    @Test
+//    void testEquals() {
+//        when(auftragDAO.getAll()).thenReturn(Arrays.<Auftrag>asList(new Auftrag()));
+//
+//        boolean result = auftragService.equals(auftragService);
+//        Assertions.assertEquals(true, result);
+//    }
+//
+//    @Test
+//    void testCanEqual() {
+//        boolean result = auftragService.canEqual(auftragService);
+//        Assertions.assertEquals(true, result);
+//    }
+//
+//    @Test
+//    void testToString() {
+//        when(auftragDAO.getAll()).thenReturn(Arrays.<Auftrag>asList(new Auftrag()));
+//
+//        String result = auftragService.toString();
+//        Assertions.assertEquals("AuftragService(auftrage=[Auftrag: 0]," +
+//                " transportAuftragDAO=null," +
+//                " auftragDAO=auftragDAO," +
+//                " prozessKettenVorlageService=prozessKettenVorlageService," +
+//                " auftragsLogsService=auftragsLogsService," +
+//                " prozessSchrittDAO=prozessSchrittDAO," +
+//                " prozessSchrittZustandsAutomatService=prozessSchrittZustandsAutomatService," +
+//                " prozessSchrittLogService=prozessSchrittLogService," +
+//                " standortService=null, auftrag=auftrag, probeDao=null)", result);
+//    }
 }

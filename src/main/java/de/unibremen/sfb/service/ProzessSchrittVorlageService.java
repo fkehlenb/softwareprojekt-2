@@ -91,7 +91,7 @@ public class ProzessSchrittVorlageService implements Serializable {
     public List<ProzessSchritt> darftBearbeiten() {
         var r = new ArrayList<ProzessSchritt>();
         for (Auftrag a :
-                auftragService.getAuftrage()) {
+                auftragService.getAll()) {
             istBearbeitbar(r, a);
         }
         return r;

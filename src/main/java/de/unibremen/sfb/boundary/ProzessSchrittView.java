@@ -93,6 +93,12 @@ public class ProzessSchrittView implements Serializable {
     /** Experimenting station */
     private ExperimentierStation experimentierStation;
 
+    /** Urformend */
+    private boolean urformend = false;
+
+    /** If urformend, amount of created samples */
+    private int amountCreated = 0;
+
     /**
      * Init called on bean initialization
      */
@@ -117,10 +123,11 @@ public class ProzessSchrittView implements Serializable {
             int id = selectedProzessSchrittVorlage.getPsVID();
             ProzessSchrittVorlage prozessSchrittVorlage = prozessSchrittVorlageService.getByID(id);
             ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(),
-                    prozessSchrittVorlage.getZustandsAutomatVorlage().getZustaende().get(0), prozessSchrittVorlage.getZustandsAutomatVorlage());
+                    prozessSchrittVorlage.getZustandsAutomatVorlage().getZustaende().get(0), prozessSchrittVorlage.getZustandsAutomatVorlage().getZustaende());
             ProzessSchrittLog prozessSchrittLog = new ProzessSchrittLog(LocalDateTime.now(),"ERSTELLT");
             ProzessSchritt prozessSchritt = new ProzessSchritt(UUID.randomUUID().hashCode(),prozessSchrittZustandsAutomat,prozessSchrittVorlage.getDauer(),
-                    prozessSchrittVorlage.getProzessSchrittParameters(),prozessSchrittVorlage.getExperimentierStation(),prozessSchrittAttribute,prozessSchrittLog,prozessSchrittName);
+                    prozessSchrittVorlage.getProzessSchrittParameters(),prozessSchrittVorlage.getExperimentierStation(),prozessSchrittAttribute,prozessSchrittLog,prozessSchrittName,
+                    prozessSchrittVorlage.isUrformend(),prozessSchrittVorlage.getAmountCreated());
             prozessSchrittZustandsAutomatService.add(prozessSchrittZustandsAutomat);
             prozessSchrittLogService.add(prozessSchrittLog);
             prozessSchrittService.createPS(prozessSchritt);
@@ -142,10 +149,12 @@ public class ProzessSchrittView implements Serializable {
             if (prozessSchritt.getProzessSchrittZustandsAutomat().getCurrent().equals("Erstellt")){
                 prozessSchritt.setName(prozessSchrittName);
                 prozessSchritt.setDuration(psDuration);
-                ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(),selectedProzessSchrittZustandsAutomatVorlage.getZustaende().get(0),selectedProzessSchrittZustandsAutomatVorlage);
+                ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(),selectedProzessSchrittZustandsAutomatVorlage.getZustaende().get(0),selectedProzessSchrittZustandsAutomatVorlage.getZustaende());
                 prozessSchritt.setProzessSchrittZustandsAutomat(prozessSchrittZustandsAutomat);
                 prozessSchritt.setExperimentierStation(experimentierStation);
                 prozessSchritt.setAttribute(prozessSchrittAttribute);
+                prozessSchritt.setUrformend(urformend);
+                prozessSchritt.setAmountCreated(amountCreated);
                 // PROZESSSCHRITTPARAMETER FEHLEN
                 prozessSchrittZustandsAutomatService.add(prozessSchrittZustandsAutomat);
                 prozessSchrittService.editPS(prozessSchritt);

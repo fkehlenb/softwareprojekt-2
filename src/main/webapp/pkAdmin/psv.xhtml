@@ -108,6 +108,15 @@
                                         </p:selectOneMenu>
                                     </p:column>
                                     <p:column colspan="1">
+                                        <h:outputText value="Urformend?"/>
+                                    </p:column>
+                                    <p:column colspan="1">
+                                        <p:selectBooleanCheckbox value="#{psvErstellenBean.urformend}"/>
+                                        <p:inputText value="#{psvErstellenBean.amountCreated}" placeholder="Anzahl Erstellt"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column colspan="1">
                                         <p:commandButton value="Reset" type="reset" icon="pi pi-trash"/>
                                     </p:column>
                                     <p:column colspan="1">
@@ -123,7 +132,8 @@
                 <p:row>
                     <h:form id="form">
                         <p:growl id="msgs" showDetail="true" sticky="true"/>
-                        <p:dataTable id="PSVList" var="psv" value="#{psvErstellenBean.availableProzessSchrittVorlageList}"
+                        <p:dataTable id="PSVList" var="psv"
+                                     value="#{psvErstellenBean.availableProzessSchrittVorlageList}"
                                      editable="true"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                                      paginator="true" rows="15" style="margin-bottom:20px">>

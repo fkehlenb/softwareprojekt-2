@@ -8,6 +8,7 @@ import de.unibremen.sfb.persistence.ProzessSchrittDAO;
 import de.unibremen.sfb.persistence.TransportAuftragDAO;
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
@@ -28,443 +29,51 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Getter
-@Data
+@Setter
 @Transactional
 public class AuftragService implements Serializable {
-    private List<Auftrag> auftrage;
 
+    /** Job DAO */
     @Inject
-    TransportAuftrag transportAuftrag;
+    private AuftragDAO auftragDAO;
 
-    @Inject
-    TransportAuftragDAO transportAuftragDAO;
-
-    @Inject
-    AuftragDAO auftragDAO;
-
-    @Inject
-    ProzessKettenVorlageService prozessKettenVorlageService;
-
-    @Inject
-    AuftragsLogsService auftragsLogsService;
-
-    @Inject
-    private ProzessSchrittDAO prozessSchrittDAO;
-
-    @Inject
-    private ProzessSchrittZustandsAutomatService prozessSchrittZustandsAutomatService;
-
-    @Inject
-    private ProzessSchrittLogService prozessSchrittLogService;
-
-    @Inject
-    StandortService standortService;
-
-    private Auftrag auftrag;
-    @Inject
-    private ProbeDAO probeDao;
-
-    /**
-     * returns the ID of this Auftrag
-     *
-     * @return the ID
-     */
-    public int getID() {
-        return auftrag.getPkID();
+    /** Add a new job to the database
+     * @param a - the job to add
+     * @throws DuplicateAuftragException on failure */
+    public void add(Auftrag a) throws DuplicateAuftragException{
+        auftragDAO.persist(a);
     }
 
-    /**
-     * return the ProzessKettenVorlage which was used to instantiate this Auftrag
-     *
-     * @return the ProzessKettenVorlage
-     */
-    public ProzessKettenVorlage getPKV() {
-        return auftrag.getVorlage();
-    }
-
-    /**
-     * return the protocol of this Auftrag that was created thus far
-     *
-     * @return the protocol
-     */
-    public AuftragsLog getLog() {
-        return auftrag.getLog();
-    }
-
-
-    /**
-     * sets the protocol of this Auftrag
-     *
-     * @param al the new protocol
-     */
-    public void setLog(AuftragsLog al) {
-        auftrag.setLog(al);
-    }
-
-    /**
-     * returns the current Zustand (state) of this Auftrag
-     * possible values: Instanziiert (instantiated), Freigegeben (enabled), Gestartet (started),
-     * Abgebrochen (canceled), Durchgefuehrt (carried out)
-     *
-     * @return the current Zustand
-     */
-    public Enum<ProzessKettenZustandsAutomat> getPKZ() {
-        return auftrag.getProzessKettenZustandsAutomat();
-    }
-
-    //        public List<Probe> getProbenByStandort(Standort s) {
-//        return proben.stream()
-//                .filter(e -> e.getStandort().equals(s))
-//                .collect(Collectors.toList());
-//    }
-
-//    public void setPKZ(Enum<ProzessKettenZustandsAutomat> pkz) {
-//        auftrag.setProzessKettenZustandsAutomat(pkz);
-//    }
-//
-//    /**
-//     * returns the current Prioritaet (priority) of this Auftrag
-//     * @return the current Prioritaet
-//     */
-//    public Enum<AuftragsPrioritaet> getPrio() {
-//        return auftrag.getPriority();
-//    }
-//
-//    /**
-//     * sets the current Prioritaet (priority) of this Auftrag
-//     */
-//    public void setPrio(Enum<AuftragsPrioritaet> prio) {
-//        auftrag.setPriority(prio);
-//    }
-//
-//    /**
-//     * returns the ProzessSchritte which the Auftrag consists of
-//     * @return a Set containing all ProzessSchritt
-//     */
-//    public List<ProzessSchritt> getPS() {
-//        return auftrag.getProzessSchritte();
-//    }
-//
-//
-
-    /**
-     * sets the current Prioritaet (priority) of this Auftrag
-     *
-     * @param prio the prio whih sould be set
-     */
-    public void setPrio(AuftragsPrioritaet prio) {
-        auftrag.setPriority(prio);
-    }
-
-    /**
-     * returns the ProzessSchritte which the Auftrag consists of
-     *
-     * @return a Set containing all ProzessSchritt
-     */
-    public List<ProzessSchritt> getPS() {
-        return auftrag.getProzessSchritte();
-    }
-
-    /**
-     * Setze den Zustand von Auftrag a auf p und persistiere
-     *
-     * @param a Der Auftrag
-     * @param p Der Zustand
-     * @throws AuftragNotFoundException falls es den Auftrag nicht gibt
-     */
-    public void zustandswechsel(Auftrag a, ProzessKettenZustandsAutomat p) throws AuftragNotFoundException {
-        a.setProzessKettenZustandsAutomat(p);
-        update(a);
-    }
-
-
-    // Hier beginnt der neue Service
-
-    @PostConstruct
-    public void init() {
-        auftrage = getAuftrage();
-    }
-
-    public List<Auftrag> getAuftrage() {
-        return auftragDAO.getAll();
-        // FIXME DAO Persistence LEo
-    }
-
-
-    /**
-     * Update an existing job in the database
-     *
-     * @param auftrag - the job to update
-     * @throws AuftragNotFoundException on failure
-     */
-    public void update(Auftrag auftrag) throws AuftragNotFoundException {
-        auftragDAO.update(auftrag);
-    }
-    /**
-     * Update an existing transport Job in the database
-     *
-     * @param transportAuftrag the transport job to update
-     * @throws TransportAuftragNotFoundException on failure
-     */
-    public void updateTransportZustand(TransportAuftrag transportAuftrag) throws TransportAuftragNotFoundException {
-        transportAuftragDAO.update(transportAuftrag);
-    }
-
-    /**
-     * Add a new job to the database
-     *
-     * @param auftrag - the job to add
-     * @throws DuplicateAuftragException on failure
-     */
-    public void add(Auftrag auftrag) throws DuplicateAuftragException {
-        auftragDAO.persist(auftrag);
-        auftrage.add(auftrag);
-    }
-
-    /**
-     * Bearbeiten der ProzessKettenVorlage
-     *
-     * @param auftrag der Auftrag der Bearbeitet wird
-     * @throws ProzessKettenVorlageNotFoundException falls die Vorlage nicht gefunden wird
-     */
-    public void edit(Auftrag auftrag) throws ProzessKettenVorlageNotFoundException {
-        var old = auftrage.stream().filter(p -> auftrag.getPkID() == p.getPkID()).findFirst().orElse(null);
-
-        if (Collections.replaceAll(auftrage, old, auftrag)) {
-            log.info("Succesful edit " + auftrag);
-        } else {
-            log.info("Failed to edit " + auftrag);
-        }
-    }
-
-    /**
-     * Loeschen von ProzessKettenVorlagen
-     *
-     * @param auftrags die Vorlagen
-     * @throws AuftragNotFoundException falls es diesen Auftrag nicht gibt
-     */
-    public void delete(List<Auftrag> auftrags) throws AuftragNotFoundException {
-        for (Auftrag auftrag :
-                auftrags) {
-            auftrage.remove(auftrag);
-            auftragDAO.remove(auftrag);
-        }
-    }
-
-    /**
-     * Converts all Auftraege tojson
-     *
-     * @return the json as a Sting
-     */
-    public String toJson() {
-        JsonbConfig config = new JsonbConfig()
-                .withFormatting(true);
-        Jsonb jsonb = JsonbBuilder.create(config);
-//        String result = jsonb.toJson(auftrage);
-        String result = "NO JSON";
-        log.info("Export von den Auftraegen\n" + result);
-        return result;
-    }
-
-    /**
-     *
-     * @param value - an int which gets the Job with it's id
-     * @return - return's the Object by id(value)
-     * @throws AuftragNotFoundException
-     */
-    public Auftrag getAuftrag(int value) throws AuftragNotFoundException {
-        return auftragDAO.getObjById(value);
-    }
-
-    /**
-     *
-     * @param value
-     * @return The TransportAuftag with the specified value
-     * @throws TransportAuftragNotFoundException
-     */
-    public TransportAuftrag getTransportAuftragByID(int value) throws TransportAuftragNotFoundException {
-        return transportAuftragDAO.getTransportAuftragById(value);
-    }
-
-    /**
-     * sets the status of a job
-     *
-     * @param a       the job
-     * @param zustand the new status
-     * @throws AuftragNotFoundException the job couldn't be found in the database
-     */
-    public void setAuftragsZustand(Auftrag a, Enum<ProzessKettenZustandsAutomat> zustand) throws AuftragNotFoundException {
-        a.setProzessKettenZustandsAutomat(zustand); //TODO wenn update in db fehlschlägt: Zustand zurücksetzen?
+    /** Update a job in the database
+     * @param a - the job to update
+     * @throws AuftragNotFoundException on failure */
+    public void update(Auftrag a) throws AuftragNotFoundException{
         auftragDAO.update(a);
     }
-    public void erstelleAuftrag(){
-        //Auftrag a = new Auftrag(420,new ProzessKettenVorlage());
+
+    /** Remove a job from the database
+     * @param a - the job to remove
+     * @throws AuftragNotFoundException on failure */
+    public void remove(Auftrag a) throws AuftragNotFoundException{
+        auftragDAO.remove(a);
+    }
+
+    /** Get a list of all jobs in the database
+     * @return a list of all jobs or an empty arraylist */
+    public List<Auftrag> getAll(){
+        return auftragDAO.getAll();
+    }
+
+    /** Get a job using its id
+     * @param id - the id of the job
+     * @return the job with a matching id
+     * @throws AuftragNotFoundException on failure */
+    public Auftrag getObjById(int id) throws AuftragNotFoundException{
+        return auftragDAO.getObjById(id);
+    }
+
+    /** Serialize a job to json */
+    public void json(){
 
     }
-//
-//    /*
-//      Bestimme was der naechste Prozessschritt ist, der noch nicht ausgefuehrt wurde
-//      Es ist wichtig das der aktuell durchgefuehrte Schritt nicht den Zustand angenommen hat
-//
-//      @param a Auftrag
-//     * @return Der naechste ProzessSchritt
-//     */
-////    public ProzessSchritt getNextPS(Auftrag a) {
-////        return a.getProzessSchritte().stream()
-////                .filter((p) -> "Angenommen".equals(p.getProzessSchrittVorlage().getZustandsAutomat().getCurrent()))
-////                .findFirst()
-////                .orElse(null);
-////    }
-//
-//    /**
-//     * Weise einen Auftrag Proben zu
-//     * Vorgehen:
-//     * Wir kennen den Auftrag, vieleicht gibt es eine Liste von Proben die wir dem Auftrag zuweisen wollen
-//     * oder die Proben muessen erst erstellt werden
-//     * Dies finden wir raus, in dem wir prüfen, ob es der Erste PS die PS Art erstellend ist
-//     *   falls er erstellen ist, muessen wir die Proben erzeugen
-//     *   ansonsten nehmen wir die proben und weisen dem auftrag proben zu
-//     *
-//     * @param auftrag der Auftrag
-//     * @return der Auftrag mit den neuen Proben
-//     */
-////    public Auftrag traegerZuweisen(@org.jetbrains.annotations.NotNull Auftrag auftrag, Traeger t) throws AuftragNotFoundException, DuplicateProbeException {
-////            auftrag.setTraeger(t);
-////
-////        Standort lager = null;
-////        int i = 0;
-//////        for (Bedingung b :
-////          //      auftrag.getProzessSchritte().get(0).getProzessSchrittVorlage().getBedingungen()) {
-////            try {
-////                lager = standortService.findByLocation("lager");
-////            } catch (StandortNotFoundException e) {
-////                e.printStackTrace();
-////            }
-////            if (auftrag.getProzessSchritte().get(0).getProzessSchrittVorlage().getPsArt().equals("ERZEUGEND")) {
-////                for (ProzessSchritt ps :
-////                        auftrag.getProzessSchritte()) {
-//           //         ps.setZugewieseneProben(erzeugeProbenNachBeding(b, lager, startID + i++));
-//                }
-////                for (ProzessSchritt ps :
-////                        auftrag.getProzessSchritte()) {
-//////                    ps.setZugewieseneProben(erzeugeProbenNachBeding(b, lager, startID + i++));
-////
-////                }
-////            } else {
-//////                for (ProzessSchritt ps :
-//////                        auftrag.getProzessSchritte()) {
-//////                    ps.setZugewieseneProben(proben);
-//////                }
-//////            }
-//////        }
-//////            auftragDAO.update(auftrag);
-//////            return auftrag;
-////    }
-//
-//
-//    /**
-//     * Hole Alle ProzessSchritte die als Transport Zustand ERSTELLT haben
-//     *
-//     * @return alle ps fuer den Transport
-//     */
-////    public List<ProzessSchritt> getTransportSchritt() {
-////        var s = new HashSet<ProzessSchritt>();
-////        var pp=getAuftrage();
-////        for (Auftrag a :
-////                pp) {
-////            s.addAll(a.getProzessSchritte().stream()
-////                    .filter(p ->(p.getTransportAuftrag() !=null) && (p.getTransportAuftrag().getZustandsAutomat() == TransportAuftragZustand.ERSTELLT))
-////                    .collect(Collectors.toSet()));
-////        }
-////        return s.isEmpty() ? new ArrayList<>() : List.copyOf(s);
-////    }
-////
-////    public List<ProzessSchritt> getTransportSchritt2() {
-////        var s = new HashSet<ProzessSchritt>();
-////        for (Auftrag a :
-////                getAuftrage()) {
-////            s.addAll(a.getProzessSchritte().stream()
-////                    .filter(p ->(p.getTransportAuftrag() !=null) && p.getTransportAuftrag().getZustandsAutomat() == TransportAuftragZustand.ABGEHOLT)
-////                    .collect(Collectors.toSet()));
-////        }
-////        return s.isEmpty() ? new ArrayList<>() : List.copyOf(s);
-////    }
-//
-//
-////    public Auftrag erstelleAuftrag(ProzessKettenVorlage ausPKV, AuftragsPrioritaet ausPrio) {
-////        // Auftrags Log
-////        AuftragsLog aLog = new AuftragsLog(LocalDateTime.now());
-////        aLog.setErstellt(LocalDateTime.now());
-////        try {
-////            log.info("Try to persist AuftragsLog " + aLog.toString());
-////            auftragsLogsService.add(aLog);
-////        } catch (DuplicateAuftragsLogException e) {
-////            log.error(e.getMessage());
-////            e.printStackTrace();
-////            log.error(e.getMessage());
-////        }
-////
-////        var pk = new Auftrag(UUID.randomUUID().hashCode(), ausPKV, ausPrio, erstelePS(ausPKV.getProzessSchrittVorlagen()),
-////                aLog, ProzessKettenZustandsAutomat.INSTANZIIERT);
-////        try {
-////            add(pk);
-////        } catch (DuplicateAuftragException e) {
-////            e.printStackTrace();
-////            log.error(e.getMessage());
-////        }
-////        return pk;
-////    }
-//
-////    public List<ProzessSchritt> erstelePS(List<ProzessSchrittVorlage> psvListe) {
-////        var r = new ArrayList<ProzessSchritt>();
-////
-////        for (ProzessSchrittVorlage psv :
-////                psvListe) {
-////            var psAutomat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "Erstellt", psv.getZustandsAutomatVorlage());
-////            try {
-////                log.info("Try to persist pkAutomat " + psAutomat.getId());
-////                prozessSchrittZustandsAutomatService.add(psAutomat);
-////            } catch (DuplicateProzessSchrittZustandsAutomatException e) {
-////                e.printStackTrace();
-////                log.error(e.getMessage());
-////            }
-////
-////            // Logs
-////            var l = new ProzessSchrittLog(LocalDateTime.now(), psAutomat.getCurrent());
-////            try {
-////                prozessSchrittLogService.add(l);
-////            } catch (DuplicateProzessSchrittLogException e) {
-////                e.printStackTrace();
-////                log.error(e.getMessage());
-////            }
-////
-////            // Transport Auftrag // FIXME
-////
-////            // PS erstellen
-////           // var ps = new ProzessSchritt(UUID.randomUUID().hashCode(), List.of(l), psv, psAutomat);
-//////            try {
-//////                prozessSchrittDAO.persist(ps);
-//////            } catch (DuplicateProzessSchrittException e) {
-//////                e.printStackTrace();
-//////                log.error(e.getMessage());
-//////            }
-//////            r.add(ps);
-////        }
-////        return r;
-////    }
-//
-//
-////    public void sedTransportZustandAbgeholt(TransportAuftrag t) throws TransportAuftragNotFoundException {
-////        t.setZustandsAutomat(TransportAuftragZustand.ABGEHOLT);
-////        t.setAbgeholt(LocalDateTime.now());
-////        updateTransportZustand(t);
-////    }
-////
-////    public void sedTransportZustandAbgeliefert(TransportAuftrag t) throws TransportAuftragNotFoundException {
-////        t.setZustandsAutomat(TransportAuftragZustand.ABGELIEFERT);
-////        t.setAbgeholt(LocalDateTime.now());
-////        updateTransportZustand(t);
-////    }
-
-
 }
