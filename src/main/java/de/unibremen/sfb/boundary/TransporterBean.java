@@ -42,19 +42,19 @@ public class TransporterBean implements Serializable {
 
     @PostConstruct
     void init(){
-        ps = auftragService.getTransportSchritt();
-        ps2 = auftragService.getTransportSchritt2();
+//        ps = auftragService.getTransportSchritt();
+//        ps2 = auftragService.getTransportSchritt2();
 
     }
 
-    /**
-     * returns all jobs available to the transporter
-     * @return a set containing all those jobs
-     */
-    public List<ProzessSchritt> getAuftragList() {
-
-        return auftragService.getTransportSchritt();
-    }
+//    /**
+//     * returns all jobs available to the transporter
+//     * @return a set containing all those jobs
+//     */
+//    public List<ProzessSchritt> getAuftragList() {
+//
+//        return auftragService.getTransportSchritt();
+//    }
 
     /**
      * sets the status of the job this transporter is currently working on
@@ -62,7 +62,7 @@ public class TransporterBean implements Serializable {
     public void changeTransportZustandAbgeholt(int TransportID) {
       try {
           TransportAuftrag tr = auftragService.getTransportAuftragByID(TransportID);
-          auftragService.sedTransportZustandAbgeholt(tr);
+//          auftragService.sedTransportZustandAbgeholt(tr);
           log.info("TransportAuftragZustand wurde gewechselt auf Abgeholt " + TransportID);
           facesNotification("Der Zustand von " + TransportID + " wurde auf Abgeholt gesetzt.");
           updateTabellen();
@@ -81,7 +81,7 @@ public class TransporterBean implements Serializable {
     public void changeTransportZustandAbgeliefert(int TransportID) {
         try {
             TransportAuftrag tr = auftragService.getTransportAuftragByID(TransportID);
-            auftragService.sedTransportZustandAbgeliefert(tr);
+//            auftragService.sedTransportZustandAbgeliefert(tr);
             log.info("TransportAuftragZustand wurde gewechselt auf Abgeliefert " + TransportID);
             facesNotification("Der Zustand von " + TransportID + " wurde auf Abgeliefert gesetzt.");
             updateTabellen();
@@ -134,8 +134,8 @@ public class TransporterBean implements Serializable {
      * Aktualisiert die Tabellen
      */
     public void updateTabellen() {
-        ps = auftragService.getTransportSchritt();
-        ps2 = auftragService.getTransportSchritt2();
+//        ps = auftragService.getTransportSchritt();
+//        ps2 = auftragService.getTransportSchritt2();
         PrimeFaces.current().ajax().update("content-panel:content-panel");
     }
 

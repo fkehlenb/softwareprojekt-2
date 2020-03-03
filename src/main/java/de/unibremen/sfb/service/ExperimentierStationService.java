@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-@Startup
 @Getter
 @Transactional
 public class ExperimentierStationService implements Serializable {

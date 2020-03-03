@@ -40,91 +40,109 @@
                 <p:row>
                     <h2 style="color: cornflowerblue">#{msg['AuftragsuebersichtHead.jsf']}</h2>
                 </p:row>
-                <p:row>
-                    <p>#{msg['AuftragsuebersichtText.jsf']}</p>
-                </p:row>
 
-                    <h:form id="form">
-                        <p:messages id="messages"/>
 
-                        <p:dataTable id="table" var="auftrag" value="#{dtAuftragBean.auftrage}" widgetVar="table"
-                                     multiViewState="true"
-                                     rows="10" paginator="true"
-                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                     rowsPerPageTemplate="5,10,15"
-                                     selectionMode="single" selection="#{dtAuftragBean.selected}"
-                                     rowKey="#{auftrag.pkID}"
-                                     emptyMessage="Keine Aufträge gefunden!"
-                                     filteredValue="#{dtAuftragBean.filteredAuftrag}">
+                <h:form id="form3">
+                    <p:panelGrid>
+                        <p:row>
+                            <p>#{msg['AuftragsuebersichtText.jsf']}</p>
 
-                            <f:facet name="header">
-                                <p:outputPanel>
-                                    <h:outputText value="Search all fields:"/>
-                                    <p:inputText id="globalFilter" onkeyup="PF('table').filter()" style="width:150px"
-                                                 placeholder="Enter keyword"/>
-                                </p:outputPanel>
+                            <p:column colspan="1">
+                                <p:inputText placeholder="#{msg['AblehnMessage.jsf']}" required="true"
+                                             requiredMessage="#{msg['RequiredMessageLogistik.jsf']}"
+                                             value="#{dtLogistikerBean.errorMessage}"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="1">
+                                <p:commandButton value="#{msg['reset.jsf']}" type="reset" ajax="true" update="form"/>
+                            </p:column>
+
+                        </p:row>
+                    </p:panelGrid>
+                </h:form>
+
+
+                <h:form id="form">
+                    <p:messages id="messages"/>
+
+                    <p:dataTable id="table" var="auftrag" value="#{dtAuftragBean.auftrage}" widgetVar="table"
+                                 multiViewState="true"
+                                 rows="10" paginator="true"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15"
+                                 selectionMode="single" selection="#{dtAuftragBean.selected}"
+                                 rowKey="#{auftrag.pkID}"
+                                 emptyMessage="Keine Aufträge gefunden!"
+                                 filteredValue="#{dtAuftragBean.filteredAuftrag}">
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Search all fields:"/>
+                                <p:inputText id="globalFilter" onkeyup="PF('table').filter()" style="width:150px"
+                                             placeholder="Enter keyword"/>
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:ajax event="rowSelect" update=":form:table"/>
+                        <p:column headerText="Id" filterBy="#{auftrag.pkID}" sortBy="#{auftrag.pkID}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{auftrag.pkID}"/>
+                        </p:column>
+
+                        <p:column headerText="Prozessschritte" style="width: 250px">
+
+                            <h:outputText value="#{auftrag.errorMessage}"/>
+                        </p:column>
+
+                        <p:column headerText="Prioritäten" filterBy="#{auftrag.priority}"
+                                  sortBy="#{auftrag.priority}"
+                                  filterMatchMode="exact">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('table').filter()"
+                                                 style="width:100%; box-sizing: border-box;">
+                                    <f:selectItem itemLabel="Select One" itemValue="#{null}"
+                                                  noSelectionOption="true"/>
+                                    <f:selectItems value="#{dtAuftragBean.prios}"/>
+                                </p:selectOneMenu>
                             </f:facet>
+                            <h:outputText value="#{auftrag.priority}"/>
+                        </p:column>
 
-                            <p:ajax event="rowSelect" update=":form:table"/>
-                            <p:column headerText="Id" filterBy="#{auftrag.pkID}" sortBy="#{auftrag.pkID}"
-                                      filterMatchMode="contains">
-                                <h:outputText value="#{auftrag.pkID}"/>
-                            </p:column>
-
-                            <p:column headerText="Prozessschritte" style="width: 250px">
-
-                                <h:outputText value="#{auftrag.errorMessage}"/>
-                            </p:column>
-
-                            <p:column headerText="Prioritäten" filterBy="#{auftrag.priority}"
-                                      sortBy="#{auftrag.priority}"
-                                      filterMatchMode="exact">
-                                <f:facet name="filter">
-                                    <p:selectOneMenu onchange="PF('table').filter()"
-                                                     style="width:100%; box-sizing: border-box;">
-                                        <f:selectItem itemLabel="Select One" itemValue="#{null}"
-                                                      noSelectionOption="true"/>
-                                        <f:selectItems value="#{dtAuftragBean.prios}"/>
-                                    </p:selectOneMenu>
-                                </f:facet>
-                                <h:outputText value="#{auftrag.priority}"/>
-                            </p:column>
-
-                            <p:column headerText="Zustand" filterBy="#{auftrag.prozessKettenZustandsAutomat}"
-                                      sortBy="#{auftrag.prozessKettenZustandsAutomat}" filterMatchMode="exact">
-                                <f:facet name="filter">
-                                    <p:selectOneMenu onchange="PF('table').filter()"
-                                                     style="width:100%; box-sizing: border-box;">
-                                        <f:selectItem itemLabel="Select One" itemValue="#{null}"
-                                                      noSelectionOption="true"/>
-                                        <f:selectItems value="#{dtAuftragBean.prozessKettenZustandsAutomatList}"/>
-                                    </p:selectOneMenu>
-                                </f:facet>
-                                <h:outputText ajax="true" update="form:form"
-                                              value="#{auftrag.prozessKettenZustandsAutomat}"/>
-                            </p:column>
-
-                            <p:column>
-
-                                <p:inputText value="#{dtLogistikerBean.errorMessage}" placeholder="error"/>
-                                <p:commandButton style="width: 175px" value="Ablehnen" ajax="true"
-                                                 action="#{dtLogistikerBean.refuseAuftrag(auftrag.pkID)}"
-                                                 icon="pi pi-ban" update="form"/>
-
-                                <br/>
-                                <p:commandButton style="width: 175px" value="Annehmen" ajax="true"
-                                                 action="#{dtLogistikerBean.startAuftrag(auftrag.pkID)}"
-                                                 icon="pi pi-check" update="form"/>
-
-                            </p:column>
-
-
-                            <f:facet name="paginatorTopLeft">
-                                <p:commandButton value="Clear table state" action="#{dtAuftragBean.clearTableState}"
-                                                 update="form:table"/>
+                        <p:column headerText="Zustand" filterBy="#{auftrag.prozessKettenZustandsAutomat}"
+                                  sortBy="#{auftrag.prozessKettenZustandsAutomat}" filterMatchMode="exact">
+                            <f:facet name="filter">
+                                <p:selectOneMenu onchange="PF('table').filter()"
+                                                 style="width:100%; box-sizing: border-box;">
+                                    <f:selectItem itemLabel="Select One" itemValue="#{null}"
+                                                  noSelectionOption="true"/>
+                                    <f:selectItems value="#{dtAuftragBean.prozessKettenZustandsAutomatList}"/>
+                                </p:selectOneMenu>
                             </f:facet>
-                        </p:dataTable>
-                    </h:form>
+                            <h:outputText ajax="true" update="form:form"
+                                          value="#{auftrag.prozessKettenZustandsAutomat}"/>
+                        </p:column>
+
+                        <p:column>
+
+                            <p:commandButton style="width: 175px" value="Ablehnen" ajax="true"
+                                             action="#{dtLogistikerBean.refuseAuftrag(auftrag.pkID)}"
+                                             icon="pi pi-ban" update="form"/>
+
+                            <br/>
+                            <p:commandButton style="width: 175px" value="Annehmen" ajax="true"
+                                             action="#{dtLogistikerBean.startAuftrag(auftrag.pkID)}"
+                                             icon="pi pi-check" update="form"/>
+
+                        </p:column>
+
+
+                        <f:facet name="paginatorTopLeft">
+                            <p:commandButton value="Clear table state" action="#{dtAuftragBean.clearTableState}"
+                                             update="form:table"/>
+                        </f:facet>
+                    </p:dataTable>
+                </h:form>
 
             </p:panelGrid>
         </div>

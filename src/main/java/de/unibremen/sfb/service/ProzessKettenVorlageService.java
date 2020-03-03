@@ -6,6 +6,7 @@ import de.unibremen.sfb.model.ProzessKettenVorlage;
 import de.unibremen.sfb.model.ProzessSchrittVorlage;
 import de.unibremen.sfb.persistence.ProzessKettenVorlageDAO;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,120 +16,64 @@ import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.*;
 
-/**
- * this class manages the interaction with models of process chain templates (ProzessKettenVorlage)
- */
-@Singleton
 @Slf4j
 @Getter
+@Setter
 public class ProzessKettenVorlageService implements Serializable {
-    private ArrayList<ProzessKettenVorlage> pkVorlagen;
-    private List<ProzessSchrittVorlage> psVorlagen;
-
-    @Inject
-    ProzessKettenVorlageDAO pkvDAO;
-
-    @Inject
-    ProzessSchrittVorlageService prozessSchrittVorlageService;
-
-    @Inject
-    ProzessKettenVorlageService prozessKettenVorlageService;
-
-    @PostConstruct
-    public void init() {
-        psVorlagen = prozessSchrittVorlageService.getVorlagen();
-        pkVorlagen = getPkVorlagen();
-    }
-
-    private List<ProzessKettenVorlage> erstellePKV() {
-        return List.of(new ProzessKettenVorlage(UUID.randomUUID().hashCode(), psVorlagen));
-    }
-
-    public ProzessKettenVorlage getPKV(int id) {
-        ProzessKettenVorlage result = null;
-        try {
-            result = pkvDAO.getObjById(id);
-        } catch (ProzessKettenVorlageNotFoundException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    public List<ProzessKettenVorlage> getProzessKettenVorlagen() {
-        try {
-            return pkvDAO.getAll();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ArrayList<>();
-    }
 
     /**
-     * Persistieren der ProzessKettenVorlage
+     * Process chain template dao
+     */
+    @Inject
+    private ProzessKettenVorlageDAO prozessKettenVorlageDAO;
+
+    /**
+     * Add a new process chain template to the database
      *
-     * @param pkv die Vorlage
-     * @throws DuplicateProzessKettenVorlageException falls es sie schon gibt
+     * @param pkv - the process chain template to add
+     * @throws DuplicateProzessKettenVorlageException on failure
      */
     public void persist(ProzessKettenVorlage pkv) throws DuplicateProzessKettenVorlageException {
-        pkvDAO.persist(pkv);
-//        pkVorlagen.add(pkv);
-    }
-
-    public ProzessKettenVorlage ByID(int id) throws ProzessKettenVorlageNotFoundException {
-        try {
-            log.info("Trying to find a PSP by ID");
-            return pkvDAO.getObjById(id);
-        } catch (Exception e) {
-            log.info("Error ProzessKettenVorlageNotFoundException in PKVErstellenBean");
-            return null;
-        }
-
+        prozessKettenVorlageDAO.persist(pkv);
     }
 
     /**
-     * Bearbeiten der ProzessKettenVorlage
+     * Update a process chain template in the database
      *
-     * @param pkv die zu bearbeitende Experimentier Station
-     * @throws ProzessKettenVorlageNotFoundException falls nicht gefunden
+     * @param pkv - the process chain template to update
+     * @throws ProzessKettenVorlageNotFoundException on failure
      */
-    public void edit(ProzessKettenVorlage pkv) throws ProzessKettenVorlageNotFoundException {
-//        var old = pkVorlagen.stream().filter(p -> pkv.getPkID() == p.getPkID()).findFirst().orElse(null);
-//
-//        if (Collections.replaceAll(pkVorlagen, old, pkv)) {
-//            log.info("Succesful edit " + pkv);
-//        } else {
-//            log.info("Failed to edit " + pkv);
-//        }
-// }
-        try {
-            log.info("Trying try to update a PKV" + pkv + "Class=ProzessKettenVorlageService");
-            pkvDAO.update(pkv);
-        } catch (Exception e) {
-            log.info("Error try to update a PKV" + pkv + "Class=ProzessKettenVorlageService");
-        }
+    public void update(ProzessKettenVorlage pkv) throws ProzessKettenVorlageNotFoundException {
+        prozessKettenVorlageDAO.update(pkv);
     }
 
     /**
-     * Loeschen von ProzessKettenVorlagen
+     * Remove a process chain template from the database
      *
-     * @param pkvs die Vorlagen
+     * @param pkv - the process chain template to remove
+     * @throws ProzessKettenVorlageNotFoundException on failure
      */
-    @SneakyThrows
-    public void delete(List<ProzessKettenVorlage> pkvs) throws DuplicateProzessKettenVorlageException {
-        for (ProzessKettenVorlage pkv :
-                pkvs) {
-            pkvDAO.remove(pkv);
-        }
+    public void remove(ProzessKettenVorlage pkv) throws ProzessKettenVorlageNotFoundException {
+        prozessKettenVorlageDAO.remove(pkv);
     }
 
-
-    public List<ProzessKettenVorlage> getPKVs() {
-        try {
-            return pkvDAO.getAll();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ArrayList<>();
+    /**
+     * Get a process chain template using its id
+     *
+     * @param id - the process chain template id
+     * @return the process chain template with a matching id
+     * @throws ProzessKettenVorlageNotFoundException on failure
+     */
+    public ProzessKettenVorlage getObjById(int id) throws ProzessKettenVorlageNotFoundException {
+        return prozessKettenVorlageDAO.getObjById(id);
     }
 
+    /**
+     * Get all process chain templates from the database
+     *
+     * @return a list of all process chain templates or an empty arraylist
+     */
+    public List<ProzessKettenVorlage> getAll() {
+        return prozessKettenVorlageDAO.getAll();
+    }
 }

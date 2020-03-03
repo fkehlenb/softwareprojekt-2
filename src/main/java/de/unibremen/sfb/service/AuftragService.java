@@ -266,6 +266,12 @@ public class AuftragService implements Serializable {
         return result;
     }
 
+    /**
+     *
+     * @param value - an int which gets the Job with it's id
+     * @return - return's the Object by id(value)
+     * @throws AuftragNotFoundException
+     */
     public Auftrag getAuftrag(int value) throws AuftragNotFoundException {
         return auftragDAO.getObjById(value);
     }
@@ -291,171 +297,174 @@ public class AuftragService implements Serializable {
         a.setProzessKettenZustandsAutomat(zustand); //TODO wenn update in db fehlschlägt: Zustand zurücksetzen?
         auftragDAO.update(a);
     }
+    public void erstelleAuftrag(){
+        //Auftrag a = new Auftrag(420,new ProzessKettenVorlage());
 
-
-    /*
-      Bestimme was der naechste Prozessschritt ist, der noch nicht ausgefuehrt wurde
-      Es ist wichtig das der aktuell durchgefuehrte Schritt nicht den Zustand angenommen hat
-
-      @param a Auftrag
-     * @return Der naechste ProzessSchritt
-     */
-//    public ProzessSchritt getNextPS(Auftrag a) {
-//        return a.getProzessSchritte().stream()
-//                .filter((p) -> "Angenommen".equals(p.getProzessSchrittVorlage().getZustandsAutomat().getCurrent()))
-//                .findFirst()
-//                .orElse(null);
-//    }
-
-    /**
-     * Weise einen Auftrag Proben zu
-     * Vorgehen:
-     * Wir kennen den Auftrag, vieleicht gibt es eine Liste von Proben die wir dem Auftrag zuweisen wollen
-     * oder die Proben muessen erst erstellt werden
-     * Dies finden wir raus, in dem wir prüfen, ob es der Erste PS die PS Art erstellend ist
-     *   falls er erstellen ist, muessen wir die Proben erzeugen
-     *   ansonsten nehmen wir die proben und weisen dem auftrag proben zu
-     *
-     * @param auftrag der Auftrag
-     * @return der Auftrag mit den neuen Proben
-     */
-    public Auftrag traegerZuweisen(@org.jetbrains.annotations.NotNull Auftrag auftrag, Traeger t) throws AuftragNotFoundException, DuplicateProbeException {
-            auftrag.setTraeger(t);
-
-        Standort lager = null;
-        int i = 0;
-        for (Bedingung b :
-          //      auftrag.getProzessSchritte().get(0).getProzessSchrittVorlage().getBedingungen()) {
-            try {
-                lager = standortService.findByLocation("lager");
-            } catch (StandortNotFoundException e) {
-                e.printStackTrace();
-            }
-            if (auftrag.getProzessSchritte().get(0).getProzessSchrittVorlage().getPsArt().equals("ERZEUGEND")) {
-                for (ProzessSchritt ps :
-                        auftrag.getProzessSchritte()) {
-           //         ps.setZugewieseneProben(erzeugeProbenNachBeding(b, lager, startID + i++));
-                }
-//                for (ProzessSchritt ps :
-//                        auftrag.getProzessSchritte()) {
-////                    ps.setZugewieseneProben(erzeugeProbenNachBeding(b, lager, startID + i++));
+    }
 //
+//    /*
+//      Bestimme was der naechste Prozessschritt ist, der noch nicht ausgefuehrt wurde
+//      Es ist wichtig das der aktuell durchgefuehrte Schritt nicht den Zustand angenommen hat
+//
+//      @param a Auftrag
+//     * @return Der naechste ProzessSchritt
+//     */
+////    public ProzessSchritt getNextPS(Auftrag a) {
+////        return a.getProzessSchritte().stream()
+////                .filter((p) -> "Angenommen".equals(p.getProzessSchrittVorlage().getZustandsAutomat().getCurrent()))
+////                .findFirst()
+////                .orElse(null);
+////    }
+//
+//    /**
+//     * Weise einen Auftrag Proben zu
+//     * Vorgehen:
+//     * Wir kennen den Auftrag, vieleicht gibt es eine Liste von Proben die wir dem Auftrag zuweisen wollen
+//     * oder die Proben muessen erst erstellt werden
+//     * Dies finden wir raus, in dem wir prüfen, ob es der Erste PS die PS Art erstellend ist
+//     *   falls er erstellen ist, muessen wir die Proben erzeugen
+//     *   ansonsten nehmen wir die proben und weisen dem auftrag proben zu
+//     *
+//     * @param auftrag der Auftrag
+//     * @return der Auftrag mit den neuen Proben
+//     */
+////    public Auftrag traegerZuweisen(@org.jetbrains.annotations.NotNull Auftrag auftrag, Traeger t) throws AuftragNotFoundException, DuplicateProbeException {
+////            auftrag.setTraeger(t);
+////
+////        Standort lager = null;
+////        int i = 0;
+//////        for (Bedingung b :
+////          //      auftrag.getProzessSchritte().get(0).getProzessSchrittVorlage().getBedingungen()) {
+////            try {
+////                lager = standortService.findByLocation("lager");
+////            } catch (StandortNotFoundException e) {
+////                e.printStackTrace();
+////            }
+////            if (auftrag.getProzessSchritte().get(0).getProzessSchrittVorlage().getPsArt().equals("ERZEUGEND")) {
+////                for (ProzessSchritt ps :
+////                        auftrag.getProzessSchritte()) {
+//           //         ps.setZugewieseneProben(erzeugeProbenNachBeding(b, lager, startID + i++));
 //                }
-            } else {
-//                for (ProzessSchritt ps :
-//                        auftrag.getProzessSchritte()) {
-//                    ps.setZugewieseneProben(proben);
-//                }
-            }
-        }
-            auftragDAO.update(auftrag);
-            return auftrag;
-    }
-
-
-    /**
-     * Hole Alle ProzessSchritte die als Transport Zustand ERSTELLT haben
-     *
-     * @return alle ps fuer den Transport
-     */
-    public List<ProzessSchritt> getTransportSchritt() {
-        var s = new HashSet<ProzessSchritt>();
-        var pp=getAuftrage();
-        for (Auftrag a :
-                pp) {
-            s.addAll(a.getProzessSchritte().stream()
-                    .filter(p ->(p.getTransportAuftrag() !=null) && (p.getTransportAuftrag().getZustandsAutomat() == TransportAuftragZustand.ERSTELLT))
-                    .collect(Collectors.toSet()));
-        }
-        return s.isEmpty() ? new ArrayList<>() : List.copyOf(s);
-    }
-
-    public List<ProzessSchritt> getTransportSchritt2() {
-        var s = new HashSet<ProzessSchritt>();
-        for (Auftrag a :
-                getAuftrage()) {
-            s.addAll(a.getProzessSchritte().stream()
-                    .filter(p ->(p.getTransportAuftrag() !=null) && p.getTransportAuftrag().getZustandsAutomat() == TransportAuftragZustand.ABGEHOLT)
-                    .collect(Collectors.toSet()));
-        }
-        return s.isEmpty() ? new ArrayList<>() : List.copyOf(s);
-    }
-
-
-    public Auftrag erstelleAuftrag(ProzessKettenVorlage ausPKV, AuftragsPrioritaet ausPrio) {
-        // Auftrags Log
-        AuftragsLog aLog = new AuftragsLog(LocalDateTime.now());
-        aLog.setErstellt(LocalDateTime.now());
-        try {
-            log.info("Try to persist AuftragsLog " + aLog.toString());
-            auftragsLogsService.add(aLog);
-        } catch (DuplicateAuftragsLogException e) {
-            log.error(e.getMessage());
-            e.printStackTrace();
-            log.error(e.getMessage());
-        }
-
-        var pk = new Auftrag(UUID.randomUUID().hashCode(), ausPKV, ausPrio, erstelePS(ausPKV.getProzessSchrittVorlagen()),
-                aLog, ProzessKettenZustandsAutomat.INSTANZIIERT);
-        try {
-            add(pk);
-        } catch (DuplicateAuftragException e) {
-            e.printStackTrace();
-            log.error(e.getMessage());
-        }
-        return pk;
-    }
-
-    public List<ProzessSchritt> erstelePS(List<ProzessSchrittVorlage> psvListe) {
-        var r = new ArrayList<ProzessSchritt>();
-
-        for (ProzessSchrittVorlage psv :
-                psvListe) {
-            var psAutomat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "Erstellt", psv.getZustandsAutomatVorlage());
-            try {
-                log.info("Try to persist pkAutomat " + psAutomat.getId());
-                prozessSchrittZustandsAutomatService.add(psAutomat);
-            } catch (DuplicateProzessSchrittZustandsAutomatException e) {
-                e.printStackTrace();
-                log.error(e.getMessage());
-            }
-
-            // Logs
-            var l = new ProzessSchrittLog(LocalDateTime.now(), psAutomat.getCurrent());
-            try {
-                prozessSchrittLogService.add(l);
-            } catch (DuplicateProzessSchrittLogException e) {
-                e.printStackTrace();
-                log.error(e.getMessage());
-            }
-
-            // Transport Auftrag // FIXME
-
-            // PS erstellen
-           // var ps = new ProzessSchritt(UUID.randomUUID().hashCode(), List.of(l), psv, psAutomat);
-//            try {
-//                prozessSchrittDAO.persist(ps);
-//            } catch (DuplicateProzessSchrittException e) {
-//                e.printStackTrace();
-//                log.error(e.getMessage());
-//            }
-//            r.add(ps);
-        }
-        return r;
-    }
-
-
-    public void sedTransportZustandAbgeholt(TransportAuftrag t) throws TransportAuftragNotFoundException {
-        t.setZustandsAutomat(TransportAuftragZustand.ABGEHOLT);
-        t.setAbgeholt(LocalDateTime.now());
-        updateTransportZustand(t);
-    }
-
-    public void sedTransportZustandAbgeliefert(TransportAuftrag t) throws TransportAuftragNotFoundException {
-        t.setZustandsAutomat(TransportAuftragZustand.ABGELIEFERT);
-        t.setAbgeholt(LocalDateTime.now());
-        updateTransportZustand(t);
-    }
+////                for (ProzessSchritt ps :
+////                        auftrag.getProzessSchritte()) {
+//////                    ps.setZugewieseneProben(erzeugeProbenNachBeding(b, lager, startID + i++));
+////
+////                }
+////            } else {
+//////                for (ProzessSchritt ps :
+//////                        auftrag.getProzessSchritte()) {
+//////                    ps.setZugewieseneProben(proben);
+//////                }
+//////            }
+//////        }
+//////            auftragDAO.update(auftrag);
+//////            return auftrag;
+////    }
+//
+//
+//    /**
+//     * Hole Alle ProzessSchritte die als Transport Zustand ERSTELLT haben
+//     *
+//     * @return alle ps fuer den Transport
+//     */
+////    public List<ProzessSchritt> getTransportSchritt() {
+////        var s = new HashSet<ProzessSchritt>();
+////        var pp=getAuftrage();
+////        for (Auftrag a :
+////                pp) {
+////            s.addAll(a.getProzessSchritte().stream()
+////                    .filter(p ->(p.getTransportAuftrag() !=null) && (p.getTransportAuftrag().getZustandsAutomat() == TransportAuftragZustand.ERSTELLT))
+////                    .collect(Collectors.toSet()));
+////        }
+////        return s.isEmpty() ? new ArrayList<>() : List.copyOf(s);
+////    }
+////
+////    public List<ProzessSchritt> getTransportSchritt2() {
+////        var s = new HashSet<ProzessSchritt>();
+////        for (Auftrag a :
+////                getAuftrage()) {
+////            s.addAll(a.getProzessSchritte().stream()
+////                    .filter(p ->(p.getTransportAuftrag() !=null) && p.getTransportAuftrag().getZustandsAutomat() == TransportAuftragZustand.ABGEHOLT)
+////                    .collect(Collectors.toSet()));
+////        }
+////        return s.isEmpty() ? new ArrayList<>() : List.copyOf(s);
+////    }
+//
+//
+////    public Auftrag erstelleAuftrag(ProzessKettenVorlage ausPKV, AuftragsPrioritaet ausPrio) {
+////        // Auftrags Log
+////        AuftragsLog aLog = new AuftragsLog(LocalDateTime.now());
+////        aLog.setErstellt(LocalDateTime.now());
+////        try {
+////            log.info("Try to persist AuftragsLog " + aLog.toString());
+////            auftragsLogsService.add(aLog);
+////        } catch (DuplicateAuftragsLogException e) {
+////            log.error(e.getMessage());
+////            e.printStackTrace();
+////            log.error(e.getMessage());
+////        }
+////
+////        var pk = new Auftrag(UUID.randomUUID().hashCode(), ausPKV, ausPrio, erstelePS(ausPKV.getProzessSchrittVorlagen()),
+////                aLog, ProzessKettenZustandsAutomat.INSTANZIIERT);
+////        try {
+////            add(pk);
+////        } catch (DuplicateAuftragException e) {
+////            e.printStackTrace();
+////            log.error(e.getMessage());
+////        }
+////        return pk;
+////    }
+//
+////    public List<ProzessSchritt> erstelePS(List<ProzessSchrittVorlage> psvListe) {
+////        var r = new ArrayList<ProzessSchritt>();
+////
+////        for (ProzessSchrittVorlage psv :
+////                psvListe) {
+////            var psAutomat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "Erstellt", psv.getZustandsAutomatVorlage());
+////            try {
+////                log.info("Try to persist pkAutomat " + psAutomat.getId());
+////                prozessSchrittZustandsAutomatService.add(psAutomat);
+////            } catch (DuplicateProzessSchrittZustandsAutomatException e) {
+////                e.printStackTrace();
+////                log.error(e.getMessage());
+////            }
+////
+////            // Logs
+////            var l = new ProzessSchrittLog(LocalDateTime.now(), psAutomat.getCurrent());
+////            try {
+////                prozessSchrittLogService.add(l);
+////            } catch (DuplicateProzessSchrittLogException e) {
+////                e.printStackTrace();
+////                log.error(e.getMessage());
+////            }
+////
+////            // Transport Auftrag // FIXME
+////
+////            // PS erstellen
+////           // var ps = new ProzessSchritt(UUID.randomUUID().hashCode(), List.of(l), psv, psAutomat);
+//////            try {
+//////                prozessSchrittDAO.persist(ps);
+//////            } catch (DuplicateProzessSchrittException e) {
+//////                e.printStackTrace();
+//////                log.error(e.getMessage());
+//////            }
+//////            r.add(ps);
+////        }
+////        return r;
+////    }
+//
+//
+////    public void sedTransportZustandAbgeholt(TransportAuftrag t) throws TransportAuftragNotFoundException {
+////        t.setZustandsAutomat(TransportAuftragZustand.ABGEHOLT);
+////        t.setAbgeholt(LocalDateTime.now());
+////        updateTransportZustand(t);
+////    }
+////
+////    public void sedTransportZustandAbgeliefert(TransportAuftrag t) throws TransportAuftragNotFoundException {
+////        t.setZustandsAutomat(TransportAuftragZustand.ABGELIEFERT);
+////        t.setAbgeholt(LocalDateTime.now());
+////        updateTransportZustand(t);
+////    }
 
 
 }

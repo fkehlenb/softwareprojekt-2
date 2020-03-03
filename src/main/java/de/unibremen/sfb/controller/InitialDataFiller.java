@@ -98,89 +98,90 @@ public class InitialDataFiller {
             pkZustaende.add("BEENDET");
             pkZustaende.add("ARCHIVIERT");
 
-            // Standort, requires Users
-            for (Standort s :
-                    createDefaulStandort()) {
-                log.info("Trying to  persist Standort " + s.toString());
-                em.persist(s);
-            }
+//            // Standort, requires Users
+//            for (Standort s :
+//                    createDefaulStandort()) {
+//                log.info("Trying to  persist Standort " + s.toString());
+//                em.persist(s);
+//            }
+//
+//            // Persistiere Traeger Arten
+//            tas = erstelleTraeger();
+//            for (TraegerArt t :
+//                    tas) {
+//                log.info("Persisting Traegerart " + t.getArt());
+//                em.persist(t);
+//            }
+//
+//            for (ProzessSchrittZustandsAutomatVorlage p :
+//                    erstelleStandartVorlagen()) {
+//                log.info("Persisting: Voralge " + p.getName());
+//                em.persist(p);
+//            }
+//
+//            // Experimentierstaation, requires Standort
+//            for (ExperimentierStation s :
+//                    createDefaultStation()) {
+//                log.info("Trying to persist Station " + s.getName());
+//                em.persist(s);
+//            }
+//
+//            /*
+//              persis von QualitativeEigenschaft durch die Variebln qualitativeEigenschaftList
+//              */
+//            List<QualitativeEigenschaft> qualitativeEigenschaftList = getQualitativeEigenschaften();
+//            for (QualitativeEigenschaft qE : qualitativeEigenschaftList
+//            ) {
+//                log.info("Trying to Persist Qualitaet Eingenschaft " + qE.getName());
+//                em.persist(qE);
+//            }
+//
+//            em.persist(new QuantitativeEigenschaft("Lustige Eigenschaft", 420, "seconds"));
+//
+//            // PS Parameter
+//            List<ProzessSchrittParameter> parameters = new ArrayList<>();
+//            parameters.add(new ProzessSchrittParameter(UUID.randomUUID().hashCode(), "Getestet", qualitativeEigenschaftList));
+//
+//            for (ProzessSchrittParameter psp : parameters
+//            ) {
+//                log.info("Trying ti persist ProzessSchrittParameter " + psp.getName());
+//                em.persist(psp);
+//            }
+//
+//            // Erstelle Test Bedingung
+//            Bedingung b = new Bedingung(UUID.randomUUID().hashCode(), "Test Bedingung", parameters, 44);
+//            log.info("Trying to persist Bedingung: " + b.toString());
+//            em.persist(b);
+//
+//            // Erstelle die Liste aus den Parametern
+//            List<ProzessSchrittVorlage> psvListe = getProzessSchrittVorlages(parameters);
+//            for (ProzessSchrittVorlage pSV :
+//                    psvListe) {
+//                log.info("Trying to persist ProzessSchrittVorlage " + pSV.toString());
+//                em.persist(pSV);
+//            }
+//            pkv = new ProzessKettenVorlage(UUID.randomUUID().hashCode(), psvListe);
+//            log.info("Try to persist ProzessSchrittVorlage " + pkv.getPkvID());
+//            em.persist(pkv);
+//
+//            // PSZAV Setup
+//            pszaVorlage = new ProzessSchrittZustandsAutomatVorlage(996699,
+//                    psZustaende, "Standart");
+//            log.info("Try to persist ProzessSchrittZustandsAutomatVorlage " + pszaVorlage.toString());
+//            em.persist(pszaVorlage);
+//
+//            // Setup PSZA
+//            ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(
+//                    UUID.randomUUID().hashCode(), "ERSTELLT", pszaVorlage);
+//            log.info("Try to persist ProzessSchrittZustandsAutomat " + prozessSchrittZustandsAutomat.toString());
+//            em.persist(prozessSchrittZustandsAutomat);
+////            erstelleAuftrag(psvListe);
+//
+//        } else {
+//            log.info("Data already exists");
+//        }
 
-            // Persistiere Traeger Arten
-            tas = erstelleTraeger();
-            for (TraegerArt t :
-                    tas) {
-                log.info("Persisting Traegerart " + t.getArt());
-                em.persist(t);
-            }
-
-            for (ProzessSchrittZustandsAutomatVorlage p :
-                    erstelleStandartVorlagen()) {
-                log.info("Persisting: Voralge " + p.getName());
-                em.persist(p);
-            }
-
-            // Experimentierstaation, requires Standort
-            for (ExperimentierStation s :
-                    createDefaultStation()) {
-                log.info("Trying to persist Station " + s.getName());
-                em.persist(s);
-            }
-
-            /*
-              persis von QualitativeEigenschaft durch die Variebln qualitativeEigenschaftList
-              */
-            List<QualitativeEigenschaft> qualitativeEigenschaftList = getQualitativeEigenschaften();
-            for (QualitativeEigenschaft qE : qualitativeEigenschaftList
-            ) {
-                log.info("Trying to Persist Qualitaet Eingenschaft " + qE.getName());
-                em.persist(qE);
-            }
-
-            em.persist(new QuantitativeEigenschaft("Lustige Eigenschaft", 420, "seconds"));
-
-            // PS Parameter
-            List<ProzessSchrittParameter> parameters = new ArrayList<>();
-            parameters.add(new ProzessSchrittParameter(UUID.randomUUID().hashCode(), "Getestet", qualitativeEigenschaftList));
-
-            for (ProzessSchrittParameter psp : parameters
-            ) {
-                log.info("Trying ti persist ProzessSchrittParameter " + psp.getName());
-                em.persist(psp);
-            }
-
-            // Erstelle Test Bedingung
-            Bedingung b = new Bedingung(UUID.randomUUID().hashCode(), "Test Bedingung", parameters, 44);
-            log.info("Trying to persist Bedingung: " + b.toString());
-            em.persist(b);
-
-            // Erstelle die Liste aus den Parametern
-            List<ProzessSchrittVorlage> psvListe = getProzessSchrittVorlages(parameters);
-            for (ProzessSchrittVorlage pSV :
-                    psvListe) {
-                log.info("Trying to persist ProzessSchrittVorlage " + pSV.toString());
-                em.persist(pSV);
-            }
-            pkv = new ProzessKettenVorlage(UUID.randomUUID().hashCode(), psvListe);
-            log.info("Try to persist ProzessSchrittVorlage " + pkv.getPkvID());
-            em.persist(pkv);
-
-            // PSZAV Setup
-            pszaVorlage = new ProzessSchrittZustandsAutomatVorlage(996699,
-                    psZustaende, "Standart");
-            log.info("Try to persist ProzessSchrittZustandsAutomatVorlage " + pszaVorlage.toString());
-            em.persist(pszaVorlage);
-
-            // Setup PSZA
-            ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(
-                    UUID.randomUUID().hashCode(), "ERSTELLT", pszaVorlage);
-            log.info("Try to persist ProzessSchrittZustandsAutomat " + prozessSchrittZustandsAutomat.toString());
-            em.persist(prozessSchrittZustandsAutomat);
-//            erstelleAuftrag(psvListe);
-
-        } else {
-            log.info("Data already exists");
         }
-
     }
 
 //    private void erstelleAuftrag(List<ProzessSchrittVorlage> psvListe) {
@@ -256,40 +257,40 @@ public class InitialDataFiller {
 //        return r;
 //    }
 
-    /**
-     * Erstelle Standorte
-     *
-     * @return erstelle Standorte
-     */
-    private List<Standort> createDefaulStandort() {
-
-        standorte = new ArrayList<>();
-        standorte.add(new Standort(UUID.randomUUID().hashCode(),"Lager"));
-        for (int i = 0; i < limit; i++) {
-            Standort s = new Standort(UUID.randomUUID().hashCode(), "Station " + i);
-            log.info("Persisiting Experimentierstation " + i);
-            standorte.add(s);
-        }
-
-
-        return standorte;
-    }
-
-    /**
-     * Erstelle Experimentierstationen
-     * Depends on createDefaultUser
-     *
-     * @return The List of Created Stations
-     */
-    private List<ExperimentierStation> createDefaultStation() {
-        experimentierStations = new ArrayList<>();
-        Faker faker = new Faker();
-        for (int i = 0; i < limit; i++) {
-            experimentierStations.add(new ExperimentierStation(UUID.randomUUID().hashCode(), standorte.get(i),
-                    faker.lordOfTheRings().location(), ExperimentierStationZustand.VERFUEGBAR, new ArrayList<Bedingung>(), List.of(tTechnologe)));
-        }
-        return experimentierStations;
-    }
+//    /**
+//     * Erstelle Standorte
+//     *
+//     * @return erstelle Standorte
+//     */
+//    private List<Standort> createDefaulStandort() {
+//
+//        standorte = new ArrayList<>();
+//        standorte.add(new Standort(UUID.randomUUID().hashCode(),"Lager"));
+//        for (int i = 0; i < limit; i++) {
+//            Standort s = new Standort(UUID.randomUUID().hashCode(), "Station " + i);
+//            log.info("Persisiting Experimentierstation " + i);
+//            standorte.add(s);
+//        }
+//
+//
+//        return standorte;
+//    }
+//
+//    /**
+//     * Erstelle Experimentierstationen
+//     * Depends on createDefaultUser
+//     *
+//     * @return The List of Created Stations
+//     */
+//    private List<ExperimentierStation> createDefaultStation() {
+//        experimentierStations = new ArrayList<>();
+//        Faker faker = new Faker();
+//        for (int i = 0; i < limit; i++) {
+//            experimentierStations.add(new ExperimentierStation(UUID.randomUUID().hashCode(), standorte.get(i),
+//                    faker.lordOfTheRings().location(), ExperimentierStationZustand.VERFUEGBAR, new ArrayList<Bedingung>(), List.of(tTechnologe)));
+//        }
+//        return experimentierStations;
+//    }
 
     /**
      * Erstelle Standart Nutzer
@@ -357,98 +358,98 @@ public class InitialDataFiller {
     }
 
 
-    public List<ProzessSchrittVorlage> getProzessSchrittVorlages(List<ProzessSchrittParameter> parameters) {
-        // PSVA
-        List<ProzessSchrittVorlage> psListe = new ArrayList<>();
-        for (int i = 0; i < limit; i++) {
-            psListe.add(getProzessSchrittVorlage(parameters));
-        }
-        return psListe;
-    }
+//    public List<ProzessSchrittVorlage> getProzessSchrittVorlages(List<ProzessSchrittParameter> parameters) {
+//        // PSVA
+//        List<ProzessSchrittVorlage> psListe = new ArrayList<>();
+//        for (int i = 0; i < limit; i++) {
+//            psListe.add(getProzessSchrittVorlage(parameters));
+//        }
+//        return psListe;
+//    }
+//
+//    public ProzessSchrittVorlage getProzessSchrittVorlage(List<ProzessSchrittParameter> parameters) {
+//        // ProzessSchrittVorlage Setup
+//        ProzessSchrittZustandsAutomatVorlage v = new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(),
+//                psZustaende, "Test pszvav");
+//        em.persist(v);
+//        var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "ANGENOMMEN", sVorlage);
+//        em.persist(a);
+//        Faker faker = new Faker();
+//        return  new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), "42",faker.gameOfThrones().character(),
+//                "Ermittlend", experimentierStations.get(0), parameters, v);
+//    }
+//
+//    public List<QualitativeEigenschaft> getQualitativeEigenschaften() {
+//        // Eigenschaften
+//        Faker faker = new Faker();
+//        ArrayList<QualitativeEigenschaft> qualEigenschaften = new ArrayList<>();
+//        for (int i = 0; i < limit; i++) {
+//            QualitativeEigenschaft q1 = new QualitativeEigenschaft(UUID.randomUUID().hashCode(), faker.funnyName().name());
+//            qualEigenschaften.add(q1);
+//        }
+//
+//        return qualEigenschaften;
+//    }
+//
+//    public List<TraegerArt> erstelleTraeger() {
+//        return List.of(new TraegerArt("Glass"), new TraegerArt("Eingebetet"), new TraegerArt("Einzelen"));
+//    }
 
-    public ProzessSchrittVorlage getProzessSchrittVorlage(List<ProzessSchrittParameter> parameters) {
-        // ProzessSchrittVorlage Setup
-        ProzessSchrittZustandsAutomatVorlage v = new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(),
-                psZustaende, "Test pszvav");
-        em.persist(v);
-        var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "ANGENOMMEN", sVorlage);
-        em.persist(a);
-        Faker faker = new Faker();
-        return  new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), "42",faker.gameOfThrones().character(),
-                "Ermittlend", experimentierStations.get(0), parameters, v);
-    }
+//    // FIXME Add Default
+//    public Set<ProzessSchrittZustandsAutomatVorlage> erstelleStandartVorlagen() {
+//        Set<ProzessSchrittZustandsAutomatVorlage> ergebnis = new HashSet<>();
+//        List<String> zustaende = new ArrayList<>();
+//        zustaende.add("Angenommen");
+//        zustaende.add("In Brearbeitung");
+//        zustaende.add("Bearbeitet");
+//        zustaende.add("Weitergeleitet");
+//
+//        sVorlage = new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(), zustaende, "Standart");
+//        ergebnis.add(sVorlage);
+//        return ergebnis;
+//    }
 
-    public List<QualitativeEigenschaft> getQualitativeEigenschaften() {
-        // Eigenschaften
-        Faker faker = new Faker();
-        ArrayList<QualitativeEigenschaft> qualEigenschaften = new ArrayList<>();
-        for (int i = 0; i < limit; i++) {
-            QualitativeEigenschaft q1 = new QualitativeEigenschaft(UUID.randomUUID().hashCode(), faker.funnyName().name());
-            qualEigenschaften.add(q1);
-        }
-
-        return qualEigenschaften;
-    }
-
-    public List<TraegerArt> erstelleTraeger() {
-        return List.of(new TraegerArt("Glass"), new TraegerArt("Eingebetet"), new TraegerArt("Einzelen"));
-    }
-
-    // FIXME Add Default
-    public Set<ProzessSchrittZustandsAutomatVorlage> erstelleStandartVorlagen() {
-        Set<ProzessSchrittZustandsAutomatVorlage> ergebnis = new HashSet<>();
-        List<String> zustaende = new ArrayList<>();
-        zustaende.add("Angenommen");
-        zustaende.add("In Brearbeitung");
-        zustaende.add("Bearbeitet");
-        zustaende.add("Weitergeleitet");
-
-        sVorlage = new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(), zustaende, "Standart");
-        ergebnis.add(sVorlage);
-        return ergebnis;
-    }
-
-    /**
-     * erstellt proben für einen prozessschritt
-     * @return a list of samples
-     */
-    public List<Probe> erstelleProben(Standort s) {
-        List<Probe> r = new ArrayList<>();
-        Traeger t = new Traeger(666, tas.get(0), s);
-        try {
-            traegerDAO.persist(t);
-        }
-        catch(DuplicateTraegerException e) {
-            e.printStackTrace();
-        }
-//        for(int i=0; i<limit; i++){
-//            Probe p1 = new Probe("FDGHJ"+i, 9, ProbenZustand.VORHANDEN, s);
-//            p1.setCurrentTraeger(t);
-//            p1.setKommentar(erstelleKommentare());
-//            r.add(p1);
+//    /**
+//     * erstellt proben für einen prozessschritt
+//     * @return a list of samples
+//     */
+//    public List<Probe> erstelleProben(Standort s) {
+//        List<Probe> r = new ArrayList<>();
+//        Traeger t = new Traeger(666, tas.get(0), s);
+//        try {
+//            traegerDAO.persist(t);
+//        }
+//        catch(DuplicateTraegerException e) {
+//            e.printStackTrace();
+//        }
+////        for(int i=0; i<limit; i++){
+////            Probe p1 = new Probe("FDGHJ"+i, 9, ProbenZustand.VORHANDEN, s);
+////            p1.setCurrentTraeger(t);
+////            p1.setKommentar(erstelleKommentare());
+////            r.add(p1);
+////            try {
+////                probeDAO.persist(p1);
+////            }
+////            catch(DuplicateProbeException e) {
+////                e.printStackTrace();
+////            }
+////        }
+//        return r;
+//    }
+//
+//    public List<Kommentar> erstelleKommentare() {
+//        List<Kommentar> r = new ArrayList<>();
+//        for(int i=0; i<limit; i++) {
+//            Kommentar k = new Kommentar(LocalDateTime.now(), "hallo"+i);
 //            try {
-//                probeDAO.persist(p1);
+//                kommentarDAO.persist(k);
 //            }
-//            catch(DuplicateProbeException e) {
+//            catch(DuplicateKommentarException e) {
 //                e.printStackTrace();
 //            }
+//            r.add(k);
 //        }
-        return r;
-    }
-
-    public List<Kommentar> erstelleKommentare() {
-        List<Kommentar> r = new ArrayList<>();
-        for(int i=0; i<limit; i++) {
-            Kommentar k = new Kommentar(LocalDateTime.now(), "hallo"+i);
-            try {
-                kommentarDAO.persist(k);
-            }
-            catch(DuplicateKommentarException e) {
-                e.printStackTrace();
-            }
-            r.add(k);
-        }
-        return r;
-    }
+//        return r;
+//    }
 
 }

@@ -52,18 +52,18 @@ public class AuftragView implements Serializable {
     @PostConstruct
     void init() {
         auftrage = auftragService.getAuftrage();
-        vorlagen = getPKVs();
+//        vorlagen = getPKVs();
         prios = AuftragsPrioritaet.values();
         prozessKettenZustandsAutomatList = ProzessKettenZustandsAutomat.values();
 
 
     }
 
-    public void erstelleAuftrag() {
-        int id = auftragService.erstelleAuftrag(ausPKV, ausPrio).getPkID();
-        facesNotification("Erfolgreich Auftrag: " + id + " erstellt");
-        updateAuftragTabelle();
-    }
+//    public void erstelleAuftrag() {
+//        int id = auftragService.erstelleAuftrag(ausPKV, ausPrio).getPkID();
+//        facesNotification("Erfolgreich Auftrag: " + id + " erstellt");
+//        updateAuftragTabelle();
+//    }
 
     /**
      * Aktualisiert die Tabelle
@@ -95,9 +95,9 @@ public class AuftragView implements Serializable {
         return auftragService.toJson();
     }
 
-    public List<ProzessKettenVorlage> getPKVs() {
-        return prozessKettenVorlageService.getPKVs();
-    }
+//    public List<ProzessKettenVorlage> getPKVs() {
+//        return prozessKettenVorlageService.getPKVs();
+//    }
 
     public void delete() {
         try {

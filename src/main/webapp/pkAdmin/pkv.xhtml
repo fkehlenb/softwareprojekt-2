@@ -5,83 +5,101 @@
       xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 <ui:define name="metadata">
     <f:metadata>
-        <f:viewAction action="#{languageBean.setLanguage}" />
+        <f:viewAction action="#{languageBean.setLanguage}"/>
     </f:metadata>
 </ui:define>
 
 <h:head>
 </h:head>
 <h:body>
-
     <ui:composition template="/template/common/layout.xhtml">
         <ui:define name="content">
+            <p:panelGrid columns="1">
+                <p:row>
+                    <h2 style="color: cornflowerblue">Prozesskettenvorlagen Verwaltung</h2>
+                </p:row>
+                <p:row>
+                    <p>In der unteren Tabelle sehen Sie alle Prozesskettenvorlagen die sich im System befinden.
+                        Mit dem unteren Formular koennen Sie neue Prozesskettenvorlagen erstellen. Diese Prozesskettenvorlagen
+                        koennen Sie dann verwenden um neue Prozessketten automatisiert zu erstellen, in dem Sie auf
+                        die Auftragsverwaltungswebsite gehen. Um neue Prozessketten aus bestehenden Prozessschritten zu machen,
+                        gehen Sie bitte auf die Auftragsverwaltungswebsite.</p>
+                </p:row>
+                <p:row>
+                    <p:panel id="pkv" header="Prozessketten Vorlage Erstellen"
+                             style="margin-bottom: 20px">
+                        <h:form>
+                            <p:panelGrid cellpadding="10">
+                                <p:row>
+                                    <p:column colspan="1">
+                                        <p:outputLabel for="psvV" value="Prozessschritt Reihenfolge"/>
+                                    </p:column>
+                                    <p:column colspan="3">
+                                        <p:pickList id="psvV" value="#{pkvView.psvs}" var="psvs" itemLabel="#{psvs}"
+                                                    itemValue="#{psvs}">
+                                            <o:converter converterId="omnifaces.ListConverter"
+                                                         list="#{pkvView.psvs.source}"/>
+                                        </p:pickList>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column colspan="1">
+                                        <h:outputText value="Prozesskettenvorlage Name"/>
+                                    </p:column>
+                                    <p:column colspan="1">
+                                        <p:inputText placeholder="Name" required="true"
+                                                     requiredMessage="Bitte Prozesskettenvorlage Name eingeben!"
+                                                     value="#{pkvView.selectedName}"/>
+                                    </p:column>
+                                    <p:column colspan="1">
+                                        <p:commandButton value="Reset" type="reset" icon="pi pi-trash"/>
+                                    </p:column>
+                                    <p:column colspan="1">
+                                        <p:commandButton value="Erstellen"
+                                                         action="#{pkvView.erstellePSK}" icon="pi pi-check" ajax="false"/>
+                                    </p:column>
+                                </p:row>
+                            </p:panelGrid>
+                        </h:form>
+                    </p:panel>
+                </p:row>
 
-            <p:panel id="pkv" header="Daten Eingeben"
-                     style="margin-bottom: 20px">
+                <h:form id="form">
+                    <p:growl id="msgs" showDetail="true" sticky="true"/>
 
-                <h:form>
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <p:outputLabel for="psvV" value="PSV Vorlagen: "/>
-                        <p:pickList id="psvV" value="#{pkvView.psvs}" var="psvs" itemLabel="#{psvs}" itemValue="#{psvs}"
-                            converter="psvConverter"/>
-                    </h:panelGrid>
-
-                    <p:commandButton value="Reset" type="reset"/>
-                    <p:commandButton value="Erstellen"
-                                     action="#{pkvView.erstellePSK}" icon="pi pi-check"
-                                     update="@form"/>
-
+                    <p:dataTable id="PSKList" var="pkv" value="#{pkvView.verPKV}"
+                                 editable="true"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                 paginator="true" rows="15" style="margin-bottom:20px">
+                        <p:ajax event="rowEdit" listener="#{pkvView.onRowEdit(pkv.pkvID)}" update=":form:msgs"/>
+                        <p:ajax event="rowEditCancel" listener="#{pkvView.onRowCancel}" update=":form:msgs"/>
+                        <p:column headerText="Prozessschrittvorlage Name">
+                            <h:outputText value="#{pkv.name}"/>
+                        </p:column>
+                        <p:column headerText="Schritt Vorlagen">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <p:commandButton value="Anzeigen" icon="pi pi-external-link"/>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:pickList id="psvV2" value="#{pkvView.psvs}" var="psvs" itemLabel="#{psvs}"
+                                                itemValue="#{psvs}">
+                                        <o:converter converterId="omnifaces.ListConverter"
+                                                     list="#{pkvView.psvs.source}"/>
+                                    </p:pickList>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column>
+                            <p:commandButton value="Delete" icon="pi pi-trash" action="#{pkvView.deletePKV(pkv.pkvID)}"
+                                             ajax="false"/>
+                        </p:column>
+                        <p:column style="width:35px">
+                            <p:rowEditor/>
+                        </p:column>
+                    </p:dataTable>
                 </h:form>
-            </p:panel>
-
-
-            <h:form id="form">
-                <p:growl id="msgs" showDetail="true" sticky="true"/>
-
-                <p:dataTable widgetVar="PSKList"
-                             id="PSKList"
-                             var="pkv"
-                             value="#{pkvView.verPKV}"
-                             editable="true"
-                             selection="#{pkvView.selPKV}"
-                             style="margin-bottom:20px"
-                             rowKey="#{pkv.pkvID}">
-
-                    <p:ajax event="rowEdit" listener="#{pkvView.onRowEdit}" update=":form:msgs"/>
-                    <p:ajax event="rowEditCancel" listener="#{pkvView.onRowCancel}" update=":form:msgs"/>
-                    <p:column selectionMode="multiple"
-                              style="width:16px;text-align:center"/>
-
-                    <p:column headerText="Id">
-                        <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{pkv.pkvID}"/></f:facet>
-                            <f:facet name="input"><p:inputText id="ID" value="#{pkv.pkvID}"
-                                                               style="width:100%"/></f:facet>
-                        </p:cellEditor>
-                    </p:column>
-
-                    <p:column headerText="Schritt Vorlagen">
-                        <p:cellEditor>
-                            <f:facet name="output"><h:outputText value="#{pkv.prozessSchrittVorlagen}"/></f:facet>
-                            <f:facet name="input">
-                                <p:orderList value="#{pkv.prozessSchrittVorlagen}" var="psv" controlsLocation="none" itemLabel="#{psv}"
-                                             itemValue="#{psv}"/>
-                            </f:facet>
-                        </p:cellEditor>
-                    </p:column>
-
-                    <p:column style="width:35px">
-                        <p:rowEditor/>
-                    </p:column>
-                </p:dataTable>
-
-                <p:contextMenu for="PSKList">
-                    <p:menuitem value="Delete selected" update="PSKList"
-                                icon="pi pi-times" action="#{pkvView.deletePKV}"/>
-                </p:contextMenu>
-
-            </h:form>
-
+            </p:panelGrid>
         </ui:define>
     </ui:composition>
 </h:body>

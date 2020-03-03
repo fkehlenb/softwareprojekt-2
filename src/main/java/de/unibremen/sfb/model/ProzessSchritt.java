@@ -27,11 +27,6 @@ public class ProzessSchritt {
     @NonNull
     private int id;
 
-    /** Process step template */
-    @NonNull
-    @ManyToOne
-    private ProzessSchrittVorlage prozessSchrittVorlage;
-
     /**
      * Process step state automaton
      */

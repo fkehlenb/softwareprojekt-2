@@ -45,25 +45,25 @@ class ProzessKettenVorlageServiceTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Test
-    void testInit() {
-        when(prozessSchrittVorlageService.getVorlagen()).thenReturn(psVorlagen);
-        prozessKettenVorlageService.init();
-    }
-
-    @Test
-    void testGetPKV() throws ProzessKettenVorlageNotFoundException {
-        when(pkvDAO.getObjById(anyInt())).thenReturn(prozessKettenVorlage);
-        ProzessKettenVorlage result = prozessKettenVorlageService.getPKV(0);
-        Assertions.assertEquals(prozessKettenVorlage, result);
-    }
-
-    @Test
-    void testGetProzessKettenVorlagen() {
-        when(pkvDAO.getAll()).thenReturn(pkVorlagen);
-        List<ProzessKettenVorlage> result = prozessKettenVorlageService.getProzessKettenVorlagen();
-        Assertions.assertEquals(pkVorlagen, result);
-    }
+//    @Test
+//    void testInit() {
+//        when(prozessSchrittVorlageService.getVorlagen()).thenReturn(psVorlagen);
+//        prozessKettenVorlageService.init();
+//    }
+//
+//    @Test
+//    void testGetPKV() throws ProzessKettenVorlageNotFoundException {
+//        when(pkvDAO.getObjById(anyInt())).thenReturn(prozessKettenVorlage);
+//        ProzessKettenVorlage result = prozessKettenVorlageService.getPKV(0);
+//        Assertions.assertEquals(prozessKettenVorlage, result);
+//    }
+//
+//    @Test
+//    void testGetProzessKettenVorlagen() {
+//        when(pkvDAO.getAll()).thenReturn(pkVorlagen);
+//        List<ProzessKettenVorlage> result = prozessKettenVorlageService.getProzessKettenVorlagen();
+//        Assertions.assertEquals(pkVorlagen, result);
+//    }
     @Test
     void testPersist() throws DuplicateProzessKettenVorlageException {
 
@@ -71,27 +71,27 @@ class ProzessKettenVorlageServiceTest {
         verify(pkvDAO).persist(prozessKettenVorlage);
     }
 
-    @Test
-    void testByID() throws ProzessKettenVorlageNotFoundException {
-
-        when(pkvDAO.getObjById(anyInt())).thenReturn(prozessKettenVorlage);
-
-        ProzessKettenVorlage result = prozessKettenVorlageService.ByID(0);
-
-        Assertions.assertEquals(prozessKettenVorlage, result);
-    }
-
-    //@Test
-    void testEdit() throws ProzessKettenVorlageNotFoundException {
-        prozessKettenVorlageService.edit(prozessKettenVorlage);
-        verify(prozessKettenVorlageDAO).update(prozessKettenVorlage);
-    }
-
-
-    @Test
-    void testGetPKVs() {
-        when(pkvDAO.getAll()).thenReturn(pkVorlagen);
-        List<ProzessKettenVorlage> result = prozessKettenVorlageService.getPKVs();
-        verify(pkvDAO).getAll();
-    }
+//    @Test
+//    void testByID() throws ProzessKettenVorlageNotFoundException {
+//
+//        when(pkvDAO.getObjById(anyInt())).thenReturn(prozessKettenVorlage);
+//
+//        ProzessKettenVorlage result = prozessKettenVorlageService.ByID(0);
+//
+//        Assertions.assertEquals(prozessKettenVorlage, result);
+//    }
+//
+//    //@Test
+//    void testEdit() throws ProzessKettenVorlageNotFoundException {
+//        prozessKettenVorlageService.edit(prozessKettenVorlage);
+//        verify(prozessKettenVorlageDAO).update(prozessKettenVorlage);
+//    }
+//
+//
+//    @Test
+//    void testGetPKVs() {
+//        when(pkvDAO.getAll()).thenReturn(pkVorlagen);
+//        List<ProzessKettenVorlage> result = prozessKettenVorlageService.getPKVs();
+//        verify(pkvDAO).getAll();
+//    }
 }
