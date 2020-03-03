@@ -266,6 +266,12 @@ public class AuftragService implements Serializable {
         return result;
     }
 
+    /**
+     *
+     * @param value - an int which gets the Job with it's id
+     * @return - return's the Object by id(value)
+     * @throws AuftragNotFoundException
+     */
     public Auftrag getAuftrag(int value) throws AuftragNotFoundException {
         return auftragDAO.getObjById(value);
     }
@@ -291,7 +297,10 @@ public class AuftragService implements Serializable {
         a.setProzessKettenZustandsAutomat(zustand); //TODO wenn update in db fehlschlägt: Zustand zurücksetzen?
         auftragDAO.update(a);
     }
+    public void erstelleAuftrag(){
+        //Auftrag a = new Auftrag(420,new ProzessKettenVorlage());
 
+    }
 //
 //    /*
 //      Bestimme was der naechste Prozessschritt ist, der noch nicht ausgefuehrt wurde

@@ -69,32 +69,33 @@
 <li><strike>Backup der Systemdaten</strike></li>
 </ul>
 <h5 id="prozesskettenplaner">Prozesskettenplaner</h5>
-<ul>
-<li>Übersicht über alle Prozessschritte<ul>
-<li>Anlegen neuer Prozessschritte  <em>FIXME LEO</em> <ul>
-<li>Auswahl von vordefinierten Abläufen (Zustandsautomat) <em>FIXME SANTI add List</em</li>
-<li>Auswahl von dyn. Abläufen (<strong>O«Dynamische Zustandsautomaten»</strong>)</li>
-<li>Eingabe von voraussichtlicher Prozessschrittdauer</li>
-<li>Definition von Prozessschrittparametern (Name, Einheit)</li>
-<li>Zuordnung von Experimentierstation</li>
-<li>Setzen von Attributen wie "einfärbend", Präparationsart</li>
+<ul><strike>
+    <li>Übersicht über alle Prozessschritte<ul>
+    <li>Anlegen neuer Prozessschritte<ul>
+    <li>Auswahl von vordefinierten Abläufen (Zustandsautomat)</li>
+    <li>Auswahl von dyn. Abläufen (<strong>O«Dynamische Zustandsautomaten»</strong>)</li>
+    <li>Eingabe von voraussichtlicher Prozessschrittdauer</li>
+    <li>Definition von Prozessschrittparametern (Name, Einheit)</li>
+    <li>Zuordnung von Experimentierstation</li>
+    <li>Setzen von Attributen wie "einfärbend", Präparationsart</li>
 </ul>
 </li>
-<li>Löschen bestehender Prozessschritte</li>
-<li>Bearbeiten von "nicht gestarteten" Prozessschritten</li>
-<li>Hervorhebung der Prozessschritte, die im Zustand auf kaputt gesetzt sind</li>
+    <li>Löschen bestehender Prozessschritte</li>
+    <li>Bearbeiten von "nicht gestarteten" Prozessschritten</li>
+    <li>Hervorhebung der Prozessschritte, die im Zustand auf kaputt gesetzt sind</li>
+    </strike>
 </ul>
 </li>
-<li>Übersicht über dynamische Abläufe (<strong>O«Dynamische Zustandsautomaten»</strong>)<ul>
-<li>Anlegen von Zustandsautomaten</li>
-<li>Löschen von Zustandsautomaten</li>
-<li>Bearbeiten von unbenutzten Zustandsautomaten</li>
+    <strike><li>Übersicht über dynamische Abläufe (<strong>O«Dynamische Zustandsautomaten»</strong>)<ul>
+    <li>Anlegen von Zustandsautomaten</li>
+    <li>Löschen von Zustandsautomaten</li>
+    <li>Bearbeiten von unbenutzten Zustandsautomaten</li></strike>
 </ul>
 </li>
-<li><strike>Übersicht über alle Prozessketten</strike><ul>
-<li>Anlegen von neuen Prozessketten aus bestehenden Prozessschritten</li>
-<li>Löschen von bestehenden Prozessketten</li>
-<li>Bearbeiten von bestehenden Prozessketten (nicht durchgeführt oder freigegeben)</li>
+    <li><strike>Übersicht über alle Prozessketten</strike><ul>
+    <li>Anlegen von neuen Prozessketten aus bestehenden Prozessschritten</li>
+    <li>Löschen von bestehenden Prozessketten</li>
+    <li>Bearbeiten von bestehenden Prozessketten (nicht durchgeführt oder freigegeben)</li>
 </ul>
 </li>
 <li><strike>Übersicht über Aufträge</strike><ul>
