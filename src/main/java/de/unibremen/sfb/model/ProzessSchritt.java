@@ -57,7 +57,7 @@ public class ProzessSchritt {
      * The experimenting station this process step is being carried out at
      */
     @NonNull
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private ExperimentierStation experimentierStation;
 
     /**
@@ -72,8 +72,8 @@ public class ProzessSchritt {
 
     /** Process step log */
     @NonNull
-    @ManyToOne
-    private ProzessSchrittLog prozessSchrittLog;
+    @OneToMany
+    private List<ProzessSchrittLog> prozessSchrittLog;
 
     /**
      * Process step name
