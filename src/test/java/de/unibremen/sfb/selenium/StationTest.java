@@ -66,5 +66,6 @@ public class StationTest {
     driver.findElement(By.xpath("//td[2]/button/span")).click();
     Thread.sleep(400);
     driver.findElement(By.xpath("//button/span[2]")).click();
+    Thread.sleep(400);
   }
 }
