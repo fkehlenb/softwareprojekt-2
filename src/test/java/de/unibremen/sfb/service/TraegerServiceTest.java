@@ -2,9 +2,7 @@ package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.exception.DuplicateTraegerException;
 import de.unibremen.sfb.exception.TraegerNotFoundException;
-import de.unibremen.sfb.model.Standort;
-import de.unibremen.sfb.model.Traeger;
-import de.unibremen.sfb.model.TraegerArt;
+import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.TraegerDAO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,6 +13,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import static org.mockito.Mockito.*;
 
@@ -36,7 +35,8 @@ class TraegerServiceTest {
     @Test
     void testPersist() {
         try {
-            traegerService.persist(new Traeger(0, new TraegerArt("art"), new Standort(0, "ort")));
+            traegerService.persist(new Traeger(0, new TraegerArt("art"), List.of(new Probe(UUID.randomUUID().toString(),
+                    99, ProbenZustand.VORHANDEN, new Standort(UUID.randomUUID().hashCode(), "Langweilig")))));
         } catch (DuplicateTraegerException e) {
             e.printStackTrace();
         }
@@ -45,7 +45,8 @@ class TraegerServiceTest {
     @Test
     void testUpdate() {
         try {
-            traegerService.update(new Traeger(0, new TraegerArt("art"), new Standort(0, "ort")));
+            traegerService.update(new Traeger(0, new TraegerArt("art"), List.of(new Probe(UUID.randomUUID().toString(),
+                    99, ProbenZustand.VORHANDEN, new Standort(UUID.randomUUID().hashCode(), "Langweilig")))));
         } catch (TraegerNotFoundException e) {
             e.printStackTrace();
         }
@@ -54,7 +55,8 @@ class TraegerServiceTest {
     @Test
     void testRemove() {
         try {
-            traegerService.remove(new Traeger(0, new TraegerArt("art"), new Standort(0, "ort")));
+            traegerService.remove(new Traeger(0, new TraegerArt("art"), List.of(new Probe(UUID.randomUUID().toString(),
+                    99, ProbenZustand.VORHANDEN, new Standort(UUID.randomUUID().hashCode(), "Langweilig")))));
         } catch (TraegerNotFoundException e) {
             e.printStackTrace();
         }

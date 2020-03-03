@@ -95,6 +95,7 @@ public class LogistikerBean implements Serializable {
      */
     private List<Probe> archiviert;
 
+
     /** Sample ID */
     private String probenID;
     /** Sample amount    */
@@ -127,7 +128,7 @@ public class LogistikerBean implements Serializable {
      * creates a new carrier
      */
     public void createTraeger() {
-        Traeger traeger = new Traeger(UUID.randomUUID().hashCode(),traegerArt, traegerLocation);
+        Traeger traeger = new Traeger(UUID.randomUUID().hashCode(),traegerArt, proben);
         try{
             traegerService.persist(traeger);
             facesNotification("Added new Traeger with Art: " + traegerArt.getArt());
@@ -150,7 +151,6 @@ public class LogistikerBean implements Serializable {
         try{
             Traeger t = traegerService.getTraegerById(id);
             t.setArt(traegerArt);
-            t.setTragerStandort(traegerLocation);
             traegerService.update(t);
             facesNotification("Edited trager with ID: " + id);
             log.info("Edited trager with ID: " + id);

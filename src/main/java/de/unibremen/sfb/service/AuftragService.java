@@ -32,48 +32,107 @@ import java.util.stream.Collectors;
 @Setter
 @Transactional
 public class AuftragService implements Serializable {
+    @Inject
+    ExperimentierStationService experimentierStationService;
 
-    /** Job DAO */
+
+    /**
+     * Job DAO
+     */
     @Inject
     private AuftragDAO auftragDAO;
 
-    /** Add a new job to the database
+    /**
+     * Add a new job to the database
+     *
      * @param a - the job to add
-     * @throws DuplicateAuftragException on failure */
-    public void add(Auftrag a) throws DuplicateAuftragException{
+     * @throws DuplicateAuftragException on failure
+     */
+    public void add(Auftrag a) throws DuplicateAuftragException {
         auftragDAO.persist(a);
     }
 
-    /** Update a job in the database
+    /**
+     * Update a job in the database
+     *
      * @param a - the job to update
-     * @throws AuftragNotFoundException on failure */
-    public void update(Auftrag a) throws AuftragNotFoundException{
+     * @throws AuftragNotFoundException on failure
+     */
+    public void update(Auftrag a) throws AuftragNotFoundException {
         auftragDAO.update(a);
     }
 
-    /** Remove a job from the database
+    /**
+     * Remove a job from the database
+     *
      * @param a - the job to remove
-     * @throws AuftragNotFoundException on failure */
-    public void remove(Auftrag a) throws AuftragNotFoundException{
+     * @throws AuftragNotFoundException on failure
+     */
+    public void remove(Auftrag a) throws AuftragNotFoundException {
         auftragDAO.remove(a);
     }
 
-    /** Get a list of all jobs in the database
-     * @return a list of all jobs or an empty arraylist */
-    public List<Auftrag> getAll(){
+    /**
+     * Get a list of all jobs in the database
+     *
+     * @return a list of all jobs or an empty arraylist
+     */
+    public List<Auftrag> getAll() {
         return auftragDAO.getAll();
     }
 
-    /** Get a job using its id
+    /**
+     * Get a job using its id
+     *
      * @param id - the id of the job
      * @return the job with a matching id
-     * @throws AuftragNotFoundException on failure */
-    public Auftrag getObjById(int id) throws AuftragNotFoundException{
+     * @throws AuftragNotFoundException on failure
+     */
+    public Auftrag getObjById(int id) throws AuftragNotFoundException {
         return auftragDAO.getObjById(id);
     }
 
-    /** Serialize a job to json */
-    public void json(){
+
+    /**
+     * searches for the Auftrag the ProzessSchritt belongs to
+     *
+     * @param ps the ps which's Auftrag is looked for
+     * @return the Auftrag (or null, if none was found)
+     */
+    public Auftrag getAuftrag(ProzessSchritt ps) {
+        for (Auftrag a :
+                getAuftrage()) {
+            if (a.getProzessSchritte().contains(ps)) {
+                return a;
+            }
+        }
+        return null;
+    }
+
+    public List<Auftrag> getAuftrage() {
+        return auftragDAO.getAll();
+    }
+
+    /**
+     * returns the ProzessSchritte currently waiting in all experimenting stations the user is assigned to
+     *
+     * @param u the user (a Technologe)
+     * @return a list containing all process steps waiting
+     */
+    public List<ProzessSchritt> getPotentialStepsByUser(User u) {
+        List<ProzessSchritt> ps = new ArrayList<>();
+        for (ExperimentierStation e : experimentierStationService.getESByUser(u)) {
+            ps.addAll(e.getNextPS());
+        }
+        ps.removeAll(Collections.singleton(null));
+        return ps;
+    }
+
+
+    /**
+     * Serialize a job to json
+     */
+    public void json() {
 
     }
 }

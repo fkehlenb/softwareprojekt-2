@@ -39,24 +39,24 @@
                         <p>Hier können Sie alle Aufträge sehen, für die Sie verantwortlich sind.</p>
                     </p:row>
 
-                    <p:dataTable var="auftrag" value="#{technologeView.getJobs()}"
+                    <p:dataTable var="ps" value="#{technologeView.schritte}"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                                  paginator="true" rows="50" style="margin-bottom:20px">
                         <p:column headerText="Id">
-                            <h:outputText value="#{auftrag.psID}"/>
+                            <h:outputText value="#{ps.psID}"/>
                         </p:column>
                         <p:column headerText="Status">
-                            <h:outputText value="#{auftrag.prozessSchrittZustandsAutomat.current}"/>
+                            <h:outputText value="#{ps.prozessSchrittZustandsAutomat.current}"/>
                         </p:column>
                         <p:column headerText="Station">
-                            <h:outputText value="#{technologeView.findStandort(auftrag)}"/>
+                            <h:outputText value="#{technologeView.findStandort(ps)}"/>
                         </p:column>
                         <p:column headerText="Priorität">
-                            <h:outputText value="#{technologeView.getPriority(auftrag)}"/>
+                            <h:outputText value="{technologeView.getPriority(ps)}"/>
                         </p:column>
                         <p:column headerText="Auswählen">
                             <div align="center">
-                                <p:commandButton value="Choose" action="#{singleJobBean.singlejob(auftrag)}" />
+                                <p:commandButton value="Choose" action="#{singleJobBean.singlejob(ps)}" />
                             </div>
                         </p:column>
                     </p:dataTable>

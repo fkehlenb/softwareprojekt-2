@@ -66,7 +66,7 @@
                 <h:form id="form">
                     <p:messages id="messages"/>
 
-                    <p:dataTable id="table" var="auftrag" value="#{dtAuftragBean.auftrage}" widgetVar="table"
+                    <p:dataTable id="table" var="ps" value="#{dtAuftragBean.auftrage}" widgetVar="table"
                                  multiViewState="true"
                                  rows="10" paginator="true"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -85,18 +85,18 @@
                         </f:facet>
 
                         <p:ajax event="rowSelect" update=":form:table"/>
-                        <p:column headerText="Id" filterBy="#{auftrag.pkID}" sortBy="#{auftrag.pkID}"
+                        <p:column headerText="Id" filterBy="#{ps.pkID}" sortBy="#{ps.pkID}"
                                   filterMatchMode="contains">
-                            <h:outputText value="#{auftrag.pkID}"/>
+                            <h:outputText value="#{ps.pkID}"/>
                         </p:column>
 
                         <p:column headerText="Prozessschritte" style="width: 250px">
 
-                            <h:outputText value="#{auftrag.errorMessage}"/>
+                            <h:outputText value="#{ps.errorMessage}"/>
                         </p:column>
 
-                        <p:column headerText="Prioritäten" filterBy="#{auftrag.priority}"
-                                  sortBy="#{auftrag.priority}"
+                        <p:column headerText="Prioritäten" filterBy="#{ps.priority}"
+                                  sortBy="#{ps.priority}"
                                   filterMatchMode="exact">
                             <f:facet name="filter">
                                 <p:selectOneMenu onchange="PF('table').filter()"
@@ -106,11 +106,11 @@
                                     <f:selectItems value="#{dtAuftragBean.prios}"/>
                                 </p:selectOneMenu>
                             </f:facet>
-                            <h:outputText value="#{auftrag.priority}"/>
+                            <h:outputText value="#{ps.priority}"/>
                         </p:column>
 
-                        <p:column headerText="Zustand" filterBy="#{auftrag.prozessKettenZustandsAutomat}"
-                                  sortBy="#{auftrag.prozessKettenZustandsAutomat}" filterMatchMode="exact">
+                        <p:column headerText="Zustand" filterBy="#{ps.prozessKettenZustandsAutomat}"
+                                  sortBy="#{ps.prozessKettenZustandsAutomat}" filterMatchMode="exact">
                             <f:facet name="filter">
                                 <p:selectOneMenu onchange="PF('table').filter()"
                                                  style="width:100%; box-sizing: border-box;">
@@ -120,18 +120,18 @@
                                 </p:selectOneMenu>
                             </f:facet>
                             <h:outputText ajax="true" update="form:form"
-                                          value="#{auftrag.prozessKettenZustandsAutomat}"/>
+                                          value="#{ps.prozessKettenZustandsAutomat}"/>
                         </p:column>
 
                         <p:column>
 
                             <p:commandButton style="width: 175px" value="Ablehnen" ajax="true"
-                                             action="#{dtLogistikerBean.refuseAuftrag(auftrag.pkID)}"
+                                             action="#{dtLogistikerBean.refuseAuftrag(ps.pkID)}"
                                              icon="pi pi-ban" update="form"/>
 
                             <br/>
                             <p:commandButton style="width: 175px" value="Annehmen" ajax="true"
-                                             action="#{dtLogistikerBean.startAuftrag(auftrag.pkID)}"
+                                             action="#{dtLogistikerBean.startAuftrag(ps.pkID)}"
                                              icon="pi pi-check" update="form"/>
 
                         </p:column>

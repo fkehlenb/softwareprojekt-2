@@ -3,6 +3,7 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 /** Data class for container objects */
 @Data
@@ -25,8 +26,7 @@ public class Traeger {
     @ManyToOne
     private TraegerArt art;
 
-    /** The container's location */
+    @OneToMany
     @NonNull
-    @ManyToOne
-    private Standort tragerStandort;
+    private List<Probe> proben;
 }
