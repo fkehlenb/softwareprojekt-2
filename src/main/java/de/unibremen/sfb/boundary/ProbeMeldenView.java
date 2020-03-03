@@ -34,6 +34,17 @@ public class ProbeMeldenView implements Serializable {
 
 
     /**
+     *
+     */
+    public void reportLost() {
+        try {
+            probenService.probeVerloren( probenService.getProbeById(probeMeldenID),probenService.getProbeById(probeMeldenID).getAnzahl(), probenAnzahl);
+        } catch (ProbeNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Reports samples as lost with the Sample and number.
      *
      * @param p sample which is lost

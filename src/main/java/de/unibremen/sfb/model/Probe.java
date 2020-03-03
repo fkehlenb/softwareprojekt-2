@@ -15,7 +15,7 @@ import java.util.List;
                 query = "SELECT p FROM Probe p WHERE p.standort = :standort AND p.isValidData = true"),
         @NamedQuery(name = "Probe.getByTraeger",
                 query = "SELECT p FROM Probe p WHERE p.currentTraeger = :traeger AND p.isValidData = true"),
-        @NamedQuery(name = "Probe.getById", query = "select p from Probe p where p.probenID = :probenID and p.isValidData = true")
+        @NamedQuery(name = "Probe.getByProbenId", query = "select p from Probe p where p.probenID = :probenID and p.isValidData = true")
 })
 @RequiredArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
