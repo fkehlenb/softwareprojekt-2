@@ -30,6 +30,9 @@ public class TechnologeView implements Serializable {
     AuftragService auftragService;
 
     @Inject
+    ExperimentierStationService experimentierStationService;
+
+    @Inject
     ProzessSchrittService prozessSchrittService;
 
     // TODO immer wieder neu laden mit der unteren id
@@ -63,20 +66,6 @@ public class TechnologeView implements Serializable {
         }
     }
 
-    /**
-     * returns the jobs this user is currently assigned to
-     * ProzessSchritte, not Auftrag, as the Technologe is
-     * not supposed to see entire job chains, just what they
-     * have to do
-     *
-     * @return a list containing all the jobs
-     */
-//    public List<ProzessSchritt> getJobs() {
-//        List<ProzessSchritt> r = psService.getSchritteByUser(technologe);
-//        r.removeAll(Collections.singleton(null));
-//        r.sort(Comparator.comparing(o -> psService.getAuftrag(o).getPriority()));
-//        return r;
-//    }
 
     /**
      * returns the experimentation stations this user is assigned to
@@ -92,26 +81,32 @@ public class TechnologeView implements Serializable {
      *
      * @return a set containing all availabe jobs
      */
-//    public List<ProzessSchritt> getAuftrag() {
-//        //alle einträge in queues von experimentierstationen denene der user zugeordnet ist
-//        return prozessSchrittService.getPotentialStepsByUser(technologe);
-//    }
+    public List<ProzessSchritt> getSchritte() {
+        //alle einträge in queues von experimentierstationen denene der user zugeordnet ist
+
+        List<ProzessSchritt> r = esService.getSchritteByUser(technologe);
+//        r.removeAll(Collections.singleton(null));
+        r.stream().filter(a -> (!(a.getProzessSchrittZustandsAutomat().equals(ProzessKettenZustandsAutomat.INSTANZIIERT)
+                || a.getProzessSchrittZustandsAutomat().equals(ProzessKettenZustandsAutomat.ABGELEHNT))));
+//        r.sort(Comparator.comparing(o -> auftragService.getAuftrag(o).getPriority()));
+        return r;
+    }
 
     /**
      * finds the station a process step is currently at
      * the step belongs to a station this user is at
+     *
      * @param ps the step
      * @return the station
      */
-//    public ExperimentierStation findStandort(ProzessSchritt ps) { //TODO integrate into my xhtmls
-//        try {
-//            return prozessSchrittService.findStation(ps);
-//        }
-//        catch(IllegalArgumentException e) {
-//            errorMessage("invalid input");
-//            return null;
-//        }
-//    }
+    public ExperimentierStation findStandort(ProzessSchritt ps) { //TODO integrate into my xhtmls
+        try {
+            return experimentierStationService.findStation(ps);
+        } catch (IllegalArgumentException e) {
+            errorMessage("invalid input");
+            return null;
+        }
+    }
 
     /**
      * reports an experimentation station as broken
@@ -143,15 +138,20 @@ public class TechnologeView implements Serializable {
      *
      * @return a set containing all those samples
      */
-//    public List<Probe> viewToBeUploaded() {
-//        List<Probe> res = new LinkedList<>();
-//        for(ProzessSchritt ps : getJobs()) {
-//            if(!ps.isUploaded() && ps.getProzessSchrittZustandsAutomat().getCurrent().equals("Bearbeitet")) {
-//                res.addAll(ps.getZugewieseneProben());
-//            }
-//        }
-//        return res;
-//    }
+    public List<Probe> viewToBeUploaded() {
+        var s = getStationen();
+        List<Probe> res = new LinkedList<>();
+        for (Auftrag a : auftragService.getAuftrage()) {
+            ProzessSchritt ps = a.getProzessSchritte().stream().filter(p -> s.contains(p.getExperimentierStation())).findFirst().orElse(null);
+            if (!ps.isUploaded() && ps.getProzessSchrittZustandsAutomat().getCurrent().equals("Bearbeitet")) {
+                for (Traeger t :
+                        a.getTraeger()) {
+                    res.addAll(t.getProben());
+                }
+            }
+        }
+        return res;
+    }
 
     /**
      * uploads a sample
@@ -164,31 +164,30 @@ public class TechnologeView implements Serializable {
 
     /**
      * reports a sample as lost
+     *
      * @param p the sample
      */
     public void reportLostProbe(Probe p) {
         try {
             probeService.setZustandForProbe(p, ProbenZustand.VERLOREN);
             log.info("sample " + p.getProbenID() + " was reported as missing");
-        }
-        catch(ProbeNotFoundException e) {
+        } catch (ProbeNotFoundException e) {
             e.printStackTrace();
-            log.info("sample " +p.getProbenID()+ " could not be found when trying to report as missing");
-        }
-        catch(IllegalArgumentException e) {
+            log.info("sample " + p.getProbenID() + " could not be found when trying to report as missing");
+        } catch (IllegalArgumentException e) {
             errorMessage("invalid input");
         }
     }
 
     /**
      * finds the priority of a process step
+     *
      * @param ps the step
      * @return the priority of the Auftrag the process step belongs to
      */
-//    public AuftragsPrioritaet getPriority(ProzessSchritt ps) {
-//        return psService.getAuftrag(ps).getPriority();
-//    }
-
+    public AuftragsPrioritaet getPriority(ProzessSchritt ps) {
+        return auftragService.getAuftrag(ps).getPriority();
+    }
 
 
     /**

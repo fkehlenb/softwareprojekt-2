@@ -2,6 +2,7 @@ package de.unibremen.sfb.controller;
 
 import com.github.javafaker.Faker;
 import de.unibremen.sfb.exception.DuplicateKommentarException;
+import de.unibremen.sfb.exception.DuplicateProbeException;
 import de.unibremen.sfb.exception.DuplicateTraegerException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.KommentarDAO;
@@ -189,7 +190,7 @@ public class InitialDataFiller {
             em.persist(aLog);
             log.info("Try to persist AuftragsLog " + aLog.toString());
             Auftrag pk = new Auftrag(UUID.randomUUID().hashCode(), f.gameOfThrones().character(), AuftragsPrioritaet.HOCH, erstelePS(psvListe),
-                    aLog, ProzessKettenZustandsAutomat.INSTANZIIERT);
+                    aLog, ProzessKettenZustandsAutomat.GESTARTET);
 
             // Erstelle neuen PSZA
             List<String> z = new ArrayList<>();
@@ -421,32 +422,25 @@ public class InitialDataFiller {
      *
      * @return a list of samples
      */
-    public List<Probe> erstelleProben(Standort s) {
+    public Traeger erstelleProben(Standort s) {
         List<Probe> r = new ArrayList<>();
-        Traeger t = new Traeger(666, tas.get(0), s);
-        try {
-            traegerDAO.persist(t);
-        } catch (DuplicateTraegerException e) {
-            e.printStackTrace();
+        for(int i=0; i<limit; i++){
+            Probe p1 = new Probe("FDGHJ"+i, 9, ProbenZustand.VORHANDEN, s);
+            p1.setKommentar(erstelleKommentare());
+            try {
+                probeDAO.persist(p1);
+            } catch (DuplicateProbeException e) {
+                e.printStackTrace();
+            }
+            r.add(p1);
         }
-//        for(int i=0; i<limit; i++){
-//            Probe p1 = new Probe("FDGHJ"+i, 9, ProbenZustand.VORHANDEN, s);
-//            p1.setCurrentTraeger(t);
-//            p1.setKommentar(erstelleKommentare());
-//            r.add(p1);
-//            try {
-//                probeDAO.persist(p1);
-//            }
-//            catch(DuplicateProbeException e) {
-//                e.printStackTrace();
-//            }
-//        }
-        return r;
+        Traeger t = new Traeger(UUID.randomUUID().hashCode(), tas.get(0), r );
+        return t;
     }
 
     public List<Kommentar> erstelleKommentare() {
         List<Kommentar> r = new ArrayList<>();
-        for (int i = 0; i < limit; i++) {
+        for (int i = 0; i < limit / 10; i++) {
             Kommentar k = new Kommentar(LocalDateTime.now(), "hallo" + i);
             try {
                 kommentarDAO.persist(k);

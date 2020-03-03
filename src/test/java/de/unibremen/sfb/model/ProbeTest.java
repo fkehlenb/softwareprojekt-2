@@ -68,7 +68,7 @@ class ProbeTest {
 
     @Test
     void testSetCurrentTraeger() {
-        probe.setCurrentTraeger(new Traeger(0, new TraegerArt("art"), new Standort(0, "ort")));
+        probe.setCurrentTraeger(new Traeger(0, new TraegerArt("art"), List.of(probe)));
     }
 
     @Test

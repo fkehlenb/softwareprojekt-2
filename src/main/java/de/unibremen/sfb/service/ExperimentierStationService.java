@@ -151,6 +151,39 @@ public class ExperimentierStationService implements Serializable {
                .collect(Collectors.toList());
     }
 
+    public ExperimentierStation findStation(ProzessSchritt ps)
+            throws IllegalArgumentException {
+        if(ps==null) {
+            throw new IllegalArgumentException();
+        }
+        for(ExperimentierStation e : getAll()) { //TODO jeder schritt nur an einer station?
+            List<Integer> psids = new ArrayList<>();
+            for(ProzessSchritt p : e.getNextPS()) {
+                psids.add(p.getId());
+            }
+            if(psids.contains(ps.getId()) || (e.getCurrentPS()!= null && e.getCurrentPS().getId() == ps.getId())) {
+                return e;
+            }
+        }
+        return null;
+    }
+
+
+
+    /**
+     * Get all PS which belong to user
+     *
+     * @param u the current user
+     * @return the ps
+     */
+    public List<ProzessSchritt> getSchritteByUser(User u) {
+        var ps = new ArrayList<ProzessSchritt>();
+        for (ExperimentierStation e :
+                getESByUser(u)) {
+            ps.add(e.getCurrentPS());
+        }
+        return ps;
+    }
     /**
      * returns all stationen fullfilling a Bedingung //TODO richtig?
      * @param b the Bedingung

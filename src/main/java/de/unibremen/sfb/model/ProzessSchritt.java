@@ -89,6 +89,8 @@ public class ProzessSchritt {
     @NonNull
     private int amountCreated;
 
+    boolean uploaded = false;
+
     @Override
     public String toString(){
         return name;
