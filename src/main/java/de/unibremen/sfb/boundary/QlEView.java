@@ -61,11 +61,11 @@ public class QlEView implements Serializable {
         findAllQual();
     }
 
-    public void addQualitativeEigenschaft() {
+    public String addQualitativeEigenschaft() {
         QualitativeEigenschaft qualitativeEigenschaft = new QualitativeEigenschaft(UUID.randomUUID().hashCode(), nameQualitativeEigenschaft);
         qualitativeEigenschaftService.addQualitativeEigenschaft(qualitativeEigenschaft);
         nameQualitativeEigenschaft=null;
-        findAllQual();
+        return "qEin?faces-redirect=true";
     }
 
     public List<QualitativeEigenschaft> findAllQual() {
@@ -99,7 +99,7 @@ public class QlEView implements Serializable {
                 e.printStackTrace();
             }
             findAllQual();
-            return "Succes";
+            return "qEin?faces-redirect=true";
         } else {
             System.out.println("abhanging");
             return "abEvPP?faces-redirect=true";
@@ -110,7 +110,7 @@ public class QlEView implements Serializable {
     //
     ////Quantitative
     //
-    public void addQuantitativeEigenschaft() {
+    public String addQuantitativeEigenschaft() {
         try {
             String idF = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("IdQnE");
             QuantitativeEigenschaft quantitativeEigenschaft = quantitativeEigenschaftService.getQlEById(Integer.parseInt(idF));
@@ -126,7 +126,7 @@ public class QlEView implements Serializable {
             quantitativeEigenschaft.setEinheit(einheit);
             quantitativeEigenschaftService.addQuantitativeEigenschaft(quantitativeEigenschaft);
         }
-        resetvariables();
+        return "qEin?faces-redirect=true";
     }
 
     public void resetvariables() {
