@@ -101,7 +101,7 @@
   \begin{center}
   \vspace{1cm}
   \bf
-  \Large Architekturbeschreibung\\ Data Colorado\\
+  \Large Benutzerhandbuch\\ Data Colorado\\
   \vfill
   \end{center}
   \centering
@@ -192,11 +192,16 @@ Version & Datum & Änderungen \\
 
 \newpage
 \section{Farbige Zustände für Administratoren}
+Hier finden Sie Anleitung für alle Aktionen, die ein Systemadministrator durchführen kann. 
+%%%%%%%%%%
 \subsection{Installation der Applikation}
+%%%%%%%%%%
 \subsection{Benutzer}
-Die Aktionen bezüglich der Benutzer des Systems können Sie unter dem Unterpunkt Nutzer Verwalten aufrufen. 
+Die Aktionen bezüglich der Benutzer des Systems können Sie unter dem Unterpunkt Nutzer Verwalten im Menü aufrufen. \\
+
 Hier haben Sie eine Tabelle, die alle Benutzer anzeigt, die aktuell im System vorhanden sind. Die Benutzer werden für bessere Übersicht seitenweise angezeigt, mit den Knöpfen oberhalb und unterhalb der Tabelle können Sie durch diese Seiten navigieren.\\
- In dieser Tabelle können Sie durch drücken auf den Knopf Löschen einen User aus dem System entfernen.  
+
+ In dieser Tabelle können Sie durch drücken auf den Knopf Löschen den Benutzer der Zeile aus dem System entfernen.  \\
 \begin{figure}[h!]
 \begin{center}
  \includegraphics[width=\textwidth]{screenshots/admin/nutzerloeschen.png}
@@ -204,13 +209,15 @@ Hier haben Sie eine Tabelle, die alle Benutzer anzeigt, die aktuell im System vo
   \label{fig:boat2}
 \end{center}
 \end{figure}
-Durch drücken auf den Knopf Bearbeiten werden die Daten des Users in das Formular oberhalb der Tabelle geschrieben, wo Sie Änderungen vornehmen können. 
+
+Um Benutzer zu bearbeiten, drücken Sie auf den Knopf Bearbeiten, woraufhin die Daten des Users in das Formular oberhalb der Tabelle angezeigt werden, wo Sie Änderungen vornehmen können. \\
 Bitte beachten Sie, in dem Feld Email nur Eingaben in der Form []@[].[] einzugeben, wobei die Endung länger als zwei Zeichen sein muss. Des weiteren dürfen für die Telefonnummer nur Zahlen eingegeben werden. Sollten Sie Fehler in den Eingaben machen, werden Ihnen die fehlerhaften Felder rot unterlegt. Die ID eines Benutzers können Sie nicht bearbeiten, da diese vom System verwaltet werden. \\
 Mit Drücken auf Reset werden die bisher gespeicherten Daten wieder hergestellt. Mit Drücken auf Speichern können Sie Ihre Änderungen speichern. \\
+
 //TODO Bild
 
-Über der Tabelle befindet sich ein Formular, in dem Sie die Daten für einen neuen Benutzer eingeben können. Wenn sie alle Daten eingegeben haben, klicken Sie auf Speichern, um den Benutzer zu speichern. Die ID müssen Sie nicht selber eingeben, da sie vom System generiert wird. 
-Hier gelten die gleichen Beschränkungen wie oben für die Bearbeitung von Benutzern genannt. 
+Über der Tabelle befindet sich ein Formular, in dem Sie die Daten für einen neuen Benutzer eingeben können. Wenn sie alle Daten eingegeben haben, klicken Sie auf Speichern, um den Benutzer zu speichern. Die ID müssen Sie nicht selber eingeben, da sie vom System generiert wird. \\
+Hier gelten die gleichen Beschränkungen wie oben für die Bearbeitung von Benutzern genannt. \\
 \begin{figure}[h!]
 \begin{center}
  \includegraphics[width=\textwidth]{screenshots/admin/nutzerformularausgefuellt.png}
@@ -218,6 +225,7 @@ Hier gelten die gleichen Beschränkungen wie oben für die Bearbeitung von Benut
   \label{fig:boat3}
 \end{center}
 \end{figure}
+
 Bei erfolgreicher Erstellung eines Benutzer werden Sie eine Nachricht am rechten Rand des Fensters sehen, der neue Benutzer wird in der Tabelle erscheinen und eine Email bekommen. 
 \begin{figure}[h!]
 \begin{center}
@@ -226,10 +234,41 @@ Bei erfolgreicher Erstellung eines Benutzer werden Sie eine Nachricht am rechten
   \label{fig:boat1}
 \end{center}
 \end{figure}
-Wenn sie das Formular zurücksetzen wollen, drücken Sie auf Reset. 
+Wenn sie die Daten im Formular zurücksetzen wollen, drücken Sie auf Reset. Dadurch werden keine Veränderungen an den vom System gespeicherten Daten vorgenommen. \\ 
+
 \subsection{Experimentierstationen}
+Die Aktionen bezüglich der Experimentierstationen können Sie unter dem Unterpunkt Experimentierstationen Verwalten im Menü aufrufen. \\
+Auf der Seite sehen Sie eine Tabelle mit allen existierenden Experimentierstationen, sowie ein Formular für die Eingabe von Informationen einer Station. Die Tabelle zeigt die Stationen seitenweise an. Mithilfe der Knöpfe ober- und unterhalb der Tabelle können Sie durch die Seiten navigieren. \\
+
+In dem Formular können Sie einen Namen eingeben, und einen Standort, die Prozessschrittparameter und die Benutzer, die an dieser Station arbeiten sollen, aussuchen. Für Benutzer, Parameter und Standort wählen Sie bitte die passenden Informationen aus der Liste, die Ihnen nach Klick auf das betreffende Feld angezeigt wird, aus. Bitte beachten Sie, dass Sie mindestens ... eingeben müssen, um eine Station erstellen zu können. \\
+Um die Station zu speichern, drücken Sie auf Erstellen, woraufhin Sie diese in der Tabelle sehen können. Um Ihre Eingaben zurückzusetzen, drücken Sie auf Zurücksetzen. \\
+
+//TODO bilder
+
+Wollen Sie eine existierende Station löschen, drücke Sie in der Tabellenzeile der Station auf Löschen. Die Station wird daraufhin aus der Tabelle entfernt. \\
+Wenn Sie eine existierende Station bearbeiten wollen, drücken Sie in der Tabellenzeile auf den Stift. Daraufhin können Sie in die Zelle klicken, die Sie bearbeiten wollen, und dann die Informationen analog zur Eingabe im Formular auswählen. Nachdem Sie fertig sind mit der Bearbeitung der Station, klicken Sie bitte auf den Haken, der am Ende der Zeile statt des Stifts erschienen ist. Wenn Sie die Eingabe abbrechen wollen, drücken Sie auf das Kreuz. \\
+
+//TODO bilder
+
+%%%%%%%%%%
+
+\subsection{Standorte}
+Die Aktionen bezüglich der Standorte können Sie unter dem Unterpunkt Standort Verwalten im Menü aufrufen. \\
+Auf dieser Seite sehen Sie eine Tabelle, in der alle existierenden Standorte angezeigt werden, und ein Feld, in dem Sie den Namen eines neuen Standorts eingeben können. \\
+Um einen neuen Standort zu speichern, geben Sie einfach den Namen des Standorts in das Feld ein, und drücke Sie auf Erstellen. Nach erfolgreichem Speichern wird dieser der Tabelle hinzugefügt. \\
+
+Wenn Sie einen existierenden Standort löschen wollen, klicken Sie in der Tabellenzeile des Standorts auf Löschen. Der Standort verschwindet daraufhin aus der Tabelle. \\
+Um einen existierenden Standort zu bearbeiten, klicken Sie in der entsprechenden Tabellenzeile auf das Stift Symbol. Daraufhin können Sie in die Zelle mit dem Namen klicken und diesen editieren. Wenn Sie fertig sind, klicken Sie auf den Haken, der am Ende der Zeile an der Stelle des Stifts erschienen ist. Wenn Sie den Vorgang abbrechen und auf den alten Namen zurücksetzen wollen, klicken Sie auf das Kreuz. \\
+
+
+%%%%%%%%%%
 \subsection{Globale Einstellungen}
+Unter dem Unterpunkt Globale Einstellungen können Sie die Zeiten von alten Aufträgen verwalten und ändern. \\
+
+%%%%%%%%%%
 \subsection{Backup der Systemdaten}
+Unter dem Unterpunkt Backup und Wiederherstellen können Sie die aktuelle Datenbank mit all ihrer Daten exportieren, oder neue Daten aus einer existierenden Datenbank importieren. \\
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
