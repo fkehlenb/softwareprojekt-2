@@ -10,6 +10,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -17,105 +20,158 @@ import javax.inject.Named;
 import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
 @Transactional
 @Named("dtPSPBean")
-@ViewScoped
+@RequestScoped
 @Slf4j
 @Setter
 @Getter
 public class PSPView implements Serializable {
 
+    /** Process parameter service */
     @Inject
-    ProzessSchrittParameterService prozessSchrittParameterService;
+    private ProzessSchrittParameterService prozessSchrittParameterService;
 
+    /** Qualitative Descriptor service */
     @Inject
-    QualitativeEigenschaftService qualitativeEigenschaftService;
+    private QualitativeEigenschaftService qualitativeEigenschaftService;
 
+    /** Quantitative descriptor service */
     @Inject
-    QuantitativeEigenschaftService quantitativeEigenschaftService;
+    private QuantitativeEigenschaftService quantitativeEigenschaftService;
 
-    private String id;
+    /** List of all available process step parameters */
+    private List<ProzessSchrittParameter> availableProzessSchrittParameter;
 
-    private String name;
+    /** List of all available qualitative descriptors */
+    private List<QualitativeEigenschaft> availableQualitativeEigenschaften;
 
-    private List<QualitativeEigenschaft> qualitativeEigenschaften = new ArrayList<>();
+    /** List of selected qualitative descriptors */
+    private List<QualitativeEigenschaft> selectedQualitativeEigenschaften;
 
-    public String creationLink() {
-        return "addPSP?faces-redirect=true";
+    /** List of all available quantitative descriptors */
+    private List<QuantitativeEigenschaft> availableQuantitativeEigenschaften;
 
+    /** List of all selected quantitative descriptors */
+    private List<QuantitativeEigenschaft> selectedQuantitativeEigenschaften;
+
+    /** Selected name */
+    private String selectedName;
+
+    /** Init called on start */
+    @PostConstruct
+    private void init(){
+        refresh();
     }
 
+    /** Reload data */
+    private void refresh(){
+        availableProzessSchrittParameter = prozessSchrittParameterService.getAll();
+        availableQualitativeEigenschaften = qualitativeEigenschaftService.getAllQualitativeEigenschaften();
+        availableQuantitativeEigenschaften = quantitativeEigenschaftService.getAllQuantitativeEigenschaften();
+    }
 
-    public String add() {
+    /** Create a new process step parameter */
+    public void createPSP(){
         try {
-            ProzessSchrittParameter prozessSchrittParameter = new ProzessSchrittParameter();
-            prozessSchrittParameter.setId(UUID.randomUUID().hashCode());
-            prozessSchrittParameter.setName(name);
-            prozessSchrittParameter.setQualitativeEigenschaften(qualitativeEigenschaften);
+            List<QualitativeEigenschaft> selectedEigenschaften = new ArrayList<>();
+            if (selectedQuantitativeEigenschaften == null){
+                selectedQuantitativeEigenschaften = new ArrayList<>();
+            }
+            if (selectedQualitativeEigenschaften == null){
+                selectedQualitativeEigenschaften = new ArrayList<>();
+            }
+            for (QualitativeEigenschaft a : selectedQualitativeEigenschaften){
+                selectedEigenschaften.add(a);
+            }
+            for (QuantitativeEigenschaft a : selectedQuantitativeEigenschaften){
+                selectedEigenschaften.add(a);
+            }
+            ProzessSchrittParameter prozessSchrittParameter = new ProzessSchrittParameter(UUID.randomUUID().hashCode(),selectedName,selectedEigenschaften);
             prozessSchrittParameterService.addProcessSP(prozessSchrittParameter);
-            log.info("Trying to persist der ProzzesSchritt"+prozessSchrittParameter.getName());
-            return "psp?faces-redirect=true";
-        } catch (Exception e) {
-            log.info("Fail to persist der ProzzesSchritt");
-            return "Not posible Creation";
-
+            log.info("Created new process parameter with name " + selectedName);
+            facesNotification("Created new process parameter with name " + selectedName);
+            refresh();
         }
-    }
-
-    public void select(String idqE) {
-        try {
-            qualitativeEigenschaften.add(qualitativeEigenschaftService.getQlEById(Integer.parseInt(idqE)));
-        } catch (Exception e) {
-            qualitativeEigenschaften.add(quantitativeEigenschaftService.getQlEById(Integer.parseInt(idqE)));
-        }
-    }
-
-    public List<QualitativeEigenschaft> qlEGewahlt() {
-        try {
-           return qualitativeEigenschaften;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public List<QualitativeEigenschaft> qlE() {
-        try {
-            return qualitativeEigenschaftService.getAllQualitativeEigenschaften();
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public List<QuantitativeEigenschaft> qtE() {
-        try {
-            return quantitativeEigenschaftService.getAllQuantitativeEigenschaften();
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public void deletePSP(String id){
-        try {
-            prozessSchrittParameterService.loscheParameter(prozessSchrittParameterService.getPSPByID(Integer.parseInt(id)));
-        } catch (Exception e) {
-            log.info("Failen remove ProzessSchrittParameterDAO Class=ProzessSchrittParameterService");
+        catch (Exception e){
             e.printStackTrace();
+            log.error("Couldn't create new process parameter! Error " + e.getMessage());
+            facesError("Couldn't create new process parameter!");
         }
     }
 
-   public String Edit(String id){
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("id",id);
-        List<QualitativeEigenschaft> list=prozessSchrittParameterService.getPSPByID(Integer.parseInt(id)).getQualitativeEigenschaften();
-        ProzessSchrittParameter prozessSchrittParameter = prozessSchrittParameterService.getPSPByID(Integer.parseInt(id));
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("PSP",prozessSchrittParameter);
-       FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("list",list);
-        return "updatePSP?faces-redirect=true";
+    /** Edit a process step parameter
+     * @param id - the id of the process step parameter to edit */
+    public void editPSP(int id){
+        try {
+            ProzessSchrittParameter psp = prozessSchrittParameterService.getPSPByID(id);
+            psp.setName(selectedName);
+            List<QualitativeEigenschaft> selectedEigenschaften = new ArrayList<>();
+            if (selectedQuantitativeEigenschaften == null){
+                selectedQuantitativeEigenschaften = new ArrayList<>();
+            }
+            if (selectedQualitativeEigenschaften == null){
+                selectedQualitativeEigenschaften = new ArrayList<>();
+            }
+            for (QualitativeEigenschaft a : selectedQualitativeEigenschaften){
+                selectedEigenschaften.add(a);
+            }
+            for (QuantitativeEigenschaft a : selectedQuantitativeEigenschaften){
+                selectedEigenschaften.add(a);
+            }
+            psp.setQualitativeEigenschaften(selectedEigenschaften);
+            prozessSchrittParameterService.update(psp);
+            log.info("Updated process step parameter with id " + id);
+            facesNotification("Updated process step parameter!");
+            refresh();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            log.error("Couldn't update process step parameter with id " + id);
+            facesError("Couldn't update process step parameter!");
+        }
     }
 
-    public List<ProzessSchrittParameter> findAll() {
-        return prozessSchrittParameterService.getAll();
+    /** Remove a process step parameter
+     * @param id - the id of the process step parameter to remove */
+    public void removePSP(int id){
+        try{
+            prozessSchrittParameterService.loscheParameter(prozessSchrittParameterService.getPSPByID(id));
+            log.info("Removed process parameter with id " + id);
+            facesNotification("Removed process parameter!");
+            refresh();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            log.error("Couldn't remove process step parameter with id " + id);
+            facesError("Couldn't remove process parameter!");
+        }
+    }
+
+    /** Row edit canceled */
+    public void onRowEditCanceled(){
+        facesNotification("Canceled!");
+    }
+
+    /**
+     * Adds a new SEVERITY_ERROR FacesMessage for the ui
+     *
+     * @param message Error Message
+     */
+    private void facesError(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+    }
+
+    /**
+     * Adds a new SEVERITY_INFO FacesMessage for the ui
+     *
+     * @param message Info Message
+     */
+    private void facesNotification(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
     }
 }

@@ -4,12 +4,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
->
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <ui:define name="metadata">
     <f:metadata>
-        <f:viewAction action="#{languageBean.setLanguage}" />
+        <f:viewAction action="#{languageBean.setLanguage}"/>
     </f:metadata>
 </ui:define>
 
@@ -21,54 +20,143 @@
 <body>
 <ui:composition template="/template/common/layout.xhtml">
     <ui:define name="content">
-        <div class="ui-g-2"></div>
-        <div class="ui-g-8">
-            <p:panel id="QlE">
-                <div id="QualEingeschaftFormular">
-                    <h2>ProcessSchritt Creation</h2>
-                    <p:outputPanel>
-                        <h:form>
-                            <h:panelGrid columns="2" cellpadding="5">
-                                <p:commandButton ajax="false" action="#{dtPSPBean.creationLink()}"
-                                                 value="Erzeugen"/>
-                            </h:panelGrid>
-                        </h:form>
-                    </p:outputPanel>
-                </div>
-                <br/>
-                <div id="QualEingeschaftList">
-                <h2>Liste der Prozessschrittparameter</h2>
-                        <p:dataTable id="psps1" var="psp" value="#{dtPSPBean.findAll()}" editable="true"
-                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
-                                     paginator="true" style="margin-bottom:20px">
-                            <p:column headerText="Id">
-                                <h:outputText value="#{psp.id}"/>
-                            </p:column>
-                            <p:column headerText="Name">
-                                <h:outputText value="#{psp.name}"/>
-                            </p:column>
-                            <p:column headerText="Remove">
-                                <h:form>
-                                    <div align="center">
-                                        <p:commandButton ajax="false" action="#{dtPSPBean.deletePSP(psp.id)}" value="ERASE"
-                                                         icon="pi pi-trash"/>
-                                    </div>
-                                </h:form>
-                            </p:column>
-                            <p:column headerText="Edit">
-                                <h:form>
-                                    <div align="center">
-                                        <p:commandButton ajax="false" action="#{dtPSPBean.Edit(psp.id)}" value="EDIT"
-                                                         icon="pi pi-pencil"/>
-                                    </div>
-                                </h:form>
-                            </p:column>
-                        </p:dataTable>
-                </div>
-            </p:panel >
-        </div>
-
-        <div class="ui-g-2"></div>
+        <p:panelGrid columns="1">
+            <p:row>
+                <h2 style="color: cornflowerblue">Prozessparameter Verwaltung</h2>
+            </p:row>
+            <p:row>
+                <p>Hier koennen Sie neue Prozessparameter erstellen. Diese koennen us beliebig vielen Qualitativen
+                    und Quantitativen Eigenschaften bestehen. Die Qualitative und Quantitativen eigenschaften koennen Sie auf der
+                    dafuer gedachten Website erstellen und bearbeiten.</p>
+            </p:row>
+            <p:row>
+                <p:panel header="Prozessschrittparameter Erstellen">
+                    <h:form>
+                        <p:panelGrid>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <h:outputText value="Prozessparameter Name"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText placeholder="Name" required="true"
+                                                 requiredMessage="Bitte prozessparameter name engeben!"
+                                                 value="#{dtPSPBean.selectedName}"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <h:outputText value="Qualitative Eigenschaften"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:selectCheckboxMenu id="psp"
+                                                          value="#{dtPSPBean.selectedQualitativeEigenschaften}"
+                                                          converter="omnifaces.SelectItemsConverter" effect="fade"
+                                                          var="psp" style="width: 172px" filter="true"
+                                                          filterMatchMode="contains" showCheckbox="true"
+                                                          label="ProzessSchrittParameter">
+                                        <f:selectItems value="#{dtPSPBean.availableQualitativeEigenschaften}"
+                                                       var="psp" itemLabel="#{psp.name}"
+                                                       itemValue="#{psp}"/>
+                                    </p:selectCheckboxMenu>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <h:outputText value="Quantitative Eigenschaften"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:selectCheckboxMenu id="psp2"
+                                                          value="#{dtPSPBean.selectedQuantitativeEigenschaften}"
+                                                          converter="omnifaces.SelectItemsConverter" effect="fade"
+                                                          var="psp" style="width: 172px" filter="true"
+                                                          filterMatchMode="contains" showCheckbox="true"
+                                                          label="ProzessSchrittParameter">
+                                        <f:selectItems value="#{dtPSPBean.availableQuantitativeEigenschaften}"
+                                                       var="psp" itemLabel="#{psp.name}"
+                                                       itemValue="#{psp}"/>
+                                    </p:selectCheckboxMenu>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:commandButton value="Reset" type="reset" icon="pi pi-trash"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:commandButton value="Einfuegen" action="#{dtPSPBean.createPSP}" ajax="false"
+                                                     icon="pi pi-check"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </h:form>
+                </p:panel>
+            </p:row>
+            <p:row>
+                <h:form id="form">
+                    <p:dataTable id="table" var="psp" value="#{dtPSPBean.availableProzessSchrittParameter}"
+                                 editable="true"
+                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                 paginator="true" rows="15" style="margin-bottom:20px">
+                        <p:ajax event="rowEdit" listener="#{dtPSPBean.editPSP(psp.id)}"
+                                update="form:table"/>
+                        <p:ajax event="rowEditCancel" listener="#{dtPSPBean.onRowEditCanceled}"
+                                update="form:table"/>
+                        <p:column headerText="Prozessparameter Name">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{psp.name}"/>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText placeholder="Name" required="true"
+                                                 requiredMessage="Bitte prozessparameter name engeben!"
+                                                 value="#{dtPSPBean.selectedName}"/>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Qualitative Eigenschaften">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <p:commandButton value="Anzeigen" icon="pi pi-external-link"/>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:selectCheckboxMenu id="psp3"
+                                                          value="#{dtPSPBean.selectedQualitativeEigenschaften}"
+                                                          converter="omnifaces.SelectItemsConverter" effect="fade"
+                                                          var="psp" style="width: 172px" filter="true"
+                                                          filterMatchMode="contains" showCheckbox="true"
+                                                          label="ProzessSchrittParameter">
+                                        <f:selectItems value="#{dtPSPBean.availableQualitativeEigenschaften}"
+                                                       var="psp" itemLabel="#{psp.name}"
+                                                       itemValue="#{psp}"/>
+                                    </p:selectCheckboxMenu>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column headerText="Quanitative Eigenschaften">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <p:commandButton value="Anzeigen" icon="pi pi-external-link"/>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:selectCheckboxMenu id="psp4"
+                                                          value="#{dtPSPBean.selectedQuantitativeEigenschaften}"
+                                                          converter="omnifaces.SelectItemsConverter" effect="fade"
+                                                          var="psp" style="width: 172px" filter="true"
+                                                          filterMatchMode="contains" showCheckbox="true"
+                                                          label="ProzessSchrittParameter">
+                                        <f:selectItems value="#{dtPSPBean.availableQuantitativeEigenschaften}"
+                                                       var="psp" itemLabel="#{psp.name}"
+                                                       itemValue="#{psp}"/>
+                                    </p:selectCheckboxMenu>
+                                </f:facet>
+                            </p:cellEditor>
+                        </p:column>
+                        <p:column>
+                            <p:commandButton value="Remove" icon="pi pi-trash" ajax="false"
+                                             action="#{dtPSPBean.removePSP(psp.id)}"/>
+                        </p:column>
+                        <p:column>
+                            <p:rowEditor/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:row>
+        </p:panelGrid>
     </ui:define>
 </ui:composition>
 </body>

@@ -51,16 +51,16 @@ public class PspQeAbhangView implements Serializable {
     public List<ProzessSchrittParameter> getProzessSchrittParameters(){
         return prozessSchrittParameters;
     }
-    public String deleteAb(String id){
-        ProzessSchrittParameter prozessSchrittParameter = prozessSchrittParameterService.getPSPByID(Integer.parseInt(id));
-        QualitativeEigenschaft quantitativeEigenschaftToRemove = qualitativeEigenschaftService.getQlEById(Integer.parseInt(idqEin));
-        List<QualitativeEigenschaft> qualitativeEigenschaftP = prozessSchrittParameter.getQualitativeEigenschaften();
-        System.out.println("VALOR:::::"+quantitativeEigenschaftToRemove.getName());
-        qualitativeEigenschaftP.remove(quantitativeEigenschaftToRemove);
-        prozessSchrittParameter.setQualitativeEigenschaften(qualitativeEigenschaftP);
-        prozessSchrittParameterService.update(prozessSchrittParameter);
-        return "abEvPP?faces-redirect=true";
-    }
+//    public String deleteAb(String id){
+//        ProzessSchrittParameter prozessSchrittParameter = prozessSchrittParameterService.getPSPByID(Integer.parseInt(id));
+//        QualitativeEigenschaft quantitativeEigenschaftToRemove = qualitativeEigenschaftService.getQlEById(Integer.parseInt(idqEin));
+//        List<QualitativeEigenschaft> qualitativeEigenschaftP = prozessSchrittParameter.getQualitativeEigenschaften();
+//        System.out.println("VALOR:::::"+quantitativeEigenschaftToRemove.getName());
+//        qualitativeEigenschaftP.remove(quantitativeEigenschaftToRemove);
+//        prozessSchrittParameter.setQualitativeEigenschaften(qualitativeEigenschaftP);
+//        prozessSchrittParameterService.update(prozessSchrittParameter);
+//        return "abEvPP?faces-redirect=true";
+//    }
 
     public String linkQIE(){
         return "qEin?faces-redirect=true";

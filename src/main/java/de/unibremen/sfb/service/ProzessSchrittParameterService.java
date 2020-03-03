@@ -1,6 +1,7 @@
 package de.unibremen.sfb.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.unibremen.sfb.exception.DuplicateProzessSchrittParameterException;
 import de.unibremen.sfb.exception.ProzessSchrittParameterNotFoundException;
 import de.unibremen.sfb.model.ProzessSchrittParameter;
 import de.unibremen.sfb.model.QualitativeEigenschaft;
@@ -20,10 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Startup
 @Data
 @Getter
-@Singleton
 @Slf4j
 public class ProzessSchrittParameterService implements Serializable {
     private List<ProzessSchrittParameter> parameterList;
@@ -33,9 +32,8 @@ public class ProzessSchrittParameterService implements Serializable {
 
     @PostConstruct
     public void init() {
-       this.parameterList = prozessSchrittParameterDAO.getAll();
+        this.parameterList = prozessSchrittParameterDAO.getAll();
     }
-
 
 
     public List<ProzessSchrittParameter> getPSP() {
@@ -46,25 +44,13 @@ public class ProzessSchrittParameterService implements Serializable {
         return p.getQualitativeEigenschaften();
     }
 
-    public void loscheParameter(ProzessSchrittParameter parameter) {
+    public void loscheParameter(ProzessSchrittParameter parameter) throws ProzessSchrittParameterNotFoundException {
         this.parameterList.remove(parameter);
-        try {
-            log.info("Trying remove ProzessSchrittParameterDAO Class=ProzessSchrittParameterService");
-            prozessSchrittParameterDAO.remove(parameter);
-        } catch (Exception e) {
-            log.info("Failen remove ProzessSchrittParameterDAO Class=ProzessSchrittParameterService");
-        }
+        prozessSchrittParameterDAO.remove(parameter);
     }
 
-    public ProzessSchrittParameter getPSPByID(int idPSP) {
-
-        try {
-            log.info("Trying remove ProzessSchrittParameterDAO Class=ProzessSchrittParameterService");
-            return prozessSchrittParameterDAO.getPSPByID(idPSP);
-        } catch (Exception e) {
-            log.info("Failen remove ProzessSchrittParameterDAO Class=ProzessSchrittParameterService");
-            return null;
-        }
+    public ProzessSchrittParameter getPSPByID(int idPSP) throws ProzessSchrittParameterNotFoundException {
+        return prozessSchrittParameterDAO.getPSPByID(idPSP);
     }
 
     public ProzessSchrittParameter findByName(String name) {
@@ -81,15 +67,11 @@ public class ProzessSchrittParameterService implements Serializable {
 
     //////// Santiago Implementierung ////
 //////////////////////////////////////////
-    public void addProcessSP(ProzessSchrittParameter prozessSchrittParameter) {
-        try {
-            this.parameterList.add(prozessSchrittParameter);
-            log.info("Trying persist ProzessSchrittParameterDAO Class=ProzessSchrittParameterService");
-            prozessSchrittParameterDAO.persist(prozessSchrittParameter);
-        } catch (Exception e) {
-            log.info("error persist ProzessSchrittParameterDAO Class=ProzessSchrittParameterService");
-        }
+    public void addProcessSP(ProzessSchrittParameter prozessSchrittParameter) throws DuplicateProzessSchrittParameterException {
+        this.parameterList.add(prozessSchrittParameter);
+        prozessSchrittParameterDAO.persist(prozessSchrittParameter);
     }
+
     public List<ProzessSchrittParameter> getAll() {
         try {
             log.info("Trying get all ProzessSchrittParameterDAO Class=ProzessSchrittParameterService");
@@ -108,7 +90,7 @@ public class ProzessSchrittParameterService implements Serializable {
         }
     }
 
-    public List<ProzessSchrittParameter> findByQei(int idqEin){
+    public List<ProzessSchrittParameter> findByQei(int idqEin) {
         List<ProzessSchrittParameter> pspList = prozessSchrittParameterDAO.getAll();
         List<ProzessSchrittParameter> prozessSchrittParameters = new ArrayList<>();
 

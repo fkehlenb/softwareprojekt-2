@@ -84,10 +84,10 @@ class ProzessSchrittParameterServiceTest {
         Assertions.assertEquals(new File(getClass().getResource("/de/unibremen/sfb/service/PleaseReplaceMeWithTestFile.txt").getFile()), result);
     }
 
-    @Test
-    void testAddProcessSP() {
-        prozessSchrittParameterService.addProcessSP(prozessSchrittParameter);
-    }
+//    @Test
+//    void testAddProcessSP() {
+//        prozessSchrittParameterService.addProcessSP(prozessSchrittParameter);
+//    }
 
     @Test
     void testGetAll() {
