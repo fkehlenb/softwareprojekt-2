@@ -382,7 +382,7 @@ public class InitialDataFiller {
             Collections.addAll(z, pszaVorlage.getZustaende());
             z.addAll(pszaVorlage.getZustaende());
             Faker faker = new Faker();
-            result.add(new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), List.of(parameters.get(i)), experimentierStations.get(0), "42:00", faker.gameOfThrones().dragon(),
+            result.add(new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), List.of(parameters.get(i)), experimentierStations.get(1), "42:00", faker.gameOfThrones().dragon(),
                     v, true, f.random().nextInt(0, 999)));
         }
         return result;
