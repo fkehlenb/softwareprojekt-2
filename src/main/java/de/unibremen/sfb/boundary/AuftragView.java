@@ -242,11 +242,16 @@ public class AuftragView implements Serializable {
     public void setStarted(int id) {
         try {
             Auftrag a = auftragService.getObjById(id);
-            a.setProzessKettenZustandsAutomat(ProzessKettenZustandsAutomat.GESTARTET);
-            auftragService.update(a);
-            log.info("Started job with id " + id);
-            facesNotification("Started job!");
-            refresh();
+            if (a.getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.INSTANZIIERT)) {
+                a.setProzessKettenZustandsAutomat(ProzessKettenZustandsAutomat.GESTARTET);
+                auftragService.update(a);
+                log.info("Started job with id " + id);
+                facesNotification("Started job!");
+                refresh();
+            }
+            else{
+                facesError("Job has already been started!");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             log.error("Couldn't start job with id " + id + " Error " + e.getMessage());

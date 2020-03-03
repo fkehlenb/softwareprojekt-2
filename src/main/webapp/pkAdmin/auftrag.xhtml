@@ -134,6 +134,9 @@
                             <p:column headerText="Prozessschritte">
                                 <p:commandButton value="Anzeigen" icon="pi pi-external-link"/>
                             </p:column>
+                            <p:column headerText="Freigabe">
+                                <p:commandButton value="Freigeben" action="#{dtAuftragBean.setStarted(job.pkID)}" ajax="false" icon="pi pi-check"/>
+                            </p:column>
                             <p:column>
                                 <p:commandButton value="Delete" icon="pi pi-trash" ajax="false" action="#{dtAuftragBean.remove(job.pkID)}"/>
                             </p:column>
