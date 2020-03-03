@@ -124,13 +124,13 @@ public class ProzessSchrittView implements Serializable {
             ProzessSchrittVorlage prozessSchrittVorlage = prozessSchrittVorlageService.getByID(id);
 
             ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(),
-                    prozessSchrittVorlage.getZustandsAutomatVorlage().getZustaende().get(0), prozessSchrittVorlage.getZustandsAutomatVorlage());
+                    prozessSchrittVorlage.getZustandsAutomatVorlage().getZustaende().get(0), prozessSchrittVorlage.getZustandsAutomatVorlage().getZustaende());
 
             ProzessSchrittLog prozessSchrittLog = new ProzessSchrittLog(LocalDateTime.now(),"ERSTELLT");
 
             ProzessSchritt prozessSchritt = new ProzessSchritt(UUID.randomUUID().hashCode(),prozessSchrittZustandsAutomat,
                     prozessSchrittVorlage.getDauer(), prozessSchrittVorlage.getProzessSchrittParameters(),
-                    prozessSchrittVorlage.getExperimentierStation(),prozessSchrittAttribute,List.of(prozessSchrittLog),prozessSchrittName);
+                    prozessSchrittVorlage.getExperimentierStation(),prozessSchrittAttribute,List.of(prozessSchrittLog),prozessSchrittName, urformend, amountCreated);
             prozessSchrittZustandsAutomatService.add(prozessSchrittZustandsAutomat);
             prozessSchrittLogService.add(prozessSchrittLog);
             prozessSchrittService.createPS(prozessSchritt);

@@ -65,11 +65,11 @@ public class InitialDataFiller {
     @Inject
     private TraegerDAO traegerDAO;
 
-    @PersistenceContext
+    @PersistenceContext(name = "swp2")
     private EntityManager em;
 
     private User testUser;
-    private ArrayList<ExperimentierStation> experimentierStations;
+    private List<ExperimentierStation> experimentierStations;
     private ProzessSchrittZustandsAutomatVorlage sVorlage;
     private User tTechnologe;
 
@@ -113,11 +113,7 @@ public class InitialDataFiller {
                 em.persist(t);
             }
 
-            for (ProzessSchrittZustandsAutomatVorlage p :
-                    erstelleStandartVorlagen()) {
-                log.info("Persisting: Voralge " + p.getName());
-                em.persist(p);
-            }
+            em.persist(erstelleStandartVorlage());
 
             //       Experimentierstaation, requires Standort;
             for (ExperimentierStation s :
@@ -139,7 +135,7 @@ public class InitialDataFiller {
             em.persist(new QuantitativeEigenschaft("Lustige Eigenschaft", 420, "seconds"));
 
             //    PS Parameter
-            ArrayList<ProzessSchrittParameter> parameters = new ArrayList<>();
+            List<ProzessSchrittParameter> parameters = new ArrayList<>();
             for (int i = 0; i < limit; i++) {
                 parameters.add(new ProzessSchrittParameter(UUID.randomUUID().hashCode(), f.gameOfThrones().dragon(), qualitativeEigenschaftList));
             }
@@ -150,13 +146,14 @@ public class InitialDataFiller {
                 em.persist(psp);
             }
 
-            // Erstelle Test Bedingung
-            Bedingung b = new Bedingung(UUID.randomUUID().hashCode(), "Test Bedingung", parameters, 44);
-            log.info("Trying to persist Bedingung: " + b.toString());
-            em.persist(b);
+            // PSZAV Setup
+            pszaVorlage = new ProzessSchrittZustandsAutomatVorlage(996699,
+                    psZustaende, "Standart");
+            log.info("Try to persist ProzessSchrittZustandsAutomatVorlage " + pszaVorlage.toString());
+            em.persist(pszaVorlage);
 
             // Erstelle die Liste aus den Parametern
-            ArrayList<ProzessSchrittVorlage> psvListe = getProzessSchrittVorlages(parameters);
+            List<ProzessSchrittVorlage> psvListe = getProzessSchrittVorlage(parameters);
             for (ProzessSchrittVorlage pSV :
                     psvListe) {
                 log.info("Trying to persist ProzessSchrittVorlage " + pSV.toString());
@@ -166,15 +163,13 @@ public class InitialDataFiller {
             log.info("Try to persist ProzessSchrittVorlage " + pkv.getPkvID());
             em.persist(pkv);
 
-            // PSZAV Setup
-            pszaVorlage = new ProzessSchrittZustandsAutomatVorlage(996699,
-                    psZustaende, "Standart");
-            log.info("Try to persist ProzessSchrittZustandsAutomatVorlage " + pszaVorlage.toString());
-            em.persist(pszaVorlage);
 
             // Setup PSZA
+            List z = new ArrayList();
+            Collections.addAll(z, pszaVorlage.getZustaende());
+            z.addAll(pszaVorlage.getZustaende());
             ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(
-                    UUID.randomUUID().hashCode(), "ERSTELLT", pszaVorlage);
+                    UUID.randomUUID().hashCode(), "ERSTELLT", z);
             log.info("Try to persist ProzessSchrittZustandsAutomat " + prozessSchrittZustandsAutomat.toString());
             em.persist(prozessSchrittZustandsAutomat);
             erstelleAuftrag(psvListe);
@@ -182,25 +177,29 @@ public class InitialDataFiller {
         } else {
             log.info("Data already exists");
         }
-
     }
 
     private void erstelleAuftrag(List<ProzessSchrittVorlage> psvListe) {
-        for (int i = 0; i < limit; i++) {
+        for (int i = 0; i < 1; i++) {
             //  Auftrag Setup
             AuftragsLog aLog = new AuftragsLog(LocalDateTime.now());
             aLog.setErstellt(LocalDateTime.now());
             em.persist(aLog);
             log.info("Try to persist AuftragsLog " + aLog.toString());
-            Auftrag pk = new Auftrag(UUID.randomUUID().hashCode(), pkv, AuftragsPrioritaet.HOCH, erstelePS(psvListe),
+            Auftrag pk = new Auftrag(UUID.randomUUID().hashCode(), f.gameOfThrones().character(), AuftragsPrioritaet.HOCH, erstelePS(psvListe),
                     aLog, ProzessKettenZustandsAutomat.INSTANZIIERT);
 
             // Erstelle neuen PSZA
-            var automat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "AKZEPTIERT", pszaVorlage);
+            List<String> z = new ArrayList<>();
+            for (String s :
+                    pszaVorlage.getZustaende()) {
+                z.add(s);
+            }
+            var automat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "AKZEPTIERT", z);
             em.persist(automat);
 
             // PS Setup
-            ArrayList<ProzessSchrittLog> logs = new ArrayList<>();
+            List<ProzessSchrittLog> logs = new ArrayList<>();
             logs.add(new ProzessSchrittLog(LocalDateTime.now(), "INSTANZIERT"));
             for (ProzessSchrittLog pSL :
                     logs) {
@@ -209,14 +208,19 @@ public class InitialDataFiller {
             }
             // PS aufuellen
             log.info("Try to persist TEST ProzessKette " + pk.getPkID());
-            em.persist(pk);
+        //    em.persist(pk);
         }
+
+
     }
 
     private List<ProzessSchritt> erstelePS(List<ProzessSchrittVorlage> psvListe) {
         var r = new ArrayList<ProzessSchritt>();
         for (int i = 0; i < limit * 0.5; i++) {
-            var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "Erstellt", pszaVorlage);
+            List z = new ArrayList();
+            Collections.addAll(z, pszaVorlage.getZustaende());
+            z.addAll(pszaVorlage.getZustaende());
+            var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "Erstellt", z);
             em.persist(a);
             var psv = psvListe.get(i);
             var psLogs = List.of(new ProzessSchrittLog(LocalDateTime.now(), "Gestartet"),
@@ -226,8 +230,10 @@ public class InitialDataFiller {
                 em.persist(psl);
             }
 
-            var ps = new ProzessSchritt(UUID.randomUUID().hashCode(), a, psv.getDauer(), psv.getProzessSchrittParameters(),
-                    psv.getExperimentierStation(), "Test Atribut" + 1, psLogs, "PSV: " + i);
+            List<ProzessSchrittParameter> prozessSchrittParameterList = new ArrayList<>();
+            Collections.addAll(z, psv.getProzessSchrittParameters());
+            var ps = new ProzessSchritt(UUID.randomUUID().hashCode(), a, psv.getDauer(), z,
+                    psv.getExperimentierStation(), "Test Atribut" + 1, psLogs, "PSV: " + i, true, f.random().nextInt(0, 9999));
 
             log.info("Try to persist TEST ProzessSchritt " + ps.getId());
 
@@ -298,7 +304,7 @@ public class InitialDataFiller {
      * Erstelle Standart Nutzer
      * FIXME Password need to be in external Config
      *
-     * @return A user for every Role
+     * @return A user for every RoleProzessSchrittZustandsAutomat.zustaende
      */
     private List<User> createDefaultUsers() {
         try {
@@ -357,32 +363,30 @@ public class InitialDataFiller {
         }
     }
 
-
-    public ArrayList<ProzessSchrittVorlage> getProzessSchrittVorlages(ArrayList<ProzessSchrittParameter> parameters) {
-        // PSVA
-        List<ProzessSchrittVorlage> psvListe = new ArrayList<>();
+    public List<ProzessSchrittVorlage> getProzessSchrittVorlage(List<ProzessSchrittParameter> parameters) {
+        var result = new ArrayList<ProzessSchrittVorlage>();
         for (int i = 0; i < limit; i++) {
-            psvListe.add(getProzessSchrittVorlage(List.of(parameters.get(i)))); // Jede PSV nur ein Parameter aber als Liste übergeben
-        }
-        return (ArrayList<ProzessSchrittVorlage>) psvListe; // FIXME WTF JAVA
-    }
 
-    public ProzessSchrittVorlage getProzessSchrittVorlage(List<ProzessSchrittParameter> parameters) {
-        // ProzessSchrittVorlage Setup
-        ProzessSchrittZustandsAutomatVorlage v = new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(),
-                psZustaende, "Test pszvav");
-        em.persist(v);
-        var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "ANGENOMMEN", sVorlage);
-        em.persist(a);
-        Faker faker = new Faker();
-        return new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), parameters, experimentierStations.get(0), "42:00", faker.gameOfThrones().dragon(),
-                v);
+            // ProzessSchrittVorlage Setup
+            ProzessSchrittZustandsAutomatVorlage v = new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(),
+                    psZustaende, "Test pszvav");
+            em.persist(v);
+            List z = new ArrayList();
+            Collections.addAll(z, pszaVorlage.getZustaende());
+            z.addAll(pszaVorlage.getZustaende());
+            var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "ANGENOMMEN", z);
+            em.persist(a);
+            Faker faker = new Faker();
+            result.add(new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), parameters, experimentierStations.get(0), "42:00", faker.gameOfThrones().dragon(),
+                    v, true, f.random().nextInt(0, 999)));
+        }
+        return result;
     }
 
     public List<QualitativeEigenschaft> getQualitativeEigenschaften() {
         // Eigenschaften
         Faker faker = new Faker();
-        ArrayList<QualitativeEigenschaft> qualEigenschaften = new ArrayList<>();
+        List<QualitativeEigenschaft> qualEigenschaften = new ArrayList<>();
         for (int i = 0; i < limit; i++) {
             QualitativeEigenschaft q1 = new QualitativeEigenschaft(UUID.randomUUID().hashCode(), faker.funnyName().name());
             qualEigenschaften.add(q1);
@@ -395,8 +399,7 @@ public class InitialDataFiller {
         return List.of(new TraegerArt("Glass"), new TraegerArt("Eingebetet"), new TraegerArt("Einzelen"));
     }
 
-    // FIXME Add Default
-    public Set<ProzessSchrittZustandsAutomatVorlage> erstelleStandartVorlagen() {
+    public ProzessSchrittZustandsAutomatVorlage erstelleStandartVorlage() {
         Set<ProzessSchrittZustandsAutomatVorlage> ergebnis = new HashSet<>();
         List<String> zustaende = new ArrayList<>();
         zustaende.add("Angenommen");
@@ -405,8 +408,7 @@ public class InitialDataFiller {
         zustaende.add("Weitergeleitet");
 
         sVorlage = new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(), zustaende, "Standart");
-        ergebnis.add(sVorlage);
-        return ergebnis;
+        return sVorlage;
     }
 
     /**

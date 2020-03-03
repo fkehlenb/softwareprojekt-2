@@ -165,7 +165,7 @@ public class AuftragView implements Serializable {
                 prozessSchrittLogService.add(prozessSchrittLog);
                 ProzessSchritt ps = new ProzessSchritt(UUID.randomUUID().hashCode(), prozessSchrittZustandsAutomat,
                         psv.getDauer(), psv.getProzessSchrittParameters(), psv.getExperimentierStation(), "",
-                        prozessSchrittLog, psv.getName(), psv.isUrformend(), psv.getAmountCreated());
+                        List.of(prozessSchrittLog), psv.getName(), psv.isUrformend(), psv.getAmountCreated());
                 ps.setAssigned(true);
                 prozessSchrittService.createPS(ps);
                 prozessSchritts.add(ps);
