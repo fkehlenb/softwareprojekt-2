@@ -1,5 +1,6 @@
 package de.unibremen.sfb.service;
 
+import com.sun.mail.imap.protocol.ID;
 import de.unibremen.sfb.exception.DuplicateKommentarException;
 import de.unibremen.sfb.exception.DuplicateProbeException;
 import de.unibremen.sfb.exception.KommentarNotFoundException;
@@ -235,6 +236,17 @@ public class ProbenService implements Serializable {
             probeVerloren.setAnzahl(anzahl);
             probeVerloren.setZustand(z);
             probeDAO.persist(probeVerloren);
+        }
+    }
+
+    public void probeVerloren(Probe p, int anzahl, int lostAnzahl) throws ProbeNotFoundException {
+        if(p==null){
+            throw new IllegalArgumentException();
+        }
+        else {
+            p.setAnzahl(anzahl-lostAnzahl);
+            p.setLost(lostAnzahl);
+            probeDAO.update(p);
         }
     }
 
