@@ -8,10 +8,13 @@ import de.unibremen.sfb.service.ProzessSchrittParameterService;
 import de.unibremen.sfb.service.QualitativeEigenschaftService;
 import de.unibremen.sfb.service.QuantitativeEigenschaftService;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -25,160 +28,202 @@ import java.util.UUID;
 
 @Transactional
 @Named
-@ViewScoped
+@RequestScoped
 @Slf4j
-@Data   // Warum Data
+@Getter
+@Setter
 public class QlEView implements Serializable {
 
+    /**
+     * Qualitative descriptor service
+     */
     @Inject
     private QualitativeEigenschaftService qualitativeEigenschaftService;
+
+    /**
+     * Quantitative descriptor service
+     */
     @Inject
     private QuantitativeEigenschaftService quantitativeEigenschaftService;
-    // FIXME Santi Edit Einheit
 
-    @Inject
-    private ProzessSchrittParameterService prozessSchrittParameterService;
+    /**
+     * List of all available qualitative descriptors
+     */
+    private List<QualitativeEigenschaft> availableQualitativeEigenschaften;
 
-    private String nameQualitativeEigenschaft;
+    /**
+     * List of all quantitative descriptors
+     */
+    private List<QuantitativeEigenschaft> availableQuantitativeEigenschaften;
 
-    private String numberQuantitativeEigenschaft;
+    /**
+     * Selected qualitative descriptor name
+     */
+    private String selectedQualitativeName;
 
-    private String nameQuantitativeEigenschaft;
+    /**
+     * Selected quantitative descriptor name
+     */
+    private String selectedQuantitativeName;
 
-    private String einheit;
-    private List<String> einheiten;
+    /**
+     * Quantitative descriptor value
+     */
+    private String value;
 
-    private List<QualitativeEigenschaft> qual;
-    private List<QualitativeEigenschaft> filteredQual;
-    private List<QuantitativeEigenschaft> filteredQuant;
+    /**
+     * Quantitative descriptor measurement
+     */
+    private String measurement;
 
-    private List<QualitativeEigenschaft> verQualE;
-    private List<QualitativeEigenschaft> verQuantE;
-
+    /**
+     * Init called on start
+     */
     @PostConstruct
-    public void init() {
-        einheiten = quantitativeEigenschaftService.getEinheiten();
-        findAllQual();
+    private void init() {
+        refresh();
     }
 
-    public String addQualitativeEigenschaft() {
-        QualitativeEigenschaft qualitativeEigenschaft = new QualitativeEigenschaft(UUID.randomUUID().hashCode(), nameQualitativeEigenschaft);
-        qualitativeEigenschaftService.addQualitativeEigenschaft(qualitativeEigenschaft);
-        nameQualitativeEigenschaft=null;
-        return "qEin?faces-redirect=true";
+    /**
+     * refresh data
+     */
+    private void refresh() {
+        availableQualitativeEigenschaften = qualitativeEigenschaftService.getAllQualitativeEigenschaften();
+        availableQuantitativeEigenschaften = quantitativeEigenschaftService.getAllQuantitativeEigenschaften();
     }
 
-    public List<QualitativeEigenschaft> findAllQual() {
+    /**
+     * Add a new qualitative descriptor
+     */
+    public void addQualitative() {
         try {
-            qual = qualitativeEigenschaftService.getAllQualitativeEigenschaften();
-            return qual;
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public void editQlE(String IdQlE) {
-
-        try {
-            QualitativeEigenschaft qualitativeEigenschaft = qualitativeEigenschaftService.getQlEById(Integer.parseInt(IdQlE));
-            qualitativeEigenschaft.setName(nameQualitativeEigenschaft);
-            qualitativeEigenschaftService.edit(qualitativeEigenschaft);
-            nameQualitativeEigenschaft = null;
-            findAllQual();
+            qualitativeEigenschaftService.addQualitativeEigenschaft(new QualitativeEigenschaft(UUID.randomUUID().hashCode(), selectedQualitativeName));
+            log.info("Created new qualitative descriptor with name " + selectedQualitativeName);
+            facesNotification("Created new qualitative descriptor with name " + selectedQualitativeName);
+            refresh();
         } catch (Exception e) {
             e.printStackTrace();
+            log.error("Failed to create new qualitative descriptor with name " + selectedQualitativeName);
+            facesError("Failed to create new qualitative descriptor with name " + selectedQualitativeName);
         }
     }
 
-    public String deleteQlE(String idQlE) {
-        if (!abhangig(Integer.parseInt(idQlE))) {
-            System.out.println("not abhangig");
-            try {
-                qualitativeEigenschaftService.remove(qualitativeEigenschaftService.getQlEById(Integer.parseInt(idQlE)));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            findAllQual();
-            return "qEin?faces-redirect=true";
-        } else {
-            System.out.println("abhanging");
-            return "abEvPP?faces-redirect=true";
-        }
-
-    }
-
-    //
-    ////Quantitative
-    //
-    public String addQuantitativeEigenschaft() {
+    /**
+     * Add a new quantitative descriptor
+     */
+    public void addQuantitative() {
         try {
-            String idF = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("IdQnE");
-            QuantitativeEigenschaft quantitativeEigenschaft = quantitativeEigenschaftService.getQlEById(Integer.parseInt(idF));
-            quantitativeEigenschaft.setName(nameQuantitativeEigenschaft);
-            quantitativeEigenschaft.setWert(Integer.parseInt(numberQuantitativeEigenschaft));
-            quantitativeEigenschaft.setEinheit(einheit);
-            quantitativeEigenschaftService.edit(quantitativeEigenschaft);
-        } catch (Exception e) {
-            QuantitativeEigenschaft quantitativeEigenschaft = new QuantitativeEigenschaft();
-            quantitativeEigenschaft.setName(nameQuantitativeEigenschaft);
-            quantitativeEigenschaft.setId(UUID.randomUUID().hashCode());
-            quantitativeEigenschaft.setWert(Integer.parseInt(numberQuantitativeEigenschaft));
-            quantitativeEigenschaft.setEinheit(einheit);
-            quantitativeEigenschaftService.addQuantitativeEigenschaft(quantitativeEigenschaft);
-        }
-        return "qEin?faces-redirect=true";
-    }
-
-    public void resetvariables() {
-        nameQualitativeEigenschaft = null;
-        nameQuantitativeEigenschaft = null;
-        numberQuantitativeEigenschaft = null;
-        //Control Vairablle
-        String IdQnE = "";
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("IdQnE", IdQnE);
-    }
-
-    public List<QuantitativeEigenschaft> findAllQuan() {
-        try {
-            return quantitativeEigenschaftService.getAllQuantitativeEigenschaften();
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    public void editQnE(String IdQnE) {
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("IdQnE", IdQnE);
-            nameQuantitativeEigenschaft = quantitativeEigenschaftService.getQlEById(Integer.parseInt(IdQnE)).getName();
-            numberQuantitativeEigenschaft = NumberFormat.getInstance().format(quantitativeEigenschaftService.getQlEById(Integer.parseInt(IdQnE)).getWert());
-            einheit = quantitativeEigenschaftService.getQlEById(Integer.parseInt(IdQnE)).getEinheit();
+            quantitativeEigenschaftService.addQuantitativeEigenschaft(new QuantitativeEigenschaft(UUID.randomUUID().hashCode(), selectedQuantitativeName, Integer.parseInt(value), measurement));
+            log.info("Created new quantitative descriptor with name " + selectedQuantitativeName);
+            facesNotification("Created new quantitative descriptor with name " + selectedQuantitativeName);
+            refresh();
         } catch (Exception e) {
             e.printStackTrace();
+            log.error("Failed to create new quantitative descriptor with name " + selectedQuantitativeName);
+            facesError("Failed to create new quantitative descriptor with name " + selectedQuantitativeName);
         }
     }
 
-    public boolean abhangig(int idQle) {
-        //todos los PSP
-        List<ProzessSchrittParameter> pspList = prozessSchrittParameterService.getAll();
-        //lista para guardar los PSP si tiene Abhangig
-        List<Integer> abhangigPSPID = new ArrayList<>();
-        for (ProzessSchrittParameter psp : pspList) {
-            List<QualitativeEigenschaft> qualitativeEigenschaftList = psp.getQualitativeEigenschaften();
-            for (QualitativeEigenschaft ql : qualitativeEigenschaftList) {
-                if (ql.getId() == idQle) {
-                    abhangigPSPID.add(psp.getId());
-                    System.out.println("Abhanging");
-                }
-            }
+    /**
+     * Update a qualitative descriptor
+     *
+     * @param id - the id of the qualitative descriptor to edit
+     */
+    public void editQualitative(int id) {
+        try {
+            QualitativeEigenschaft q = qualitativeEigenschaftService.getQlEById(id);
+            q.setName(selectedQualitativeName);
+            qualitativeEigenschaftService.edit(q);
+            log.info("Edited qualitative descriptor with id " + id);
+            facesNotification("Edited qualitative descriptor!");
+            refresh();
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("Failed to edit qualitative descriptor with id " + id);
+            facesError("Failed to edit qualitative descriptor!");
         }
-        //Anmerkungen
-        if (!abhangigPSPID.isEmpty()) {
-            //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("abhangigPSPID", abhangigPSPID);
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("IDqEin", Integer.toString(idQle));
-            return true;
-        }
-
-        return false;
     }
 
+    /**
+     * Edit a quantitative descriptor
+     *
+     * @param id - the id of the quantitative descriptor to edit
+     */
+    public void editQuantitative(int id) {
+        try {
+            QuantitativeEigenschaft q = quantitativeEigenschaftService.getQlEById(id);
+            q.setName(selectedQuantitativeName);
+            q.setWert(Integer.parseInt(value));
+            q.setEinheit(measurement);
+            quantitativeEigenschaftService.edit(q);
+            log.info("Edited quantitative descriptor with id " + id);
+            facesNotification("Edited quantitative descriptor!");
+            refresh();
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("Failed to edit quantitative descriptor with id " + id);
+            facesError("Failed to edit quantitative descriptor!");
+        }
+    }
+
+    /**
+     * Remove a qualitative descriptor
+     *
+     * @param id - the id of the qualitative descriptor to remove
+     */
+    public void removeQualitative(int id) {
+        try {
+            qualitativeEigenschaftService.remove(qualitativeEigenschaftService.getQlEById(id));
+            log.info("Removed qualitative descriptor with id " + id);
+            facesNotification("Removed qualitative descriptor!");
+            refresh();
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("Failed to remove qualitative descriptor with id " + id);
+            facesError("Failed to remove qualitative descriptor!");
+        }
+    }
+
+    /**
+     * Remove a quantitative descriptor
+     *
+     * @param id - the id of the quantitative descriptor to remove
+     */
+    public void removeQuantitative(int id) {
+        try {
+            quantitativeEigenschaftService.remove(quantitativeEigenschaftService.getQlEById(id));
+            log.info("Removed quantitative descriptor with id " + id);
+            facesNotification("Removed quantitative descriptor!");
+            refresh();
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("Failed to remove quantitative descriptor with id " + id);
+            facesError("Failed to remove quantitative descriptor!");
+        }
+    }
+
+    /**
+     * Row edit canceled
+     */
+    public void onRowEditCancelled() {
+        facesNotification("Cancelled!");
+    }
+
+    /**
+     * Adds a new SEVERITY_ERROR FacesMessage for the ui
+     *
+     * @param message Error Message
+     */
+    private void facesError(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+    }
+
+    /**
+     * Adds a new SEVERITY_INFO FacesMessage for the ui
+     *
+     * @param message Info Message
+     */
+    private void facesNotification(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
+    }
 }

@@ -9,7 +9,7 @@
 >
 <ui:define name="metadata">
     <f:metadata>
-        <f:viewAction action="#{languageBean.setLanguage}" />
+        <f:viewAction action="#{languageBean.setLanguage}"/>
     </f:metadata>
 </ui:define>
 
@@ -17,145 +17,173 @@
     <title>SFB - Farbige Zustaende</title>
     <link rel="icon" href="../background.png"/>
 </h:head>
-<style type="text/css">
-    .ui-row-editor .ui-row-editor-pencil {
-        margin-left: 8px;
-    }
-</style>
 <body>
 <ui:composition template="/template/common/layout.xhtml">
     <ui:define name="content">
-        <div class="ui-g-8">
-            <div id="QlE">
-                <p:panel id="QualEingeschaftFormular">
-                    <h2>Qualitative Eingeschaft Formular</h2>
-                    <p:outputPanel>
+        <p:panelGrid columns="1">
+            <p:row>
+                <h2 style="color: cornflowerblue">Qualitative und Quantitative Eigenschaftenverwaltung</h2>
+            </p:row>
+            <p:row>
+                <p>In den unteren Tabellen sehen Sie die Qualitative und Quantitativen Eigenschaften die sich im System befinden.
+                    Mit den unteren Formularen koennen Sie neue Qualitative und Quantitative Eigenschaften erstellen.
+                    Diese Eigenschaften koennen anschliessend verwendet werden um neue Prozessschrittparameter zu erstellen.</p>
+            </p:row>
+            <p:row>
+                <p:panel header="Qualitative Eigenschaften Erstellen">
+                    <p:panelGrid>
                         <h:form>
-                            <h:panelGrid columns="2" cellpadding="5">
-                                <p:outputLabel for="nameQl" value="name:"/>
-                                <p:inputText id="nameQl" value="#{qlEView.nameQualitativeEigenschaft}"
-                                             placeholder="name" required="true"/>
-                                <p:commandButton value="Reset" type="reset"/>
-                                <p:commandButton ajax="false" action="#{qlEView.addQualitativeEigenschaft()}"
-                                                 value="Spichern" update="j_idt58:j_idt62"/>
-                            </h:panelGrid>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:outputLabel for="nameQl" value="Name"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText id="nameQl" value="#{qlEView.selectedQualitativeName}"
+                                                 placeholder="name" required="true"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:commandButton value="Reset" type="reset"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:commandButton ajax="false" action="#{qlEView.addQualitative}"
+                                                     value="Speichern"/>
+                                </p:column>
+                            </p:row>
                         </h:form>
-                    </p:outputPanel>
+                    </p:panelGrid>
                 </p:panel>
-
-                <p:panel id="form">
-                    <h2>List Qualitative Eingeschaft </h2>
-
-                    <p:dataTable id="tbl" var="qlE" value="#{qlEView.qual}" widgetVar="qualList"
+            </p:row>
+            <p:row>
+                <h:form id="form2">
+                    <p:dataTable id="qEin" var="q"
+                                 value="#{qlEView.availableQualitativeEigenschaften}"
+                                 editable="true"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                 filteredValue="#{qlEView.filteredQual}"
-                                 paginator="true" rows="5" style="margin-bottom:20px">
-
-                        <f:facet name="header">
-                            <p:outputPanel>
-                                <h:outputText value="Search all fields:"/>
-                                <p:inputText id="globalFilter" onkeyup="PF('qualList').filter()" style="width:150px"
-                                             placeholder="Enter keyword"/>
-                            </p:outputPanel>
-                        </f:facet>
-
-                        <p:column headerText="Id" filterBy="#{qlE.id}"  filterMatchMode="contains">
-                            <h:outputText value="#{qlE.id}"/>
+                                 paginator="true" rows="15" style="margin-bottom:20px">>
+                        <p:ajax event="rowEdit" listener="#{qlEView.editQualitative(q.id)}"
+                                update="form2:qEin"/>
+                        <p:ajax event="rowEditCancel" listener="#{qlEView.onRowEditCancelled}"
+                                update="form2:qEin"/>
+                        <p:column headerText="Qualitative Eingenschaft Name">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{q.name}"/>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText id="nameQl2" value="#{qlEView.selectedQualitativeName}"
+                                                 placeholder="name" required="true"/>
+                                </f:facet>
+                            </p:cellEditor>
                         </p:column>
-                        <p:column headerText="Name" filterBy="#{qlE.name}"  filterMatchMode="contains">
-                            <h:outputText value="#{qlE.name}"/>
+                        <p:column>
+                            <p:commandButton value="Delete" icon="pi pi-trash" ajax="false" action="#{qlEView.removeQualitative(q.id)}"/>
                         </p:column>
-                        <p:column headerText="Edit">
-                            <h:form>
-                                <div align="center">
-                                    <h:inputText value="#{qlEView.nameQualitativeEigenschaft}" placeholder=""/>
-                                    <p:commandButton ajax="false" action="#{qlEView.editQlE(qlE.id)}" value="Edit"
-                                                     icon="pi pi-pencil"/>
-                                </div>
-                            </h:form>
-                        </p:column>
-                        <p:column headerText="Remove">
-                            <h:form>
-                                <div align="center">
-                                    <p:commandButton ajax="false" action="#{qlEView.deleteQlE(qlE.id)}" value="ERASE"
-                                                     icon="pi pi-trash"/>
-                                </div>
-                            </h:form>
+                        <p:column>
+                            <p:rowEditor/>
                         </p:column>
                     </p:dataTable>
-                </p:panel>
-            </div>
-            <div id="QuanTE">
-                <p:panel id="QuantEingeschaftFormular">
-                    <h2>Quantitative Eingeschaft Formular</h2>
-                    <p:outputPanel>
+                </h:form>
+            </p:row>
+            <p:row>
+                <p:panel header="Quantitative Eigenschaften Erstellen">
+                    <p:panelGrid>
                         <h:form>
-                            <h:panelGrid columns="2" cellpadding="5">
-                                <p:outputLabel for="name" value="name:"/>
-                                <p:inputText id="name" value="#{qlEView.nameQuantitativeEigenschaft}"
-                                             placeholder="name"/>
-                                <p:outputLabel for="value" value="value:"/>
-                                <p:inputText id="value" value="#{qlEView.numberQuantitativeEigenschaft}"
-                                             placeholder="wert"/>
-                                <p:outputLabel for="value" value="Einheit:"/>
-                                <h:selectOneMenu value="#{qlEView.einheit}" style="width:100%">
-                                    <f:selectItems value="#{qlEView.einheiten}" var="e" itemLabel="#{e}"
-                                                   itemValue="#{e}"/>
-                                </h:selectOneMenu>
-                                <p:commandButton value="Reset" type="reset"/>
-                                <p:commandButton ajax="false" action="#{qlEView.addQuantitativeEigenschaft()}"
-                                                 value="Spichern"/>
-                            </h:panelGrid>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <p:outputLabel for="name" value="Name"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText id="name" value="#{qlEView.selectedQuantitativeName}"
+                                                 placeholder="name"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <h:outputText value="Wert"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText id="value" value="#{qlEView.value}"
+                                                 placeholder="Wert">
+                                        <f:validateRegex pattern="[0-9]+"/>
+                                    </p:inputText>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <h:outputText value="Einheit"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:inputText placeholder="Einheit" required="true"
+                                                 requiredMessage="Bitte einheit eingeben!"
+                                                 value="#{qlEView.measurement}"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:commandButton value="Reset" type="reset"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:commandButton ajax="false" action="#{qlEView.addQuantitative}"
+                                                     value="Speichern"/>
+                                </p:column>
+                            </p:row>
                         </h:form>
-                    </p:outputPanel>
+                    </p:panelGrid>
                 </p:panel>
-                <p:panel id="QuantEingenschatenList">
-                    <h2>List Quantitavite Eingeschaft </h2>
-                    <p:dataTable id="QuantEingenschatenTabele" var="qnE" value="#{qlEView.findAllQuan()}"
-                                 widgetVar="quantList"
-                                 filteredValue="#{qlEView.filteredQuant}"
+            </p:row>
+            <p:row>
+                <h:form id="form3">
+                    <p:dataTable id="qEin2" var="q"
+                                 value="#{qlEView.availableQuantitativeEigenschaften}"
+                                 editable="true"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                 paginator="true" rows="5" style="margin-bottom:20px">
-
-                        <f:facet name="header">
-                            <p:outputPanel>
-                                <h:outputText value="Search all fields:"/>
-                                <p:inputText id="globalFilterQuant" onkeyup="PF('quantList').filter()" style="width:150px"
-                                             placeholder="Enter keyword"/>
-                            </p:outputPanel>
-                        </f:facet>
-                        <p:column headerText="Id" filterBy="#{qnE.id}"  filterMatchMode="contains">
-                            <h:outputText value="#{qnE.id}"/>
+                                 paginator="true" rows="15" style="margin-bottom:20px">>
+                        <p:ajax event="rowEdit" listener="#{qlEView.editQuantitative(q.id)}"
+                                update="form3:qEin2"/>
+                        <p:ajax event="rowEditCancel" listener="#{qlEView.onRowEditCancelled}"
+                                update="form3:qEin2"/>
+                        <p:column headerText="Qualitative Eingenschaft Name">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{q.name}"/>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText id="name2" value="#{qlEView.selectedQuantitativeName}"
+                                                 placeholder="name"/>
+                                </f:facet>
+                            </p:cellEditor>
                         </p:column>
-                        <p:column headerText="Name"  filterBy="#{qnE.name}"  filterMatchMode="contains">
-                            <h:outputText value="#{qnE.name}"/>
+                        <p:column colspan="1">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{q.wert}"/>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText id="value2" value="#{qlEView.value}"
+                                                 placeholder="Wert">
+                                        <f:validateRegex pattern="[0-9]+"/>
+                                    </p:inputText>
+                                </f:facet>
+                            </p:cellEditor>
                         </p:column>
-                        <p:column headerText="Value"  filterBy="#{qnE.wert}"  filterMatchMode="contains">
-                            <h:outputText value="#{qnE.wert}"/>
+                        <p:column headerText="Einheit">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{q.einheit}"/>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText placeholder="Einheit" required="true"
+                                                 requiredMessage="Bitte einheit eingeben!"
+                                                 value="#{qlEView.measurement}"/>
+                                </f:facet>
+                            </p:cellEditor>
                         </p:column>
-                        <p:column headerText="Einheit"  filterBy="#{qnE.einheit}"  filterMatchMode="contains">
-                            <h:outputText value="#{qnE.einheit}" />
+                        <p:column>
+                            <p:commandButton value="Delete" icon="pi pi-trash" ajax="false" action="#{qlEView.removeQuantitative(q.id)}"/>
                         </p:column>
-                        <p:column headerText="Edit">
-                            <h:form>
-                                <div align="center">
-                                    <p:commandButton ajax="false" action="#{qlEView.editQnE(qnE.id)}" value="Edit"
-                                                     icon="pi pi-pencil"/>
-                                </div>
-                            </h:form>
-                        </p:column>
-                        <p:column headerText="Remove">
-                            <h:form>
-                                <div align="center">
-                                    <p:commandButton ajax="false" action="#{qlEView.deleteQlE(qnE.id)}" value="ERASE"
-                                                     icon="pi pi-trash"/>
-                                </div>
-                            </h:form>
+                        <p:column>
+                            <p:rowEditor/>
                         </p:column>
                     </p:dataTable>
-                </p:panel>
-            </div>
-        </div>
+                </h:form>
+            </p:row>
+        </p:panelGrid>
     </ui:define>
 </ui:composition>
 </body>
