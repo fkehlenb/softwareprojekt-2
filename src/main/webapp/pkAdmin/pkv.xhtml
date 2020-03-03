@@ -74,7 +74,16 @@
                         <p:ajax event="rowEdit" listener="#{pkvView.onRowEdit(pkv.pkvID)}" update=":form:msgs"/>
                         <p:ajax event="rowEditCancel" listener="#{pkvView.onRowCancel}" update=":form:msgs"/>
                         <p:column headerText="Prozessschrittvorlage Name">
-                            <h:outputText value="#{pkv.name}"/>
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{pkv.name}"/>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <p:inputText placeholder="Name" required="true"
+                                                 requiredMessage="Bitte Prozesskettenvorlage Name eingeben!"
+                                                 value="#{pkvView.selectedName}"/>
+                                </f:facet>
+                            </p:cellEditor>
                         </p:column>
                         <p:column headerText="Schritt Vorlagen">
                             <p:cellEditor>

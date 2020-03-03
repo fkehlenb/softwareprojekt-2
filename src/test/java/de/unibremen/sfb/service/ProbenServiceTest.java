@@ -34,8 +34,8 @@ class ProbenServiceTest {
     Kommentar kom;
     @Mock
     QualitativeEigenschaftService qualitativeEigenschaftService;
-    @Mock
-    BedingungService bedingungService;
+//    @Mock
+//    BedingungService bedingungService;
     @Mock
     ExperimentierStationService experimentierStationService;
     @Mock
@@ -45,7 +45,7 @@ class ProbenServiceTest {
     @Mock
     List<ProzessSchrittParameter> prozessSchrittParameters;
     @Mock
-    List<Bedingung> bedingungs;
+    List<ProzessSchrittParameter> bedingungs;
     @Mock
     List<ExperimentierStation> experimentierStations;
     @Mock
@@ -69,7 +69,7 @@ class ProbenServiceTest {
     @Test
     void testInit() {
         when(qualitativeEigenschaftService.getEigenschaften()).thenReturn(qualitativeEigenschafts);
-        when(bedingungService.getBs()).thenReturn(bedingungs);
+//        when(bedingungService.getBs()).thenReturn(bedingungs);
         when(prozessSchrittParameterService.getParameterList()).thenReturn(prozessSchrittParameters);
         probenService.init();
     }
@@ -82,10 +82,10 @@ class ProbenServiceTest {
     }
 
     //@Test To See
-    void testGetProbenByPredicate() {
-        List<Probe> result = probenService.getProbenByPredicate(bedingungs.get(0));
-        Assertions.assertEquals(proben, result);
-    }
+//    void testGetProbenByPredicate() {
+////        List<Probe> result = probenService.getProbenByPredicate(bedingungs.get(0));
+//        Assertions.assertEquals(proben, result);
+//    }
 
     //@Test
 //    void testGetProbenByUser() {

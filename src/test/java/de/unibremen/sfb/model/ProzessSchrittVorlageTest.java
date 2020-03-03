@@ -20,7 +20,7 @@ class ProzessSchrittVorlageTest {
     @Mock
     List<ExperimentierStation> stationen;
     @Mock
-    List<Bedingung> bedingungen;
+    List<ProzessSchrittParameter> bedingungen;
     @Mock
     ProzessSchrittZustandsAutomatVorlage zustandsAutomatVorlage;
     @InjectMocks

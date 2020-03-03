@@ -33,8 +33,8 @@ public class ProbenService implements Serializable {
     @Inject
     ProzessSchrittParameterService prozessSchrittParameterService;
 
-    @Inject
-    BedingungService bedingungService;
+//    @Inject
+//    BedingungService bedingungService;
 
     @Inject
     private ProzessSchrittService prozessSchrittService;
@@ -45,7 +45,7 @@ public class ProbenService implements Serializable {
         var s = new Standort(UUID.randomUUID().hashCode(), "Archiv");
         var s2 = new Standort(UUID.randomUUID().hashCode(), "Lager");
         var pSPs = prozessSchrittParameterService.getParameterList();
-        var bs = bedingungService.getBs();
+//        var bs = bedingungService.getBs();
 //        var p1 = new Probe(UUID.randomUUID().toString(),4,  ProbenZustand.VORHANDEN , s);
 //        p1.setParameter(pSPs);
 //        var p2 = new Probe(UUID.randomUUID().toString(),6,  ProbenZustand.VORHANDEN, s);
@@ -87,11 +87,11 @@ public class ProbenService implements Serializable {
      * @param b Die Bedingung
      * @return alle Proben die diese Bedingung entsprechen
      */
-    public List<Probe> getProbenByPredicate(Bedingung b) {
-        return proben.stream()
-                .filter(e -> e.getBedingungen().contains(b))
-                .collect(Collectors.toList());
-    }
+//    public List<Probe> getProbenByPredicate(Bedingung b) {
+//        return proben.stream()
+//                .filter(e -> e.getBedingungen().contains(b))
+//                .collect(Collectors.toList());
+//    }
 
     @Inject
     private ExperimentierStationService experimentierStationService;

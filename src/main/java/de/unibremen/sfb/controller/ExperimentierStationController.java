@@ -103,13 +103,13 @@ public class ExperimentierStationController {
      * sets the conditions for this experimenting station
      * @param b a set containing all conditions
      */
-    public void setBedingung(List<Bedingung> b) {
-        experimenteristation.setBedingungen(b);
+    public void setBedingung(List<ProzessSchrittParameter> b) {
+        experimenteristation.setRequirements(b);
     }
 
     /** Get the conditions for using the experimenting station
      * @return the conditions for using the station */
-    public List<Bedingung> getBedingungen(){
-        return experimenteristation.getBedingungen();
+    public List<ProzessSchrittParameter> getBedingungen(){
+        return experimenteristation.getRequirements();
     }
 }

@@ -1,7 +1,7 @@
 package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
-import de.unibremen.sfb.model.Bedingung;
+import de.unibremen.sfb.model.ProzessSchrittParameter;
 import de.unibremen.sfb.model.ProzessSchrittVorlage;
 import de.unibremen.sfb.service.ProzessSchrittVorlageService;
 import lombok.Data;
@@ -42,7 +42,7 @@ public class bearbeitbareListPSVBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
-    public void onRowCancel(RowEditEvent<Bedingung> event) {
+    public void onRowCancel(RowEditEvent<ProzessSchrittParameter> event) {
         FacesMessage msg = new FacesMessage("Edit Cancelled", event.getObject().toString());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }

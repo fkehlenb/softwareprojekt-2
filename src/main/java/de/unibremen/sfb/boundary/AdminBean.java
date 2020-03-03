@@ -195,14 +195,14 @@ public class AdminBean implements Serializable {
     private List<Auftrag> auftrage = new ArrayList<>();
 
     /** Experimenting station requirements */
-    private List<Bedingung> bedingungen;
+    private List<ProzessSchrittParameter> bedingungen;
 
-    /** Condition service */
+    /** Process parameter service */
     @Inject
-    private BedingungService bedingungService;
+    private ProzessSchrittParameterService prozessSchrittParameterService;
 
     /** List of all available requirements */
-    private List<Bedingung> availableBedingungen;
+    private List<ProzessSchrittParameter> availableBedingungen;
 
     /**
      * Strings to be converted to datetime
@@ -220,7 +220,7 @@ public class AdminBean implements Serializable {
         allLocations = standortService.getStandorte();
         allUsers = userService.getAll();
         experimentierStations = experimentierStationService.getAll();
-        availableBedingungen = bedingungService.getAll();
+        availableBedingungen = prozessSchrittParameterService.getAll();
         for (Auftrag a : auftragService.getAll()) {
             if (a.getProzessKettenZustandsAutomat() == ProzessKettenZustandsAutomat.DURCHGEFUEHRT) {
                 auftrage.add(a);
@@ -477,7 +477,7 @@ public class AdminBean implements Serializable {
             es.setBenutzer(newEsBenutzerList);
             es.setStandort(experimentierStationStandort);
             es.setName(experimentierStationName);
-            es.setBedingungen(bedingungen);
+            es.setRequirements(bedingungen);
             experimentierStationService.updateES(es);
             log.info("Updated experimenting station! ID: " + experimentierStationId);
             facesNotification("Updated experimentierstation! ID: " + experimentierStationId);

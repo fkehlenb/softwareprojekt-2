@@ -34,4 +34,9 @@ public class ProzessKettenVorlage implements Serializable {
     @NonNull
     @ManyToMany(fetch = FetchType.LAZY)
     private List<ProzessSchrittVorlage> prozessSchrittVorlagen;
+
+    @Override
+    public String toString(){
+        return name;
+    }
 }

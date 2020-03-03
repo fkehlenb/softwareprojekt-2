@@ -139,7 +139,7 @@ public class AuftragView implements Serializable {
             List<ProzessSchritt> prozessSchritts = new ArrayList<>();
             for (ProzessSchrittVorlage psv : selectedProzesskettenVorlage.getProzessSchrittVorlagen()) {
                 ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(),
-                        psv.getZustandsAutomatVorlage().getZustaende().get(0), psv.getZustandsAutomatVorlage().getZustaende());
+                        "Erstellt", psv.getZustandsAutomatVorlage().getZustaende());
                 prozessSchrittZustandsAutomatService.add(prozessSchrittZustandsAutomat);
                 ProzessSchrittLog prozessSchrittLog = new ProzessSchrittLog(LocalDateTime.now(), "GESTARTET");
                 prozessSchrittLogService.add(prozessSchrittLog);
@@ -248,7 +248,7 @@ public class AuftragView implements Serializable {
             for (ProzessSchritt p : a.getProzessSchritte()) {
                 prozessSchrittService.removePS(p);
             }
-
+            //TODO proben ins lager
             auftragService.remove(a);
             log.info("Stopped job with id " + id);
             facesNotification("Stopped job!");

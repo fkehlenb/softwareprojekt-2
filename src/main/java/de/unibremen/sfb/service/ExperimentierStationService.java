@@ -156,9 +156,9 @@ public class ExperimentierStationService implements Serializable {
      * @param b the Bedingung
      * @return a list containing all fitting stations
      */
-    public List<ExperimentierStation> getAllESByBedingung(Bedingung b) {
+    public List<ExperimentierStation> getAllESByBedingung(ProzessSchrittParameter b) {
         return esDao.getAll().stream()
-                .filter(e -> e.getBedingungen().contains(b))
+                .filter(e -> e.getRequirements().contains(b))
                 .collect(Collectors.toList());
     }
 

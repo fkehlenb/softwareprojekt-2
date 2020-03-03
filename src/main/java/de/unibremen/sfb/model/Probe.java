@@ -69,12 +69,6 @@ public class Probe {
     private Standort standort;
 
     /**
-     * The Predicate of a Sample
-     */
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<Bedingung> bedingungen;
-
-    /**
      * The qualitative/quantitative descriptors of the sample
      */
     @ManyToMany(fetch = FetchType.LAZY)

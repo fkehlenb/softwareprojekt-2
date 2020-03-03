@@ -58,10 +58,10 @@ public class ExperimentierStation {
     @OneToMany
    private List<ProzessSchritt> nextPS = new ArrayList<ProzessSchritt>();
 
-    /** Conditions for using an experimenting station */
-    @NonNull
+    /** Parameters required to use this station */
     @ManyToMany(fetch = FetchType.LAZY)
-    private List<Bedingung> bedingungen;
+    @NonNull
+    private List<ProzessSchrittParameter> requirements;
 
     @NonNull
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
