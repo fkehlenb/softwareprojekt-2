@@ -47,11 +47,7 @@
                         <p:row>
                             <p>#{msg['AuftragsuebersichtText.jsf']}</p>
 
-                            <p:column colspan="1">
-                                <p:inputText placeholder="#{msg['AblehnMessage.jsf']}" required="true"
-                                             requiredMessage="#{msg['RequiredMessageLogistik.jsf']}"
-                                             value="#{dtLogistikerBean.errorMessage}"/>
-                            </p:column>
+
                         </p:row>
                         <p:row>
                             <p:column colspan="1">
@@ -124,10 +120,15 @@
                         </p:column>
 
                         <p:column>
+                            <p:column colspan="1">
+                                <p:commandButton style="width: 175px" value="Ablehnen" ajax="true"
+                                                 action="#{dtLogistikerBean.refuseAuftrag(auftrag.pkID)}"
+                                                 icon="pi pi-ban" update="form"/>
+                                <p:inputText placeholder="#{msg['AblehnMessage.jsf']}" required="true"
+                                             requiredMessage="#{msg['RequiredMessageLogistik.jsf']}"
+                                             value="#{dtLogistikerBean.errorMessage}"/>
+                            </p:column>
 
-                            <p:commandButton style="width: 175px" value="Ablehnen" ajax="true"
-                                             action="#{dtLogistikerBean.refuseAuftrag(ps.pkID)}"
-                                             icon="pi pi-ban" update="form"/>
 
                             <br/>
                             <p:commandButton style="width: 175px" value="Annehmen" ajax="true"
