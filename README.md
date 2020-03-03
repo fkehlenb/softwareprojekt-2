@@ -100,28 +100,28 @@
 </strike>
 </li>
 <li><strike>Übersicht über Aufträge</strike><ul>
-<li>Anlegen von Aufträgen<ul>
-<li>Manuelles Setzen der Prozess(schritt)parameter</li>
-<li>Import der Prozess(schritt)parameter (<strong>O«Parameter.Import»</strong>)</li>
+    <li><strike>Anlegen von Aufträgen</strike><ul>
+    <li><strike>Manuelles Setzen der Prozess(schritt)parameter</strike></li>
+    <li>Import der Prozess(schritt)parameter (<strong>O«Parameter.Import»</strong>)</li>
 </ul>
 </li>
-<li>Freigabe von Aufträgen<ul>
-<li>Logistiker muss daraufhin Proben zuordnen</li>
+    <li><strike>Freigabe von Aufträgen</strike><ul>
+    <li>Logistiker muss daraufhin Proben zuordnen</li>
 </ul>
 </li>
-<li>Stoppen von Aufträgen<ul>
-<li>Aktueller Prozessschritt wird beendet</li>
-<li>Aufträge verschwinden aus der Übersicht der Technologen</li>
-<li>Transport bringt Proben ins Lager (<strong>O«Transporteur»</strong>)</li>
+    <li><strike>Stoppen von Aufträgen</strike><ul>
+    <li><strike>Aktueller Prozessschritt wird beendet</strike></li>
+    <li><strike>Aufträge verschwinden aus der Übersicht der Technologen</strike></li>
+    <li>Transport bringt Proben ins Lager (<strong>O«Transporteur»</strong>)</li>
 </ul>
 </li>
-<li>Löschen von Aufträgen </li>
-<li>Bearbeiten von Aufträgen (wenn noch nicht freigegeben)</li>
-<li>Priorisierung der Aufträgen</li>
+    <li><strike>Löschen von Aufträgen</strike> </li>
+    <li><strike>Bearbeiten von Aufträgen (wenn noch nicht freigegeben)</strike></li>
+    <li><strike>Priorisierung der Aufträgen</strike></li>
 </ul>
 </li>
-<li>Übersicht über Arbeitsauslastung der Experimentierstationen (<strong>O«UI.Auslastung»</strong>)</li>
-<li>Export des Protokolls nach JSON, so dass eine maschinelle Auswertung möglich ist</li>
+<ul><li>Übersicht über Arbeitsauslastung der Experimentierstationen (<strong>O«UI.Auslastung»</strong>)</li>
+<li>Export des Protokolls nach JSON, so dass eine maschinelle Auswertung möglich ist</li></ul>
 </ul>
 <h5 id="transporteur-otransporteur">Transporteur (<strong>O«Transporteur»</strong>)</h5>
 <ul>
