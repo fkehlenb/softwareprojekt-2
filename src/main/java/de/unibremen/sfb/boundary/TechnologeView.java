@@ -41,6 +41,8 @@ public class TechnologeView implements Serializable {
      */
     private User technologe;
 
+    List<Auftrag> auftragList;
+
     @Inject
     private ExperimentierStationService esService;
 
