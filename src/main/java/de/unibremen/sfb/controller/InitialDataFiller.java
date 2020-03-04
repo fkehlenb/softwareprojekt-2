@@ -200,6 +200,7 @@ public class InitialDataFiller {
             }
             var automat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "AKZEPTIERT", z);
             em.persist(automat);
+            automat.setName("test");
 
             // PS Setup
             List<ProzessSchrittLog> logs = new ArrayList<>();

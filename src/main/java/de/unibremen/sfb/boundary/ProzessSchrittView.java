@@ -151,8 +151,9 @@ public class ProzessSchrittView implements Serializable {
             ProzessSchritt prozessSchritt = prozessSchrittService.getObjById(id);
             if (prozessSchritt.getProzessSchrittZustandsAutomat().getCurrent().equals("Erstellt")){
                 prozessSchritt.setName(prozessSchrittName);
-                prozessSchritt.setDuration(psDuration);
-                ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(),selectedProzessSchrittZustandsAutomatVorlage.getZustaende().get(0),selectedProzessSchrittZustandsAutomatVorlage.getZustaende());
+                prozessSchritt.setDuration(psDuration);//TODO bug
+                ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(),
+                        selectedProzessSchrittZustandsAutomatVorlage.getZustaende().get(0),selectedProzessSchrittZustandsAutomatVorlage.getZustaende());
                 prozessSchritt.setProzessSchrittZustandsAutomat(prozessSchrittZustandsAutomat);
                 prozessSchritt.setExperimentierStation(experimentierStation);
                 prozessSchritt.setAttribute(prozessSchrittAttribute);
