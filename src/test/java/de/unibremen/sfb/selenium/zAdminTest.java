@@ -24,7 +24,7 @@ import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class AdminTest {
+public class zAdminTest {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;

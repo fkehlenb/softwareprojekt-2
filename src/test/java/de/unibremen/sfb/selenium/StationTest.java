@@ -42,30 +42,30 @@ public class StationTest {
   public void stationTest() throws InterruptedException {
     driver.get("http://localhost:8080/");
     driver.manage().window().setSize(new Dimension(1200, 833));
-    Thread.sleep(400);
+    Thread.sleep(700);
     driver.findElement(By.linkText("Zur Anmeldung")).click();
-    Thread.sleep(400);
+    Thread.sleep(700);
     driver.findElement(By.id("username")).click();
-    Thread.sleep(400);
+    Thread.sleep(700);
     driver.findElement(By.id("username")).sendKeys("admin");
-    Thread.sleep(400);
+    Thread.sleep(700);
     driver.findElement(By.id("password")).sendKeys("12345678");
     Thread.sleep(500);
     driver.findElement(By.xpath("//button/span")).click();
-    Thread.sleep(400);
+    Thread.sleep(700);
     driver.findElement(By.xpath("//div[2]/div/h3")).click();
     Thread.sleep(1000);
     driver.findElement(By.xpath("//div[2]/div/div/ul/li/a")).click();
     Thread.sleep(1000);
     driver.findElement(By.xpath("//li/ul/li[3]/a/span")).click();
-    Thread.sleep(400);
+    Thread.sleep(700);
     driver.findElement(By.xpath("//td[2]/input")).click();
-    Thread.sleep(400);
+    Thread.sleep(700);
     driver.findElement(By.id("form:j_idt69")).sendKeys("testSelenium");
-    Thread.sleep(400);
+    Thread.sleep(700);
     driver.findElement(By.xpath("//td[2]/button/span")).click();
-    Thread.sleep(400);
+    Thread.sleep(700);
     driver.findElement(By.xpath("//button/span[2]")).click();
-    Thread.sleep(400);
+    Thread.sleep(700);
   }
 }
