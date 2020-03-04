@@ -226,7 +226,7 @@ public class InitialDataFiller {
                     pszaVorlage.getZustaende()) {
                 z.add(s);
             }
-            var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "Erstellt", new ArrayList<>());
+            var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "Erstellt", z);
             em.persist(a);
             var psv = psvListe.get(i);
             var psLogs = List.of(new ProzessSchrittLog(LocalDateTime.now(), "Gestartet"),
