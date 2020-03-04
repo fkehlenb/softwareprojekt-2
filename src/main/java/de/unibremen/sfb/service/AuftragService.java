@@ -32,8 +32,15 @@ import java.util.stream.Collectors;
 @Setter
 @Transactional
 public class AuftragService implements Serializable {
+
+    @Inject
+    TransportAuftragDAO transportAuftragDAO;
+
     @Inject
     ExperimentierStationService experimentierStationService;
+
+    @Inject
+    UserService userService;
 
 
     /**
@@ -96,7 +103,7 @@ public class AuftragService implements Serializable {
     /**
      * searches for the Auftrag the ProzessSchritt belongs to
      *
-     * @param ps the ps which's Auftrag is looked for
+     * @param ps the prozessSchrittList which's Auftrag is looked for
      * @return the Auftrag (or null, if none was found)
      */
     public Auftrag getAuftrag(ProzessSchritt ps) {
@@ -135,4 +142,69 @@ public class AuftragService implements Serializable {
     public void json() {
 
     }
+
+    public void updateTransportZustand(TransportAuftrag transportAuftrag) throws TransportAuftragNotFoundException {
+        transportAuftragDAO.update(transportAuftrag);
+    }
+
+
+    /**
+     * Hole Alle ProzessSchritte die als Transport Zustand ERSTELLT haben
+     *
+     * @return alle prozessSchrittList fuer den Transport
+     */
+    public List<ProzessSchritt> getTransportSchritt() {
+        var s = new HashSet<ProzessSchritt>();
+        for (Auftrag a :
+                getAuftrage()) {
+            s.addAll(a.getProzessSchritte().stream()
+                    .filter(p -> p.getTransportAuftrag().getZustandsAutomat() == TransportAuftragZustand.ERSTELLT)
+                    .collect(Collectors.toSet()));
+        }
+        return s.isEmpty() ? new ArrayList<>() : List.copyOf(s);
+    }
+
+    public List<ProzessSchritt> getTransportSchritt2() throws UserNotFoundException {
+        var s = new HashSet<ProzessSchritt>();
+        User user = userService.getCurrentUser();
+        for (Auftrag a :
+                getAuftrage()) {
+            s.addAll(a.getProzessSchritte().stream()
+                    .filter(p -> (p.getTransportAuftrag().getZustandsAutomat() == TransportAuftragZustand.ABGEHOLT && p.getTransportAuftrag().getUser() == user))
+                    .collect(Collectors.toSet()));
+        }
+        return s.isEmpty() ? new ArrayList<>() : List.copyOf(s);
+    }
+
+    /**
+     *
+     * @param value
+     * @return The TransportAuftag with the specified value
+     * @throws TransportAuftragNotFoundException
+     */
+    public TransportAuftrag getTransportAuftragByID(int value) throws TransportAuftragNotFoundException {
+        return transportAuftragDAO.getTransportAuftragById(value);
+    }
+
+    public void sedTransportZustandAbgeholt(TransportAuftrag t) throws TransportAuftragNotFoundException {
+        t.setZustandsAutomat(TransportAuftragZustand.ABGEHOLT);
+        t.setAbgeholt(LocalDateTime.now());
+        try {
+            t.setUser(userService.getCurrentUser());
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+            log.info(e.getMessage());
+        }
+        updateTransportZustand(t);
+    }
+
+    public void sedTransportZustandAbgeliefert(TransportAuftrag t) throws TransportAuftragNotFoundException {
+        t.setZustandsAutomat(TransportAuftragZustand.ABGELIEFERT);
+        t.setAbgeholt(LocalDateTime.now());
+        updateTransportZustand(t);
+    }
+
+
+
+
 }

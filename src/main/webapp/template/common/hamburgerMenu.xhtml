@@ -48,9 +48,9 @@
                             </p:submenu>
                         </shiro:hasRole>
                         <shiro:hasRole name="transport">
-                            <p:submenu label="Transport Tools" id="transportTools">
-                                <p:menuitem value="Aufträge" url="/transport/auftraege.xhtml"/>
-                                <p:menuitem value="Probenverlust Melden" url="/transport/probenVerlust.xhtml"/>
+                            <p:submenu label="#{msg['transportTools.jsf']}" id="transportTools">
+                                <p:menuitem value="#{msg['transportAufträge.jsf']}" url="/transport/auftraege.xhtml"/>
+                                <p:menuitem value="#{msg['probenVerlust.jsf']}" url="/transport/probenVerlust.xhtml"/>
                             </p:submenu>
                         </shiro:hasRole>
                         <shiro:hasRole name="logistik">
@@ -61,7 +61,7 @@
                                 <p:menuitem value="#{msg['logArchivÜ.jsf']}" url="/logistik/archiviertenProbenUebersicht.xhtml"/>
                                 <p:menuitem value="#{msg['logProbenSÜ.jsf']}" url="/logistik/probenStandortUebersicht.xhtml"/>
                                 <p:menuitem value="#{msg['logProbenE.jsf']}" url="/logistik/probenErstellen.xhtml"/>
-                                <p:menuitem value="Probenverlust Melden" url="/logistik/probenVerlust.xhtml"/>
+                                <p:menuitem value="#{msg['probenVerlust.jsf']}" url="/logistik/probenVerlust.xhtml"/>
                             </p:submenu>
                         </shiro:hasRole>
                         <shiro:hasRole name="technologe">
@@ -72,7 +72,7 @@
                                 <p:menuitem value="Auftragszustand"/>
                                 <p:menuitem value="Proben und Upload" url="/technologe/proben.xhtml"/>
                                 <p:menuitem value="Kapputte Station Melden"/>
-                                <p:menuitem value="Probenverlust Melden" url="/technologe/probeMelden.xhtml"/>
+                                <p:menuitem value="#{msg['probenVerlust.jsf']}" url="/technologe/probeMelden.xhtml"/>
                             </p:submenu>
                         </shiro:hasRole>
                     </p:submenu>

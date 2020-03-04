@@ -29,18 +29,17 @@
                     <p:tabMenu>
                         <p:menuitem value="Home"/>
                     </p:tabMenu>
-                    <h1 style="color: cornflowerblue">Aufträge</h1>
-                    <p>Hier können bald Ihre Aufträge aufgelistet sein.<br/> Links sehen sie ihr Navigationsmenue. </p>
+                    <h1 style="color: cornflowerblue">#{msg['transportAufträge.jsf']}</h1>
+                    <p>#{msg['transportAuftragMessage.jsf']}<br/> #{msg['menuLeft.jsf']} </p>
 
                 </h:form>
 
                 <h:form id="form">
                     <p:growl id="msgs" showDetail="true"/>
 
-                    <p:dataTable id="ps1" var="ps" value="#{transportBean.ps2}" editable="true"
+                    <p:dataTable id="ps1" var="ps" value="#{transportBean.prozessSchrittList2}" editable="true"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                 paginator="true" rows="10" style="margin-bottom:20px"
-                                 rowIndexVar="#{ps.psID}">
+                                 paginator="true" rows="10" style="margin-bottom:20px">
                         <f:facet name="header">
                             Angenommene Aufträge
                         </f:facet>
@@ -49,16 +48,12 @@
                             <h:outputText value="#{ps.transportAuftrag.id}"/>
                         </p:column>
 
-                        <p:column headerText="Priorität">
-                            <h:outputText value="#{dtAuftragBean.prios}"/>
-                        </p:column>
-
                         <p:column headerText="Abholort">
-                            <h:outputText value="#{dtAuftragBean.ausPrio}"/>
+                            <h:outputText value="#{ps.transportAuftrag.start}"/>
                         </p:column>
 
                         <p:column headerText="Ablieferort">
-                            <h:outputText value="#{ps.psID}"/>
+                            <h:outputText value="#{ps.transportAuftrag.ziel}"/>
                         </p:column>
 
                         <p:column headerText="Zustand">
@@ -75,7 +70,7 @@
                     </p:dataTable>
 
 
-                    <p:dataTable id="ps2" var="ps" value="#{transportBean.ps}" editable="true"
+                    <p:dataTable id="ps2" var="ps" value="#{transportBean.prozessSchrittList}" editable="true"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                                  paginator="true" rows="6" style="margin-bottom:20px">
                         <f:facet name="header">
@@ -86,16 +81,12 @@
                             <h:outputText value="#{ps.transportAuftrag.id}"/>
                         </p:column>
 
-                        <p:column headerText="TrägerID">
-                            <h:outputText value="#{ps.prozessSchrittVorlage.eingabeTraeger}"/>
-                        </p:column>
-
                         <p:column headerText="Abholort">
-                            <h:outputText value="#{ps.prozessSchrittVorlage.stationen}"/>
+                            <h:outputText value="#{ps.transportAuftrag.start}"/>
                         </p:column>
 
                         <p:column headerText="Ablieferort">
-                            <h:outputText value="#{ps.prozessSchrittVorlage.stationen}"/>
+                            <h:outputText value="#{ps.transportAuftrag.ziel}"/>
                         </p:column>
 
                         <p:column headerText="Zustand">

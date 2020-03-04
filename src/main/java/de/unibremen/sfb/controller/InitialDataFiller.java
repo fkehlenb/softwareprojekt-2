@@ -257,12 +257,12 @@ public class InitialDataFiller {
             // Wenn es einen akutellen Schritt gibt, dann werden die weiteren Schritte in Warteschlange eingreiht.
 //            ExperimentierStation es;
 //            try {
-//                es = ps.getExperimentierStation();
+//                es = prozessSchrittList.getExperimentierStation();
 //                if (es.getCurrentPS() == null) {
-//                    es.setCurrentPS(ps);
-//                    ps.setZugewieseneProben(erstelleProben(es.getStandort()));
+//                    es.setCurrentPS(prozessSchrittList);
+//                    prozessSchrittList.setZugewieseneProben(erstelleProben(es.getStandort()));
 //                } else {
-//                    es.getNextPS().add(ps);
+//                    es.getNextPS().add(prozessSchrittList);
 //                }
 //                em.persist(es);
 //            } catch (NullPointerException e) {

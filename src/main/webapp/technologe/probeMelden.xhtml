@@ -19,38 +19,51 @@
 <body>
 <shiro:authenticated>
 <shiro:hasRole name="technologe">
-<ui:composition template="../template/common/layout.xhtml">
-    <ui:define name="content">
-        <div class="ui-g-2"></div>
-        <div class="ui-g-8">
 
-            <h:body style="background: url('../background.png')">
-                <h:form style="background-color: white; margin-top: 100px; width: 650px">
+    <ui:composition template="/template/common/layout.xhtml">
+        <ui:define name="content">
+            <p:panelGrid columns="1">
+                <h:form>
                     <p:growl>
                         <p:autoUpdate/>
                     </p:growl>
-                    <p:panelGrid columns="1">
-                        <p:row>
-                            <h1 style="color: cornflowerblue">Probe als verloren melden</h1>
-                        </p:row>
 
-                        <p:row>
-                            <p>Hier können Sie eine Probe anhand ihrer Proben-ID als verloren melden. </p>
-                        </p:row>
+                    <p:tabMenu>
+                        <p:menuitem value="Home"/>
+                    </p:tabMenu>
+                    <h1 style="color: cornflowerblue">#{msg['probenVerlust.jsf']}</h1>
+                    <p>#{msg['probenVerlustText.jsf']} <br/> #{msg['menuLeft.jsf']} </p>
 
-                        <p:row>
-                            <p>Proben-ID: </p>
-                            <p:outputLabel for="pid" value="ID: "/>
-                            <p:inputMask id="pid" value="#{probeMeldenView.probeMeldenID}"/>
-                            <p:commandButton value="Submit" action="#{probeMeldenView.reportLostProbe()}"/>
-                        </p:row>
-
-                    </p:panelGrid>
                 </h:form>
-            </h:body>
-        </div>
-    </ui:define>
-</ui:composition>
+                <p:panelGrid>
+                    <h:form id="form">
+                        <p:row>
+                            <h3 style="color: cornflowerblue">#{msg['probenVerlust2.jsf']}</h3>
+                        </p:row>
+                        <p:row>
+                            <p:growl>
+                                <p:autoUpdate/>
+                            </p:growl>
+                            <p:column colspan="1">
+                                <p:outputLabel for="pid" value="ID: "/>
+                                <p:inputMask placeholder="ID" id="pid" value="#{probeMeldenView.probeMeldenID}"/>
+                            </p:column>
+
+                            <p:column colspan="1">
+                                <p:outputLabel for="pAnzahl" value="Anzahl: "/>
+                                <p:inputMask id="pAnzahl" value="#{probeMeldenView.probenAnzahl}"/>
+                            </p:column>
+
+                            <p:column colspan="1">
+                                <p:commandButton value="Submit" action="#{probeMeldenView.reportLost()}"/>
+                            </p:column>
+                        </p:row>
+                    </h:form>
+                </p:panelGrid>
+            </p:panelGrid>
+        </ui:define>
+    </ui:composition>
+
 </shiro:hasRole>
 </shiro:authenticated>
 </body>
