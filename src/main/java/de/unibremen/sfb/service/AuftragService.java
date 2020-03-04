@@ -107,14 +107,17 @@ public class AuftragService implements Serializable {
      * @return the Auftrag (or null, if none was found)
      */
     public Auftrag getAuftrag(ProzessSchritt ps) {
+        var as = getAuftrage();
         for (Auftrag a :
-                getAuftrage()) {
-            if (a.getProzessSchritte().contains(ps)) {
+                as) {
+            var r = a.getProzessSchritte().stream().filter(p -> p.getId() == ps.getId()).findFirst().orElse(null);
+            if (r != null) {
                 return a;
             }
         }
         return null;
     }
+
 
     public List<Auftrag> getAuftrage() {
         return auftragDAO.getAll();
@@ -145,6 +148,7 @@ public class AuftragService implements Serializable {
 
     /**
      * Updates the given TransportAuftrag
+     *
      * @param transportAuftrag TransportAuftrag, which needs to be updated
      * @throws TransportAuftragNotFoundException when TransportAuftrag was not found.
      */
@@ -159,14 +163,14 @@ public class AuftragService implements Serializable {
      * @return List of ProzessSchritt, which have a TransportAuftrag with TransportAuftragsZustand on ERSTELLT
      */
     public List<ProzessSchritt> getTransportSchritt() {
-        var s = new HashSet<ProzessSchritt>();
+        var s = new ArrayList<ProzessSchritt>();
         for (Auftrag a :
                 getAuftrage()) {
             s.addAll(a.getProzessSchritte().stream()
-                    .filter(p -> p.getTransportAuftrag().getZustandsAutomat() == TransportAuftragZustand.ERSTELLT)
-                    .collect(Collectors.toSet()));
+                    .filter(p -> (p.getTransportAuftrag() != null && p.getTransportAuftrag().getZustandsAutomat() == TransportAuftragZustand.ERSTELLT))
+                    .collect(Collectors.toList()));
         }
-        return s.isEmpty() ? new ArrayList<>() : List.copyOf(s);
+        return s;
     }
 
     /**
@@ -180,7 +184,7 @@ public class AuftragService implements Serializable {
         for (Auftrag a :
                 getAuftrage()) {
             s.addAll(a.getProzessSchritte().stream()
-                    .filter(p -> (p.getTransportAuftrag().getZustandsAutomat() == TransportAuftragZustand.ABGEHOLT && p.getTransportAuftrag().getUser() == user))
+                    .filter(p -> (p.getTransportAuftrag() != null && p.getTransportAuftrag().getZustandsAutomat() == TransportAuftragZustand.ABGEHOLT && p.getTransportAuftrag().getUser() == user))
                     .collect(Collectors.toSet()));
         }
         return s.isEmpty() ? new ArrayList<>() : List.copyOf(s);
@@ -196,7 +200,7 @@ public class AuftragService implements Serializable {
         for (Auftrag a :
                 getAuftrage()) {
             s.addAll(a.getProzessSchritte().stream()
-                    .filter(p -> p.getTransportAuftrag().getZustandsAutomat() == TransportAuftragZustand.ABGELIEFERT)
+                    .filter(p -> p.getTransportAuftrag() != null && p.getTransportAuftrag().getZustandsAutomat() == TransportAuftragZustand.ABGELIEFERT)
                     .collect(Collectors.toSet()));
         }
         return s.isEmpty() ? new ArrayList<>() : List.copyOf(s);
@@ -242,8 +246,6 @@ public class AuftragService implements Serializable {
         t.setAbgeliefert(LocalDateTime.now());
         updateTransportZustand(t);
     }
-
-
 
 
 }
