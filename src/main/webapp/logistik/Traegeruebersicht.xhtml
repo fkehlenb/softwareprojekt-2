@@ -79,7 +79,7 @@
                                     </p:column>
                                     <p:column colspan="1">
                                         <p:commandButton value="#{msg['erstellen.jsf']}"
-                                                         action="#{dtLogistikerBean.createTraeger}" icon="pi pi-check"
+                                                         action="#{dtLogistikerBean.createTraeger(dtLogistikerBean.traegerArt,dtLogistikerBean.traegerLocation)}" icon="pi pi-check"
                                                          update="form2" ajax="true"/>
                                     </p:column>
                                 </p:row>
@@ -116,7 +116,7 @@
                                                                itemValue="#{tragerArt}" required="true"/>
                                                 <p:column>
                                                     <h:outputText value="#{tragerArt.art}"/>
-                                                </p:column>
+                                </p:column>
                                             </p:selectOneMenu>
                                         </f:facet>
                                     </p:cellEditor>
@@ -124,7 +124,7 @@
                                 <p:column headerText="#{msg['logStandort.jsf']}">
                                     <p:cellEditor>
                                         <f:facet name="output">
-                                            <h:outputText value="#{trager.tragerStandort.ort}"/>
+                                            <h:outputText value="#{trager.standort.ort}"/>
                                         </f:facet>
                                         <f:facet name="input">
                                             <p:selectOneMenu id="standortTable2"
