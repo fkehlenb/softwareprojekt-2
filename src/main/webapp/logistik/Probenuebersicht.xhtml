@@ -57,6 +57,9 @@
                             <p:column headerText="Zustand">
                                 <h:outputText value="#{probe.zustand}"/>
                             </p:column>
+                            <p:column headerText="Träger">
+                                <h:outputText value="#{probe.currentTraeger.art}"/>
+                            </p:column>
                             <p:column headerText="Verlorene Probe">
                                 <h:outputText value="#{probe.lost}"/>
                             </p:column>

@@ -145,6 +145,29 @@
                                     </p:cellEditor>
                                 </p:column>
                                 <p:column>
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <h:outputText value="#{dtLogistikerBean.probenID}"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:selectOneMenu id="ProbeTable2"
+                                                             value="#{dtLogistikerBean.probenID}"
+                                                             converter="omnifaces.SelectItemsConverter"
+                                                             effect="fade"
+                                                             var="proben" style="width: 172px" filter="true"
+                                                             filterMatchMode="contains" required="true"
+                                                             requiredMessage="#{msg['esVerwaltungMeldung.jsf']}">
+                                                <f:selectItems value="#{dtLogistikerBean.proben}"
+                                                               var="proben" itemLabel="#{proben.probenID}"
+                                                               itemValue="#{proben}" required="true"/>
+                                                <p:column>
+                                                    <h:outputText value="#{proben.probenID}"/>
+                                                </p:column>
+                                            </p:selectOneMenu>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column>
                                     <p:commandButton value="#{msg['delete.jsf']}" ajax="true" update="form2"
                                                      action="#{dtLogistikerBean.deleteTraeger(trager.id)}"
                                                      icon="pi pi-trash"/>
