@@ -125,9 +125,7 @@ public class SingleSampleBean implements Serializable {
 
     public List<QualitativeEigenschaft> getEigenschaften() {
         List<QualitativeEigenschaft> r = new ArrayList<>();
-        for(ProzessSchrittParameter ps : p.getParameter()) {
-            r.addAll(ps.getQualitativeEigenschaften());
-        }
+            r.addAll(p.getEigenschaften());
         r.removeAll(Collections.singleton(null));
         return r;
     }

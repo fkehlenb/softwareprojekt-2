@@ -73,14 +73,14 @@
                 <h:form>
                     <p:outputLabel for="PSPAuswahlTable" value="PSP: "/>
                     <p:selectCheckboxMenu id="PSPAuswahlTable"
-                                          value="#{singleJobBean.ausProzessSchrittParameters}"
+                                          value="#{singleJobBean.ausEigenschaften}"
                                           converter="omnifaces.SelectItemsConverter" effect="fade"
                                           var="psp" style="width: 172px" filter="true"
                                           filterMatchMode="contains" showCheckbox="true"
                                           label="ProzessSchrittParamiter" requiredMessage="Bitte Parameter Zuweisen!">
-                        <f:selectItems value="#{singleJobBean.verProzessSchrittParameters}"
-                                       var="psp" itemLabel="#{psp.name}"
-                                       itemValue="#{psp}"/>
+                        <f:selectItems value="#{singleJobBean.verEigenschaften}"
+                                       var="e" itemLabel="#{e.name}"
+                                       itemValue="#{e}"/>
                     </p:selectCheckboxMenu>
                     <p:commandButton value="Reset" type="reset"/>
                     <p:commandButton value="Zuweisen"

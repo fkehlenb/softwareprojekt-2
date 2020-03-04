@@ -66,9 +66,9 @@ public class ProbenService implements Serializable {
      * @param q Parameter
      * @return alle Proben die diese Parameter besitzen
      */
-    public List<Probe> getProbenByParameter(ProzessSchrittParameter q) {
+    public List<Probe> getProbenByEigenschaft(QualitativeEigenschaft q) {
         return proben.stream()
-                .filter(e -> e.getParameter().contains(q))
+                .filter(e -> e.getEigenschaften().contains(q))
                 .collect(Collectors.toList());
     }
 
@@ -261,7 +261,7 @@ public class ProbenService implements Serializable {
      * @throws DuplicateProbeException there is already a sample with this id
      * //FIXME change qe to psp, any bugs?
      */
-    public void addNewSample(String id, Kommentar k, ProbenZustand pz, Standort s, List<ProzessSchrittParameter> qe, Traeger t) throws DuplicateProbeException {
+    public void addNewSample(String id, Kommentar k, ProbenZustand pz, Standort s, List<QualitativeEigenschaft> qe, Traeger t) throws DuplicateProbeException {
         if(!id.matches("[A-Z][0-9][0-9].[0-9]+(.[0-9]+)+")) {
             throw new IllegalArgumentException();
         }
@@ -269,7 +269,7 @@ public class ProbenService implements Serializable {
         List<Kommentar> ks = new LinkedList<>();
         ks.add(k);
         p.setKommentar(ks);
-        p.setParameter(qe);
+        p.setEigenschaften(qe);
         p.setCurrentTraeger(t);
         probeDAO.persist(p);
     }
