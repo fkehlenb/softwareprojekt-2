@@ -17,7 +17,8 @@ import org.primefaces.model.SelectableDataModel;
 @RequiredArgsConstructor
 @NoArgsConstructor
 @NamedQueries({
-        @NamedQuery(name = "Auftrag.getAll", query = "SELECT a FROM Auftrag a WHERE a.isValidData = true")
+        @NamedQuery(name = "Auftrag.getAll", query = "SELECT a FROM Auftrag a WHERE a.isValidData = true"),
+        @NamedQuery(name = "Auftrag.getTransport", query = "select a from Auftrag a where a.transportauftrag = true and a.isValidData=true")
 })
 public class Auftrag implements Serializable {
 
@@ -66,6 +67,11 @@ public class Auftrag implements Serializable {
     @OneToMany
     private List<Traeger> traeger;
 
+    /** When ready to transport, set to true */
+    private boolean transportauftrag = false;
+
+    /** Transport job state */
+    private Enum<TransportAuftragZustand> taZustand;
 
     private String ErrorMessage;
 

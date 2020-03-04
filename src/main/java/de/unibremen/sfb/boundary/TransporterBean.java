@@ -89,8 +89,7 @@ public class TransporterBean implements Serializable {
      */
     public void changeTransportZustandAbgeliefert(int TransportID) {
         try {
-            TransportAuftrag tr = auftragService.getTransportAuftragByID(TransportID);
-            auftragService.sedTransportZustandAbgeliefert(tr);
+            //TODO
             log.info("TransportAuftragZustand wurde gewechselt auf Abgeliefert " + TransportID);
             facesNotification("Der Zustand von " + TransportID + " wurde auf Abgeliefert gesetzt.");
             updateTabellen();
