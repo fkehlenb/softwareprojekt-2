@@ -2,10 +2,7 @@ package de.unibremen.sfb.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -30,6 +27,9 @@ public class TransportAuftrag implements Serializable {
     private LocalDateTime abgeliefert;
 
     @ManyToOne
+    private User user;
+
+    @ManyToOne
     private Standort start;
     @ManyToOne
     private Standort ziel;
@@ -38,4 +38,10 @@ public class TransportAuftrag implements Serializable {
     @NonNull
     private Enum<TransportAuftragZustand> zustandsAutomat;
 
+    @ManyToOne
+    @NonNull
+    private Standort start;
+    @ManyToOne
+    @NonNull
+    private Standort ziel;
 }

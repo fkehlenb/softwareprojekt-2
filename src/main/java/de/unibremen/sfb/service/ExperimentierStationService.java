@@ -50,9 +50,9 @@ public class ExperimentierStationService implements Serializable {
 //            r.addAll(es.getCurrentPS().getZugewieseneProben());
 //        }
 //        if(es.getNextPS()!=null) {
-//            for(ProzessSchritt ps : es.getNextPS()) {
-//                if(ps.getZugewieseneProben()!=null) {
-//                    r.addAll(ps.getZugewieseneProben());
+//            for(ProzessSchritt prozessSchrittList : es.getNextPS()) {
+//                if(prozessSchrittList.getZugewieseneProben()!=null) {
+//                    r.addAll(prozessSchrittList.getZugewieseneProben());
 //                }
 //            }
 //        }
@@ -174,7 +174,7 @@ public class ExperimentierStationService implements Serializable {
      * Get all PS which belong to user
      *
      * @param u the current user
-     * @return the ps
+     * @return the prozessSchrittList
      */
     public List<ProzessSchritt> getSchritteByUser(User u) {
         var ps = new ArrayList<ProzessSchritt>();
@@ -205,7 +205,7 @@ public class ExperimentierStationService implements Serializable {
      * sets the current process step of a station
      * @param ps the process step
      * @param es the station
-     * @throws IllegalArgumentException the station has a current step, or does not have ps in its list of next steps
+     * @throws IllegalArgumentException the station has a current step, or does not have prozessSchrittList in its list of next steps
      * @throws ExperimentierStationNotFoundException the station was not found in the database
      */
     public void setCurrentPS(ProzessSchritt ps, ExperimentierStation es)
@@ -224,7 +224,7 @@ public class ExperimentierStationService implements Serializable {
      * deletes the current process step of a station
      * @param ps the process step that is currently the current one
      * @param es the station
-     * @throws IllegalArgumentException ps or es null, or ps not the current one at es
+     * @throws IllegalArgumentException prozessSchrittList or es null, or prozessSchrittList not the current one at es
      * @throws ExperimentierStationNotFoundException the es was not found in the database
      */
     public void deleteCurrent(ProzessSchritt ps, ExperimentierStation es)
@@ -247,7 +247,7 @@ public class ExperimentierStationService implements Serializable {
      * updates the currentPS to the next one in the stations waiting queue
      * @param ps the current process step
      * @param es the station
-     * @throws IllegalArgumentException ps or es null, or ps not the current one at es
+     * @throws IllegalArgumentException prozessSchrittList or es null, or prozessSchrittList not the current one at es
      * @throws ExperimentierStationNotFoundException the es was not found in the database
      */
     public void updateCurrent(ProzessSchritt ps, ExperimentierStation es)

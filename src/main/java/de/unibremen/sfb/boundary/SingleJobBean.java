@@ -45,6 +45,9 @@ public class SingleJobBean implements Serializable {
     private ProzessSchrittParameterService prozessSchrittParameterService;
 
     @Inject
+    private  ProzessSchrittService prozessSchrittService;
+
+    @Inject
     private ProzessSchrittService psService;
 
     @Inject
@@ -56,8 +59,12 @@ public class SingleJobBean implements Serializable {
         // FIXME Zustandswehcsel
     }
 
-    public String singlejob(ProzessSchritt ps) {
-        this.ps = ps;
+    public String singlejob(int id) {
+        try {
+            this.ps = prozessSchrittService.getObjById(id);
+        } catch (ProzessSchrittNotFoundException e) {
+            e.printStackTrace();
+        }
         return "singlejob.xhtml";
     }
 
@@ -100,10 +107,14 @@ public class SingleJobBean implements Serializable {
 
     /**
      * returns the samples of this prozessschritt
-     * @param ps the process step
      * @return a list containing the samples
      */
-    public List<Probe> getProben(ProzessSchritt ps) {
+    public List<Probe> getProben() {
+        try {
+            prozessSchrittService.getObjById(ps.getId());
+        } catch (ProzessSchrittNotFoundException e) {
+            e.printStackTrace();
+        }
         List<Probe> proben = new ArrayList<>();
         for (Traeger t :
                 auftragService.getAuftrag(ps).getTraeger()) {
@@ -121,7 +132,7 @@ public class SingleJobBean implements Serializable {
      */
     public void zuweisen() {
         for (Probe p :
-                getProben(ps)) {
+                getProben()) {
             var list = p.getParameter();
             list.addAll(ausProzessSchrittParameters);
             p.setParameter(list);
@@ -138,7 +149,7 @@ public class SingleJobBean implements Serializable {
      * @return a list containing the prozessSchrittParameter
      */
     public List<ProzessSchrittParameter> getParameter() {
-      return ps.getProzessSchrittParameters(); // FIXME Nullpointer because technologe/index.xhtml does not load ps
+      return ps.getProzessSchrittParameters(); // FIXME Nullpointer because technologe/index.xhtml does not load prozessSchrittList
     }
 
     /**

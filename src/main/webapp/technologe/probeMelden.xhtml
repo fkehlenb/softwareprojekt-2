@@ -15,53 +15,55 @@
     <link rel="icon" href="../background.png"/>
 </h:head>
 
-<h:body>
-    <shiro:authenticated>
-        <shiro:hasRole name="transporter">
-            <ui:composition template="/template/common/layout.xhtml">
-                <ui:define name="content">
-                    <p:panelGrid columns="1">
-                        <h:form>
+<body>
+<shiro:authenticated>
+<shiro:hasRole name="technologe">
+
+    <ui:composition template="/template/common/layout.xhtml">
+        <ui:define name="content">
+            <p:panelGrid columns="1">
+                <h:form>
+                    <p:growl>
+                        <p:autoUpdate/>
+                    </p:growl>
+
+                    <p:tabMenu>
+                        <p:menuitem value="Home"/>
+                    </p:tabMenu>
+                    <h1 style="color: cornflowerblue">#{msg['probenVerlust.jsf']}</h1>
+                    <p>#{msg['probenVerlustText.jsf']} <br/> #{msg['menuLeft.jsf']} </p>
+
+                </h:form>
+                <p:panelGrid>
+                    <h:form id="form">
+                        <p:row>
+                            <h3 style="color: cornflowerblue">#{msg['probenVerlust2.jsf']}</h3>
+                        </p:row>
+                        <p:row>
                             <p:growl>
                                 <p:autoUpdate/>
                             </p:growl>
+                            <p:column colspan="1">
+                                <p:outputLabel for="pid" value="ID: "/>
+                                <p:inputMask placeholder="ID" id="pid" value="#{probeMeldenView.probeMeldenID}"/>
+                            </p:column>
 
-                            <p:tabMenu>
-                                <p:menuitem value="Home"/>
-                            </p:tabMenu>
-                            <h1 style="color: cornflowerblue">Probenverlust melden</h1>
-                            <p>Hier können sie Proben als Verloren melden.<br/> Links sehen sie ihr Navigationsmenue. </p>
+                            <p:column colspan="1">
+                                <p:outputLabel for="pAnzahl" value="Anzahl: "/>
+                                <p:inputMask id="pAnzahl" value="#{probeMeldenView.probenAnzahl}"/>
+                            </p:column>
 
-                        </h:form>
-                        <p:panelGrid>
-                            <h:form id="form">
-                                <p:row>
-                                    <h3 style="color: cornflowerblue">#{msg['esEinfügen.jsf']}</h3>
-                                </p:row>
-                                <p:row>
-                                    <p:growl>
-                                        <p:autoUpdate/>
-                                    </p:growl>
-                                    <p:column colspan="1">
-                                        <p:outputLabel for="pid" value="ID: "/>
-                                        <p:inputMask placeholder="ID" id="pid" value="#{probeMeldenView.probeMeldenID}"/>
-                                    </p:column>
+                            <p:column colspan="1">
+                                <p:commandButton value="Submit" action="#{probeMeldenView.reportLost()}"/>
+                            </p:column>
+                        </p:row>
+                    </h:form>
+                </p:panelGrid>
+            </p:panelGrid>
+        </ui:define>
+    </ui:composition>
 
-                                    <p:column colspan="1">
-                                        <p:outputLabel for="pAnzahl" value="Anzahl: "/>
-                                        <p:inputMask id="pAnzahl" value="#{probeMeldenView.probenAnzahl}"/>
-                                    </p:column>
-
-                                    <p:column colspan="1">
-                                        <p:commandButton value="Submit" action="#{probeMeldenView.reportLost()}"/>
-                                    </p:column>
-                                </p:row>
-                            </h:form>
-                        </p:panelGrid>
-                    </p:panelGrid>
-                </ui:define>
-            </ui:composition>
-        </shiro:hasRole>
-    </shiro:authenticated>
-</h:body>
+</shiro:hasRole>
+</shiro:authenticated>
+</body>
 </html>

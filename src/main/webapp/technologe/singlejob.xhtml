@@ -32,11 +32,11 @@
             </p:growl>
             <p:panelGrid columns="1">
                 <p:row>
-                    <h1 style="color: cornflowerblue">Auftrag #{singleJobBean.ps.psID}- Überblick</h1>
+                    <h1 style="color: cornflowerblue">Auftrag #{singleJobBean.ps.id}- Überblick</h1>
                 </p:row>
 
                 <p:row>
-                    <p> Hier haben Sie einen detaillierten Überblick über den Auftrag #{singleJobBean.ps.psID}</p>
+                    <p> Hier haben Sie einen detaillierten Überblick über den Auftrag #{singleJobBean.ps.id}</p>
                 </p:row>
                 <p:row>
                     <p> Standort: {singleJobBean.findStation()}</p>
@@ -50,7 +50,7 @@
                 </p:row>
 
                 <p:row>
-                    <p>Prozessschritt Art: #{singleJobBean.ps.prozessSchrittVorlage.psArt}</p>
+                    <p>Prozessschritt Art: #{singleJobBean.ps.attribute}</p>
                 </p:row>
 
                 <p:outputLabel for="kommentar" value="Kommentar:"/>
@@ -97,7 +97,7 @@
                     <p> Proben: </p>
                 </p:row>
 
-                <p:dataTable var="probe" value="#{singleJobBean.ps.zugewieseneProben}">
+                <p:dataTable var="probe" value="#{singleJobBean.proben}">
 
                     <p:column headerText="Id">
                         <h:outputText value="#{probe.probenID}"/>
