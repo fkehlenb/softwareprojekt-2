@@ -11,7 +11,8 @@ import java.util.Queue;
 /**
  * Experimenting stations data class
  */
-@Data
+@Getter
+@Setter
 @Entity
 @NamedQueries({
         @NamedQuery(name = "ExperimentierStation.findAllInLocation",

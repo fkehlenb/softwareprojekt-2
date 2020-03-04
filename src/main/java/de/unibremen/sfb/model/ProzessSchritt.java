@@ -10,7 +10,8 @@ import java.util.List;
 /**
  * Data class for process chain steps
  */
-@Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @RequiredArgsConstructor
