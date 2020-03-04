@@ -101,32 +101,5 @@ public class AuftragDAO extends ObjectDAO<Auftrag> {
         }
     }
 
-    /** Get all transport jobs
-     * @return a list of all available transport jobs or an empty arraylist */
-    public List<Auftrag> getAllTransport(){
-        List<Auftrag> a = new ArrayList<>();
-        try {
-            a = em.createNamedQuery("Auftrag.getTransport",get()).getResultList();
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-        return a;
-    }
-
-    /** Get a transport job using its id
-     * @param id - the id of the transport job to get
-     * @return the requested job
-     * @throws AuftragNotFoundException if the job cannot be found */
-    public Auftrag getTransportById(int id) throws AuftragNotFoundException{
-        try {
-            return em.createQuery("select a from Auftrag a where a.isValidData=true and a.pkID = :id and a.transportauftrag=true",get()).getSingleResult();
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            throw new AuftragNotFoundException();
-        }
-    }
-
 
 }
