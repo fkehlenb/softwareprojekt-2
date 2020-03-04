@@ -512,7 +512,7 @@ public class AdminBean implements Serializable {
             List<User> experimentierStationUsers = new ArrayList<>();
             Collections.addAll(experimentierStationUsers, experimentierStationBenutzer);
             ExperimentierStation es = new ExperimentierStation(UUID.randomUUID().hashCode(), experimentierStationStandort,
-                    experimentierStationName, ExperimentierStationZustand.VERFUEGBAR , bedingungen , experimentierStationUsers);
+                    experimentierStationName, ExperimentierStationZustand.VERFUEGBAR , new ArrayList<>() , bedingungen , experimentierStationUsers);
             try {
                 experimentierStationService.addES(es);
                 log.info("Added experimenting station! Name: " + experimentierStationName);

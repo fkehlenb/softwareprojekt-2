@@ -74,7 +74,7 @@ public class Auftrag implements Serializable {
         return "Auftrag: " + this.pkID;
     }
 
-    @Override
+    @Override // FIXME Fabian: solltest du nicht noch gucken ob der Auftrag geloescht wurde
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
@@ -87,5 +87,10 @@ public class Auftrag implements Serializable {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(isValidData(), getPkID(), getName(), getPriority(), getProzessSchritte(), getLog(), getProzessKettenZustandsAutomat(), getTraeger());
     }
 }

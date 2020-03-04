@@ -209,7 +209,7 @@
                                                             <h:outputText value="#{ps.name}"/>
                                                         </p:column>
                                                         <p:column headerText="Experimentierstation">
-                                                            <h:outputText value="#{ps.experimentierStation}"/>
+                                                            <h:outputText value="#{dtAuftragBean.getES(ps.id)}"/>
                                                         </p:column>
                                                         <p:column headerText="Dauer">
                                                             <h:outputText value="#{ps.duration}"/>

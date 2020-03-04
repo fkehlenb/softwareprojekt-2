@@ -278,20 +278,28 @@ public class ProbenService implements Serializable {
         probeDAO.persist(p);
     }
 
-    public List<Probe> viewToBeUploaded() throws UserNotFoundException {
-        var s = experimentierStationService.getESByUser(userService.getCurrentUser());
+    /**
+     * returns all samples to which the user has not yet uploaded data
+     *
+     * @return a set containing all those samples
+     */
+    public List<Probe> viewToBeUploaded() {
         List<Probe> res = new LinkedList<>();
-        for (Auftrag a : auftragService.getAuftrage()) {
-            ProzessSchritt ps = a.getProzessSchritte().stream().filter(p -> s.contains(p.getExperimentierStation().getCurrentPS())).findFirst().orElse(null);
-            if (ps != null && !ps.isUploaded() && ps.getProzessSchrittZustandsAutomat().getCurrent().equals("Bearbeitet")) {
-                for (Traeger t :
-                        a.getTraeger()) {
-                    res.addAll(t.getProben());
+        try {
+            for(ProzessSchritt ps : prozessSchrittService.getSchritte()) {
+                if(!ps.isUploaded()) {
+                    for (Traeger t :
+                            auftragService.getAuftrag(ps).getTraeger()) {
+                        res.addAll(t.getProben());
+                    }
                 }
             }
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
         }
         return res;
     }
+
 
     /**
      * counts the samples in the database

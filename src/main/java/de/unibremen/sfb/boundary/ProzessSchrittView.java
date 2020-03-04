@@ -1,5 +1,7 @@
 package de.unibremen.sfb.boundary;
 
+import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
+import de.unibremen.sfb.exception.ProzessSchrittNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.*;
 import lombok.Getter;
@@ -127,6 +129,39 @@ public class ProzessSchrittView implements Serializable {
         availableProzessSchrittParameter = prozessSchrittParameterService.getAll();
     }
 
+    public ExperimentierStation getES(int id) {
+        ExperimentierStation r = null;
+        try {
+            var ps =  prozessSchrittService.getObjById(id);
+            r = experimentierStationService.getESfromPS(ps);
+        } catch (ProzessSchrittNotFoundException e) {
+            e.printStackTrace();
+        }
+        return r;
+    }
+
+    public void setES(int esID, int psID) {
+        ExperimentierStation es = null;
+        ProzessSchritt ps = null;
+        try {
+            es = experimentierStationService.getById(esID);
+        } catch (ExperimentierStationNotFoundException e) {
+            e.printStackTrace();
+            log.error("Could not find ES: "+ esID);
+        }
+        try {
+            ps = prozessSchrittService.getObjById(psID);
+        } catch (ProzessSchrittNotFoundException e) {
+            e.printStackTrace();
+            log.error("Could not find ps: "+ psID);
+        }
+        try {
+            experimentierStationService.setES(ps, es);
+        } catch (ExperimentierStationNotFoundException e) {
+            e.printStackTrace();
+            log.error("could not set es of ps");
+        }
+    }
     /**
      * Create a new process step
      */
@@ -145,8 +180,9 @@ public class ProzessSchrittView implements Serializable {
             List<ProzessSchrittLog> psLog = new ArrayList<>();
             psLog.add(prozessSchrittLog);
             ProzessSchritt prozessSchritt = new ProzessSchritt(UUID.randomUUID().hashCode(),prozessSchrittZustandsAutomat,
-                    prozessSchrittVorlage.getDauer(), List.copyOf(prozessSchrittVorlage.getProzessSchrittParameters()),
-                    prozessSchrittVorlage.getExperimentierStation(),prozessSchrittAttribute,psLog,prozessSchrittName, urformend, amountCreated);
+                    prozessSchrittVorlage.getDauer(), List.copyOf(prozessSchrittVorlage.getProzessSchrittParameters())
+                    ,prozessSchrittAttribute,psLog,prozessSchrittName, urformend, amountCreated);
+            setES( prozessSchrittVorlage.getExperimentierStation().getEsID(), prozessSchritt.getId());
             prozessSchrittZustandsAutomatService.add(prozessSchrittZustandsAutomat);
             prozessSchrittLogService.add(prozessSchrittLog);
             prozessSchrittService.createPS(prozessSchritt);
@@ -176,7 +212,7 @@ public class ProzessSchrittView implements Serializable {
                         selectedProzessSchrittZustandsAutomatVorlage.getZustaende().get(0),zustaende);
                 prozessSchrittZustandsAutomat.setName(selectedProzessSchrittZustandsAutomatVorlage.getName());
                 prozessSchritt.setProzessSchrittZustandsAutomat(prozessSchrittZustandsAutomat);
-                prozessSchritt.setExperimentierStation(experimentierStation);
+                setES(experimentierStation.getEsID(), id);
                 prozessSchritt.setAttribute(prozessSchrittAttribute);
                 prozessSchritt.setUrformend(urformend);
                 prozessSchritt.setAmountCreated(amountCreated);

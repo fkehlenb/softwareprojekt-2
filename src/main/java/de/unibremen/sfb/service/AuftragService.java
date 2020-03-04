@@ -223,8 +223,8 @@ public class AuftragService implements Serializable {
      * @param t übergebener TransportAuftrag
      * @throws TransportAuftragNotFoundException when transportAuftrag wasn't found.
      */
-    public void sedTransportZustandAbgeholt(TransportAuftrag t) throws TransportAuftragNotFoundException {
-        t.setZustandsAutomat(TransportAuftragZustand.ABGEHOLT);
+    public void sedTransportZustand(TransportAuftrag t, TransportAuftragZustand taz) throws TransportAuftragNotFoundException {
+        t.setZustandsAutomat(taz);
         t.setAbgeholt(LocalDateTime.now());
         try {
             t.setUser(userService.getCurrentUser());
@@ -232,18 +232,6 @@ public class AuftragService implements Serializable {
             e.printStackTrace();
             log.info(e.getMessage());
         }
-        updateTransportZustand(t);
-    }
-
-    /**
-     * Sets transportAuftragsZustand to ABGELIEFERT.
-     *
-     * @param t übergebener TransportAuftrag
-     * @throws TransportAuftragNotFoundException when transportAuftrag wasn't found.
-     */
-    public void sedTransportZustandAbgeliefert(TransportAuftrag t) throws TransportAuftragNotFoundException {
-        t.setZustandsAutomat(TransportAuftragZustand.ABGELIEFERT);
-        t.setAbgeliefert(LocalDateTime.now());
         updateTransportZustand(t);
     }
 

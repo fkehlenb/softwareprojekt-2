@@ -56,13 +56,6 @@ public class ProzessSchritt implements Serializable {
     private List<ProzessSchrittParameter> prozessSchrittParameters;
 
     /**
-     * The experimenting station this process step is being carried out at
-     */
-    @NonNull
-    @ManyToOne
-    private ExperimentierStation experimentierStation;
-
-    /**
      * Process step attributes
      */
     @NonNull

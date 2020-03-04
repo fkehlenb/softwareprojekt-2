@@ -3,12 +3,14 @@ package de.unibremen.sfb.persistence;
 import de.unibremen.sfb.exception.DuplicateExperimentierStationException;
 import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
 import de.unibremen.sfb.model.ExperimentierStation;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 /**
  * This class handles the experimenting station objects in the database
  */
+@Slf4j
 public class ExperimentierStationDAO extends ObjectDAO<ExperimentierStation> {
 
     /**
@@ -39,7 +41,9 @@ public class ExperimentierStationDAO extends ObjectDAO<ExperimentierStation> {
             if (!em.contains(em.find(get(), es.getEsID()))) {
                 throw new ExperimentierStationNotFoundException();
             }
+//            es = getObjById(es.getEsID());
             em.merge(es);
+            log.info("Succes Updating ES: " + es.getEsID());
         }
     }
 
@@ -92,12 +96,7 @@ public class ExperimentierStationDAO extends ObjectDAO<ExperimentierStation> {
      * @throws IllegalArgumentException if the list is empty
      */
     public List<ExperimentierStation> getAll() throws IllegalArgumentException {
-        try {
             return em.createNamedQuery("ExperimentierStation.getAll", get()).getResultList();
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new IllegalArgumentException();
-        }
     }
 
     /**

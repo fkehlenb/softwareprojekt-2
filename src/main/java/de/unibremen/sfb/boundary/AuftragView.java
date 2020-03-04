@@ -1,5 +1,7 @@
 package de.unibremen.sfb.boundary;
 
+import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
+import de.unibremen.sfb.exception.ProzessSchrittNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.*;
 import lombok.Getter;
@@ -63,6 +65,9 @@ public class AuftragView implements Serializable {
     @Inject
     private AuftragsLogsService auftragsLogsService;
 
+    @Inject
+    private ExperimentierStationService experimentierStationService;
+
     /**
      * List of all available jobs
      */
@@ -124,6 +129,7 @@ public class AuftragView implements Serializable {
      */
     private ProzessKettenZustandsAutomat[] prozessKettenZustandsAutomatList;
 
+
     /**
      * Init called on start
      */
@@ -164,8 +170,9 @@ public class AuftragView implements Serializable {
                 ProzessSchrittLog prozessSchrittLog = new ProzessSchrittLog(LocalDateTime.now(), "GESTARTET");
                 prozessSchrittLogService.add(prozessSchrittLog);
                 ProzessSchritt ps = new ProzessSchritt(UUID.randomUUID().hashCode(), prozessSchrittZustandsAutomat,
-                        psv.getDauer(), List.copyOf(psv.getProzessSchrittParameters()), psv.getExperimentierStation(), "",
+                        psv.getDauer(), List.copyOf(psv.getProzessSchrittParameters()), "",
                         List.of(prozessSchrittLog), psv.getName(), psv.isUrformend(), psv.getAmountCreated());
+                experimentierStationService.setES(ps, psv.getExperimentierStation());
                 ps.setAssigned(true);
                 prozessSchrittService.createPS(ps);
                 prozessSchritts.add(ps);
@@ -303,6 +310,40 @@ public class AuftragView implements Serializable {
             e.printStackTrace();
             log.error("Couldn't start job with id " + id + " Error " + e.getMessage());
             facesError("Couldn't start job!");
+        }
+    }
+
+    public ExperimentierStation getES(int id) {
+        ExperimentierStation r = null;
+        try {
+            var ps =  prozessSchrittService.getObjById(id);
+           r = experimentierStationService.getESfromPS(ps);
+        } catch (ProzessSchrittNotFoundException e) {
+            e.printStackTrace();
+        }
+        return r;
+    }
+
+    public void setES(int esID, int psID) {
+        ExperimentierStation es = null;
+        ProzessSchritt ps = null;
+        try {
+            es = experimentierStationService.getById(esID);
+        } catch (ExperimentierStationNotFoundException e) {
+            e.printStackTrace();
+            log.error("Could not find ES: "+ esID);
+        }
+        try {
+            ps = prozessSchrittService.getObjById(psID);
+        } catch (ProzessSchrittNotFoundException e) {
+            e.printStackTrace();
+            log.error("Could not find ps: "+ psID);
+        }
+        try {
+            experimentierStationService.setES(ps, es);
+        } catch (ExperimentierStationNotFoundException e) {
+            e.printStackTrace();
+            log.error("could not set es of ps");
         }
     }
 
