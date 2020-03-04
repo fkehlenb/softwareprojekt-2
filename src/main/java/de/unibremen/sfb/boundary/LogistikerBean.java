@@ -2,6 +2,7 @@ package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.exception.AuftragNotFoundException;
 import de.unibremen.sfb.exception.DuplicateProbeException;
+import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
 import de.unibremen.sfb.exception.StandortNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.ProbeDAO;
@@ -73,6 +74,8 @@ public class LogistikerBean implements Serializable {
     /** Location Service */
     @Inject
     private StandortService standortService;
+
+    @Inject ExperimentierStationService experimentierStationService;
 
     /**
      * All containers
@@ -197,26 +200,26 @@ public class LogistikerBean implements Serializable {
     }
 
     /** Add a new sample to the system */
-    public void addProbe(){
-
+    public void addProbe() {
         Standort standort;
-
-        try {
+        try{
             standort = standortService.findByLocation("Lager");
-        } catch (StandortNotFoundException e) {
-            facesError("Der Standort Lager wurde nicht gefunden! Er wird nun erstellt!");
+
+        }
+        catch (StandortNotFoundException e){
+            facesError("Der Standort Lager wurde nicht gefunden und wird nun erstellt, Proben können lediglich im Lager erstellt werden!");
             standort = new Standort(UUID.randomUUID().hashCode(),"Lager");
             standortService.persist(standort);
         }
-        //Anzahl ins xhtml
-            //FIXME
-            Probe p = new Probe(probenID, anzahl, ProbenZustand.ARCHIVIERT,standort);
+
+
         try {
+            Probe p = new Probe(probenID, anzahl, ProbenZustand.ARCHIVIERT,standort);
             probenService.persist(p);
-            facesNotification("ERFOLG! die Probe wurde hinzugefügt" + p.getProbenID());
+            facesNotification("ERFOLG! die Probe wurde hinzugefügt" + probenID);
 
         } catch (DuplicateProbeException e) {
-            facesError("Die Probe existiert bereits!: " + e.getMessage());
+            facesError("Die Probe existiert bereits!: " + probenID);
             e.printStackTrace();
         }
     }
