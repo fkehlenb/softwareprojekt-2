@@ -6,7 +6,7 @@ class de.unibremen.sfb.controller.ProzessSchrittController--><a href="ProzessSch
     hide empty methods
 
     class "<size:14>ProzessSchrittController\n<size:10>de.unibremen.sfb.controller" as de.unibremen.sfb.controller.ProzessSchrittController [[ProzessSchrittController.html]] {
-        +ps: ProzessSchritt
+        +prozessSchrittList: ProzessSchritt
         +setAuftrag(Auftrag): void
         +getAuftrag(): Auftrag
         +uploaded(): boolean

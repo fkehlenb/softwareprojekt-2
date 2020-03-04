@@ -1,5 +1,6 @@
 package de.unibremen.sfb.boundary;
 
+import de.unibremen.sfb.exception.UserNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.AuftragService;
 import de.unibremen.sfb.service.ProzessKettenVorlageService;
@@ -9,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.primefaces.PrimeFaces;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -19,7 +21,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Named("transportBean")
-@ViewScoped
+@RequestScoped
 @Getter
 @Setter
 @Slf4j
@@ -29,70 +31,82 @@ import java.util.List;
   this bean manages the interaction of the gui with the backend system (for users who are transporters)
  */
 public class TransporterBean implements Serializable {
-    private List<ProzessSchritt> ps;
-    private List<ProzessSchritt> ps2;
+    private List<ProzessSchritt> prozessSchrittList;
+    private List<ProzessSchritt> prozessSchrittList2;
+    private List<ProzessSchritt> prozessSchrittList3;
     private List<TransportAuftrag> transportAuftragSelected;
 
     @Inject
     private AuftragService auftragService;
     @Inject
     private ProzessKettenVorlageService prozessKettenVorlageService;
+
     @Inject
     private TransportAuftrag transportAuftrag;
 
     @PostConstruct
     void init(){
-//        ps = auftragService.getTransportSchritt();
-//        ps2 = auftragService.getTransportSchritt2();
-
+        prozessSchrittList = auftragService.getTransportSchritt();
+        prozessSchrittList3 = auftragService.getTransportSchritt3();
+        try {
+            prozessSchrittList2 = auftragService.getTransportSchritt2();
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
-//    /**
-//     * returns all jobs available to the transporter
-//     * @return a set containing all those jobs
-//     */
-//    public List<ProzessSchritt> getAuftragList() {
-//
-//        return auftragService.getTransportSchritt();
-//    }
+    /**
+     * returns all jobs available to the transporter
+     * @return a set containing all those jobs
+     */
+    public List<ProzessSchritt> getAuftragList() {
+
+        return auftragService.getTransportSchritt();
+    }
 
     /**
      * sets the status of the job this transporter is currently working on
      */
-//    public void changeTransportZustandAbgeholt(int TransportID) {
-//      try {
-//          TransportAuftrag tr = auftragService.getTransportAuftragByID(TransportID);
-////          auftragService.sedTransportZustandAbgeholt(tr);
-//          log.info("TransportAuftragZustand wurde gewechselt auf Abgeholt " + TransportID);
-//          facesNotification("Der Zustand von " + TransportID + " wurde auf Abgeholt gesetzt.");
-//          updateTabellen();
-//
-//      }
-//      catch (Exception e) {
-//          e.printStackTrace();
-//          log.error("Failed to change state to Abgeholt" + TransportID);
-//          facesError("Failed to change state to Abgeholt" + TransportID);
-//      }
-//    }
+    public void changeTransportZustandAbgeholt(int TransportID) {
+      try {
+          TransportAuftrag tr = auftragService.getTransportAuftragByID(TransportID);
+          auftragService.sedTransportZustandAbgeholt(tr);
+          log.info("TransportAuftragZustand wurde gewechselt auf Abgeholt " + TransportID);
+          facesNotification("Der Zustand von " + TransportID + " wurde auf Abgeholt gesetzt.");
+          updateTabellen();
+
+      }
+      catch (Exception e) {
+          e.printStackTrace();
+          log.error("Failed to change state to Abgeholt" + TransportID);
+          facesError("Failed to change state to Abgeholt" + TransportID);
+      }
+    }
 
     /**
      * sets the status of the job this transporter is currently working on
+     * @return
      */
-//    public void changeTransportZustandAbgeliefert(int TransportID) {
-//        try {
-//            TransportAuftrag tr = auftragService.getTransportAuftragByID(TransportID);
-////            auftragService.sedTransportZustandAbgeliefert(tr);
-//            log.info("TransportAuftragZustand wurde gewechselt auf Abgeliefert " + TransportID);
-//            facesNotification("Der Zustand von " + TransportID + " wurde auf Abgeliefert gesetzt.");
-//            updateTabellen();
-//
-//        }
-//        catch (Exception e){
-//            e.printStackTrace();
-//            log.error("Failed to change state to Abgeliefert" + TransportID);
-//            facesError("Failed to change state to Abgeliefert" + TransportID);
-//        }
-//    }
+    public void changeTransportZustandAbgeliefert(int TransportID) {
+        try {
+            TransportAuftrag tr = auftragService.getTransportAuftragByID(TransportID);
+            auftragService.sedTransportZustandAbgeliefert(tr);
+            log.info("TransportAuftragZustand wurde gewechselt auf Abgeliefert " + TransportID);
+            facesNotification("Der Zustand von " + TransportID + " wurde auf Abgeliefert gesetzt.");
+            updateTabellen();
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            log.error("Failed to change state to Abgeliefert" + TransportID);
+            facesError("Failed to change state to Abgeliefert" + TransportID);
+        }
+    }
+
+
+ //  public List<Traeger> getAuftragTräger(ProzessSchritt ps) {
+  //    return auftragService.getAuftrag(ps).getTraeger();
+  // }
 
     /**
      * reports a sample as lost
@@ -134,8 +148,13 @@ public class TransporterBean implements Serializable {
      * Aktualisiert die Tabellen
      */
     public void updateTabellen() {
-//        ps = auftragService.getTransportSchritt();
-//        ps2 = auftragService.getTransportSchritt2();
+        prozessSchrittList = auftragService.getTransportSchritt();
+        prozessSchrittList3 = auftragService.getTransportSchritt3();
+        try {
+            prozessSchrittList2 = auftragService.getTransportSchritt2();
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+        }
         PrimeFaces.current().ajax().update("content-panel:content-panel");
     }
 

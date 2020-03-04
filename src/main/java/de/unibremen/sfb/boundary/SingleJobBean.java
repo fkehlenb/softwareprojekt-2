@@ -149,7 +149,7 @@ public class SingleJobBean implements Serializable {
      * @return a list containing the prozessSchrittParameter
      */
     public List<ProzessSchrittParameter> getParameter() {
-      return ps.getProzessSchrittParameters(); // FIXME Nullpointer because technologe/index.xhtml does not load ps
+      return ps.getProzessSchrittParameters(); // FIXME Nullpointer because technologe/index.xhtml does not load prozessSchrittList
     }
 
     /**
