@@ -213,23 +213,24 @@ public class LogistikerBean implements Serializable {
         }
 
         int vorherigeAnzahl = 0;
+        int verloreneAnzahl = 0;
         try {
             vorherigeAnzahl = probeDAO.getObjById(probenID).getAnzahl();
+            verloreneAnzahl = probeDAO.getObjById(probenID).getLost();
         } catch (ProbeNotFoundException e) {
-            e.printStackTrace();
         }
         Probe p = new Probe(probenID, vorherigeAnzahl + anzahl, ProbenZustand.ARCHIVIERT,standort);
+        p.setLost(verloreneAnzahl);
         try {
             probenService.update(p);
-            facesNotification("ERFOLG! die Probe wurde hinzugefügt" + p.getProbenID());
-        } catch (Exception e){
+            facesNotification("ERFOLG! die Probe wurde hinzugefügt UPDATE" + p.getProbenID());
+        } catch (ProbeNotFoundException e){
             try {
                 probenService.persist(p);
-                facesNotification("ERFOLG! die Probe wurde hinzugefügt" + p.getProbenID());
+                facesNotification("ERFOLG! die Probe wurde hinzugefügt PERSIST" + p.getProbenID());
 
             } catch (DuplicateProbeException ex) {
                 facesError("Die Probe existiert bereits!: " + e.getMessage());
-                e.printStackTrace();
             }
         }
 
