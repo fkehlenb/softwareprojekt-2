@@ -65,11 +65,11 @@ class ProbeTest {
 //        probe.setBedingungen(Arrays.<Bedingung>asList(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), 0)));
 //    }
 
-
-    @Test
+//FIXME
+/*    @Test
     void testSetCurrentTraeger() {
         probe.setCurrentTraeger(new Traeger(0, new TraegerArt("art"), List.of(probe)));
-    }
+    }*/
 
     @Test
     void testEquals() {

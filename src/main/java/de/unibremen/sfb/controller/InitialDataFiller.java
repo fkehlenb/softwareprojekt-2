@@ -434,7 +434,7 @@ public class InitialDataFiller {
             }
             r.add(p1);
         }
-        Traeger t = new Traeger(UUID.randomUUID().hashCode(), tas.get(0), r );
+        Traeger t = new Traeger(UUID.randomUUID().hashCode(), tas.get(0), r,standorte.get(1) );
         return t;
     }
 

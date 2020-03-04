@@ -29,4 +29,7 @@ public class Traeger {
     @OneToMany
     @NonNull
     private List<Probe> proben;
+
+    @NonNull
+    private Standort ort;
 }

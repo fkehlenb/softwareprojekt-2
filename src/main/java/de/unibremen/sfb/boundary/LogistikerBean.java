@@ -1,9 +1,6 @@
 package de.unibremen.sfb.boundary;
 
-import de.unibremen.sfb.exception.AuftragNotFoundException;
-import de.unibremen.sfb.exception.DuplicateProbeException;
-import de.unibremen.sfb.exception.ProbeNotFoundException;
-import de.unibremen.sfb.exception.StandortNotFoundException;
+import de.unibremen.sfb.exception.*;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.ProbeDAO;
 import de.unibremen.sfb.service.*;
@@ -41,6 +38,7 @@ import static de.unibremen.sfb.model.ProzessKettenZustandsAutomat.GESTARTET;
 public class LogistikerBean implements Serializable {
     private List<Probe> proben;
     private List<Auftrag> auftrage;
+    private Standort standortTraeger;
 
     //TODO remove this
     @Inject
@@ -131,7 +129,7 @@ public class LogistikerBean implements Serializable {
      * creates a new carrier
      */
     public void createTraeger() {
-        Traeger traeger = new Traeger(UUID.randomUUID().hashCode(),traegerArt, proben);
+        Traeger traeger = new Traeger(UUID.randomUUID().hashCode(),traegerArt, proben,standortTraeger);
         try{
             traegerService.persist(traeger);
             facesNotification("Added new Traeger with Art: " + traegerArt.getArt());
@@ -143,6 +141,13 @@ public class LogistikerBean implements Serializable {
             facesError("Failed to add new Traeger with Art: " + traegerArt.getArt());
             log.error("Failed to add new Traeger with Art: " + traegerArt.getArt());
         }
+    }
+
+    /** Add a new container type to the database
+     * @param ta - the container type to add
+     * @throws DuplicateTraegerArtException on failure */
+    public void addTraegerArt(TraegerArt ta) throws DuplicateTraegerArtException {
+
     }
 
     /**
@@ -238,10 +243,22 @@ public class LogistikerBean implements Serializable {
     /**
      * assigns a sample to a job
      *
-     * @param a the job
-     * @param p the sample
+     * @param id - the carrier
+     * @param p - the sample
      */
-    public void zuorndnenProbe(Auftrag a, Probe p) {
+    public void zuorndnenProbe(int id, Probe p) {
+        Traeger t = null;
+        try {
+            t = traegerService.getTraegerById(id);
+        } catch (TraegerNotFoundException e) {
+            log.info("The carrier cant be found.");
+        }
+        try {
+            t.getProben().add(p);
+            traegerService.update(t);
+        } catch (TraegerNotFoundException e) {
+            log.info("Sample couldn't be added to carrier.");
+        }
     }
 
     /**
@@ -251,6 +268,7 @@ public class LogistikerBean implements Serializable {
      * @param t the carrier
      */
     public void zuordnenTraeger(Auftrag a, Traeger t) {
+
     }
 
     /**
