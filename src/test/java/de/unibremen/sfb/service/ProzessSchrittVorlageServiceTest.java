@@ -111,9 +111,4 @@ class ProzessSchrittVorlageServiceTest {
 //    }
 
 
-    @Test
-    void testToString() {
-        String result = prozessSchrittVorlageService.toString();
-        Assertions.assertEquals("ProzessSchrittVorlageService(vorlagen=vorlagen, psvDAO=psvDAO, auftragService=auftragService)", result);
-    }
 }

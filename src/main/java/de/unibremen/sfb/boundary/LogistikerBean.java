@@ -218,6 +218,7 @@ public class LogistikerBean implements Serializable {
             vorherigeAnzahl = probeDAO.getObjById(probenID).getAnzahl();
             verloreneAnzahl = probeDAO.getObjById(probenID).getLost();
         } catch (ProbeNotFoundException e) {
+            log.info("vorherige Anzahl kann nicht gefunden werden, weil die Probe nicht existierte");
         }
         Probe p = new Probe(probenID, vorherigeAnzahl + anzahl, ProbenZustand.ARCHIVIERT,standort);
         p.setLost(verloreneAnzahl);
@@ -225,6 +226,7 @@ public class LogistikerBean implements Serializable {
             probenService.update(p);
             facesNotification("ERFOLG! die Probe wurde hinzugefügt UPDATE" + p.getProbenID());
         } catch (ProbeNotFoundException e){
+            log.info("Probe wurde nicht gefunden,es wird versucht sie zu persistieren!");
             try {
                 probenService.persist(p);
                 facesNotification("ERFOLG! die Probe wurde hinzugefügt PERSIST" + p.getProbenID());

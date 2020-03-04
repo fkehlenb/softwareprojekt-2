@@ -6,6 +6,7 @@ import de.unibremen.sfb.model.Probe;
 import de.unibremen.sfb.model.ProbenZustand;
 import de.unibremen.sfb.model.Standort;
 import de.unibremen.sfb.model.Traeger;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.Query;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.List;
 /**
  * This class handles the samples in the database
  */
+@Slf4j
 public class ProbeDAO extends ObjectDAO<Probe> {
 
     /**
@@ -86,7 +88,7 @@ public class ProbeDAO extends ObjectDAO<Probe> {
             }
             return p;
         } catch (Exception e) {
-            e.printStackTrace();
+            log.info(e.getMessage());
             throw new ProbeNotFoundException();
         }
     }
