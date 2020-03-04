@@ -154,8 +154,10 @@ public class LogistikerBean implements Serializable {
     public void onRowEditUpdateTraeger(int id) {
         try{
             Traeger t = traegerService.getTraegerById(id);
+            Probe p = probenService.getProbeById(probenID) ;
             t.setArt(traegerArt);
             t.setStandort(traegerLocation);
+            t.getProben().add(p);
             traegerService.update(t);
             facesNotification("Edited trager with ID: " + id);
             log.info("Edited trager with ID: " + id);
