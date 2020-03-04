@@ -85,10 +85,10 @@ public class TechnologeView implements Serializable {
         //alle einträge in queues von experimentierstationen denene der user zugeordnet ist
 
         List<ProzessSchritt> r = esService.getSchritteByUser(technologe);
-//        r.removeAll(Collections.singleton(null));
+        r.removeAll(Collections.singleton(null));
         r.stream().filter(a -> (!(a.getProzessSchrittZustandsAutomat().equals(ProzessKettenZustandsAutomat.INSTANZIIERT)
                 || a.getProzessSchrittZustandsAutomat().equals(ProzessKettenZustandsAutomat.ABGELEHNT))));
-//        r.sort(Comparator.comparing(o -> auftragService.getAuftrag(o).getPriority()));
+        r.sort(Comparator.comparing(o -> auftragService.getAuftrag(o).getPriority()));
         return r;
     }
 

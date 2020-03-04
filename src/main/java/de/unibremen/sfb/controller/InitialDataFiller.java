@@ -236,39 +236,43 @@ public class InitialDataFiller {
                 em.persist(psl);
             }
 
-            List<ProzessSchrittParameter> y= new ArrayList<>();
+            List<ProzessSchrittParameter> y = new ArrayList<>();
             List<ProzessSchrittParameter> prozessSchrittParameterList = new ArrayList<>();
             for (ProzessSchrittParameter psp :
                     psv.getProzessSchrittParameters()) {
                 y.add(psp);
             }
             var ps = new ProzessSchritt(UUID.randomUUID().hashCode(), a, psv.getDauer(), y,
-                    psv.getExperimentierStation(), "Test Atribut" + 1, psLogs, "PSV: " + i, true, f.random().nextInt(0, 9999));
+                    psv.getExperimentierStation(), "Test Atribut" + 1, psLogs, "PSV: " + i,
+                    true, f.random().nextInt(0, 9999));
 
             log.info("Try to persist TEST ProzessSchritt " + ps.getId());
 
-            var transportAuftrag = new TransportAuftrag(LocalDateTime.now(), TransportAuftragZustand.ERSTELLT);
-            em.persist(transportAuftrag);
-            log.info("Persisting Transport Auftag " + transportAuftrag.getZustandsAutomat());
-            ps.setTransportAuftrag(transportAuftrag);
+            if (i != 0) {
+                Standort ziel = r.get(i - 1).getExperimentierStation().getStandort();
+                var transportAuftrag = new TransportAuftrag(LocalDateTime.now(), TransportAuftragZustand.ERSTELLT,
+                        ps.getExperimentierStation().getStandort(), ziel);
+                em.persist(transportAuftrag);
+                log.info("Persisting Transport Auftag " + transportAuftrag.getZustandsAutomat());
+                 ps.setTransportAuftrag(transportAuftrag);
+            }
             em.persist(ps);
             r.add(ps);
 
             // Weise den PS auch Stationen zu.
             // Wenn es einen akutellen Schritt gibt, dann werden die weiteren Schritte in Warteschlange eingreiht.
-//            ExperimentierStation es;
-//            try {
-//                es = ps.getExperimentierStation();
-//                if (es.getCurrentPS() == null) {
-//                    es.setCurrentPS(ps);
-//                    ps.setZugewieseneProben(erstelleProben(es.getStandort()));
-//                } else {
-//                    es.getNextPS().add(ps);
-//                }
-//                em.persist(es);
-//            } catch (NullPointerException e) {
-//                log.info("Es gibt keine Stationen für diesen Schritt");
-//            }
+            ExperimentierStation es;
+            try {
+                es = ps.getExperimentierStation();
+                if (es.getCurrentPS() == null) {
+                    es.setCurrentPS(ps);
+                } else {
+                    es.getNextPS().add(ps);
+                }
+                em.persist(es);
+            } catch (NullPointerException e) {
+                log.info("Es gibt keine Stationen für diesen Schritt");
+            }
 
         }
         return r;
@@ -425,8 +429,8 @@ public class InitialDataFiller {
      */
     public Traeger erstelleProben(Standort s) {
         List<Probe> r = new ArrayList<>();
-        for(int i=0; i<limit; i++){
-            Probe p1 = new Probe("FDGHJ"+i, 9, ProbenZustand.VORHANDEN, s);
+        for (int i = 0; i < limit; i++) {
+            Probe p1 = new Probe("FDGHJ" + i, 9, ProbenZustand.VORHANDEN, s);
             p1.setKommentar(erstelleKommentare());
             try {
                 probeDAO.persist(p1);
@@ -436,7 +440,7 @@ public class InitialDataFiller {
             r.add(p1);
         }
         Random random = new Random();
-        Traeger t = new Traeger(UUID.randomUUID().hashCode(), tas.get(0), r, standorte.get(random.nextInt(standorte.size())) );
+        Traeger t = new Traeger(UUID.randomUUID().hashCode(), tas.get(0), r, standorte.get(random.nextInt(standorte.size())));
         return t;
     }
 

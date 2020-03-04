@@ -29,13 +29,15 @@ public class TransportAuftrag implements Serializable {
     private LocalDateTime abgeholt;
     private LocalDateTime abgeliefert;
 
-    @ManyToOne
-    private Standort start;
-    @ManyToOne
-    private Standort ziel;
 
     /** The transport job's current state */
     @NonNull
     private Enum<TransportAuftragZustand> zustandsAutomat;
 
+    @ManyToOne
+    @NonNull
+    private Standort start;
+    @ManyToOne
+    @NonNull
+    private Standort ziel;
 }
