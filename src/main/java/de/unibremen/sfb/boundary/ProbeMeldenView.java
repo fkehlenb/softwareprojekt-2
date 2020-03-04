@@ -19,6 +19,8 @@ import javax.inject.Named;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
 
+import static de.unibremen.sfb.model.ProbenZustand.VERLOREN;
+
 @ViewScoped
 @Getter
 @Setter
@@ -44,8 +46,16 @@ public class ProbeMeldenView implements Serializable {
                     probenService.probeVerloren(probenService.getProbeById(probeMeldenID), probenService.getProbeById(probeMeldenID).getAnzahl(), probenAnzahl, probenService.getProbeById(probeMeldenID).getLost());
                     log.info(probenAnzahl + " Samples of " + probeMeldenID + " were reported as missing.");
                     facesNotification(probenAnzahl + " Samples of " + probeMeldenID + " were reported as missing.");
+                    //Checks if all samples are lost then sets the Zustand to VERLOREN
+                    if (alleLost()){
+                        Probe p;
+                        p= probenService.getProbeById(probeMeldenID);
+                        p.setZustand(VERLOREN);
+                        probenService.update(p);
+                        facesNotification("Die Probe mit der ID:" + probeMeldenID +" gilt nun als komplett Verloren!" );
+                    }
+
                 } catch (ProbeNotFoundException e) {
-                    e.printStackTrace();
                     log.info("sample " + probeMeldenID + " could not be found when trying to report as missing.");
                 }
             } else {
@@ -53,13 +63,18 @@ public class ProbeMeldenView implements Serializable {
                 facesError("The given number of samples is higher than the number of samples in the database.");
             }
         } catch (ProbeNotFoundException e) {
-            e.printStackTrace();
+            facesError("sample " + probeMeldenID + " could not be found when trying to report as missing.");
+            log.info("sample " + probeMeldenID + " could not be found when trying to report as missing.");
         }
     }
 
     public boolean alleLost (){
         try {
             if(probenService.getProbeById(probeMeldenID).getAnzahl() ==0){
+                Probe p;
+                p= probenService.getProbeById(probeMeldenID);
+                p.setZustand(VERLOREN);
+                probenService.update(p);
                 return true;
             }
         } catch (ProbeNotFoundException e) {
@@ -79,7 +94,7 @@ public class ProbeMeldenView implements Serializable {
     public void reportLostProbe(Probe p, int anzahl) {
         try {
             try {
-                probenService.setZustandForProbe(p, anzahl, ProbenZustand.VERLOREN);
+                probenService.setZustandForProbe(p, anzahl, VERLOREN);
             } catch (DuplicateProbeException e) {
                 e.printStackTrace();
             }
