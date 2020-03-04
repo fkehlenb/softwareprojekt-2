@@ -247,18 +247,5 @@ public class AuftragService implements Serializable {
         updateTransportZustand(t);
     }
 
-    /** Get all transport jobs
-     * @return a list of all transport jobs or an empty arraylist */
-    public List<Auftrag> getAllTransport(){
-        return auftragDAO.getAllTransport();
-    }
-
-    /** Get transport job by id
-     * @param id - the id of the transport job to get
-     * @return the requested transport job
-     * @throws AuftragNotFoundException on failure */
-    public Auftrag getTransportById(int id) throws AuftragNotFoundException{
-        return auftragDAO.getTransportById(id);
-    }
 
 }
