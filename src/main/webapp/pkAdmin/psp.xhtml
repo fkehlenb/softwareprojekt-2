@@ -108,10 +108,25 @@
                                 </f:facet>
                             </p:cellEditor>
                         </p:column>
-                        <p:column headerText="Qualitative Eigenschaften">
+                        <p:column headerText="Eigenschaften">
                             <p:cellEditor>
                                 <f:facet name="output">
-                                    <p:commandButton value="Anzeigen" icon="pi pi-external-link"/>
+                                    <p:commandButton value="Anzeigen" icon="pi pi-external-link" onclick="PF('dlg1').show();"/>
+                                    <p:dialog header="Eigenschaften Uebersicht" widgetVar="dlg1" modal="true"
+                                              height="100">
+                                        <p:panelGrid columns="1">
+                                            <p:row>
+                                                <p:dataTable id="tableqle" var="qle" value="#{psp.qualitativeEigenschaften}"
+                                                             editable="true"
+                                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                                             paginator="true" rows="15" style="margin-bottom:20px">
+                                                    <p:column headerText="Name">
+                                                        <h:outputText value="#{qle.name}"/>
+                                                    </p:column>
+                                                </p:dataTable>
+                                            </p:row>
+                                        </p:panelGrid>
+                                    </p:dialog>
                                 </f:facet>
                                 <f:facet name="input">
                                     <p:selectCheckboxMenu id="psp3"
@@ -121,25 +136,6 @@
                                                           filterMatchMode="contains" showCheckbox="true"
                                                           label="ProzessSchrittParameter">
                                         <f:selectItems value="#{dtPSPBean.availableQualitativeEigenschaften}"
-                                                       var="psp" itemLabel="#{psp.name}"
-                                                       itemValue="#{psp}"/>
-                                    </p:selectCheckboxMenu>
-                                </f:facet>
-                            </p:cellEditor>
-                        </p:column>
-                        <p:column headerText="Quanitative Eigenschaften">
-                            <p:cellEditor>
-                                <f:facet name="output">
-                                    <p:commandButton value="Anzeigen" icon="pi pi-external-link"/>
-                                </f:facet>
-                                <f:facet name="input">
-                                    <p:selectCheckboxMenu id="psp4"
-                                                          value="#{dtPSPBean.selectedQuantitativeEigenschaften}"
-                                                          converter="omnifaces.SelectItemsConverter" effect="fade"
-                                                          var="psp" style="width: 172px" filter="true"
-                                                          filterMatchMode="contains" showCheckbox="true"
-                                                          label="ProzessSchrittParameter">
-                                        <f:selectItems value="#{dtPSPBean.availableQuantitativeEigenschaften}"
                                                        var="psp" itemLabel="#{psp.name}"
                                                        itemValue="#{psp}"/>
                                     </p:selectCheckboxMenu>

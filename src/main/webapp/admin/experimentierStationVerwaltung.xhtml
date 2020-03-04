@@ -166,10 +166,25 @@
                                             </f:facet>
                                         </p:cellEditor>
                                     </p:column>
-                                    <p:column headerText="Bedingungen">
+                                    <p:column headerText="ProzessSchritt Parameter">
                                         <p:cellEditor>
                                             <f:facet name="output">
-                                                <h:outputText value="#{station.requirements}"/>
+                                                <p:commandButton value="Anzeigen" icon="pi pi-external-link" onclick="PF('dlg2').show();"/>
+                                                <p:dialog header="ProzessSchritt Patameter Uebersicht" widgetVar="dlg2" modal="true"
+                                                          height="100">
+                                                    <p:panelGrid columns="1">
+                                                        <p:row>
+                                                            <p:dataTable id="psptable" var="psp" value="#{station.requirements}"
+                                                                         editable="true"
+                                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                                                         paginator="true" rows="15" style="margin-bottom:20px">
+                                                                <p:column headerText="Name">
+                                                                    <h:outputText value="#{psp.name}"/>
+                                                                </p:column>
+                                                            </p:dataTable>
+                                                        </p:row>
+                                                    </p:panelGrid>
+                                                </p:dialog>
                                             </f:facet>
                                             <f:facet name="input">
                                                 <p:selectCheckboxMenu id="PSPAuswahlTable2"
@@ -189,7 +204,22 @@
                                     <p:column headerText="#{msg['zugewUser.jsf']}">
                                         <p:cellEditor>
                                             <f:facet name="output">
-                                                <h:outputText value="#{station.benutzer}"/>
+                                                <p:commandButton value="Anzeigen" icon="pi pi-external-link" onclick="PF('dlg1').show();"/>
+                                                <p:dialog header="Benutzer Uebersicht" widgetVar="dlg1" modal="true"
+                                                          height="100">
+                                                    <p:panelGrid columns="1">
+                                                        <p:row>
+                                                            <p:dataTable id="userstable" var="user" value="#{station.benutzer}"
+                                                                         editable="true"
+                                                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                                                         paginator="true" rows="15" style="margin-bottom:20px">
+                                                                <p:column headerText="Username">
+                                                                    <h:outputText value="#{user.username}"/>
+                                                                </p:column>
+                                                            </p:dataTable>
+                                                        </p:row>
+                                                    </p:panelGrid>
+                                                </p:dialog>
                                             </f:facet>
                                             <f:facet name="input">
                                                 <p:selectCheckboxMenu id="user"

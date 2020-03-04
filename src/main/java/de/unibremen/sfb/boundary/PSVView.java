@@ -129,7 +129,7 @@ public class PSVView implements Serializable {
      */
     public void createPSV() {
         try {
-            prozessSchrittVorlageService.persist(new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), selectedProzessSchrittParameterList,
+            prozessSchrittVorlageService.persist(new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), List.copyOf(selectedProzessSchrittParameterList),
                     selectedExperimentierStation, selectedDuration, selectedName, selectedProzessSchrittZustandsAutomatVorlage,urformend,amountCreated));
             log.info("Created new process step template with name " + selectedName);
             facesNotification("Created new process step template with name " + selectedName);
@@ -153,7 +153,7 @@ public class PSVView implements Serializable {
             prozessSchrittVorlage.setDauer(selectedDuration);
             prozessSchrittVorlage.setZustandsAutomatVorlage(selectedProzessSchrittZustandsAutomatVorlage);
             prozessSchrittVorlage.setExperimentierStation(selectedExperimentierStation);
-            prozessSchrittVorlage.setProzessSchrittParameters(selectedProzessSchrittParameterList);
+            prozessSchrittVorlage.setProzessSchrittParameters(List.copyOf(selectedProzessSchrittParameterList));
             prozessSchrittVorlage.setUrformend(urformend);
             prozessSchrittVorlage.setAmountCreated(amountCreated);
             prozessSchrittVorlageService.edit(prozessSchrittVorlage);

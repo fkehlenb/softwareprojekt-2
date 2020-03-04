@@ -188,10 +188,49 @@
                                     </f:facet>
                                 </p:cellEditor>
                             </p:column>
+                            <p:column headerText="ProzessSchrittZustandsAutomat Vorlage">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{psv.zustandsAutomatVorlage.name}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:selectOneMenu id="ProzessSchrittZustandsAutomatVorlage2"
+                                                         value="#{psvErstellenBean.selectedProzessSchrittZustandsAutomatVorlage}"
+                                                         converter="omnifaces.SelectItemsConverter" effect="fade"
+                                                         var="pszav" style="width: 172px"
+                                                         filter="true"
+                                                         filterMatchMode="startsWith">
+                                            <f:selectItems
+                                                    value="#{psvErstellenBean.availableProzessSchrittZustandsAutomatVorlageList}"
+                                                    var="pszav" itemLabel="#{pszav.name}"
+                                                    itemValue="#{pszav}" required="true"/>
+
+                                            <p:column>
+                                                <h:outputText value="Vorlage: #{pszav.name}"/>
+                                            </p:column>
+                                        </p:selectOneMenu>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
                             <p:column headerText="Prozessschritt Parameter">
                                 <p:cellEditor>
                                     <f:facet name="output">
-                                        <p:commandButton value="Anzeigen"/>
+                                        <p:commandButton value="Anzeigen" icon="pi pi-external-link" onclick="PF('dlg2').show();"/>
+                                        <p:dialog header="Prozessschritt Parameter Uebersicht" widgetVar="dlg2" modal="true"
+                                                  height="100">
+                                            <p:panelGrid columns="1">
+                                                <p:row>
+                                                    <p:dataTable id="tablepsp" var="psp" value="#{psv.prozessSchrittParameters}"
+                                                                 editable="true"
+                                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                                                 paginator="true" rows="15" style="margin-bottom:20px">
+                                                        <p:column headerText="Name">
+                                                            <h:outputText value="#{psp.name}"/>
+                                                        </p:column>
+                                                    </p:dataTable>
+                                                </p:row>
+                                            </p:panelGrid>
+                                        </p:dialog>
                                     </f:facet>
                                     <f:facet name="input">
                                         <p:selectCheckboxMenu id="psp2"
