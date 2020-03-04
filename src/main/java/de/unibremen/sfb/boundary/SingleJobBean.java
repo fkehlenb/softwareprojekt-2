@@ -14,11 +14,11 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.io.IOException;
-import java.io.Serializable;
+import javax.json.bind.JsonbBuilder;
+import javax.json.bind.JsonbConfig;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 @Named
@@ -30,8 +30,8 @@ public class SingleJobBean implements Serializable {
 
     private ProzessSchritt ps;
 
-    private List<ProzessSchrittParameter> verProzessSchrittParameters;
-    private List<ProzessSchrittParameter> ausProzessSchrittParameters;
+    private List<QualitativeEigenschaft> verEigenschaften;
+    private List<QualitativeEigenschaft> ausEigenschaften;
 
     /**
      * saves a comment the user can type in to be added to all samples of a prozessschritt
@@ -42,7 +42,7 @@ public class SingleJobBean implements Serializable {
     private ProbenService probeService;
 
     @Inject
-    private ProzessSchrittParameterService prozessSchrittParameterService;
+    private QualitativeEigenschaftService qualitativeEigenschaftService;
 
     @Inject
     private  ProzessSchrittService prozessSchrittService;
@@ -55,7 +55,7 @@ public class SingleJobBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        verProzessSchrittParameters = prozessSchrittParameterService.getParameterList();
+        verEigenschaften = qualitativeEigenschaftService.getEigenschaften();
         // FIXME Zustandswehcsel
     }
 
@@ -134,15 +134,16 @@ public class SingleJobBean implements Serializable {
     public void zuweisen() {
         for (Probe p :
                 getProben()) {
-            var list = p.getParameter();
-            list.addAll(ausProzessSchrittParameters);
-            p.setParameter(list);
+            var list = p.getEigenschaften();
+            list.addAll(ausEigenschaften);
+            p.setEigenschaften(list);
             try {
                 probeService.update(p);
             } catch (ProbeNotFoundException e) {
                 e.printStackTrace();
             }
         }
+        facesNotification("Succesfully added: ");
     }
 
     /**
@@ -179,12 +180,20 @@ public class SingleJobBean implements Serializable {
      * @param psp the parameter
      */
     public void download(List<ProzessSchrittParameter> psp) {
+        var config = new JsonbConfig().withFormatting(true);
+        var jsonb = JsonbBuilder.create(config);
+
+        String result = jsonb.toJson(psp);
+        String fileName = "JSON_" + LocalDateTime.now().toString().replaceAll(":","_") + ".json";
+        PrintWriter writer = null;
         try {
-            Faces.sendFile(prozessSchrittParameterService.toJSON(psp), true);
-        }
-        catch(IOException e) {
+            writer = new PrintWriter(fileName);
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        writer.write(result);
+        log.info("Successfully exported json to " + fileName);
+        facesNotification("Successfully exported json to " + fileName);
     }
 
     /**

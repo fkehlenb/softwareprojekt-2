@@ -3,6 +3,7 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -67,7 +68,10 @@ public class Probe {
      * The qualitative/quantitative descriptors of the sample
      */
     @ManyToMany(fetch = FetchType.LAZY)
-    private List<ProzessSchrittParameter> parameter;
+    private List<QualitativeEigenschaft> eigenschaften = new ArrayList();
+
+    @ElementCollection
+    List<String> atribute = new ArrayList<>();
 
     /**
      * The container the sample is currently located in

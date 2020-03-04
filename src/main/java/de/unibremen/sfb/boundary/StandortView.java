@@ -34,7 +34,6 @@ public class StandortView implements Serializable {
     @Getter
     @Setter
     private String standortName;
-
     /**
      * Add a new location
      */
