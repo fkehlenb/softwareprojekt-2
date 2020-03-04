@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /** Data class for the process chain step log */
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @RequiredArgsConstructor
-public class ProzessSchrittLog {
+public class ProzessSchrittLog implements Serializable {
 
     /** On delete set to invalid */
     @NonNull

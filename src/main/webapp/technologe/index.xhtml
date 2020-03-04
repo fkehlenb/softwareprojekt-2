@@ -23,10 +23,8 @@
 
 
 <ui:define name="content">
-    <div class="ui-g-2"></div>
-    <div class="ui-g-8">
         <h:body style="background: url('../background.png')">
-            <h:form id="form" style="background-color: white; margin-top: 100px; width: 650px">
+            <h:form id="form">
                 <p:growl>
                     <p:autoUpdate/>
                 </p:growl>
@@ -41,9 +39,9 @@
 
                     <p:dataTable var="ps" value="#{technologeView.schritte}"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                 paginator="true" rows="50" style="margin-bottom:20px">
-                        <p:column headerText="Id">
-                            <h:outputText value="#{ps.psID}"/>
+                                 paginator="true" rows="15" style="margin-bottom:20px">
+                        <p:column headerText="Name">
+                            <h:outputText value="#{ps.name}"/>
                         </p:column>
                         <p:column headerText="Status">
                             <h:outputText value="#{ps.prozessSchrittZustandsAutomat.current}"/>
@@ -52,7 +50,7 @@
                             <h:outputText value="#{technologeView.findStandort(ps)}"/>
                         </p:column>
                         <p:column headerText="Priorität">
-                            <h:outputText value="{technologeView.getPriority(ps)}"/>
+                            <h:outputText value="#{technologeView.getPriority(ps)}"/>
                         </p:column>
                         <p:column headerText="Auswählen">
                             <div align="center">
@@ -63,7 +61,6 @@
                 </p:panelGrid>
             </h:form>
         </h:body>
-    </div>
 </ui:define>
 </ui:composition>
 </shiro:hasRole>

@@ -115,9 +115,10 @@ public class TechnologeView implements Serializable {
      */
     public void reportBroken(ExperimentierStation es) {
         try {
-            esService.setZustand(es, ExperimentierStationZustand.KAPUTT);
+            es.setStatus(ExperimentierStationZustand.KAPUTT);
+            experimentierStationService.updateES(es);
             log.info("ExperimentierStation " + es.getEsID() + "was reported as broken.");
-        } catch (ExperimentierStationNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             log.info("an error occurred trying to report ExperimentierStation " + es.getEsID() + " as broken: " + e.getMessage());
         }

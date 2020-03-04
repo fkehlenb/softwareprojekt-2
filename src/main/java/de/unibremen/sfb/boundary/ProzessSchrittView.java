@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -122,14 +123,16 @@ public class ProzessSchrittView implements Serializable {
         try {
             int id = selectedProzessSchrittVorlage.getPsVID();
             ProzessSchrittVorlage prozessSchrittVorlage = prozessSchrittVorlageService.getByID(id);
-
+            List<String> zustaende = new ArrayList<>();
+            for (String s : prozessSchrittVorlage.getZustandsAutomatVorlage().getZustaende()){
+                zustaende.add(s);
+            }
             ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(),
-                    prozessSchrittVorlage.getZustandsAutomatVorlage().getZustaende().get(0), prozessSchrittVorlage.getZustandsAutomatVorlage().getZustaende());
-
+                    prozessSchrittVorlage.getZustandsAutomatVorlage().getZustaende().get(0), zustaende);
+            prozessSchrittZustandsAutomat.setName(prozessSchrittVorlage.getZustandsAutomatVorlage().getName());
             ProzessSchrittLog prozessSchrittLog = new ProzessSchrittLog(LocalDateTime.now(),"ERSTELLT");
-
             ProzessSchritt prozessSchritt = new ProzessSchritt(UUID.randomUUID().hashCode(),prozessSchrittZustandsAutomat,
-                    prozessSchrittVorlage.getDauer(), prozessSchrittVorlage.getProzessSchrittParameters(),
+                    prozessSchrittVorlage.getDauer(), List.copyOf(prozessSchrittVorlage.getProzessSchrittParameters()),
                     prozessSchrittVorlage.getExperimentierStation(),prozessSchrittAttribute,List.of(prozessSchrittLog),prozessSchrittName, urformend, amountCreated);
             prozessSchrittZustandsAutomatService.add(prozessSchrittZustandsAutomat);
             prozessSchrittLogService.add(prozessSchrittLog);
@@ -152,8 +155,13 @@ public class ProzessSchrittView implements Serializable {
             if (prozessSchritt.getProzessSchrittZustandsAutomat().getCurrent().equals("Erstellt")){
                 prozessSchritt.setName(prozessSchrittName);
                 prozessSchritt.setDuration(psDuration);//TODO bug
+                List<String> zustaende = new ArrayList<>();
+                for (String s : selectedProzessSchrittZustandsAutomatVorlage.getZustaende()){
+                    zustaende.add(s);
+                }
                 ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(),
-                        selectedProzessSchrittZustandsAutomatVorlage.getZustaende().get(0),selectedProzessSchrittZustandsAutomatVorlage.getZustaende());
+                        selectedProzessSchrittZustandsAutomatVorlage.getZustaende().get(0),zustaende);
+                prozessSchrittZustandsAutomat.setName(selectedProzessSchrittZustandsAutomatVorlage.getName());
                 prozessSchritt.setProzessSchrittZustandsAutomat(prozessSchrittZustandsAutomat);
                 prozessSchritt.setExperimentierStation(experimentierStation);
                 prozessSchritt.setAttribute(prozessSchrittAttribute);

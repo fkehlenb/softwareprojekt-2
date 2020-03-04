@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -19,7 +20,7 @@ import java.util.HashMap;
 @NamedQueries({
         @NamedQuery(name = "Standort.getByOrt", query = "SELECT s FROM Standort s WHERE s.ort = :ort AND s.isValidData = true")
 })
-public class Standort {
+public class Standort implements Serializable {
 
     /**
      * On delete set to invalid

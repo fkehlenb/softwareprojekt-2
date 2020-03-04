@@ -3,6 +3,7 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /** The process chain step parameter's data class  */
@@ -11,7 +12,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
-public class ProzessSchrittParameter {
+public class ProzessSchrittParameter implements Serializable {
 
     /** On delete set to invalid */
     @NonNull

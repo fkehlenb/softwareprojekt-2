@@ -3,6 +3,7 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
@@ -17,12 +18,11 @@ import java.util.Queue;
                 query = "SELECT es FROM ExperimentierStation es WHERE es.standort = :standort AND es.isValidData = true"),
         @NamedQuery(name = "ExperimentierStation.getByStatus",
                 query = "SELECT es FROM ExperimentierStation es WHERE es.status = :status AND es.isValidData = true"),
-        @NamedQuery(name = "ExperimentierStation.getAll", query = "SELECT es FROM ExperimentierStation es WHERE es.isValidData = true")//,
-        //@NamedQuery(name = "ExperimentierStation.getByUser", query = "SELECT es FROM ExperimentierStation es WHERE  es.benutzer = ?"  )
+        @NamedQuery(name = "ExperimentierStation.getAll", query = "SELECT es FROM ExperimentierStation es WHERE es.isValidData = true")
 })
 @RequiredArgsConstructor
 @NoArgsConstructor
-public class ExperimentierStation {
+public class ExperimentierStation implements Serializable {
 
     /**
      * On delete set to invalid
@@ -53,9 +53,8 @@ public class ExperimentierStation {
     @NonNull
     private Enum<ExperimentierStationZustand> status;
 
-    //TODO
     /** The queue currently being processed at the experimenting station */
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
    private List<ProzessSchritt> nextPS = new ArrayList<ProzessSchritt>();
 
     /** Parameters required to use this station */
@@ -67,7 +66,7 @@ public class ExperimentierStation {
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private List<User> benutzer;
 
-    @OneToOne
+    @ManyToOne
     private ProzessSchritt currentPS;
 
     @Override

@@ -7,7 +7,7 @@
       xmlns:shiro="http://shiro.apache.org/tags">
 <ui:define name="metadata">
     <f:metadata>
-        <f:viewAction action="#{languageBean.setLanguage}" />
+        <f:viewAction action="#{languageBean.setLanguage}"/>
     </f:metadata>
 </ui:define>
 
@@ -18,16 +18,11 @@
 
 <body>
 <shiro:authenticated>
-<shiro:hasRole name="technologe">
-    <ui:composition template="../template/common/layout.xhtml">
-
-
-        <ui:define name="content">
-            <div class="ui-g-2"></div>
-            <div class="ui-g-8">
-
+    <shiro:hasRole name="technologe">
+        <ui:composition template="../template/common/layout.xhtml">
+            <ui:define name="content">
                 <h:body style="background: url('../background.png')">
-                    <h:form style="background-color: white; margin-top: 100px; width: 650px">
+                    <h:form id="form">
                         <p:growl>
                             <p:autoUpdate/>
                         </p:growl>
@@ -35,18 +30,20 @@
                             <p:row>
                                 <h1 style="color: cornflowerblue">Experimentierstationen</h1>
                             </p:row>
-
                             <p:row>
                                 <p>Hier können Sie alle Stationen sehen, an denen Sie arbeiten, und zwischen den Sichtweisen der Stationen wechseln. </p>
                             </p:row>
 
+                            <style type="text/css">
+                                .broken {
+                                    background-color: red !important;
+                                    color: white !important;
+                                }
+                            </style>
                             <p:dataTable id="stationen" var="station" value="#{technologeView.getStationen()}"
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                         paginator="true" rows="50" style="margin-bottom:20px">
-                                <p:column headerText="Id">
-                                    <h:outputText value="#{station.esID}"/>
-                                </p:column>
-                                <p:column headerText="Standort">
+                                         paginator="true" rows="15" style="margin-bottom:20px">
+                                <p:column headerText="Standort" rowStyleClass="#{station.status eq KAPUTT ? 'broken' : null}">
                                     <h:outputText value="#{station.standort.ort}"/>
                                 </p:column>
                                 <p:column headerText="Status">
@@ -56,25 +53,25 @@
                                     <h:outputText value="#{station.name}"/>
                                 </p:column>
                                 <p:column headerText="Als kaputt melden">
-                                        <div align="center">
-                                            <p:commandButton update="stationen" action="#{technologeView.reportBroken(station)}" value="REPORT"/>
-                                        </div>
+                                    <div align="center">
+                                        <p:commandButton update="stationen"
+                                                         action="#{technologeView.reportBroken(station)}"
+                                                         value="REPORT"/>
+                                    </div>
                                 </p:column>
                                 <p:column headerText="Auswählen">
                                     <div align="center">
-                                        <p:commandButton value="Choose" action="#{singleStationBean.singleStation(station)}" />
+                                        <p:commandButton value="Choose"
+                                                         action="#{singleStationBean.singleStation(station)}"/>
                                     </div>
                                 </p:column>
                             </p:dataTable>
                         </p:panelGrid>
                     </h:form>
                 </h:body>
-
-
-            </div>
-        </ui:define>
-    </ui:composition>
-</shiro:hasRole>
+            </ui:define>
+        </ui:composition>
+    </shiro:hasRole>
 </shiro:authenticated>
 </body>
 </html>

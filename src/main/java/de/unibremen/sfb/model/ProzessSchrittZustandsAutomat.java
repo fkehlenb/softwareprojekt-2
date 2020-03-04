@@ -3,6 +3,7 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /** Data class for process step state automatons */
@@ -11,7 +12,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @RequiredArgsConstructor
-public class ProzessSchrittZustandsAutomat {
+public class ProzessSchrittZustandsAutomat implements Serializable {
 
     /** On delete set to invalid */
     @NonNull

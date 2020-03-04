@@ -4,6 +4,7 @@ import lombok.*;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(name = "PS.getAllAvailable", query = "select ps from ProzessSchritt ps where ps.isValidData=true and ps.assigned = false")
 })
-public class ProzessSchritt {
+public class ProzessSchritt implements Serializable {
 
     /**
      * Valid data
@@ -57,7 +58,7 @@ public class ProzessSchritt {
      * The experimenting station this process step is being carried out at
      */
     @NonNull
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private ExperimentierStation experimentierStation;
 
     /**

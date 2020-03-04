@@ -1,0 +1,103 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:define name="metadata">
+    <f:metadata>
+        <f:viewAction action="#{languageBean.setLanguage}"/>
+    </f:metadata>
+</ui:define>
+
+<h:head>
+    <title>Json Export</title>
+    <link rel="icon" href="../background.png"/>
+</h:head>
+<body>
+<ui:composition template="/template/common/layout.xhtml">
+    <ui:define name="content">
+        <h:head>
+            <title>Json Export</title>
+            <link rel="icon" href="../background.png"/>
+        </h:head>
+        <p:growl>
+            <p:autoUpdate/>
+        </p:growl>
+        <p:panelGrid columns="1">
+            <p:row>
+                <h2 style="color: cornflowerblue">Json Export</h2>
+            </p:row>
+            <p:row>
+                <p>Hier koennen Sie verschiedene Daten als JSON Exportieren. Der File wird dann direkt auf ihrem System abgespeichert.</p>
+            </p:row>
+            <p:row>
+                <p:panel header="JSON Export">
+                    <h:form>
+                        <p:panelGrid>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <h:outputText value="Auftraege Exportieren"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:commandButton value="Export" icon="pi pi-external-link"
+                                                     action="#{pkAdminJSON.exportAuftrags}"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <h:outputText value="Prozesskettenvorlagen Exportieren"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:commandButton value="Export" icon="pi pi-external-link"
+                                                     action="#{pkAdminJSON.exportPKV}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <h:outputText value="ProzessSchritte Exportieren"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:commandButton value="Export" icon="pi pi-external-link"
+                                                     action="#{pkAdminJSON.exportPS}"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <h:outputText value="ProzessSchrittVorlagen Exportieren"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:commandButton value="Export" icon="pi pi-external-link"
+                                                     action="#{pkAdminJSON.exportPSV}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <h:outputText value="ProzessSchrittParameter Exportieren"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:commandButton value="Export" icon="pi pi-external-link"
+                                                     action="#{pkAdminJSON.exportPSP}"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <h:outputText value="ExperimentierStationen Exportieren"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:commandButton value="Export" icon="pi pi-external-link"
+                                                     action="#{pkAdminJSON.exportES}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <h:outputText value="User Exportieren"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <p:commandButton value="Export" icon="pi pi-external-link"
+                                                     action="#{pkAdminJSON.exportUsers}"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </h:form>
+                </p:panel>
+            </p:row>
+        </p:panelGrid>
+    </ui:define>
+</ui:composition>
+
+</body>
+</html>
