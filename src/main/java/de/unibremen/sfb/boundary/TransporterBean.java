@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.primefaces.PrimeFaces;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -20,7 +21,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Named("transportBean")
-@ViewScoped
+@RequestScoped
 @Getter
 @Setter
 @Slf4j
