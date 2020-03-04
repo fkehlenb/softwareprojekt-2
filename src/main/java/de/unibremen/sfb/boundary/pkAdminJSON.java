@@ -1,7 +1,9 @@
 package de.unibremen.sfb.boundary;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.unibremen.sfb.model.Auftrag;
 import de.unibremen.sfb.model.ProzessKettenZustandsAutomat;
+import de.unibremen.sfb.model.ProzessSchritt;
 import de.unibremen.sfb.model.ProzessSchrittVorlage;
 import de.unibremen.sfb.service.*;
 import lombok.Getter;
@@ -20,6 +22,7 @@ import javax.json.bind.JsonbConfig;
 import java.io.File;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RequestScoped
 @Named
@@ -65,6 +68,18 @@ public class pkAdminJSON {
     @Inject
     private UserService userService;
 
+    /** List of all available process steps */
+    private List<ProzessSchritt> availableProzessSchritte;
+
+    /** Selected process step */
+    private ProzessSchritt selectedProzessSchritt;
+
+    /** List of all available process chains */
+    private List<Auftrag> availableAuftraege;
+
+    /** Selected job */
+    private Auftrag selectedAuftrag;
+
     /** JSONB Configs */
     private JsonbConfig config;
     private Jsonb jsonb;
@@ -74,6 +89,8 @@ public class pkAdminJSON {
     private void init(){
         config = new JsonbConfig().withFormatting(true);
         jsonb = JsonbBuilder.create(config);
+        availableProzessSchritte = prozessSchrittService.getAll();
+        availableAuftraege = auftragService.getAll();
     }
 
     /** Auftrag Export */
@@ -182,6 +199,40 @@ public class pkAdminJSON {
     public void exportUsers(){
         try {
             String result = jsonb.toJson(userService.getAll());
+            String fileName = "JSON_" + LocalDateTime.now().toString().replaceAll(":","_") + ".json";
+            PrintWriter writer = new PrintWriter(fileName);
+            writer.write(result);
+            log.info("Successfully exported json to " + fileName);
+            facesNotification("Successfully exported json to " + fileName);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            log.error("Failed to export json " + e.getMessage());
+            facesError("Failed to export to json!");
+        }
+    }
+
+    /** Export log of selected process step */
+    public void exportProcessStepLog(){
+        try {
+            String result = jsonb.toJson(selectedProzessSchritt.getProzessSchrittLog());
+            String fileName = "JSON_" + LocalDateTime.now().toString().replaceAll(":","_") + ".json";
+            PrintWriter writer = new PrintWriter(fileName);
+            writer.write(result);
+            log.info("Successfully exported json to " + fileName);
+            facesNotification("Successfully exported json to " + fileName);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            log.error("Failed to export json " + e.getMessage());
+            facesError("Failed to export to json!");
+        }
+    }
+
+    /** Export log of selected process chain */
+    public void exportAuftragsLog(){
+        try {
+            String result = jsonb.toJson(selectedAuftrag.getLog());
             String fileName = "JSON_" + LocalDateTime.now().toString().replaceAll(":","_") + ".json";
             PrintWriter writer = new PrintWriter(fileName);
             writer.write(result);

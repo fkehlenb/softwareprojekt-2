@@ -95,6 +95,78 @@
                     </h:form>
                 </p:panel>
             </p:row>
+            <p:row>
+                <p:panel header="Log Export">
+                    <p:panelGrid columns="1">
+                        <p:row>
+                            <h:form>
+                                <p:panel header="ProzessSchrittLog Export">
+                                    <p:panelGrid>
+                                        <p:row>
+                                            <p:column colspan="1">
+                                                <h:outputText value="ProzessSchritt Aussuchen"/>
+                                            </p:column>
+                                            <p:column colspan="1">
+                                                <p:selectOneMenu id="pslog"
+                                                                 value="#{pkAdminJSON.selectedProzessSchritt}"
+                                                                 converter="omnifaces.SelectItemsConverter"
+                                                                 effect="fade"
+                                                                 var="pslog" style="width: 172px" filter="true"
+                                                                 filterMatchMode="contains" required="true"
+                                                                 requiredMessage="Bitte prozesschritt aussuchen!">
+                                                    <f:selectItems value="#{pkAdminJSON.availableProzessSchritte}"
+                                                                   var="pslog" itemLabel="#{pslog.name}"
+                                                                   itemValue="#{pslog}" required="true"/>
+                                                    <p:column>
+                                                        <h:outputText value="#{pslog.name}"/>
+                                                    </p:column>
+                                                </p:selectOneMenu>
+                                            </p:column>
+                                            <p:column colspan="1">
+                                                <p:commandButton icon="pi pi-external-link" value="Export"
+                                                                 action="#{pkAdminJSON.exportProcessStepLog}"/>
+                                            </p:column>
+                                        </p:row>
+                                    </p:panelGrid>
+                                </p:panel>
+                            </h:form>
+                        </p:row>
+                        <p:row>
+                            <h:form>
+                                <p:panel header="AuftragsLog Export">
+                                    <p:panelGrid>
+                                        <p:row>
+                                            <p:column colspan="1">
+                                                <h:outputText value="Auftrag Aussuchen"/>
+                                            </p:column>
+                                            <p:column colspan="1">
+                                                <p:selectOneMenu id="auftrag"
+                                                                 value="#{pkAdminJSON.selectedAuftrag}"
+                                                                 converter="omnifaces.SelectItemsConverter"
+                                                                 effect="fade"
+                                                                 var="auftrag" style="width: 172px" filter="true"
+                                                                 filterMatchMode="contains" required="true"
+                                                                 requiredMessage="Bitte prozesschritt aussuchen!">
+                                                    <f:selectItems value="#{pkAdminJSON.availableAuftraege}"
+                                                                   var="auftrag" itemLabel="#{auftrag.name}"
+                                                                   itemValue="#{auftrag}" required="true"/>
+                                                    <p:column>
+                                                        <h:outputText value="#{auftrag.name}"/>
+                                                    </p:column>
+                                                </p:selectOneMenu>
+                                            </p:column>
+                                            <p:column colspan="1">
+                                                <p:commandButton icon="pi pi-external-link" value="Export"
+                                                                 action="#{pkAdminJSON.exportAuftragsLog}"/>
+                                            </p:column>
+                                        </p:row>
+                                    </p:panelGrid>
+                                </p:panel>
+                            </h:form>
+                        </p:row>
+                    </p:panelGrid>
+                </p:panel>
+            </p:row>
         </p:panelGrid>
     </ui:define>
 </ui:composition>
