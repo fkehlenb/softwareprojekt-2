@@ -158,13 +158,13 @@ public class AuftragView implements Serializable {
             List<ProzessSchritt> prozessSchritts = new ArrayList<>();
             for (ProzessSchrittVorlage psv : selectedProzesskettenVorlage.getProzessSchrittVorlagen()) {
                 ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(),
-                        "Erstellt", psv.getZustandsAutomatVorlage().getZustaende());
+                        "Erstellt", List.copyOf(psv.getZustandsAutomatVorlage().getZustaende()));
                 prozessSchrittZustandsAutomat.setName(psv.getZustandsAutomatVorlage().getName());
                 prozessSchrittZustandsAutomatService.add(prozessSchrittZustandsAutomat);
                 ProzessSchrittLog prozessSchrittLog = new ProzessSchrittLog(LocalDateTime.now(), "GESTARTET");
                 prozessSchrittLogService.add(prozessSchrittLog);
                 ProzessSchritt ps = new ProzessSchritt(UUID.randomUUID().hashCode(), prozessSchrittZustandsAutomat,
-                        psv.getDauer(), psv.getProzessSchrittParameters(), psv.getExperimentierStation(), "",
+                        psv.getDauer(), List.copyOf(psv.getProzessSchrittParameters()), psv.getExperimentierStation(), "",
                         List.of(prozessSchrittLog), psv.getName(), psv.isUrformend(), psv.getAmountCreated());
                 ps.setAssigned(true);
                 prozessSchrittService.createPS(ps);
@@ -172,7 +172,7 @@ public class AuftragView implements Serializable {
             }
             AuftragsLog auftragsLog = new AuftragsLog(LocalDateTime.now());
             auftragsLogsService.add(auftragsLog);
-            auftragService.add(new Auftrag(UUID.randomUUID().hashCode(), selectedName, selectedPriority, prozessSchritts, auftragsLog, ProzessKettenZustandsAutomat.INSTANZIIERT));
+            auftragService.add(new Auftrag(UUID.randomUUID().hashCode(), selectedName, selectedPriority, List.copyOf(prozessSchritts), auftragsLog, ProzessKettenZustandsAutomat.INSTANZIIERT));
             log.info("Created new job with name " + selectedName);
             facesNotification("Created new job with name " + selectedName);
             refresh();
@@ -194,7 +194,7 @@ public class AuftragView implements Serializable {
                 p.setAssigned(true);
                 prozessSchrittService.editPS(p);
             }
-            auftragService.add(new Auftrag(UUID.randomUUID().hashCode(), selectedName, selectedPriority, selectedProzessSchritte, auftragsLog, ProzessKettenZustandsAutomat.INSTANZIIERT));
+            auftragService.add(new Auftrag(UUID.randomUUID().hashCode(), selectedName, selectedPriority, List.copyOf(selectedProzessSchritte), auftragsLog, ProzessKettenZustandsAutomat.INSTANZIIERT));
             log.info("Created new job with name " + selectedName);
             facesNotification("Created new job with name " + selectedName);
             refresh();
@@ -221,7 +221,7 @@ public class AuftragView implements Serializable {
                 for (ProzessSchritt p : dualListModel.getTarget()) {
                     p.setAssigned(true);
                 }
-                a.setProzessSchritte(dualListModel.getTarget());
+                a.setProzessSchritte(List.copyOf(dualListModel.getTarget()));
                 a.setName(selectedName);
                 auftragService.update(a);
                 log.info("Updated job with id " + id);

@@ -54,7 +54,8 @@
                                                          filterMatchMode="contains" required="true"
                                                          requiredMessage="Bitte prozessschritt vorlage eingeben!">
                                             <f:selectItems value="#{psView.prozessSchrittVorlagen}"
-                                                           var="prozessschrittvorlage" itemLabel="#{prozessschrittvorlage.name}"
+                                                           var="prozessschrittvorlage"
+                                                           itemLabel="#{prozessschrittvorlage.name}"
                                                            itemValue="#{prozessschrittvorlage}" required="true"/>
                                             <p:column>
                                                 <h:outputText value="#{prozessschrittvorlage.name}"/>
@@ -65,7 +66,8 @@
                                         <h:outputText value="Prozessschritt Name"/>
                                     </p:column>
                                     <p:column colspan="1">
-                                        <p:inputText placeholder="Prozessschritt Name" required="true" requiredMessage="Bitte prozessschrittname eingeben!"
+                                        <p:inputText placeholder="Prozessschritt Name" required="true"
+                                                     requiredMessage="Bitte prozessschrittname eingeben!"
                                                      value="#{psView.prozessSchrittName}"/>
                                     </p:column>
                                 </p:row>
@@ -74,7 +76,8 @@
                                         <h:outputText value="Attribute"/>
                                     </p:column>
                                     <p:column colspan="1">
-                                        <p:inputText value="#{psView.prozessSchrittAttribute}" required="true" requiredMessage="Bitte prozessschritt attribute eingebem!"
+                                        <p:inputText value="#{psView.prozessSchrittAttribute}" required="true"
+                                                     requiredMessage="Bitte prozessschritt attribute eingebem!"
                                                      placeholder="Attribute"/>
                                     </p:column>
                                 </p:row>
@@ -83,7 +86,8 @@
                                         <p:commandButton value="Reset" type="reset" icon="pi pi-trash"/>
                                     </p:column>
                                     <p:column colspan="1">
-                                        <p:commandButton value="Erstellen" icon="pi pi-check" action="#{psView.createPS}" ajax="false"/>
+                                        <p:commandButton value="Erstellen" icon="pi pi-check"
+                                                         action="#{psView.createPS}" ajax="false"/>
                                     </p:column>
                                 </p:row>
                             </p:panelGrid>
@@ -112,7 +116,8 @@
                                             <h:outputText value="#{ps.name}"/>
                                         </f:facet>
                                         <f:facet name="input">
-                                            <p:inputText placeholder="Prozessschritt Name" required="true" requiredMessage="Bitte prozessschrittname eingeben!"
+                                            <p:inputText placeholder="Prozessschritt Name" required="true"
+                                                         requiredMessage="Bitte prozessschrittname eingeben!"
                                                          value="#{psView.prozessSchrittName}"/>
                                         </f:facet>
                                     </p:cellEditor>
@@ -123,7 +128,8 @@
                                             <h:outputText value="#{ps.duration}"/>
                                         </f:facet>
                                         <f:facet name="input">
-                                            <p:inputText placeholder="Dauer" value="#{psView.psDuration}" requiredMessage="Bitte dauer eingeben!" required="true"/>
+                                            <p:inputText placeholder="Dauer" value="#{psView.psDuration}"
+                                                         requiredMessage="Bitte dauer eingeben!" required="true"/>
                                         </f:facet>
                                     </p:cellEditor>
                                 </p:column>
@@ -179,22 +185,46 @@
                                     </p:cellEditor>
                                 </p:column>
                                 <p:column headerText="Prozessschritt Parameter">
-                                    <p:commandButton value="Anzeigen" icon="pi pi-external-link" onclick="PF('dlg1').show();"/>
-                                    <p:dialog header="Prozessschritt Parameter Uebersicht" widgetVar="dlg1" modal="true"
-                                              height="100">
-                                        <p:panelGrid columns="1">
-                                            <p:row>
-                                                <p:dataTable id="tablepsp" var="psp" value="#{ps.prozessSchrittParameters}"
-                                                             editable="true"
-                                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                                             paginator="true" rows="15" style="margin-bottom:20px">
-                                                    <p:column headerText="Name">
-                                                        <h:outputText value="#{psp.name}"/>
-                                                    </p:column>
-                                                </p:dataTable>
-                                            </p:row>
-                                        </p:panelGrid>
-                                    </p:dialog>
+                                    <p:cellEditor>
+                                        <f:facet name="input">
+                                            <p:selectCheckboxMenu id="psp2"
+                                                                  value="#{psView.selectedProzessSchrittParameter}"
+                                                                  converter="omnifaces.SelectItemsConverter"
+                                                                  effect="fade"
+                                                                  var="psp" style="width: 172px" filter="true"
+                                                                  filterMatchMode="contains" showCheckbox="true"
+                                                                  label="ProzessSchrittParameter"
+                                                                  requiredMessage="Bitte Prozessschrittparameter eingeben!"
+                                                                  required="true">
+                                                <f:selectItems
+                                                        value="#{psView.availableProzessSchrittParameter}"
+                                                        var="psp" itemLabel="#{psp.name}"
+                                                        itemValue="#{psp}"/>
+                                            </p:selectCheckboxMenu>
+                                        </f:facet>
+                                        <f:facet name="output">
+                                            <p:commandButton value="Anzeigen" icon="pi pi-external-link"
+                                                             onclick="PF('dlg1').show();"/>
+                                            <p:dialog header="Prozessschritt Parameter Uebersicht" widgetVar="dlg1"
+                                                      modal="true"
+                                                      height="100">
+                                                <p:panelGrid columns="1">
+                                                    <p:row>
+                                                        <p:dataTable id="tablepsp" var="psp"
+                                                                     value="#{ps.prozessSchrittParameters}"
+                                                                     editable="true"
+                                                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                                                     paginator="true" rows="15"
+                                                                     style="margin-bottom:20px">
+                                                            <p:column headerText="Name">
+                                                                <h:outputText value="#{psp.name}"/>
+                                                            </p:column>
+                                                        </p:dataTable>
+                                                    </p:row>
+                                                </p:panelGrid>
+                                            </p:dialog>
+                                        </f:facet>
+                                    </p:cellEditor>
                                 </p:column>
                                 <p:column headerText="Attribute">
                                     <p:cellEditor>
@@ -202,13 +232,15 @@
                                             <h:outputText value="#{ps.attribute}"/>
                                         </f:facet>
                                         <f:facet name="input">
-                                            <p:inputText value="#{psView.prozessSchrittAttribute}" required="true" requiredMessage="Bitte prozessschritt attribute eingebem!"
+                                            <p:inputText value="#{psView.prozessSchrittAttribute}" required="true"
+                                                         requiredMessage="Bitte prozessschritt attribute eingebem!"
                                                          placeholder="Attribute"/>
                                         </f:facet>
                                     </p:cellEditor>
                                 </p:column>
                                 <p:column headerText="Prozessschritt Log">
-                                    <p:commandButton value="Show Log" icon="pi pi-external-link" onclick="PF('dlg2').show();"/>
+                                    <p:commandButton value="Show Log" icon="pi pi-external-link"
+                                                     onclick="PF('dlg2').show();"/>
                                     <p:dialog header="Prozessschritt Log Uebersicht" widgetVar="dlg2" modal="true"
                                               height="100">
                                         <p:panelGrid columns="1">

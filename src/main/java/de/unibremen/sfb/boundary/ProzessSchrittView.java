@@ -88,6 +88,16 @@ public class ProzessSchrittView implements Serializable {
     /** List of all experimenting stations */
     private List<ExperimentierStation> experimentierStationen;
 
+    /** Process step parameter service */
+    @Inject
+    private ProzessSchrittParameterService prozessSchrittParameterService;
+
+    /** List of all available process parameters */
+    private List<ProzessSchrittParameter> availableProzessSchrittParameter;
+
+    /** List of all selected process step parameters */
+    private List<ProzessSchrittParameter> selectedProzessSchrittParameter;
+
     /** Process step duration */
     private String psDuration;
 
@@ -114,6 +124,7 @@ public class ProzessSchrittView implements Serializable {
         prozessSchritte = prozessSchrittService.getAll();
         prozessSchrittZustandsAutomatVorlagen = prozessSchrittZustandsAutomatVorlageService.getProzessSchrittZustandsAutomatVorlagen();
         experimentierStationen = experimentierStationService.getAll();
+        availableProzessSchrittParameter = prozessSchrittParameterService.getAll();
     }
 
     /**
@@ -131,9 +142,11 @@ public class ProzessSchrittView implements Serializable {
                     prozessSchrittVorlage.getZustandsAutomatVorlage().getZustaende().get(0), zustaende);
             prozessSchrittZustandsAutomat.setName(prozessSchrittVorlage.getZustandsAutomatVorlage().getName());
             ProzessSchrittLog prozessSchrittLog = new ProzessSchrittLog(LocalDateTime.now(),"ERSTELLT");
+            List<ProzessSchrittLog> psLog = new ArrayList<>();
+            psLog.add(prozessSchrittLog);
             ProzessSchritt prozessSchritt = new ProzessSchritt(UUID.randomUUID().hashCode(),prozessSchrittZustandsAutomat,
                     prozessSchrittVorlage.getDauer(), List.copyOf(prozessSchrittVorlage.getProzessSchrittParameters()),
-                    prozessSchrittVorlage.getExperimentierStation(),prozessSchrittAttribute,List.of(prozessSchrittLog),prozessSchrittName, urformend, amountCreated);
+                    prozessSchrittVorlage.getExperimentierStation(),prozessSchrittAttribute,psLog,prozessSchrittName, urformend, amountCreated);
             prozessSchrittZustandsAutomatService.add(prozessSchrittZustandsAutomat);
             prozessSchrittLogService.add(prozessSchrittLog);
             prozessSchrittService.createPS(prozessSchritt);
@@ -154,7 +167,7 @@ public class ProzessSchrittView implements Serializable {
             ProzessSchritt prozessSchritt = prozessSchrittService.getObjById(id);
             if (prozessSchritt.getProzessSchrittZustandsAutomat().getCurrent().equals("Erstellt")){
                 prozessSchritt.setName(prozessSchrittName);
-                prozessSchritt.setDuration(psDuration);//TODO bug
+                prozessSchritt.setDuration(psDuration);
                 List<String> zustaende = new ArrayList<>();
                 for (String s : selectedProzessSchrittZustandsAutomatVorlage.getZustaende()){
                     zustaende.add(s);
@@ -167,11 +180,12 @@ public class ProzessSchrittView implements Serializable {
                 prozessSchritt.setAttribute(prozessSchrittAttribute);
                 prozessSchritt.setUrformend(urformend);
                 prozessSchritt.setAmountCreated(amountCreated);
-                // PROZESSSCHRITTPARAMETER FEHLEN
+                prozessSchritt.setProzessSchrittParameters(List.copyOf(selectedProzessSchrittParameter));
                 prozessSchrittZustandsAutomatService.add(prozessSchrittZustandsAutomat);
                 prozessSchrittService.editPS(prozessSchritt);
                 log.info("Updated process step with id " + id);
                 facesNotification("Successfully updated process step!");
+                refetchData();
             }
             else {
                 facesError("Cannot edit an already started process step!");
@@ -196,6 +210,7 @@ public class ProzessSchrittView implements Serializable {
             prozessSchrittService.removePS(prozessSchrittService.getObjById(id));
             log.info("Deleted process step with id " + id);
             facesNotification("Successfully deleted process step!");
+            refetchData();
         }
         catch (Exception e){
             e.printStackTrace();
