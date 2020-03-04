@@ -32,35 +32,35 @@ class TraegerServiceTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Test
-    void testPersist() {
-        try {
-            traegerService.persist(new Traeger(0, new TraegerArt("art"), List.of(new Probe(UUID.randomUUID().toString(),
-                    99, ProbenZustand.VORHANDEN, new Standort(UUID.randomUUID().hashCode(), "Langweilig")))));
-        } catch (DuplicateTraegerException e) {
-            e.printStackTrace();
-        }
-    }
+//    @Test
+//    void testPersist() {
+//        try {
+//            traegerService.persist(new Traeger(0, new TraegerArt("art"), List.of(new Probe(UUID.randomUUID().toString(),
+//                    99, ProbenZustand.VORHANDEN, new Standort(UUID.randomUUID().hashCode(), "Langweilig")))));
+//        } catch (DuplicateTraegerException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-    @Test
-    void testUpdate() {
-        try {
-            traegerService.update(new Traeger(0, new TraegerArt("art"), List.of(new Probe(UUID.randomUUID().toString(),
-                    99, ProbenZustand.VORHANDEN, new Standort(UUID.randomUUID().hashCode(), "Langweilig")))));
-        } catch (TraegerNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+//    @Test
+//    void testUpdate() {
+//        try {
+//            traegerService.update(new Traeger(0, new TraegerArt("art"), List.of(new Probe(UUID.randomUUID().toString(),
+//                    99, ProbenZustand.VORHANDEN, new Standort(UUID.randomUUID().hashCode(), "Langweilig")))));
+//        } catch (TraegerNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-    @Test
-    void testRemove() {
-        try {
-            traegerService.remove(new Traeger(0, new TraegerArt("art"), List.of(new Probe(UUID.randomUUID().toString(),
-                    99, ProbenZustand.VORHANDEN, new Standort(UUID.randomUUID().hashCode(), "Langweilig")))));
-        } catch (TraegerNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+//    @Test
+//    void testRemove() {
+//        try {
+//            traegerService.remove(new Traeger(0, new TraegerArt("art"), List.of(new Probe(UUID.randomUUID().toString(),
+//                    99, ProbenZustand.VORHANDEN, new Standort(UUID.randomUUID().hashCode(), "Langweilig")))));
+//        } catch (TraegerNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     @Test
     void testGetTraegerById() throws TraegerNotFoundException {

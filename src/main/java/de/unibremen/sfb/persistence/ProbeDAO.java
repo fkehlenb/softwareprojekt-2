@@ -78,30 +78,10 @@ public class ProbeDAO extends ObjectDAO<Probe> {
      * @return the sample which's id matches the given one
      * @throws ProbeNotFoundException if the sample couldn't be found in the database
      */
-    public Probe getObjById(int id) throws ProbeNotFoundException {
+    public Probe getObjById(String id) throws ProbeNotFoundException {
         try {
             Probe p = em.find(get(), id);
             if (p == null || !p.isValidData()) {
-                throw new ProbeNotFoundException();
-            }
-            return p;
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new ProbeNotFoundException();
-        }
-    }
-
-    /**
-     * Use a sample id (String type) to get a specific sample
-     *
-     * @param probenID the id of the requested sample
-     * @return the sample which's id matches the given one
-     * @throws ProbeNotFoundException if the sample couldn't be found in the database
-     */
-    public Probe getObjById(String probenID) throws ProbeNotFoundException {
-        try {
-            Probe p = em.createNamedQuery("Probe.getById",get()).setParameter("probenID",probenID).getSingleResult();
-            if (p == null) {
                 throw new ProbeNotFoundException();
             }
             return p;
@@ -148,21 +128,11 @@ public class ProbeDAO extends ObjectDAO<Probe> {
      */
     public int getProbenCount() {
         List<Probe> proben = em.createQuery("select p from Probe p where p.isValidData = true", get()).getResultList();
-        return proben.size();
-    }
-
-    /**
-     * returns a subset of all samples in the databse
-     *
-     * @param first the index of first sample to be loaded
-     * @param size  the maximum amount of samples
-     * @return a list containing a maximum of size samples
-     */
-    public List<Probe> getProben(int first, int size) {
-        Query query = em.createQuery("From Probe"); //TODO richtig?
-        query.setFirstResult(first);
-        query.setMaxResults(size);
-        return (List<Probe>) query.getResultList();
+        int sum = 0;
+        for (Probe p : proben){
+            sum+=p.getAnzahl();
+        }
+        return sum;
     }
 
     /**

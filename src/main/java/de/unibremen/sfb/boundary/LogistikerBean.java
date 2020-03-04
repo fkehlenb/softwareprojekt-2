@@ -33,7 +33,7 @@ import static de.unibremen.sfb.model.ProzessKettenZustandsAutomat.GESTARTET;
  * this class manages the interaction between the gui and the backend system for users who are logistic experts
  */
 @Named("dtLogistikerBean")
-@ViewScoped
+@RequestScoped
 @Getter
 @Setter
 @Slf4j
@@ -131,7 +131,7 @@ public class LogistikerBean implements Serializable {
      * creates a new carrier
      */
     public void createTraeger() {
-        Traeger traeger = new Traeger(UUID.randomUUID().hashCode(),traegerArt, proben);
+        Traeger traeger = new Traeger(UUID.randomUUID().hashCode(),traegerArt, proben,traegerLocation);
         try{
             traegerService.persist(traeger);
             facesNotification("Added new Traeger with Art: " + traegerArt.getArt());
@@ -154,6 +154,7 @@ public class LogistikerBean implements Serializable {
         try{
             Traeger t = traegerService.getTraegerById(id);
             t.setArt(traegerArt);
+            t.setStandort(traegerLocation);
             traegerService.update(t);
             facesNotification("Edited trager with ID: " + id);
             log.info("Edited trager with ID: " + id);
@@ -204,7 +205,6 @@ public class LogistikerBean implements Serializable {
         Standort standort;
         try{
             standort = standortService.findByLocation("Lager");
-
         }
         catch (StandortNotFoundException e){
             facesError("Der Standort Lager wurde nicht gefunden und wird nun erstellt, Proben können lediglich im Lager erstellt werden!");
@@ -286,9 +286,6 @@ public class LogistikerBean implements Serializable {
             //Aktualisiert Auftragsliste
             //auftragView.updateAuftragTabelle();
             auftragService.update(a);
-            PrimeFaces.current().ajax().update("form:data");
-
-
         } catch (Exception e) {
             e.printStackTrace();
             log.error("Failed to change auftrag state! ID: " + auftrag);

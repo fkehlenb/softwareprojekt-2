@@ -156,11 +156,11 @@ class ProbenServiceTest {
     }
 
    //@Test
-    void testGetProbenListe() {
-        when(probeDAO.getProben(anyInt(), anyInt())).thenReturn(Arrays.<Probe>asList(probe));
-        List<Probe> result = probenService.getProbenListe(0, 0);
-        Assertions.assertEquals(Arrays.<Probe>asList(probe), result);
-    }
+//    void testGetProbenListe() {
+//        when(probeDAO.getProben(anyInt(), anyInt())).thenReturn(Arrays.<Probe>asList(probe));
+//        List<Probe> result = probenService.getProbenListe(0, 0);
+//        Assertions.assertEquals(Arrays.<Probe>asList(probe), result);
+//    }
 
     @Test
     void testGetAllArchived() {

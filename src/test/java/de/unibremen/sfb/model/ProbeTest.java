@@ -66,10 +66,10 @@ class ProbeTest {
 //    }
 
 
-    @Test
-    void testSetCurrentTraeger() {
-        probe.setCurrentTraeger(new Traeger(0, new TraegerArt("art"), List.of(probe)));
-    }
+//    @Test
+//    void testSetCurrentTraeger() {
+//        probe.setCurrentTraeger(new Traeger(0, new TraegerArt("art"), List.of(probe)));
+//    }
 
     @Test
     void testEquals() {

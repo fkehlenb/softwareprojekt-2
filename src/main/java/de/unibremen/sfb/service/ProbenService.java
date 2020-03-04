@@ -283,16 +283,6 @@ public class ProbenService implements Serializable {
     }
 
 
-    /**
-     * selects a part of the samples in the database
-     * @param first the first index
-     * @param pagesize the amount of samples
-     * @return a list containing pagesize amount of samples from the database, starting at first
-     */
-    public List<Probe> getProbenListe(int first, int pagesize) {
-        return probeDAO.getProben(first, pagesize);
-    }
-
     /** Get all archived samples
      * @return a list of all archived samples */
     public List<Probe> getAllArchived(){
