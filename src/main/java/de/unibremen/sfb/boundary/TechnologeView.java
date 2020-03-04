@@ -140,20 +140,18 @@ public class TechnologeView implements Serializable {
      * returns all samples to which the user has not yet uploaded data
      *
      * @return a set containing all those samples
+     * // FIXME Keine PS
      */
     public List<Probe> viewToBeUploaded() {
-        var s = getStationen();
-        List<Probe> res = new LinkedList<>();
-        for (Auftrag a : auftragService.getAuftrage()) {
-            ProzessSchritt ps = a.getProzessSchritte().stream().filter(p -> s.contains(p.getExperimentierStation())).findFirst().orElse(null);
-            if (!ps.isUploaded() && ps.getProzessSchrittZustandsAutomat().getCurrent().equals("Bearbeitet")) {
-                for (Traeger t :
-                        a.getTraeger()) {
-                    res.addAll(t.getProben());
-                }
-            }
+        List<Probe> r = null;
+        try {
+            probeService.viewToBeUploaded();
+            log.info("Probe die Hochgeladen werden muessen wurden geladen");
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+            log.error(e.getLocalizedMessage());
         }
-        return res;
+        return new ArrayList<Probe>();
     }
 
     /**

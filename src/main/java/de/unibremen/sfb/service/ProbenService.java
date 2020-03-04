@@ -1,10 +1,7 @@
 package de.unibremen.sfb.service;
 
 import com.sun.mail.imap.protocol.ID;
-import de.unibremen.sfb.exception.DuplicateKommentarException;
-import de.unibremen.sfb.exception.DuplicateProbeException;
-import de.unibremen.sfb.exception.KommentarNotFoundException;
-import de.unibremen.sfb.exception.ProbeNotFoundException;
+import de.unibremen.sfb.exception.*;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.KommentarDAO;
 import de.unibremen.sfb.persistence.ProbeDAO;
@@ -26,6 +23,9 @@ public class ProbenService implements Serializable {
 
 
     @Inject
+    UserService userService;
+
+    @Inject
     private ProbeDAO probeDAO;
 
     @Inject
@@ -33,6 +33,12 @@ public class ProbenService implements Serializable {
 
     @Inject
     ProzessSchrittParameterService prozessSchrittParameterService;
+
+    @Inject
+    AuftragService auftragService;
+
+    @Inject
+    ExperimentierStationService experimentierStationService;
 
 //    @Inject
 //    BedingungService bedingungService;
@@ -94,8 +100,6 @@ public class ProbenService implements Serializable {
 //                .collect(Collectors.toList());
 //    }
 
-    @Inject
-    private ExperimentierStationService experimentierStationService;
 
     /**
      * Hole alle Proben die akutell in experimentierStationene sind,
@@ -272,6 +276,21 @@ public class ProbenService implements Serializable {
         p.setEigenschaften(qe);
         p.setCurrentTraeger(t);
         probeDAO.persist(p);
+    }
+
+    public List<Probe> viewToBeUploaded() throws UserNotFoundException {
+        var s = experimentierStationService.getESByUser(userService.getCurrentUser());
+        List<Probe> res = new LinkedList<>();
+        for (Auftrag a : auftragService.getAuftrage()) {
+            ProzessSchritt ps = a.getProzessSchritte().stream().filter(p -> s.contains(p.getExperimentierStation().getCurrentPS())).findFirst().orElse(null);
+            if (ps != null && !ps.isUploaded() && ps.getProzessSchrittZustandsAutomat().getCurrent().equals("Bearbeitet")) {
+                for (Traeger t :
+                        a.getTraeger()) {
+                    res.addAll(t.getProben());
+                }
+            }
+        }
+        return res;
     }
 
     /**
