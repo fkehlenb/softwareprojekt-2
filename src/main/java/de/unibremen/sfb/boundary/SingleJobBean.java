@@ -16,9 +16,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbConfig;
-import java.io.File;
-import java.io.IOException;
-import java.io.Serializable;
+import java.io.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -144,6 +143,7 @@ public class SingleJobBean implements Serializable {
                 e.printStackTrace();
             }
         }
+        facesNotification("Succesfully added: ");
     }
 
     /**
@@ -182,12 +182,18 @@ public class SingleJobBean implements Serializable {
     public void download(List<ProzessSchrittParameter> psp) {
         var config = new JsonbConfig().withFormatting(true);
         var jsonb = JsonbBuilder.create(config);
+
+        String result = jsonb.toJson(psp);
+        String fileName = "JSON_" + LocalDateTime.now().toString().replaceAll(":","_") + ".json";
+        PrintWriter writer = null;
         try {
-            Faces.sendFile(new File(jsonb.toJson(psp)), true);
-        }
-        catch(IOException e) {
+            writer = new PrintWriter(fileName);
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        writer.write(result);
+        log.info("Successfully exported json to " + fileName);
+        facesNotification("Successfully exported json to " + fileName);
     }
 
     /**
