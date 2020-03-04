@@ -38,12 +38,36 @@ public class ProbeMeldenView implements Serializable {
      */
     public void reportLost() {
         try {
-            probenService.probeVerloren( probenService.getProbeById(probeMeldenID),probenService.getProbeById(probeMeldenID).getAnzahl(), probenAnzahl);
-            log.info(probenAnzahl + " Samples of " + probeMeldenID + " were reported as missing.");
+            if(probenService.getProbeById(probeMeldenID).getAnzahl() >= probenAnzahl) {
+                try {
+
+                    probenService.probeVerloren(probenService.getProbeById(probeMeldenID), probenService.getProbeById(probeMeldenID).getAnzahl(), probenAnzahl, probenService.getProbeById(probeMeldenID).getLost());
+                    log.info(probenAnzahl + " Samples of " + probeMeldenID + " were reported as missing.");
+                    facesNotification(probenAnzahl + " Samples of " + probeMeldenID + " were reported as missing.");
+                } catch (ProbeNotFoundException e) {
+                    e.printStackTrace();
+                    log.info("sample " + probeMeldenID + " could not be found when trying to report as missing.");
+                }
+            } else {
+                log.info("The given number of samples is higher than the number of samples in the database.");
+                facesError("The given number of samples is higher than the number of samples in the database.");
+            }
         } catch (ProbeNotFoundException e) {
             e.printStackTrace();
-            log.info("sample " +probeMeldenID+ " could not be found when trying to report as missing.");
         }
+    }
+
+    public boolean alleLost (){
+        try {
+            if(probenService.getProbeById(probeMeldenID).getAnzahl() ==0){
+                return true;
+            }
+        } catch (ProbeNotFoundException e) {
+            e.printStackTrace();
+            log.info("Probe " + probeMeldenID + " wurde nicht gefunden!");
+            facesError("Probe " + probeMeldenID + " wurde nicht gefunden!");
+        }
+        return false;
     }
 
     /**
