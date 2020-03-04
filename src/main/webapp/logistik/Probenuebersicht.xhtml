@@ -10,7 +10,7 @@
 
 <ui:define name="metadata">
     <f:metadata>
-        <f:viewAction action="#{languageBean.setLanguage}" />
+        <f:viewAction action="#{languageBean.setLanguage}"/>
     </f:metadata>
 </ui:define>
 
@@ -37,11 +37,17 @@
                             #{msg['logProbenÜText2.jsf']}</p>
                     </p:row>
                     <h:form id="form">
-
+                        <style type="text/css">
+                            .broken {
+                                background-color: red !important;
+                                color: white !important;
+                            }
+                        </style>
 
                         <p:dataTable id="table" var="probe" value="#{dtLogistikerBean.proben}"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                     paginator="true" rows="50" style="margin-bottom:20px">
+                                     paginator="true" rows="15" style="margin-bottom:20px"
+                                     rowStyleClass="#{probe.anzahl eq 0 ? 'broken' : null}">
                             <p:column headerText="Id">
                                 <h:outputText value="#{probe.probenID}"/>
                             </p:column>

@@ -1,0 +1,67 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui"
+      xmlns:shiro="http://shiro.apache.org/tags">
+<ui:define name="metadata">
+    <f:metadata>
+        <f:viewAction action="#{languageBean.setLanguage}" />
+    </f:metadata>
+</ui:define>
+
+<h:head>
+    <title>Transport - Home</title>
+    <link rel="icon" href="../background.png"/>
+</h:head>
+
+<h:body>
+    <shiro:authenticated>
+        <shiro:hasRole name="logistik">
+            <ui:composition template="/template/common/layout.xhtml">
+                <ui:define name="content">
+                    <p:panelGrid columns="1">
+                        <h:form>
+                            <p:growl>
+                                <p:autoUpdate/>
+                            </p:growl>
+
+                            <p:tabMenu>
+                                <p:menuitem value="Home"/>
+                            </p:tabMenu>
+                            <h1 style="color: cornflowerblue">Probenverlust melden</h1>
+                            <p>Hier können sie Proben als Verloren melden.<br/> Links sehen sie ihr Navigationsmenue. </p>
+
+                        </h:form>
+                        <p:panelGrid>
+                            <h:form id="form">
+                                <p:row>
+                                    <h3 style="color: cornflowerblue">#{msg['esEinfügen.jsf']}</h3>
+                                </p:row>
+                                <p:row>
+                                    <p:growl>
+                                        <p:autoUpdate/>
+                                    </p:growl>
+                                    <p:column colspan="1">
+                                        <p:outputLabel for="pid" value="ID: "/>
+                                        <p:inputMask placeholder="ID" id="pid" value="#{probeMeldenView.probeMeldenID}"/>
+                                    </p:column>
+
+                                    <p:column colspan="1">
+                                        <p:outputLabel for="pAnzahl" value="Anzahl: "/>
+                                        <p:inputMask id="pAnzahl" value="#{probeMeldenView.probenAnzahl}"/>
+                                    </p:column>
+
+                                    <p:column colspan="1">
+                                        <p:commandButton value="Submit" action="#{probeMeldenView.reportLost()}"/>
+                                    </p:column>
+                                </p:row>
+                            </h:form>
+                        </p:panelGrid>
+                    </p:panelGrid>
+                </ui:define>
+            </ui:composition>
+        </shiro:hasRole>
+    </shiro:authenticated>
+</h:body>
+</html>
