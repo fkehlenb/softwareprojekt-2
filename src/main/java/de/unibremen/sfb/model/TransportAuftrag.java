@@ -29,11 +29,6 @@ public class TransportAuftrag implements Serializable {
     @ManyToOne
     private User user;
 
-    @ManyToOne
-    private Standort start;
-    @ManyToOne
-    private Standort ziel;
-
     /** The transport job's current state */
     @NonNull
     private Enum<TransportAuftragZustand> zustandsAutomat;
