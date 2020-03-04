@@ -41,6 +41,8 @@ public class TechnologeView implements Serializable {
      */
     private User technologe;
 
+    List<Auftrag> auftragList;
+
     @Inject
     private ExperimentierStationService esService;
 
@@ -89,6 +91,7 @@ public class TechnologeView implements Serializable {
         r.stream().filter(a -> (!(a.getProzessSchrittZustandsAutomat().equals(ProzessKettenZustandsAutomat.INSTANZIIERT)
                 || a.getProzessSchrittZustandsAutomat().equals(ProzessKettenZustandsAutomat.ABGELEHNT))));
 //        r.sort(Comparator.comparing(o -> auftragService.getAuftrag(o).getPriority()));
+        System.out.print("Checkpoint");
         return r;
     }
 
