@@ -178,8 +178,9 @@ public class ExperimentierStationService implements Serializable {
      */
     public List<ProzessSchritt> getSchritteByUser(User u) {
         var ps = new ArrayList<ProzessSchritt>();
+        var gu = getESByUser(u);
         for (ExperimentierStation e :
-                getESByUser(u)) {
+                gu) {
             ps.add(e.getCurrentPS());
         }
         return ps;

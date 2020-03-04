@@ -104,10 +104,11 @@ public class LogistikerBean implements Serializable {
     /** Sample amount    */
     private int anzahl;
 
+
     @PostConstruct
     void init() {
         auftrage = auftragService.getAll();
-        proben = getProben();
+        proben = probenService.getAll();
         traegers = getTraegerList();
         archiviert = getAllArchviert();
         traegerArts = traegerArtService.getAll();
@@ -265,14 +266,14 @@ public class LogistikerBean implements Serializable {
     public void zuordnenTraeger(Auftrag a, Traeger t) {
     }
 
-    /**
-     * returns all samples currently existing
-     *
-     * @return a set containing all samples
-     */
-    public List<Probe> getProben() {
-        return probenService.getAll();
-    }
+//    /**
+//     * returns all samples currently existing
+//     *
+//     * @return a set containing all samples
+//     */
+//    public List<Probe> getProben() {
+//        return probenService.getAll();
+//    }
 
     /**
      * starts a job
