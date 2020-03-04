@@ -39,7 +39,7 @@
                     <p> Hier haben Sie einen detaillierten Überblick über den Auftrag #{singleJobBean.ps.psID}</p>
                 </p:row>
                 <p:row>
-                    <p> Standort: #{singleJobBean.findStation()}</p>
+                    <p> Standort: {singleJobBean.findStation()}</p>
                 </p:row>
                 <p:row>
                     <p>Daten hochgeladen: #{singleJobBean.ps.uploaded}</p>
@@ -61,7 +61,7 @@
                     <p> Prozessschritt Parameter: </p>
                 </p:row>
 
-                <p:dataTable var="para" value="#{singleJobBean.getParameter()}">
+                <p:dataTable var="para" value="#{singleJobBean.parameter}">
                     <p:column headerText="Id">
                         <h:outputText value="#{para.id}"/>
                     </p:column>

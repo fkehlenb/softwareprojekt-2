@@ -2,10 +2,7 @@ package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.exception.*;
 import de.unibremen.sfb.model.*;
-import de.unibremen.sfb.service.ExperimentierStationService;
-import de.unibremen.sfb.service.ProbenService;
-import de.unibremen.sfb.service.ProzessSchrittParameterService;
-import de.unibremen.sfb.service.ProzessSchrittService;
+import de.unibremen.sfb.service.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +17,7 @@ import javax.inject.Named;
 import java.io.IOException;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -49,6 +47,9 @@ public class SingleJobBean implements Serializable {
     @Inject
     private ProzessSchrittService psService;
 
+    @Inject
+    private AuftragService auftragService;
+
     @PostConstruct
     public void init() {
         verProzessSchrittParameters = prozessSchrittParameterService.getParameterList();
@@ -60,7 +61,10 @@ public class SingleJobBean implements Serializable {
         return "singlejob.xhtml";
     }
 
-
+    public String getLetzterZustand(ProzessSchritt ps) {
+        return ps.getProzessSchrittZustandsAutomat().getZustaende().get(ps
+                .getProzessSchrittZustandsAutomat().getZustaende().size()-1);
+    }
 
     /**
      * adds a comment to a process step
@@ -70,41 +74,63 @@ public class SingleJobBean implements Serializable {
             errorMessage("invalid input");
         }
         else {
-//            for (Probe p : ps.getZugewieseneProben()) {
-//                try {
-//                    probeService.addProbenComment(p, kommentarForAll);
-//                } catch (ProbeNotFoundException | DuplicateKommentarException e) {
-//                    e.printStackTrace();
-//                    log.info("the sample " + p.getProbenID() + " could not be found while trying to add comment " + kommentarForAll);
-//                }
-//                catch(IllegalArgumentException e) {
-//                    errorMessage("invalid input");
-//                }
-//            }
+            List<Probe> proben = new ArrayList<>();
+            for (Traeger t :
+                    auftragService.getAuftrag(ps).getTraeger()) {
+                for (Probe p :
+                        t.getProben()) {
+                    proben.add(p);
+                }
+            }
+            for (Probe p : proben) {
+                try {
+                    probeService.addProbenComment(p, kommentarForAll);
+                } catch (ProbeNotFoundException | DuplicateKommentarException e) {
+                    e.printStackTrace();
+                    log.info("the sample " + p.getProbenID() + " could not be found while trying to add comment " + kommentarForAll);
+                }
+                catch(IllegalArgumentException e) {
+                    errorMessage("invalid input");
+                }
+            }
             message("added comment to all samples");
         }
         kommentarForAll = "";
     }
 
-//    public List<Probe> getProben() {
-//        return psService.getProben(ps);
-//    }
+    /**
+     * returns the samples of this prozessschritt
+     * @param ps the process step
+     * @return a list containing the samples
+     */
+    public List<Probe> getProben(ProzessSchritt ps) {
+        List<Probe> proben = new ArrayList<>();
+        for (Traeger t :
+                auftragService.getAuftrag(ps).getTraeger()) {
+            for (Probe p :
+                    t.getProben()) {
+                proben.add(p);
+            }
+        }
+        return proben;
+    }
+
 
     /**
      * weise den Proben des akutellen ProzessSchrittes Proben zu
      */
     public void zuweisen() {
-//        for (Probe p :
-//                ps.getZugewieseneProben()) {
-//            var list = p.getParameter();
-//            list.addAll(ausProzessSchrittParameters);
-//            p.setParameter(list);
-//            try {
-//                probeService.update(p);
-//            } catch (ProbeNotFoundException e) {
-//                e.printStackTrace();
-//            }
-//        }
+        for (Probe p :
+                getProben(ps)) {
+            var list = p.getParameter();
+            list.addAll(ausProzessSchrittParameters);
+            p.setParameter(list);
+            try {
+                probeService.update(p);
+            } catch (ProbeNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -112,7 +138,7 @@ public class SingleJobBean implements Serializable {
      * @return a list containing the prozessSchrittParameter
      */
     public List<ProzessSchrittParameter> getParameter() {
-      return ps.getProzessSchrittParameters();
+      return ps.getProzessSchrittParameters(); // FIXME Nullpointer because technologe/index.xhtml does not load ps
     }
 
     /**
@@ -153,35 +179,36 @@ public class SingleJobBean implements Serializable {
      * finds the station this process step is currently at
      * @return the station
      */
-//    public ExperimentierStation findStation() {
-//        return psService.findStation(ps);
-//    }
+    public ExperimentierStation findStation() {
+        return psService.findStation(ps); // FIXME Nullpointer
+    }
 
     /**
      * sets the state of a ProzessSchritt on further than it was
      */
-//    public void setJobZustand() {
-//        try {
-////            psService.oneFurther(ps);
-//        }
-//        catch(ProzessSchrittNotFoundException | ProzessSchrittLogNotFoundException | DuplicateProzessSchrittLogException | ExperimentierStationNotFoundException | ProzessSchrittZustandsAutomatNotFoundException e) {
-//                e.printStackTrace();
-////                log.info("an error occurred trying to update the state of " + ps.getPsID() + ": " + e.getMessage());
-//        }
-//        catch(IllegalArgumentException e) {
-//                errorMessage("invalid input");
-//        }
-//        String letzterZustand = ps.getProzessSchrittVorlage().getZustandsAutomatVorlage().getZustaende().get(ps.getProzessSchrittVorlage().
-//                getZustandsAutomatVorlage().getZustaende().size()-1);
-//        if(letzterZustand.equals(ps.getProzessSchrittZustandsAutomat().getCurrent())){
-//            facesNotification("prozessSchritt wurde beendet! ");
-//        }
-//        else{
-//            facesNotification("ProzessSchritt gewechselt auf: " + ps.getProzessSchrittZustandsAutomat().getCurrent());
-//        }
-//
-//
-//    }
+    public void setJobZustand() throws DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException {
+        try {
+            try {
+                psService.oneFurther(ps);
+            } catch (ExperimentierStationNotFoundException e) {
+                e.printStackTrace();
+            } catch (ProzessSchrittNotFoundException e) {
+                e.printStackTrace();
+            } catch (ProzessSchrittLogNotFoundException e) {
+                e.printStackTrace();
+            }
+        } catch(IllegalArgumentException e) {
+                errorMessage("invalid input");
+        }
+        String letzterZustand = ps.getProzessSchrittZustandsAutomat().getZustaende().get(
+                ps.getProzessSchrittZustandsAutomat().getZustaende().size() -1);
+        if(letzterZustand.equals(ps.getProzessSchrittZustandsAutomat().getCurrent())){
+            facesNotification("prozessSchritt wurde beendet! ");
+        }
+        else{
+            facesNotification("ProzessSchritt gewechselt auf: " + ps.getProzessSchrittZustandsAutomat().getCurrent());
+        }
+    }
 
     /**
      * Adds a new SEVERITY_ERROR FacesMessage for the ui

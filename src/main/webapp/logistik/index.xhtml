@@ -2,10 +2,12 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:shiro="http://shiro.apache.org/tags">
+
 <ui:define name="metadata">
     <f:metadata>
-        <f:viewAction action="#{languageBean.setLanguage}" />
+        <f:viewAction action="#{languageBean.setLanguage}"/>
     </f:metadata>
 </ui:define>
 
@@ -14,24 +16,28 @@
     <link rel="icon" href="../background.png"/>
 </h:head>
 <body>
-<ui:composition template="/template/common/layout.xhtml">
-    <ui:define name="content">
-        <div class="ui-g-2"></div>
-        <div class="ui-g-8">
-            <h:form>
-                <p:growl>
-                    <p:autoUpdate/>
-                </p:growl>
-                <p:panelGrid columns="1">
-                    <p:tabMenu>
-                        <p:menuitem value="Home"/>
-                    </p:tabMenu>
-                    <h1 style="color: cornflowerblue">#{msg['welcome.jsf']}</h1>
-                    <p>#{msg['welcome.jsf']}<br/> #{msg['menuLeft.jsf']} </p>
-                </p:panelGrid>
-            </h:form>
-        </div>
-    </ui:define>
-</ui:composition>
+<shiro:authenticated>
+    <shiro:hasRole name="logistik">
+        <ui:composition template="/template/common/layout.xhtml">
+            <ui:define name="content">
+                <div class="ui-g-2"></div>
+                <div class="ui-g-8">
+                    <h:form>
+                        <p:growl>
+                            <p:autoUpdate/>
+                        </p:growl>
+                        <p:panelGrid columns="1">
+                            <p:tabMenu>
+                                <p:menuitem value="Home"/>
+                            </p:tabMenu>
+                            <h1 style="color: cornflowerblue">#{msg['welcome.jsf']}</h1>
+                            <p>#{msg['welcome.jsf']}<br/> #{msg['menuLeft.jsf']} </p>
+                        </p:panelGrid>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </shiro:hasRole>
+</shiro:authenticated>
 </body>
 </html>

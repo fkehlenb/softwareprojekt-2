@@ -109,7 +109,7 @@ public class AuftragView implements Serializable {
     /**
      * selected part from the job
      */
-    private List<Auftrag> selectedAuftraege;
+    private Auftrag selectedAuftraege;
     private List<Auftrag> filteredAuftrag;
     /**
      * A var for the job used in the front end

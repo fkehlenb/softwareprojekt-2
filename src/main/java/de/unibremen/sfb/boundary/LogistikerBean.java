@@ -2,6 +2,7 @@ package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.exception.AuftragNotFoundException;
 import de.unibremen.sfb.exception.DuplicateProbeException;
+import de.unibremen.sfb.exception.ProbeNotFoundException;
 import de.unibremen.sfb.exception.StandortNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.ProbeDAO;
@@ -73,6 +74,8 @@ public class LogistikerBean implements Serializable {
     /** Location Service */
     @Inject
     private StandortService standortService;
+
+    @Inject ExperimentierStationService experimentierStationService;
 
     /**
      * All containers
@@ -197,28 +200,40 @@ public class LogistikerBean implements Serializable {
     }
 
     /** Add a new sample to the system */
-    public void addProbe(){
-
+    public void addProbe() {
         Standort standort;
-
-        try {
+        try{
             standort = standortService.findByLocation("Lager");
-        } catch (StandortNotFoundException e) {
-            facesError("Der Standort Lager wurde nicht gefunden! Er wird nun erstellt!");
+
+        }
+        catch (StandortNotFoundException e){
+            facesError("Der Standort Lager wurde nicht gefunden und wird nun erstellt, Proben können lediglich im Lager erstellt werden!");
             standort = new Standort(UUID.randomUUID().hashCode(),"Lager");
             standortService.persist(standort);
         }
-        //Anzahl ins xhtml
-            //FIXME
-            Probe p = new Probe(probenID, anzahl, ProbenZustand.ARCHIVIERT,standort);
-        try {
-            probenService.persist(p);
-            facesNotification("ERFOLG! die Probe wurde hinzugefügt" + p.getProbenID());
 
-        } catch (DuplicateProbeException e) {
-            facesError("Die Probe existiert bereits!: " + e.getMessage());
-            e.printStackTrace();
+        int vorherigeAnzahl = 0;
+        int verloreneAnzahl = 0;
+        try {
+            vorherigeAnzahl = probeDAO.getObjById(probenID).getAnzahl();
+            verloreneAnzahl = probeDAO.getObjById(probenID).getLost();
+        } catch (ProbeNotFoundException e) {
         }
+        Probe p = new Probe(probenID, vorherigeAnzahl + anzahl, ProbenZustand.ARCHIVIERT,standort);
+        p.setLost(verloreneAnzahl);
+        try {
+            probenService.update(p);
+            facesNotification("ERFOLG! die Probe wurde hinzugefügt UPDATE" + p.getProbenID());
+        } catch (ProbeNotFoundException e){
+            try {
+                probenService.persist(p);
+                facesNotification("ERFOLG! die Probe wurde hinzugefügt PERSIST" + p.getProbenID());
+
+            } catch (DuplicateProbeException ex) {
+                facesError("Die Probe existiert bereits!: " + e.getMessage());
+            }
+        }
+
     }
 
     /**
@@ -262,26 +277,26 @@ public class LogistikerBean implements Serializable {
      *
      * @param auftrag the job to be started
      */
-//    public void startAuftrag(int auftrag) {
-//        try {
-//            Auftrag a = auftragService.getAll(auftrag);
-//            auftragService.zustandswechsel(a, GESTARTET);
-//            log.info("Auftrag wurde gestartet! ID: " + auftrag);
-//            facesNotification("Auftrag wurde gestartet! ID: " + auftrag);
-//            //Aktualisiert Auftragsliste
-//            auftragView.updateAuftragTabelle();
-//            auftragService.update(a);
-//            PrimeFaces.current().ajax().update("form:data");
-//
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            log.error("Failed to change auftrag state! ID: " + auftrag);
-//            facesError("Failed to change auftrag state! ID: " + auftrag);
-//        }
+    public void startAuftrag(int auftrag) {
+        try {
+            Auftrag a = auftragService.getObjById(auftrag);
+            a.setProzessKettenZustandsAutomat(GESTARTET);
+            log.info("Auftrag wurde gestartet! ID: " + auftrag);
+            facesNotification("Auftrag wurde gestartet! ID: " + auftrag);
+            //Aktualisiert Auftragsliste
+            //auftragView.updateAuftragTabelle();
+            auftragService.update(a);
+            PrimeFaces.current().ajax().update("form:data");
 
 
-//    }
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("Failed to change auftrag state! ID: " + auftrag);
+            facesError("Failed to change auftrag state! ID: " + auftrag);
+        }
+
+
+    }
 
     /**
      * refuses a job (signals to the process chain administrator that this job cannot be started in the current form)
@@ -289,32 +304,38 @@ public class LogistikerBean implements Serializable {
      * @param auftrag the job
      *
      */
-//    public void refuseAuftrag(int auftrag) {
-//        try {
-//            Auftrag a = auftragService.getAuftrag(auftrag);
-//            auftragService.zustandswechsel(a, ABGELEHNT);
-//            log.info("Auftrag wurde abgelehnt! ID: " + auftrag);
-//            facesNotification("Auftrag wurde abgelehnt! ID: " + auftrag);
-//
-//            //Aktualisiert Auftragsliste
-//
-//            log.info(errorMessage);
-//            errorMessageAnPkA(a);
-//            auftragService.update(a);
-//            log.info("Test" + auftrag);
-//            auftragView.updateAuftragTabelle();
-//            Thread.sleep(100);
-//            //return "Auftragsuebersicht?faces-redirect=true";
-//            //PrimeFaces.current().ajax().update("content-panel");
-//
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            log.error("Failed to change auftrag state! ID: " + auftrag);
-//            facesError("Failed to change auftrag state! ID: " + auftrag);
-//        }
-//        //return null;
-//    }
+    public void refuseAuftrag(int auftrag) {
+        String selctError = errorMessage;
+        if(selctError == null){
+            facesError("Darf nicht leer sein");
+            log.info("ErrorMessage darf nicht leer sein!");
+        }
+        else{
+        try {
+            Auftrag a = auftragService.getObjById(auftrag);
+            a.setProzessKettenZustandsAutomat(ABGELEHNT);
+            log.info("Auftrag wurde abgelehnt! ID: " + auftrag);
+            facesNotification("Auftrag wurde abgelehnt! ID: " + auftrag);
+
+            //Aktualisiert Auftragsliste
+
+            //log.info(errorMessage);
+            //errorMessageAnPkA(a);
+            auftragService.update(a);
+            log.info("Test" + auftrag);
+            Thread.sleep(100);
+            //return "Auftragsuebersicht?faces-redirect=true";
+            //PrimeFaces.current().ajax().update("content-panel");
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("Failed to change auftrag state! ID: " + auftrag);
+            facesError("Failed to change auftrag state! ID: " + auftrag);
+        }
+        //return null;
+    }
+    }
 
     /**
      * returns an error message
