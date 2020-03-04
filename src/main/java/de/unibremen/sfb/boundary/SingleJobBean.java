@@ -62,6 +62,7 @@ public class SingleJobBean implements Serializable {
     public String singlejob(int id) {
         try {
             this.ps = prozessSchrittService.getObjById(id);
+            init();
         } catch (ProzessSchrittNotFoundException e) {
             e.printStackTrace();
         }
