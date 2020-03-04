@@ -32,6 +32,7 @@ import java.util.List;
 public class TransporterBean implements Serializable {
     private List<ProzessSchritt> prozessSchrittList;
     private List<ProzessSchritt> prozessSchrittList2;
+    private List<ProzessSchritt> prozessSchrittList3;
     private List<TransportAuftrag> transportAuftragSelected;
 
     @Inject
@@ -45,6 +46,7 @@ public class TransporterBean implements Serializable {
     @PostConstruct
     void init(){
         prozessSchrittList = auftragService.getTransportSchritt();
+        prozessSchrittList3 = auftragService.getTransportSchritt3();
         try {
             prozessSchrittList2 = auftragService.getTransportSchritt2();
         } catch (UserNotFoundException e) {
@@ -146,6 +148,7 @@ public class TransporterBean implements Serializable {
      */
     public void updateTabellen() {
         prozessSchrittList = auftragService.getTransportSchritt();
+        prozessSchrittList3 = auftragService.getTransportSchritt3();
         try {
             prozessSchrittList2 = auftragService.getTransportSchritt2();
         } catch (UserNotFoundException e) {

@@ -143,15 +143,20 @@ public class AuftragService implements Serializable {
 
     }
 
+    /**
+     * Updates the given TransportAuftrag
+     * @param transportAuftrag TransportAuftrag, which needs to be updated
+     * @throws TransportAuftragNotFoundException when TransportAuftrag was not found.
+     */
     public void updateTransportZustand(TransportAuftrag transportAuftrag) throws TransportAuftragNotFoundException {
         transportAuftragDAO.update(transportAuftrag);
     }
 
 
     /**
-     * Hole Alle ProzessSchritte die als Transport Zustand ERSTELLT haben
+     * Filters the Transport Jobs to find all ERSTELLT.
      *
-     * @return alle prozessSchrittList fuer den Transport
+     * @return List of ProzessSchritt, which have a TransportAuftrag with TransportAuftragsZustand on ERSTELLT
      */
     public List<ProzessSchritt> getTransportSchritt() {
         var s = new HashSet<ProzessSchritt>();
@@ -164,6 +169,11 @@ public class AuftragService implements Serializable {
         return s.isEmpty() ? new ArrayList<>() : List.copyOf(s);
     }
 
+    /**
+     * Filters the Transport Jobs to find all ABGEHOLT.
+     *
+     * @return List of ProzessSchritt, which have a TransportAuftrag with TransportAuftragsZustand on ABGEHOLT
+     */
     public List<ProzessSchritt> getTransportSchritt2() throws UserNotFoundException {
         var s = new HashSet<ProzessSchritt>();
         User user = userService.getCurrentUser();
@@ -177,8 +187,25 @@ public class AuftragService implements Serializable {
     }
 
     /**
+     * Filters the Transport Jobs to find all ABGELIEFERT.
      *
-     * @param value
+     * @return List of ProzessSchritt, which have a TransportAuftrag with TransportAuftragsZustand on ABGELIEFERT
+     */
+    public List<ProzessSchritt> getTransportSchritt3() {
+        var s = new HashSet<ProzessSchritt>();
+        for (Auftrag a :
+                getAuftrage()) {
+            s.addAll(a.getProzessSchritte().stream()
+                    .filter(p -> p.getTransportAuftrag().getZustandsAutomat() == TransportAuftragZustand.ABGELIEFERT)
+                    .collect(Collectors.toSet()));
+        }
+        return s.isEmpty() ? new ArrayList<>() : List.copyOf(s);
+    }
+
+    /**
+     * Returns the TransportAuftrag with id value.
+     *
+     * @param value given id
      * @return The TransportAuftag with the specified value
      * @throws TransportAuftragNotFoundException
      */
@@ -186,6 +213,12 @@ public class AuftragService implements Serializable {
         return transportAuftragDAO.getTransportAuftragById(value);
     }
 
+    /**
+     * Sets transportAuftragsZustand to ABGEHOLT.
+     *
+     * @param t übergebener TransportAuftrag
+     * @throws TransportAuftragNotFoundException when transportAuftrag wasn't found.
+     */
     public void sedTransportZustandAbgeholt(TransportAuftrag t) throws TransportAuftragNotFoundException {
         t.setZustandsAutomat(TransportAuftragZustand.ABGEHOLT);
         t.setAbgeholt(LocalDateTime.now());
@@ -198,9 +231,15 @@ public class AuftragService implements Serializable {
         updateTransportZustand(t);
     }
 
+    /**
+     * Sets transportAuftragsZustand to ABGELIEFERT.
+     *
+     * @param t übergebener TransportAuftrag
+     * @throws TransportAuftragNotFoundException when transportAuftrag wasn't found.
+     */
     public void sedTransportZustandAbgeliefert(TransportAuftrag t) throws TransportAuftragNotFoundException {
         t.setZustandsAutomat(TransportAuftragZustand.ABGELIEFERT);
-        t.setAbgeholt(LocalDateTime.now());
+        t.setAbgeliefert(LocalDateTime.now());
         updateTransportZustand(t);
     }
 
