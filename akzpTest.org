@@ -95,3 +95,11 @@ Die Eigenschaft schliesst eine Probe aus.
 
 
 Selenium Test mit Dedizierten bean xml
+
+bean discovery nur ein implementierung, automatisch alles gut
+
+Beans in Test schreiben, injecten aus den Test, für Tests einzele Injektions Poins festlegen
+
+Fuer Tests TestDatenbank festegen persitenz.xml
+
+Selenium Test.xml nuzten
