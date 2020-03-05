@@ -10,7 +10,8 @@ import java.util.List;
 /**
  * Data class for process chain steps
  */
-@Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @RequiredArgsConstructor
@@ -53,13 +54,6 @@ public class ProzessSchritt implements Serializable {
     @NonNull
     @ManyToMany(fetch = FetchType.LAZY)
     private List<ProzessSchrittParameter> prozessSchrittParameters;
-
-    /**
-     * The experimenting station this process step is being carried out at
-     */
-    @NonNull
-    @ManyToOne
-    private ExperimentierStation experimentierStation;
 
     /**
      * Process step attributes

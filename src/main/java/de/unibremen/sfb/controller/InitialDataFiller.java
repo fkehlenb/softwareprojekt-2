@@ -4,11 +4,13 @@ import com.github.javafaker.Faker;
 import de.unibremen.sfb.exception.DuplicateKommentarException;
 import de.unibremen.sfb.exception.DuplicateProbeException;
 import de.unibremen.sfb.exception.DuplicateTraegerException;
+import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.KommentarDAO;
 import de.unibremen.sfb.persistence.ProbeDAO;
 import de.unibremen.sfb.persistence.TraegerDAO;
 import de.unibremen.sfb.persistence.UserDAO;
+import de.unibremen.sfb.service.ExperimentierStationService;
 import de.unibremen.sfb.service.RoleService;
 import de.unibremen.sfb.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +22,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -47,6 +50,9 @@ public class InitialDataFiller {
 
     private List<TraegerArt> tas = new ArrayList<>();
     Faker f = new Faker(new Locale("de"));
+
+    @Inject
+    ExperimentierStationService experimentierStationService;
 
     @Inject
     private UserDAO userDAO;
@@ -143,7 +149,7 @@ public class InitialDataFiller {
 
             for (ProzessSchrittParameter psp : parameters
             ) {
-                log.info("Trying ti persist ProzessSchrittParameter " + psp.getName());
+                log.info("Trying to persist ProzessSchrittParameter " + psp.getName());
                 em.persist(psp);
             }
 
@@ -220,6 +226,7 @@ public class InitialDataFiller {
 
     private List<ProzessSchritt> erstelePS(List<ProzessSchrittVorlage> psvListe) {
         var r = new ArrayList<ProzessSchritt>();
+        ExperimentierStation[] esList = new ExperimentierStation[limit];
         for (int i = 0; i < limit * 0.5; i++) {
             List<String> z = new ArrayList();
             for (String s :
@@ -237,43 +244,42 @@ public class InitialDataFiller {
             }
 
             List<ProzessSchrittParameter> y = new ArrayList<>();
-            List<ProzessSchrittParameter> prozessSchrittParameterList = new ArrayList<>();
             for (ProzessSchrittParameter psp :
                     psv.getProzessSchrittParameters()) {
                 y.add(psp);
             }
             var ps = new ProzessSchritt(UUID.randomUUID().hashCode(), a, psv.getDauer(), y,
-                    psv.getExperimentierStation(), "Test Atribut" + 1, psLogs, "PSV: " + i,
+                    "Test Atribut " + 1, psLogs, "PSV: " + i,
                     true, f.random().nextInt(0, 9999));
+
+            esList[i] = psv.getExperimentierStation();
+            ExperimentierStation curES = null;
+            try {
+               curES =  experimentierStationService.getById(psv.getExperimentierStation().getEsID());
+            } catch (ExperimentierStationNotFoundException e) {
+                e.printStackTrace();
+            }
+
+//            try {
+//                assert curES != null;
+//                experimentierStationService.setES(ps, curES ); // FIXME Why does this not work?
+//            } catch (ExperimentierStationNotFoundException e) {
+//                e.printStackTrace();
+//            }
 
             log.info("Try to persist TEST ProzessSchritt " + ps.getId());
 
+
             if (i != 0) {
-                Standort ziel = r.get(i - 1).getExperimentierStation().getStandort();
+                Standort ziel = esList[i].getStandort();
                 var transportAuftrag = new TransportAuftrag(LocalDateTime.now(), TransportAuftragZustand.ERSTELLT,
-                        ps.getExperimentierStation().getStandort(), ziel);
+                        esList[i-1].getStandort(), ziel);
                 em.persist(transportAuftrag);
                 log.info("Persisting Transport Auftag " + transportAuftrag.getZustandsAutomat());
-                 ps.setTransportAuftrag(transportAuftrag);
+                 r.get(i-1).setTransportAuftrag(transportAuftrag);
             }
             em.persist(ps);
             r.add(ps);
-
-            // Weise den PS auch Stationen zu.
-            // Wenn es einen akutellen Schritt gibt, dann werden die weiteren Schritte in Warteschlange eingreiht.
-            ExperimentierStation es;
-            try {
-                es = ps.getExperimentierStation();
-                if (es.getCurrentPS() == null) {
-                    es.setCurrentPS(ps);
-                } else {
-                    es.getNextPS().add(ps);
-                }
-                em.persist(es);
-            } catch (NullPointerException e) {
-                log.info("Es gibt keine Stationen für diesen Schritt");
-            }
-
         }
         return r;
     }
@@ -308,7 +314,7 @@ public class InitialDataFiller {
         Faker faker = new Faker();
         for (int i = 0; i < limit; i++) {
             experimentierStations.add(new ExperimentierStation(UUID.randomUUID().hashCode(), standorte.get(i),
-                    faker.lordOfTheRings().location(), ExperimentierStationZustand.VERFUEGBAR, new ArrayList<>(), List.of(tTechnologe)));
+                    faker.lordOfTheRings().location(), ExperimentierStationZustand.VERFUEGBAR, new ArrayList<>() , new ArrayList<>(), List.of(tTechnologe)));
         }
         return experimentierStations;
     }

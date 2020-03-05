@@ -18,6 +18,7 @@ import org.primefaces.model.SelectableDataModel;
 @NoArgsConstructor
 @NamedQueries({
         @NamedQuery(name = "Auftrag.getAll", query = "SELECT a FROM Auftrag a WHERE a.isValidData = true")
+
 })
 public class Auftrag implements Serializable {
 
@@ -65,8 +66,7 @@ public class Auftrag implements Serializable {
     /** The Carrier */
     @OneToMany
     private List<Traeger> traeger;
-
-
+    
     private String ErrorMessage;
 
     @Override
@@ -74,7 +74,7 @@ public class Auftrag implements Serializable {
         return "Auftrag: " + this.pkID;
     }
 
-    @Override
+    @Override // FIXME Fabian: solltest du nicht noch gucken ob der Auftrag geloescht wurde
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
@@ -87,5 +87,10 @@ public class Auftrag implements Serializable {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(isValidData(), getPkID(), getName(), getPriority(), getProzessSchritte(), getLog(), getProzessKettenZustandsAutomat(), getTraeger());
     }
 }

@@ -11,7 +11,8 @@ import java.util.Queue;
 /**
  * Experimenting stations data class
  */
-@Data
+@Getter
+@Setter
 @Entity
 @NamedQueries({
         @NamedQuery(name = "ExperimentierStation.findAllInLocation",
@@ -55,7 +56,8 @@ public class ExperimentierStation implements Serializable {
 
     /** The queue currently being processed at the experimenting station */
     @OneToMany(fetch = FetchType.LAZY)
-   private List<ProzessSchritt> nextPS = new ArrayList<ProzessSchritt>();
+    @NonNull
+   private List<ProzessSchritt> nextPS;
 
     /** Parameters required to use this station */
     @ManyToMany(fetch = FetchType.LAZY)
@@ -66,7 +68,7 @@ public class ExperimentierStation implements Serializable {
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private List<User> benutzer;
 
-    @ManyToOne
+    @OneToOne
     private ProzessSchritt currentPS;
 
     @Override

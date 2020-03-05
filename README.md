@@ -126,7 +126,7 @@
 <h5 id="transporteur-otransporteur">Transporteur (<strong>O«Transporteur»</strong>)</h5>
 <ul>
 <li>Übersicht über anstehende Transportaufträge</li>
-<li>Meldet Probenverlust</li>
+<strike><li>Meldet Probenverlust</li></strike>
 </ul>
 <h5 id="logistiker">Logistiker</h5>
 <ul>

@@ -1,14 +1,12 @@
 package de.unibremen.sfb.service;
 
 import com.sun.mail.imap.protocol.ID;
-import de.unibremen.sfb.exception.DuplicateKommentarException;
-import de.unibremen.sfb.exception.DuplicateProbeException;
-import de.unibremen.sfb.exception.KommentarNotFoundException;
-import de.unibremen.sfb.exception.ProbeNotFoundException;
+import de.unibremen.sfb.exception.*;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.KommentarDAO;
 import de.unibremen.sfb.persistence.ProbeDAO;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -21,9 +19,13 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Getter
+@Slf4j
 public class ProbenService implements Serializable {
     private List<Probe> proben;
 
+
+    @Inject
+    UserService userService;
 
     @Inject
     private ProbeDAO probeDAO;
@@ -33,6 +35,12 @@ public class ProbenService implements Serializable {
 
     @Inject
     ProzessSchrittParameterService prozessSchrittParameterService;
+
+    @Inject
+    AuftragService auftragService;
+
+    @Inject
+    ExperimentierStationService experimentierStationService;
 
 //    @Inject
 //    BedingungService bedingungService;
@@ -72,6 +80,23 @@ public class ProbenService implements Serializable {
                 .collect(Collectors.toList());
     }
 
+    public Probe erstelleProbe(Standort standort, String probenID, int anzahl) throws ProbeNotFoundException, DuplicateProbeException {
+        int vorherigeAnzahl = 0;
+        int verloreneAnzahl = 0;
+        try {
+            vorherigeAnzahl = probeDAO.getObjById(probenID).getAnzahl();
+            verloreneAnzahl = probeDAO.getObjById(probenID).getLost();
+        } catch (ProbeNotFoundException e) {
+            log.info("vorherige Anzahl kann nicht gefunden werden, weil die Probe nicht existierte");
+        }
+        Probe p = new Probe(probenID, vorherigeAnzahl + anzahl, ProbenZustand.ARCHIVIERT,standort);
+        p.setLost(verloreneAnzahl);
+        update(p);
+        persist(p);
+        return  p;
+    }
+
+
     /**
      * Suche nach Proben die an diesem Stanndort liegen
      * @param s Der Standort
@@ -94,8 +119,6 @@ public class ProbenService implements Serializable {
 //                .collect(Collectors.toList());
 //    }
 
-    @Inject
-    private ExperimentierStationService experimentierStationService;
 
     /**
      * Hole alle Proben die akutell in experimentierStationene sind,
@@ -273,6 +296,29 @@ public class ProbenService implements Serializable {
         p.setCurrentTraeger(t);
         probeDAO.persist(p);
     }
+
+    /**
+     * returns all samples to which the user has not yet uploaded data
+     *
+     * @return a set containing all those samples
+     */
+    public List<Probe> viewToBeUploaded() {
+        List<Probe> res = new LinkedList<>();
+        try {
+            for(ProzessSchritt ps : prozessSchrittService.getSchritte()) {
+                if(!ps.isUploaded()) {
+                    for (Traeger t :
+                            auftragService.getAuftrag(ps).getTraeger()) {
+                        res.addAll(t.getProben());
+                    }
+                }
+            }
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
 
     /**
      * counts the samples in the database

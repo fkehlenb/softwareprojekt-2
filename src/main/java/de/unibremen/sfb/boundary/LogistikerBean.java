@@ -40,6 +40,7 @@ import static de.unibremen.sfb.model.ProzessKettenZustandsAutomat.GESTARTET;
 @Transactional
 public class LogistikerBean implements Serializable {
     private List<Probe> proben;
+
     private List<Auftrag> auftrage;
 
     //TODO remove this
@@ -101,6 +102,10 @@ public class LogistikerBean implements Serializable {
 
     /** Sample ID */
     private String probenID;
+
+    /** Chosen sample */
+    private List<Probe> selectedProbe;
+
     /** Sample amount    */
     private int anzahl;
 
@@ -156,6 +161,28 @@ public class LogistikerBean implements Serializable {
             Traeger t = traegerService.getTraegerById(id);
             t.setArt(traegerArt);
             t.setStandort(traegerLocation);
+            t.setProben(selectedProbe);
+            for (Probe p : selectedProbe) {
+                try {
+                    if(p.getStandort().getOrt().equals(t.getStandort().getOrt())){
+                        Traeger ta = p.getCurrentTraeger();
+                        List<Probe> current = ta.getProben();
+                        current.remove(p);
+                        ta.setProben(current);
+                        traegerService.update(ta);
+                        p.setCurrentTraeger(t);
+                        probenService.update(p);
+
+                    }
+                    else{
+                        facesError("Sample and carrier aren't at the same location!");
+                    }
+
+                }
+                catch (Exception e){
+                    log.info("Träger hat noch keine Proben (NullPointer)");
+                }
+            }
             traegerService.update(t);
             facesNotification("Edited trager with ID: " + id);
             log.info("Edited trager with ID: " + id);
@@ -213,30 +240,18 @@ public class LogistikerBean implements Serializable {
             standortService.persist(standort);
         }
 
-        int vorherigeAnzahl = 0;
-        int verloreneAnzahl = 0;
+        Probe p = null;
         try {
-            vorherigeAnzahl = probeDAO.getObjById(probenID).getAnzahl();
-            verloreneAnzahl = probeDAO.getObjById(probenID).getLost();
+            p = probenService.erstelleProbe(standort, probenID, anzahl);
         } catch (ProbeNotFoundException e) {
-            log.info("vorherige Anzahl kann nicht gefunden werden, weil die Probe nicht existierte");
-        }
-        Probe p = new Probe(probenID, vorherigeAnzahl + anzahl, ProbenZustand.ARCHIVIERT,standort);
-        p.setLost(verloreneAnzahl);
-        try {
-            probenService.update(p);
-            facesNotification("ERFOLG! die Probe wurde hinzugefügt UPDATE" + p.getProbenID());
-        } catch (ProbeNotFoundException e){
             log.info("Probe wurde nicht gefunden,es wird versucht sie zu persistieren!");
-            try {
-                probenService.persist(p);
-                facesNotification("ERFOLG! die Probe wurde hinzugefügt PERSIST" + p.getProbenID());
-
-            } catch (DuplicateProbeException ex) {
-                facesError("Die Probe existiert bereits!: " + e.getMessage());
-            }
+            facesError("Die Probe existiert bereits!: " + e.getMessage());
+            log.error(e.getLocalizedMessage());
+        } catch (DuplicateProbeException e) {
+            facesNotification("ERFOLG! die Probe wurde hinzugefügt UPDATE" + p.getProbenID());
+            log.info("Probe wurde nicht gefunden,es wird versucht sie zu persistieren!");
+            facesNotification("ERFOLG! die Probe wurde hinzugefügt PERSIST" + p.getProbenID());
         }
-
     }
 
     /**

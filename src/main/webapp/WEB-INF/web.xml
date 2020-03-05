@@ -48,4 +48,17 @@
     </listener>
 -->
 
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/errorpages/404.xhtml</location>
+    </error-page>
+    <error-page>
+        <exception-type>javax.faces.application.ViewExpiredException</exception-type>
+        <location>/WEB-INF/errorpages/expired.xhtml</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/WEB-INF/errorpages/500.xhtml</location>
+    </error-page>
+
 </web-app>

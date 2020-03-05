@@ -79,19 +79,17 @@ public class TechnologeView implements Serializable {
     }
 
     /**
-     * returns the assignments currently available for this user
-     *
-     * @return a set containing all availabe jobs
+     * Hole alle Verfügbaren Schritte
+     * @return
      */
     public List<ProzessSchritt> getSchritte() {
-        //alle einträge in queues von experimentierstationen denene der user zugeordnet ist
-
-        List<ProzessSchritt> r = esService.getSchritteByUser(technologe);
-        r.removeAll(Collections.singleton(null));
-        r.stream().filter(a -> (!(a.getProzessSchrittZustandsAutomat().equals(ProzessKettenZustandsAutomat.INSTANZIIERT)
-                || a.getProzessSchrittZustandsAutomat().equals(ProzessKettenZustandsAutomat.ABGELEHNT))));
-        r.sort(Comparator.comparing(o -> auftragService.getAuftrag(o).getPriority()));
-        return r;
+        try {
+            return  prozessSchrittService.getSchritte();
+        } catch (UserNotFoundException e) {
+            e.printStackTrace();
+            log.error("Could find any Steps");
+            return  new ArrayList<>();
+        }
     }
 
     /**
@@ -140,20 +138,13 @@ public class TechnologeView implements Serializable {
      * returns all samples to which the user has not yet uploaded data
      *
      * @return a set containing all those samples
+     * // FIXME Keine PS
      */
     public List<Probe> viewToBeUploaded() {
-        var s = getStationen();
-        List<Probe> res = new LinkedList<>();
-        for (Auftrag a : auftragService.getAuftrage()) {
-            ProzessSchritt ps = a.getProzessSchritte().stream().filter(p -> s.contains(p.getExperimentierStation())).findFirst().orElse(null);
-            if (!ps.isUploaded() && ps.getProzessSchrittZustandsAutomat().getCurrent().equals("Bearbeitet")) {
-                for (Traeger t :
-                        a.getTraeger()) {
-                    res.addAll(t.getProben());
-                }
-            }
-        }
-        return res;
+        List<Probe> r = null;
+        probeService.viewToBeUploaded();
+        log.info("Probe die Hochgeladen werden muessen wurden geladen");
+        return new ArrayList<Probe>();
     }
 
     /**
@@ -185,7 +176,7 @@ public class TechnologeView implements Serializable {
     /**
      * finds the priority of a process step
      *
-     * @param ps the step
+     * @param id of the step
      * @return the priority of the Auftrag the process step belongs to
      */
     public AuftragsPrioritaet getPriority(int id) {
