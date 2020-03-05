@@ -6,6 +6,7 @@ import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.KommentarDAO;
 import de.unibremen.sfb.persistence.ProbeDAO;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -18,6 +19,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Getter
+@Slf4j
 public class ProbenService implements Serializable {
     private List<Probe> proben;
 
@@ -77,6 +79,23 @@ public class ProbenService implements Serializable {
                 .filter(e -> e.getEigenschaften().contains(q))
                 .collect(Collectors.toList());
     }
+
+    public Probe erstelleProbe(Standort standort, String probenID, int anzahl) throws ProbeNotFoundException, DuplicateProbeException {
+        int vorherigeAnzahl = 0;
+        int verloreneAnzahl = 0;
+        try {
+            vorherigeAnzahl = probeDAO.getObjById(probenID).getAnzahl();
+            verloreneAnzahl = probeDAO.getObjById(probenID).getLost();
+        } catch (ProbeNotFoundException e) {
+            log.info("vorherige Anzahl kann nicht gefunden werden, weil die Probe nicht existierte");
+        }
+        Probe p = new Probe(probenID, vorherigeAnzahl + anzahl, ProbenZustand.ARCHIVIERT,standort);
+        p.setLost(verloreneAnzahl);
+        update(p);
+        persist(p);
+        return  p;
+    }
+
 
     /**
      * Suche nach Proben die an diesem Stanndort liegen

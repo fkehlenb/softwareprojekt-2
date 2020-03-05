@@ -3,6 +3,7 @@ package de.unibremen.sfb.service;
 import de.unibremen.sfb.exception.*;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.AuftragDAO;
+import de.unibremen.sfb.persistence.ProbeDAO;
 import de.unibremen.sfb.persistence.ProzessSchrittDAO;
 import de.unibremen.sfb.persistence.ProzessSchrittZustandsAutomatDAO;
 import lombok.extern.slf4j.Slf4j;
@@ -153,6 +154,9 @@ public class ProzessSchrittService implements Serializable {
         return r;
     }
 
+    @Inject
+    ProbeDAO probeDAO;
+
     /**
      * Get all process steps from the database
      * sets the current state of this ProzessSchritt
@@ -184,12 +188,36 @@ public class ProzessSchrittService implements Serializable {
                     e.printStackTrace();
                 }
             }
+            if (ps.isUrformend() && ps.getProzessSchrittZustandsAutomat().getCurrent() == "Erstellend") {
+                try {
+                    erstelleProbe(findStation(ps).getStandort(), "testName" ,ps.getAmountCreated()); // TODO get name von ps
+                } catch (ProbeNotFoundException e) {
+                    e.printStackTrace();
+                } catch (DuplicateProbeException e) {
+                    e.printStackTrace();
+                }
+            }
             ps.getProzessSchrittZustandsAutomat().setCurrent(zustand);
             prozessSchrittLogService.closeLog(ps.getProzessSchrittLog().get(ps.getProzessSchrittLog().size() - 1));
             ps.getProzessSchrittLog().add(prozessSchrittLogService.newLog(zustand));
             prozessSchrittZustandsAutomatDAO.update(ps.getProzessSchrittZustandsAutomat());
             prozessSchrittDAO.update(ps);
         }
+    }
+    public Probe erstelleProbe(Standort standort, String probenID, int anzahl) throws ProbeNotFoundException, DuplicateProbeException {
+        int vorherigeAnzahl = 0;
+        int verloreneAnzahl = 0;
+        try {
+            vorherigeAnzahl = probeDAO.getObjById(probenID).getAnzahl();
+            verloreneAnzahl = probeDAO.getObjById(probenID).getLost();
+        } catch (ProbeNotFoundException e) {
+            log.info("vorherige Anzahl kann nicht gefunden werden, weil die Probe nicht existierte");
+        }
+        Probe p = new Probe(probenID, vorherigeAnzahl + anzahl, ProbenZustand.ARCHIVIERT,standort);
+        p.setLost(verloreneAnzahl);
+        probeDAO.update(p);
+        probeDAO.persist(p);
+        return  p;
     }
 
     public ExperimentierStation findStation(ProzessSchritt ps)

@@ -280,8 +280,6 @@ public class InitialDataFiller {
             }
             em.persist(ps);
             r.add(ps);
-
-
         }
         return r;
     }

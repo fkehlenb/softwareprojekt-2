@@ -54,3 +54,44 @@ Test Abedeckung mit Units Tests
 
 * Services
   * Nur Aufrage an T die Zustand haben
+
+
+PK Pruefen, urfomrend und psArt pruefen
+View fuer Handy
+DualModel soll in target schreiben
+
+ajax update att all
+
+ADD Traeger Art to PS,
+
+JSON als Download für Download
+
+IN PSV welche Eigenschaften generiert werden
+
+pk ps u anlegen, er produziert proben mit diesen eigenschaften
+in Traeger Art
+Wenn auftrag ersstelt, urfomrend durchfuehren
+proben erstellen, p kommen auf tArt, ich hab sie in glas mit id getan
+
+
+wenn Tart undschiedlich, dann zerstoere alten T und erstelle neuen
+
+
+Leo Liam Arbeit:
+
+Eigenschaften sind Atribute
+
+BSP wasser psp geschwindigkeit von Wasser
+
+Eigenschaft ist Wasser Salz gehalt
+
+PSP beim Atributen Festlegen
+
+Technologe soll eigenschaften aendern
+
+Eigenschaft ist oneToMany
+
+Die Eigenschaft schliesst eine Probe aus.
+
+
+Selenium Test mit Dedizierten bean xml

@@ -240,30 +240,18 @@ public class LogistikerBean implements Serializable {
             standortService.persist(standort);
         }
 
-        int vorherigeAnzahl = 0;
-        int verloreneAnzahl = 0;
+        Probe p = null;
         try {
-            vorherigeAnzahl = probeDAO.getObjById(probenID).getAnzahl();
-            verloreneAnzahl = probeDAO.getObjById(probenID).getLost();
+            p = probenService.erstelleProbe(standort, probenID, anzahl);
         } catch (ProbeNotFoundException e) {
-            log.info("vorherige Anzahl kann nicht gefunden werden, weil die Probe nicht existierte");
-        }
-        Probe p = new Probe(probenID, vorherigeAnzahl + anzahl, ProbenZustand.ARCHIVIERT,standort);
-        p.setLost(verloreneAnzahl);
-        try {
-            probenService.update(p);
-            facesNotification("ERFOLG! die Probe wurde hinzugefügt UPDATE" + p.getProbenID());
-        } catch (ProbeNotFoundException e){
             log.info("Probe wurde nicht gefunden,es wird versucht sie zu persistieren!");
-            try {
-                probenService.persist(p);
-                facesNotification("ERFOLG! die Probe wurde hinzugefügt PERSIST" + p.getProbenID());
-
-            } catch (DuplicateProbeException ex) {
-                facesError("Die Probe existiert bereits!: " + e.getMessage());
-            }
+            facesError("Die Probe existiert bereits!: " + e.getMessage());
+            log.error(e.getLocalizedMessage());
+        } catch (DuplicateProbeException e) {
+            facesNotification("ERFOLG! die Probe wurde hinzugefügt UPDATE" + p.getProbenID());
+            log.info("Probe wurde nicht gefunden,es wird versucht sie zu persistieren!");
+            facesNotification("ERFOLG! die Probe wurde hinzugefügt PERSIST" + p.getProbenID());
         }
-
     }
 
     /**
