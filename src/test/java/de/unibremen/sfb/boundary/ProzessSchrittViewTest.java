@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -63,7 +64,7 @@ class ProzessSchrittViewTest {
 
     @Test
     void testGetES() throws ProzessSchrittNotFoundException {
-        when(prozessSchrittService.getObjById(anyInt())).thenReturn(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0));
+        when(prozessSchrittService.getObjById(anyInt())).thenReturn(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0,new ArrayList<>(),new ArrayList<>()));
         when(experimentierStationService.getESfromPS(any())).thenReturn(new ExperimentierStation());
 
         ExperimentierStation result = prozessSchrittView.getES(0);
@@ -72,7 +73,7 @@ class ProzessSchrittViewTest {
 
     @Test
     void testSetES() throws ProzessSchrittNotFoundException, ExperimentierStationNotFoundException {
-        when(prozessSchrittService.getObjById(anyInt())).thenReturn(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0));
+        when(prozessSchrittService.getObjById(anyInt())).thenReturn(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0,new ArrayList<>(),new ArrayList<>()));
         when(experimentierStationService.getById(anyInt())).thenReturn(new ExperimentierStation());
 
         prozessSchrittView.setES(0, 0);
@@ -80,10 +81,10 @@ class ProzessSchrittViewTest {
 
     @Test
     void testCreatePS() throws ProzessSchrittVorlageNotFoundException, ProzessSchrittNotFoundException, ExperimentierStationNotFoundException {
-        when(prozessSchrittVorlageService.getProzessSchrittVorlagen()).thenReturn(Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, Arrays.<ProzessSchrittParameter>asList(null), null, "dauer", "name", null, true, 0)));
-        when(prozessSchrittVorlageService.getByID(anyInt())).thenReturn(new ProzessSchrittVorlage(0, Arrays.<ProzessSchrittParameter>asList(null), new ExperimentierStation(), "dauer", "name", null, true, 0));
-        when(prozessSchrittService.getObjById(anyInt())).thenReturn(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0));
-        when(prozessSchrittService.getAll()).thenReturn(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0)));
+        when(prozessSchrittVorlageService.getProzessSchrittVorlagen()).thenReturn(Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, Arrays.<ProzessSchrittParameter>asList(null), null, "dauer", "name", null, true, 0,new ArrayList<>(),new ArrayList<>())));
+        when(prozessSchrittVorlageService.getByID(anyInt())).thenReturn(new ProzessSchrittVorlage(0, Arrays.<ProzessSchrittParameter>asList(null), new ExperimentierStation(), "dauer", "name", null, true, 0,new ArrayList<>(),new ArrayList<>()));
+        when(prozessSchrittService.getObjById(anyInt())).thenReturn(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0,new ArrayList<>(),new ArrayList<>()));
+        when(prozessSchrittService.getAll()).thenReturn(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0,new ArrayList<>(),new ArrayList<>())));
         when(prozessSchrittZustandsAutomatVorlageService.getProzessSchrittZustandsAutomatVorlagen()).thenReturn(Arrays.<ProzessSchrittZustandsAutomatVorlage>asList(new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")));
         when(experimentierStationService.getById(anyInt())).thenReturn(new ExperimentierStation());
         when(experimentierStationService.getAll()).thenReturn(Arrays.<ExperimentierStation>asList(new ExperimentierStation()));
@@ -102,9 +103,9 @@ class ProzessSchrittViewTest {
 
     @Test
     void testOnRowEdit() throws ProzessSchrittNotFoundException, ExperimentierStationNotFoundException {
-        when(prozessSchrittVorlageService.getProzessSchrittVorlagen()).thenReturn(Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, Arrays.<ProzessSchrittParameter>asList(null), null, "dauer", "name", null, true, 0)));
-        when(prozessSchrittService.getObjById(anyInt())).thenReturn(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0));
-        when(prozessSchrittService.getAll()).thenReturn(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0)));
+        when(prozessSchrittVorlageService.getProzessSchrittVorlagen()).thenReturn(Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, Arrays.<ProzessSchrittParameter>asList(null), null, "dauer", "name", null, true, 0,new ArrayList<>(),new ArrayList<>())));
+        when(prozessSchrittService.getObjById(anyInt())).thenReturn(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0,new ArrayList<>(),new ArrayList<>()));
+        when(prozessSchrittService.getAll()).thenReturn(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0,new ArrayList<>(),new ArrayList<>())));
         when(prozessSchrittZustandsAutomatVorlageService.getProzessSchrittZustandsAutomatVorlagen()).thenReturn(Arrays.<ProzessSchrittZustandsAutomatVorlage>asList(new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")));
         when(experimentierStationService.getById(anyInt())).thenReturn(new ExperimentierStation());
         when(experimentierStationService.getAll()).thenReturn(Arrays.<ExperimentierStation>asList(new ExperimentierStation()));
@@ -123,9 +124,9 @@ class ProzessSchrittViewTest {
 
     @Test
     void testRemovePS() throws ProzessSchrittNotFoundException {
-        when(prozessSchrittVorlageService.getProzessSchrittVorlagen()).thenReturn(Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, Arrays.<ProzessSchrittParameter>asList(null), null, "dauer", "name", null, true, 0)));
-        when(prozessSchrittService.getObjById(anyInt())).thenReturn(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0));
-        when(prozessSchrittService.getAll()).thenReturn(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0)));
+        when(prozessSchrittVorlageService.getProzessSchrittVorlagen()).thenReturn(Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, Arrays.<ProzessSchrittParameter>asList(null), null, "dauer", "name", null, true, 0,new ArrayList<>(),new ArrayList<>())));
+        when(prozessSchrittService.getObjById(anyInt())).thenReturn(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0,new ArrayList<>(),new ArrayList<>()));
+        when(prozessSchrittService.getAll()).thenReturn(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0,new ArrayList<>(),new ArrayList<>())));
         when(prozessSchrittZustandsAutomatVorlageService.getProzessSchrittZustandsAutomatVorlagen()).thenReturn(Arrays.<ProzessSchrittZustandsAutomatVorlage>asList(new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")));
         when(experimentierStationService.getAll()).thenReturn(Arrays.<ExperimentierStation>asList(new ExperimentierStation()));
         when(prozessSchrittParameterService.getAll()).thenReturn(Arrays.<ProzessSchrittParameter>asList(null));
@@ -165,17 +166,17 @@ class ProzessSchrittViewTest {
 
     @Test
     void testSetProzessSchrittVorlagen() {
-        prozessSchrittView.setProzessSchrittVorlagen(Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, Arrays.<ProzessSchrittParameter>asList(null), null, "dauer", "name", null, true, 0)));
+        prozessSchrittView.setProzessSchrittVorlagen(Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, Arrays.<ProzessSchrittParameter>asList(null), null, "dauer", "name", null, true, 0,new ArrayList<>(),new ArrayList<>())));
     }
 
     @Test
     void testSetSelectedProzessSchrittVorlage() {
-        prozessSchrittView.setSelectedProzessSchrittVorlage(new ProzessSchrittVorlage(0, Arrays.<ProzessSchrittParameter>asList(null), new ExperimentierStation(), "dauer", "name", null, true, 0));
+        prozessSchrittView.setSelectedProzessSchrittVorlage(new ProzessSchrittVorlage(0, Arrays.<ProzessSchrittParameter>asList(null), new ExperimentierStation(), "dauer", "name", null, true, 0,new ArrayList<>(),new ArrayList<>()));
     }
 
     @Test
     void testSetProzessSchritte() {
-        prozessSchrittView.setProzessSchritte(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0)));
+        prozessSchrittView.setProzessSchritte(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0,new ArrayList<>(),new ArrayList<>())));
     }
 
     @Test

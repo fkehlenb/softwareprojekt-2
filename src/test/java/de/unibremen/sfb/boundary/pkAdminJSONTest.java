@@ -13,6 +13,7 @@ import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbConfig;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -75,7 +76,7 @@ class pkAdminJSONTest {
 
     @Test
     void testExportPS() {
-        when(prozessSchrittService.getAll()).thenReturn(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0)));
+        when(prozessSchrittService.getAll()).thenReturn(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0,new ArrayList<>(),new ArrayList<>())));
 
         pkAdminJSON.exportPS();
     }
@@ -169,12 +170,12 @@ class pkAdminJSONTest {
 
     @Test
     void testSetAvailableProzessSchritte() {
-        pkAdminJSON.setAvailableProzessSchritte(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0)));
+        pkAdminJSON.setAvailableProzessSchritte(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0,new ArrayList<>(),new ArrayList<>())));
     }
 
     @Test
     void testSetSelectedProzessSchritt() {
-        pkAdminJSON.setSelectedProzessSchritt(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0));
+        pkAdminJSON.setSelectedProzessSchritt(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0,new ArrayList<>(),new ArrayList<>()));
     }
 
     @Test
