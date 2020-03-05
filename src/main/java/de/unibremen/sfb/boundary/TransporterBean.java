@@ -18,6 +18,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Named("transportBean")
@@ -91,8 +92,12 @@ public class TransporterBean implements Serializable {
         try {
             TransportAuftrag tr = auftragService.getTransportAuftragByID(TransportID);
             auftragService.sedTransportZustand(tr, TransportAuftragZustand.ABGELIEFERT);
+            if(auftragService.getTransportAuftragByID(TransportID).getZustandsAutomat() == TransportAuftragZustand.ABGELIEFERT){
+                new ProzessSchrittLog(LocalDateTime.now(),"ERSTELLT");
+            }
             log.info("TransportAuftragZustand wurde gewechselt auf Abgeliefert " + TransportID);
             facesNotification("Der Zustand von " + TransportID + " wurde auf Abgeliefert gesetzt.");
+
             updateTabellen();
 
         }
