@@ -187,7 +187,24 @@
                                 <p:column headerText="Eingabe Traeger">
                                     <p:cellEditor>
                                         <f:facet name="output">
-                                            <p:commandButton value="Anzeigen" icon="pi pi-external-link"/>
+                                            <p:commandButton value="Anzeigen" icon="pi pi-external-link" onclick="PF('dlg4').show();"/>
+                                            <p:dialog header="Eingabe Traeger Uebersicht" widgetVar="dlg4"
+                                                      modal="true"
+                                                      height="100">
+                                                <p:panelGrid columns="1">
+                                                    <p:row>
+                                                        <p:dataTable id="etraeger" var="ta"
+                                                                     value="#{ps.eingabe}"
+                                                                     editable="true"
+                                                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                                                     paginator="true" rows="15" style="margin-bottom:20px">
+                                                            <p:column headerText="Art">
+                                                                <h:outputText value="#{ta}"/>
+                                                            </p:column>
+                                                        </p:dataTable>
+                                                    </p:row>
+                                                </p:panelGrid>
+                                            </p:dialog>
                                         </f:facet>
                                         <f:facet name="input">
                                             <p:selectCheckboxMenu id="eingabeTraeger"
@@ -201,7 +218,7 @@
                                                                   required="true">
                                                 <f:selectItems
                                                         value="#{psView.availableTraegerArten}"
-                                                        var="ta" itemLabel="#{ta.art}"
+                                                        var="ta" itemLabel="#{ta}"
                                                         itemValue="#{ta}"/>
                                             </p:selectCheckboxMenu>
                                         </f:facet>
@@ -210,7 +227,24 @@
                                 <p:column headerText="Ausgabe Traeger">
                                     <p:cellEditor>
                                         <f:facet name="output">
-                                            <p:commandButton value="Anzeigen" icon="pi pi-external-link"/>
+                                            <p:commandButton value="Anzeigen" icon="pi pi-external-link" onclick="PF('dlg3').show();"/>
+                                            <p:dialog header="Ausgabe Traeger Uebersicht" widgetVar="dlg3"
+                                                      modal="true"
+                                                      height="100">
+                                                <p:panelGrid columns="1">
+                                                    <p:row>
+                                                        <p:dataTable id="atraeger" var="ta"
+                                                                     value="#{ps.ausgabe}"
+                                                                     editable="true"
+                                                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                                                     paginator="true" rows="15" style="margin-bottom:20px">
+                                                            <p:column headerText="Art">
+                                                                <h:outputText value="#{ta}"/>
+                                                            </p:column>
+                                                        </p:dataTable>
+                                                    </p:row>
+                                                </p:panelGrid>
+                                            </p:dialog>
                                         </f:facet>
                                         <f:facet name="input">
                                             <p:selectCheckboxMenu id="ausgabeTraeger"
@@ -224,7 +258,7 @@
                                                                   required="true">
                                                 <f:selectItems
                                                         value="#{psView.availableTraegerArten}"
-                                                        var="ta" itemLabel="#{ta.art}"
+                                                        var="ta" itemLabel="#{ta}"
                                                         itemValue="#{ta}"/>
                                             </p:selectCheckboxMenu>
                                         </f:facet>

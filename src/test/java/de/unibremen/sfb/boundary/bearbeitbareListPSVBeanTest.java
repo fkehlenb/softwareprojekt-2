@@ -11,7 +11,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,7 +33,7 @@ class bearbeitbareListPSVBeanTest {
 
     @Test
     void testInit() {
-        when(bearbeitbareListPSVBeanService.akzeptiertePSV()).thenReturn(Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, Arrays.<ProzessSchrittParameter>asList(null), null, "dauer", "name", null, true, 0,new ArrayList<>(),new ArrayList<>())));
+        when(bearbeitbareListPSVBeanService.akzeptiertePSV()).thenReturn(Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, Arrays.<ProzessSchrittParameter>asList(null), null, "dauer", "name", null, true, 0)));
 
         bearbeitbareListPSVBeanService.init();
     }

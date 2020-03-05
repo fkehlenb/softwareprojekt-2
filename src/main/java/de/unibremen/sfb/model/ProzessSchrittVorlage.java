@@ -7,8 +7,7 @@ import javax.validation.constraints.Pattern;
 import java.util.List;
 
 /** Data class for the process step templates */
-@Getter
-@Setter
+@Data
 @Entity
 @NoArgsConstructor
 @RequiredArgsConstructor
@@ -16,6 +15,7 @@ public class ProzessSchrittVorlage {
 
     /** Process step template id */
     @Id
+    @Generated
     @NonNull
     private int psVID;
 
@@ -57,15 +57,14 @@ public class ProzessSchrittVorlage {
     @NonNull
     private int amountCreated;
 
-    /** Accepted input container types */
-    @NonNull
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<TraegerArt> eingabe;
+    /** Accepted container input types */
+    @ElementCollection
+    private List<String> eingabeTraeger;
 
-    /** Output container types */
-    @NonNull
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<TraegerArt> ausgabe;
+    /** Accepted container output types */
+    @ElementCollection
+    private List<String> ausgabeTraeger;
+
 
     @Override
     public String toString(){

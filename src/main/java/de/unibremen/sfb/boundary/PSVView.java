@@ -106,13 +106,13 @@ public class PSVView implements Serializable {
     private TraegerArtService traegerArtService;
 
     /** Available container types */
-    private List<TraegerArt> availableTraegerArten;
+    private List<String> availableTraegerArten;
 
     /** Selected input container types */
-    private List<TraegerArt> selectedInputTraegerArten;
+    private List<String> selectedInputTraegerArten;
 
     /** Selected output container types */
-    private List<TraegerArt> selectedOutputTraegerArten;
+    private List<String> selectedOutputTraegerArten;
 
     /** Name of created samples */
     private String nameOfCreated = "";
@@ -133,7 +133,7 @@ public class PSVView implements Serializable {
         availableExperimentierStationList = experimentierStationService.getAll();
         availableProzessSchrittZustandsAutomatVorlageList = prozessSchrittZustandsAutomatVorlageService.getProzessSchrittZustandsAutomatVorlagen();
         availableProzessSchrittVorlageList = prozessSchrittVorlageService.getAll();
-        availableTraegerArten = traegerArtService.getAll();
+        availableTraegerArten = traegerArtService.getAll().get(0).getArten();
     }
 
     /**
@@ -145,17 +145,10 @@ public class PSVView implements Serializable {
             for (ProzessSchrittParameter psp : selectedProzessSchrittParameterList){
                 newPsp.add(psp);
             }
-            List<TraegerArt> input = new ArrayList<>();
-            List<TraegerArt> output = new ArrayList<>();
-            for (TraegerArt a : selectedInputTraegerArten){
-                input.add(a);
-            }
-            for (TraegerArt a : selectedOutputTraegerArten){
-                output.add(a);
-            }
             ProzessSchrittVorlage psv = new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), newPsp,
-                    selectedExperimentierStation, selectedDuration, selectedName, selectedProzessSchrittZustandsAutomatVorlage,urformend,amountCreated,
-                    List.copyOf(input),List.copyOf(output));
+                    selectedExperimentierStation, selectedDuration, selectedName, selectedProzessSchrittZustandsAutomatVorlage,urformend,amountCreated);
+            psv.setEingabeTraeger(selectedInputTraegerArten);
+            psv.setAusgabeTraeger(selectedOutputTraegerArten);
             psv.setNameOfCreated(nameOfCreated);
             prozessSchrittVorlageService.persist(psv);
             log.info("Created new process step template with name " + selectedName);
@@ -187,16 +180,9 @@ public class PSVView implements Serializable {
             prozessSchrittVorlage.setProzessSchrittParameters(newPsp);
             prozessSchrittVorlage.setUrformend(urformend);
             prozessSchrittVorlage.setAmountCreated(amountCreated);
-            List<TraegerArt> input = new ArrayList<>();
-            List<TraegerArt> output = new ArrayList<>();
-            for (TraegerArt a : selectedInputTraegerArten){
-                input.add(a);
-            }
-            for (TraegerArt a : selectedOutputTraegerArten){
-                output.add(a);
-            }
-            prozessSchrittVorlage.setEingabe(List.copyOf(input));
-            prozessSchrittVorlage.setAusgabe(List.copyOf(output));
+            prozessSchrittVorlage.setEingabeTraeger(selectedInputTraegerArten);
+            prozessSchrittVorlage.setAusgabeTraeger(selectedOutputTraegerArten);
+            System.out.println(selectedInputTraegerArten.toString());
             prozessSchrittVorlageService.edit(prozessSchrittVorlage);
             log.info("Updated process step template with id " + id);
             facesNotification("Updated process step template successfully!");

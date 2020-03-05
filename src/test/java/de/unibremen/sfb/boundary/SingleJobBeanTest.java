@@ -16,7 +16,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -59,8 +58,8 @@ class SingleJobBeanTest {
     @Test
     void testSinglejob() throws ProzessSchrittNotFoundException {
         when(qualitativeEigenschaftService.getEigenschaften()).thenReturn(Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")));
-        when(prozessSchrittService.getObjById(anyInt())).thenReturn(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0,new ArrayList<>(),new ArrayList<>()));
-        when(psService.getObjById(anyInt())).thenReturn(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0,new ArrayList<>(),new ArrayList<>()));
+        when(prozessSchrittService.getObjById(anyInt())).thenReturn(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0));
+        when(psService.getObjById(anyInt())).thenReturn(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0));
 
         String result = singleJobBean.singlejob(0);
         Assertions.assertEquals("replaceMeWithExpectedResult", result);
@@ -70,7 +69,7 @@ class SingleJobBeanTest {
     void testGetLetzterZustand() {
         when(ps.getProzessSchrittZustandsAutomat()).thenReturn(new ProzessSchrittZustandsAutomat(0, "current", Arrays.<String>asList("String")));
 
-        String result = singleJobBean.getLetzterZustand(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0,new ArrayList<>(),new ArrayList<>()));
+        String result = singleJobBean.getLetzterZustand(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0));
         Assertions.assertEquals("replaceMeWithExpectedResult", result);
     }
 
@@ -84,8 +83,8 @@ class SingleJobBeanTest {
     @Test
     void testGetProben() throws ProzessSchrittNotFoundException {
         when(ps.getId()).thenReturn(0);
-        when(prozessSchrittService.getObjById(anyInt())).thenReturn(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0,new ArrayList<>(),new ArrayList<>()));
-        when(psService.getObjById(anyInt())).thenReturn(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0,new ArrayList<>(),new ArrayList<>()));
+        when(prozessSchrittService.getObjById(anyInt())).thenReturn(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0));
+        when(psService.getObjById(anyInt())).thenReturn(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0));
         when(auftragService.getAuftrag(any())).thenReturn(new Auftrag());
 
         List<Probe> result = singleJobBean.getProben();
@@ -95,8 +94,8 @@ class SingleJobBeanTest {
     @Test
     void testZuweisen() throws ProzessSchrittNotFoundException {
         when(ps.getId()).thenReturn(0);
-        when(prozessSchrittService.getObjById(anyInt())).thenReturn(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0,new ArrayList<>(),new ArrayList<>()));
-        when(psService.getObjById(anyInt())).thenReturn(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0,new ArrayList<>(),new ArrayList<>()));
+        when(prozessSchrittService.getObjById(anyInt())).thenReturn(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0));
+        when(psService.getObjById(anyInt())).thenReturn(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0));
         when(auftragService.getAuftrag(any())).thenReturn(new Auftrag());
 
         singleJobBean.zuweisen();
@@ -150,7 +149,7 @@ class SingleJobBeanTest {
 
     @Test
     void testSetPs() {
-        singleJobBean.setPs(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0,new ArrayList<>(),new ArrayList<>()));
+        singleJobBean.setPs(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0));
     }
 
     @Test

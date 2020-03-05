@@ -88,14 +88,12 @@ public class ProzessSchritt implements Serializable {
     private String createdName;
 
     /** Accepted input container types */
-    @NonNull
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<TraegerArt> eingabe;
+    @ElementCollection
+    private List<String> eingabe;
 
     /** Output container types */
-    @NonNull
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<TraegerArt> ausgabe;
+    @ElementCollection
+    private List<String> ausgabe;
 
     boolean uploaded = false;
 

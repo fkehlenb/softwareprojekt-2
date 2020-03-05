@@ -250,7 +250,9 @@ public class InitialDataFiller {
             }
             var ps = new ProzessSchritt(UUID.randomUUID().hashCode(), a, psv.getDauer(), y,
                     "Test Atribut " + 1, psLogs, "PSV: " + i,
-                    true, f.random().nextInt(0, 9999),tas,tas);
+                    true, f.random().nextInt(0, 9999));
+            ps.setEingabe(List.copyOf(tas.get(0).getArten()));
+            ps.setAusgabe(List.copyOf(tas.get(0).getArten()));
 
             esList[i] = psv.getExperimentierStation();
             ExperimentierStation curES = null;
@@ -392,8 +394,11 @@ public class InitialDataFiller {
             Collections.addAll(z, pszaVorlage.getZustaende());
             z.addAll(pszaVorlage.getZustaende());
             Faker faker = new Faker();
-            result.add(new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), List.of(parameters.get(i)), experimentierStations.get(i+1), "42:00", faker.gameOfThrones().dragon(),
-                    v, true, f.random().nextInt(0, 999),tas,tas));
+            var r = new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), List.of(parameters.get(i)), experimentierStations.get(i+1), "42:00", faker.gameOfThrones().dragon(),
+                    v, true, f.random().nextInt(0, 999));
+            r.setEingabeTraeger(List.copyOf(tas.get(0).getArten()));
+            r.setAusgabeTraeger(List.copyOf(tas.get(0).getArten()));
+            result.add(r);
         }
         return result;
     }
@@ -410,8 +415,13 @@ public class InitialDataFiller {
         return qualEigenschaften;
     }
 
+    @Transactional
     public List<TraegerArt> erstelleTraeger() {
-        return List.of(new TraegerArt("Glass"), new TraegerArt("Eingebetet"), new TraegerArt("Einzelen"));
+        List<TraegerArt> result = new ArrayList<>();
+        TraegerArt t = new TraegerArt("KEY");
+        t.setArten(List.of("Glass","Eingebetet","Einzelen"));
+        result.add(t);
+        return result;
     }
 
     public ProzessSchrittZustandsAutomatVorlage erstelleStandartVorlage() {

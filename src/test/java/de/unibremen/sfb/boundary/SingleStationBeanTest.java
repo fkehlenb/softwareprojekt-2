@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -56,7 +55,7 @@ class SingleStationBeanTest {
 
     @Test
     void testGetProben() {
-        when(station.getCurrentPS()).thenReturn(new ProzessSchritt(0, new ProzessSchrittZustandsAutomat(0, "current", Arrays.<String>asList("String")), "duration", Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), "attribute", Arrays.<ProzessSchrittLog>asList(new ProzessSchrittLog(LocalDateTime.of(2020, Month.MARCH, 5, 16, 38, 55), "zustandsAutomat")), "name", true, 0,new ArrayList<>(),new ArrayList<>()));
+        when(station.getCurrentPS()).thenReturn(new ProzessSchritt(0, new ProzessSchrittZustandsAutomat(0, "current", Arrays.<String>asList("String")), "duration", Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), "attribute", Arrays.<ProzessSchrittLog>asList(new ProzessSchrittLog(LocalDateTime.of(2020, Month.MARCH, 5, 16, 38, 55), "zustandsAutomat")), "name", true, 0));
         when(auftragService.getAuftrag(any())).thenReturn(new Auftrag());
 
         List<Probe> result = singleStationBean.getProben();
