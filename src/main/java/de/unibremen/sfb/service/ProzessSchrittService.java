@@ -141,16 +141,20 @@ public class ProzessSchrittService implements Serializable {
      * @return a set containing all availabe jobs
      *
      */
-    public List<ProzessSchritt> getSchritte() throws UserNotFoundException {
+    public List<ProzessSchritt> getSchritte() throws UserNotFoundException  {
         //alle einträge in queues von experimentierstationen denene der user zugeordnet ist
 
         List<ProzessSchritt> r = experimentierStationService.getSchritteByUser(userService.getCurrentUser());
         r.removeAll(Collections.singleton(null));
-        r.stream().filter(a -> (!(auftragService.getAuftrag(a).getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.INSTANZIIERT)
-                || auftragService.getAuftrag(a).getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.ABGELEHNT))));  // FIXME wo soll das hin
-//        r.sort(Comparator.comparing(o -> auftragDAO.getObjById(o.getId()).getPriority();
+        r.stream().filter(a -> {
+            return (!(auftragService.getAuftrag(a).getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.INSTANZIIERT)
+                    || auftragService.getAuftrag(a).getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.ABGELEHNT)));
+        });  // FIXME wo soll das hin
+
         return r;
-    }
+
+        }
+//        r.sort(Comparator.comparing(o -> auftragDAO.getObjById(o.getId()).getPriority();
 
     @Inject
     ProbeDAO probeDAO;

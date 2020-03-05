@@ -1,6 +1,9 @@
 package de.unibremen.sfb.boundary;
 
-import de.unibremen.sfb.exception.*;
+import de.unibremen.sfb.exception.AuftragNotFoundException;
+import de.unibremen.sfb.exception.DuplicateProbeException;
+import de.unibremen.sfb.exception.ProbeNotFoundException;
+import de.unibremen.sfb.exception.StandortNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.ProbeDAO;
 import de.unibremen.sfb.service.*;
@@ -19,7 +22,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -130,17 +132,12 @@ public class LogistikerBean implements Serializable {
     public List<Traeger> getTraegerList() {
         return traegerService.getAll();
     }
-        public List<Probe> getProbeByTraeger(int id) throws TraegerNotFoundException {
-        Traeger t = traegerService.getTraegerById(id);
-        return t.getProben();
-    }
 
     /**
      * creates a new carrier
      */
-    public void createTraeger() {
-        List<Probe> probenempty = new ArrayList<Probe>();
-        Traeger traeger = new Traeger(UUID.randomUUID().hashCode(),traegerArt, probenempty,traegerLocation);
+    public void createTraeger(TraegerArt art,Standort location) {
+        Traeger traeger = new Traeger(UUID.randomUUID().hashCode(),art, proben,location);
         try{
             traegerService.persist(traeger);
             facesNotification("Added new Traeger with Art: " + traegerArt.getArt());
@@ -154,7 +151,6 @@ public class LogistikerBean implements Serializable {
         }
     }
 
-
     /**
      * Update a container on row edit
      *
@@ -165,12 +161,10 @@ public class LogistikerBean implements Serializable {
             Traeger t = traegerService.getTraegerById(id);
             t.setArt(traegerArt);
             t.setStandort(traegerLocation);
-            log.info("vorher" + selectedProbe);
-            List<Probe> newProben = new ArrayList<>();
+            t.setProben(selectedProbe);
             for (Probe p : selectedProbe) {
                 try {
                     if(p.getStandort().getOrt().equals(t.getStandort().getOrt())){
-                        newProben.add(p);
                         Traeger ta = p.getCurrentTraeger();
                         List<Probe> current = ta.getProben();
                         current.remove(p);
@@ -178,6 +172,7 @@ public class LogistikerBean implements Serializable {
                         traegerService.update(ta);
                         p.setCurrentTraeger(t);
                         probenService.update(p);
+
                     }
                     else{
                         facesError("Sample and carrier aren't at the same location!");
@@ -188,11 +183,10 @@ public class LogistikerBean implements Serializable {
                     log.info("Träger hat noch keine Proben (NullPointer)");
                 }
             }
-            t.setProben(newProben);
             traegerService.update(t);
             facesNotification("Edited trager with ID: " + id);
             log.info("Edited trager with ID: " + id);
-
+            traegers = getTraegerList();
         }
         catch (Exception e){
             e.printStackTrace();
@@ -234,9 +228,8 @@ public class LogistikerBean implements Serializable {
         return probenService.getAllArchived();
     }
 
-
     /** Add a new sample to the system */
-    public void addProbeLager() {
+    public void addProbe() {
         Standort standort;
         try{
             standort = standortService.findByLocation("Lager");
@@ -251,22 +244,13 @@ public class LogistikerBean implements Serializable {
         try {
             p = probenService.erstelleProbe(standort, probenID, anzahl);
         } catch (ProbeNotFoundException e) {
-            log.info("vorherige Anzahl kann nicht gefunden werden, weil die Probe nicht existierte");
-        }
-        Probe p = new Probe(probenID, vorherigeAnzahl + anzahl, ProbenZustand.ARCHIVIERT,standort);
-        p.setLost(verloreneAnzahl);
-        try {
-            probenService.update(p);
-            facesNotification("ERFOLG! die Probe wurde hinzugefügt " + p.getProbenID());
-        } catch (ProbeNotFoundException e){
             log.info("Probe wurde nicht gefunden,es wird versucht sie zu persistieren!");
-            try {
-                probenService.persist(p);
-                facesNotification("ERFOLG! die Probe wurde hinzugefügt " + p.getProbenID());
-
-            } catch (DuplicateProbeException ex) {
-                facesError("Die Probe existiert bereits!: " + e.getMessage());
-            }
+            facesError("Die Probe existiert bereits!: " + e.getMessage());
+            log.error(e.getLocalizedMessage());
+        } catch (DuplicateProbeException e) {
+            facesNotification("ERFOLG! die Probe wurde hinzugefügt UPDATE" + p.getProbenID());
+            log.info("Probe wurde nicht gefunden,es wird versucht sie zu persistieren!");
+            facesNotification("ERFOLG! die Probe wurde hinzugefügt PERSIST" + p.getProbenID());
         }
     }
 

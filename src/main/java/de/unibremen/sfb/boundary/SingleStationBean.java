@@ -1,5 +1,6 @@
 package de.unibremen.sfb.boundary;
 
+import de.unibremen.sfb.exception.AuftragNotFoundException;
 import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.AuftragService;
@@ -65,7 +66,8 @@ public class SingleStationBean implements Serializable {
             return  new ArrayList<>();
         }
         List<Probe> proben = new ArrayList<>();
-         Auftrag auftrag = auftragService.getAuftrag(station.getCurrentPS());
+        Auftrag auftrag = null;
+        auftrag = auftragService.getAuftrag(station.getCurrentPS());
         if (auftrag == null) {
             return new ArrayList<>();
         }
