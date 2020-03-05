@@ -14,13 +14,9 @@ import static org.mockito.Mockito.*;
 
 class ProzessSchrittVorlageTest {
     @Mock
-    List<TraegerArt> eingabeTraeger;
+    List<ProzessSchrittParameter> prozessSchrittParameters;
     @Mock
-    List<TraegerArt> ausgabeTraeger;
-    @Mock
-    List<ExperimentierStation> stationen;
-    @Mock
-    List<ProzessSchrittParameter> bedingungen;
+    ExperimentierStation experimentierStation;
     @Mock
     ProzessSchrittZustandsAutomatVorlage zustandsAutomatVorlage;
     @InjectMocks
@@ -34,12 +30,7 @@ class ProzessSchrittVorlageTest {
     @Test
     void testToString() {
         String result = prozessSchrittVorlage.toString();
-        Assertions.assertEquals("replaceMeWithExpectedResult", result);
-    }
-
-    @Test
-    void testSetValidData() {
-        prozessSchrittVorlage.setValidData(true);
+        Assertions.assertEquals("null", result);
     }
 
     @Test
@@ -48,39 +39,29 @@ class ProzessSchrittVorlageTest {
     }
 
     @Test
+    void testSetValidData() {
+        prozessSchrittVorlage.setValidData(true);
+    }
+
+    @Test
+    void testSetProzessSchrittParameters() {
+        prozessSchrittVorlage.setProzessSchrittParameters(Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))));
+    }
+
+    @Test
+    void testSetExperimentierStation() {
+        prozessSchrittVorlage.setExperimentierStation(new ExperimentierStation());
+    }
+
+    @Test
     void testSetDauer() {
         prozessSchrittVorlage.setDauer("dauer");
     }
-
-//    @Test
-//    void testSetEingabeTraeger() {
-//        prozessSchrittVorlage.setEingabeTraeger(Arrays.<TraegerArt>asList(new TraegerArt("art")));
-//    }
-
-//    @Test
-//    void testSetAusgabeTraeger() {
-//        prozessSchrittVorlage.setAusgabeTraeger(Arrays.<TraegerArt>asList(new TraegerArt("art")));
-//    }
 
     @Test
     void testSetName() {
         prozessSchrittVorlage.setName("name");
     }
-//
-//    @Test
-//    void testSetPsArt() {
-//        prozessSchrittVorlage.setPsArt("psArt");
-//    }
-
-//    @Test
-//    void testSetStationen() {
-//        prozessSchrittVorlage.setStationen(Arrays.<ExperimentierStation>asList(new ExperimentierStation()));
-//    }
-
-//    @Test
-//    void testSetBedingungen() {
-//        prozessSchrittVorlage.setBedingungen(Arrays.<Bedingung>asList(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), 0)));
-//    }
 
     @Test
     void testSetZustandsAutomatVorlage() {
@@ -88,20 +69,13 @@ class ProzessSchrittVorlageTest {
     }
 
     @Test
-    void testEquals() {
-        boolean result = prozessSchrittVorlage.equals("o");
-        Assertions.assertEquals(true, result);
+    void testSetUrformend() {
+        prozessSchrittVorlage.setUrformend(true);
     }
-
-//    @Test
-//    void testCanEqual() {
-//        boolean result = prozessSchrittVorlage.canEqual("other");
-//        Assertions.assertEquals(true, result);
-//    }
 
     @Test
-    void testHashCode() {
-        int result = prozessSchrittVorlage.hashCode();
-        Assertions.assertEquals(0, result);
+    void testSetAmountCreated() {
+        prozessSchrittVorlage.setAmountCreated(0);
     }
 }
+

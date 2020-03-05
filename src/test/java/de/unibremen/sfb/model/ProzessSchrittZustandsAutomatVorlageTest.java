@@ -26,7 +26,7 @@ class ProzessSchrittZustandsAutomatVorlageTest {
     @Test
     void testToString() {
         String result = prozessSchrittZustandsAutomatVorlage.toString();
-        Assertions.assertEquals("replaceMeWithExpectedResult", result);
+        Assertions.assertEquals("ProzessSchrittZustandsAutomatVorlage{name='null'}", result);
     }
 
     @Test
@@ -49,3 +49,4 @@ class ProzessSchrittZustandsAutomatVorlageTest {
         prozessSchrittZustandsAutomatVorlage.setName("name");
     }
 }
+

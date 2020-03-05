@@ -24,6 +24,12 @@ class ProzessKettenVorlageTest {
     }
 
     @Test
+    void testToString() {
+        String result = prozessKettenVorlage.toString();
+        Assertions.assertEquals("null", result);
+    }
+
+    @Test
     void testSetValidData() {
         prozessKettenVorlage.setValidData(true);
     }
@@ -33,28 +39,14 @@ class ProzessKettenVorlageTest {
         prozessKettenVorlage.setPkvID(0);
     }
 
-//    @Test
-//    void testSetProzessSchrittVorlagen() {
-//        prozessKettenVorlage.setProzessSchrittVorlagen(Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(new ExperimentierStation()), Arrays.<Bedingung>asList(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), 0)), new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name"))));
-//    }
-
     @Test
-    void testEquals() {
-
-        boolean result = prozessKettenVorlage.equals(prozessKettenVorlage);
-        Assertions.assertEquals(true, result);
+    void testSetName() {
+        prozessKettenVorlage.setName("name");
     }
 
-//    @Test
-//    void testCanEqual() {
-//        boolean result = prozessKettenVorlage.canEqual(new ProzessKettenVorlage());
-//        Assertions.assertEquals(true, result);
-//    }
-
-
     @Test
-    void testToString() {
-        String result = prozessKettenVorlage.toString();
-        Assertions.assertEquals("ProzessKettenVorlage(isValidData=true, pkvID=0, prozessSchrittVorlagen=prozessSchrittVorlagen)", result);
+    void testSetProzessSchrittVorlagen() {
+        prozessKettenVorlage.setProzessSchrittVorlagen(Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), new ExperimentierStation(), "dauer", "name", new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name"), true, 0)));
     }
 }
+

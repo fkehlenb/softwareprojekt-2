@@ -47,6 +47,7 @@ class RoleTest {
     @Test
     void testToString() {
         String result = role.toString();
-        Assertions.assertEquals("replaceMeWithExpectedResult", result);
+        Assertions.assertEquals("Role(id=0, isValidData=true, name=name, username=null)", result);
     }
 }
+

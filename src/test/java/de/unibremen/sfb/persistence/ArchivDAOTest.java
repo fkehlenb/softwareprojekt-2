@@ -27,48 +27,30 @@ class ArchivDAOTest {
     }
 
     @Test
-    void testPersist() {
-        try {
-            archivDAO.persist(new Archiv(new Auftrag()));
-        } catch (DuplicateArchivException e) {
-            e.printStackTrace();
-        }
+    void testPersist() throws DuplicateArchivException {
+        archivDAO.persist(new Archiv(new Auftrag()));
     }
 
     @Test
-    void testUpdate() {
-        try {
-            archivDAO.update(new Archiv(new Auftrag()));
-        } catch (ArchivNotFoundException e) {
-            e.printStackTrace();
-        }
+    void testUpdate() throws ArchivNotFoundException {
+        archivDAO.update(new Archiv(new Auftrag()));
     }
 
     @Test
-    void testRemove() {
-        try {
-            archivDAO.remove(new Archiv(new Auftrag()));
-        } catch (ArchivNotFoundException e) {
-            e.printStackTrace();
-        }
+    void testRemove() throws ArchivNotFoundException {
+        archivDAO.remove(new Archiv(new Auftrag()));
     }
 
     @Test
     void testGet() {
         Class<Archiv> result = archivDAO.get();
-        Assertions.assertEquals(archivDAO.getClass(), result);
+        Assertions.assertEquals(  de.unibremen.sfb.model.Archiv.class, result);
     }
 
     @Test
-    void testGetObjById() {
-        Archiv result = null;
-        try {
-            result = archivDAO.getObjById(0);
-        } catch (ArchivNotFoundException e) {
-            e.printStackTrace();
-        }
+    void testGetObjById() throws ArchivNotFoundException {
+        Archiv result = archivDAO.getObjById(0);
         Assertions.assertEquals(new Archiv(new Auftrag()), result);
     }
 }
 
-//Generated with love by TestMe :) Please report issues and submit feature requests at: http://weirddev.com/forum#!/testme

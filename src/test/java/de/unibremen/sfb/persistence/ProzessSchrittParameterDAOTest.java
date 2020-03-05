@@ -29,30 +29,18 @@ class ProzessSchrittParameterDAOTest {
     }
 
     @Test
-    void testPersist() {
-        try {
-            prozessSchrittParameterDAO.persist(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name"))));
-        } catch (DuplicateProzessSchrittParameterException e) {
-            e.printStackTrace();
-        }
+    void testPersist() throws DuplicateProzessSchrittParameterException {
+        prozessSchrittParameterDAO.persist(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name"))));
     }
 
     @Test
-    void testUpdate() {
-        try {
-            prozessSchrittParameterDAO.update(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name"))));
-        } catch (ProzessSchrittParameterNotFoundException e) {
-            e.printStackTrace();
-        }
+    void testUpdate() throws ProzessSchrittParameterNotFoundException {
+        prozessSchrittParameterDAO.update(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name"))));
     }
 
     @Test
-    void testRemove() {
-        try {
-            prozessSchrittParameterDAO.remove(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name"))));
-        } catch (ProzessSchrittParameterNotFoundException e) {
-            e.printStackTrace();
-        }
+    void testRemove() throws ProzessSchrittParameterNotFoundException {
+        prozessSchrittParameterDAO.remove(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name"))));
     }
 
     @Test
@@ -68,13 +56,9 @@ class ProzessSchrittParameterDAOTest {
     }
 
     @Test
-    void testGetPSPByID() {
-        ProzessSchrittParameter result = null;
-        try {
-            result = prozessSchrittParameterDAO.getPSPByID(0);
-        } catch (ProzessSchrittParameterNotFoundException e) {
-            e.printStackTrace();
-        }
+    void testGetPSPByID() throws ProzessSchrittParameterNotFoundException {
+        ProzessSchrittParameter result = prozessSchrittParameterDAO.getPSPByID(0);
         Assertions.assertEquals(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name"))), result);
     }
 }
+

@@ -9,7 +9,7 @@ class TraegerArtTest {
     @Test
     void testToString() {
         String result = traegerArt.toString();
-        Assertions.assertEquals("replaceMeWithExpectedResult", result);
+        Assertions.assertEquals("art='art", result);
     }
 
     @Test
@@ -22,3 +22,4 @@ class TraegerArtTest {
         traegerArt.setArt("art");
     }
 }
+

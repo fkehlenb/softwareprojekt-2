@@ -16,15 +16,13 @@ import static org.mockito.Mockito.*;
 
 class ProzessSchrittTest {
     @Mock
+    ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat;
+    @Mock
+    List<ProzessSchrittParameter> prozessSchrittParameters;
+    @Mock
     TransportAuftrag transportAuftrag;
     @Mock
     List<ProzessSchrittLog> prozessSchrittLog;
-    @Mock
-    ProzessSchrittVorlage prozessSchrittVorlage;
-    @Mock
-    List<Probe> zugewieseneProben;
-    @Mock
-    ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat;
     @InjectMocks
     ProzessSchritt prozessSchritt;
 
@@ -34,66 +32,74 @@ class ProzessSchrittTest {
     }
 
     @Test
+    void testToString() {
+        String result = prozessSchritt.toString();
+        Assertions.assertEquals("null", result);
+    }
+
+    @Test
     void testSetValidData() {
         prozessSchritt.setValidData(true);
     }
 
-//    @Test
-//    void testSetPsID() {
-//        prozessSchritt.setPsID(0);
-//    }
+    @Test
+    void testSetId() {
+        prozessSchritt.setId(0);
+    }
 
-//    @Test
-//    void testSetUploaded() {
-//        prozessSchritt.setUploaded(true);
-//    }
+    @Test
+    void testSetAssigned() {
+        prozessSchritt.setAssigned(true);
+    }
+
+    @Test
+    void testSetProzessSchrittZustandsAutomat() {
+        prozessSchritt.setProzessSchrittZustandsAutomat(new ProzessSchrittZustandsAutomat(0, "current", Arrays.<String>asList("String")));
+    }
+
+    @Test
+    void testSetDuration() {
+        prozessSchritt.setDuration("duration");
+    }
+
+    @Test
+    void testSetProzessSchrittParameters() {
+        prozessSchritt.setProzessSchrittParameters(Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))));
+    }
+
+    @Test
+    void testSetAttribute() {
+        prozessSchritt.setAttribute("attribute");
+    }
 
     @Test
     void testSetTransportAuftrag() {
         prozessSchritt.setTransportAuftrag(new TransportAuftrag());
     }
 
-//    @Test
-//    void testSetProzessSchrittLog() {
-//        prozessSchritt.setProzessSchrittLog(Arrays.<ProzessSchrittLog>asList(new ProzessSchrittLog(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 50, 22), "zustandsAutomat")));
-//    }
-
-//    @Test
-//    void testSetProzessSchrittVorlage() {
-//        prozessSchritt.setProzessSchrittVorlage(new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(new ExperimentierStation()), Arrays.<Bedingung>asList(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), 0)), new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")));
-//    }
-
-//    @Test
-//    void testSetZugewieseneProben() {
-//        prozessSchritt.setZugewieseneProben(Arrays.<Probe>asList(new Probe()));
-//    }
-
-//    @Test
-//    void testSetProzessSchrittZustandsAutomat() {
-//        prozessSchritt.setProzessSchrittZustandsAutomat(new ProzessSchrittZustandsAutomat(0, "current", new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")));
-//    }
-
     @Test
-    void testEquals() {
-        boolean result = prozessSchritt.equals("o");
-        Assertions.assertEquals(true, result);
-    }
-
-/*    @Test
-    void testCanEqual() {
-        boolean result = prozessSchritt.canEqual("other");
-        Assertions.assertEquals(true, result);
-    }*/
-
-    @Test
-    void testHashCode() {
-        int result = prozessSchritt.hashCode();
-        Assertions.assertEquals(0, result);
+    void testSetProzessSchrittLog() {
+        prozessSchritt.setProzessSchrittLog(Arrays.<ProzessSchrittLog>asList(new ProzessSchrittLog(LocalDateTime.of(2020, Month.MARCH, 5, 16, 47, 45), "zustandsAutomat")));
     }
 
     @Test
-    void testToString() {
-        String result = prozessSchritt.toString();
-        Assertions.assertEquals("replaceMeWithExpectedResult", result);
+    void testSetName() {
+        prozessSchritt.setName("name");
+    }
+
+    @Test
+    void testSetUrformend() {
+        prozessSchritt.setUrformend(true);
+    }
+
+    @Test
+    void testSetAmountCreated() {
+        prozessSchritt.setAmountCreated(0);
+    }
+
+    @Test
+    void testSetUploaded() {
+        prozessSchritt.setUploaded(true);
     }
 }
+
