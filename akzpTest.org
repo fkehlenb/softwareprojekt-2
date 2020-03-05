@@ -103,3 +103,16 @@ Beans in Test schreiben, injecten aus den Test, für Tests einzele Injektions Po
 Fuer Tests TestDatenbank festegen persitenz.xml
 
 Selenium Test.xml nuzten
+
+
+* PKAdmin TODO
+** PSV
+- Angabe von Proben ID die zu erstellen sind
+- Dauer von mehr als 23:59 ist nicht moglich, die Dauer kann aber mehr als 1 Tag sein
+- Suche von PSV fehlt
+
+** PKV
+- PKV label heisst faelschlicherweise psv
+- suche fehlt
+- reload ajax fehlt
+

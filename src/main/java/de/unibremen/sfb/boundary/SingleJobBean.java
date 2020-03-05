@@ -53,10 +53,17 @@ public class SingleJobBean implements Serializable {
     @Inject
     private AuftragService auftragService;
 
-    @PostConstruct
     public void init() {
         verEigenschaften = qualitativeEigenschaftService.getEigenschaften();
-        // FIXME Zustandswehcsel
+        if (this.ps.getProzessSchrittZustandsAutomat().getCurrent().equals("Erstellt")) {
+            this.ps.getProzessSchrittZustandsAutomat().setCurrent(this.ps.getProzessSchrittZustandsAutomat().getZustaende().get(0));
+            log.info("set current Zustand to " + this.ps.getProzessSchrittZustandsAutomat().getCurrent() + "for this.ps: " + this.ps.getId());
+        }
+        try {
+            psService.editPS(ps);
+        } catch (ProzessSchrittNotFoundException e) {
+            log.error(e.getLocalizedMessage());
+        }
     }
 
     public String singlejob(int id) {
@@ -224,6 +231,11 @@ public class SingleJobBean implements Serializable {
         }
         String letzterZustand = ps.getProzessSchrittZustandsAutomat().getZustaende().get(
                 ps.getProzessSchrittZustandsAutomat().getZustaende().size() -1);
+        try {
+            psService.editPS(ps);
+        } catch (ProzessSchrittNotFoundException e) {
+            e.printStackTrace();
+        }
         if(letzterZustand.equals(ps.getProzessSchrittZustandsAutomat().getCurrent())){
             facesNotification("prozessSchritt wurde beendet! ");
         }

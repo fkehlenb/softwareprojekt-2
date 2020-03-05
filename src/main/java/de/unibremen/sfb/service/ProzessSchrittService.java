@@ -6,6 +6,7 @@ import de.unibremen.sfb.persistence.AuftragDAO;
 import de.unibremen.sfb.persistence.ProbeDAO;
 import de.unibremen.sfb.persistence.ProzessSchrittDAO;
 import de.unibremen.sfb.persistence.ProzessSchrittZustandsAutomatDAO;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
@@ -39,8 +40,6 @@ public class ProzessSchrittService implements Serializable {
     @Inject
     UserService userService;
 
-    @Inject
-    AuftragDAO auftragDAO;
 
     /**
      * Create a new process step
@@ -120,6 +119,29 @@ public class ProzessSchrittService implements Serializable {
         }
     }
 
+    public Boolean hasFinished(@NonNull ProzessSchritt prozessSchritt) {
+        assert prozessSchritt.getProzessSchrittZustandsAutomat() != null;
+        assert prozessSchritt.getProzessSchrittZustandsAutomat().getCurrent() != null;
+        assert prozessSchritt.getProzessSchrittZustandsAutomat().getZustaende() != null;
+        ProzessSchrittZustandsAutomat automat = prozessSchritt.getProzessSchrittZustandsAutomat();
+        String current = automat.getCurrent();
+        return (automat.getZustaende().indexOf(current) == automat.getZustaende().size() - 1);
+    }
+
+    public Boolean isCurrentStep(@NonNull ProzessSchritt ps) {
+        Auftrag currentAuftrag = auftragService.getAuftrag(ps);
+        assert currentAuftrag != null;
+        int psIndex = currentAuftrag.getProzessSchritte().indexOf(ps);
+        Boolean current = true;
+        for (int i = 0; i < psIndex; i++) {
+            if (!hasFinished(currentAuftrag.getProzessSchritte().get(i))) {
+                current = false;
+            }
+        }
+        return current;
+
+    }
+
     /***
      * if a state is the last state of a process step
      * @param ps the process step
@@ -139,22 +161,30 @@ public class ProzessSchrittService implements Serializable {
      * returns the assignments currently available for this user
      *
      * @return a set containing all availabe jobs
-     *
      */
-    public List<ProzessSchritt> getSchritte() throws UserNotFoundException  {
+    public List<ProzessSchritt> getSchritte() throws UserNotFoundException {
         //alle einträge in queues von experimentierstationen denene der user zugeordnet ist
 
         List<ProzessSchritt> r = experimentierStationService.getSchritteByUser(userService.getCurrentUser());
         r.removeAll(Collections.singleton(null));
-        r.stream().filter(a -> {
-            return (!(auftragService.getAuftrag(a).getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.INSTANZIIERT)
-                    || auftragService.getAuftrag(a).getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.ABGELEHNT)));
-        });  // FIXME wo soll das hin
-
-        // TODO erstellt zu choose x<z
-        return r;
-
+        List<ProzessSchritt> result = new ArrayList<>();
+        for (ProzessSchritt ps :
+                r) {
+            Auftrag curA = auftragService.getAuftrag(ps);
+            if (curA == null) {
+                return new ArrayList<>(); // Throw something?
+            }
+            assert curA.getProzessKettenZustandsAutomat() != null;
+            Enum<ProzessKettenZustandsAutomat> pkA = curA.getProzessKettenZustandsAutomat();
+            if ((    !(pkA.equals(ProzessKettenZustandsAutomat.INSTANZIIERT)
+                    || pkA.equals(ProzessKettenZustandsAutomat.ABGELEHNT)))
+                    && isCurrentStep(ps)) {
+                result.add(ps);
+            }
         }
+        return result;
+
+    }
 //        r.sort(Comparator.comparing(o -> auftragDAO.getObjById(o.getId()).getPriority();
 
     @Inject
@@ -191,7 +221,7 @@ public class ProzessSchrittService implements Serializable {
             }
             if (ps.isUrformend() && ps.getProzessSchrittZustandsAutomat().getCurrent().equals("Erstellend")) {
                 try {
-                    erstelleProbe(findStation(ps).getStandort(), "testName" ,ps.getAmountCreated()); // TODO get name von ps
+                    erstelleProbe(findStation(ps).getStandort(), "testName", ps.getAmountCreated()); // TODO get name von ps
                 } catch (ProbeNotFoundException | DuplicateProbeException e) {
                     e.printStackTrace();
                 }
@@ -203,6 +233,7 @@ public class ProzessSchrittService implements Serializable {
             prozessSchrittDAO.update(ps);
         }
     }
+
     public Probe erstelleProbe(Standort standort, String probenID, int anzahl) throws ProbeNotFoundException, DuplicateProbeException {
         int vorherigeAnzahl = 0;
         int verloreneAnzahl = 0;
@@ -212,11 +243,11 @@ public class ProzessSchrittService implements Serializable {
         } catch (ProbeNotFoundException e) {
             log.info("vorherige Anzahl kann nicht gefunden werden, weil die Probe nicht existierte");
         }
-        Probe p = new Probe(probenID, vorherigeAnzahl + anzahl, ProbenZustand.ARCHIVIERT,standort);
+        Probe p = new Probe(probenID, vorherigeAnzahl + anzahl, ProbenZustand.ARCHIVIERT, standort);
         p.setLost(verloreneAnzahl);
         probeDAO.update(p);
         probeDAO.persist(p);
-        return  p;
+        return p;
     }
 
     public ExperimentierStation findStation(ProzessSchritt ps)
