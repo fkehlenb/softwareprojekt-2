@@ -151,6 +151,7 @@ public class ProzessSchrittService implements Serializable {
                     || auftragService.getAuftrag(a).getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.ABGELEHNT)));
         });  // FIXME wo soll das hin
 
+        // TODO erstellt zu choose x<z
         return r;
 
         }
