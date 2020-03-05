@@ -6,6 +6,7 @@ import de.unibremen.sfb.service.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.util.Assert;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -83,13 +84,16 @@ public class TechnologeView implements Serializable {
      * @return
      */
     public List<ProzessSchritt> getSchritte() {
+        List<ProzessSchritt> r = null;
         try {
-            return  prozessSchrittService.getSchritte();
+            r = prozessSchrittService.getSchritte();
         } catch (UserNotFoundException e) {
             e.printStackTrace();
             log.error("Could find any Steps");
             return  new ArrayList<>();
         }
+        assert r != null;
+        return  r;
     }
 
     /**
@@ -142,9 +146,14 @@ public class TechnologeView implements Serializable {
      */
     public List<Probe> viewToBeUploaded() {
         List<Probe> r = null;
-        probeService.viewToBeUploaded();
+        try {
+          r =  probeService.viewToBeUploaded();
+        } catch (AuftragNotFoundException e) {
+            e.printStackTrace();
+            return new ArrayList<Probe>();
+        }
         log.info("Probe die Hochgeladen werden muessen wurden geladen");
-        return new ArrayList<Probe>();
+        return r;
     }
 
     /**
@@ -186,7 +195,8 @@ public class TechnologeView implements Serializable {
         } catch (ProzessSchrittNotFoundException e) {
             e.printStackTrace();
         }
-        var r = auftragService.getAuftrag(ps);
+        Auftrag r = null;
+        r = auftragService.getAuftrag(ps);
         return r.getPriority();
     }
 

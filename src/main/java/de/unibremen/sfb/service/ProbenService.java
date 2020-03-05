@@ -300,7 +300,7 @@ public class ProbenService implements Serializable {
      *
      * @return a set containing all those samples
      */
-    public List<Probe> viewToBeUploaded() {
+    public List<Probe> viewToBeUploaded() throws AuftragNotFoundException {
         List<Probe> res = new LinkedList<>();
         try {
             for(ProzessSchritt ps : prozessSchrittService.getSchritte()) {

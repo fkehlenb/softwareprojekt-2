@@ -79,8 +79,8 @@
                                     </p:column>
                                     <p:column colspan="1">
                                         <p:commandButton value="#{msg['erstellen.jsf']}"
-                                                         action="#{dtLogistikerBean.createTraeger(dtLogistikerBean.traegerArt,dtLogistikerBean.traegerLocation)}" icon="pi pi-check"
-                                                         update="form2" ajax="true"/>
+                                                         action="#{dtLogistikerBean.createTraeger}" icon="pi pi-check"
+                                                         update="form2:table" ajax="true"/>
                                     </p:column>
                                 </p:row>
                             </p:panelGrid>

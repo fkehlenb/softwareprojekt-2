@@ -39,4 +39,5 @@ public class TransportAuftrag implements Serializable {
     @ManyToOne
     @NonNull
     private Standort ziel;
+
 }
