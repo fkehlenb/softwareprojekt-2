@@ -48,15 +48,21 @@ public class ProzessSchrittView implements Serializable {
     @Inject
     private ProzessSchrittLogService prozessSchrittLogService;
 
-    /** Process step state automaton template service */
+    /**
+     * Process step state automaton template service
+     */
     @Inject
     private ProzessSchrittZustandsAutomatVorlageService prozessSchrittZustandsAutomatVorlageService;
 
-    /** Process step state automaton service */
+    /**
+     * Process step state automaton service
+     */
     @Inject
     private ProzessSchrittZustandsAutomatService prozessSchrittZustandsAutomatService;
 
-    /** Experimenting station service */
+    /**
+     * Experimenting station service
+     */
     @Inject
     private ExperimentierStationService experimentierStationService;
 
@@ -75,54 +81,86 @@ public class ProzessSchrittView implements Serializable {
      */
     private List<ProzessSchritt> prozessSchritte;
 
-    /** Process step attributes */
+    /**
+     * Process step attributes
+     */
     private String prozessSchrittAttribute;
 
-    /** Process step name */
+    /**
+     * Process step name
+     */
     private String prozessSchrittName;
 
-    /** List of all process step state automaton templates */
+    /**
+     * List of all process step state automaton templates
+     */
     private List<ProzessSchrittZustandsAutomatVorlage> prozessSchrittZustandsAutomatVorlagen;
 
-    /** Selected process step state automaton template */
+    /**
+     * Selected process step state automaton template
+     */
     private ProzessSchrittZustandsAutomatVorlage selectedProzessSchrittZustandsAutomatVorlage;
 
-    /** List of all experimenting stations */
+    /**
+     * List of all experimenting stations
+     */
     private List<ExperimentierStation> experimentierStationen;
 
-    /** Process step parameter service */
+    /**
+     * Process step parameter service
+     */
     @Inject
     private ProzessSchrittParameterService prozessSchrittParameterService;
 
-    /** List of all available process parameters */
+    /**
+     * List of all available process parameters
+     */
     private List<ProzessSchrittParameter> availableProzessSchrittParameter;
 
-    /** List of all selected process step parameters */
+    /**
+     * List of all selected process step parameters
+     */
     private List<ProzessSchrittParameter> selectedProzessSchrittParameter;
 
-    /** Process step duration */
+    /**
+     * Process step duration
+     */
     private String psDuration;
 
-    /** Experimenting station */
+    /**
+     * Experimenting station
+     */
     private ExperimentierStation experimentierStation;
 
-    /** Urformend */
+    /**
+     * Urformend
+     */
     private boolean urformend = false;
 
-    /** If urformend, amount of created samples */
+    /**
+     * If urformend, amount of created samples
+     */
     private int amountCreated = 0;
 
-    /** Container type service */
+    /**
+     * Container type service
+     */
     @Inject
     private TraegerArtService traegerArtService;
 
-    /** Available container types */
+    /**
+     * Available container types
+     */
     private List<String> availableTraegerArten;
 
-    /** Selected input container types */
+    /**
+     * Selected input container types
+     */
     private List<String> selectedInputTraegerArten;
 
-    /** Selected output container types */
+    /**
+     * Selected output container types
+     */
     private List<String> selectedOutputTraegerArten;
 
     /**
@@ -133,8 +171,10 @@ public class ProzessSchrittView implements Serializable {
         refetchData();
     }
 
-    /** Update all lists */
-    private void refetchData(){
+    /**
+     * Update all lists
+     */
+    private void refetchData() {
         prozessSchrittVorlagen = prozessSchrittVorlageService.getProzessSchrittVorlagen();
         prozessSchritte = prozessSchrittService.getAll();
         prozessSchrittZustandsAutomatVorlagen = prozessSchrittZustandsAutomatVorlageService.getProzessSchrittZustandsAutomatVorlagen();
@@ -146,7 +186,7 @@ public class ProzessSchrittView implements Serializable {
     public ExperimentierStation getES(int id) {
         ExperimentierStation r = null;
         try {
-            var ps =  prozessSchrittService.getObjById(id);
+            var ps = prozessSchrittService.getObjById(id);
             r = experimentierStationService.getESfromPS(ps);
         } catch (ProzessSchrittNotFoundException e) {
             e.printStackTrace();
@@ -161,13 +201,13 @@ public class ProzessSchrittView implements Serializable {
             es = experimentierStationService.getById(esID);
         } catch (ExperimentierStationNotFoundException e) {
             e.printStackTrace();
-            log.error("Could not find ES: "+ esID);
+            log.error("Could not find ES: " + esID);
         }
         try {
             ps = prozessSchrittService.getObjById(psID);
         } catch (ProzessSchrittNotFoundException e) {
             e.printStackTrace();
-            log.error("Could not find ps: "+ psID);
+            log.error("Could not find ps: " + psID);
         }
         try {
             experimentierStationService.setES(ps, es);
@@ -176,6 +216,7 @@ public class ProzessSchrittView implements Serializable {
             log.error("could not set es of ps");
         }
     }
+
     /**
      * Create a new process step
      */
@@ -184,22 +225,22 @@ public class ProzessSchrittView implements Serializable {
             int id = selectedProzessSchrittVorlage.getPsVID();
             ProzessSchrittVorlage prozessSchrittVorlage = prozessSchrittVorlageService.getByID(id);
             List<String> zustaende = new ArrayList<>();
-            for (String s : prozessSchrittVorlage.getZustandsAutomatVorlage().getZustaende()){
+            for (String s : prozessSchrittVorlage.getZustandsAutomatVorlage().getZustaende()) {
                 zustaende.add(s);
             }
             ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(),
                     prozessSchrittVorlage.getZustandsAutomatVorlage().getZustaende().get(0), zustaende);
             prozessSchrittZustandsAutomat.setName(prozessSchrittVorlage.getZustandsAutomatVorlage().getName());
-            ProzessSchrittLog prozessSchrittLog = new ProzessSchrittLog(LocalDateTime.now(),"ERSTELLT");
+            ProzessSchrittLog prozessSchrittLog = new ProzessSchrittLog(LocalDateTime.now(), "ERSTELLT");
             List<ProzessSchrittLog> psLog = new ArrayList<>();
             psLog.add(prozessSchrittLog);
-            ProzessSchritt prozessSchritt = new ProzessSchritt(UUID.randomUUID().hashCode(),prozessSchrittZustandsAutomat,
+            ProzessSchritt prozessSchritt = new ProzessSchritt(UUID.randomUUID().hashCode(), prozessSchrittZustandsAutomat,
                     prozessSchrittVorlage.getDauer(), List.copyOf(prozessSchrittVorlage.getProzessSchrittParameters())
-                    ,prozessSchrittAttribute,psLog,prozessSchrittName, urformend, amountCreated);
+                    , prozessSchrittAttribute, psLog, prozessSchrittName, urformend, amountCreated);
             prozessSchritt.setEingabe(List.copyOf(prozessSchrittVorlage.getEingabeTraeger()));
             prozessSchritt.setAusgabe(List.copyOf(prozessSchrittVorlage.getAusgabeTraeger()));
             prozessSchritt.setCreatedName(prozessSchrittVorlage.getNameOfCreated());
-            setES( prozessSchrittVorlage.getExperimentierStation().getEsID(), prozessSchritt.getId());
+            setES(prozessSchrittVorlage.getExperimentierStation().getEsID(), prozessSchritt.getId());
             prozessSchrittZustandsAutomatService.add(prozessSchrittZustandsAutomat);
             prozessSchrittLogService.add(prozessSchrittLog);
             prozessSchrittService.createPS(prozessSchritt);
@@ -213,20 +254,23 @@ public class ProzessSchrittView implements Serializable {
         }
     }
 
-    /** On row edit
-     * @param id - the id of the process step to edit */
-    public void onRowEdit(int id){
+    /**
+     * On row edit
+     *
+     * @param id - the id of the process step to edit
+     */
+    public void onRowEdit(int id) {
         try {
             ProzessSchritt prozessSchritt = prozessSchrittService.getObjById(id);
-            if (prozessSchritt.getProzessSchrittZustandsAutomat().getCurrent().equals("Erstellt")){
+            if (prozessSchritt.getProzessSchrittZustandsAutomat().getCurrent().equals("Erstellt")) {
                 prozessSchritt.setName(prozessSchrittName);
                 prozessSchritt.setDuration(psDuration);
                 List<String> zustaende = new ArrayList<>();
-                for (String s : selectedProzessSchrittZustandsAutomatVorlage.getZustaende()){
+                for (String s : selectedProzessSchrittZustandsAutomatVorlage.getZustaende()) {
                     zustaende.add(s);
                 }
                 ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(),
-                        selectedProzessSchrittZustandsAutomatVorlage.getZustaende().get(0),zustaende);
+                        selectedProzessSchrittZustandsAutomatVorlage.getZustaende().get(0), zustaende);
                 prozessSchrittZustandsAutomat.setName(selectedProzessSchrittZustandsAutomatVorlage.getName());
                 prozessSchritt.setProzessSchrittZustandsAutomat(prozessSchrittZustandsAutomat);
                 setES(experimentierStation.getEsID(), id);
@@ -241,33 +285,35 @@ public class ProzessSchrittView implements Serializable {
                 log.info("Updated process step with id " + id);
                 facesNotification("Successfully updated process step!");
                 refetchData();
-            }
-            else {
+            } else {
                 facesError("Cannot edit an already started process step!");
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             log.error("Failed to edit process step with id " + id + " Error " + e.getMessage());
             facesError("Failed to edit process step!");
         }
     }
 
-    /** Row edit canceled */
-    public void onRowEditCancelled(){
+    /**
+     * Row edit canceled
+     */
+    public void onRowEditCancelled() {
         facesNotification("Cancelled edit!");
     }
 
-    /** Remove a process step
-     * @param id - the id of the process step to remove */
-    public void removePS(int id){
+    /**
+     * Remove a process step
+     *
+     * @param id - the id of the process step to remove
+     */
+    public void removePS(int id) {
         try {
             prozessSchrittService.removePS(prozessSchrittService.getObjById(id));
             log.info("Deleted process step with id " + id);
             facesNotification("Successfully deleted process step!");
             refetchData();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             log.error("Failed to remove process step with id " + id + " Error " + e.getMessage());
             facesError("Failed to remove process step!");
