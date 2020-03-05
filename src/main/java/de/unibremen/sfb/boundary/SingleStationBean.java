@@ -1,10 +1,7 @@
 package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
-import de.unibremen.sfb.model.ExperimentierStation;
-import de.unibremen.sfb.model.ExperimentierStationZustand;
-import de.unibremen.sfb.model.Probe;
-import de.unibremen.sfb.model.Traeger;
+import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.AuftragService;
 import de.unibremen.sfb.service.ExperimentierStationService;
 import de.unibremen.sfb.service.ProbenService;
@@ -64,8 +61,15 @@ public class SingleStationBean implements Serializable {
      * @return alle Proben der Station
      */
     public List<Probe> getProben() {
+        if (station.getCurrentPS() == null) {
+            return  new ArrayList<>();
+        }
         List<Probe> proben = new ArrayList<>();
-       List<Traeger> Traeger = auftragService.getAuftrag(station.getCurrentPS()).getTraeger().stream().collect(Collectors.toList());
+         Auftrag auftrag = auftragService.getAuftrag(station.getCurrentPS());
+        if (auftrag == null) {
+            return new ArrayList<>();
+        }
+       List<Traeger> Traeger = new ArrayList<>(auftrag.getTraeger());
         for (Traeger t :
                 Traeger) {
             proben.addAll(t.getProben());

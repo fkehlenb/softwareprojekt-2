@@ -220,8 +220,6 @@ public class InitialDataFiller {
             log.info("Try to persist TEST ProzessKette " + pk.getPkID());
             em.persist(pk);
         }
-
-
     }
 
     private List<ProzessSchritt> erstelePS(List<ProzessSchrittVorlage> psvListe) {
@@ -268,8 +266,6 @@ public class InitialDataFiller {
 //            }
 
             log.info("Try to persist TEST ProzessSchritt " + ps.getId());
-
-
             if (i != 0) {
                 Standort ziel = esList[i].getStandort();
                 var transportAuftrag = new TransportAuftrag(LocalDateTime.now(), TransportAuftragZustand.ERSTELLT,

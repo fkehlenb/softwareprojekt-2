@@ -221,8 +221,8 @@ public class ExperimentierStationService implements Serializable {
     /**
      * Hole die Experimentier Station an die ein Ein PS zugewiesen wurde
      *
-     * @param ps
-     * @return
+     * @param ps der ProzessSchritt
+     * @return die ExperimentierStation and  der PS durchgeührt wird
      */
     public ExperimentierStation getESfromPS(ProzessSchritt ps) {
         var allES = getAll();
@@ -349,6 +349,7 @@ public class ExperimentierStationService implements Serializable {
                 }
             }
 
+            assert aC != null;
             int currentIndex =  aC.getProzessSchritte().indexOf(ps);
             var nextPS = aC.getProzessSchritte().get(currentIndex + 1);
             Standort nextStandort = null;
