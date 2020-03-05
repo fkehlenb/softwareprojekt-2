@@ -225,7 +225,13 @@ public class AuftragService implements Serializable {
      */
     public void sedTransportZustand(TransportAuftrag t, TransportAuftragZustand taz) throws TransportAuftragNotFoundException {
         t.setZustandsAutomat(taz);
-        t.setAbgeholt(LocalDateTime.now());
+        if(taz == TransportAuftragZustand.ABGEHOLT){
+            t.setAbgeholt(LocalDateTime.now());
+        }
+        if(taz ==  TransportAuftragZustand.ABGELIEFERT){
+            t.setAbgeliefert(LocalDateTime.now());
+        }
+
         try {
             t.setUser(userService.getCurrentUser());
         } catch (UserNotFoundException e) {
