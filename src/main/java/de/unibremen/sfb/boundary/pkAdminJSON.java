@@ -129,16 +129,17 @@ public class pkAdminJSON {
     /** TransportAuftrag Export */
     public void exportTA(){
         try {
-            Map<Integer, TransportAuftrag> taLogs = new TreeMap<>();
+            Map<String, TransportAuftrag> taLogs = new TreeMap<>();
             for (Auftrag a:
                auftragService.getAuftrage()) {
                 for (ProzessSchritt ps :
                         a.getProzessSchritte()) {
-                    taLogs.put(ps.getId(), ps.getTransportAuftrag());
+                    taLogs.put("PS: " + ps.getId() + " = TransportLog", ps.getTransportAuftrag());
                 }
             }
             String result = jsonb.toJson(taLogs);
-            String fileName = "JSON_" + LocalDateTime.now().toString().replaceAll(":","_") + ".json";
+            log.info(result);
+            String fileName = "JSON_Transportauftrag" + LocalDateTime.now().toString().replaceAll(":","_") + ".json";
             PrintWriter writer = new PrintWriter(fileName);
             writer.write(result);
             log.info("Successfully exported json to " + fileName);
