@@ -15,8 +15,6 @@ import java.util.List;
 import static org.mockito.Mockito.*;
 
 class AuftragTest {
-    @Mock
-    ProzessKettenVorlage vorlage;
     //Field priority of type AuftragsPrioritaet - was not mocked since Mockito doesn't mock enums
     @Mock
     List<ProzessSchritt> prozessSchritte;
@@ -24,6 +22,8 @@ class AuftragTest {
     AuftragsLog log;
     @Mock
     Enum<ProzessKettenZustandsAutomat> prozessKettenZustandsAutomat;
+    @Mock
+    List<Traeger> traeger;
     @InjectMocks
     Auftrag auftrag;
 
@@ -35,13 +35,19 @@ class AuftragTest {
     @Test
     void testToString() {
         String result = auftrag.toString();
-        Assertions.assertEquals("replaceMeWithExpectedResult", result);
+        Assertions.assertEquals("0", result);
     }
 
     @Test
     void testEquals() {
         boolean result = auftrag.equals("obj");
         Assertions.assertEquals(true, result);
+    }
+
+    @Test
+    void testHashCode() {
+        int result = auftrag.hashCode();
+        Assertions.assertEquals(0, result);
     }
 
     @Test
@@ -54,28 +60,39 @@ class AuftragTest {
         auftrag.setPkID(0);
     }
 
-//    @Test
-//    void testSetVorlage() {
-//        auftrag.setVorlage(new ProzessKettenVorlage(0, Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(new ExperimentierStation()), Arrays.<Bedingung>asList(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), 0)), new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")))));
-//    }
+    @Test
+    void testSetName() {
+        auftrag.setName("name");
+    }
 
     @Test
     void testSetPriority() {
         auftrag.setPriority(AuftragsPrioritaet.KEINE);
     }
 
-//    @Test
-//    void testSetProzessSchritte() {
-//        auftrag.setProzessSchritte(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, Arrays.<ProzessSchrittLog>asList(new ProzessSchrittLog(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 48, 47), "zustandsAutomat")), new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(new ExperimentierStation()), Arrays.<Bedingung>asList(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), 0)), new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")), new ProzessSchrittZustandsAutomat(0, "current", new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")))));
-//    }
+    @Test
+    void testSetProzessSchritte() {
+        auftrag.setProzessSchritte(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0)));
+    }
 
     @Test
     void testSetLog() {
-        auftrag.setLog(new AuftragsLog(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 48, 47)));
+        auftrag.setLog(new AuftragsLog(LocalDateTime.of(2020, Month.MARCH, 5, 16, 45, 55)));
     }
 
     @Test
     void testSetProzessKettenZustandsAutomat() {
         auftrag.setProzessKettenZustandsAutomat(null);
     }
+
+    @Test
+    void testSetTraeger() {
+        auftrag.setTraeger(Arrays.<Traeger>asList(new Traeger(0, null, Arrays.<Probe>asList(null), null)));
+    }
+
+    @Test
+    void testSetErrorMessage() {
+        auftrag.setErrorMessage("ErrorMessage");
+    }
 }
+

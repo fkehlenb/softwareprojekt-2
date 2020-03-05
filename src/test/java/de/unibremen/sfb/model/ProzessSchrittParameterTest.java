@@ -26,7 +26,7 @@ class ProzessSchrittParameterTest {
     @Test
     void testToString() {
         String result = prozessSchrittParameter.toString();
-        Assertions.assertEquals("replaceMeWithExpectedResult", result);
+        Assertions.assertEquals("0", result);
     }
 
     @Test
@@ -49,3 +49,4 @@ class ProzessSchrittParameterTest {
         prozessSchrittParameter.setQualitativeEigenschaften(Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")));
     }
 }
+

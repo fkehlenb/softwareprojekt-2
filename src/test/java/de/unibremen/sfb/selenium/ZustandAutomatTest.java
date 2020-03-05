@@ -3,9 +3,10 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.Test;;
 import org.junit.jupiter.api.BeforeEach;;
 import org.junit.jupiter.api.AfterEach;;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
@@ -18,8 +19,10 @@ public class ZustandAutomatTest {
   JavascriptExecutor js;
   @BeforeEach
   public void setUp() {
-    WebDriverManager.firefoxdriver().setup();
-    driver = new FirefoxDriver();
+      System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+    ChromeOptions chromeOptions = new ChromeOptions();
+    chromeOptions.addArguments("--headless");
+    driver = new ChromeDriver(chromeOptions);
     vars = new HashMap<String, Object>();
   }
   @AfterEach
@@ -30,7 +33,7 @@ public class ZustandAutomatTest {
   public void zustandAutomat() throws InterruptedException {
     driver.get("http://localhost:8080/");
     driver.manage().window().setSize(new Dimension(1440, 900));
-    driver.findElement(By.linkText("Zur Anmeldung")).click();
+   driver.findElement(By.xpath("//p/a")).click();
     driver.findElement(By.id("username")).click();
     Thread.sleep(700);
     driver.findElement(By.id("username")).sendKeys("admin");

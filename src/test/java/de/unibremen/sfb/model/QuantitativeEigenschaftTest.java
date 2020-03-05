@@ -50,15 +50,11 @@ class QuantitativeEigenschaftTest {
         Assertions.assertEquals(true, result);
     }
 
-    @Test
-    void testHashCode() {
-        int result = quantitativeEigenschaft.hashCode();
-        Assertions.assertEquals(0, result);
-    }
 
     @Test
     void testToString() {
         String result = quantitativeEigenschaft.toString();
-        Assertions.assertEquals("replaceMeWithExpectedResult", result);
+        Assertions.assertEquals("QualitativeEigenschaft(isValidData=true, id=0, name=null)", result);
     }
 }
+

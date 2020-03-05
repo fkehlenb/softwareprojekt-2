@@ -7,7 +7,7 @@ import java.time.Month;
 
 class KommentarTest {
     //Field dateTime of type LocalDateTime - was not mocked since Mockito doesn't mock a Final class when 'mock-maker-inline' option is not set
-    Kommentar kommentar = new Kommentar(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 50, 6), "text");
+    Kommentar kommentar = new Kommentar(LocalDateTime.of(2020, Month.MARCH, 5, 16, 47, 1), "text");
 
     @Test
     void testSetValidData() {
@@ -21,7 +21,7 @@ class KommentarTest {
 
     @Test
     void testSetDateTime() {
-        kommentar.setDateTime(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 50, 6));
+        kommentar.setDateTime(LocalDateTime.of(2020, Month.MARCH, 5, 16, 47, 1));
     }
 
     @Test
@@ -29,3 +29,4 @@ class KommentarTest {
         kommentar.setText("text");
     }
 }
+

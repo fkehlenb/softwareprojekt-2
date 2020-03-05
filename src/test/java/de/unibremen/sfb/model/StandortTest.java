@@ -9,7 +9,7 @@ class StandortTest {
     @Test
     void testToString() {
         String result = standort.toString();
-        Assertions.assertEquals("replaceMeWithExpectedResult", result);
+        Assertions.assertEquals("0", result);
     }
 
     @Test
@@ -27,3 +27,4 @@ class StandortTest {
         standort.setOrt("ort");
     }
 }
+

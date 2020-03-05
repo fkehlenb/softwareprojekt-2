@@ -40,6 +40,7 @@ class ArchivTest {
 
     @Test
     void testSetDatum() {
-        archiv.setDatum(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 48, 34));
+        archiv.setDatum(LocalDateTime.of(2020, Month.MARCH, 5, 16, 44, 52));
     }
 }
+

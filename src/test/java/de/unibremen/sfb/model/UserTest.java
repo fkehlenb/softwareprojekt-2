@@ -8,12 +8,12 @@ import java.time.Month;
 
 class UserTest {
     //Field erstellungsDatum of type LocalDateTime - was not mocked since Mockito doesn't mock a Final class when 'mock-maker-inline' option is not set
-    User user = new User(0, "vorname", "nachname", "email", "telefonnummer", "username", "password", true, LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 51, 18), "language");
+    User user = new User(0, "vorname", "nachname", "email", "telefonnummer", "username", "password", true, LocalDateTime.of(2020, Month.MARCH, 5, 16, 49, 58), "language");
 
     @Test
     void testToString() {
         String result = user.toString();
-        Assertions.assertEquals("replaceMeWithExpectedResult", result);
+        Assertions.assertEquals("username", result);
     }
 
     @Test
@@ -63,7 +63,7 @@ class UserTest {
 
     @Test
     void testSetErstellungsDatum() {
-        user.setErstellungsDatum(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 51, 18));
+        user.setErstellungsDatum(LocalDateTime.of(2020, Month.MARCH, 5, 16, 49, 58));
     }
 
     @Test
@@ -89,3 +89,4 @@ class UserTest {
         Assertions.assertEquals(0, result);
     }
 }
+

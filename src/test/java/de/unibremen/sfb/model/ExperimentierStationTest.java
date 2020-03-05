@@ -22,7 +22,7 @@ class ExperimentierStationTest {
     @Mock
     List<ProzessSchritt> nextPS;
     @Mock
-    List<ProzessSchrittParameter> bedingungen;
+    List<ProzessSchrittParameter> requirements;
     @Mock
     List<User> benutzer;
     @Mock
@@ -40,7 +40,7 @@ class ExperimentierStationTest {
         when(standort.getOrt()).thenReturn("getOrtResponse");
 
         String result = experimentierStation.toString();
-        Assertions.assertEquals("replaceMeWithExpectedResult", result);
+        Assertions.assertEquals("getOrtResponse", result);
     }
 
     @Test
@@ -68,43 +68,24 @@ class ExperimentierStationTest {
         experimentierStation.setStatus(null);
     }
 
-//    @Test
-//    void testSetNextPS() {
-//        experimentierStation.setNextPS(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, Arrays.<ProzessSchrittLog>asList(new ProzessSchrittLog(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 49, 25), "zustandsAutomat")), new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(new ExperimentierStation()), Arrays.<Bedingung>asList(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), 0)), new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")), new ProzessSchrittZustandsAutomat(0, "current", new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")))));
-//    }
+    @Test
+    void testSetNextPS() {
+        experimentierStation.setNextPS(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, new ProzessSchrittZustandsAutomat(0, "current", Arrays.<String>asList("String")), "duration", Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), "attribute", Arrays.<ProzessSchrittLog>asList(new ProzessSchrittLog(LocalDateTime.of(2020, Month.MARCH, 5, 16, 46, 40), "zustandsAutomat")), "name", true, 0)));
+    }
 
-//    @Test
-//    void testSetBedingungen() {
-//        experimentierStation.setRequirements(Arrays.<ProzessSchrittParameter>asList(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), 0)));
-//    }
+    @Test
+    void testSetRequirements() {
+        experimentierStation.setRequirements(Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))));
+    }
 
     @Test
     void testSetBenutzer() {
-        experimentierStation.setBenutzer(Arrays.<User>asList(new User(0, "vorname", "nachname", "email", "telefonnummer", "username", "password", true, LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 49, 25), "language")));
-    }
-
-//    @Test
-//    void testSetCurrentPS() {
-//        experimentierStation.setCurrentPS(new ProzessSchritt(0, Arrays.<ProzessSchrittLog>asList(new ProzessSchrittLog(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 49, 25), "zustandsAutomat")), new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(new ExperimentierStation()), Arrays.<Bedingung>asList(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), 0)), new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")), new ProzessSchrittZustandsAutomat(0, "current", new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name"))));
-//    }
-
-/*
-    @Test
-    void testEquals() {
-        boolean result = experimentierStation.equals("o");
-        Assertions.assertEquals(true, result);
+        experimentierStation.setBenutzer(Arrays.<User>asList(new User(0, "vorname", "nachname", "email", "telefonnummer", "username", "password", true, LocalDateTime.of(2020, Month.MARCH, 5, 16, 46, 40), "language")));
     }
 
     @Test
-    void testCanEqual() {
-        boolean result = experimentierStation.canEqual("other");
-        Assertions.assertEquals(true, result);
+    void testSetCurrentPS() {
+        experimentierStation.setCurrentPS(new ProzessSchritt(0, new ProzessSchrittZustandsAutomat(0, "current", Arrays.<String>asList("String")), "duration", Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), "attribute", Arrays.<ProzessSchrittLog>asList(new ProzessSchrittLog(LocalDateTime.of(2020, Month.MARCH, 5, 16, 46, 40), "zustandsAutomat")), "name", true, 0));
     }
-
-    @Test
-    void testHashCode() {
-        int result = experimentierStation.hashCode();
-        Assertions.assertEquals(0, result);
-    }
-*/
 }
+

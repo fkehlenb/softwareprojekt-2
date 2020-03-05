@@ -22,9 +22,9 @@ class ProbeTest {
     @Mock
     Standort standort;
     @Mock
-    List<ProzessSchrittParameter> bedingungen;
+    List<QualitativeEigenschaft> eigenschaften;
     @Mock
-    List<QualitativeEigenschaft> qualitativeEigenschaften;
+    List<String> atribute;
     @Mock
     Traeger currentTraeger;
     @InjectMocks
@@ -46,8 +46,18 @@ class ProbeTest {
     }
 
     @Test
+    void testSetAnzahl() {
+        probe.setAnzahl(0);
+    }
+
+    @Test
+    void testSetLost() {
+        probe.setLost(0);
+    }
+
+    @Test
     void testSetKommentar() {
-        probe.setKommentar(Arrays.<Kommentar>asList(new Kommentar(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 50, 10), "text")));
+        probe.setKommentar(Arrays.<Kommentar>asList(new Kommentar(LocalDateTime.of(2020, Month.MARCH, 5, 16, 47, 10), "text")));
     }
 
     @Test
@@ -60,16 +70,20 @@ class ProbeTest {
         probe.setStandort(new Standort(0, "ort"));
     }
 
-//    @Test
-//    void testSetBedingungen() {
-//        probe.setBedingungen(Arrays.<Bedingung>asList(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), 0)));
-//    }
+    @Test
+    void testSetEigenschaften() {
+        probe.setEigenschaften(Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")));
+    }
 
+    @Test
+    void testSetAtribute() {
+        probe.setAtribute(Arrays.<String>asList("String"));
+    }
 
-//    @Test
-//    void testSetCurrentTraeger() {
-//        probe.setCurrentTraeger(new Traeger(0, new TraegerArt("art"), List.of(probe)));
-//    }
+    @Test
+    void testSetCurrentTraeger() {
+        probe.setCurrentTraeger(new Traeger(0, new TraegerArt("art"), Arrays.<Probe>asList(new Probe()), new Standort(0, "ort")));
+    }
 
     @Test
     void testEquals() {
@@ -92,6 +106,7 @@ class ProbeTest {
     @Test
     void testToString() {
         String result = probe.toString();
-        Assertions.assertEquals("replaceMeWithExpectedResult", result);
+        Assertions.assertEquals("Probe(isValidData=true, probenID=null, anzahl=0, lost=0, kommentar=kommentar, zustand=zustand, standort=standort, eigenschaften=eigenschaften, atribute=atribute, currentTraeger=currentTraeger)", result);
     }
 }
+

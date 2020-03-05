@@ -10,7 +10,7 @@ class AuftragsLogTest {
     //Field start of type LocalDateTime - was not mocked since Mockito doesn't mock a Final class when 'mock-maker-inline' option is not set
     //Field beendet of type LocalDateTime - was not mocked since Mockito doesn't mock a Final class when 'mock-maker-inline' option is not set
     //Field archiviert of type LocalDateTime - was not mocked since Mockito doesn't mock a Final class when 'mock-maker-inline' option is not set
-    AuftragsLog auftragsLog = new AuftragsLog(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 49, 4));
+    AuftragsLog auftragsLog = new AuftragsLog(LocalDateTime.of(2020, Month.MARCH, 5, 16, 46, 26));
 
     @Test
     void testSetValidData() {
@@ -24,21 +24,22 @@ class AuftragsLogTest {
 
     @Test
     void testSetErstellt() {
-        auftragsLog.setErstellt(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 49, 4));
+        auftragsLog.setErstellt(LocalDateTime.of(2020, Month.MARCH, 5, 16, 46, 26));
     }
 
     @Test
     void testSetStart() {
-        auftragsLog.setStart(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 49, 4));
+        auftragsLog.setStart(LocalDateTime.of(2020, Month.MARCH, 5, 16, 46, 26));
     }
 
     @Test
     void testSetBeendet() {
-        auftragsLog.setBeendet(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 49, 4));
+        auftragsLog.setBeendet(LocalDateTime.of(2020, Month.MARCH, 5, 16, 46, 26));
     }
 
     @Test
     void testSetArchiviert() {
-        auftragsLog.setArchiviert(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 49, 4));
+        auftragsLog.setArchiviert(LocalDateTime.of(2020, Month.MARCH, 5, 16, 46, 26));
     }
 }
+
