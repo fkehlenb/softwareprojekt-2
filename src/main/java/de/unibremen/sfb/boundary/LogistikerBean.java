@@ -135,6 +135,8 @@ public class LogistikerBean implements Serializable {
 
     /**
      * creates a new carrier
+     * @param art - the type of container to create
+     * @param location - the location at which to create tje container
      */
     public void createTraeger(TraegerArt art,Standort location) {
         Traeger traeger = new Traeger(UUID.randomUUID().hashCode(),art, proben,location);
