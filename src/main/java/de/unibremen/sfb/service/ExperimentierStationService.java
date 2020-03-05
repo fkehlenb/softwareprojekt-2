@@ -1,14 +1,9 @@
 package de.unibremen.sfb.service;
 
 
-import de.unibremen.sfb.exception.DuplicateExperimentierStationException;
-import de.unibremen.sfb.exception.DuplicateTransportAuftragException;
-import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
-import de.unibremen.sfb.exception.StandortNotFoundException;
+import de.unibremen.sfb.exception.*;
 import de.unibremen.sfb.model.*;
-import de.unibremen.sfb.persistence.AuftragDAO;
-import de.unibremen.sfb.persistence.ExperimentierStationDAO;
-import de.unibremen.sfb.persistence.TransportAuftragDAO;
+import de.unibremen.sfb.persistence.*;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -245,6 +240,7 @@ public class ExperimentierStationService implements Serializable {
         for (ExperimentierStation e :
                 gu) {
             ps.add(e.getCurrentPS());
+            // TODO Liam add Queue Ass well
         }
         return ps;
     }
@@ -317,6 +313,7 @@ public class ExperimentierStationService implements Serializable {
 
     @Inject
     AuftragDAO auftragDAO;
+
     /**
      * updates the currentPS to the next one in the stations waiting queue
      *
@@ -324,52 +321,62 @@ public class ExperimentierStationService implements Serializable {
      * @param es the station
      * @throws IllegalArgumentException              prozessSchrittList or es null, or prozessSchrittList not the current one at es
      * @throws ExperimentierStationNotFoundException the es was not found in the database
-     * @throws DuplicateTransportAuftragException     if TA already exists
-     * @throws StandortNotFoundException               if archiv not found
+     * @throws DuplicateTransportAuftragException    if TA already exists
+     * @throws StandortNotFoundException             if archiv not found
      */
     public void updateCurrent(ProzessSchritt ps, ExperimentierStation es)
             throws IllegalArgumentException, ExperimentierStationNotFoundException, DuplicateTransportAuftragException, StandortNotFoundException {
         deleteCurrent(ps, es);
-        if (es.getNextPS() != null && es.getNextPS().get(0) != null) {
+        // If there is a waiting step add it now
+        if (es.getNextPS() != null && !es.getNextPS().isEmpty()) {
             es.setCurrentPS(es.getNextPS().get(0));
             es.getNextPS().remove(0);
-            log.info("ES: "+ es.getEsID() + "current: " + es.getCurrentPS().getId());
+            log.info("ES: " + es.getEsID() + "current: " + es.getCurrentPS().getId());
             esDao.update(es);
+        }
 
-            var as = auftragDAO.getAll();
-            Auftrag aC = null;
-            for (Auftrag a :
-                    as) {
-                var r = a.getProzessSchritte().stream().filter(p -> p.getId() == ps.getId()).findFirst().orElse(null);
-                if (r != null) {
-                    aC = a;
-                }
+        // Find out to which pk ps belongs
+        var as = auftragDAO.getAll();
+        Auftrag aC = null;
+        for (Auftrag a :
+                as) {
+            // Does it contain the ps.id
+            var r = a.getProzessSchritte().stream().filter(p -> p.getId() == ps.getId()).findFirst().orElse(null);
+            if (r != null) {
+                aC = a;
             }
-
-            assert aC != null;
-            int currentIndex =  aC.getProzessSchritte().indexOf(ps);
+        }
+        // PK needs to have the ps
+        assert aC != null;
+        // Find out at wich step we are
+        TransportAuftrag ta;
+        int currentIndex = aC.getProzessSchritte().indexOf(ps);
+        if (currentIndex < aC.getProzessSchritte().size() - 1) {
+            // This is the next Step
             var nextPS = aC.getProzessSchritte().get(currentIndex + 1);
             Standort nextStandort = null;
-            for (ExperimentierStation e : getAll()) { //TODO jeder schritt nur an einer station?
+
+            // Find out where the next step will happen
+            for (ExperimentierStation e : getAll()) {
                 List<Integer> psids = new ArrayList<>();
+                // Add all ids of possible steps to the list
                 for (ProzessSchritt p : e.getNextPS()) {
                     psids.add(p.getId());
                 }
-                if (psids.contains(ps.getId()) || (e.getCurrentPS() != null && e.getCurrentPS().getId() == ps.getId())) {
+                // IF the List contains the id we are searching for
+                // OR
+                //   if the current PS exists and is the step we are looking for
+                if (psids.contains(ps.getId()) || (e.getCurrentPS() != null && e.getCurrentPS().getId() == nextPS.getId())) {
                     nextStandort = e.getStandort();
                     break;
                 }
             }
-
-            TransportAuftrag ta;
-            if (nextStandort == null) {
-                ta = new TransportAuftrag(LocalDateTime.now(), TransportAuftragZustand.ERSTELLT, es.getStandort(), standortService.findByLocation("Lager") );
-            } else {
-                ta = new TransportAuftrag(LocalDateTime.now(), TransportAuftragZustand.ERSTELLT, es.getStandort(), nextStandort);
-            }
-            transportAuftragDAO.persist(ta);
-            ps.setTransportAuftrag(ta);
+            ta = new TransportAuftrag(LocalDateTime.now(), TransportAuftragZustand.ERSTELLT, es.getStandort(), nextStandort);
+        } else {
+            ta = new TransportAuftrag(LocalDateTime.now(), TransportAuftragZustand.ERSTELLT, es.getStandort(), standortService.findByLocation("Lager"));
         }
+        transportAuftragDAO.persist(ta);
+        ps.setTransportAuftrag(ta);
     }
 
 

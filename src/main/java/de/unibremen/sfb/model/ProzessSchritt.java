@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Data class for process chain steps
@@ -69,6 +70,19 @@ public class ProzessSchritt implements Serializable {
     @NonNull
     @OneToMany
     private List<ProzessSchrittLog> prozessSchrittLog;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ProzessSchritt)) return false;
+        ProzessSchritt that = (ProzessSchritt) o;
+        return getId() == that.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 
     /**
      * Process step name

@@ -12,21 +12,26 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class ExperimentStationTestTest {
-  private WebDriver driver;
-  private Map<String, Object> vars;
-  JavascriptExecutor js;
+    private WebDriver driver;
+    private String baseUrl;
+    private StringBuffer verificationErrors = new StringBuffer();
+    protected static DesiredCapabilities dCaps;
   @BeforeEach
   public void setUp() {
-      System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-    ChromeOptions chromeOptions = new ChromeOptions();
-    chromeOptions.addArguments("--headless");
-    driver = new ChromeDriver(chromeOptions);
-    js = (JavascriptExecutor) driver;
-    vars = new HashMap<String, Object>();
+      dCaps = new DesiredCapabilities();
+      dCaps.setJavascriptEnabled(true);
+      dCaps.setCapability("takesScreenshot", false);
+
+      driver = new PhantomJSDriver(dCaps);
+      baseUrl = "http://assertselenium.com/";
+      driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
   @AfterEach
   public void tearDown() {
