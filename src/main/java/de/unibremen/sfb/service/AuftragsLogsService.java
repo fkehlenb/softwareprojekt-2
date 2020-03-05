@@ -15,7 +15,7 @@ import java.util.List;
 
 @Slf4j
 public class AuftragsLogsService {
-    private List<AuftragsLog> auftragsLogs = new ArrayList<>();
+    private final List<AuftragsLog> auftragsLogs = new ArrayList<>();
     
     @Inject
     AuftragsLogDAO auftragsLogDAO;
@@ -45,9 +45,8 @@ public class AuftragsLogsService {
      * Bearbeiten der Auftrags Log
      *
      * @param auftragsLog der Log der Bearbeitet wird
-     * @throws ProzessKettenVorlageNotFoundException falls die pkv nicht gefunden wurde
      */
-    public void edit(AuftragsLog auftragsLog) throws ProzessKettenVorlageNotFoundException {
+    public void edit(AuftragsLog auftragsLog) {
         var old = auftragsLogs.stream().filter(p -> auftragsLog.getId() == p.getId()).findFirst().orElse(null);
 
         if (Collections.replaceAll(auftragsLogs, old, auftragsLog)) {

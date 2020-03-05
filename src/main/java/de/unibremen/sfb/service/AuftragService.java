@@ -3,19 +3,12 @@ package de.unibremen.sfb.service;
 import de.unibremen.sfb.exception.*;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.AuftragDAO;
-import de.unibremen.sfb.persistence.ProbeDAO;
-import de.unibremen.sfb.persistence.ProzessSchrittDAO;
 import de.unibremen.sfb.persistence.TransportAuftragDAO;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
-import javax.json.bind.JsonbConfig;
 import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -138,13 +131,6 @@ public class AuftragService implements Serializable {
         return ps;
     }
 
-
-    /**
-     * Serialize a job to json
-     */
-    public void json() {
-
-    }
 
     /**
      * Updates the given TransportAuftrag

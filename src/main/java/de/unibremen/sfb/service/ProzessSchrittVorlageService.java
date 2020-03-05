@@ -6,13 +6,11 @@ import de.unibremen.sfb.model.Auftrag;
 import de.unibremen.sfb.model.ProzessSchritt;
 import de.unibremen.sfb.model.ProzessSchrittVorlage;
 import de.unibremen.sfb.persistence.ProzessSchrittVorlageDAO;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
 import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -3,15 +3,11 @@ package de.unibremen.sfb.service;
 import de.unibremen.sfb.exception.DuplicateProzessKettenVorlageException;
 import de.unibremen.sfb.exception.ProzessKettenVorlageNotFoundException;
 import de.unibremen.sfb.model.ProzessKettenVorlage;
-import de.unibremen.sfb.model.ProzessSchrittVorlage;
 import de.unibremen.sfb.persistence.ProzessKettenVorlageDAO;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
 import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.*;

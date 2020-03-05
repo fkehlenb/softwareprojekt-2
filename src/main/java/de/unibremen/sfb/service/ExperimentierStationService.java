@@ -10,17 +10,14 @@ import de.unibremen.sfb.persistence.AuftragDAO;
 import de.unibremen.sfb.persistence.ExperimentierStationDAO;
 import de.unibremen.sfb.persistence.TransportAuftragDAO;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Startup;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 

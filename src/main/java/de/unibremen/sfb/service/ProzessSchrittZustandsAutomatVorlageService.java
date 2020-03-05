@@ -6,7 +6,6 @@ import de.unibremen.sfb.model.ProzessSchrittZustandsAutomatVorlage;
 import de.unibremen.sfb.persistence.ProzessSchrittZustandsAutomatVorlageDAO;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
 import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.List;

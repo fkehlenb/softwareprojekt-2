@@ -1,6 +1,5 @@
 package de.unibremen.sfb.service;
 
-import com.sun.mail.imap.protocol.ID;
 import de.unibremen.sfb.exception.*;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.KommentarDAO;
@@ -12,7 +11,6 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;

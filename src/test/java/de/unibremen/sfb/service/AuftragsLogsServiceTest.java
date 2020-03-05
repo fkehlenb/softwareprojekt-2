@@ -56,11 +56,7 @@ class AuftragsLogsServiceTest {
 
     @Test
     void testEdit() {
-        try {
-            auftragsLogsService.edit(new AuftragsLog(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 28, 28)));
-        } catch (ProzessKettenVorlageNotFoundException e) {
-            e.printStackTrace();
-        }
+        auftragsLogsService.edit(new AuftragsLog(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 28, 28)));
     }
 
 
