@@ -3,6 +3,8 @@ package de.unibremen.sfb.boundary;
 import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
 import de.unibremen.sfb.exception.ProzessSchrittNotFoundException;
 import de.unibremen.sfb.model.*;
+import de.unibremen.sfb.persistence.StandortDAO;
+import de.unibremen.sfb.persistence.TransportAuftragDAO;
 import de.unibremen.sfb.service.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -269,11 +271,24 @@ public class AuftragView implements Serializable {
         }
     }
 
+
+    @Inject
+    StandortDAO standortDAO;
+
+    @Inject
+    TransportAuftragDAO transportAuftragDAO;
     /** Stop a job
      * @param id - the id of the job to stop */
     public void stopJob(int id){
         try {
             Auftrag a = auftragService.getObjById(id);
+            if (a.getProzessSchritte() != null) {
+                var ps = prozessSchrittService.getLastPS(a.getProzessSchritte().get(0));
+                Standort currentLocation = experimentierStationService.findStation(ps).getStandort();
+                assert currentLocation != null;
+                var ta = new TransportAuftrag(LocalDateTime.now(), TransportAuftragZustand.ERSTELLT, currentLocation, standortDAO.getByOrt("Lager") );
+                transportAuftragDAO.persist(ta);
+            }
             for (ProzessSchritt p : a.getProzessSchritte()) {
                 prozessSchrittService.removePS(p);
             }

@@ -128,6 +128,16 @@ public class ProzessSchrittService implements Serializable {
         return (automat.getZustaende().indexOf(current) == automat.getZustaende().size() - 1);
     }
 
+    public ProzessSchritt getCurrentStep(Auftrag auftrag) {
+        for (ProzessSchritt ps :
+                auftrag.getProzessSchritte()) {
+            if (!hasFinished(ps)) {
+                return ps;
+            }
+        }
+        return null;
+    }
+
     public Boolean isCurrentStep(@NonNull ProzessSchritt ps) {
         Auftrag currentAuftrag = auftragService.getAuftrag(ps);
         assert currentAuftrag != null;
@@ -176,14 +186,48 @@ public class ProzessSchrittService implements Serializable {
             }
             assert curA.getProzessKettenZustandsAutomat() != null;
             Enum<ProzessKettenZustandsAutomat> pkA = curA.getProzessKettenZustandsAutomat();
+            ProzessSchritt lastPS = getLastPS(ps);
             if ((    !(pkA.equals(ProzessKettenZustandsAutomat.INSTANZIIERT)
                     || pkA.equals(ProzessKettenZustandsAutomat.ABGELEHNT)))
-                    && isCurrentStep(ps)) {
+                    && isCurrentStep(ps) && (lastPS != null && isDelivered(lastPS))) {
                 result.add(ps);
             }
         }
         return result;
+    }
 
+    @Inject
+    AuftragDAO auftragDAO;
+    public ProzessSchritt getLastPS(ProzessSchritt ps) {
+        // Find out to which pk ps belongs
+        var as = auftragDAO.getAll();
+        Auftrag aC = null;
+        for (Auftrag a :
+                as) {
+            // Does it contain the ps.id
+            var r = a.getProzessSchritte().stream().filter(p -> p.getId() == ps.getId()).findFirst().orElse(null);
+            if (r != null) {
+                aC = a;
+            }
+        }
+        // PK needs to have the ps
+        assert aC != null;
+        // Find out at wich step we are
+        int currentIndex = aC.getProzessSchritte().indexOf(ps);
+        if (currentIndex < 1) {
+            return null;
+        } else {
+            // This is the next Step
+            return aC.getProzessSchritte().get(currentIndex - 1);
+        }
+    }
+
+    public Boolean isDelivered(ProzessSchritt prozessSchritt) {
+        boolean delivered = true;
+        if (prozessSchritt.getTransportAuftrag() != null) {
+           delivered = prozessSchritt.getTransportAuftrag().getAbgeliefert() != null;
+        }
+        return delivered;
     }
 //        r.sort(Comparator.comparing(o -> auftragDAO.getObjById(o.getId()).getPriority();
 
