@@ -198,6 +198,8 @@ public class InitialDataFiller {
             Auftrag pk = new Auftrag(UUID.randomUUID().hashCode(), f.gameOfThrones().character(), AuftragsPrioritaet.HOCH, erstelePS(psvListe),
                     aLog, ProzessKettenZustandsAutomat.GESTARTET);
 
+
+
             // Erstelle neuen PSZA
             List<String> z = new ArrayList<>();
             for (String s :

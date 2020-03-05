@@ -241,5 +241,19 @@ public class AuftragService implements Serializable {
         updateTransportZustand(t);
     }
 
+    public List<Traeger> getTraegerByPS (ProzessSchritt prozessSchritt){
+        var check = getAuftrag(prozessSchritt).getTraeger();
+        return check;
 
+//        List<Auftrag> auftragList = getAll();
+//        Traeger traeger=null;
+//        for (Auftrag a :
+//                auftragList) {
+//            if(a.getProzessSchritte().contains(prozessSchritt)){
+//
+//                traeger=a.getTraeger().;
+//            }
+//        }
+//        return traeger;
+    }
 }

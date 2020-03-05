@@ -1,9 +1,11 @@
 package de.unibremen.sfb.boundary;
 
+import de.unibremen.sfb.exception.ProzessSchrittNotFoundException;
 import de.unibremen.sfb.exception.UserNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.AuftragService;
 import de.unibremen.sfb.service.ProzessKettenVorlageService;
+import de.unibremen.sfb.service.ProzessSchrittService;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -36,12 +38,14 @@ public class TransporterBean implements Serializable {
     private List<ProzessSchritt> prozessSchrittList2;
     private List<ProzessSchritt> prozessSchrittList3;
     private List<TransportAuftrag> transportAuftragSelected;
+    private List<Traeger> traeger;
 
     @Inject
     private AuftragService auftragService;
     @Inject
     private ProzessKettenVorlageService prozessKettenVorlageService;
-
+    @Inject
+    private ProzessSchrittService prozessSchrittService;
     @Inject
     private TransportAuftrag transportAuftrag;
 
@@ -164,6 +168,15 @@ public class TransporterBean implements Serializable {
     }
 
 
+    public List<Traeger> getTraegerByPS(int ps){
+
+        try {
+            traeger =  auftragService.getTraegerByPS(prozessSchrittService.getObjById(ps));
+        } catch (ProzessSchrittNotFoundException e) {
+
+        }
+        return  traeger;
+    }
 
 
 }

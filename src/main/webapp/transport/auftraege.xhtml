@@ -48,6 +48,10 @@
                                     <h:outputText value="#{ps.transportAuftrag.id}"/>
                                 </p:column>
 
+                                <p:column headerText="#{msg['transTrägerID.jsf']}">
+                                    <h:outputText value="#{transportBean.getTraegerByPS(ps.id)}"/>
+                                </p:column>
+
                                 <p:column headerText="#{msg['transAbholort.jsf']}">
                                     <h:outputText value="#{ps.transportAuftrag.start.ort}"/>
                                 </p:column>
@@ -79,6 +83,10 @@
 
                                 <p:column headerText="#{msg['transID.jsf']}">
                                     <h:outputText value="#{ps.transportAuftrag.id}"/>
+                                </p:column>
+
+                                <p:column headerText="#{msg['transTrägerID.jsf']}">
+                                    <h:outputText value="#{transportBean.getTraegerByPS(ps.id)}"/>
                                 </p:column>
 
                                 <p:column headerText="#{msg['transAbholort.jsf']}">
