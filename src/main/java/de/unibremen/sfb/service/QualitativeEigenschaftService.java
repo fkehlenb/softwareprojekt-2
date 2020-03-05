@@ -97,7 +97,7 @@ public class QualitativeEigenschaftService implements Serializable {
      */
     public List<ProzessSchrittParameter> getReferences(QualitativeEigenschaft qE) {
         return prozessSchrittParameterService.getParameterList().stream()
-                .filter(q -> q.getQualitativeEigenschaften().equals(qE))
+                .filter(q -> q.getQualitativeEigenschaften().contains(qE))
                 .collect(Collectors.toList());
     }
 

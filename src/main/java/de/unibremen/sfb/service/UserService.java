@@ -1,7 +1,6 @@
 package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.exception.DuplicateUserException;
-import de.unibremen.sfb.exception.RoleNotFoundException;
 import de.unibremen.sfb.exception.UserNotFoundException;
 import de.unibremen.sfb.model.ExperimentierStation;
 import de.unibremen.sfb.model.Role;
@@ -16,7 +15,6 @@ import javax.annotation.PostConstruct;
 import java.io.Serializable;
 import java.util.*;
 import javax.inject.Inject;
-import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 @Getter
@@ -113,9 +111,8 @@ public class UserService implements Serializable {
      *
      * @param u - the user to check
      * @return user exists in database?
-     * @throws UserNotFoundException if none is found
      */
-    public boolean containsUser(User u) throws UserNotFoundException {
+    public boolean containsUser(User u) {
         try {
             userDAO.getUserById(u.getId());
             return true;

@@ -3,20 +3,15 @@ package de.unibremen.sfb.service;
 import de.unibremen.sfb.exception.*;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.AuftragDAO;
+import de.unibremen.sfb.persistence.ProbeDAO;
 import de.unibremen.sfb.persistence.ProzessSchrittDAO;
 import de.unibremen.sfb.persistence.ProzessSchrittZustandsAutomatDAO;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
-import javax.json.bind.JsonbConfig;
 import javax.transaction.Transactional;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Service fuer ProzessSchritt
@@ -137,21 +132,28 @@ public class ProzessSchrittService implements Serializable {
                 .equals(z);
     }
 
+    @Inject
+    AuftragService auftragService;
+
     /**
      * returns the assignments currently available for this user
      *
      * @return a set containing all availabe jobs
+     *
      */
     public List<ProzessSchritt> getSchritte() throws UserNotFoundException {
         //alle einträge in queues von experimentierstationen denene der user zugeordnet ist
 
         List<ProzessSchritt> r = experimentierStationService.getSchritteByUser(userService.getCurrentUser());
         r.removeAll(Collections.singleton(null));
-        r.stream().filter(a -> (!(a.getProzessSchrittZustandsAutomat().equals(ProzessKettenZustandsAutomat.INSTANZIIERT)
-                || a.getProzessSchrittZustandsAutomat().equals(ProzessKettenZustandsAutomat.ABGELEHNT))));
+        r.stream().filter(a -> (!(auftragService.getAuftrag(a).getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.INSTANZIIERT)
+                || auftragService.getAuftrag(a).getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.ABGELEHNT))));  // FIXME wo soll das hin
 //        r.sort(Comparator.comparing(o -> auftragDAO.getObjById(o.getId()).getPriority();
         return r;
     }
+
+    @Inject
+    ProbeDAO probeDAO;
 
     /**
      * Get all process steps from the database
@@ -178,9 +180,14 @@ public class ProzessSchrittService implements Serializable {
             if (lastZustand(ps, zustand)) {
                 try {
                     experimentierStationService.updateCurrent(ps, findStation(ps));
-                } catch (DuplicateTransportAuftragException e) {
+                } catch (DuplicateTransportAuftragException | StandortNotFoundException e) {
                     e.printStackTrace();
-                } catch (StandortNotFoundException e) {
+                }
+            }
+            if (ps.isUrformend() && ps.getProzessSchrittZustandsAutomat().getCurrent().equals("Erstellend")) {
+                try {
+                    erstelleProbe(findStation(ps).getStandort(), "testName" ,ps.getAmountCreated()); // TODO get name von ps
+                } catch (ProbeNotFoundException | DuplicateProbeException e) {
                     e.printStackTrace();
                 }
             }
@@ -190,6 +197,21 @@ public class ProzessSchrittService implements Serializable {
             prozessSchrittZustandsAutomatDAO.update(ps.getProzessSchrittZustandsAutomat());
             prozessSchrittDAO.update(ps);
         }
+    }
+    public Probe erstelleProbe(Standort standort, String probenID, int anzahl) throws ProbeNotFoundException, DuplicateProbeException {
+        int vorherigeAnzahl = 0;
+        int verloreneAnzahl = 0;
+        try {
+            vorherigeAnzahl = probeDAO.getObjById(probenID).getAnzahl();
+            verloreneAnzahl = probeDAO.getObjById(probenID).getLost();
+        } catch (ProbeNotFoundException e) {
+            log.info("vorherige Anzahl kann nicht gefunden werden, weil die Probe nicht existierte");
+        }
+        Probe p = new Probe(probenID, vorherigeAnzahl + anzahl, ProbenZustand.ARCHIVIERT,standort);
+        p.setLost(verloreneAnzahl);
+        probeDAO.update(p);
+        probeDAO.persist(p);
+        return  p;
     }
 
     public ExperimentierStation findStation(ProzessSchritt ps)
