@@ -1,13 +1,7 @@
 package de.unibremen.sfb.boundary;
 
-import de.unibremen.sfb.model.ExperimentierStation;
-import de.unibremen.sfb.model.ProzessSchrittParameter;
-import de.unibremen.sfb.model.ProzessSchrittVorlage;
-import de.unibremen.sfb.model.ProzessSchrittZustandsAutomatVorlage;
-import de.unibremen.sfb.service.ExperimentierStationService;
-import de.unibremen.sfb.service.ProzessSchrittParameterService;
-import de.unibremen.sfb.service.ProzessSchrittVorlageService;
-import de.unibremen.sfb.service.ProzessSchrittZustandsAutomatVorlageService;
+import de.unibremen.sfb.model.*;
+import de.unibremen.sfb.service.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -107,6 +101,22 @@ public class PSVView implements Serializable {
     /** If urformend, amount of created samples */
     private int amountCreated = 0;
 
+    /** Container type service */
+    @Inject
+    private TraegerArtService traegerArtService;
+
+    /** Available container types */
+    private List<TraegerArt> availableTraegerArten;
+
+    /** Selected input container types */
+    private List<TraegerArt> selectedInputTraegerArten;
+
+    /** Selected output container types */
+    private List<TraegerArt> selectedOutputTraegerArten;
+
+    /** Name of created samples */
+    private String nameOfCreated = "";
+
     /**
      * Init called on bean initialization
      */
@@ -123,6 +133,7 @@ public class PSVView implements Serializable {
         availableExperimentierStationList = experimentierStationService.getAll();
         availableProzessSchrittZustandsAutomatVorlageList = prozessSchrittZustandsAutomatVorlageService.getProzessSchrittZustandsAutomatVorlagen();
         availableProzessSchrittVorlageList = prozessSchrittVorlageService.getAll();
+        availableTraegerArten = traegerArtService.getAll();
     }
 
     /**
@@ -134,8 +145,19 @@ public class PSVView implements Serializable {
             for (ProzessSchrittParameter psp : selectedProzessSchrittParameterList){
                 newPsp.add(psp);
             }
-            prozessSchrittVorlageService.persist(new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), newPsp,
-                    selectedExperimentierStation, selectedDuration, selectedName, selectedProzessSchrittZustandsAutomatVorlage,urformend,amountCreated));
+            List<TraegerArt> input = new ArrayList<>();
+            List<TraegerArt> output = new ArrayList<>();
+            for (TraegerArt a : selectedInputTraegerArten){
+                input.add(a);
+            }
+            for (TraegerArt a : selectedOutputTraegerArten){
+                output.add(a);
+            }
+            ProzessSchrittVorlage psv = new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), newPsp,
+                    selectedExperimentierStation, selectedDuration, selectedName, selectedProzessSchrittZustandsAutomatVorlage,urformend,amountCreated,
+                    List.copyOf(input),List.copyOf(output));
+            psv.setNameOfCreated(nameOfCreated);
+            prozessSchrittVorlageService.persist(psv);
             log.info("Created new process step template with name " + selectedName);
             facesNotification("Created new process step template with name " + selectedName);
             refresh();
@@ -165,6 +187,16 @@ public class PSVView implements Serializable {
             prozessSchrittVorlage.setProzessSchrittParameters(newPsp);
             prozessSchrittVorlage.setUrformend(urformend);
             prozessSchrittVorlage.setAmountCreated(amountCreated);
+            List<TraegerArt> input = new ArrayList<>();
+            List<TraegerArt> output = new ArrayList<>();
+            for (TraegerArt a : selectedInputTraegerArten){
+                input.add(a);
+            }
+            for (TraegerArt a : selectedOutputTraegerArten){
+                output.add(a);
+            }
+            prozessSchrittVorlage.setEingabe(List.copyOf(input));
+            prozessSchrittVorlage.setAusgabe(List.copyOf(output));
             prozessSchrittVorlageService.edit(prozessSchrittVorlage);
             log.info("Updated process step template with id " + id);
             facesNotification("Updated process step template successfully!");

@@ -250,7 +250,7 @@ public class InitialDataFiller {
             }
             var ps = new ProzessSchritt(UUID.randomUUID().hashCode(), a, psv.getDauer(), y,
                     "Test Atribut " + 1, psLogs, "PSV: " + i,
-                    true, f.random().nextInt(0, 9999));
+                    true, f.random().nextInt(0, 9999),tas,tas);
 
             esList[i] = psv.getExperimentierStation();
             ExperimentierStation curES = null;
@@ -393,7 +393,7 @@ public class InitialDataFiller {
             z.addAll(pszaVorlage.getZustaende());
             Faker faker = new Faker();
             result.add(new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), List.of(parameters.get(i)), experimentierStations.get(i+1), "42:00", faker.gameOfThrones().dragon(),
-                    v, true, f.random().nextInt(0, 999)));
+                    v, true, f.random().nextInt(0, 999),tas,tas));
         }
         return result;
     }

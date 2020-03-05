@@ -50,9 +50,22 @@ public class ProzessSchrittVorlage {
     @NonNull
     private boolean urformend;
 
+    /** Name of created samples */
+    private String nameOfCreated;
+
     /** If urformend, amount created */
     @NonNull
     private int amountCreated;
+
+    /** Accepted input container types */
+    @NonNull
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<TraegerArt> eingabe;
+
+    /** Output container types */
+    @NonNull
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<TraegerArt> ausgabe;
 
     @Override
     public String toString(){

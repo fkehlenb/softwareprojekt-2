@@ -184,6 +184,52 @@
                                         </f:facet>
                                     </p:cellEditor>
                                 </p:column>
+                                <p:column headerText="Eingabe Traeger">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <p:commandButton value="Anzeigen" icon="pi pi-external-link"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:selectCheckboxMenu id="eingabeTraeger"
+                                                                  value="#{psView.selectedInputTraegerArten}"
+                                                                  converter="omnifaces.SelectItemsConverter"
+                                                                  effect="fade"
+                                                                  var="ta" style="width: 172px" filter="true"
+                                                                  filterMatchMode="contains" showCheckbox="true"
+                                                                  label="Traegerarten"
+                                                                  requiredMessage="Bitte Eingabe Traeger eingeben!"
+                                                                  required="true">
+                                                <f:selectItems
+                                                        value="#{psView.availableTraegerArten}"
+                                                        var="ta" itemLabel="#{ta.art}"
+                                                        itemValue="#{ta}"/>
+                                            </p:selectCheckboxMenu>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
+                                <p:column headerText="Ausgabe Traeger">
+                                    <p:cellEditor>
+                                        <f:facet name="output">
+                                            <p:commandButton value="Anzeigen" icon="pi pi-external-link"/>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <p:selectCheckboxMenu id="ausgabeTraeger"
+                                                                  value="#{psView.selectedOutputTraegerArten}"
+                                                                  converter="omnifaces.SelectItemsConverter"
+                                                                  effect="fade"
+                                                                  var="ta" style="width: 172px" filter="true"
+                                                                  filterMatchMode="contains" showCheckbox="true"
+                                                                  label="Tragerarten"
+                                                                  requiredMessage="Bitte ausgabe Traeger eingeben!"
+                                                                  required="true">
+                                                <f:selectItems
+                                                        value="#{psView.availableTraegerArten}"
+                                                        var="ta" itemLabel="#{ta.art}"
+                                                        itemValue="#{ta}"/>
+                                            </p:selectCheckboxMenu>
+                                        </f:facet>
+                                    </p:cellEditor>
+                                </p:column>
                                 <p:column headerText="Prozessschritt Parameter">
                                     <p:cellEditor>
                                         <f:facet name="input">
@@ -265,7 +311,8 @@
                                 </p:column>
                                 <p:column>
                                     <p:commandButton value="Delete" icon="pi pi-trash"
-                                                     action="#{psView.removePS(ps.id)}" ajax="true" update="form:table"/>
+                                                     action="#{psView.removePS(ps.id)}" ajax="true"
+                                                     update="form:table"/>
                                 </p:column>
                                 <p:column style="width:35px">
                                     <p:rowEditor/>

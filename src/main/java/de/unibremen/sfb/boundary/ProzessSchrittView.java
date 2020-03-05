@@ -112,6 +112,19 @@ public class ProzessSchrittView implements Serializable {
     /** If urformend, amount of created samples */
     private int amountCreated = 0;
 
+    /** Container type service */
+    @Inject
+    private TraegerArtService traegerArtService;
+
+    /** Available container types */
+    private List<TraegerArt> availableTraegerArten;
+
+    /** Selected input container types */
+    private List<TraegerArt> selectedInputTraegerArten;
+
+    /** Selected output container types */
+    private List<TraegerArt> selectedOutputTraegerArten;
+
     /**
      * Init called on bean initialization
      */
@@ -127,6 +140,7 @@ public class ProzessSchrittView implements Serializable {
         prozessSchrittZustandsAutomatVorlagen = prozessSchrittZustandsAutomatVorlageService.getProzessSchrittZustandsAutomatVorlagen();
         experimentierStationen = experimentierStationService.getAll();
         availableProzessSchrittParameter = prozessSchrittParameterService.getAll();
+        availableTraegerArten = traegerArtService.getAll();
     }
 
     public ExperimentierStation getES(int id) {
@@ -181,7 +195,9 @@ public class ProzessSchrittView implements Serializable {
             psLog.add(prozessSchrittLog);
             ProzessSchritt prozessSchritt = new ProzessSchritt(UUID.randomUUID().hashCode(),prozessSchrittZustandsAutomat,
                     prozessSchrittVorlage.getDauer(), List.copyOf(prozessSchrittVorlage.getProzessSchrittParameters())
-                    ,prozessSchrittAttribute,psLog,prozessSchrittName, urformend, amountCreated);
+                    ,prozessSchrittAttribute,psLog,prozessSchrittName, urformend, amountCreated,
+                    List.copyOf(prozessSchrittVorlage.getEingabe()),List.copyOf(prozessSchrittVorlage.getAusgabe()));
+            prozessSchritt.setCreatedName(prozessSchrittVorlage.getNameOfCreated());
             setES( prozessSchrittVorlage.getExperimentierStation().getEsID(), prozessSchritt.getId());
             prozessSchrittZustandsAutomatService.add(prozessSchrittZustandsAutomat);
             prozessSchrittLogService.add(prozessSchrittLog);
@@ -217,6 +233,8 @@ public class ProzessSchrittView implements Serializable {
                 prozessSchritt.setUrformend(urformend);
                 prozessSchritt.setAmountCreated(amountCreated);
                 prozessSchritt.setProzessSchrittParameters(List.copyOf(selectedProzessSchrittParameter));
+                prozessSchritt.setEingabe(List.copyOf(selectedInputTraegerArten));
+                prozessSchritt.setAusgabe(List.copyOf(selectedOutputTraegerArten));
                 prozessSchrittZustandsAutomatService.add(prozessSchrittZustandsAutomat);
                 prozessSchrittService.editPS(prozessSchritt);
                 log.info("Updated process step with id " + id);

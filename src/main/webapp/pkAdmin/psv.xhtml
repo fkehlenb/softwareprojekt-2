@@ -112,7 +112,49 @@
                                     </p:column>
                                     <p:column colspan="1">
                                         <p:selectBooleanCheckbox value="#{psvErstellenBean.urformend}"/>
-                                        <p:inputText value="#{psvErstellenBean.amountCreated}" placeholder="Anzahl Erstellt"/>
+                                        <p:inputText value="#{psvErstellenBean.amountCreated}"
+                                                     placeholder="Anzahl Erstellt"/>
+                                    </p:column>
+                                    <p:column colspan="1">
+                                        <p:inputText placeholder="Proben ID" value="#{psvErstellenBean.nameOfCreated}"/>
+                                    </p:column>
+                                </p:row>
+                                <p:row>
+                                    <p:column colspan="1">
+                                        <h:outputText value="Eingabe Traeger"/>
+                                    </p:column>
+                                    <p:column colspan="1">
+                                        <p:selectCheckboxMenu id="eingabeTraeger"
+                                                              value="#{psvErstellenBean.selectedInputTraegerArten}"
+                                                              converter="omnifaces.SelectItemsConverter" effect="fade"
+                                                              var="ta" style="width: 172px" filter="true"
+                                                              filterMatchMode="contains" showCheckbox="true"
+                                                              label="Traegerarten"
+                                                              requiredMessage="Bitte Eingabe Traeger eingeben!"
+                                                              required="true">
+                                            <f:selectItems
+                                                    value="#{psvErstellenBean.availableTraegerArten}"
+                                                    var="ta" itemLabel="#{ta.art}"
+                                                    itemValue="#{ta}"/>
+                                        </p:selectCheckboxMenu>
+                                    </p:column>
+                                    <p:column colspan="1">
+                                        <h:outputText value="Ausgabe Traeger"/>
+                                    </p:column>
+                                    <p:column colspan="1">
+                                        <p:selectCheckboxMenu id="ausgabeTraeger"
+                                                              value="#{psvErstellenBean.selectedOutputTraegerArten}"
+                                                              converter="omnifaces.SelectItemsConverter" effect="fade"
+                                                              var="ta" style="width: 172px" filter="true"
+                                                              filterMatchMode="contains" showCheckbox="true"
+                                                              label="Tragerarten"
+                                                              requiredMessage="Bitte ausgabe Traeger eingeben!"
+                                                              required="true">
+                                            <f:selectItems
+                                                    value="#{psvErstellenBean.availableTraegerArten}"
+                                                    var="ta" itemLabel="#{ta.art}"
+                                                    itemValue="#{ta}"/>
+                                        </p:selectCheckboxMenu>
                                     </p:column>
                                 </p:row>
                                 <p:row>
@@ -211,15 +253,62 @@
                                     </f:facet>
                                 </p:cellEditor>
                             </p:column>
+                            <p:column headerText="Eingabe Traeger">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <p:commandButton value="Anzeigen" icon="pi pi-external-link"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:selectCheckboxMenu id="eingabeTraeger2"
+                                                              value="#{psvErstellenBean.selectedInputTraegerArten}"
+                                                              converter="omnifaces.SelectItemsConverter" effect="fade"
+                                                              var="ta" style="width: 172px" filter="true"
+                                                              filterMatchMode="contains" showCheckbox="true"
+                                                              label="Traegerarten"
+                                                              requiredMessage="Bitte Eingabe Traeger eingeben!"
+                                                              required="true">
+                                            <f:selectItems
+                                                    value="#{psvErstellenBean.availableTraegerArten}"
+                                                    var="ta" itemLabel="#{ta.art}"
+                                                    itemValue="#{ta}"/>
+                                        </p:selectCheckboxMenu>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Ausgabe Traeger">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <p:commandButton value="Anzeigen" icon="pi pi-external-link"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:selectCheckboxMenu id="ausgabeTraeger2"
+                                                              value="#{psvErstellenBean.selectedOutputTraegerArten}"
+                                                              converter="omnifaces.SelectItemsConverter" effect="fade"
+                                                              var="ta" style="width: 172px" filter="true"
+                                                              filterMatchMode="contains" showCheckbox="true"
+                                                              label="Tragerarten"
+                                                              requiredMessage="Bitte ausgabe Traeger eingeben!"
+                                                              required="true">
+                                            <f:selectItems
+                                                    value="#{psvErstellenBean.availableTraegerArten}"
+                                                    var="ta" itemLabel="#{ta.art}"
+                                                    itemValue="#{ta}"/>
+                                        </p:selectCheckboxMenu>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
                             <p:column headerText="Prozessschritt Parameter">
                                 <p:cellEditor>
                                     <f:facet name="output">
-                                        <p:commandButton value="Anzeigen" icon="pi pi-external-link" onclick="PF('dlg2').show();"/>
-                                        <p:dialog header="Prozessschritt Parameter Uebersicht" widgetVar="dlg2" modal="true"
+                                        <p:commandButton value="Anzeigen" icon="pi pi-external-link"
+                                                         onclick="PF('dlg2').show();"/>
+                                        <p:dialog header="Prozessschritt Parameter Uebersicht" widgetVar="dlg2"
+                                                  modal="true"
                                                   height="100">
                                             <p:panelGrid columns="1">
                                                 <p:row>
-                                                    <p:dataTable id="tablepsp" var="psp" value="#{psv.prozessSchrittParameters}"
+                                                    <p:dataTable id="tablepsp" var="psp"
+                                                                 value="#{psv.prozessSchrittParameters}"
                                                                  editable="true"
                                                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                                                                  paginator="true" rows="15" style="margin-bottom:20px">
@@ -250,7 +339,8 @@
                             </p:column>
                             <p:column>
                                 <p:commandButton value="Delete" icon="pi pi-trash"
-                                                 action="#{psvErstellenBean.removePSV(psv.psVID)}" ajax="true" update="form:PSVList"/>
+                                                 action="#{psvErstellenBean.removePSV(psv.psVID)}" ajax="true"
+                                                 update="form:PSVList"/>
                             </p:column>
                             <p:column style="width:35px">
                                 <p:rowEditor/>

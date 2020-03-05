@@ -99,6 +99,7 @@ public class pkAdminJSON {
             String fileName = "JSON_" + LocalDateTime.now().toString().replaceAll(":","_") + ".json";
             PrintWriter writer = new PrintWriter(fileName);
             writer.write(result);
+            writer.close();
             log.info("Successfully exported json to " + fileName);
             facesNotification("Successfully exported json to " + fileName);
         }
@@ -142,6 +143,7 @@ public class pkAdminJSON {
             String fileName = "JSON_Transportauftrag" + LocalDateTime.now().toString().replaceAll(":","_") + ".json";
             PrintWriter writer = new PrintWriter(fileName);
             writer.write(result);
+            writer.close();
             log.info("Successfully exported json to " + fileName);
             facesNotification("Successfully exported json to " + fileName);
         }
@@ -159,6 +161,7 @@ public class pkAdminJSON {
             String fileName = "JSON_" + LocalDateTime.now().toString().replaceAll(":","_") + ".json";
             PrintWriter writer = new PrintWriter(fileName);
             writer.write(result);
+            writer.close();
             log.info("Successfully exported json to " + fileName);
             facesNotification("Successfully exported json to " + fileName);
         }
@@ -176,6 +179,7 @@ public class pkAdminJSON {
             String fileName = "JSON_" + LocalDateTime.now().toString().replaceAll(":","_") + ".json";
             PrintWriter writer = new PrintWriter(fileName);
             writer.write(result);
+            writer.close();
             log.info("Successfully exported json to " + fileName);
             facesNotification("Successfully exported json to " + fileName);
         }
@@ -193,6 +197,7 @@ public class pkAdminJSON {
             String fileName = "JSON_" + LocalDateTime.now().toString().replaceAll(":","_") + ".json";
             PrintWriter writer = new PrintWriter(fileName);
             writer.write(result);
+            writer.close();
             log.info("Successfully exported json to " + fileName);
             facesNotification("Successfully exported json to " + fileName);
         }
@@ -210,6 +215,7 @@ public class pkAdminJSON {
             String fileName = "JSON_" + LocalDateTime.now().toString().replaceAll(":","_") + ".json";
             PrintWriter writer = new PrintWriter(fileName);
             writer.write(result);
+            writer.close();
             log.info("Successfully exported json to " + fileName);
             facesNotification("Successfully exported json to " + fileName);
         }
@@ -227,6 +233,7 @@ public class pkAdminJSON {
             String fileName = "JSON_" + LocalDateTime.now().toString().replaceAll(":","_") + ".json";
             PrintWriter writer = new PrintWriter(fileName);
             writer.write(result);
+            writer.close();
             log.info("Successfully exported json to " + fileName);
             facesNotification("Successfully exported json to " + fileName);
         }
@@ -244,6 +251,7 @@ public class pkAdminJSON {
             String fileName = "JSON_" + LocalDateTime.now().toString().replaceAll(":","_") + ".json";
             PrintWriter writer = new PrintWriter(fileName);
             writer.write(result);
+            writer.close();
             log.info("Successfully exported json to " + fileName);
             facesNotification("Successfully exported json to " + fileName);
         }
@@ -261,6 +269,7 @@ public class pkAdminJSON {
             String fileName = "JSON_" + LocalDateTime.now().toString().replaceAll(":","_") + ".json";
             PrintWriter writer = new PrintWriter(fileName);
             writer.write(result);
+            writer.close();
             log.info("Successfully exported json to " + fileName);
             facesNotification("Successfully exported json to " + fileName);
         }

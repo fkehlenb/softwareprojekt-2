@@ -84,6 +84,19 @@ public class ProzessSchritt implements Serializable {
     @NonNull
     private int amountCreated;
 
+    /** ID of created samples */
+    private String createdName;
+
+    /** Accepted input container types */
+    @NonNull
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<TraegerArt> eingabe;
+
+    /** Output container types */
+    @NonNull
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<TraegerArt> ausgabe;
+
     boolean uploaded = false;
 
     @Override
