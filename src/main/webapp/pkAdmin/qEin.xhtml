@@ -45,7 +45,7 @@
                                     <p:commandButton value="Reset" type="reset"/>
                                 </p:column>
                                 <p:column colspan="1">
-                                    <p:commandButton ajax="false" action="#{qlEView.addQualitative}"
+                                    <p:commandButton ajax="true" update="form2:qEin" action="#{qlEView.addQualitative}"
                                                      value="Speichern"/>
                                 </p:column>
                             </p:row>
@@ -76,7 +76,7 @@
                             </p:cellEditor>
                         </p:column>
                         <p:column>
-                            <p:commandButton value="Delete" icon="pi pi-trash" ajax="false" action="#{qlEView.removeQualitative(q.id)}"/>
+                            <p:commandButton value="Delete" icon="pi pi-trash" ajax="true" update="form2:qEin" action="#{qlEView.removeQualitative(q.id)}"/>
                         </p:column>
                         <p:column>
                             <p:rowEditor/>
@@ -119,8 +119,8 @@
                                     <p:commandButton value="Reset" type="reset"/>
                                 </p:column>
                                 <p:column colspan="1">
-                                    <p:commandButton ajax="false" action="#{qlEView.addQuantitative}"
-                                                     value="Speichern"/>
+                                    <p:commandButton ajax="true" action="#{qlEView.addQuantitative}"
+                                                     value="Speichern" update="form3:qEin2"/>
                                 </p:column>
                             </p:row>
                         </h:form>
@@ -175,7 +175,7 @@
                             </p:cellEditor>
                         </p:column>
                         <p:column>
-                            <p:commandButton value="Delete" icon="pi pi-trash" ajax="false" action="#{qlEView.removeQuantitative(q.id)}"/>
+                            <p:commandButton value="Delete" icon="pi pi-trash" ajax="true" update="form3:qEin2" action="#{qlEView.removeQuantitative(q.id)}"/>
                         </p:column>
                         <p:column>
                             <p:rowEditor/>

@@ -477,6 +477,9 @@ public class AdminBean implements Serializable {
             es.setBenutzer(newEsBenutzerList);
             es.setStandort(experimentierStationStandort);
             es.setName(experimentierStationName);
+            if (bedingungen==null){
+                bedingungen = new ArrayList<>();
+            }
             es.setRequirements(bedingungen);
             experimentierStationService.updateES(es);
             log.info("Updated experimenting station! ID: " + experimentierStationId);
@@ -511,6 +514,9 @@ public class AdminBean implements Serializable {
             e.printStackTrace();
             List<User> experimentierStationUsers = new ArrayList<>();
             Collections.addAll(experimentierStationUsers, experimentierStationBenutzer);
+            if (bedingungen==null){
+                bedingungen = new ArrayList<>();
+            }
             ExperimentierStation es = new ExperimentierStation(UUID.randomUUID().hashCode(), experimentierStationStandort,
                     experimentierStationName, ExperimentierStationZustand.VERFUEGBAR , new ArrayList<>() , bedingungen , experimentierStationUsers);
             try {

@@ -1,10 +1,7 @@
 package de.unibremen.sfb.boundary;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.unibremen.sfb.model.Auftrag;
-import de.unibremen.sfb.model.ProzessKettenZustandsAutomat;
-import de.unibremen.sfb.model.ProzessSchritt;
-import de.unibremen.sfb.model.ProzessSchrittVorlage;
+import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +20,8 @@ import java.io.File;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 @RequestScoped
 @Named
@@ -115,6 +114,32 @@ public class pkAdminJSON {
         try {
             String result = jsonb.toJson(prozessKettenVorlageService.getAll());
             String fileName = "JSON_" + LocalDateTime.now().toString().replaceAll(":","_") + ".json";
+            PrintWriter writer = new PrintWriter(fileName);
+            writer.write(result);
+            log.info("Successfully exported json to " + fileName);
+            facesNotification("Successfully exported json to " + fileName);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            log.error("Failed to export json " + e.getMessage());
+            facesError("Failed to export to json!");
+        }
+    }
+
+    /** TransportAuftrag Export */
+    public void exportTA(){
+        try {
+            Map<String, TransportAuftrag> taLogs = new TreeMap<>();
+            for (Auftrag a:
+               auftragService.getAuftrage()) {
+                for (ProzessSchritt ps :
+                        a.getProzessSchritte()) {
+                    taLogs.put("PS: " + ps.getId() + " = TransportLog", ps.getTransportAuftrag());
+                }
+            }
+            String result = jsonb.toJson(taLogs);
+            log.info(result);
+            String fileName = "JSON_Transportauftrag" + LocalDateTime.now().toString().replaceAll(":","_") + ".json";
             PrintWriter writer = new PrintWriter(fileName);
             writer.write(result);
             log.info("Successfully exported json to " + fileName);

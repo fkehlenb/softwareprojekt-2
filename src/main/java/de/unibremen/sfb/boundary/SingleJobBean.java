@@ -191,6 +191,7 @@ public class SingleJobBean implements Serializable {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        assert writer != null;
         writer.write(result);
         log.info("Successfully exported json to " + fileName);
         facesNotification("Successfully exported json to " + fileName);

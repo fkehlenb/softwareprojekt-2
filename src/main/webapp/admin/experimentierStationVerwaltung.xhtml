@@ -77,8 +77,7 @@
                                                                   converter="omnifaces.SelectItemsConverter" effect="fade"
                                                                   var="bedingung" style="width: 172px" filter="true"
                                                                   filterMatchMode="contains" showCheckbox="true"
-                                                                  label="#{msg['psp.jsf']}" requiredMessage="#{msg['bedingungenMessage.jsf']}"
-                                                                  required="true">
+                                                                  label="#{msg['psp.jsf']}">
                                                 <f:selectItems value="#{adminBean.availableBedingungen}"
                                                                var="bedingung" itemLabel="#{bedingung.name}"
                                                                itemValue="#{bedingung}"/>
@@ -192,8 +191,7 @@
                                                                       converter="omnifaces.SelectItemsConverter" effect="fade"
                                                                       var="bedingung" style="width: 172px" filter="true"
                                                                       filterMatchMode="contains" showCheckbox="true"
-                                                                      label="ProzessSchrittParameter" requiredMessage="Bitte Bedingung Zuweisen!"
-                                                                      required="true">
+                                                                      label="ProzessSchrittParameter">
                                                     <f:selectItems value="#{adminBean.availableBedingungen}"
                                                                    var="bedingung" itemLabel="#{bedingung.name}"
                                                                    itemValue="#{bedingung}"/>

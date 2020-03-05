@@ -15,6 +15,9 @@
     <ui:composition template="/template/common/layout.xhtml">
         <ui:define name="content">
             <p:panelGrid columns="1">
+                <p:growl>
+                    <p:autoUpdate/>
+                </p:growl>
                 <p:row>
                     <h2 style="color: cornflowerblue">Prozesskettenvorlagen Verwaltung</h2>
                 </p:row>
@@ -65,14 +68,12 @@
                 </p:row>
 
                 <h:form id="form">
-                    <p:growl id="msgs" showDetail="true" sticky="true"/>
-
                     <p:dataTable id="PSKList" var="pkv" value="#{pkvView.verPKV}"
                                  editable="true"
                                  paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                                  paginator="true" rows="15" style="margin-bottom:20px">
-                        <p:ajax event="rowEdit" listener="#{pkvView.onRowEdit(pkv.pkvID)}" update=":form:msgs"/>
-                        <p:ajax event="rowEditCancel" listener="#{pkvView.onRowCancel}" update=":form:msgs"/>
+                        <p:ajax event="rowEdit" listener="#{pkvView.onRowEdit(pkv.pkvID)}" update="form:PSKList"/>
+                        <p:ajax event="rowEditCancel" listener="#{pkvView.onRowCancel}" update="form:PSKList"/>
                         <p:column headerText="Prozessschrittvorlage Name">
                             <p:cellEditor>
                                 <f:facet name="output">
@@ -122,7 +123,7 @@
                         </p:column>
                         <p:column>
                             <p:commandButton value="Delete" icon="pi pi-trash" action="#{pkvView.deletePKV(pkv.pkvID)}"
-                                             ajax="false"/>
+                                             ajax="true" update="form:PSKList"/>
                         </p:column>
                         <p:column style="width:35px">
                             <p:rowEditor/>

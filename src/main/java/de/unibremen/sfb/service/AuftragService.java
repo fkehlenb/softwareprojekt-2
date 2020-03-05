@@ -3,19 +3,12 @@ package de.unibremen.sfb.service;
 import de.unibremen.sfb.exception.*;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.AuftragDAO;
-import de.unibremen.sfb.persistence.ProbeDAO;
-import de.unibremen.sfb.persistence.ProzessSchrittDAO;
 import de.unibremen.sfb.persistence.TransportAuftragDAO;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
-import javax.json.bind.JsonbConfig;
 import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -140,13 +133,6 @@ public class AuftragService implements Serializable {
 
 
     /**
-     * Serialize a job to json
-     */
-    public void json() {
-
-    }
-
-    /**
      * Updates the given TransportAuftrag
      *
      * @param transportAuftrag TransportAuftrag, which needs to be updated
@@ -225,7 +211,13 @@ public class AuftragService implements Serializable {
      */
     public void sedTransportZustand(TransportAuftrag t, TransportAuftragZustand taz) throws TransportAuftragNotFoundException {
         t.setZustandsAutomat(taz);
-        t.setAbgeholt(LocalDateTime.now());
+        if(taz == TransportAuftragZustand.ABGEHOLT){
+            t.setAbgeholt(LocalDateTime.now());
+        }
+        if(taz ==  TransportAuftragZustand.ABGELIEFERT){
+            t.setAbgeliefert(LocalDateTime.now());
+        }
+
         try {
             t.setUser(userService.getCurrentUser());
         } catch (UserNotFoundException e) {
@@ -235,5 +227,19 @@ public class AuftragService implements Serializable {
         updateTransportZustand(t);
     }
 
+    public List<Traeger> getTraegerByPS (ProzessSchritt prozessSchritt){
+        var check = getAuftrag(prozessSchritt).getTraeger();
+        return check;
 
+//        List<Auftrag> auftragList = getAll();
+//        Traeger traeger=null;
+//        for (Auftrag a :
+//                auftragList) {
+//            if(a.getProzessSchritte().contains(prozessSchritt)){
+//
+//                traeger=a.getTraeger().;
+//            }
+//        }
+//        return traeger;
+    }
 }

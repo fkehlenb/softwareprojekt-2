@@ -21,6 +21,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -121,7 +122,7 @@ public class PSVView implements Serializable {
         availableProzessSchrittParameterList = prozessSchrittParameterService.getAll();
         availableExperimentierStationList = experimentierStationService.getAll();
         availableProzessSchrittZustandsAutomatVorlageList = prozessSchrittZustandsAutomatVorlageService.getProzessSchrittZustandsAutomatVorlagen();
-        availableProzessSchrittVorlageList = prozessSchrittVorlageService.getVorlagen();
+        availableProzessSchrittVorlageList = prozessSchrittVorlageService.getAll();
     }
 
     /**
@@ -129,7 +130,11 @@ public class PSVView implements Serializable {
      */
     public void createPSV() {
         try {
-            prozessSchrittVorlageService.persist(new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), List.copyOf(selectedProzessSchrittParameterList),
+            List<ProzessSchrittParameter> newPsp = new ArrayList<>();
+            for (ProzessSchrittParameter psp : selectedProzessSchrittParameterList){
+                newPsp.add(psp);
+            }
+            prozessSchrittVorlageService.persist(new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), newPsp,
                     selectedExperimentierStation, selectedDuration, selectedName, selectedProzessSchrittZustandsAutomatVorlage,urformend,amountCreated));
             log.info("Created new process step template with name " + selectedName);
             facesNotification("Created new process step template with name " + selectedName);
@@ -153,12 +158,17 @@ public class PSVView implements Serializable {
             prozessSchrittVorlage.setDauer(selectedDuration);
             prozessSchrittVorlage.setZustandsAutomatVorlage(selectedProzessSchrittZustandsAutomatVorlage);
             prozessSchrittVorlage.setExperimentierStation(selectedExperimentierStation);
-            prozessSchrittVorlage.setProzessSchrittParameters(List.copyOf(selectedProzessSchrittParameterList));
+            List<ProzessSchrittParameter> newPsp = new ArrayList<>();
+            for (ProzessSchrittParameter psp : selectedProzessSchrittParameterList){
+                newPsp.add(psp);
+            }
+            prozessSchrittVorlage.setProzessSchrittParameters(newPsp);
             prozessSchrittVorlage.setUrformend(urformend);
             prozessSchrittVorlage.setAmountCreated(amountCreated);
             prozessSchrittVorlageService.edit(prozessSchrittVorlage);
             log.info("Updated process step template with id " + id);
             facesNotification("Updated process step template successfully!");
+            refresh();
         } catch (Exception e) {
             e.printStackTrace();
             log.error("Failed to edit process step template with id " + id + " Error " + e.getMessage());
@@ -173,6 +183,7 @@ public class PSVView implements Serializable {
             prozessSchrittVorlageService.remove(prozessSchrittVorlageService.getByID(id));
             log.info("Removed process step template with id " + id);
             facesNotification("Removed process step template!");
+            refresh();
         }
         catch (Exception e){
             e.printStackTrace();
@@ -186,6 +197,7 @@ public class PSVView implements Serializable {
      */
     public void onRowEditCancelled() {
         facesNotification("Cancelled!");
+        refresh();
     }
 
     /**
