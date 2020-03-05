@@ -40,6 +40,7 @@ import static de.unibremen.sfb.model.ProzessKettenZustandsAutomat.GESTARTET;
 @Transactional
 public class LogistikerBean implements Serializable {
     private List<Probe> proben;
+
     private List<Auftrag> auftrage;
 
     //TODO remove this
@@ -101,6 +102,10 @@ public class LogistikerBean implements Serializable {
 
     /** Sample ID */
     private String probenID;
+
+    /** Chosen sample */
+    private List<Probe> selectedProbe;
+
     /** Sample amount    */
     private int anzahl;
 
@@ -154,10 +159,30 @@ public class LogistikerBean implements Serializable {
     public void onRowEditUpdateTraeger(int id) {
         try{
             Traeger t = traegerService.getTraegerById(id);
-            Probe p = probenService.getProbeById(probenID) ;
             t.setArt(traegerArt);
             t.setStandort(traegerLocation);
-            t.getProben().add(p);
+            t.setProben(selectedProbe);
+            for (Probe p : selectedProbe) {
+                try {
+                    if(p.getStandort().getOrt().equals(t.getStandort().getOrt())){
+                        Traeger ta = p.getCurrentTraeger();
+                        List<Probe> current = ta.getProben();
+                        current.remove(p);
+                        ta.setProben(current);
+                        traegerService.update(ta);
+                        p.setCurrentTraeger(t);
+                        probenService.update(p);
+
+                    }
+                    else{
+                        facesError("Sample and carrier aren't at the same location!");
+                    }
+
+                }
+                catch (Exception e){
+                    log.info("Träger hat noch keine Proben (NullPointer)");
+                }
+            }
             traegerService.update(t);
             facesNotification("Edited trager with ID: " + id);
             log.info("Edited trager with ID: " + id);

@@ -147,23 +147,44 @@
                                 <p:column>
                                     <p:cellEditor>
                                         <f:facet name="output">
-                                            <h:outputText value="#{dtLogistikerBean.probenID}"/>
+                                            <p:commandButton value="Anzeigen" icon="pi pi-external-link" onclick="PF('dlg1').show();"/>
+                                            <p:dialog header="Probenuebersicht Uebersicht" widgetVar="dlg1"
+                                                      modal="true"
+                                                      height="100">
+                                                <p:panelGrid columns="1">
+                                                    <p:row>
+                                                        <p:dataTable id="probentable" var="probe"
+                                                                     value="#{trager.proben}"
+                                                                     editable="true"
+                                                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                                                     paginator="true" rows="15"
+                                                                     style="margin-bottom:20px">
+                                                            <p:column headerText="Proben ID">
+                                                                <h:outputText value="#{probe.probenID}"/>
+                                                            </p:column>
+                                                            <p:column headerText="Anzahl">
+                                                                <h:outputText value="#{probe.anzahl}"/>
+                                                            </p:column>
+                                                            <p:column headerText="Standort">
+                                                                <h:outputText value="#{probe.standort.ort}"/>
+                                                            </p:column>
+                                                        </p:dataTable>
+                                                    </p:row>
+                                                </p:panelGrid>
+                                            </p:dialog>
                                         </f:facet>
                                         <f:facet name="input">
-                                            <p:selectOneMenu id="ProbeTable2"
-                                                             value="#{dtLogistikerBean.probenID}"
-                                                             converter="omnifaces.SelectItemsConverter"
-                                                             effect="fade"
-                                                             var="proben" style="width: 172px" filter="true"
-                                                             filterMatchMode="contains" required="true"
-                                                             requiredMessage="#{msg['esVerwaltungMeldung.jsf']}">
+                                            <p:selectCheckboxMenu id="proben"
+                                                                  value="#{dtLogistikerBean.selectedProbe}"
+                                                                  converter="omnifaces.SelectItemsConverter" effect="fade"
+                                                                  var="probe" style="width: 172px" filter="true"
+                                                                  filterMatchMode="contains" showCheckbox="true"
+                                                                  label="Selected Proben" requiredMessage="#{msg['bedingungenMessage.jsf']}"
+                                                                  required="true">
                                                 <f:selectItems value="#{dtLogistikerBean.proben}"
-                                                               var="proben" itemLabel="#{proben.probenID}"
-                                                               itemValue="#{proben}" required="true"/>
-                                                <p:column>
-                                                    <h:outputText value="#{proben.probenID}"/>
-                                                </p:column>
-                                            </p:selectOneMenu>
+                                                               var="probe" itemLabel="#{probe.probenID}"
+                                                               itemValue="#{probe}"/>
+                                            </p:selectCheckboxMenu>
                                         </f:facet>
                                     </p:cellEditor>
                                 </p:column>
