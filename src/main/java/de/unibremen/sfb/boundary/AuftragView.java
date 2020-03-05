@@ -172,14 +172,14 @@ public class AuftragView implements Serializable {
                 ProzessSchritt ps = new ProzessSchritt(UUID.randomUUID().hashCode(), prozessSchrittZustandsAutomat,
                         psv.getDauer(), List.copyOf(psv.getProzessSchrittParameters()), "",
                         List.of(prozessSchrittLog), psv.getName(), psv.isUrformend(), psv.getAmountCreated());
-                experimentierStationService.setES(ps, psv.getExperimentierStation());
                 ps.setAssigned(true);
                 prozessSchrittService.createPS(ps);
+                experimentierStationService.setES(ps, psv.getExperimentierStation());
                 prozessSchritts.add(ps);
             }
             AuftragsLog auftragsLog = new AuftragsLog(LocalDateTime.now());
             auftragsLogsService.add(auftragsLog);
-            auftragService.add(new Auftrag(UUID.randomUUID().hashCode(), selectedName, selectedPriority, List.copyOf(prozessSchritts), auftragsLog, ProzessKettenZustandsAutomat.INSTANZIIERT));
+            auftragService.add(new Auftrag(UUID.randomUUID().hashCode(), selectedName, selectedPriority, prozessSchritts, auftragsLog, ProzessKettenZustandsAutomat.INSTANZIIERT));
             log.info("Created new job with name " + selectedName);
             facesNotification("Created new job with name " + selectedName);
             refresh();
