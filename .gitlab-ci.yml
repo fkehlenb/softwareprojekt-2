@@ -49,7 +49,7 @@ pages:
   script:
     - mkdir public  # create a folder called public
     - mkdir public/apidocs
-    - cp target/apidocs/ public/apidocs
+    - cp target/apidocs public/apidocs
     - cp doc/Architekturbeschreibung.pdf public/Architekturbeschreibung.pdf # copy the pdf file into the public folder
   artifacts:
     paths:
