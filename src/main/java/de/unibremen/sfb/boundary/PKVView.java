@@ -80,6 +80,7 @@ public class PKVView implements Serializable {
             prozessKettenVorlageService.persist(new ProzessKettenVorlage(UUID.randomUUID().hashCode(),selectedName,List.copyOf(psvs.getTarget())));
             log.info("Created new process chain template with name " + selectedName);
             facesNotification("Created new process chain template with name " + selectedName);
+            refresh();
         }
         catch (Exception e){
             e.printStackTrace();
@@ -95,6 +96,7 @@ public class PKVView implements Serializable {
             prozessKettenVorlageService.remove(prozessKettenVorlageService.getObjById(id));
             log.info("Deleted process chain template with id " + id);
             facesNotification("Deleted process chain template!");
+            refresh();
         }
         catch (Exception e){
             e.printStackTrace();
@@ -113,6 +115,7 @@ public class PKVView implements Serializable {
             prozessKettenVorlageService.update(prozessKettenVorlage);
             log.info("Updated process chain template with id " + id);
             facesNotification("Updated process chain template!");
+            refresh();
         }
         catch (Exception e){
             e.printStackTrace();

@@ -122,7 +122,7 @@
                                     <p:column colspan="1">
                                         <p:commandButton value="Erstellen"
                                                          action="#{psvErstellenBean.createPSV}" icon="pi pi-check"
-                                                         ajax="false"/>
+                                                         ajax="true" update="form:PSVList"/>
                                     </p:column>
                                 </p:row>
                             </p:panelGrid>
@@ -131,7 +131,6 @@
                 </p:row>
                 <p:row>
                     <h:form id="form">
-                        <p:growl id="msgs" showDetail="true" sticky="true"/>
                         <p:dataTable id="PSVList" var="psv"
                                      value="#{psvErstellenBean.availableProzessSchrittVorlageList}"
                                      editable="true"
@@ -251,7 +250,7 @@
                             </p:column>
                             <p:column>
                                 <p:commandButton value="Delete" icon="pi pi-trash"
-                                                 action="#{psvErstellenBean.removePSV(psv.psVID)}" ajax="false"/>
+                                                 action="#{psvErstellenBean.removePSV(psv.psVID)}" ajax="true" update="form:PSVList"/>
                             </p:column>
                             <p:column style="width:35px">
                                 <p:rowEditor/>

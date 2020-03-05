@@ -143,7 +143,7 @@
                             </p:cellEditor>
                         </p:column>
                         <p:column>
-                            <p:commandButton value="Remove" icon="pi pi-trash" ajax="false"
+                            <p:commandButton value="Remove" icon="pi pi-trash" ajax="true" update="form:table"
                                              action="#{dtPSPBean.removePSP(psp.id)}"/>
                         </p:column>
                         <p:column>

@@ -231,14 +231,14 @@
                             </p:column>
                             <p:column headerText="Freigabe">
                                 <p:commandButton value="Freigeben" action="#{dtAuftragBean.setStarted(job.pkID)}"
-                                                 ajax="false" icon="pi pi-check"/>
+                                                 ajax="true" update="form:table" icon="pi pi-check"/>
                             </p:column>
                             <p:column>
                                 <p:commandButton value="Abbrechen" action="#{dtAuftragBean.stopJob(job.pkID)}"
-                                                 ajax="false" icon="pi pi-trash"/>
+                                                 ajax="true" update="form:table" icon="pi pi-trash"/>
                             </p:column>
                             <p:column>
-                                <p:commandButton value="Delete" icon="pi pi-trash" ajax="false"
+                                <p:commandButton value="Delete" icon="pi pi-trash" ajax="true" update="form:table"
                                                  action="#{dtAuftragBean.remove(job.pkID)}"/>
                             </p:column>
                             <p:column>

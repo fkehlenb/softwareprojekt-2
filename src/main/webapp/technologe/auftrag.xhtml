@@ -20,11 +20,8 @@
         <shiro:hasRole name="technologe">
     <ui:composition template="../template/common/layout.xhtml">
         <ui:define name="content">
-            <div class="ui-g-2"></div>
-            <div class="ui-g-8">
-
                 <h:body>
-                    <h:form style="background-color: white; margin-top: 100px; width: 650px">
+                    <h:form>
                         <p:growl>
                             <p:autoUpdate/>
                         </p:growl>
@@ -56,9 +53,6 @@
                         </p:panelGrid>
                     </h:form>
                 </h:body>
-
-
-            </div>
         </ui:define>
     </ui:composition>
         </shiro:hasRole>

@@ -83,6 +83,12 @@ public class ProzessSchrittVorlageService implements Serializable {
         return psvDAO.getObjById(id);
     }
 
+    /** Get a list of all available process step templates
+     * @return a list of all available process step templates or an empty arraylist */
+    public List<ProzessSchrittVorlage> getAll(){
+        return psvDAO.getAll();
+    }
+
     /**
      * Duerfen diese PS bearbeitet werden
      *

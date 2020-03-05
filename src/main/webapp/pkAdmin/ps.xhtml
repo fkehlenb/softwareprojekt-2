@@ -265,7 +265,7 @@
                                 </p:column>
                                 <p:column>
                                     <p:commandButton value="Delete" icon="pi pi-trash"
-                                                     action="#{psView.removePS(ps.id)}" ajax="false"/>
+                                                     action="#{psView.removePS(ps.id)}" ajax="true" update="form:table"/>
                                 </p:column>
                                 <p:column style="width:35px">
                                     <p:rowEditor/>
