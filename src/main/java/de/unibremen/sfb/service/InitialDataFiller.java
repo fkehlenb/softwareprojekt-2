@@ -419,7 +419,7 @@ public class InitialDataFiller {
 
     /**
      * erstellt proben für einen prozessschritt
-     *
+     * @param s, the Location to which the samples will be added
      * @return a list of samples
      */
     public Traeger erstelleProben(Standort s) {

@@ -71,6 +71,7 @@ public class TransporterBean implements Serializable {
 
     /**
      * sets the status of the job this transporter is currently working on
+     * @param TransportID of the Transport which should be changed
      */
     public void changeTransportZustandAbgeholt(int TransportID) {
       try {
@@ -90,25 +91,25 @@ public class TransporterBean implements Serializable {
 
     /**
      * sets the status of the job this transporter is currently working on
-     * @return
+     * @param transportID of the Transport which was delivered
      */
-    public void changeTransportZustandAbgeliefert(int TransportID) {
+    public void changeTransportZustandAbgeliefert(int transportID) {
         try {
-            TransportAuftrag tr = auftragService.getTransportAuftragByID(TransportID);
+            TransportAuftrag tr = auftragService.getTransportAuftragByID(transportID);
             auftragService.sedTransportZustand(tr, TransportAuftragZustand.ABGELIEFERT);
-            if(auftragService.getTransportAuftragByID(TransportID).getZustandsAutomat() == TransportAuftragZustand.ABGELIEFERT){
+            if(auftragService.getTransportAuftragByID(transportID).getZustandsAutomat() == TransportAuftragZustand.ABGELIEFERT){
                 new ProzessSchrittLog(LocalDateTime.now(),"ERSTELLT");
             }
-            log.info("TransportAuftragZustand wurde gewechselt auf Abgeliefert " + TransportID);
-            facesNotification("Der Zustand von " + TransportID + " wurde auf Abgeliefert gesetzt.");
+            log.info("TransportAuftragZustand wurde gewechselt auf Abgeliefert " + transportID);
+            facesNotification("Der Zustand von " + transportID + " wurde auf Abgeliefert gesetzt.");
 
             updateTabellen();
 
         }
         catch (Exception e){
             e.printStackTrace();
-            log.error("Failed to change state to Abgeliefert" + TransportID);
-            facesError("Failed to change state to Abgeliefert" + TransportID);
+            log.error("Failed to change state to Abgeliefert" + transportID);
+            facesError("Failed to change state to Abgeliefert" + transportID);
         }
     }
 
