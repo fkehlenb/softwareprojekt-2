@@ -619,22 +619,68 @@ exportieren. \\
 Im unteren Formular können Sie die Logs für einzelne Prozessschritte oder Aufträge exportieren. Dafür wählen Sie einen Prozessschritt oder Auftrag aus, und drücken Sie nach Auswahl auf Export. Danach wird der Download der JSON Datei beginnen. \\
 
 Im oberen Formular können Sie für die anderen Datenmöglichkeiten alle in der Datenbank vorhandenen Dateien exportieren, indem Sie neben der gewünschten Option auf Export klicken. Der Download wird in Kürze beginnen. \\
-%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Logistiker}
-\subsubsection{Übersicht über Träger}
-\subsubsection{Übersicht über freigegeben Aufträge}
-\subsubsection{Übersicht über Probenmengen}
-\subsubsection{Übersicht über archivierte Proben}
-\subsubsection{Übersicht über Probenstandorte}
+
+Im Folgenden finden Sie Anleitungen zu allen Aktionen, die ein Logistiker ausführen kann. \\
+
+%%%%%%%%%%
+\subsubsection{Träger}
+Im Menü-Unterpunkt Trägerübersicht haben Sie eine Übersicht über alle aktuell in der Datenbank gespeicherten Träger, können diese Löschen und Bearbeiten sowie neue erstellen. \\
+
+In der Tabelle unterhalb des Eingabeformulars finden Sie alle existierenden Träger. Durch Klicken auf Anzeigen können Sie alle zu einem Träger gehörenden Probe einsehen. \\
+
+Wollen Sie einen neuen Träger erstellen, wählen Sie im Eingabeformular am Anfang der Seite eine Trägerart aus (Glas, Eingebettet, Einzeln), sowie den aktuellen Standort des neuen Trägers aus. Wenn Sie beide Angaben gemacht haben, können Sie auf Erstellen drücken, um diesen zu speichern. Um Ihre Eingaben zu löschen, drücken Sie auf Zurücksetzen. Dadurch werden keine Änderungen an den in der Datenbank gespeicherten Daten gemacht. \\
+
+Um einen existierenden Träger zu löschen, drücken Sie in der zugehörigen Tabellenzeile auf Löschen. Dadurch werden der Träger unwiderrufbar aus der Datenbank gelöscht. \\
+
+Um einen existierenden Träger zu bearbeiten, drücken Sie auf das Stift-Symbol am Ende der zugehörigen Tabellenzeile. Dadurch können Sie die entsprechenden Daten in den Zellen direkt ändern. Um Ihre Änderungen zu speichern, klicken Sie auf den Haken, der an Stelle des Stiftes erschienen ist. Um Ihre Änderungen zu verwerfen und die Daten aus der Datenbank beizubehalten, drücken Sie auf das Kreuz. \\
+
+%%%%%%%%%%
+\subsubsection{Aufträge}
+Im Menü-Unterpunkt Auftragsübersicht haben Sie eine Übersicht über existierende Aufträge, können diese Starten oder Ablehnen. //TODO\\
+
+In der Tabelle haben Sie eine Übersicht über die Aufträge. Sie können die Aufträge nach Id, Priorität, und Zustand sortieren sowie durchsuchen. Sie können ebenfalls entscheiden, wie viele Aufträge pro Seite angezeigt werden, und mit den Pfeiltasten durch die Seiten navigieren. Ebenfalls können Sie mit dem Eingabefeld oberhalb der Tabelle die gesamte Tabelle nach Schlagwörtern durchsuchen. Mit Drücken auf Clear Tabel state //TODO können Sie die Tabellenansicht (Sortierung und Suche) auf die ursprünglichen Einstellungen zurücksetzen, sodass alle Ihre Aufträge angezeigt werden. \\
+
+Wollen Sie einen Auftrag starten, klicken Sie in der Tabelle in der entsprechenden Tabellenzeile auf Annehmen. \\
+
+Um einen Auftrag abzulehnen, klicken Sie in der Tabelle in der entsprechenden Tabellenzeile auf Ablehnen. Dazu müssen Sie im Textfeld zwischen den Knöpfen eine kurze Nachricht eingeben, warum Sie den Auftrag ablehnen. \\
+
+%%%%%%%%%%
+\subsubsection{Proben}
+Im Menü-Unterpunkt Probenübersicht haben Sie eine Übersicht über alle Proben, die sich im Lager befinden. \\
+
+Proben werden gruppenweise gespeichert. Proben mit gleichen Attributen haben die gleiche ID, und für jede Probengruppe wird die Anzahl an Proben dieser Gruppe gespeichert. \\
+
+%%%%%%%%%%
+\paragraph{Probenstandort}
+Im Menü-Unterpunkt Probenstandort können Sie für jede Probegruppe sehen, wo diese sich aktuell befindet. \\
+
+%%%%%%%%%%
+\paragraph{Proben einfügen}
+Im Menü-Unterpunkt Proben Einfügen können Sie dem System neue Probengruppen hinzufügen. \\
+
+Dafür müssen Sie im Formular eine neue Proben-ID eingeben, sowie die Anzahl an Proben in der neuen Gruppe. Bitte beachten Sie, dass Proben-IDs von der Form [A-Z][0-9][0-9].[0-9] sein, wobei nach dem Komma beliebig viele Ziffern folgen können. Nachdem Sie alle Angaben gemacht haben, können Sie die neue Gruppe mit Klick auf Speichern im System speichern. Wollen Sie die Angaben im Formular löschen, klicken Sie auf Zurücksetzen; darauf werden keine Änderungen an den in der Datenbank gespeicherten Daten gemacht. \\
+%%%%%%%%%%
+\paragraph{Probenverlust}
+Proben können Sie im Menü-Unterpunkt Probenverlust Melden als verloren melden. Dafür geben Sie im Formular die Proben-ID der Gruppe, zu der die Probe gehört, sowie die Anzahl an Proben aus dieser Gruppe, die verloren gegangen sind, an. Wenn Sie diese Angaben gemacht haben, können Sie diese Probe(n) mit Klicken auf Senden melden. \\
+
+%%%%%%%%%%
+\paragraph{Archivierte Proben}
+Im Menü-Unterpunkt Archivübersicht haben Sie eine Übersicht über die Proben, die archiviert worden sind. \\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Technologe}
 \subsubsection{Übersicht über Experimentierstationen}
-\subsubsection{Übersicht über aktuelle Arbeitsarufträge}
-\subsubsection{Übersicht über angekündigte Abeitsaufträge}
-\subsubsection{Aktualisieren des Zustands eines Arbeitrauftrags}
+\subsubsection{Übersicht über aktuelle Arbeitsaufträge}
+\subsubsection{Übersicht über angekündigte Arbeitsaufträge}
+\subsubsection{Aktualisieren des Zustands eines Arbeitsauftrags}
 \subsubsection{Probenupload}
 \subsubsection{Proben melden}
 \subsubsection{Experimentierstation melden}
 \subsubsection{Kommentare}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Transporter}
 \subsubsection{Übersicht über anstehende Transportaufträge}
 \subsubsection{Probenverlust melden}
