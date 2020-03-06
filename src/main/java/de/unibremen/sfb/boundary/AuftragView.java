@@ -153,6 +153,7 @@ public class AuftragView implements Serializable {
         availablePriorities.add(AuftragsPrioritaet.VIEL);
         availablePriorities.add(AuftragsPrioritaet.HOCH);
         availablePriorities.add(AuftragsPrioritaet.SEHR_HOCH);
+        prios = AuftragsPrioritaet.values();
         selectedProzessSchritte = new ArrayList<>();
         dualListModel = new DualListModel<>(availableProzessSchritte,selectedProzessSchritte);
         auftrage = auftragService.getAll();

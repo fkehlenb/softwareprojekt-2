@@ -10,6 +10,7 @@ import de.unibremen.sfb.service.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.primefaces.event.RowEditEvent;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -43,6 +44,10 @@ public class LogistikerBean implements Serializable {
     //TODO remove this
     @Inject
     private ProbeDAO probeDAO;
+
+    private List<Auftrag> filteredAuftrag;
+
+    private AuftragsPrioritaet  selectedPriority;
 
     /**
      * Sample service
@@ -136,7 +141,14 @@ public class LogistikerBean implements Serializable {
      * Reload data
      */
     private void refresh() {
-        auftrage = auftragService.getAll();
+        var jobs = auftragService.getAll();
+        auftrage = new ArrayList<>();
+        for (Auftrag a :
+                jobs) {
+            if (!a.getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.GESTARTET)) {
+                auftrage.add(a);
+            }
+        }
         proben = probenService.getAll();
         traegers = getTraegerList();
         archiviert = getAllArchviert();
@@ -156,6 +168,21 @@ public class LogistikerBean implements Serializable {
      */
     public List<Traeger> getTraegerList() {
         return traegerService.getAll();
+    }
+
+    public void onRowEdit(int id) {
+        FacesMessage msg = new FacesMessage("Auftrag Edited");
+//        try {
+//            auftragService.update(event.getObject());
+//        } catch (AuftragNotFoundException e) {
+//            e.printStackTrace();
+//        }
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onRowCancel(RowEditEvent<Auftrag> event) {
+        FacesMessage msg = new FacesMessage("Edit Cancelled", ""+  event.getObject().getPkID());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     /**
