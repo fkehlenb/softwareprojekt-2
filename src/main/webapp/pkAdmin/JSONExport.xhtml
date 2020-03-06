@@ -40,14 +40,20 @@
                                 </p:column>
                                 <p:column colspan="1">
                                     <p:commandButton value="Export" icon="pi pi-external-link"
-                                                     action="#{pkAdminJSON.exportAuftrags}"/>
+                                                     action="#{pkAdminJSON.exportAuftrags}" ajax="true"
+                                                     onclick="PrimeFaces.monitorDownload(start, stop);">
+                                        <p:fileDownload value="#{pkAdminJSON.file}"/>
+                                    </p:commandButton>
                                 </p:column>
                                 <p:column colspan="1">
                                     <h:outputText value="Prozesskettenvorlagen Exportieren"/>
                                 </p:column>
                                 <p:column colspan="1">
                                     <p:commandButton value="Export" icon="pi pi-external-link"
-                                                     action="#{pkAdminJSON.exportPKV}"/>
+                                                     action="#{pkAdminJSON.exportPKV}" ajax="true"
+                                                     onclick="PrimeFaces.monitorDownload(start, stop);">
+                                        <p:fileDownload value="#{pkAdminJSON.file}"/>
+                                    </p:commandButton>
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -56,14 +62,20 @@
                                 </p:column>
                                 <p:column colspan="1">
                                     <p:commandButton value="Export" icon="pi pi-external-link"
-                                                     action="#{pkAdminJSON.exportPS}"/>
+                                                     action="#{pkAdminJSON.exportPS}" ajax="true"
+                                                     onclick="PrimeFaces.monitorDownload(start, stop);">
+                                        <p:fileDownload value="#{pkAdminJSON.file}"/>
+                                    </p:commandButton>
                                 </p:column>
                                 <p:column colspan="1">
                                     <h:outputText value="ProzessSchrittVorlagen Exportieren"/>
                                 </p:column>
                                 <p:column colspan="1">
                                     <p:commandButton value="Export" icon="pi pi-external-link"
-                                                     action="#{pkAdminJSON.exportPSV}"/>
+                                                     action="#{pkAdminJSON.exportPSV}" ajax="true"
+                                                     onclick="PrimeFaces.monitorDownload(start, stop);">
+                                        <p:fileDownload value="#{pkAdminJSON.file}"/>
+                                    </p:commandButton>
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -72,14 +84,20 @@
                                 </p:column>
                                 <p:column colspan="1">
                                     <p:commandButton value="Export" icon="pi pi-external-link"
-                                                     action="#{pkAdminJSON.exportPSP}"/>
+                                                     action="#{pkAdminJSON.exportPSP}" ajax="true"
+                                                     onclick="PrimeFaces.monitorDownload(start, stop);">
+                                        <p:fileDownload value="#{pkAdminJSON.file}"/>
+                                    </p:commandButton>
                                 </p:column>
                                 <p:column colspan="1">
                                     <h:outputText value="ExperimentierStationen Exportieren"/>
                                 </p:column>
                                 <p:column colspan="1">
                                     <p:commandButton value="Export" icon="pi pi-external-link"
-                                                     action="#{pkAdminJSON.exportES}"/>
+                                                     action="#{pkAdminJSON.exportES}" ajax="true"
+                                                     onclick="PrimeFaces.monitorDownload(start, stop);">
+                                        <p:fileDownload value="#{pkAdminJSON.file}"/>
+                                    </p:commandButton>
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -88,14 +106,20 @@
                                 </p:column>
                                 <p:column colspan="1">
                                     <p:commandButton value="Export" icon="pi pi-external-link"
-                                                     action="#{pkAdminJSON.exportUsers}"/>
+                                                     action="#{pkAdminJSON.exportUsers}" ajax="true"
+                                                     onclick="PrimeFaces.monitorDownload(start, stop);">
+                                        <p:fileDownload value="#{pkAdminJSON.file}"/>
+                                    </p:commandButton>
                                 </p:column>
                                 <p:column colspan="1">
                                     <h:outputText value="Transport Aufträge Exportieren"/>
                                 </p:column>
                                 <p:column colspan="1">
                                     <p:commandButton value="Export" icon="pi pi-external-link"
-                                                     action="#{pkAdminJSON.exportTA}"/>
+                                                     action="#{pkAdminJSON.exportTA}" ajax="true"
+                                                     onclick="PrimeFaces.monitorDownload(start, stop);">
+                                        <p:fileDownload value="#{pkAdminJSON.file}"/>
+                                    </p:commandButton>
                                 </p:column>
                             </p:row>
                         </p:panelGrid>
@@ -131,7 +155,11 @@
                                             </p:column>
                                             <p:column colspan="1">
                                                 <p:commandButton icon="pi pi-external-link" value="Export"
-                                                                 action="#{pkAdminJSON.exportProcessStepLog}"/>
+                                                                 action="#{pkAdminJSON.exportProcessStepLog}"
+                                                                 ajax="true"
+                                                                 onclick="PrimeFaces.monitorDownload(start, stop);">
+                                                    <p:fileDownload value="#{pkAdminJSON.file}"/>
+                                                </p:commandButton>
                                             </p:column>
                                         </p:row>
                                     </p:panelGrid>
@@ -164,7 +192,10 @@
                                             </p:column>
                                             <p:column colspan="1">
                                                 <p:commandButton icon="pi pi-external-link" value="Export"
-                                                                 action="#{pkAdminJSON.exportAuftragsLog}"/>
+                                                                 action="#{pkAdminJSON.exportAuftragsLog}" ajax="true"
+                                                                 onclick="PrimeFaces.monitorDownload(start, stop);">
+                                                    <p:fileDownload value="#{pkAdminJSON.file}"/>
+                                                </p:commandButton>
                                             </p:column>
                                         </p:row>
                                     </p:panelGrid>

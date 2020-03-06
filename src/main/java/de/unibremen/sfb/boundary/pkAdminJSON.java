@@ -5,6 +5,9 @@ import de.unibremen.sfb.service.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.omnifaces.util.Faces;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -15,7 +18,10 @@ import javax.inject.Named;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbConfig;
-import java.io.PrintWriter;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -81,6 +87,9 @@ public class pkAdminJSON {
     private JsonbConfig config;
     private Jsonb jsonb;
 
+    /** File to download */
+    private StreamedContent file;
+
     /** Init called on start */
     @PostConstruct
     private void init(){
@@ -98,6 +107,7 @@ public class pkAdminJSON {
             PrintWriter writer = new PrintWriter(fileName);
             writer.write(result);
             writer.close();
+            Faces.sendFile(new File(fileName),true);
             log.info("Successfully exported json to " + fileName);
             facesNotification("Successfully exported json to " + fileName);
         }
@@ -115,6 +125,7 @@ public class pkAdminJSON {
             String fileName = "JSON_" + LocalDateTime.now().toString().replaceAll(":","_") + ".json";
             PrintWriter writer = new PrintWriter(fileName);
             writer.write(result);
+            Faces.sendFile(new File(fileName),true);
             log.info("Successfully exported json to " + fileName);
             facesNotification("Successfully exported json to " + fileName);
         }
@@ -142,6 +153,7 @@ public class pkAdminJSON {
             PrintWriter writer = new PrintWriter(fileName);
             writer.write(result);
             writer.close();
+            Faces.sendFile(new File(fileName),true);
             log.info("Successfully exported json to " + fileName);
             facesNotification("Successfully exported json to " + fileName);
         }
@@ -160,6 +172,7 @@ public class pkAdminJSON {
             PrintWriter writer = new PrintWriter(fileName);
             writer.write(result);
             writer.close();
+            Faces.sendFile(new File(fileName),true);
             log.info("Successfully exported json to " + fileName);
             facesNotification("Successfully exported json to " + fileName);
         }
@@ -178,6 +191,7 @@ public class pkAdminJSON {
             PrintWriter writer = new PrintWriter(fileName);
             writer.write(result);
             writer.close();
+            Faces.sendFile(new File(fileName),true);
             log.info("Successfully exported json to " + fileName);
             facesNotification("Successfully exported json to " + fileName);
         }
@@ -196,6 +210,7 @@ public class pkAdminJSON {
             PrintWriter writer = new PrintWriter(fileName);
             writer.write(result);
             writer.close();
+            Faces.sendFile(new File(fileName),true);
             log.info("Successfully exported json to " + fileName);
             facesNotification("Successfully exported json to " + fileName);
         }
@@ -214,6 +229,7 @@ public class pkAdminJSON {
             PrintWriter writer = new PrintWriter(fileName);
             writer.write(result);
             writer.close();
+            Faces.sendFile(new File(fileName),true);
             log.info("Successfully exported json to " + fileName);
             facesNotification("Successfully exported json to " + fileName);
         }
@@ -232,6 +248,7 @@ public class pkAdminJSON {
             PrintWriter writer = new PrintWriter(fileName);
             writer.write(result);
             writer.close();
+            Faces.sendFile(new File(fileName),true);
             log.info("Successfully exported json to " + fileName);
             facesNotification("Successfully exported json to " + fileName);
         }
@@ -250,6 +267,7 @@ public class pkAdminJSON {
             PrintWriter writer = new PrintWriter(fileName);
             writer.write(result);
             writer.close();
+            Faces.sendFile(new File(fileName),true);
             log.info("Successfully exported json to " + fileName);
             facesNotification("Successfully exported json to " + fileName);
         }
@@ -268,6 +286,7 @@ public class pkAdminJSON {
             PrintWriter writer = new PrintWriter(fileName);
             writer.write(result);
             writer.close();
+            Faces.sendFile(new File(fileName),true);
             log.info("Successfully exported json to " + fileName);
             facesNotification("Successfully exported json to " + fileName);
         }
