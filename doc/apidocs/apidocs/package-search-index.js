@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"de.unibremen.sfb.boundary"},{"l":"de.unibremen.sfb.converter"},{"l":"de.unibremen.sfb.exception"},{"l":"de.unibremen.sfb.model"},{"l":"de.unibremen.sfb.persistence"},{"l":"de.unibremen.sfb.service"}]

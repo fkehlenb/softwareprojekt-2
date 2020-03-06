@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -21,55 +23,79 @@ import java.util.List;
 @Slf4j
 public class SingleStationBean implements Serializable {
 
+    /**
+     * Currently selected station
+     */
     private ExperimentierStation station;
 
+    /**
+     * Sample service
+     */
     @Inject
     private ProbenService probenService;
 
+    /**
+     * Experimenting station service
+     */
     @Inject
     private ExperimentierStationService esService;
 
+    /**
+     * WHY
+     */
     @Inject
     private TechnologeView technologeView;
 
+    /**
+     * Job Service
+     */
     @Inject
     private AuftragService auftragService;
 
+    /**
+     * Set the currently selected station
+     */
     public String singleStation(ExperimentierStation station) {
         this.station = station;
         return "singlestation.xhtml";
     }
 
     /**
-     * reports an experimentation station as broken
+     * Report the current station as broken
      */
     public void reportBroken() {
-        technologeView.reportBroken(station); //FIXME hier wie unten aufrufen
-
         try {
-            esService.setZustand(station, ExperimentierStationZustand.KAPUTT);
-            log.info("ExperimentierStation " + station.getEsID() + "was reported as broken.");
-        } catch (ExperimentierStationNotFoundException e) {
+            ExperimentierStation es = esService.getById(station.getEsID());
+            if (!es.getStatus().equals(ExperimentierStationZustand.KAPUTT)) {
+                es.setStatus(ExperimentierStationZustand.KAPUTT);
+                esService.updateES(es);
+                log.info("Experimenting station was reported broken!");
+                facesNotification("Experimenting station was reported broken!");
+            } else {
+                facesError("Experimenting station already marked as broken!");
+            }
+        } catch (Exception e) {
             e.printStackTrace();
-            log.info("an error occurred trying to report ExperimentierStation " + station.getEsID() + " as broken: " + e.getMessage());
+            log.error("Failed to set experimenting station as broken! ID " + station.getEsID());
+            facesError("Couldn't set experimenting station as broken!");
         }
     }
 
     /**
-     * Hole alle Proben, die an dieser Station sind
-     * @return alle Proben der Station
+     * Get all samples from an experimenting station
+     *
+     * @return a list of the experimenting station's samples
      */
     public List<Probe> getProben() {
         if (station.getCurrentPS() == null) {
-            return  new ArrayList<>();
+            return new ArrayList<>();
         }
         List<Probe> proben = new ArrayList<>();
-        Auftrag auftrag = null;
-        auftrag = auftragService.getAuftrag(station.getCurrentPS());
+        Auftrag auftrag = auftragService.getAuftrag(station.getCurrentPS());
         if (auftrag == null) {
             return new ArrayList<>();
         }
-       List<Traeger> Traeger = new ArrayList<>(auftrag.getTraeger());
+        List<Traeger> Traeger = new ArrayList<>(auftrag.getTraeger());
         for (Traeger t :
                 Traeger) {
             proben.addAll(t.getProben());
@@ -77,5 +103,27 @@ public class SingleStationBean implements Serializable {
         return proben;
     }
 
-    public SingleStationBean() {}
+    /**
+     * Constructor
+     */
+    public SingleStationBean() {
+    }
+
+    /**
+     * Adds a new SEVERITY_ERROR FacesMessage for the ui
+     *
+     * @param message Error Message
+     */
+    private void facesError(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+    }
+
+    /**
+     * Adds a new SEVERITY_INFO FacesMessage for the ui
+     *
+     * @param message Info Message
+     */
+    private void facesNotification(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
+    }
 }

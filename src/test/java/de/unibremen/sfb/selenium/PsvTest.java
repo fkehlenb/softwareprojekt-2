@@ -14,10 +14,20 @@ import org.openqa.selenium.JavascriptExecutor;
 
 import java.util.*;
 
+/**
+ * <p>PsvTest class.</p>
+ *
+ * @author Liam
+ * @version $Id: $Id
+ * @since 1.0
+ */
 public class PsvTest {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
+  /**
+   * <p>setUp.</p>
+   */
   @BeforeEach
   public void setUp() {
       System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
@@ -27,10 +37,18 @@ public class PsvTest {
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
   }
+  /**
+   * <p>tearDown.</p>
+   */
   @AfterEach
   public void tearDown() {
     driver.quit();
   }
+  /**
+   * <p>psv.</p>
+   *
+   * @throws java.lang.InterruptedException if any.
+   */
   @Test
   public void psv() throws InterruptedException {
     //Anmeldung

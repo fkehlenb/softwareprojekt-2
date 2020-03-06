@@ -121,7 +121,7 @@
 </ul>
 </li>
 <ul><li>Übersicht über Arbeitsauslastung der Experimentierstationen (<strong>O«UI.Auslastung»</strong>)</li>
-<li>Export des Protokolls nach JSON, so dass eine maschinelle Auswertung möglich ist</li></ul>
+<li><strike>Export des Protokolls nach JSON, so dass eine maschinelle Auswertung möglich ist</strike></li></ul>
 </ul>
 <h5 id="transporteur-otransporteur">Transporteur (<strong>O«Transporteur»</strong>)</h5>
 <ul>
@@ -130,11 +130,11 @@
 </ul>
 <h5 id="logistiker">Logistiker</h5>
 <ul>
-<strike><li>Übersicht über Träger<ul></strike>
-<li>Anlegen von neuen Trägern</li>
-<li>Löschen von alten Trägern</li>
+<strike><li>Übersicht über Träger<ul>
+    <li>Anlegen von neuen Trägern</li>
+    <li>Löschen von alten Trägern</li>
 </ul>
-</li>
+</li></strike>
 <li>Übersicht über freigegebene Aufträge<ul>
 <li>Zuordnen von Trägern/Proben zu freigegebenen Aufträgen<ul>
 <li>Manuell (Korrektheit wird von außen sichergestellt)</li>
@@ -255,7 +255,7 @@ der Technologen entfernt werden.</p>
 die Auslastung der verschiedenen Experimentierstationen. Von Interesse sind die
 Anzahl der Aufträge/Proben und die darauf basierende geschätzte Gesamtdauer.</p>
 <h4 id="technische-anforderungen">Technische Anforderungen</h4>
-<ul>
+<strike><ul>
 <li>Implementieren Sie in Java 11 oder höher</li>
 <li>Client-Server-Architektur<ul>
 <li>Server<ul>
@@ -277,4 +277,5 @@ Anzahl der Aufträge/Proben und die darauf basierende geschätzte Gesamtdauer.</
 </li>
 <li>Maven muss als Build-System eingesetzt werden</li>
 <li>Mehrere Nutzer sollen auf das System gleichzeitig zugreifen können.</li>
+</strike>
 </div>

@@ -39,6 +39,7 @@ public class ProzessSchrittZustandsAutomatZustaendeDAO extends ObjectDAO<Prozess
     }
 
     /** Get the object using its id
+     * @param id of the Automata which should be fetched
      * @return the states object */
     public ProzessSchrittZustandsAutomatZustaende getById(int id){
         return em.find(ProzessSchrittZustandsAutomatZustaende.class,id);
