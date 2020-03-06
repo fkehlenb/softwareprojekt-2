@@ -22,7 +22,7 @@
                 <p:row>
                     <p>Hier koennen Sie neue Prozesschrittzustandsautomatvorlagen erstellen, welche spaeter von den
                         Prozessschritten verwendet werden koennen. Sie koennen beliebig viele zustaende hinzufuegen, allerdings
-                        muss der Zustaend "Erstellt"  immer an erster Stelle kommen.
+                        muss der Zustaend "Erstellt" immer an erster Stelle kommen.
                         Weitere zustaende existieren, werden hier allerdings nicht angezeigt, da Sie nur fuer den Transport bzw.
                         den Technologen relevant sind.</p>
                 </p:row>
@@ -111,7 +111,8 @@
                             <p:ajax event="rowEditCancel" listener="#{pszavView.onRowCancel}" update="form:table"/>
                             <p:column selectionMode="multiple"
                                       style="width:16px;text-align:center"/>
-                            <p:column headerText="Prozessschrittzustandsautomat Name" filterBy="#{pszav.name}" footerText="in"
+                            <p:column headerText="Prozessschrittzustandsautomat Name" filterBy="#{pszav.name}"
+                                      footerText="in"
                                       filterMatchMode="contains">
                                 <p:cellEditor>
                                     <f:facet name="output">
@@ -126,7 +127,23 @@
                                       filterMatchMode="contains">
                                 <p:cellEditor>
                                     <f:facet name="output">
-                                        <h:outputText value="#{pszav.zustaende}"/>
+                                        <p:commandButton value="Anzeigen" icon="pi pi-external-link" update="tablepspp" oncomplete="PF('dlg2').show();"/>
+                                        <p:sidebar header="Zustandsreihenfolge Uebersicht" widgetVar="dlg2"
+                                                   modal="true" id="tablepspp" style="width: 50%"
+                                                   height="100">
+                                            <p:panelGrid columns="1">
+                                                <p:row>
+                                                    <p:dataTable id="tablepsp" var="psp"
+                                                                 value="#{pszav.zustaende}"
+                                                                 editable="true"
+                                                                 scrollable="true" scrollHeight="400" style="margin-bottom:20px">
+                                                        <p:column headerText="Zustand">
+                                                            <h:outputText value="#{psp}"/>
+                                                        </p:column>
+                                                    </p:dataTable>
+                                                </p:row>
+                                            </p:panelGrid>
+                                        </p:sidebar>
                                     </f:facet>
                                     <f:facet name="input">
                                         <p:pickList id="zustandV2" value="#{pszavView.dualZ}" var="zustand"
@@ -136,7 +153,9 @@
                                 </p:cellEditor>
                             </p:column>
                             <p:column>
-                                <p:commandButton value="Delete" icon="pi pi-trash" action="#{pszavView.deletePSZAV(pszav.id)}" ajax="true" update="form:table"/>
+                                <p:commandButton value="Delete" icon="pi pi-trash"
+                                                 action="#{pszavView.deletePSZAV(pszav.id)}" ajax="true"
+                                                 update="form:table"/>
                             </p:column>
                             <p:column style="width:35px">
                                 <p:rowEditor/>

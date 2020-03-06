@@ -256,15 +256,14 @@
                                     <f:facet name="output">
                                         <p:commandButton value="Anzeigen" icon="pi pi-external-link" update="ausgabeTraeger3" oncomplete="PF('dlg4').show();"/>
                                         <p:sidebar header="Eingabe Traeger Uebersicht" widgetVar="dlg4" id="ausgabeTraeger3"
-                                                  modal="true"
+                                                  modal="true" style="width: 50%"
                                                   height="100">
                                             <p:panelGrid columns="1">
                                                 <p:row>
                                                     <p:dataTable id="etraeger" var="ta"
                                                                  value="#{psv.eingabeTraeger}"
                                                                  editable="true"
-                                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                                                 paginator="true" rows="15" style="margin-bottom:20px">
+                                                                 scrollable="true" scrollHeight="400" style="margin-bottom:20px">
                                                         <p:column headerText="Art">
                                                             <h:outputText value="#{ta}"/>
                                                         </p:column>
@@ -295,15 +294,14 @@
                                     <f:facet name="output">
                                         <p:commandButton value="Anzeigen" icon="pi pi-external-link" update="ausgabeTraeger4" oncomplete="PF('dlg3').show();"/>
                                         <p:sidebar header="Ausgabe Traeger Uebersicht" widgetVar="dlg3" id="ausgabeTraeger4"
-                                                  modal="true"
+                                                  modal="true" style="width: 50%"
                                                   height="100">
                                             <p:panelGrid columns="1">
                                                 <p:row>
                                                     <p:dataTable id="atraeger" var="ta"
                                                                  value="#{psv.ausgabeTraeger}"
                                                                  editable="true"
-                                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                                                 paginator="true" rows="15" style="margin-bottom:20px">
+                                                                 scrollable="true" scrollHeight="400" style="margin-bottom:20px">
                                                         <p:column headerText="Art">
                                                             <h:outputText value="#{ta}"/>
                                                         </p:column>
@@ -335,15 +333,14 @@
                                         <p:commandButton value="Anzeigen" icon="pi pi-external-link"
                                                          update="tablepspp" oncomplete="PF('dlg2').show();"/>
                                         <p:sidebar header="Prozessschritt Parameter Uebersicht" widgetVar="dlg2"
-                                                  modal="true" id="tablepspp"
+                                                  modal="true" id="tablepspp" style="width: 50%"
                                                   height="100">
                                             <p:panelGrid columns="1">
                                                 <p:row>
                                                     <p:dataTable id="tablepsp" var="psp"
                                                                  value="#{psv.prozessSchrittParameters}"
                                                                  editable="true"
-                                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                                                 paginator="true" rows="15" style="margin-bottom:20px">
+                                                                 scrollable="true" scrollHeight="400" style="margin-bottom:20px">
                                                         <p:column headerText="Name">
                                                             <h:outputText value="#{psp.name}"/>
                                                         </p:column>

@@ -89,15 +89,13 @@
                         <p:column headerText="Schritt Vorlagen">
                             <p:cellEditor>
                                 <f:facet name="output">
-                                    <p:commandButton value="Anzeigen" icon="pi pi-external-link" onclick="PF('dlg1').show();"/>
-                                    <p:dialog header="ProzessSchritt Uebersicht" widgetVar="dlg1" modal="true"
-                                              height="100">
+                                    <p:commandButton value="Anzeigen" icon="pi pi-external-link" update="dialog1" oncomplete="PF('dlg1').show();"/>
+                                    <p:sidebar header="ProzessSchritt Uebersicht" widgetVar="dlg1" modal="true" id="dialog1"
+                                              height="100" style="width: 50%">
                                         <p:panelGrid columns="1">
                                             <p:row>
                                                 <p:dataTable id="tableqle" var="ps" value="#{pkv.prozessSchrittVorlagen}"
-                                                             editable="true"
-                                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                                             paginator="true" rows="15" style="margin-bottom:20px">
+                                                             editable="true" style="margin-bottom:20px" scrollable="true" scrollHeight="400">
                                                     <p:column headerText="Name">
                                                         <h:outputText value="#{ps.name}"/>
                                                     </p:column>
@@ -110,7 +108,7 @@
                                                 </p:dataTable>
                                             </p:row>
                                         </p:panelGrid>
-                                    </p:dialog>
+                                    </p:sidebar>
                                 </f:facet>
                                 <f:facet name="input">
                                     <p:pickList id="psvV2" value="#{pkvView.psvs}" var="psvs" itemLabel="#{psvs}"

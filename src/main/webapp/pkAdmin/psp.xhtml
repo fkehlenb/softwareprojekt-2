@@ -111,22 +111,21 @@
                         <p:column headerText="Eigenschaften">
                             <p:cellEditor>
                                 <f:facet name="output">
-                                    <p:commandButton value="Anzeigen" icon="pi pi-external-link" onclick="PF('dlg1').show();"/>
-                                    <p:dialog header="Eigenschaften Uebersicht" widgetVar="dlg1" modal="true"
+                                    <p:commandButton value="Anzeigen" icon="pi pi-external-link" update="dialog1" oncomplete="PF('dlg1').show();"/>
+                                    <p:sidebar header="Eigenschaften Uebersicht" widgetVar="dlg1" modal="true" id="dialog1" style="width: 50%"
                                               height="100">
                                         <p:panelGrid columns="1">
                                             <p:row>
                                                 <p:dataTable id="tableqle" var="qle" value="#{psp.qualitativeEigenschaften}"
-                                                             editable="true"
-                                                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                                             paginator="true" rows="15" style="margin-bottom:20px">
+                                                             editable="true" scrollable="true" scrollHeight="50%"
+                                                             style="margin-bottom:20px">
                                                     <p:column headerText="Name">
                                                         <h:outputText value="#{qle.name}"/>
                                                     </p:column>
                                                 </p:dataTable>
                                             </p:row>
                                         </p:panelGrid>
-                                    </p:dialog>
+                                    </p:sidebar>
                                 </f:facet>
                                 <f:facet name="input">
                                     <p:selectCheckboxMenu id="psp3"
