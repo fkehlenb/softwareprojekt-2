@@ -54,11 +54,6 @@ ALL TAGS ABOVE THIS LINE WILL BE REMOVED BY JSF
                 <p:menuitem value="#{msg['quit.jsf']}" url="#"/>
             </p:submenu>
 
-            <p:submenu label="#{msg['edit.jsf']}" icon="pi pi-pencil">
-                <p:menuitem value="#{msg['undo.jsf']}" url="#" icon="pi pi-angle-double-left"/>
-                <p:menuitem value="#{msg['redo.jsf']}" url="#" icon="pi pi-angle-double-right"/>
-            </p:submenu>
-
             <shiro:authenticated>
                 <p:menuitem type="button" value="#{msg['logout.jsf']}" icon="pi pi-times" url="/logout"/>
             </shiro:authenticated>
