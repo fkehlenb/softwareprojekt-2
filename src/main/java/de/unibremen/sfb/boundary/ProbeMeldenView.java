@@ -1,10 +1,8 @@
 package de.unibremen.sfb.boundary;
 
-import de.unibremen.sfb.controller.ProbeController;
 import de.unibremen.sfb.exception.DuplicateProbeException;
 import de.unibremen.sfb.exception.ProbeNotFoundException;
 import de.unibremen.sfb.model.Probe;
-import de.unibremen.sfb.model.ProbenZustand;
 import de.unibremen.sfb.service.ProbenService;
 import lombok.Getter;
 import lombok.NonNull;

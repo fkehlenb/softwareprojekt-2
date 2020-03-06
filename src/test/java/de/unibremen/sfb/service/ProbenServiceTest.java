@@ -66,13 +66,6 @@ class ProbenServiceTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Test
-    void testInit() {
-        when(qualitativeEigenschaftService.getEigenschaften()).thenReturn(qualitativeEigenschafts);
-//        when(bedingungService.getBs()).thenReturn(bedingungs);
-        when(prozessSchrittParameterService.getParameterList()).thenReturn(prozessSchrittParameters);
-        probenService.init();
-    }
 
 
     //@Test To see

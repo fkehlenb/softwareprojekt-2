@@ -46,37 +46,7 @@ public class ProbenService implements Serializable {
     @Inject
     private ProzessSchrittService prozessSchrittService;
 
-    @PostConstruct
-    void init() {
-        // FIXME LOADING
-        var s = new Standort(UUID.randomUUID().hashCode(), "Archiv");
-        var s2 = new Standort(UUID.randomUUID().hashCode(), "Lager");
-        var pSPs = prozessSchrittParameterService.getParameterList();
-//        var bs = bedingungService.getBs();
-//        var p1 = new Probe(UUID.randomUUID().toString(),4,  ProbenZustand.VORHANDEN , s);
-//        p1.setParameter(pSPs);
-//        var p2 = new Probe(UUID.randomUUID().toString(),6,  ProbenZustand.VORHANDEN, s);
-//        p2.setBedingungen(bs);
-//
-//        proben = new ArrayList<>();
-//        proben.add(p1);
-//        proben.add(p2);
-//        proben.add(new Probe(UUID.randomUUID().toString(), 6, ProbenZustand.VORHANDEN, s2));
-
-    }
-
     // https://www.primefaces.org/showcase/ui/data/datatable/filter.xhtml
-
-    /**
-     * Suche nach Proben die diese Parameter erfuellen
-     * @param q Parameter
-     * @return alle Proben die diese Parameter besitzen
-     */
-    public List<Probe> getProbenByEigenschaft(QualitativeEigenschaft q) {
-        return proben.stream()
-                .filter(e -> e.getEigenschaften().contains(q))
-                .collect(Collectors.toList());
-    }
 
     public Probe erstelleProbe(Standort standort, String probenID, int anzahl) throws ProbeNotFoundException, DuplicateProbeException {
         int vorherigeAnzahl = 0;
@@ -269,30 +239,6 @@ public class ProbenService implements Serializable {
             p.setLost(vorherLost+lostAnzahl);
             probeDAO.update(p);
         }
-    }
-
-    /**
-     * adds a new sample to the database
-     * @param id the id of the new sample
-     * @param k a comment (optional)
-     * @param pz the current status
-     * @param s the location
-     * @param qe a list of  (optional)
-     * @param t the carrier the sample is currently in (optional)
-     * @throws DuplicateProbeException there is already a sample with this id
-     * //FIXME change qe to psp, any bugs?
-     */
-    public void addNewSample(String id, Kommentar k, ProbenZustand pz, Standort s, List<QualitativeEigenschaft> qe, Traeger t) throws DuplicateProbeException {
-        if(!id.matches("[A-Z][0-9][0-9].[0-9]+(.[0-9]+)+")) {
-            throw new IllegalArgumentException();
-        }
-        Probe p = new Probe(id,  5,  pz, s);
-        List<Kommentar> ks = new LinkedList<>();
-        ks.add(k);
-        p.setKommentar(ks);
-        p.setEigenschaften(qe);
-        p.setCurrentTraeger(t);
-        probeDAO.persist(p);
     }
 
     /**
