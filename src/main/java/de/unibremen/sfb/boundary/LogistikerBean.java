@@ -12,6 +12,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
 import org.primefaces.PrimeFaces;
+import org.primefaces.component.datatable.DataTable;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -39,6 +40,14 @@ import static de.unibremen.sfb.model.ProzessKettenZustandsAutomat.GESTARTET;
 @Slf4j
 @Transactional
 public class LogistikerBean implements Serializable {
+    private List<Probe> angezeigteProben;
+
+    private DataTable angezeigteProbenTabelle = new DataTable();
+
+    private void updateTabelle(Traeger traeger){
+        angezeigteProbenTabelle
+    }
+
     private List<Probe> proben;
 
     private List<Auftrag> auftrage;

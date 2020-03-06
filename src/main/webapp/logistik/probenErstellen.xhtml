@@ -41,7 +41,8 @@
                                         <h:outputText value="#{msg['logProbenID.jsf']}:"/>
                                     </p:column>
                                     <p:column colspan="1">
-                                        <p:inputText placeholder="#{msg['logProbenID.jsf']}" required="true"
+                                        <p:inputText
+                                                placeholder="#{msg['logProbenID.jsf']}" required="true"
                                                      requiredMessage="#{msg['logProbenEMeldung.jsf']}"
                                                      value="#{dtLogistikerBean.probenID}">
                                             <f:validateRegex pattern="[A-Z][0-9][0-9].[0-9]+(.[0-9]+)+"/>

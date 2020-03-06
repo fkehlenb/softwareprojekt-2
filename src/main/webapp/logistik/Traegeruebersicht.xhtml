@@ -147,7 +147,8 @@
                                 <p:column>
                                     <p:cellEditor>
                                         <f:facet name="output">
-                                            <p:commandButton value="Anzeigen" icon="pi pi-external-link" onclick="PF('dlg1').show();"/>
+                                            <p:commandButton value="Anzeigen" icon="pi pi-external-link" onsuccess="PF('dlg1').show();"
+                                                             onclick="Ajax Event setzt angezeigteProben im Controller"/>
                                             <p:dialog header="Probenuebersicht Uebersicht" widgetVar="dlg1"
                                                       modal="true"
                                                       height="100">
@@ -160,7 +161,7 @@
                                                                      paginator="true" rows="15"
                                                                      style="margin-bottom:20px">
                                                             <p:column headerText="Proben ID">
-                                                                <h:outputText value="#{probe.probenID}"/>
+                                                                <h:outputText value="#{trager.id}"/>
                                                             </p:column>
                                                             <p:column headerText="Anzahl">
                                                                 <h:outputText value="#{probe.anzahl}"/>
