@@ -197,7 +197,7 @@ public class AuftragService implements Serializable {
      *
      * @param value given id
      * @return The TransportAuftag with the specified value
-     * @throws TransportAuftragNotFoundException
+     * @throws TransportAuftragNotFoundException if no Transport Auftrag is found
      */
     public TransportAuftrag getTransportAuftragByID(int value) throws TransportAuftragNotFoundException {
         return transportAuftragDAO.getTransportAuftragById(value);
@@ -228,8 +228,7 @@ public class AuftragService implements Serializable {
     }
 
     public List<Traeger> getTraegerByPS (ProzessSchritt prozessSchritt){
-        var check = getAuftrag(prozessSchritt).getTraeger();
-        return check;
+        return getAuftrag(prozessSchritt).getTraeger();
 
 //        List<Auftrag> auftragList = getAll();
 //        Traeger traeger=null;

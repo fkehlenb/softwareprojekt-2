@@ -73,12 +73,6 @@ public class ResetBean implements Serializable {
     }
 
     /**
-     * sets the language in which everything is displayed for this user
-     * @param l the language
-     */
-    public void setLanguage(String l) {}
-
-    /**
      * the language everything is currently displayed in for this user
      * @return the language
      */

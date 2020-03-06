@@ -8,7 +8,6 @@ import de.unibremen.sfb.model.Standort;
 import de.unibremen.sfb.model.Traeger;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 

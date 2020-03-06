@@ -12,7 +12,6 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -233,10 +232,7 @@ public class ProzessSchrittView implements Serializable {
         try {
             int id = selectedProzessSchrittVorlage.getPsVID();
             ProzessSchrittVorlage prozessSchrittVorlage = prozessSchrittVorlageService.getByID(id);
-            List<String> zustaende = new ArrayList<>();
-            for (String s : prozessSchrittVorlage.getZustandsAutomatVorlage().getZustaende()) {
-                zustaende.add(s);
-            }
+            List<String> zustaende = new ArrayList<>(prozessSchrittVorlage.getZustandsAutomatVorlage().getZustaende());
             ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(),
                     prozessSchrittVorlage.getZustandsAutomatVorlage().getZustaende().get(0), zustaende);
             prozessSchrittZustandsAutomat.setName(prozessSchrittVorlage.getZustandsAutomatVorlage().getName());
@@ -274,10 +270,7 @@ public class ProzessSchrittView implements Serializable {
             if (prozessSchritt.getProzessSchrittZustandsAutomat().getCurrent().equals("Erstellt")) {
                 prozessSchritt.setName(prozessSchrittName);
                 prozessSchritt.setDuration(psDuration);
-                List<String> zustaende = new ArrayList<>();
-                for (String s : selectedProzessSchrittZustandsAutomatVorlage.getZustaende()) {
-                    zustaende.add(s);
-                }
+                List<String> zustaende = new ArrayList<>(selectedProzessSchrittZustandsAutomatVorlage.getZustaende());
                 ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(),
                         selectedProzessSchrittZustandsAutomatVorlage.getZustaende().get(0), zustaende);
                 prozessSchrittZustandsAutomat.setName(selectedProzessSchrittZustandsAutomatVorlage.getName());

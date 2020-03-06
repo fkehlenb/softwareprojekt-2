@@ -1,13 +1,8 @@
 package de.unibremen.sfb.service;
 
-import de.unibremen.sfb.controller.InitialDataFiller;
-import de.unibremen.sfb.exception.AuftragNotFoundException;
-import de.unibremen.sfb.exception.DuplicateAuftragException;
-import de.unibremen.sfb.exception.ProzessKettenVorlageNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.AuftragDAO;
 import de.unibremen.sfb.persistence.ProzessSchrittDAO;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -15,13 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 
-import javax.inject.Inject;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.Arrays;
 import java.util.List;
-
-import static org.mockito.Mockito.*;
 
 class AuftragServiceTest {
     @Mock

@@ -1,6 +1,5 @@
 package de.unibremen.sfb.boundary;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.*;
 import lombok.Getter;
@@ -16,7 +15,6 @@ import javax.inject.Named;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbConfig;
-import java.io.File;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.List;

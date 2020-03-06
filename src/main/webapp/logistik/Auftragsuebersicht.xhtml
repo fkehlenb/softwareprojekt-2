@@ -46,8 +46,6 @@
                     <p:panelGrid>
                         <p:row>
                             <p>#{msg['AuftragsuebersichtText.jsf']}</p>
-
-
                         </p:row>
                         <p:row>
                             <p:column colspan="1">
@@ -67,7 +65,7 @@
                                  rows="10" paginator="true"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="5,10,15"
-                                 selectionMode="single" selection="#{dtAuftragBean.selectedAuftraege}"
+
                                  rowKey="#{auftrag.pkID}"
                                  emptyMessage="Keine Aufträge gefunden!"
                                  filteredValue="#{dtAuftragBean.filteredAuftrag}">
@@ -80,7 +78,7 @@
                             </p:outputPanel>
                         </f:facet>
 
-                        <p:ajax event="rowSelect" update=":form:table"/>
+
                         <p:column headerText="Id" filterBy="#{ps.pkID}" sortBy="#{ps.pkID}"
                                   filterMatchMode="contains">
                             <h:outputText value="#{ps.pkID}"/>

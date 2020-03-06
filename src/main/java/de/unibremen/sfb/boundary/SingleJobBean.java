@@ -6,9 +6,7 @@ import de.unibremen.sfb.service.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.omnifaces.util.Faces;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -92,10 +90,7 @@ public class SingleJobBean implements Serializable {
             List<Probe> proben = new ArrayList<>();
             for (Traeger t :
                     auftragService.getAuftrag(ps).getTraeger()) {
-                for (Probe p :
-                        t.getProben()) {
-                    proben.add(p);
-                }
+                proben.addAll(t.getProben());
             }
             for (Probe p : proben) {
                 try {
@@ -126,10 +121,7 @@ public class SingleJobBean implements Serializable {
         List<Probe> proben = new ArrayList<>();
         for (Traeger t :
                 auftragService.getAuftrag(ps).getTraeger()) {
-            for (Probe p :
-                    t.getProben()) {
-                proben.add(p);
-            }
+            proben.addAll(t.getProben());
         }
         return proben;
     }
@@ -219,11 +211,7 @@ public class SingleJobBean implements Serializable {
         try {
             try {
                 psService.oneFurther(ps);
-            } catch (ExperimentierStationNotFoundException e) {
-                e.printStackTrace();
-            } catch (ProzessSchrittNotFoundException e) {
-                e.printStackTrace();
-            } catch (ProzessSchrittLogNotFoundException e) {
+            } catch (ExperimentierStationNotFoundException | ProzessSchrittLogNotFoundException | ProzessSchrittNotFoundException e) {
                 e.printStackTrace();
             }
         } catch(IllegalArgumentException e) {

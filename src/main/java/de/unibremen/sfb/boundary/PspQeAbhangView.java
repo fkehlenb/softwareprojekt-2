@@ -1,7 +1,6 @@
 package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.model.ProzessSchrittParameter;
-import de.unibremen.sfb.model.QualitativeEigenschaft;
 import de.unibremen.sfb.service.ProzessSchrittParameterService;
 import de.unibremen.sfb.service.QualitativeEigenschaftService;
 import de.unibremen.sfb.service.QuantitativeEigenschaftService;
@@ -55,7 +54,8 @@ public class PspQeAbhangView implements Serializable {
 //        ProzessSchrittParameter prozessSchrittParameter = prozessSchrittParameterService.getPSPByID(Integer.parseInt(id));
 //        QualitativeEigenschaft quantitativeEigenschaftToRemove = qualitativeEigenschaftService.getQlEById(Integer.parseInt(idqEin));
 //        List<QualitativeEigenschaft> qualitativeEigenschaftP = prozessSchrittParameter.getQualitativeEigenschaften();
-//        System.out.println("VALOR:::::"+quantitativeEigenschaftToRemove.getName());
+//        System.out.println("VALOR:::::"+quantitativeEigenschaftToRemove.
+//        getName());
 //        qualitativeEigenschaftP.remove(quantitativeEigenschaftToRemove);
 //        prozessSchrittParameter.setQualitativeEigenschaften(qualitativeEigenschaftP);
 //        prozessSchrittParameterService.update(prozessSchrittParameter);

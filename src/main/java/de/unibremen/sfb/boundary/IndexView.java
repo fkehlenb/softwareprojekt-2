@@ -26,12 +26,6 @@ public class IndexView implements Serializable {
     }
 
     /**
-     * sets the language in which everything is supposed to be displayed
-     * @param l the new language
-     */
-    public void setLanguage(String l) {}
-
-    /**
      * returns the language everything is currently displayed in
      * @return the current language
      */

@@ -14,13 +14,11 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -85,12 +83,8 @@ public class PSPView implements Serializable {
             if (selectedQualitativeEigenschaften == null){
                 selectedQualitativeEigenschaften = new ArrayList<>();
             }
-            for (QualitativeEigenschaft a : selectedQualitativeEigenschaften){
-                selectedEigenschaften.add(a);
-            }
-            for (QuantitativeEigenschaft a : selectedQuantitativeEigenschaften){
-                selectedEigenschaften.add(a);
-            }
+            selectedEigenschaften.addAll(selectedQualitativeEigenschaften);
+            selectedEigenschaften.addAll(selectedQuantitativeEigenschaften);
             ProzessSchrittParameter prozessSchrittParameter = new ProzessSchrittParameter(UUID.randomUUID().hashCode(),selectedName,selectedEigenschaften);
             prozessSchrittParameterService.addProcessSP(prozessSchrittParameter);
             log.info("Created new process parameter with name " + selectedName);
@@ -117,12 +111,8 @@ public class PSPView implements Serializable {
             if (selectedQualitativeEigenschaften == null){
                 selectedQualitativeEigenschaften = new ArrayList<>();
             }
-            for (QualitativeEigenschaft a : selectedQualitativeEigenschaften){
-                selectedEigenschaften.add(a);
-            }
-            for (QuantitativeEigenschaft a : selectedQuantitativeEigenschaften){
-                selectedEigenschaften.add(a);
-            }
+            selectedEigenschaften.addAll(selectedQualitativeEigenschaften);
+            selectedEigenschaften.addAll(selectedQuantitativeEigenschaften);
             psp.setQualitativeEigenschaften(selectedEigenschaften);
             prozessSchrittParameterService.update(psp);
             log.info("Updated process step parameter with id " + id);

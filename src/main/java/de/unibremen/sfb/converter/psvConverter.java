@@ -40,8 +40,8 @@ public class psvConverter implements Converter {
 
 
     @Override
-    /**
-     * überschreibe getAs Object in dem psvFilter, so, dass er mit Regex nur die ID nimmt
+    /*
+      überschreibe getAs Object in dem psvFilter, so, dass er mit Regex nur die ID nimmt
      */
     public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
 //              value  = value.replaceAll("[\\w-]\\D*","");

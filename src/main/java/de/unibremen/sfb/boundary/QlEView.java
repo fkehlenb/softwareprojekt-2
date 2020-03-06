@@ -1,13 +1,9 @@
 package de.unibremen.sfb.boundary;
 
-import de.unibremen.sfb.exception.DuplicateQualitativeEigenschaftException;
-import de.unibremen.sfb.model.ProzessSchrittParameter;
 import de.unibremen.sfb.model.QualitativeEigenschaft;
 import de.unibremen.sfb.model.QuantitativeEigenschaft;
-import de.unibremen.sfb.service.ProzessSchrittParameterService;
 import de.unibremen.sfb.service.QualitativeEigenschaftService;
 import de.unibremen.sfb.service.QuantitativeEigenschaftService;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -16,13 +12,10 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
 import java.io.Serializable;
-import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 

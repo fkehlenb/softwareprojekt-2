@@ -7,7 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import java.io.Serializable;
-import java.util.HashMap;
 
 /**
  * The location data class

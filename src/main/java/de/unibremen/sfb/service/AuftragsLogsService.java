@@ -2,7 +2,6 @@ package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.exception.AuftragsLogNotFoundException;
 import de.unibremen.sfb.exception.DuplicateAuftragsLogException;
-import de.unibremen.sfb.exception.ProzessKettenVorlageNotFoundException;
 import de.unibremen.sfb.model.AuftragsLog;
 import de.unibremen.sfb.model.ProzessKettenVorlage;
 import de.unibremen.sfb.persistence.AuftragsLogDAO;
