@@ -216,6 +216,9 @@ public class LogistikerBean implements Serializable {
                         probenService.update(p);
                         actual.add(p);
                     }
+                    else{
+                        facesError("Probe und Traeger nicht am gleichen standort!");
+                    }
                 }
                 t.setProben(actual);
             }
