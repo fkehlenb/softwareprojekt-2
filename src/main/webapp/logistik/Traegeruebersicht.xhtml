@@ -147,17 +147,16 @@
                                 <p:column>
                                     <p:cellEditor>
                                         <f:facet name="output">
-                                            <p:commandButton value="Anzeigen" icon="pi pi-external-link" onclick="PF('dlg1').show();"/>
-                                            <p:dialog header="Probenuebersicht Uebersicht" widgetVar="dlg1"
-                                                      modal="true"
+                                            <p:commandButton value="Anzeigen" icon="pi pi-external-link" update="dialog1" oncomplete="PF('dlg1').show();"/>
+                                            <p:sidebar header="Probenuebersicht Uebersicht" widgetVar="dlg1" style="width: 50%"
+                                                      modal="true" id="dialog1"
                                                       height="100">
                                                 <p:panelGrid columns="1">
                                                     <p:row>
                                                         <p:dataTable id="probentable" var="probe"
                                                                      value="#{trager.proben}"
                                                                      editable="true"
-                                                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                                                     paginator="true" rows="15"
+                                                                     scrollable="true" scrollHeight="400"
                                                                      style="margin-bottom:20px">
                                                             <p:column headerText="Proben ID">
                                                                 <h:outputText value="#{probe.probenID}"/>
@@ -171,7 +170,7 @@
                                                         </p:dataTable>
                                                     </p:row>
                                                 </p:panelGrid>
-                                            </p:dialog>
+                                            </p:sidebar>
                                         </f:facet>
                                         <f:facet name="input">
                                             <p:selectCheckboxMenu id="proben"
