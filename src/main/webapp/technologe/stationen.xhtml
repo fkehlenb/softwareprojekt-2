@@ -36,14 +36,14 @@
 
                             <style type="text/css">
                                 .broken {
-                                    background-color: red !important;
+                                    background-color: darkred !important;
                                     color: white !important;
                                 }
                             </style>
                             <p:dataTable id="stationen" var="station" value="#{technologeView.getStationen()}"
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                         paginator="true" rows="15" style="margin-bottom:20px">
-                                <p:column headerText="Standort" rowStyleClass="#{station.status eq 'KAPUTT' ? 'broken' : null}">
+                                         paginator="true" rows="15" style="margin-bottom:20px" rowStyleClass="#{station.status eq 'KAPUTT' ? 'broken' : null}">
+                                <p:column headerText="Standort">
                                     <h:outputText value="#{station.standort.ort}"/>
                                 </p:column>
                                 <p:column headerText="Status">
@@ -56,13 +56,16 @@
                                     <div align="center">
                                         <p:commandButton update="stationen"
                                                          action="#{technologeView.reportBroken(station)}"
-                                                         value="REPORT"/>
+                                                         value="REPORT" ajax="true"
+                                                         style="background-color: red; border-color: red"
+                                                         icon="pi pi-ban"/>
                                     </div>
                                 </p:column>
                                 <p:column headerText="Auswählen">
                                     <div align="center">
                                         <p:commandButton value="Choose"
-                                                         action="#{singleStationBean.singleStation(station)}"/>
+                                                         action="#{singleStationBean.singleStation(station)}"
+                                                         style="background-color: green; border-color: green"/>
                                     </div>
                                 </p:column>
                             </p:dataTable>
