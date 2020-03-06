@@ -194,10 +194,10 @@ public class ProzessSchrittService implements Serializable {
             ProzessSchritt lastPS = getLastPS(ps);
             if ((    !(pkA.equals(ProzessKettenZustandsAutomat.INSTANZIIERT)
                     || pkA.equals(ProzessKettenZustandsAutomat.ABGELEHNT)))
-                    && isCurrentStep(ps) && (lastPS != null && isDelivered(lastPS))) {
+                    && (isCurrentStep(ps) || (lastPS != null && isDelivered(lastPS)))) {
                 result.add(ps);
             }
-        }
+        } // FIXME Add field is current and eta
         return result;
     }
 
