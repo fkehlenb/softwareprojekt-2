@@ -116,7 +116,9 @@
                                                      placeholder="Anzahl Erstellt"/>
                                     </p:column>
                                     <p:column colspan="1">
-                                        <p:inputText placeholder="Proben ID" value="#{psvErstellenBean.nameOfCreated}"/>
+                                        <p:inputText placeholder="Proben ID" value="#{psvErstellenBean.nameOfCreated}">
+                                            <f:validateRegex pattern="[A-Z][0-9][0-9].[0-9]+(.[0-9]+)+"/>
+                                        </p:inputText>
                                     </p:column>
                                 </p:row>
                                 <p:row>
