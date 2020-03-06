@@ -41,7 +41,7 @@
                                         <h:outputText value="#{msg['logProbenID.jsf']}:"/>
                                     </p:column>
                                     <p:column colspan="1">
-                                        <p:inputText placeholder="#{msg['logProbenID.jsf']}" required="true"
+                                        <p:inputText placeholder="#{msg['logProbenIDPlaceholder.jsf']}" required="true"
                                                      requiredMessage="#{msg['logProbenEMeldung.jsf']}"
                                                      value="#{dtLogistikerBean.probenID}">
                                             <f:validateRegex pattern="[A-Z][0-9][0-9].[0-9]+(.[0-9]+)+"/>
@@ -62,7 +62,7 @@
                                 <p:row>
                                     <p:column colspan="1">
                                         <p:commandButton value="#{msg['saveU.jsf']}" icon="pi pi-save"
-                                                         action="#{dtLogistikerBean.addProbeLager}" ajax="true"
+                                                         action="#{dtLogistikerBean.addProbe}" ajax="true"
                                                          update="form"/>
                                     </p:column>
                                     <p:column colspan="1">
