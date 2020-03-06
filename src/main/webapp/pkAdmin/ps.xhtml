@@ -187,8 +187,9 @@
                                 <p:column headerText="Eingabe Traeger">
                                     <p:cellEditor>
                                         <f:facet name="output">
-                                            <p:commandButton value="Anzeigen" icon="pi pi-external-link" onclick="PF('dlg4').show();"/>
-                                            <p:dialog header="Eingabe Traeger Uebersicht" widgetVar="dlg4"
+                                            <p:commandButton value="Anzeigen" icon="pi pi-external-link" action="#{psView.loadCurrentData(ps.id)}"
+                                                             update="inpDialog" oncomplete="PF('dlg4').show();"/>
+                                            <p:sidebar  id="inpDialog" header="Eingabe Traeger Uebersicht" widgetVar="dlg4"
                                                       modal="true"
                                                       height="100">
                                                 <p:panelGrid columns="1">
@@ -204,7 +205,7 @@
                                                         </p:dataTable>
                                                     </p:row>
                                                 </p:panelGrid>
-                                            </p:dialog>
+                                            </p:sidebar>
                                         </f:facet>
                                         <f:facet name="input">
                                             <p:selectCheckboxMenu id="eingabeTraeger"
@@ -225,9 +226,10 @@
                                 <p:column headerText="Ausgabe Traeger">
                                     <p:cellEditor>
                                         <f:facet name="output">
-                                            <p:commandButton value="Anzeigen" icon="pi pi-external-link" onclick="PF('dlg3').show();"/>
-                                            <p:dialog header="Ausgabe Traeger Uebersicht" widgetVar="dlg3"
-                                                      modal="true"
+                                            <p:commandButton value="Anzeigen" icon="pi pi-external-link" action="#{psView.loadCurrentData(ps.id)}"
+                                                             update="ausgabedialog" oncomplete="PF('dlg3').show();"/>
+                                            <p:sidebar header="Ausgabe Traeger Uebersicht" widgetVar="dlg3"
+                                                      modal="true" id="ausgabedialog"
                                                       height="100">
                                                 <p:panelGrid columns="1">
                                                     <p:row>
@@ -242,7 +244,7 @@
                                                         </p:dataTable>
                                                     </p:row>
                                                 </p:panelGrid>
-                                            </p:dialog>
+                                            </p:sidebar>
                                         </f:facet>
                                         <f:facet name="input">
                                             <p:selectCheckboxMenu id="ausgabeTraeger"
@@ -279,10 +281,10 @@
                                             </p:selectCheckboxMenu>
                                         </f:facet>
                                         <f:facet name="output">
-                                            <p:commandButton value="Anzeigen" icon="pi pi-external-link"
-                                                             onclick="PF('dlg1').show();"/>
-                                            <p:dialog header="Prozessschritt Parameter Uebersicht" widgetVar="dlg1"
-                                                      modal="true"
+                                            <p:commandButton value="Anzeigen" icon="pi pi-external-link" action="#{psView.loadCurrentData(ps.id)}"
+                                                             update="pspuebersicht" oncomplete="PF('dlg1').show();"/>
+                                            <p:sidebar header="Prozessschritt Parameter Uebersicht" widgetVar="dlg1"
+                                                      modal="true" id="pspuebersicht"
                                                       height="100">
                                                 <p:panelGrid columns="1">
                                                     <p:row>
@@ -298,7 +300,7 @@
                                                         </p:dataTable>
                                                     </p:row>
                                                 </p:panelGrid>
-                                            </p:dialog>
+                                            </p:sidebar>
                                         </f:facet>
                                     </p:cellEditor>
                                 </p:column>
@@ -315,10 +317,10 @@
                                     </p:cellEditor>
                                 </p:column>
                                 <p:column headerText="Prozessschritt Log">
-                                    <p:commandButton value="Show Log" icon="pi pi-external-link"
-                                                     onclick="PF('dlg2').show();"/>
-                                    <p:dialog header="Prozessschritt Log Uebersicht" widgetVar="dlg2" modal="true"
-                                              height="100">
+                                    <p:commandButton value="Show Log" icon="pi pi-external-link" action="#{psView.loadCurrentData(ps.id)}"
+                                                     update="pslogg" oncomplete="PF('dlg2').show();"/>
+                                    <p:sidebar header="Prozessschritt Log Uebersicht" widgetVar="dlg2" modal="true"
+                                              height="100" id="pslogg">
                                         <p:panelGrid columns="1">
                                             <p:row>
                                                 <p:dataTable id="table2" var="psLog" value="#{ps.prozessSchrittLog}"
@@ -337,7 +339,7 @@
                                                 </p:dataTable>
                                             </p:row>
                                         </p:panelGrid>
-                                    </p:dialog>
+                                    </p:sidebar>
                                 </p:column>
                                 <p:column>
                                     <p:commandButton value="Delete" icon="pi pi-trash"

@@ -68,7 +68,7 @@ class ProbeDAOTest {
 
     @Test
     void testGetProbenByTraeger() throws ProbeNotFoundException {
-        List<Probe> result = probeDAO.getProbenByTraeger(new Traeger(0, new TraegerArt("art"), Arrays.<Probe>asList(new Probe("probenID", 0, null, new Standort(0, "ort"))), new Standort(0, "ort")));
+        List<Probe> result = probeDAO.getProbenByTraeger(new Traeger(0, "art", Arrays.<Probe>asList(new Probe("probenID", 0, null, new Standort(0, "ort"))), new Standort(0, "ort")));
         Assertions.assertEquals(Arrays.<Probe>asList(new Probe("probenID", 0, null, new Standort(0, "ort"))), result);
     }
 

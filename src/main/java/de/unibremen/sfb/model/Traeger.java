@@ -23,8 +23,7 @@ public class Traeger {
 
     /** The container's type */
     @NonNull
-    @ManyToOne
-    private TraegerArt art;
+    private String art;
 
     @OneToMany
     @NonNull

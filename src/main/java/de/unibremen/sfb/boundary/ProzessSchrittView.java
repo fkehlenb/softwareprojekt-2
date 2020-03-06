@@ -163,6 +163,15 @@ public class ProzessSchrittView implements Serializable {
      */
     private List<String> selectedOutputTraegerArten;
 
+    /** List of displayed process step parameters */
+    private List<ProzessSchrittParameter> currentlyDisplayedParameters = new ArrayList<>();
+
+    /** List of currently displayed input containers */
+    private List<String> currentlyDisplayedInputContainers = new ArrayList<>();
+
+    /** List of currently displayed output containers */
+    private List<String> currentlyDisplayedOutputContainers = new ArrayList<>();
+
     /**
      * Init called on bean initialization
      */
@@ -323,6 +332,22 @@ public class ProzessSchrittView implements Serializable {
             e.printStackTrace();
             log.error("Failed to remove process step with id " + id + " Error " + e.getMessage());
             facesError("Failed to remove process step!");
+        }
+    }
+
+    /** Load currently displayed data
+     * @param id - id of the process step which's data to load */
+    public void loadCurrentData(int id){
+        try {
+            ProzessSchritt current = prozessSchrittService.getObjById(id);
+            currentlyDisplayedParameters = current.getProzessSchrittParameters();
+            currentlyDisplayedInputContainers = current.getEingabe();
+            currentlyDisplayedOutputContainers = current.getAusgabe();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            log.error("Error loading display data " + e.getMessage());
+            facesError("Cannot display data!");
         }
     }
 

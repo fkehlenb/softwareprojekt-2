@@ -46,10 +46,10 @@
                                                          filterMatchMode="contains" required="true"
                                                          requiredMessage="#{msg['logTrägerartMessage.jsf']}">
                                             <f:selectItems value="#{dtLogistikerBean.traegerArts}"
-                                                           var="tragerArt" itemLabel="#{tragerArt.art}"
+                                                           var="tragerArt" itemLabel="#{tragerArt}"
                                                            itemValue="#{tragerArt}" required="true"/>
                                             <p:column>
-                                                <h:outputText value="#{tragerArt.art}"/>
+                                                <h:outputText value="#{tragerArt}"/>
                                             </p:column>
                                         </p:selectOneMenu>
                                     </p:column>
@@ -101,7 +101,7 @@
                                 <p:column headerText="#{msg['logTrägerart.jsf']}">
                                     <p:cellEditor>
                                         <f:facet name="output">
-                                            <h:outputText value="#{trager.art.art}"/>
+                                            <h:outputText value="#{trager.art}"/>
                                         </f:facet>
                                         <f:facet name="input">
                                             <p:selectOneMenu id="tragerArtTabelle2"
@@ -112,10 +112,10 @@
                                                              filterMatchMode="contains" required="true"
                                                              requiredMessage="Bitte Traegerart Wahlen!">
                                                 <f:selectItems value="#{dtLogistikerBean.traegerArts}"
-                                                               var="tragerArt" itemLabel="#{tragerArt.art}"
+                                                               var="tragerArt" itemLabel="#{tragerArt}"
                                                                itemValue="#{tragerArt}" required="true"/>
                                                 <p:column>
-                                                    <h:outputText value="#{tragerArt.art}"/>
+                                                    <h:outputText value="#{tragerArt}"/>
                                 </p:column>
                                             </p:selectOneMenu>
                                         </f:facet>
@@ -179,8 +179,7 @@
                                                                   converter="omnifaces.SelectItemsConverter" effect="fade"
                                                                   var="probe" style="width: 172px" filter="true"
                                                                   filterMatchMode="contains" showCheckbox="true"
-                                                                  label="Selected Proben" requiredMessage="#{msg['bedingungenMessage.jsf']}"
-                                                                  required="true">
+                                                                  label="Selected Proben">
                                                 <f:selectItems value="#{dtLogistikerBean.proben}"
                                                                var="probe" itemLabel="#{probe.probenID}"
                                                                itemValue="#{probe}"/>

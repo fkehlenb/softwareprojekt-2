@@ -22,6 +22,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -84,13 +85,14 @@ public class LogistikerBean implements Serializable {
     private List<Traeger> traegers;
 
     /** Container type */
-    private TraegerArt traegerArt;
+    private String traegerArt;
 
     /** Container types */
-    private List<TraegerArt> traegerArts;
+    private List<String> traegerArts;
 
     /** Container Location */
     private Standort traegerLocation;
+
     /** Contains errorMessage for pkAdmin*/
     private String errorMessage;
 
@@ -116,7 +118,7 @@ public class LogistikerBean implements Serializable {
         proben = probenService.getAll();
         traegers = getTraegerList();
         archiviert = getAllArchviert();
-        traegerArts = traegerArtService.getAll();
+        traegerArts = traegerArtService.getAll().get(0).getArten();
     }
 
     /**
@@ -135,21 +137,22 @@ public class LogistikerBean implements Serializable {
 
     /**
      * creates a new carrier
-     * @param art - the type of container to create
-     * @param location - the location at which to create tje container
      */
-    public void createTraeger(TraegerArt art,Standort location) {
-        Traeger traeger = new Traeger(UUID.randomUUID().hashCode(),art, proben,location);
+    public void createTraeger() {
+        if (proben == null){
+            proben = new ArrayList<>();
+        }
+        Traeger traeger = new Traeger(UUID.randomUUID().hashCode(),traegerArt, proben,traegerLocation);
         try{
             traegerService.persist(traeger);
-            facesNotification("Added new Traeger with Art: " + traegerArt.getArt());
-            log.info("Added new Traeger with Art: " + traegerArt.getArt());
+            facesNotification("Added new Traeger with Art: " + traegerArt);
+            log.info("Added new Traeger with Art: " + traegerArt);
             traegers = getTraegerList();
         }
         catch (Exception e){
             e.printStackTrace();
-            facesError("Failed to add new Traeger with Art: " + traegerArt.getArt());
-            log.error("Failed to add new Traeger with Art: " + traegerArt.getArt());
+            facesError("Failed to add new Traeger with Art: " + traegerArt);
+            log.error("Failed to add new Traeger with Art: " + traegerArt);
         }
     }
 
@@ -163,6 +166,9 @@ public class LogistikerBean implements Serializable {
             Traeger t = traegerService.getTraegerById(id);
             t.setArt(traegerArt);
             t.setStandort(traegerLocation);
+            if (selectedProbe==null){
+                selectedProbe = new ArrayList<>();
+            }
             t.setProben(selectedProbe);
             for (Probe p : selectedProbe) {
                 try {
@@ -257,42 +263,6 @@ public class LogistikerBean implements Serializable {
     }
 
     /**
-     * returns all jobs currently awaiting processing by the logistic
-     *
-     * @return a set containing all jobs currently awaiting processing
-     */
-    public Set<Auftrag> getAuftrag() {
-        return null;
-    }
-
-    /**
-     * assigns a sample to a job
-     *
-     * @param a the job
-     * @param p the sample
-     */
-    public void zuorndnenProbe(Auftrag a, Probe p) {
-    }
-
-    /**
-     * assigns a carrier to a job
-     *
-     * @param a the job
-     * @param t the carrier
-     */
-    public void zuordnenTraeger(Auftrag a, Traeger t) {
-    }
-
-//    /**
-//     * returns all samples currently existing
-//     *
-//     * @return a set containing all samples
-//     */
-//    public List<Probe> getProben() {
-//        return probenService.getAll();
-//    }
-
-    /**
      * starts a job
      *
      * @param auftrag the job to be started
@@ -352,33 +322,6 @@ public class LogistikerBean implements Serializable {
         }
         //return null;
     }
-    }
-
-    /**
-     * returns an error message
-     *
-     * @return the error message
-     */
-    public String errorMessage() {
-        return null;
-    }
-
-    /**
-     * assigns himself to a job so that no other logistic expert starts working on it
-     *
-     * @param a the job
-     */
-    public void zuordnen(Auftrag a) {
-    }
-
-    /**
-     * get's specific samples and their amount
-     *
-     * @param a the job
-     * @return the Pair of samples with the amount.
-     */
-    public Set<Pair<QualitativeEigenschaft, Integer>> getAngeforderteProben(Auftrag a) {
-        return null;
     }
 
     /**

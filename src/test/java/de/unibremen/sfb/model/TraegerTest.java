@@ -39,7 +39,7 @@ class TraegerTest {
 
     @Test
     void testSetArt() {
-        traeger.setArt(new TraegerArt("art"));
+        traeger.setArt("art");
     }
 
     @Test

@@ -86,17 +86,11 @@ class LogistikerBeanTest {
         Assertions.assertEquals(Arrays.<Traeger>asList(null), result);
     }
 
-    @Test
-    void testCreateTraeger() {
-        when(traegerService.getAll()).thenReturn(Arrays.<Traeger>asList(null));
-        when(traegerArt.getArt()).thenReturn("getArtResponse");
 
-        logistikerBean.createTraeger(new TraegerArt("art"), null);
-    }
 
     @Test
     void testOnRowEditUpdateTraeger() throws TraegerNotFoundException {
-        when(traegerService.getTraegerById(anyInt())).thenReturn(new Traeger(0, new TraegerArt("art"), Arrays.<Probe>asList(new Probe("probenID", 0, null, null)), new Standort(0, "ort")));
+        when(traegerService.getTraegerById(anyInt())).thenReturn(new Traeger(0, "art", Arrays.<Probe>asList(new Probe("probenID", 0, null, null)), new Standort(0, "ort")));
         when(traegerService.getAll()).thenReturn(Arrays.<Traeger>asList(null));
         when(traegerLocation.getOrt()).thenReturn("getOrtResponse");
 
@@ -110,7 +104,7 @@ class LogistikerBeanTest {
 
     @Test
     void testDeleteTraeger() throws TraegerNotFoundException {
-        when(traegerService.getTraegerById(anyInt())).thenReturn(new Traeger(0, new TraegerArt("art"), Arrays.<Probe>asList(new Probe("probenID", 0, null, null)), new Standort(0, "ort")));
+        when(traegerService.getTraegerById(anyInt())).thenReturn(new Traeger(0, "art", Arrays.<Probe>asList(new Probe("probenID", 0, null, null)), new Standort(0, "ort")));
         when(traegerService.getAll()).thenReturn(Arrays.<Traeger>asList(null));
 
         logistikerBean.deleteTraeger(0);
@@ -133,22 +127,6 @@ class LogistikerBeanTest {
     }
 
     @Test
-    void testGetAuftrag() {
-        Set<Auftrag> result = logistikerBean.getAuftrag();
-        Assertions.assertEquals(null, result);
-    }
-
-    @Test
-    void testZuorndnenProbe() {
-        logistikerBean.zuorndnenProbe(new Auftrag(), new Probe("probenID", 0, null, null));
-    }
-
-    @Test
-    void testZuordnenTraeger() {
-        logistikerBean.zuordnenTraeger(new Auftrag(), null);
-    }
-
-    @Test
     void testStartAuftrag() throws AuftragNotFoundException {
         when(auftragService.getObjById(anyInt())).thenReturn(new Auftrag());
 
@@ -160,23 +138,6 @@ class LogistikerBeanTest {
         when(auftragService.getObjById(anyInt())).thenReturn(new Auftrag());
 
         logistikerBean.refuseAuftrag(0);
-    }
-
-    @Test
-    void testErrorMessage() {
-        String result = logistikerBean.errorMessage();
-        Assertions.assertEquals(null, result);
-    }
-
-    @Test
-    void testZuordnen() {
-        logistikerBean.zuordnen(new Auftrag());
-    }
-
-    @Test
-    void testGetAngeforderteProben() {
-        Set<Pair<QualitativeEigenschaft, Integer>> result = logistikerBean.getAngeforderteProben(new Auftrag());
-        Assertions.assertEquals(new HashSet<Pair<QualitativeEigenschaft, Integer>>(Arrays.asList(null)), result);
     }
 
     @Test
@@ -246,12 +207,12 @@ class LogistikerBeanTest {
 
     @Test
     void testSetTraegerArt() {
-        logistikerBean.setTraegerArt(new TraegerArt("art"));
+        logistikerBean.setTraegerArt("art");
     }
 
     @Test
     void testSetTraegerArts() {
-        logistikerBean.setTraegerArts(Arrays.<TraegerArt>asList(new TraegerArt("art")));
+        logistikerBean.setTraegerArts(Arrays.<String>asList("art"));
     }
 
     @Test

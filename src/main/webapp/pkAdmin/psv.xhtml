@@ -63,7 +63,7 @@
                                         <p:inputText id="dauer" value="#{psvErstellenBean.selectedDuration}"
                                                      required="true" requiredMessage="Bitte Dauer eomgeben!"
                                                      placeholder="00:00">
-                                            <f:validateRegex pattern="([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]"/>
+                                            <f:validateRegex pattern="[0-9][0-9]:[0-5][0-9]"/>
                                         </p:inputText>
                                     </p:column>
                                     <p:column colspan="1">
@@ -200,7 +200,7 @@
                                     <f:facet name="input">
                                         <p:inputText id="DauerEin" value="#{psvErstellenBean.selectedDuration}"
                                                      style="width:100%" required="true">
-                                            <f:validateRegex pattern="([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]"/>
+                                            <f:validateRegex pattern="[0-9][0-9]:[0-5][0-9]"/>
                                         </p:inputText>
                                     </f:facet>
                                 </p:cellEditor>
@@ -254,8 +254,8 @@
                             <p:column headerText="Eingabe Traeger">
                                 <p:cellEditor>
                                     <f:facet name="output">
-                                        <p:commandButton value="Anzeigen" icon="pi pi-external-link" onclick="PF('dlg4').show();"/>
-                                        <p:dialog header="Eingabe Traeger Uebersicht" widgetVar="dlg4"
+                                        <p:commandButton value="Anzeigen" icon="pi pi-external-link" update="ausgabeTraeger3" oncomplete="PF('dlg4').show();"/>
+                                        <p:sidebar header="Eingabe Traeger Uebersicht" widgetVar="dlg4" id="ausgabeTraeger3"
                                                   modal="true"
                                                   height="100">
                                             <p:panelGrid columns="1">
@@ -271,7 +271,7 @@
                                                     </p:dataTable>
                                                 </p:row>
                                             </p:panelGrid>
-                                        </p:dialog>
+                                        </p:sidebar>
                                     </f:facet>
                                     <f:facet name="input">
                                         <p:selectCheckboxMenu id="eingabeTraeger2"
@@ -293,8 +293,8 @@
                             <p:column headerText="Ausgabe Traeger">
                                 <p:cellEditor>
                                     <f:facet name="output">
-                                        <p:commandButton value="Anzeigen" icon="pi pi-external-link" onclick="PF('dlg3').show();"/>
-                                        <p:dialog header="Ausgabe Traeger Uebersicht" widgetVar="dlg3"
+                                        <p:commandButton value="Anzeigen" icon="pi pi-external-link" update="ausgabeTraeger4" oncomplete="PF('dlg3').show();"/>
+                                        <p:sidebar header="Ausgabe Traeger Uebersicht" widgetVar="dlg3" id="ausgabeTraeger4"
                                                   modal="true"
                                                   height="100">
                                             <p:panelGrid columns="1">
@@ -310,7 +310,7 @@
                                                     </p:dataTable>
                                                 </p:row>
                                             </p:panelGrid>
-                                        </p:dialog>
+                                        </p:sidebar>
                                     </f:facet>
                                     <f:facet name="input">
                                         <p:selectCheckboxMenu id="ausgabeTraeger2"
@@ -333,9 +333,9 @@
                                 <p:cellEditor>
                                     <f:facet name="output">
                                         <p:commandButton value="Anzeigen" icon="pi pi-external-link"
-                                                         onclick="PF('dlg2').show();"/>
-                                        <p:dialog header="Prozessschritt Parameter Uebersicht" widgetVar="dlg2"
-                                                  modal="true"
+                                                         update="tablepspp" oncomplete="PF('dlg2').show();"/>
+                                        <p:sidebar header="Prozessschritt Parameter Uebersicht" widgetVar="dlg2"
+                                                  modal="true" id="tablepspp"
                                                   height="100">
                                             <p:panelGrid columns="1">
                                                 <p:row>
@@ -350,7 +350,7 @@
                                                     </p:dataTable>
                                                 </p:row>
                                             </p:panelGrid>
-                                        </p:dialog>
+                                        </p:sidebar>
                                     </f:facet>
                                     <f:facet name="input">
                                         <p:selectCheckboxMenu id="psp2"
