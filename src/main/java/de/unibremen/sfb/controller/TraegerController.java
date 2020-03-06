@@ -1,9 +1,9 @@
 package de.unibremen.sfb.controller;
 
+import de.unibremen.sfb.model.Probe;
+import de.unibremen.sfb.model.Standort;
 import de.unibremen.sfb.model.Traeger;
 import de.unibremen.sfb.model.TraegerArt;
-import de.unibremen.sfb.model.Standort;
-import de.unibremen.sfb.model.Probe;
 
 import java.util.Set;
 

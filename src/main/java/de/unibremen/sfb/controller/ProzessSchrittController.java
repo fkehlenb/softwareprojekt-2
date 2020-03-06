@@ -1,12 +1,7 @@
 package de.unibremen.sfb.controller;
 
 
-import de.unibremen.sfb.model.Auftrag;
-import de.unibremen.sfb.model.ExperimentierStation;
-import de.unibremen.sfb.model.ProzessSchritt;
-import de.unibremen.sfb.model.ProzessKettenVorlage;
-import de.unibremen.sfb.model.ProzessSchrittLog;
-import de.unibremen.sfb.model.TransportAuftrag;
+import de.unibremen.sfb.model.*;
 
 import java.util.Set;
 

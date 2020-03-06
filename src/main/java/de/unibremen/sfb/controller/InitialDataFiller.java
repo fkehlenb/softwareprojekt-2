@@ -3,7 +3,6 @@ package de.unibremen.sfb.controller;
 import com.github.javafaker.Faker;
 import de.unibremen.sfb.exception.DuplicateKommentarException;
 import de.unibremen.sfb.exception.DuplicateProbeException;
-import de.unibremen.sfb.exception.DuplicateTraegerException;
 import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.KommentarDAO;
@@ -14,6 +13,7 @@ import de.unibremen.sfb.service.ExperimentierStationService;
 import de.unibremen.sfb.service.RoleService;
 import de.unibremen.sfb.service.UserService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authc.credential.PasswordMatcher;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -22,11 +22,8 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.util.*;
-
-import org.apache.shiro.authc.credential.PasswordMatcher;
 
 /**
  * This Class is run when the Server is deployed. Its purpose is to pupulate all web Views

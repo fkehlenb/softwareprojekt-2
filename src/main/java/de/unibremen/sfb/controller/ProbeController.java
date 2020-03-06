@@ -1,15 +1,15 @@
 package de.unibremen.sfb.controller;
 
-import de.unibremen.sfb.model.*;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.List;
-
+import de.unibremen.sfb.model.Archiv;
+import de.unibremen.sfb.model.Probe;
+import de.unibremen.sfb.model.ProbenZustand;
+import de.unibremen.sfb.model.Standort;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * this class manages the interaction with models of samples (Proben)
