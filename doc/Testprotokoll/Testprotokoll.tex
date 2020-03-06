@@ -38,6 +38,7 @@
 \usepackage{bookmark}
 \usepackage{rotating}
 \usepackage{float}
+\usepackage{hyperref}
 
 \hyphenation{Arbeits-paket}
 
@@ -178,9 +179,48 @@ Version & Datum & Änderungen \\
 \newpage
 \section{Tests}
 
-\subsection{Manuelle Funktionstests}
+\subsection{Tests zur Generellen Funktion}
 
-\subsubsection{Anwendungsfall: Beispiel 1}
+\subsubsection{Anwendungsfall: Login unterschiedlicher Nutzer}
+
+\textbf{Testvorbedingungen:} Sobald man die Webseite aufruft, wird man auf die \hyperlink{sc3.1.1.1}{Startseite}  geleitet. Hier kann man nun auf den Button \textit{Zur Anmeldung} drücken, um zur Loginseite weitergeleitet zu werden. \\
+
+\hypertarget{sc3.1.1.1}{
+\includegraphics[width=1\textwidth]{Screenshots/311StartSite.png}
+\textit{Abbildung 3.1.1.1: Startseite}
+} \\
+
+Hier kann man nun auf den Button \textit{Zur Anmeldung} drücken, um zur \hyperlink{sc3.1.1.2}{Loginseite} weitergeleitet zu werden. Ein valider Login ist der Benutzername \textit{admin} und das Passwort \textit{12345678}. \\
+
+\hypertarget{sc3.1.1.2}{
+\includegraphics[width=1\textwidth]{Screenshots/311LoginSite.png}
+\textit{Abbildung 3.1.1.2: Loginseite}
+} \\
+
+Jetzt haben wir uns als erstes mit einem falschen Passwort angemeldet, was eine Fehlermeldung wirft, wie man auf dem nächsten  \hyperlink{sc3.1.1.3}{Screenshot} in der oberen Ecke sieht.\\
+
+\hypertarget{sc3.1.1.3}{
+\includegraphics[width=1\textwidth]{Screenshots/311wrongPassword.png}
+\textit{Abbildung 3.1.1.3: Falsches Passwort für Admin eingegeben}
+} \\
+
+Anschließend wurde versucht, sich mit den validen Logindaten des Admins einzuloggen und man kommt auf die \hyperlink{sc3.1.1.4}{Startseite des Admins}. \\
+
+\hypertarget{sc3.1.1.4}{
+\includegraphics[width=1\textwidth]{Screenshots/311AdminView.png}
+\textit{Abbildung 3.1.1.4: Richtiges Passwort für Admin eingegeben}
+} \\
+
+Jetzt wurde sich noch versucht, mit den validen Logindaten für den Technologen einzuloggen. Man wird auf die \hyperlink{sc3.1.1.5}{Startseite des Technologen} weitergeleitet. \\
+
+\hypertarget{sc3.1.1.5}{
+\includegraphics[width=1\textwidth]{Screenshots/311TechnologeView.png}
+\textit{Abbildung 3.1.1.5: Richtiges Passwort für Technologen eingegeben}
+} \\
+
+Wie man in den Beispielen sehen kann, kann man sich mit unterschiedlichen Benutzern einloggen, welche unterschiedliche den Rollen entsprechende Features haben. Man muss das richtige Passwort für den Benutzernamen eingeben, um sich einloggen zu können. Die Tests verliefen erfolgreich. \\
+
+\color{red} Es muss noch mit falschem Benutzernamen getestet werden!
 
 %%
 
