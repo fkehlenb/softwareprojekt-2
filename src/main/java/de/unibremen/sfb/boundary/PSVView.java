@@ -147,6 +147,12 @@ public class PSVView implements Serializable {
             }
             ProzessSchrittVorlage psv = new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), newPsp,
                     selectedExperimentierStation, selectedDuration, selectedName, selectedProzessSchrittZustandsAutomatVorlage,urformend,amountCreated);
+            if (selectedInputTraegerArten == null){
+                selectedInputTraegerArten = new ArrayList<>();
+            }
+            if (selectedOutputTraegerArten == null){
+                selectedOutputTraegerArten = new ArrayList<>();
+            }
             psv.setEingabeTraeger(selectedInputTraegerArten);
             psv.setAusgabeTraeger(selectedOutputTraegerArten);
             psv.setNameOfCreated(nameOfCreated);
@@ -180,6 +186,12 @@ public class PSVView implements Serializable {
             prozessSchrittVorlage.setProzessSchrittParameters(newPsp);
             prozessSchrittVorlage.setUrformend(urformend);
             prozessSchrittVorlage.setAmountCreated(amountCreated);
+            if (selectedInputTraegerArten == null){
+                selectedInputTraegerArten = new ArrayList<>();
+            }
+            if (selectedOutputTraegerArten == null){
+                selectedOutputTraegerArten = new ArrayList<>();
+            }
             prozessSchrittVorlage.setEingabeTraeger(selectedInputTraegerArten);
             prozessSchrittVorlage.setAusgabeTraeger(selectedOutputTraegerArten);
             System.out.println(selectedInputTraegerArten.toString());
