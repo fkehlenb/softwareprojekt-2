@@ -206,7 +206,7 @@ public class LogistikerBean implements Serializable {
                         try {
                             Traeger old = p.getCurrentTraeger();
                             List<Probe> oldProben = old.getProben();
-                            oldProben.remove(p);
+                            oldProben.removeIf(f -> f.getProbenID().equals(p.getProbenID()));
                             old.setProben(oldProben);
                             traegerService.update(old);
                         } catch (Exception e) {
@@ -215,6 +215,9 @@ public class LogistikerBean implements Serializable {
                         p.setCurrentTraeger(t);
                         probenService.update(p);
                         actual.add(p);
+                    }
+                    else{
+                        facesError("Probe und Traeger nicht am gleichen standort!");
                     }
                 }
                 t.setProben(actual);
