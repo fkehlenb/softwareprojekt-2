@@ -32,8 +32,8 @@ public class ProbenAddTest {
   public void setUp() {
       System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
     ChromeOptions chromeOptions = new ChromeOptions();
-    chromeOptions.addArguments("--headless");
-    driver = new ChromeDriver(chromeOptions);
+//    chromeOptions.addArguments("--headless");
+//driver = new ChromeDriver(chromeOptions);
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
   }

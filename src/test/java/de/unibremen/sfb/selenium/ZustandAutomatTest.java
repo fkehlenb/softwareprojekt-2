@@ -31,8 +31,8 @@ public class ZustandAutomatTest {
   public void setUp() {
       System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
     ChromeOptions chromeOptions = new ChromeOptions();
-    chromeOptions.addArguments("--headless");
-    driver = new ChromeDriver(chromeOptions);
+//    chromeOptions.addArguments("--headless");
+//driver = new ChromeDriver(chromeOptions);
     vars = new HashMap<String, Object>();
   }
   /**
