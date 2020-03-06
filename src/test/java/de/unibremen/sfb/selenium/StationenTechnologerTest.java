@@ -22,10 +22,20 @@ import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * <p>StationenTechnologerTest class.</p>
+ *
+ * @author Liam
+ * @version $Id: $Id
+ * @since 1.0
+ */
 public class StationenTechnologerTest {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
+  /**
+   * <p>setUp.</p>
+   */
   @BeforeEach
   public void setUp() {
       System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
@@ -35,10 +45,18 @@ public class StationenTechnologerTest {
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
   }
+  /**
+   * <p>tearDown.</p>
+   */
   @AfterEach
   public void tearDown() {
     driver.quit();
   }
+  /**
+   * <p>technologer.</p>
+   *
+   * @throws java.lang.InterruptedException if any.
+   */
   @Test
   public void technologer() throws InterruptedException {
     driver.get("http://localhost:8080/");

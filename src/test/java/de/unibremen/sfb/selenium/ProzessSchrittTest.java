@@ -13,10 +13,20 @@ import org.openqa.selenium.JavascriptExecutor;
 
 import java.util.*;
 
+/**
+ * <p>ProzessSchrittTest class.</p>
+ *
+ * @author Liam
+ * @version $Id: $Id
+ * @since 1.0
+ */
 public class ProzessSchrittTest {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
+  /**
+   * <p>setUp.</p>
+   */
   @BeforeEach
   public void setUp() {
       System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
@@ -26,10 +36,18 @@ public class ProzessSchrittTest {
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
   }
+  /**
+   * <p>tearDown.</p>
+   */
   @AfterEach
   public void tearDown() {
     driver.quit();
   }
+  /**
+   * <p>prozessSchritt.</p>
+   *
+   * @throws java.lang.InterruptedException if any.
+   */
   @Test
   public void prozessSchritt() throws InterruptedException {
     //Anmeldung

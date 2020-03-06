@@ -163,6 +163,7 @@ public class AuftragService implements Serializable {
      * Filters the Transport Jobs to find all ABGEHOLT.
      *
      * @return List of ProzessSchritt, which have a TransportAuftrag with TransportAuftragsZustand on ABGEHOLT
+     * @throws UserNotFoundException if the User was not found
      */
     public List<ProzessSchritt> getTransportSchritt2() throws UserNotFoundException {
         var s = new HashSet<ProzessSchritt>();
@@ -207,6 +208,7 @@ public class AuftragService implements Serializable {
      * Sets transportAuftragsZustand to ABGEHOLT.
      *
      * @param t übergebener TransportAuftrag
+     * @param taz The Automata of the TransportAuftrag
      * @throws TransportAuftragNotFoundException when transportAuftrag wasn't found.
      */
     public void sedTransportZustand(TransportAuftrag t, TransportAuftragZustand taz) throws TransportAuftragNotFoundException {

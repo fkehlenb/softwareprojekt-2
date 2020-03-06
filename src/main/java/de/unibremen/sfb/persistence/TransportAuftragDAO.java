@@ -69,7 +69,7 @@ public class TransportAuftragDAO extends ObjectDAO<TransportAuftrag> {
      *
      * @param id - the user id whose user object to fetch from the database
      * @return the user object matching the user id
-     * @throws  if the user couldn't be found
+     * @throws TransportAuftragNotFoundException if the user couldn't be found
      */
     public TransportAuftrag getTransportAuftragById(int id) throws TransportAuftragNotFoundException {
         TransportAuftrag u = em.find(get(), id);

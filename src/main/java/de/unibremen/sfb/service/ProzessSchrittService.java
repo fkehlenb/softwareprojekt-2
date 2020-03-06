@@ -104,6 +104,11 @@ public class ProzessSchrittService implements Serializable {
      * sets the state of the step one further
      *
      * @param ps the process step
+     * @throws  ExperimentierStationNotFoundException if no Station exists
+     * @throws ProzessSchrittNotFoundException if not Step could be found
+     * @throws ProzessSchrittLogNotFoundException if not PS Log could be found
+     * @throws DuplicateProzessSchrittLogException if a PS Log already exists
+     * @throws ProzessSchrittZustandsAutomatNotFoundException if there is not PS Automata
      */
     public void oneFurther(ProzessSchritt ps)
             throws IllegalArgumentException, ExperimentierStationNotFoundException, ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException, DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException {
@@ -169,7 +174,7 @@ public class ProzessSchrittService implements Serializable {
 
     /**
      * returns the assignments currently available for this user
-     *
+     * @throws  UserNotFoundException if there is no user which is logged in
      * @return a set containing all availabe jobs
      */
     public List<ProzessSchritt> getSchritte() throws UserNotFoundException {

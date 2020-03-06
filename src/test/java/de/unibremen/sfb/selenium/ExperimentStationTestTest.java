@@ -18,11 +18,22 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * <p>ExperimentStationTestTest class.</p>
+ *
+ * @author Liam
+ * @version $Id: $Id
+ * @since 1.0
+ */
 public class ExperimentStationTestTest {
     private WebDriver driver;
     private String baseUrl;
     private StringBuffer verificationErrors = new StringBuffer();
+    /** Constant <code>dCaps</code> */
     protected static DesiredCapabilities dCaps;
+  /**
+   * <p>setUp.</p>
+   */
   @BeforeEach
   public void setUp() {
       dCaps = new DesiredCapabilities();
@@ -33,10 +44,18 @@ public class ExperimentStationTestTest {
       baseUrl = "http://assertselenium.com/";
       driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
+  /**
+   * <p>tearDown.</p>
+   */
   @AfterEach
   public void tearDown() {
     driver.quit();
   }
+  /**
+   * <p>experimentStationTest.</p>
+   *
+   * @throws java.lang.InterruptedException if any.
+   */
   @Test
   public void experimentStationTest() throws InterruptedException {
     driver.get("http://localhost:8080/");

@@ -15,10 +15,20 @@ import org.openqa.selenium.JavascriptExecutor;
 
 import java.util.*;
 
+/**
+ * <p>PspTest class.</p>
+ *
+ * @author Liam
+ * @version $Id: $Id
+ * @since 1.0
+ */
 public class PspTest {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
+  /**
+   * <p>setUp.</p>
+   */
   @BeforeEach
   public void setUp() {
     System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
@@ -29,10 +39,18 @@ public class PspTest {
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
   }
+  /**
+   * <p>tearDown.</p>
+   */
   @AfterEach
   public void tearDown() {
     driver.quit();
   }
+  /**
+   * <p>psp.</p>
+   *
+   * @throws java.lang.InterruptedException if any.
+   */
   @Test
   public void psp() throws InterruptedException {
     //Anmeldung

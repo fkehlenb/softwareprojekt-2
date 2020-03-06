@@ -81,7 +81,7 @@ public class TechnologeView implements Serializable {
 
     /**
      * Hole alle Verfügbaren Schritte
-     * @return
+     * @return alle ProzessSchritte die es gibt
      */
     public List<ProzessSchritt> getSchritte() {
         List<ProzessSchritt> r = null;

@@ -37,7 +37,7 @@ public class ProzessSchrittZustandsAutomatVorlageDAO extends ObjectDAO<ProzessSc
      * Update an existing process step state template in the database
      *
      * @param pszv - the process step state template to update in the database
-     * @throws ProzessSchrittVorlageNotFoundException if the process step state template cannot be found in the database
+     * @throws ProzessSchrittZustandsAutomatVorlageNotFoundException if the process step state template cannot be found in the database
      */
     public void update(ProzessSchrittZustandsAutomatVorlage pszv) throws ProzessSchrittZustandsAutomatVorlageNotFoundException {
         if (pszv != null) {

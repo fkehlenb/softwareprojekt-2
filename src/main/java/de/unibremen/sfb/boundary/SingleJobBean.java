@@ -206,6 +206,8 @@ public class SingleJobBean implements Serializable {
 
     /**
      * sets the state of a ProzessSchritt on further than it was
+     * @throws DuplicateProzessSchrittLogException if PSL already exits
+     * @throws ProzessSchrittZustandsAutomatNotFoundException if automat does not exist
      */
     public void setJobZustand() throws DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException {
         try {

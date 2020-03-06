@@ -13,10 +13,20 @@ import org.openqa.selenium.JavascriptExecutor;
 
 import java.util.*;
 
+/**
+ * <p>ZustandAutomatTest class.</p>
+ *
+ * @author Liam
+ * @version $Id: $Id
+ * @since 1.0
+ */
 public class ZustandAutomatTest {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
+  /**
+   * <p>setUp.</p>
+   */
   @BeforeEach
   public void setUp() {
       System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
@@ -25,10 +35,18 @@ public class ZustandAutomatTest {
     driver = new ChromeDriver(chromeOptions);
     vars = new HashMap<String, Object>();
   }
+  /**
+   * <p>tearDown.</p>
+   */
   @AfterEach
   public void tearDown() {
     driver.quit();
   }
+  /**
+   * <p>zustandAutomat.</p>
+   *
+   * @throws java.lang.InterruptedException if any.
+   */
   @Test
   public void zustandAutomat() throws InterruptedException {
     driver.get("http://localhost:8080/");

@@ -22,10 +22,20 @@ import org.openqa.selenium.Keys;
 import java.util.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+/**
+ * <p>TechnologerAuftrageTest class.</p>
+ *
+ * @author Liam
+ * @version $Id: $Id
+ * @since 1.0
+ */
 public class TechnologerAuftrageTest {
   private WebDriver driver;
   private Map<String, Object> vars;
   JavascriptExecutor js;
+  /**
+   * <p>setUp.</p>
+   */
   @BeforeEach
   public void setUp() {
       System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
@@ -35,10 +45,18 @@ public class TechnologerAuftrageTest {
     js = (JavascriptExecutor) driver;
     vars = new HashMap<String, Object>();
   }
+  /**
+   * <p>tearDown.</p>
+   */
   @AfterEach
   public void tearDown() {
     driver.quit();
   }
+  /**
+   * <p>technologerAuftrage.</p>
+   *
+   * @throws java.lang.InterruptedException if any.
+   */
   @Test
   public void technologerAuftrage() throws InterruptedException {
     driver.get("http://localhost:8080/");
