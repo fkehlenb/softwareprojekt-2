@@ -121,7 +121,7 @@
 </ul>
 </li>
 <ul><li>Übersicht über Arbeitsauslastung der Experimentierstationen (<strong>O«UI.Auslastung»</strong>)</li>
-<li>Export des Protokolls nach JSON, so dass eine maschinelle Auswertung möglich ist</li></ul>
+<li><strike>Export des Protokolls nach JSON, so dass eine maschinelle Auswertung möglich ist</strike></li></ul>
 </ul>
 <h5 id="transporteur-otransporteur">Transporteur (<strong>O«Transporteur»</strong>)</h5>
 <ul>
