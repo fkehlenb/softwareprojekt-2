@@ -116,3 +116,6 @@ Selenium Test.xml nuzten
 - suche fehlt
 - reload ajax fehlt
 
+
+
+null eingabe traege in psv
