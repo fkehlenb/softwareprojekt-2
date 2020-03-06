@@ -7,7 +7,7 @@
       xmlns:shiro="http://shiro.apache.org/tags">
 <ui:define name="metadata">
     <f:metadata>
-        <f:viewAction action="#{languageBean.setLanguage}" />
+        <f:viewAction action="#{languageBean.setLanguage}"/>
     </f:metadata>
 </ui:define>
 
@@ -18,72 +18,91 @@
 
 <body>
 <shiro:authenticated>
-<shiro:hasRole name="technologe">
-<ui:composition template="../template/common/layout.xhtml">
+    <shiro:hasRole name="technologe">
+        <ui:composition template="../template/common/layout.xhtml">
+            <ui:define name="content">
+                <h:body>
+                    <h:form id="station">
+                        <p:growl>
+                            <p:autoUpdate/>
+                        </p:growl>
+                        <p:panelGrid>
+                            <p:row>
+                                <p:column colspan="4">
+                                    <h1 style="color: cornflowerblue">Experimentierstation #{singleStationBean.station.name} Überblick</h1>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="4">
+                                    <p>Hier haben Sie einen detaillierten Überblick über die Experimentierstation #{singleStationBean.station.name}</p>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <h:outputText value="Experimentierstation ID"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <h:outputText value="#{singleStationBean.station.esID}"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <h:outputText value="Standort"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <h:outputText value="#{singleStationBean.station.standort.ort}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <h:outputText value="Experimentierstation Status"/>
+                                </p:column>
+                                <p:column colspan="1">
+                                    <h:outputText value="#{singleStationBean.station.status}"/>
+                                </p:column>
+                                <p:column colspan="2">
+                                    <p:commandButton update="station" action="#{singleStationBean.reportBroken()}"
+                                                     value="Report as broken" icon="pi pi-ban" style="background-color: red; border-color: red" ajax="true"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="1">
+                                    <h:outputText value="Prozessschritt in der Ausfuehrung"/>
+                                </p:column>
+                                <p:column colspan="3">
+                                    <h:outputText value="#{singleStationBean.station.currentPS}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="4">
+                                    <p:panel header="Proben">
+                                        <p:dataTable var="probe" value="#{singleStationBean.getProben()}"
+                                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                                     paginator="true" rows="6">
 
-
-    <ui:define name="content">
-        <div class="ui-g-2"></div>
-        <div class="ui-g-8">
-            <h:body>
-                <h:form style="background-color: white; margin-top: 100px; width: 650px">
-                    <p:growl>
-                        <p:autoUpdate/>
-                    </p:growl>
-                    <p:panelGrid columns="1">
-                        <p:row>
-                            <h1 style="color: cornflowerblue">Experimentierstation #{singleStationBean.station.name} Überblick</h1>
-                        </p:row>
-
-                        <p:row>
-                            <p>Hier haben Sie einen detaillierten Überblick über die Experimentierstation #{singleStationBean.station.name}</p>
-                        </p:row>
-
-                        <p:row>
-                            <p> ID: #{singleStationBean.station.esID} </p>
-                        </p:row>
-                        <p:row>
-                            <p> Standort: #{singleStationBean.station.standort.ort}</p>
-                        </p:row>
-                        <p:row>
-                            <p> Status: <h:outputText id="status" value="#{singleStationBean.station.status}"/> </p>
-                        </p:row>
-
-                        <p:commandButton update="status" action="#{singleStationBean.reportBroken()}" value="Report as broken"/>
-
-                        <p:row>
-                            <p> ProzessSchritt: #{singleStationBean.station.currentPS} </p>
-                        </p:row>
-
-                        <p:row>
-                            <p> Proben: </p>
-                        </p:row>
-
-                        <p:dataTable var="probe" value="#{singleStationBean.getProben()}">
-
-                            <p:column headerText="Id">
-                                <h:outputText value="#{probe.probenID}"/>
-                            </p:column>
-                            <p:column headerText="Zustand">
-                                <h:outputText value="#{probe.zustand}"/>
-                            </p:column>
-                            <p:column headerText="Standort">
-                                <h:outputText value="#{probe.standort.ort}"/>
-                            </p:column>
-                            <p:column headerText="Auswählen">
-                                <div align="center">
-                                    <p:commandButton value="Choose" action="#{singleSampleBean.singleprobe(probe)}" />
-                                </div>
-                            </p:column>
-
-                        </p:dataTable>
-                    </p:panelGrid>
-                </h:form>
-            </h:body>
-        </div>
-    </ui:define>
-</ui:composition>
-</shiro:hasRole>
+                                            <p:column headerText="Id">
+                                                <h:outputText value="#{probe.probenID}"/>
+                                            </p:column>
+                                            <p:column headerText="Zustand">
+                                                <h:outputText value="#{probe.zustand}"/>
+                                            </p:column>
+                                            <p:column headerText="Standort">
+                                                <h:outputText value="#{probe.standort.ort}"/>
+                                            </p:column>
+                                            <p:column headerText="Auswählen">
+                                                <div align="center">
+                                                    <p:commandButton value="Choose"
+                                                                     action="#{singleSampleBean.singleprobe(probe)}"/>
+                                                </div>
+                                            </p:column>
+                                        </p:dataTable>
+                                    </p:panel>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </h:form>
+                </h:body>
+            </ui:define>
+        </ui:composition>
+    </shiro:hasRole>
 </shiro:authenticated>
 </body>
 </html>

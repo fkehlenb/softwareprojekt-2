@@ -121,10 +121,16 @@
                                 <p:growl>
                                     <p:autoUpdate/>
                                 </p:growl>
+                                <style type="text/css">
+                                    .broken {
+                                        background-color: darkred !important;
+                                        color: white !important;
+                                    }
+                                </style>
                                 <p:dataTable id="table" var="station" value="#{adminBean.experimentierStations}"
                                              editable="true"
                                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                             paginator="true" rows="6" style="margin-bottom:20px">
+                                             paginator="true" rows="15" style="margin-bottom:20px" rowStyleClass="#{station.status eq 'KAPUTT' ? 'broken' : null}">
                                     <p:ajax event="rowEdit" listener="#{adminBean.onRowEditES(station.esID)}"
                                             update="form2:table"/>
                                     <p:ajax event="rowEditCancel" listener="#{adminBean.onRowEditCancelES}"

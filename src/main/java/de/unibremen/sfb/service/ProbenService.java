@@ -55,16 +55,17 @@ public class ProbenService implements Serializable {
         } catch (ProbeNotFoundException e) {
             log.info("vorherige Anzahl kann nicht gefunden werden, weil die Probe nicht existierte");
         }
-        Probe p = new Probe(probenID, vorherigeAnzahl + anzahl, ProbenZustand.ARCHIVIERT,standort);
+        Probe p = new Probe(probenID, vorherigeAnzahl + anzahl, ProbenZustand.ARCHIVIERT, standort);
         p.setLost(verloreneAnzahl);
         update(p);
         persist(p);
-        return  p;
+        return p;
     }
 
 
     /**
      * Suche nach Proben die an diesem Stanndort liegen
+     *
      * @param s Der Standort
      * @return alle Proben die diese Eigenschaft besitzen
      */
@@ -104,21 +105,22 @@ public class ProbenService implements Serializable {
 
     /**
      * adds a comment to a sample
+     *
      * @param p the sample
      * @param c the new comment
-     * @throws ProbeNotFoundException the sample could not be found in the database
+     * @throws ProbeNotFoundException      the sample could not be found in the database
+     * @throws DuplicateKommentarException if the comment already exists
      */
     public void addProbenComment(Probe p, String c)
             throws ProbeNotFoundException, IllegalArgumentException, DuplicateKommentarException {
-        if(p== null || c == null) {
+        if (p == null || c == null) {
             throw new IllegalArgumentException();
         }
         Kommentar k = new Kommentar(LocalDateTime.now(), c);
         kommentarDAO.persist(k);
-        if(p.getKommentar() != null) {
+        if (p.getKommentar() != null) {
             p.getKommentar().add(k);
-        }
-        else {
+        } else {
             List<Kommentar> ks = new LinkedList<>();
             ks.add(k);
             p.setKommentar(ks);
@@ -128,17 +130,19 @@ public class ProbenService implements Serializable {
 
     /**
      * edits a comment of a sample
+     *
      * @param p the sample
      * @param c the new comment text
      * @param k the Class of the Comment
-     * @throws ProbeNotFoundException the sample could not be found in the database
+     * @throws ProbeNotFoundException     the sample could not be found in the database
+     * @throws KommentarNotFoundException if the Comment could not be found
      */
     public void editProbenComment(Probe p, Kommentar k, String c)
             throws ProbeNotFoundException, IllegalArgumentException, KommentarNotFoundException {
-        if(p==null || k == null || c == null) {
+        if (p == null || k == null || c == null) {
             throw new IllegalArgumentException();
         }
-        if(p.getKommentar().contains(k)) {
+        if (p.getKommentar().contains(k)) {
             k.setText(c);
             kommentarDAO.update(k);
         }
@@ -147,13 +151,15 @@ public class ProbenService implements Serializable {
 
     /**
      * deletes a comment of a sample
+     *
      * @param p the sample
      * @param k the comment to be deleted //TODO macht das sinn so?
-     * @throws ProbeNotFoundException the sample could not be found in the database
+     * @throws ProbeNotFoundException     the sample could not be found in the database
+     * @throws KommentarNotFoundException if the Comment could not be found
      */
     public void deleteProbenComment(Probe p, Kommentar k)
             throws ProbeNotFoundException, IllegalArgumentException, KommentarNotFoundException {
-        if(p == null || k == null) {
+        if (p == null || k == null) {
             throw new IllegalArgumentException();
         }
         p.getKommentar().remove(k);
@@ -163,6 +169,7 @@ public class ProbenService implements Serializable {
 
     /**
      * find a sample in the database by its id
+     *
      * @param id the id
      * @return the sample
      * @throws ProbeNotFoundException there is no sample with this id
@@ -174,12 +181,13 @@ public class ProbenService implements Serializable {
     /**
      * turns the set of comments of a sample into a string
      * every comment in a new paragraph
+     *
      * @param p the sample
      * @return the string with the text of all comments
      */
     public String KommentarToString(Probe p) {
         StringBuilder res = new StringBuilder();
-        for(Kommentar k : p.getKommentar()) {
+        for (Kommentar k : p.getKommentar()) {
             res.append(k.getText()).append("\n");
         }
         return res.toString();
@@ -187,16 +195,16 @@ public class ProbenService implements Serializable {
 
     /**
      * sets the state of a sample
+     *
      * @param p the sample
      * @param z the new state
-     * @throws ProbeNotFoundException sample not in database
+     * @throws ProbeNotFoundException   sample not in database
      * @throws IllegalArgumentException sample and/or state null
      */
-    public void setZustandForProbe(Probe p, ProbenZustand z) throws ProbeNotFoundException, IllegalArgumentException{
-        if(p==null||z==null) {
+    public void setZustandForProbe(Probe p, ProbenZustand z) throws ProbeNotFoundException, IllegalArgumentException {
+        if (p == null || z == null) {
             throw new IllegalArgumentException();
-        }
-        else {
+        } else {
             p.setZustand(z);
             probeDAO.update(p);
         }
@@ -204,23 +212,23 @@ public class ProbenService implements Serializable {
 
     /**
      * sets the state of a number of samples
-     * @param p the sample
+     *
+     * @param p      the sample
      * @param anzahl number of samples, which should be changed
-     * @param z the new state
-     * @throws ProbeNotFoundException sample not in database
+     * @param z      the new state
+     * @throws ProbeNotFoundException   sample not in database
      * @throws IllegalArgumentException sample and/or state null
-     * @throws DuplicateProbeException sample allready exists in the db
+     * @throws DuplicateProbeException  sample allready exists in the db
      */
     public void setZustandForProbe(Probe p, int anzahl, ProbenZustand z) throws ProbeNotFoundException, IllegalArgumentException, DuplicateProbeException {
-        if(p==null||z==null) {
+        if (p == null || z == null) {
             throw new IllegalArgumentException();
-        }
-        else {
-            p.setAnzahl(p.getAnzahl()-anzahl);
+        } else {
+            p.setAnzahl(p.getAnzahl() - anzahl);
             probeDAO.update(p);
 
 
-            p.setProbenID(p.getProbenID()+".VERLOREN");
+            p.setProbenID(p.getProbenID() + ".VERLOREN");
             p.setAnzahl(anzahl);
             p.setZustand(z);
             probeDAO.persist(p);
@@ -228,26 +236,27 @@ public class ProbenService implements Serializable {
     }
 
     public void probeVerloren(Probe p, int anzahl, int lostAnzahl, int vorherLost) throws ProbeNotFoundException {
-        if(p==null){
+        if (p == null) {
             throw new IllegalArgumentException();
-        }
-        else {
-            p.setAnzahl(anzahl-lostAnzahl);
-            p.setLost(vorherLost+lostAnzahl);
+        } else {
+            p.setAnzahl(anzahl - lostAnzahl);
+            p.setLost(vorherLost + lostAnzahl);
             probeDAO.update(p);
+
         }
     }
 
     /**
      * returns all samples to which the user has not yet uploaded data
      *
+     * @throws AuftragNotFoundException if no Auftrag exists.
      * @return a set containing all those samples
      */
     public List<Probe> viewToBeUploaded() throws AuftragNotFoundException {
         List<Probe> res = new LinkedList<>();
         try {
-            for(ProzessSchritt ps : prozessSchrittService.getSchritte()) {
-                if(!ps.isUploaded()) {
+            for (ProzessSchritt ps : prozessSchrittService.getSchritte()) {
+                if (!ps.isUploaded()) {
                     for (Traeger t :
                             auftragService.getAuftrag(ps).getTraeger()) {
                         res.addAll(t.getProben());
@@ -263,6 +272,7 @@ public class ProbenService implements Serializable {
 
     /**
      * counts the samples in the database
+     *
      * @return the amount of samples in the database
      */
     public int getProbenTotalCount() {
@@ -270,36 +280,51 @@ public class ProbenService implements Serializable {
     }
 
 
-    /** Get all archived samples
-     * @return a list of all archived samples */
-    public List<Probe> getAllArchived(){
+    /**
+     * Get all archived samples
+     *
+     * @return a list of all archived samples
+     */
+    public List<Probe> getAllArchived() {
         return probeDAO.getAllArchived();
     }
 
-    /** Add a new sample
+    /**
+     * Add a new sample
+     *
      * @param p - the sample to add
-     * @throws DuplicateProbeException on failure */
-    public void persist(Probe p) throws DuplicateProbeException{
-         probeDAO.persist(p);
+     * @throws DuplicateProbeException on failure
+     */
+    public void persist(Probe p) throws DuplicateProbeException {
+        probeDAO.persist(p);
     }
 
-    /** Update a sample
+    /**
+     * Update a sample
+     *
      * @param p - the sample to update
-     * @throws ProbeNotFoundException on failure */
-    public void update(Probe p) throws ProbeNotFoundException{
+     * @throws ProbeNotFoundException on failure
+     */
+    public void update(Probe p) throws ProbeNotFoundException {
         probeDAO.update(p);
     }
 
-    /** Remove a sample
+    /**
+     * Remove a sample
+     *
      * @param p - the sample to remove
-     * @throws ProbeNotFoundException on failure */
-    public void remove(Probe p) throws ProbeNotFoundException{
+     * @throws ProbeNotFoundException on failure
+     */
+    public void remove(Probe p) throws ProbeNotFoundException {
         probeDAO.remove(p);
     }
 
-    /** Get all samples from the database
-     * @return a list of all samples from the database */
-    public List<Probe> getAll(){
+    /**
+     * Get all samples from the database
+     *
+     * @return a list of all samples from the database
+     */
+    public List<Probe> getAll() {
         return probeDAO.getAll();
     }
 }

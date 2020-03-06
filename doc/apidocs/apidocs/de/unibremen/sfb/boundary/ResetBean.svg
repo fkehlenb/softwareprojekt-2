@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="222px" preserveAspectRatio="none" style="width:213px;height:222px;" version="1.1" viewBox="0 0 213 222" width="213px" zoomAndPan="magnify"><defs><filter height="300%" id="f1cj1vdovtodj5" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[16fbeddd79415ab9396a4096e9b3e5b5]
+class de.unibremen.sfb.boundary.ResetBean--><a href="ResetBean.html" target="_top" title="ResetBean.html" xlink:actuate="onRequest" xlink:href="ResetBean.html" xlink:show="new" xlink:title="ResetBean.html" xlink:type="simple"><rect fill="#FEFECE" filter="url(#f1cj1vdovtodj5)" height="84.3516" id="de.unibremen.sfb.boundary.ResetBean" style="stroke: #A80036; stroke-width: 1.5;" width="192" x="6" y="106"/><ellipse cx="32.7" cy="124.9688" fill="#ADD1B2" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M35.6688,130.6094 Q35.0906,130.9063 34.45,131.0469 Q33.8094,131.2031 33.1063,131.2031 Q30.6063,131.2031 29.2781,129.5625 Q27.9656,127.9063 27.9656,124.7813 Q27.9656,121.6563 29.2781,120 Q30.6063,118.3438 33.1063,118.3438 Q33.8094,118.3438 34.45,118.5 Q35.1063,118.6563 35.6688,118.9531 L35.6688,121.6719 Q35.0438,121.0938 34.45,120.8281 Q33.8563,120.5469 33.2313,120.5469 Q31.8875,120.5469 31.2,121.625 Q30.5125,122.6875 30.5125,124.7813 Q30.5125,126.875 31.2,127.9531 Q31.8875,129.0156 33.2313,129.0156 Q33.8563,129.0156 34.45,128.75 Q35.0438,128.4688 35.6688,127.8906 L35.6688,130.6094 Z "/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="77" x="77.8" y="123.9951">ResetBean</text><text fill="#000000" font-family="sans-serif" font-size="10" lengthAdjust="spacingAndGlyphs" textLength="134" x="49.3" y="136.5791">de.unibremen.sfb.boundary</text><line style="stroke: #A80036; stroke-width: 1.5;" x1="7" x2="197" y1="143.9375" y2="143.9375"/><ellipse cx="17" cy="154.9375" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="142" x="26" y="158.1479">resetByUsername(): void</text><ellipse cx="17" cy="167.7422" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="114" x="26" y="170.9526">resetByEmail(): void</text><ellipse cx="17" cy="180.5469" fill="#84BE84" rx="3" ry="3" style="stroke: #038048; stroke-width: 1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacingAndGlyphs" textLength="166" x="26" y="183.7573">getCurrentLanguage(): String</text></a><!--MD5=[5a5af9b0547913863cbe0ddf55a9ab5e]
+class java.io.Serializable--><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/Serializable.html?is-external=true" target="_top" title="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/Serializable.html?is-external=true" xlink:actuate="onRequest" xlink:href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/Serializable.html?is-external=true" xlink:show="new" xlink:title="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/Serializable.html?is-external=true" xlink:type="simple"><rect fill="#FEFECE" filter="url(#f1cj1vdovtodj5)" height="37.9375" id="java.io.Serializable" style="stroke: #A80036; stroke-width: 1.5;" width="108" x="48" y="8"/><ellipse cx="63" cy="26.9688" fill="#B4A7E5" rx="11" ry="11" style="stroke: #A80036; stroke-width: 1.0;"/><path d="M58.9219,22.7344 L58.9219,20.5781 L66.3125,20.5781 L66.3125,22.7344 L63.8438,22.7344 L63.8438,30.8125 L66.3125,30.8125 L66.3125,32.9688 L58.9219,32.9688 L58.9219,30.8125 L61.3906,30.8125 L61.3906,22.7344 L58.9219,22.7344 Z "/><text fill="#000000" font-family="sans-serif" font-size="14" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="76" x="77" y="25.9951">Serializable</text><text fill="#000000" font-family="sans-serif" font-size="10" font-style="italic" lengthAdjust="spacingAndGlyphs" textLength="33" x="98.5" y="38.5791">java.io</text></a><!--MD5=[f28f8dca433b2c45a44dd566bfe76bf6]
+reverse link java.io.Serializable to de.unibremen.sfb.boundary.ResetBean--><path d="M102,66.54 C102,79.08 102,93.05 102,105.78 " fill="none" id="java.io.Serializable&lt;-de.unibremen.sfb.boundary.ResetBean" style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 7.0,7.0;"/><polygon fill="none" points="95,66.07,102,46.07,109,66.07,95,66.07" style="stroke: #A80036; stroke-width: 1.0;"/><text fill="#888888" font-family="sans-serif" font-size="10" lengthAdjust="spacingAndGlyphs" textLength="186" x="15" y="209.2822">UMLDoclet 2.0.7, PlantUML 1.2019.12</text><!--MD5=[e71c5c95a531027d534eb34ee1c22a7b]
+@startuml
+    set namespaceSeparator none
+    hide empty fields
+    hide empty methods
+
+    class "<size:14>ResetBean\n<size:10>de.unibremen.sfb.boundary" as de.unibremen.sfb.boundary.ResetBean [[ResetBean.html]] {
+        +resetByUsername(): void
+        +resetByEmail(): void
+        +getCurrentLanguage(): String
+    }
+
+    interface "<size:14>Serializable\n<size:10>java.io" as java.io.Serializable [[https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/io/Serializable.html?is-external=true]]
+
+    java.io.Serializable <|.. de.unibremen.sfb.boundary.ResetBean
+
+    center footer UMLDoclet 2.0.7, PlantUML 1.2019.12
+@enduml
+
+PlantUML version 1.2019.12(Sun Nov 03 11:24:54 CET 2019)
+(APACHE source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Java Version: 13.0.2+8
+Operating System: Linux
+Default Encoding: UTF-8
+Language: de
+Country: DE
+--></g></svg>

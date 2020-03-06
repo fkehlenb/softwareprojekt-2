@@ -20,7 +20,7 @@ public class ProzessSchrittZustandsAutomatVorlageService implements Serializable
     /**
      * Loesche alle diese ProzessSchrittZustandsAutomatVorlage
      * @param selpszav die zu loeschenden ProzessSchrittZustandsAutomatVorlage
-     * @throws ProzessSchrittVorlageNotFoundException falls es sie nicht gibt
+     * @throws  ProzessSchrittZustandsAutomatVorlageNotFoundException  falls es die PS Zustands Automaten Vorlage nicht gibt
      */
     public void delete(List<ProzessSchrittZustandsAutomatVorlage> selpszav) throws ProzessSchrittZustandsAutomatVorlageNotFoundException {
         for (ProzessSchrittZustandsAutomatVorlage p :
@@ -60,6 +60,7 @@ public class ProzessSchrittZustandsAutomatVorlageService implements Serializable
     /**
      * Add a new process step template
      * @param prozessSchrittZustandsAutomatVorlage the one to be added
+     * @throws DuplicateProzessSchrittZustandsAutomatVorlageException if already in the System
      */
     public void addVorlage(ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage) throws DuplicateProzessSchrittZustandsAutomatVorlageException {
         this.psvVorlagen.add(prozessSchrittZustandsAutomatVorlage);
@@ -76,9 +77,9 @@ public class ProzessSchrittZustandsAutomatVorlageService implements Serializable
     /**
      * Get the ProzessSchrittZustandsAutomatVorlage by its ID
      * @param id of ProzessSchrittZustandsAutomatVorlage
-     * @return ProzessSchrittZustandsAutomatVorlageNotFoundException which corresponds to the ID
-     *
-     *
+     * @throws ProzessSchrittZustandsAutomatVorlageNotFoundException which corresponds to the ID
+     * @return the PS Template with the id
+
      */
     public ProzessSchrittZustandsAutomatVorlage getByID(int id) throws ProzessSchrittZustandsAutomatVorlageNotFoundException {
         return prozessSchrittZustandsAutomatVorlageDAO.getById(id);
