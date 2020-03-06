@@ -3,7 +3,6 @@ package de.unibremen.sfb.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 /** The quantitative descriptor data class */
 @Getter

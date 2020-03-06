@@ -4,7 +4,6 @@ import de.unibremen.sfb.exception.DuplicateProzessSchrittException;
 import de.unibremen.sfb.exception.ProzessSchrittNotFoundException;
 import de.unibremen.sfb.model.ProzessSchritt;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -41,11 +41,6 @@ class ResetBeanTest {
     }
 
     @Test
-    void testSetLanguage() {
-        resetBean.setLanguage("l");
-    }
-
-    @Test
     void testGetCurrentLanguage() {
         String result = resetBean.getCurrentLanguage();
         Assertions.assertEquals(null, result);

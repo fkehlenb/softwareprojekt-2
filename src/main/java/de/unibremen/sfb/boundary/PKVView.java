@@ -1,27 +1,20 @@
 package de.unibremen.sfb.boundary;
 
-import de.unibremen.sfb.exception.DuplicateProzessKettenVorlageException;
-import de.unibremen.sfb.exception.ProzessKettenVorlageNotFoundException;
-import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.*;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
-import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.DualListModel;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 

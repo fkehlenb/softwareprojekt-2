@@ -169,11 +169,7 @@ public class InitialDataFiller {
 
 
             // Setup PSZA
-            List z = new ArrayList();
-            for (String s :
-                    pszaVorlage.getZustaende()) {
-                z.add(s);
-            }
+            List z = new ArrayList(pszaVorlage.getZustaende());
             ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(
                     UUID.randomUUID().hashCode(), "ERSTELLT", z);
             log.info("Try to persist ProzessSchrittZustandsAutomat " + prozessSchrittZustandsAutomat.toString());
@@ -198,11 +194,7 @@ public class InitialDataFiller {
 
 
             // Erstelle neuen PSZA
-            List<String> z = new ArrayList<>();
-            for (String s :
-                    pszaVorlage.getZustaende()) {
-                z.add(s);
-            }
+            List<String> z = new ArrayList<>(pszaVorlage.getZustaende());
             var automat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "AKZEPTIERT", z);
             em.persist(automat);
             automat.setName("test");
@@ -225,11 +217,7 @@ public class InitialDataFiller {
         var r = new ArrayList<ProzessSchritt>();
         ExperimentierStation[] esList = new ExperimentierStation[limit];
         for (int i = 0; i < limit * 0.5; i++) {
-            List<String> z = new ArrayList();
-            for (String s :
-                    pszaVorlage.getZustaende()) {
-                z.add(s);
-            }
+            List<String> z = new ArrayList(pszaVorlage.getZustaende());
             var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "Erstellt", z);
             em.persist(a);
             var psv = psvListe.get(i);
@@ -240,11 +228,7 @@ public class InitialDataFiller {
                 em.persist(psl);
             }
 
-            List<ProzessSchrittParameter> y = new ArrayList<>();
-            for (ProzessSchrittParameter psp :
-                    psv.getProzessSchrittParameters()) {
-                y.add(psp);
-            }
+            List<ProzessSchrittParameter> y = new ArrayList<>(psv.getProzessSchrittParameters());
             var ps = new ProzessSchritt(UUID.randomUUID().hashCode(), a, psv.getDauer(), y,
                     "Test Atribut " + 1, psLogs, "PSV: " + i,
                     true, f.random().nextInt(0, 9999));
@@ -451,8 +435,7 @@ public class InitialDataFiller {
             r.add(p1);
         }
         Random random = new Random();
-        Traeger t = new Traeger(UUID.randomUUID().hashCode(), tas.get(0).getArten().get(0), r, standorte.get(random.nextInt(standorte.size())));
-        return t;
+        return new Traeger(UUID.randomUUID().hashCode(), tas.get(0).getArten().get(0), r, standorte.get(random.nextInt(standorte.size())));
     }
 
     public List<Kommentar> erstelleKommentare() {

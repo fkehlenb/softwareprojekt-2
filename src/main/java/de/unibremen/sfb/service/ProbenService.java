@@ -7,13 +7,11 @@ import de.unibremen.sfb.persistence.ProbeDAO;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Getter
@@ -220,13 +218,12 @@ public class ProbenService implements Serializable {
         else {
             p.setAnzahl(p.getAnzahl()-anzahl);
             probeDAO.update(p);
-            Probe probeVerloren = p;
 
 
-            probeVerloren.setProbenID(probeVerloren.getProbenID()+".VERLOREN");
-            probeVerloren.setAnzahl(anzahl);
-            probeVerloren.setZustand(z);
-            probeDAO.persist(probeVerloren);
+            p.setProbenID(p.getProbenID()+".VERLOREN");
+            p.setAnzahl(anzahl);
+            p.setZustand(z);
+            probeDAO.persist(p);
         }
     }
 

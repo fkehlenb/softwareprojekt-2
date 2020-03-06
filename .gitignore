@@ -81,7 +81,6 @@ out/
 atlassian-ide-plugin.xml
 
 # Cursive alle IDEA Projecte Dateiene Ignorieren
-.idea
 
 # Crashlytics plugin (for Android Studio and IntelliJ)
 com_crashlytics_export_strings.xml
@@ -422,4 +421,4 @@ buildNumber.properties
 
 # End of https://www.gitignore.io/api/web,java,latex,maven,intellij
 
- *.DS_Store
+

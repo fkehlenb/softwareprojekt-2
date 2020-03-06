@@ -17,7 +17,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -124,8 +123,7 @@ public class SingleSampleBean implements Serializable {
     }
 
     public List<QualitativeEigenschaft> getEigenschaften() {
-        List<QualitativeEigenschaft> r = new ArrayList<>();
-            r.addAll(p.getEigenschaften());
+        List<QualitativeEigenschaft> r = new ArrayList<>(p.getEigenschaften());
         r.removeAll(Collections.singleton(null));
         return r;
     }

@@ -10,7 +10,6 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
@@ -141,10 +140,7 @@ public class PSVView implements Serializable {
      */
     public void createPSV() {
         try {
-            List<ProzessSchrittParameter> newPsp = new ArrayList<>();
-            for (ProzessSchrittParameter psp : selectedProzessSchrittParameterList){
-                newPsp.add(psp);
-            }
+            List<ProzessSchrittParameter> newPsp = new ArrayList<>(selectedProzessSchrittParameterList);
             ProzessSchrittVorlage psv = new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), newPsp,
                     selectedExperimentierStation, selectedDuration, selectedName, selectedProzessSchrittZustandsAutomatVorlage,urformend,amountCreated);
             if (selectedInputTraegerArten == null){
@@ -179,10 +175,7 @@ public class PSVView implements Serializable {
             prozessSchrittVorlage.setDauer(selectedDuration);
             prozessSchrittVorlage.setZustandsAutomatVorlage(selectedProzessSchrittZustandsAutomatVorlage);
             prozessSchrittVorlage.setExperimentierStation(selectedExperimentierStation);
-            List<ProzessSchrittParameter> newPsp = new ArrayList<>();
-            for (ProzessSchrittParameter psp : selectedProzessSchrittParameterList){
-                newPsp.add(psp);
-            }
+            List<ProzessSchrittParameter> newPsp = new ArrayList<>(selectedProzessSchrittParameterList);
             prozessSchrittVorlage.setProzessSchrittParameters(newPsp);
             prozessSchrittVorlage.setUrformend(urformend);
             prozessSchrittVorlage.setAmountCreated(amountCreated);

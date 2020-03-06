@@ -3,7 +3,6 @@ package de.unibremen.sfb.persistence;
 import de.unibremen.sfb.exception.DuplicateProzessKettenVorlageException;
 import de.unibremen.sfb.exception.ProzessKettenVorlageNotFoundException;
 import de.unibremen.sfb.model.ProzessKettenVorlage;
-import de.unibremen.sfb.model.ProzessSchrittVorlage;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.EntityNotFoundException;

@@ -1,6 +1,5 @@
 package de.unibremen.sfb.boundary;
 
-import de.unibremen.sfb.exception.AuftragNotFoundException;
 import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.AuftragService;
@@ -15,7 +14,6 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Named
 @SessionScoped

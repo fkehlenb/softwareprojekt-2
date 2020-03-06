@@ -19,16 +19,6 @@ public class LoggedInBean implements Serializable {
     private User user;
 
     /**
-     * sets the view for this user
-     */
-    public void setView() {}
-
-    /**
-     * logs the user out
-     */
-    public void logout() {}
-
-    /**
      * the empty constructor
      */
     public LoggedInBean() {}

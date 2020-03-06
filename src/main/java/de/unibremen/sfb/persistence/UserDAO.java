@@ -2,7 +2,6 @@ package de.unibremen.sfb.persistence;
 
 import de.unibremen.sfb.exception.DuplicateUserException;
 import de.unibremen.sfb.exception.UserNotFoundException;
-import de.unibremen.sfb.model.Role;
 import de.unibremen.sfb.model.User;
 import lombok.extern.slf4j.Slf4j;
 
