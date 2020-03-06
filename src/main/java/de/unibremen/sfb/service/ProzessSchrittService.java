@@ -227,6 +227,9 @@ public class ProzessSchrittService implements Serializable {
         if (prozessSchritt.getTransportAuftrag() != null) {
            delivered = prozessSchritt.getTransportAuftrag().getAbgeliefert() != null;
         }
+        if (prozessSchritt.isUrformend()) {
+            return  true;
+        }
         return delivered;
     }
 //        r.sort(Comparator.comparing(o -> auftragDAO.getObjById(o.getId()).getPriority();
