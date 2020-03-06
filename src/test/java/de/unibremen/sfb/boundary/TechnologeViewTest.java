@@ -1,5 +1,6 @@
 package de.unibremen.sfb.boundary;
 
+import de.unibremen.sfb.exception.AuftragNotFoundException;
 import de.unibremen.sfb.exception.ProzessSchrittNotFoundException;
 import de.unibremen.sfb.exception.UserNotFoundException;
 import de.unibremen.sfb.model.*;
@@ -93,7 +94,7 @@ class TechnologeViewTest {
     }
 
     @Test
-    void testViewToBeUploaded() {
+    void testViewToBeUploaded() throws AuftragNotFoundException {
         when(probeService.viewToBeUploaded()).thenReturn(Arrays.<Probe>asList(new Probe("probenID", 0, null, new Standort(0, "ort"))));
 
         List<Probe> result = technologeView.viewToBeUploaded();
