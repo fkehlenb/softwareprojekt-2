@@ -92,12 +92,6 @@ class ProbeTest {
     }
 
     @Test
-    void testCanEqual() {
-        boolean result = probe.canEqual("other");
-        Assertions.assertEquals(true, result);
-    }
-
-    @Test
     void testHashCode() {
         int result = probe.hashCode();
         Assertions.assertEquals(0, result);

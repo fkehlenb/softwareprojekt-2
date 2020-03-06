@@ -69,31 +69,44 @@ public class LogistikerBean implements Serializable {
     @Inject
     private TraegerService traegerService;
 
-    /** Container type service */
+    /**
+     * Container type service
+     */
     @Inject
     private TraegerArtService traegerArtService;
 
-    /** Location Service */
+    /**
+     * Location Service
+     */
     @Inject
     private StandortService standortService;
 
-    @Inject ExperimentierStationService experimentierStationService;
+    @Inject
+    ExperimentierStationService experimentierStationService;
 
     /**
      * All containers
      */
     private List<Traeger> traegers;
 
-    /** Container type */
+    /**
+     * Container type
+     */
     private String traegerArt;
 
-    /** Container types */
+    /**
+     * Container types
+     */
     private List<String> traegerArts;
 
-    /** Container Location */
+    /**
+     * Container Location
+     */
     private Standort traegerLocation;
 
-    /** Contains errorMessage for pkAdmin*/
+    /**
+     * Contains errorMessage for pkAdmin
+     */
     private String errorMessage;
 
     /**
@@ -102,23 +115,37 @@ public class LogistikerBean implements Serializable {
     private List<Probe> archiviert;
 
 
-    /** Sample ID */
+    /**
+     * Sample ID
+     */
     private String probenID;
 
-    /** Chosen sample */
+    /**
+     * Chosen sample
+     */
     private List<Probe> selectedProbe;
 
-    /** Sample amount    */
+    /**
+     * Sample amount
+     */
     private int anzahl;
 
 
     @PostConstruct
     void init() {
+        refresh();
+    }
+
+    /**
+     * Reload data
+     */
+    private void refresh() {
         auftrage = auftragService.getAll();
         proben = probenService.getAll();
         traegers = getTraegerList();
         archiviert = getAllArchviert();
         traegerArts = traegerArtService.getAll().get(0).getArten();
+        selectedProbe = new ArrayList<>();
     }
 
     /**
@@ -139,21 +166,21 @@ public class LogistikerBean implements Serializable {
      * creates a new carrier
      */
     public void createTraeger() {
-        if (proben == null){
-            proben = new ArrayList<>();
+        if (selectedProbe == null) {
+            selectedProbe = new ArrayList<>();
         }
-        Traeger traeger = new Traeger(UUID.randomUUID().hashCode(),traegerArt, proben,traegerLocation);
-        try{
+        Traeger traeger = new Traeger(UUID.randomUUID().hashCode(), traegerArt, selectedProbe, traegerLocation);
+        try {
             traegerService.persist(traeger);
             facesNotification("Added new Traeger with Art: " + traegerArt);
             log.info("Added new Traeger with Art: " + traegerArt);
             traegers = getTraegerList();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             facesError("Failed to add new Traeger with Art: " + traegerArt);
             log.error("Failed to add new Traeger with Art: " + traegerArt);
         }
+        refresh();
     }
 
     /**
@@ -162,50 +189,56 @@ public class LogistikerBean implements Serializable {
      * @param id - the id of the container to update
      */
     public void onRowEditUpdateTraeger(int id) {
-        try{
+        try {
             Traeger t = traegerService.getTraegerById(id);
-            t.setArt(traegerArt);
             t.setStandort(traegerLocation);
-            if (selectedProbe==null){
-                selectedProbe = new ArrayList<>();
-            }
-            t.setProben(selectedProbe);
-            for (Probe p : selectedProbe) {
+            t.setArt(traegerArt);
+            for (Probe p : t.getProben()) {
                 try {
-                    if(p.getStandort().getOrt().equals(t.getStandort().getOrt())){
-                        Traeger ta = p.getCurrentTraeger();
-                        List<Probe> current = ta.getProben();
-                        current.remove(p);
-                        ta.setProben(current);
-                        traegerService.update(ta);
+                    p.setCurrentTraeger(null);
+                    probenService.update(p);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (selectedProbe == null) {
+                t.setProben(new ArrayList<>());
+            } else {
+                List<Probe> actual = new ArrayList<>();
+                for (Probe p : selectedProbe) {
+                    if (p.getStandort().getOrt().equals(traegerLocation.getOrt())) {
+                        try {
+                            Traeger old = p.getCurrentTraeger();
+                            List<Probe> oldProben = old.getProben();
+                            oldProben.remove(p);
+                            old.setProben(oldProben);
+                            traegerService.update(old);
+                        } catch (Exception e) {
+                            System.out.println("Didnt have an old container");
+                        }
                         p.setCurrentTraeger(t);
                         probenService.update(p);
-
+                        actual.add(p);
                     }
-                    else{
-                        facesError("Sample and carrier aren't at the same location!");
-                    }
-
                 }
-                catch (Exception e){
-                    log.info("Träger hat noch keine Proben (NullPointer)");
-                }
+                t.setProben(actual);
             }
             traegerService.update(t);
             facesNotification("Edited trager with ID: " + id);
             log.info("Edited trager with ID: " + id);
-            traegers = getTraegerList();
-        }
-        catch (Exception e){
+            refresh();
+        } catch (Exception e) {
             e.printStackTrace();
             facesError("Failed to edit traeger with ID: " + id);
             log.error("Failed to edit traeger with ID: " + id);
         }
     }
 
-    /** On row edit cancel, restore default variables */
-    public void onRowEditCancelTraegerEdit(){
-        traegerArt = null;
+    /**
+     * On row edit cancel, restore default variables
+     */
+    public void onRowEditCancelTraegerEdit() {
+        refresh();
     }
 
     /**
@@ -214,13 +247,13 @@ public class LogistikerBean implements Serializable {
      * @param id - the id of the container to remove
      */
     public void deleteTraeger(int id) {
-        try{
+        try {
             traegerService.remove(traegerService.getTraegerById(id));
             facesNotification("Removed trager with ID: " + id);
             log.info("Removed trager with ID: " + id);
             traegers = getTraegerList();
-        }
-        catch (Exception e){
+            refresh();
+        } catch (Exception e) {
             e.printStackTrace();
             facesError("Failed to remove traeger with ID: " + id);
             log.error("Failed to remove traeger with ID: " + id);
@@ -236,15 +269,16 @@ public class LogistikerBean implements Serializable {
         return probenService.getAllArchived();
     }
 
-    /** Add a new sample to the system */
+    /**
+     * Add a new sample to the system
+     */
     public void addProbe() {
         Standort standort;
-        try{
+        try {
             standort = standortService.findByLocation("Lager");
-        }
-        catch (StandortNotFoundException e){
+        } catch (StandortNotFoundException e) {
             facesError("Der Standort Lager wurde nicht gefunden und wird nun erstellt, Proben können lediglich im Lager erstellt werden!");
-            standort = new Standort(UUID.randomUUID().hashCode(),"Lager");
+            standort = new Standort(UUID.randomUUID().hashCode(), "Lager");
             standortService.persist(standort);
         }
 
@@ -256,12 +290,12 @@ public class LogistikerBean implements Serializable {
         } catch (ProbeNotFoundException e) {
             log.info("vorherige Anzahl kann nicht gefunden werden, weil die Probe nicht existierte!");
         }
-        Probe p = new Probe(probenID, vorherigeAnzahl + anzahl, ProbenZustand.ARCHIVIERT,standort);
+        Probe p = new Probe(probenID, vorherigeAnzahl + anzahl, ProbenZustand.ARCHIVIERT, standort);
         p.setLost(verloreneAnzahl);
         try {
             probenService.update(p);
             facesNotification("ERFOLG! die Probe wurde hinzugefügt " + p.getProbenID());
-        } catch (ProbeNotFoundException e){
+        } catch (ProbeNotFoundException e) {
             log.info("Probe wurde nicht gefunden,es wird versucht sie zu persistieren!");
             try {
                 probenService.persist(p);
@@ -271,6 +305,7 @@ public class LogistikerBean implements Serializable {
                 facesError("Die Probe existiert bereits!: " + e.getMessage());
             }
         }
+        refresh();
 
     }
 
@@ -293,6 +328,7 @@ public class LogistikerBean implements Serializable {
             log.error("Failed to change auftrag state! ID: " + auftrag);
             facesError("Failed to change auftrag state! ID: " + auftrag);
         }
+        refresh();
 
 
     }
@@ -301,39 +337,38 @@ public class LogistikerBean implements Serializable {
      * refuses a job (signals to the process chain administrator that this job cannot be started in the current form)
      *
      * @param auftrag the job
-     *
      */
     public void refuseAuftrag(int auftrag) {
         String selctError = errorMessage;
-        if(selctError == null){
+        if (selctError == null) {
             facesError("Darf nicht leer sein");
             log.info("ErrorMessage darf nicht leer sein!");
+        } else {
+            try {
+                Auftrag a = auftragService.getObjById(auftrag);
+                a.setProzessKettenZustandsAutomat(ABGELEHNT);
+                log.info("Auftrag wurde abgelehnt! ID: " + auftrag);
+                facesNotification("Auftrag wurde abgelehnt! ID: " + auftrag);
+
+                //Aktualisiert Auftragsliste
+
+                //log.info(errorMessage);
+                //errorMessageAnPkA(a);
+                auftragService.update(a);
+                log.info("Test" + auftrag);
+                Thread.sleep(100);
+                //return "Auftragsuebersicht?faces-redirect=true";
+                //PrimeFaces.current().ajax().update("content-panel");
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                log.error("Failed to change auftrag state! ID: " + auftrag);
+                facesError("Failed to change auftrag state! ID: " + auftrag);
+            }
+            //return null;
         }
-        else{
-        try {
-            Auftrag a = auftragService.getObjById(auftrag);
-            a.setProzessKettenZustandsAutomat(ABGELEHNT);
-            log.info("Auftrag wurde abgelehnt! ID: " + auftrag);
-            facesNotification("Auftrag wurde abgelehnt! ID: " + auftrag);
-
-            //Aktualisiert Auftragsliste
-
-            //log.info(errorMessage);
-            //errorMessageAnPkA(a);
-            auftragService.update(a);
-            log.info("Test" + auftrag);
-            Thread.sleep(100);
-            //return "Auftragsuebersicht?faces-redirect=true";
-            //PrimeFaces.current().ajax().update("content-panel");
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            log.error("Failed to change auftrag state! ID: " + auftrag);
-            facesError("Failed to change auftrag state! ID: " + auftrag);
-        }
-        //return null;
-    }
+        refresh();
     }
 
     /**
@@ -358,6 +393,7 @@ public class LogistikerBean implements Serializable {
      */
     public void setLogistiker(User logistiker) {
         this.logistiker = logistiker;
+        refresh();
     }
 
     /**
@@ -381,6 +417,6 @@ public class LogistikerBean implements Serializable {
     public void errorMessageAnPkA(Auftrag a) throws AuftragNotFoundException {
         a.setErrorMessage(errorMessage);
         auftragService.update(a);
-        log.info("Auftrag wurde aktualisiert mit errotText!" +a );
+        log.info("Auftrag wurde aktualisiert mit errotText!" + a);
     }
 }

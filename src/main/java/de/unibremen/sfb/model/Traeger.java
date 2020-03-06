@@ -6,7 +6,8 @@ import javax.persistence.*;
 import java.util.List;
 
 /** Data class for container objects */
-@Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @RequiredArgsConstructor
@@ -25,7 +26,7 @@ public class Traeger {
     @NonNull
     private String art;
 
-    @OneToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @NonNull
     private List<Probe> proben;
 
@@ -33,4 +34,9 @@ public class Traeger {
     @NonNull
     @ManyToOne
     private Standort standort;
+
+    @Override
+    public String toString(){
+        return "Traeger " + id;
+    }
 }

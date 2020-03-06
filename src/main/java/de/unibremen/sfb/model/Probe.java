@@ -9,7 +9,8 @@ import java.util.List;
 /**
  * Sample object data class
  */
-@Data
+@Getter
+@Setter
 @Entity
 @NamedQueries({
         @NamedQuery(name = "Probe.getByLocation",
@@ -47,7 +48,7 @@ public class Probe {
     /**
      * Comment added to the sample and when it was added
      */
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Kommentar> kommentar;
     /*@OneToOne(fetch = FetchType.LAZY)*/
 
@@ -78,5 +79,10 @@ public class Probe {
      */
     @ManyToOne
     private Traeger currentTraeger;
+
+    @Override
+    public String toString(){
+        return "Probe " + probenID;
+    }
 }
 

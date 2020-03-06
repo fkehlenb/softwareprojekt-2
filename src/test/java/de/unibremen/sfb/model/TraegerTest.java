@@ -59,12 +59,6 @@ class TraegerTest {
     }
 
     @Test
-    void testCanEqual() {
-        boolean result = traeger.canEqual("other");
-        Assertions.assertEquals(true, result);
-    }
-
-    @Test
     void testHashCode() {
         int result = traeger.hashCode();
         Assertions.assertEquals(0, result);
