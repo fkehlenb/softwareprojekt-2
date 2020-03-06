@@ -7,7 +7,7 @@
       xmlns:shiro="http://shiro.apache.org/tags">
 <ui:define name="metadata">
     <f:metadata>
-        <f:viewAction action="#{languageBean.setLanguage}" />
+        <f:viewAction action="#{languageBean.setLanguage}"/>
     </f:metadata>
 </ui:define>
 
@@ -18,52 +18,67 @@
 
 <body>
 <shiro:authenticated>
-<shiro:hasRole name="technologe">
-<ui:composition template="../template/common/layout.xhtml">
+    <shiro:hasRole name="technologe">
+        <ui:composition template="../template/common/layout.xhtml">
+            <ui:define name="content">
+                <h:body>
+                    <h:form id="form">
+                        <p:growl>
+                            <p:autoUpdate/>
+                        </p:growl>
+                        <p:panelGrid columns="1">
+                            <p:row>
+                                <h1 style="color: cornflowerblue">Ihre aktuellen Aufträge</h1>
+                            </p:row>
 
-
-<ui:define name="content">
-        <h:body>
-            <h:form id="form">
-                <p:growl>
-                    <p:autoUpdate/>
-                </p:growl>
-                <p:panelGrid columns="1">
-                    <p:row>
-                        <h1 style="color: cornflowerblue">Ihre aktuellen Aufträge</h1>
-                    </p:row>
-
-                    <p:row>
-                        <p>Hier können Sie alle Aufträge sehen, für die Sie verantwortlich sind.</p>
-                    </p:row>
-
-                    <p:dataTable var="ps" value="#{technologeView.schritte}"
-                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                 paginator="true" rows="15" style="margin-bottom:20px">
-                        <p:column headerText="Name">
-                            <h:outputText value="#{ps.name}"/>
-                        </p:column>
-                        <p:column headerText="Status">
-                            <h:outputText value="#{ps.prozessSchrittZustandsAutomat.current}"/>
-                        </p:column>
-                        <p:column headerText="Station">
-                            <h:outputText value="#{technologeView.findStandort(ps)}"/>
-                        </p:column>
-                        <p:column headerText="Priorität">
-                            <h:outputText value="#{technologeView.getPriority(ps.id)}"/>
-                        </p:column>
-                        <p:column headerText="Auswählen">
-                            <div align="center">
-                                <p:commandButton value="Choose" action="#{singleJobBean.singlejob(ps.id)}" />
-                            </div>
-                        </p:column>
-                    </p:dataTable>
-                </p:panelGrid>
-            </h:form>
-        </h:body>
-</ui:define>
-</ui:composition>
-</shiro:hasRole>
+                            <p:row>
+                                <p>Hier können Sie alle Aufträge sehen, für die Sie verantwortlich sind.</p>
+                            </p:row>
+                            <style type="text/css">
+                                .etwas {
+                                    background-color: lightyellow !important;
+                                    color: white !important;
+                                }
+                                .viel {
+                                    background-color: yellow !important;
+                                    color: white !important;
+                                }
+                                .hoch {
+                                    background-color: darkorange !important;
+                                    color: white !important;
+                                }
+                                .sehr_hoch {
+                                    background-color: darkred !important;
+                                    color: white !important;
+                                }
+                            </style>
+                            <p:dataTable var="ps" value="#{technologeView.schritte}"
+                                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                         paginator="true" rows="15" style="margin-bottom:20px">
+                                <p:column headerText="Name">
+                                    <h:outputText value="#{ps.name}"/>
+                                </p:column>
+                                <p:column headerText="Status">
+                                    <h:outputText value="#{ps.prozessSchrittZustandsAutomat.current}"/>
+                                </p:column>
+                                <p:column headerText="Station">
+                                    <h:outputText value="#{technologeView.findStandort(ps)}"/>
+                                </p:column>
+                                <p:column headerText="Priorität">
+                                    <h:outputText value="#{technologeView.getPriority(ps.id)}"/>
+                                </p:column>
+                                <p:column headerText="Auswählen">
+                                    <div align="center">
+                                        <p:commandButton value="Choose" action="#{singleJobBean.singlejob(ps.id)}"/>
+                                    </div>
+                                </p:column>
+                            </p:dataTable>
+                        </p:panelGrid>
+                    </h:form>
+                </h:body>
+            </ui:define>
+        </ui:composition>
+    </shiro:hasRole>
 </shiro:authenticated>
 </body>
 </html>

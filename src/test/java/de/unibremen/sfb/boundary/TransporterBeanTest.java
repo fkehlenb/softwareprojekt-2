@@ -83,16 +83,6 @@ class TransporterBeanTest {
     }
 
     @Test
-    void testReportLostProbe() {
-        transporterBean.reportLostProbe(new Probe("probenID", 0, null, new Standort(0, "ort")));
-    }
-
-    @Test
-    void testReportLostProbe2() {
-        transporterBean.reportLostProbe(0);
-    }
-
-    @Test
     void testUpdateTabellen() throws UserNotFoundException {
         when(auftragService.getTransportSchritt()).thenReturn(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0)));
         when(auftragService.getTransportSchritt2()).thenReturn(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0)));
@@ -129,11 +119,6 @@ class TransporterBeanTest {
     @Test
     void testSetProzessKettenVorlageService() {
         transporterBean.setProzessKettenVorlageService(new ProzessKettenVorlageService());
-    }
-
-    @Test
-    void testSetTransportAuftrag() {
-        transporterBean.setTransportAuftrag(new TransportAuftrag(LocalDateTime.of(2020, Month.MARCH, 5, 16, 40, 3), null, new Standort(0, "ort"), new Standort(0, "ort")));
     }
 }
 

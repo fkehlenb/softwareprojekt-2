@@ -239,12 +239,11 @@ public class UserService implements Serializable {
 
     /**
      * Get the Current User
-     * // FIXME because no persistence
      *
      * @return the the current User
      * @throws UserNotFoundException wenn the user is not found
      */
     public User getCurrentUser() throws UserNotFoundException {
-            return userDAO.getUserByName(SecurityUtils.getSubject().getPrincipal().toString());
+        return userDAO.getUserByName(SecurityUtils.getSubject().getPrincipal().toString());
     }
 }

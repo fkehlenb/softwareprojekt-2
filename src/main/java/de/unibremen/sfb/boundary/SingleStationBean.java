@@ -69,6 +69,7 @@ public class SingleStationBean implements Serializable {
             if (!es.getStatus().equals(ExperimentierStationZustand.KAPUTT)) {
                 es.setStatus(ExperimentierStationZustand.KAPUTT);
                 esService.updateES(es);
+                station = esService.getById(station.getEsID());
                 log.info("Experimenting station was reported broken!");
                 facesNotification("Experimenting station was reported broken!");
             } else {
@@ -83,7 +84,7 @@ public class SingleStationBean implements Serializable {
 
     /**
      * Get all samples from an experimenting station
-     *
+     * TODO test
      * @return a list of the experimenting station's samples
      */
     public List<Probe> getProben() {

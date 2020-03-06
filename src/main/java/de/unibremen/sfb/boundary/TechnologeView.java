@@ -27,14 +27,17 @@ import java.util.*;
 @Slf4j
 public class TechnologeView implements Serializable {
 
+    /** Job Service */
     @Inject
-    AuftragService auftragService;
+    private AuftragService auftragService;
 
+    /** Experimenting station service */
     @Inject
-    ExperimentierStationService experimentierStationService;
+    private ExperimentierStationService experimentierStationService;
 
+    /** Process Step Service */
     @Inject
-    ProzessSchrittService prozessSchrittService;
+    private ProzessSchrittService prozessSchrittService;
 
     // TODO immer wieder neu laden mit der unteren id
     /**
@@ -42,17 +45,22 @@ public class TechnologeView implements Serializable {
      */
     private User technologe;
 
-    List<Auftrag> auftragList;
+    /** List of all his jobs */
+    private List<Auftrag> auftragList;
 
+    /** Experimenting station service TODO DUPLICATE */
     @Inject
     private ExperimentierStationService esService;
 
+    /** Sample Service */
     @Inject
     private ProbenService probeService;
 
+    /** User Service */
     @Inject
     private UserService userService;
 
+    /** Process Step Service TODO DUPLICATE */
     @Inject
     private ProzessSchrittService psService;
 
@@ -81,6 +89,7 @@ public class TechnologeView implements Serializable {
 
     /**
      * Hole alle Verfügbaren Schritte
+     *
      * @return alle ProzessSchritte die es gibt
      */
     public List<ProzessSchritt> getSchritte() {
@@ -90,10 +99,10 @@ public class TechnologeView implements Serializable {
         } catch (UserNotFoundException e) {
             e.printStackTrace();
             log.error("Could find any Steps");
-            return  new ArrayList<>();
+            return new ArrayList<>();
         }
         assert r != null;
-        return  r;
+        return r;
     }
 
     /**
@@ -113,18 +122,24 @@ public class TechnologeView implements Serializable {
     }
 
     /**
-     * reports an experimentation station as broken
+     * Report experimenting station as broken
      *
-     * @param es the station
+     * @param es - the experimenting station to report as broken
      */
     public void reportBroken(ExperimentierStation es) {
         try {
-            es.setStatus(ExperimentierStationZustand.KAPUTT);
-            experimentierStationService.updateES(es);
-            log.info("ExperimentierStation " + es.getEsID() + "was reported as broken.");
+            if (!es.getStatus().equals(ExperimentierStationZustand.KAPUTT)) {
+                es.setStatus(ExperimentierStationZustand.KAPUTT);
+                esService.updateES(es);
+                log.info("Reported station as broken! ID " + es.getEsID());
+                facesNotification("Reported experimenting station as broken!");
+            } else {
+                facesError("Station already reported broken!");
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            log.info("an error occurred trying to report ExperimentierStation " + es.getEsID() + " as broken: " + e.getMessage());
+            log.error("Couldn't set experimenting station status to broken! Error " + e.getMessage());
+            facesError("Couldn't report station as broken!");
         }
     }
 
@@ -147,7 +162,7 @@ public class TechnologeView implements Serializable {
     public List<Probe> viewToBeUploaded() {
         List<Probe> r = null;
         try {
-          r =  probeService.viewToBeUploaded();
+            r = probeService.viewToBeUploaded();
         } catch (AuftragNotFoundException e) {
             e.printStackTrace();
             return new ArrayList<Probe>();
@@ -219,5 +234,23 @@ public class TechnologeView implements Serializable {
 
     public String KommentarToString(Probe p) {
         return probeService.KommentarToString(p);
+    }
+
+    /**
+     * Adds a new SEVERITY_ERROR FacesMessage for the ui
+     *
+     * @param message Error Message
+     */
+    private void facesError(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+    }
+
+    /**
+     * Adds a new SEVERITY_INFO FacesMessage for the ui
+     *
+     * @param message Info Message
+     */
+    private void facesNotification(String message) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
     }
 }
