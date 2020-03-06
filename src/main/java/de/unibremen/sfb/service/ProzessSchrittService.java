@@ -192,9 +192,12 @@ public class ProzessSchrittService implements Serializable {
             assert curA.getProzessKettenZustandsAutomat() != null;
             Enum<ProzessKettenZustandsAutomat> pkA = curA.getProzessKettenZustandsAutomat();
             ProzessSchritt lastPS = getLastPS(ps);
-            if ((    !(pkA.equals(ProzessKettenZustandsAutomat.INSTANZIIERT)
-                    || pkA.equals(ProzessKettenZustandsAutomat.ABGELEHNT)))
-                    && (isCurrentStep(ps) || (lastPS != null && isDelivered(lastPS)))) {
+            boolean moeglich = (    !(pkA.equals(ProzessKettenZustandsAutomat.INSTANZIIERT)
+                    || pkA.equals(ProzessKettenZustandsAutomat.ABGELEHNT)));
+            boolean current = isCurrentStep(ps);
+            boolean delivered = lastPS != null && isDelivered(lastPS, ps);
+
+            if ( moeglich && (current || delivered || ps.isUrformend())) {
                 result.add(ps);
             }
         } // FIXME Add field is current and eta
@@ -227,13 +230,10 @@ public class ProzessSchrittService implements Serializable {
         }
     }
 
-    public Boolean isDelivered(ProzessSchritt prozessSchritt) {
-        boolean delivered = true;
+    public Boolean isDelivered(ProzessSchritt prozessSchritt, ProzessSchritt ps) {
+        boolean delivered = false;
         if (prozessSchritt.getTransportAuftrag() != null) {
            delivered = prozessSchritt.getTransportAuftrag().getAbgeliefert() != null;
-        }
-        if (prozessSchritt.isUrformend()) {
-            return  true;
         }
         return delivered;
     }

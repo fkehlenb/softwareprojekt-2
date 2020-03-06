@@ -283,6 +283,7 @@ public class AuftragView implements Serializable {
         try {
             Auftrag a = auftragService.getObjById(id);
             if (a.getProzessSchritte() != null) {
+                assert a.getProzessSchritte().get(0) != null;
                 var ps = prozessSchrittService.getLastPS(a.getProzessSchritte().get(0));
                 Standort currentLocation = experimentierStationService.findStation(ps).getStandort();
                 assert currentLocation != null;
