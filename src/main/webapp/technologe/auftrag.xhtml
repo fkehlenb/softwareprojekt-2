@@ -31,13 +31,13 @@
                             </p:row>
 
                             <p:row>
-                                <p>Hier können Sie alle Aufträge sehen, die aktuell an Ihren Stationen offen sind, und sich denen zuordnen, die Sie bearbeiten wollen.</p>
+                                <p>Hier können Sie alle Aufträge sehen, die aktuell an Ihren Stationen offen sind.</p>
                             </p:row>
 
                             <p:dataTable widgetVar="psListe"
                                          id="PSList"
                                          var="ps"
-                                         value="#{technologeView.schritte}"
+                                         value="#{technologeView.getJobs()}"
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                                          paginator="true" rows="50" style="margin-bottom:20px">
                                 <p:column headerText="Id">
