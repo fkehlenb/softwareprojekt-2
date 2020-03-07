@@ -48,10 +48,6 @@ public class TechnologeView implements Serializable {
     /** List of all his jobs */
     private List<Auftrag> auftragList;
 
-    /** Experimenting station service TODO DUPLICATE */
-    @Inject
-    private ExperimentierStationService esService;
-
     /** Sample Service */
     @Inject
     private ProbenService probeService;
@@ -59,10 +55,6 @@ public class TechnologeView implements Serializable {
     /** User Service */
     @Inject
     private UserService userService;
-
-    /** Process Step Service TODO DUPLICATE */
-    @Inject
-    private ProzessSchrittService psService;
 
     private ProzessSchritt parameterschritt;
 
@@ -86,7 +78,7 @@ public class TechnologeView implements Serializable {
      * @return a list containing all stations this user is assigned to
      */
     public List<ExperimentierStation> getStationen() {
-        return esService.getESByUser(technologe);
+        return experimentierStationService.getESByUser(technologe);
     }
 
     /**
@@ -123,7 +115,7 @@ public class TechnologeView implements Serializable {
      * @param ps the step
      * @return the station
      */
-    public ExperimentierStation findStandort(ProzessSchritt ps) { //TODO integrate into my xhtmls
+    public ExperimentierStation findStandort(ProzessSchritt ps) {
         try {
             return experimentierStationService.findStation(ps);
         } catch (IllegalArgumentException e) {
@@ -141,7 +133,7 @@ public class TechnologeView implements Serializable {
         try {
             if (!es.getStatus().equals(ExperimentierStationZustand.KAPUTT)) {
                 es.setStatus(ExperimentierStationZustand.KAPUTT);
-                esService.updateES(es);
+                experimentierStationService.updateES(es);
                 log.info("Reported station as broken! ID " + es.getEsID());
                 facesNotification("Reported experimenting station as broken!");
             } else {
@@ -161,7 +153,7 @@ public class TechnologeView implements Serializable {
      */
     public void createUrformend(String id) {
         //probeService.addNewSample(id);
-        //TODO wie soll ich das integrieren?
+        
     }
 
     /**
