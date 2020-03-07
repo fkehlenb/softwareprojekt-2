@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:shiro="http://shiro.apache.org/tags">
+>
 <ui:define name="metadata">
     <f:metadata>
         <f:viewAction action="#{languageBean.setLanguage}"/>
@@ -161,9 +161,9 @@
                                                      var="priority" style="width: 172px" filter="true"
                                                      filterMatchMode="contains" required="true"
                                                      requiredMessage="Bitte Prozesskettenvorlage eingeben!">
-                                    <f:selectItems value="#{dtAuftragBean.prozessKettenZustandsAutomatList}"
-                                                   var="psza" itemLabel="#{psza}"
-                                                   itemValue="#{psza}" required="true"/>
+                                        <f:selectItems value="#{dtAuftragBean.prozessKettenZustandsAutomatList}"
+                                                       var="psza" itemLabel="#{psza}"
+                                                       itemValue="#{psza}" required="true"/>
                                     </p:selectOneMenu>
                                 </f:facet>
                             </p:cellEditor>
