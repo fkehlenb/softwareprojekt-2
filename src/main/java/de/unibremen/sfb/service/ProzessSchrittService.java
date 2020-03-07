@@ -206,7 +206,7 @@ public class ProzessSchrittService implements Serializable {
         } // FIXME Add field is current and eta
         result.sort(Comparator.comparing(o -> {
             try {
-                return auftragDAO.getObjById(o.getId()).getPriority();
+                return auftragDAO.getObjById(auftragService.getAuftrag(o).getPkID()).getPriority();
             } catch (AuftragNotFoundException e) {
                 e.printStackTrace();
                 return null;

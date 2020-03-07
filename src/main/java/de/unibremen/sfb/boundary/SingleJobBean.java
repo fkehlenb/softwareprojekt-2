@@ -277,7 +277,7 @@ public class SingleJobBean implements Serializable {
             t = LocalTime.of(h, min, sec);
             zeit=null;
         }
-        else {
+        else if(!datum.equals("")) {
             errorMessage("Wenn Sie manuell eine Transitionszeit eingeben wollen, müssen Sie mindestens die Uhrzeit angeben");
         }
         return LocalDateTime.of(d, t);
