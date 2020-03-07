@@ -91,13 +91,6 @@ class ProbeTest {
         Assertions.assertEquals(false, result);
     }
 
-    @Test
-    void testCanEqual() {
-        boolean result = probe.canEqual("other");
-        Assertions.assertEquals(false, result);
-    }
-
-
 
     @Test
     void testToString() {
@@ -105,4 +98,3 @@ class ProbeTest {
         Assertions.assertEquals("Probe(isValidData=true, probenID=null, anzahl=0, lost=0, kommentar=kommentar, zustand=zustand, standort=standort, eigenschaften=eigenschaften, atribute=atribute, currentTraeger=currentTraeger)", result);
     }
 }
-

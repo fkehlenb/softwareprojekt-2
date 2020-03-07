@@ -89,7 +89,7 @@ class AuftragTest {
 
     @Test
     void testSetTraeger() {
-        auftrag.setTraeger(Arrays.<Traeger>asList(new Traeger(0, new TraegerArt("Glass"), probes,standort )));
+        auftrag.setTraeger(Arrays.<Traeger>asList(new Traeger(0, "Glass", probes,standort )));
     }
 
     @Test
