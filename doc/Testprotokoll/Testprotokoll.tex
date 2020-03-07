@@ -159,8 +159,9 @@ identifizieren sein, hier und optimalerweise auf dem Titelblatt.}
 Version & Datum & Änderungen \\
 \hline
 %0.1 & TT.MM.JJJJ & Dokumentvorlage als initiale Fassung kopiert \\
-0.1 & 03.03.2020 & Erste Schritte \\
-0.2 & 03.03.2020 & Administrator \\
+0.1 & 05.03.2020 & Setup Dokument \\
+0.2 & 06.03.2020 & Erste Tests \\
+0.3 & 07.03.2020 & Weitere Tests\\
 \end{tabular}
 
 
@@ -494,7 +495,7 @@ In der folgenden Grafik sehen Sie, dass die Benutzer erfolgreich aktualisiert wu
 \subsection{Tests zum Prozesskettenadministrator}
 
 \subsubsection{Anwendungsfall: Prozessschritte}
-Zum Testen der Prozessschritt-Funktion verwenden wir die Administrator Sicht auf der entsprechenden Website. Hier gibt der Administrator die Daten in einem Formular ein, in dem die Instanz des Prozessschritts erstellt werden muss.
+Zum Testen der Prozessschritt-Funktion verwenden wir die Administrator Sicht auf der entsprechenden Website. Hier gibt der Administrator die Daten in einem Formular ein, in dem die Instanz des Prozessschritts erstellt werden muss.\\
 
 %%Formular
 \hypertarget{sc3.3.1.1}{
@@ -517,13 +518,13 @@ Wenn die Knopf zum Erstellen gedrückt wird und der Erstellungsprozess erfolgrei
 \textit{Abbildung 3.3.1.3: Standort Formular}
 } \\
 Wenn der Prozessadministrator den Prozessschritt bearbeiten möchte, verwendet er die Funktion bearbeiten und füllt das Formular aus.
-Wenn der Bearbeitungsprozess erfolgreich ist, erhält der Benutzer eine Bestätigungsnachricht über die Website
+Wenn der Bearbeitungsprozess erfolgreich ist, erhält der Benutzer eine Bestätigungsnachricht über die Website.\\
 %%Edit
 \hypertarget{sc3.3.1.4}{
 \includegraphics[width=1\textwidth]{Screenshots/33editView.png}
 \textit{Abbildung 3.3.1.4: Standort Formular}
 } \\
-Im Bearbeitung View erhalten der Prozesskette Administrator eine Datenvisualisierung des Prozessschrittes durch die Nutzung der entsprechende Knöpfen. 
+Im Bearbeitung View erhalten der Prozesskette Administrator eine Datenvisualisierung des Prozessschrittes durch die Nutzung der entsprechende Knöpfen. \\
 %%LogsView
 \hypertarget{sc3.3.1.5}{
 \includegraphics[width=1\textwidth]{Screenshots/33log.png}
@@ -533,7 +534,7 @@ Im Bearbeitung View erhalten der Prozesskette Administrator eine Datenvisualisie
 \includegraphics[width=1\textwidth]{Screenshots/33log2.png}
 \textit{Abbildung 3.3.1.6: Standort Formular}
 } \\
-Die Funktion der Schaltfläche Entfernen wurde ebenfalls getestet. Sie entfernt den Schritt-Prozess aus der Tabelle und sendet eine Nachricht an den Benutzer, wenn der Vorgang erfolgreich ist.
+Die Funktion der Schaltfläche Entfernen wurde ebenfalls getestet. Sie entfernt den Schritt-Prozess aus der Tabelle und sendet eine Nachricht an den Benutzer, wenn der Vorgang erfolgreich ist.\\
 %%Remove
 \hypertarget{sc3.3.1.7}{
 \includegraphics[width=1\textwidth]{Screenshots/33removepsp.png}
@@ -541,7 +542,7 @@ Die Funktion der Schaltfläche Entfernen wurde ebenfalls getestet. Sie entfernt 
 } \\
 \subsubsection{Anwendungsfall: Prozess Schritt Vorlage}
 
-Die Funktionen der Erstellung, Bearbeitung, Visualisierung und Eliminierung von Prozess Schritt Vorlagen wurden getestet. Die Interaktion, die der Benutzer mit diesen Funktionen hat, erfolgt über das Formular auf der entsprechenden Seite.
+Die Funktionen der Erstellung, Bearbeitung, Visualisierung und Eliminierung von Prozess Schritt Vorlagen wurden getestet. Die Interaktion, die der Benutzer mit diesen Funktionen hat, erfolgt über das Formular auf der entsprechenden Seite.\\
 
 \hypertarget{sc3.3.2.1}{
 \includegraphics[width=1\textwidth]{Screenshots/332formularpzv.png}
@@ -550,104 +551,156 @@ Die Funktionen der Erstellung, Bearbeitung, Visualisierung und Eliminierung von 
 
 Die folgenden Daten wurden für die Entwicklung des Testprozesses verwendet.\\
 
-\hypertarget{sc3.3.2.1}{
+\hypertarget{sc3.3.2.2}{
 \includegraphics[width=1\textwidth]{Screenshots/332DataPzv.png}
-\textit{Abbildung 3.3.2.2 Standort Formular}
+\textit{Abbildung 3.3.2.2: Standort Formular}
 } \\
 
-Sobald der Erstellungsprozess erfolgreich ist und die entsprechenden Daten eingegeben wurden, wird eine Bestätigungsnachricht von der Website zurückgegeben.
+Sobald der Erstellungsprozess erfolgreich ist und die entsprechenden Daten eingegeben wurden, wird eine Bestätigungsnachricht von der Website zurückgegeben.\\
 
-\hypertarget{sc3.3.2.1}{
+\hypertarget{sc3.3.2.3}{
 \includegraphics[width=1\textwidth]{Screenshots/332MeldungCreation.png}
-\textit{Abbildung 3.3.2.2: Standort Formular}
+\textit{Abbildung 3.3.2.3: Standort Formular}
 } \\
 Wenn die Funktion Bearbeiten gedrückt wird, haben Sie die Möglichkeit, die Informationen des Prozess Schritt Parameters zu ändern.\\
 
-\hypertarget{sc3.3.2.1}{
+\hypertarget{sc3.3.2.4}{
 \includegraphics[width=1\textwidth]{Screenshots/332EditViewPsv.png}
-\textit{Abbildung 3.3.2.1: Standort Formular}
+\textit{Abbildung 3.3.2.4: Standort Formular}
 } \\
 
 In der Tabelle der Prozessschrittvorlagen finden Sie verschiedene Informationen zu den Prozessschrittvorlagen.\\
 
-\hypertarget{sc3.3.2.1}{
+\hypertarget{sc3.3.2.5}{
 \includegraphics[width=1\textwidth]{Screenshots/332log2psv.png}
-\textit{Abbildung 3.3.2.1: Standort Formular}
+\textit{Abbildung 3.3.2.5: Standort Formular}
 } \\
 
-\hypertarget{sc3.3.2.1}{
+\hypertarget{sc3.3.2.6}{
 \includegraphics[width=1\textwidth]{Screenshots/332logpsv.png}
-\textit{Abbildung 3.3.2.1: Standort Formular}
+\textit{Abbildung 3.3.2.6: Standort Formular}
 } \\
 
 Wenn der Vorgang erfolgreich ist, wird nach der Ausgabe eine Bestätigungsnachricht von der Website abgerufen.\\
 
-\hypertarget{sc3.3.2.1}{
-\includegraphics[width=1\textwidth]{Screenshots/332updatepsv.png}
-\textit{Abbildung 3.3.2.1: Standort Formular}
+\hypertarget{sc3.3.2.7}{
+\includegraphics[width=1\textwidth]{Screenshots/332updatepsv.png}\\
+\textit{Abbildung 3.3.2.7: Standort Formular}
 } \\
 
-Die Funktion Entfernen wird getestet. Diese Funktion gibt eine Bestätigungsmeldung zurück, sobald der Entfernungsprozess erfolgreich war.
+Die Funktion Entfernen wird getestet. Diese Funktion gibt eine Bestätigungsmeldung zurück, sobald der Entfernungsprozess erfolgreich war.\\
 
-\hypertarget{sc3.3.2.1}{
-\includegraphics[width=1\textwidth]{Screenshots/332removePsv.png}
-\textit{Abbildung 3.3.2.1: Standort Formular}
+\hypertarget{sc3.3.2.8}{
+\includegraphics[width=1\textwidth]{Screenshots/332removePsv.png}\\
+\textit{Abbildung 3.3.2.8: Standort Formular}
 } \\
 
-Wenn eine der Daten nicht den erforderlichen Daten entspricht, gibt die Webseite eine Warnmeldung zurück, da der Vorgang nicht ausgeführt werden kann.
+Wenn eine der Daten nicht den erforderlichen Daten entspricht, gibt die Webseite eine Warnmeldung zurück, da der Vorgang nicht ausgeführt werden kann.\\
 
-\hypertarget{sc3.3.2.1}{
-\includegraphics[width=1\textwidth]{Screenshots/332regexpsv.png}
-\textit{Abbildung 3.3.2.1: Standort Formular}
+\hypertarget{sc3.3.2.9}{
+\includegraphics[width=1\textwidth]{Screenshots/332regexpsv.png}\\
+\textit{Abbildung 3.3.2.9: Standort Formular}
 } \\
 %%
 \subsubsection{Anwendungsfall: Prozessschritt Vorlage}
 
+Für die Funktionen der Prozess Schritt Vorlage wurde ein Testprozess durchgeführt. Die Optionen zum Erstellen, Bearbeiten und Entfernen von Instanzen wurden anhand des Formulars und der Tabelle getestet, mit denen der Benutzer interagiert.\\
+
 \hypertarget{sc3.3.3.1}{
-\includegraphics[width=1\textwidth]{Screenshots/333Formular.png}
+\includegraphics[width=1\textwidth]{Screenshots/333Formular.png}\\
 \textit{Abbildung 3.3.3.1:  Prozessschritt Vorlage Formular}
-} \\
+} 
+Wenn die Erstellung der Prozess Schritt Vorlage erfolgreich ist, wird eine Nachricht über die Website empfangen.\\
 
-\hypertarget{sc3.3.3.1}{
-\includegraphics[width=1\textwidth]{Screenshots/333Erzeugung.png}
-\textit{Abbildung 3.3.3.1:  Prozessschritt Vorlage Meldung Data}
-} \\
+\hypertarget{sc3.3.3.2}{
+\includegraphics[width=1\textwidth]{Screenshots/333Erzeugung.png}\\
+\textit{Abbildung 3.3.3.2:  Prozessschritt Vorlage Meldung Data}
+} 
+Es wurde auch getestet, dass eine andere vom Benutzer gewählte Reihenfolge gewählt werden kann.\\
 
-\hypertarget{sc3.3.3.1}{
+\hypertarget{sc3.3.3.3}{
 \includegraphics[width=1\textwidth]{Screenshots/333Addmessage.png}
-\textit{Abbildung 3.3.3.1:  Prozessschritt Vorlage Meldung Benachrichtigung }
-} \\
+\textit{Abbildung 3.3.3.3:  Prozessschritt Vorlage Meldung Benachrichtigung }
+} 
 
-\hypertarget{sc3.3.3.1}{
+Für jede Prozessschritt-Vorlage können Informationen zu jeder Instanz angezeigt werden.\\
+
+\hypertarget{sc3.3.3.4}{
 \includegraphics[width=1\textwidth]{Screenshots/333Log.png}
-\textit{Abbildung 3.3.3.1:  Prozessschritt Vorlage Log}
-} \\
+\textit{Abbildung 3.3.3.4:  Prozessschritt Vorlage Log}
+} 
 
-\hypertarget{sc3.3.3.1}{
+Im Bearbeitungsmodus wurde auch getestet, dass die Anfangsdaten jeder Prozess Schrritt Vorlage geändert werden können.\\
+
+\hypertarget{sc3.3.3.5}{
 \includegraphics[width=1\textwidth]{Screenshots/333EditView.png}
-\textit{Abbildung 3.3.3.1:  Prozessschritt Vorlage Edition Sicht}
-} \\
+\textit{Abbildung 3.3.3.5:  Prozessschritt Vorlage Edition Sicht}
+} 
 
-\hypertarget{sc3.3.3.1}{
+Sobald die Ausgabe erfolgreich war, wird eine Bestätigungsnachricht über die Website empfangen.\\
+
+\hypertarget{sc3.3.3.6}{
 \includegraphics[width=1\textwidth]{Screenshots/333EditErfolg.png}
-\textit{Abbildung 3.3.2.1:  Prozessschritt Vorlage Bearbeitung Sicht}
-} \\
+\textit{Abbildung 3.3.2.6:  Prozessschritt Vorlage Bearbeitung Sicht}
+} 
 
-\hypertarget{sc3.3.3.1}{
+In ähnlicher Weise wird nach dem Entfernen einer Instanz eine Bestätigungsnachricht empfangen und die Instanz aus der Tabelle Prozess Schritt Vorlage entfernt.\\
+
+\hypertarget{sc3.3.3.7}{
 \includegraphics[width=1\textwidth]{Screenshots/333removemesage.png}
-\textit{Abbildung 3.3.2.1: Prozessschritt Vorlage Entfernung Benachrichtigung}
+\textit{Abbildung 3.3.2.7: Prozessschritt Vorlage Entfernung Benachrichtigung}
+} 
+
+%%
+
+\subsubsection{Anwendungsfall: Auftrag}
+
+%%
+
+\subsubsection{Anwendungsfall: Qualitativ und Quantitativ}
+Die Erstellung- und Eliminierungsfunktion von Qualitative Eigenschaften wurde getestet. Der Benutzer muss mit einem Formular interagieren, um diese Funktionen ausführen zu können.\\
+%%Formular
+\hypertarget{sc3.3.3.7}{
+\includegraphics[width=1\textwidth]{Screenshots/335Formular.png}
+\textit{Abbildung 3.3.2.7: Prozessschritt Vorlage Entfernung Benachrichtigung}
+}
+
+%%EditView
+\hypertarget{sc3.3.3.7}{
+\includegraphics[width=1\textwidth]{Screenshots/336AddMeldung.png}
+\textit{Abbildung 3.3.2.7: Prozessschritt Vorlage Entfernung Benachrichtigung}
 } \\
+wenn eine Instanz auf der entsprechenden Webseite bearbeitet wird. Wenn der Vorgang erfolgreich war, erhält der Benutzer eine Bestätigungsnachricht.\\
+%%EditMeldung
+\hypertarget{sc3.3.3.7}{
+\includegraphics[width=1\textwidth]{Screenshots/336EditQuali.png}
+\textit{Abbildung 3.3.2.7: Prozessschritt Vorlage Entfernung Benachrichtigung}
+} \\
+Sobald das Formular mit den entsprechenden Daten ausgefüllt und die Anforderung zur Erstellung der Instanz gesendet wurde, wird bei erfolgreichem Vorgang eine Bestätigungsnachricht von der Website empfangen.\\
+In ähnlicher Weise wird für die Erstellung quantitativer Eigenschaften eine Bestätigungsnachricht empfangen, wenn der Instanzerstellungsprozess erfolgreich ist.\\
+%%AddQuant
+\hypertarget{sc3.3.3.7}{
+\includegraphics[width=1\textwidth]{Screenshots/336AddQuantitativMeldung.png}
+\textit{Abbildung 3.3.2.7: Prozessschritt Vorlage Entfernung Benachrichtigung}
+} .\\
+In der Ausgabe von Quantitative Einstellungen wurde es ebenfalls erfolgreich getestet.\\
+%%EditView
+\hypertarget{sc3.3.3.7}{
+\includegraphics[width=1\textwidth]{Screenshots/336EditMeldungQuantDes.png}
+\textit{Abbildung 3.3.2.7: Prozessschritt Vorlage Entfernung Benachrichtigung}
+}  \\
+In beiden Tabellen wird eine Bestätigungsmeldung angezeigt, sobald eine Instanz entfernt wurde und der Entfernungsprozess erfolgreich war.\\
 
-%%
-
-\subsubsection{Anwendungsfall: pk 4}
-
-%%
-
-\subsubsection{Anwendungsfall: pk 5}
-
-%%
-
+%% remove
+\hypertarget{sc3.3.3.7}{
+\includegraphics[width=1\textwidth]{Screenshots/336RemoveMeldungqt.png}
+\textit{Abbildung 3.3.2.7: Prozessschritt Vorlage Entfernung Benachrichtigung}
+}  
+ %% remove
+\hypertarget{sc3.3.3.7}{
+\includegraphics[width=1\textwidth]{Screenshots/336RemoveMledungql.png}
+\textit{Abbildung 3.3.2.7: Prozessschritt Vorlage Entfernung Benachrichtigung}
+}  
 \subsubsection{Anwendungsfall: pk 6}
 
 %%
