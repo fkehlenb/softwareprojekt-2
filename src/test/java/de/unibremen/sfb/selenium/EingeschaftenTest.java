@@ -45,7 +45,7 @@ private WebDriver driver;
 
 			PhantomJSDriverService service = new PhantomJSDriverService.Builder()
 			        .usingPort(8081)
-			        .usingPhantomJSExecutable(new File("/usr/bin/phantomjs"))
+			        .usingPhantomJSExecutable(new File("/usr/local/bin/phantomjs"))
 			        .build();
 			this.driver = new PhantomJSDriver(service, caps);
 		}
@@ -98,7 +98,7 @@ private WebDriver driver;
         driver.findElement(By.xpath("//td[2]/input")).click();
         Thread.sleep(700);
         //Formular
-        driver.findElement(By.id("j_idt63:nameQl")).sendKeys("pruebaTest");
+        driver.findElement(By.id("j_idt59:nameQl")).sendKeys("pruebaTest");
         Thread.sleep(700);
         driver.findElement(By.xpath("//td[4]/button/span")).click();
         Thread.sleep(700);
