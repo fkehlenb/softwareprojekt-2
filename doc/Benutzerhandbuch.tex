@@ -160,6 +160,9 @@ Version & Datum & Änderungen \\
 %0.1 & TT.MM.JJJJ & Dokumentvorlage als initiale Fassung kopiert \\
 0.1 & 03.03.2020 & Erste Schritte \\
 0.2 & 03.03.2020 & Administrator \\
+0.3 & 04.03.2020 & Prozesskettenadministrator \\
+0.? & 06.03.2020 & Restliche Rollen ohne Screenshots \\
+0.? & 07.03.2020 & Screenshots \\
 \end{tabular}
 
 
@@ -178,15 +181,30 @@ Version & Datum & Änderungen \\
 
 \newpage
 \section{Übersicht}
+Farbige Zustände ist eine Webanwendung für die Abläufe im Labor des SFB...\\
+In unserer Anwendung haben Benutzer entsprechend Ihrer Rollen eine Übersicht über die Arbeit, die für Sie im Labor anfallen, und können ... \\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
 \section{Erste Schritte für Anwender}
+
+Im Folgenden werden die grundlegenden Funktionen des Systems für alle Benutzer beschrieben. \\
 \subsection{Anmeldung}
+Von der Willkommensseite können Sie durch Klicken auf den Link zum Anmeldeformular zu kommen. In diesem Formular geben Sie den Namen und das Passwort ein; diese Informationen wurden bei Ihrer Registration festgelegt. Mit Klicken auf Anmelden werden diese Daten überprüft, und wenn sie korrekt sind, werden Sie angemeldet. Weitere Informationen über die Funktionen des Systems finden Sie in den Abschnitten zu den Rollen, denen Sie zugewiesen sind. \\
+\textbf{Hinweis:} Wenn Sie der Systemadministrator sind, und sich zum ersten Mal in diesem System anmelden, ist der Benutzername und das Passwort \textit{admin}. Es ist ratsam, dies möglichst schnell zu ändern. \\
+\subsubsection{Passwort vergessen}
+Wenn Sie Ihr Passwort vergessen haben, klicken Sie auf Passwort vergessen. Dadurch ... //TODO
 \subsection{Abmeldung}
+Um sich abzumelden, klicken Sie in der Navigationsleiste am oberen Rand der Seite auf Logout. Sie werden dadurch zurück zu der Willkommensseite geleitet. \\
 \subsection{Sprachauswahl}
+Sie können zwischen Deutsch und Englisch als Anzeigesprachen wählen. Die Option dafür befindet sich unterhalb des Navigationsmenüs an der linken Seite. \\
 \subsection{Navigationsleiste}
+Es gibt zwei Navigationsleisten: Eine am oberen Rand, und eine am linken. \\
+\subsubsection{Navigationsleiste links}
+In der Navigationsleiste am linken Rand sehen Sie alle Aktionen, die Ihnen zur Verfügung stehen, sortiert nach den Rollen, die Sie haben. Sie können durch Klicken auf die Titel der Seiten auf die unterschiedlichen Seiten gehen. \\
+\subsubsection{Navigationsleiste oben}
+In der Navigationsleiste am oberen Rand können Sie durch Klicken auf Home zum Homescreen zurück //TODO. Sie können ebenfalls sehen, welche Rollen Sie alle innehaben. //TODO. \\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -671,19 +689,57 @@ Im Menü-Unterpunkt Archivübersicht haben Sie eine Übersicht über die Proben,
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Technologe}
-\subsubsection{Übersicht über Experimentierstationen}
-\subsubsection{Übersicht über aktuelle Arbeitsaufträge}
-\subsubsection{Übersicht über angekündigte Arbeitsaufträge}
-\subsubsection{Aktualisieren des Zustands eines Arbeitsauftrags}
-\subsubsection{Probenupload}
-\subsubsection{Proben melden}
-\subsubsection{Experimentierstation melden}
-\subsubsection{Kommentare}
+
+Im Folgenden finden Sie Anleitungen für alle Aktionen, die ein Technologe durchführen kann. \\
+
+%%%%%%%%%%
+\subsubsection{Experimentierstationen}
+Im Menü-Unterpunkt Meine Experimentierstationen haben Sie eine Übersicht über alle Experimentierstationen, denen Sie zugeordnet sind, und können diese als kaputt melden. \\
+
+In der Tabelle können Sie mit den Pfeiltasten zwischen die Seiten navigieren. \\
+
+Um eine Station als kaputt zu melden, klicken Sie in der zugehörigen Tabellenzeile auf Melden klicken. \\
+
+Wollen Sie weitere Details zu einer Station sehen, klicken Sie auf Auswählen am Ende der zugehörigen Tabellenzeile. \\
+
+In der Übersicht über eine einzelne Station sehen Sie die ID, den Standort, den aktuellen Status, sowie welcher Prozessschritt dort aktuell in Ausführung ist. Die Proben, die sich aktuell an dieser Station befinden, werden in einer Tabelle am Ende der Seite angezeigt. Für eine detaillierte Ansicht einer Probe klicken Sie auf Auswählen am Ende der zugehörigen Tabellenzeile. Diese Station können Sie auch hier als kaputt melden, indem Sie am Anfang der Seite auf Melden klicken. \\
+
+%%%%%%%%%%
+\subsubsection{Aktuelle Arbeitsaufträge}
+Im Menü-Unterpunkt Meine Aufträge finden Sie eine Übersicht über die Aufträge, die Sie aktuell bearbeiten, in Ihrer Priorität abwärts sortiert. Um eine detaillierte Übersicht über einen Auftrag zu sehen, und Angaben zu diesem zu machen, klicken Sie am Ende der zugehörigen Tabellenzeile auf Auswählen. \\
+
+In dieser Übersicht können Sie den Zustand des Prozessschrittes weiterschalten, indem Sie auf weiterschalten klicken. Wollen Sie selber eine Transitionszeit eingeben, können Sie dies im nebenliegenden Feld machen; wenn Sie keine Angabe machen, wird die aktuelle Zeit übernommen. Wenn Sie den Schritt komplett ausgeführt haben, wird automatisch ein Transportauftrag für diese Proben erstellt. Sie können ebenfalls alle Proben sehen, die diesem Schritt zugeordnet sind, und durch Klicken auf Auswählen Details zu einer Probe sehen. \\
+
+%%%%%%%%%%
+\subsubsection{Angekündigte Arbeitsaufträge}
+Im Menü-Unterpunkt Angekündigte Arbeitsaufträge haben Sie eine Übersicht über alle Aufträge, die an Ihren Stationen auf Bearbeitung warten. Diese Aufträge werden automatisch zu Aufträgen, die Sie aktuell bearbeiten: Wenn Sie einen aktuellen Auftrag fertig bearbeitet haben, wird der nächste Auftrag, der an der Station wartet, als aktueller Auftrag festgelegt. \\
+
+%%%%%%%%%%
+\subsubsection{Proben}
+Im Menü-Unterpunkt Proben und Upload können Sie alle Proben sehen, die zu Prozessschritten gehören, die Sie bereits bearbeitet haben, aber noch keine Informationen hochgeladen haben. Sie können zu einer Probengruppe Details einsehen, indem Sie in der zugehörigen Tabellenzeile auf Auswählen klicken.\\
+
+In der Übersicht einer Probengruppe können Sie Informationen über diese Gruppe einsehen, Daten hochladen und Proben dieser Gruppe als verloren melden. //TODO \\
+
+Im Menü-Unterpunkt Probenverlust melden können Sie eine oder mehrere Proben als verloren melden. Dafür geben Sie die ID der Probengruppe, zu der diese Probe(n) gehören, sowie die Anzahl an Proben ein. Wenn Sie alle Angaben gemacht haben, können Sie die Probe(n) durch Klicken auf Senden als verloren melden. \\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Transporter}
-\subsubsection{Übersicht über anstehende Transportaufträge}
+
+Folgend finden Sie Anleitungen zu allen Aktionen, die ein Transporter durchführen kann. \\
+
+%%%%%%%%%%
+\subsubsection{Aufträge}
+Im Menü-Unterpunkt Transportaufträge haben Sie eine Übersicht über Transportaufträge, die verfügbar sind, Sie angenommen haben, oder die Sie bereits abgeschlossen haben. \\
+
+In der oberen Tabelle finden Sie die Aufträge, die Sie angenommen, aber noch nicht bearbeitet haben. Sie können sehen, welche Träger Sie woher holen und wohin bringen sollen, den Zustand des Auftrags, und angeben, wenn Sie einen Auftrag durchgeführt haben. Dafür klicken Sie in der entsprechenden Tabellenzeile auf Abgeliefert am Ende der Zeile. Aufträge können den Zustand Erstellt, Abgeholt oder Abgeliefert haben. \\
+
+In der zweiten Tabelle stehen alle Aufträge, die aktuell verfügbar sind, also noch nicht von anderen Transportern angenommen wurden. Sie können einen Auftrag annehmen, indem Sie am Ende der entsprechenden Zeile auf Annehmen klicken. Dieser Auftrag ist dadurch nicht mehr für andere Transporter sichtbar, und erscheint nur in Ihrer Tabelle. \\
+
+In der unteren Tabelle sehen Sie Ihre alten Aufträge, die Sie bereits durchgeführt haben. Sie haben eine Übersicht über die Erstellungs-, Abholungs-, und Ablieferungszeit, und den aktuellen Zustand. An diesen Aufträgen können Sie keine Änderungen mehr vornehmen. \\
+
+%%%%%%%%%%
 \subsubsection{Probenverlust melden}
+Im Menü-Unterpunkt Probenverlust melden können Sie Proben als verloren melden. Dafür geben Sie die Proben-ID der Probengruppe, zu der die Probe gehört, die Sie melden wollen, sowie die Anzahl an Proben aus dieser Gruppe, die Sie melden wollen, ein. Wenn Sie beide Angaben gemacht haben, drücken Sie auf Senden, um die Probe(n) zu melden. \\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
