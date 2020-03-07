@@ -104,10 +104,10 @@ public class ProzessSchrittService implements Serializable {
      * sets the state of the step one further
      *
      * @param ps the process step
-     * @throws  ExperimentierStationNotFoundException if no Station exists
-     * @throws ProzessSchrittNotFoundException if not Step could be found
-     * @throws ProzessSchrittLogNotFoundException if not PS Log could be found
-     * @throws DuplicateProzessSchrittLogException if a PS Log already exists
+     * @throws ExperimentierStationNotFoundException          if no Station exists
+     * @throws ProzessSchrittNotFoundException                if not Step could be found
+     * @throws ProzessSchrittLogNotFoundException             if not PS Log could be found
+     * @throws DuplicateProzessSchrittLogException            if a PS Log already exists
      * @throws ProzessSchrittZustandsAutomatNotFoundException if there is not PS Automata
      */
     public void oneFurther(ProzessSchritt ps)
@@ -174,8 +174,9 @@ public class ProzessSchrittService implements Serializable {
 
     /**
      * returns the current assignments of the stations
-     * @throws  UserNotFoundException if there is no user which is logged in
+     *
      * @return a set containing all availabe jobs
+     * @throws UserNotFoundException if there is no user which is logged in
      */
     public List<ProzessSchritt> getSchritte() throws UserNotFoundException {
 
@@ -191,12 +192,12 @@ public class ProzessSchrittService implements Serializable {
             assert curA.getProzessKettenZustandsAutomat() != null;
             Enum<ProzessKettenZustandsAutomat> pkA = curA.getProzessKettenZustandsAutomat();
             ProzessSchritt lastPS = getLastPS(ps);
-            boolean moeglich = (    !(pkA.equals(ProzessKettenZustandsAutomat.INSTANZIIERT)
+            boolean moeglich = (!(pkA.equals(ProzessKettenZustandsAutomat.INSTANZIIERT)
                     || pkA.equals(ProzessKettenZustandsAutomat.ABGELEHNT))); //nicht instanziiert oder abgelehnt
             boolean current = isCurrentStep(ps); //ob der prozessschritt aus der experimentierstation.current aktuelle des auftrags ist
             boolean delivered = lastPS != null && isDelivered(lastPS, ps);
 
-            if ( moeglich && (current || delivered || ps.isUrformend())) {
+            if (moeglich && (current || delivered || ps.isUrformend())) {
                 result.add(ps);
             }
         } // FIXME Add field is current and eta
@@ -214,6 +215,7 @@ public class ProzessSchrittService implements Serializable {
 
     /**
      * verfügbare schritte
+     *
      * @return verfügbare Schritte
      */
     public List<ProzessSchritt> getJobs(User u) {
@@ -222,6 +224,7 @@ public class ProzessSchrittService implements Serializable {
 
     @Inject
     AuftragDAO auftragDAO;
+
     public ProzessSchritt getLastPS(ProzessSchritt ps) {
         // Find out to which pk ps belongs
         var as = auftragDAO.getAll();
@@ -249,7 +252,7 @@ public class ProzessSchrittService implements Serializable {
     public Boolean isDelivered(ProzessSchritt prozessSchritt, ProzessSchritt ps) {
         boolean delivered = false;
         if (prozessSchritt.getTransportAuftrag() != null) {
-           delivered = prozessSchritt.getTransportAuftrag().getAbgeliefert() != null;
+            delivered = prozessSchritt.getTransportAuftrag().getAbgeliefert() != null;
         }
         return delivered;
     }

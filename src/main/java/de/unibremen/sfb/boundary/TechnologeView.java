@@ -92,6 +92,7 @@ public class TechnologeView implements Serializable {
      *
      * @return alle ProzessSchritte die es gibt
      */
+    //TODO ONLY THE ONES WITH AUFTRAG GESTARTET
     public List<ProzessSchritt> getSchritte() {
         List<ProzessSchritt> r = null;
         try {
