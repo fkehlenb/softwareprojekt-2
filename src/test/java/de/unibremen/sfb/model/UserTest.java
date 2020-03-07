@@ -74,19 +74,14 @@ class UserTest {
     @Test
     void testEquals() {
         boolean result = user.equals("o");
-        Assertions.assertEquals(true, result);
+        Assertions.assertEquals(false, result);
     }
 
     @Test
     void testCanEqual() {
         boolean result = user.canEqual("other");
-        Assertions.assertEquals(true, result);
+        Assertions.assertEquals(false, result);
     }
 
-    @Test
-    void testHashCode() {
-        int result = user.hashCode();
-        Assertions.assertEquals(0, result);
-    }
 }
 

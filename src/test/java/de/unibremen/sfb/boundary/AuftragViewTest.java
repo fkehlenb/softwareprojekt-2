@@ -191,30 +191,14 @@ class AuftragViewTest {
         auftragView.setAvailableJobs(Arrays.<Auftrag>asList(new Auftrag()));
     }
 
-    @Test
-    void testSetAvailableProzessSchritte() {
-        auftragView.setAvailableProzessSchritte(Arrays.<ProzessSchritt>asList(null));
-    }
 
-    @Test
-    void testSetSelectedProzessSchritte() {
-        auftragView.setSelectedProzessSchritte(Arrays.<ProzessSchritt>asList(null));
-    }
 
     @Test
     void testSetDualListModel() {
         auftragView.setDualListModel(null);
     }
 
-    @Test
-    void testSetAvailableProzessKettenVorlagen() {
-        auftragView.setAvailableProzessKettenVorlagen(Arrays.<ProzessKettenVorlage>asList(new ProzessKettenVorlage(0, "name", Arrays.<ProzessSchrittVorlage>asList(null))));
-    }
 
-    @Test
-    void testSetSelectedProzesskettenVorlage() {
-        auftragView.setSelectedProzesskettenVorlage(new ProzessKettenVorlage(0, "name", Arrays.<ProzessSchrittVorlage>asList(null)));
-    }
 
     @Test
     void testSetAvailablePriorities() {

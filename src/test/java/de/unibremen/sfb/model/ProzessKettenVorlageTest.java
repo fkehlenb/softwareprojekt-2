@@ -26,7 +26,7 @@ class ProzessKettenVorlageTest {
     @Test
     void testToString() {
         String result = prozessKettenVorlage.toString();
-        Assertions.assertEquals("null", result);
+        Assertions.assertEquals(null, result);
     }
 
     @Test
