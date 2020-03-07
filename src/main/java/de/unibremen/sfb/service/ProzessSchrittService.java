@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -110,7 +111,7 @@ public class ProzessSchrittService implements Serializable {
      * @throws DuplicateProzessSchrittLogException if a PS Log already exists
      * @throws ProzessSchrittZustandsAutomatNotFoundException if there is not PS Automata
      */
-    public void oneFurther(ProzessSchritt ps)
+    public void oneFurther(ProzessSchritt ps, LocalDateTime d)
             throws IllegalArgumentException, ExperimentierStationNotFoundException, ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException, DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException {
         if (ps == null) {
             throw new IllegalArgumentException();
@@ -120,7 +121,7 @@ public class ProzessSchrittService implements Serializable {
             while (!ps.getProzessSchrittZustandsAutomat().getZustaende().get(i).equals(ps.getProzessSchrittZustandsAutomat().getCurrent())) {
                 i++;
             }
-            setZustand(ps, ps.getProzessSchrittZustandsAutomat().getZustaende().get(i + 1));
+            setZustand(ps, ps.getProzessSchrittZustandsAutomat().getZustaende().get(i + 1), d);
         }
     }
 
@@ -272,7 +273,7 @@ public class ProzessSchrittService implements Serializable {
      * @throws DuplicateProzessSchrittLogException            the ProzessSchritt is not in the database
      * @throws ProzessSchrittZustandsAutomatNotFoundException the ProzessSchritt is not in the database
      */
-    public void setZustand(ProzessSchritt ps, String zustand)
+    public void setZustand(ProzessSchritt ps, String zustand, LocalDateTime d)
             throws ExperimentierStationNotFoundException, ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException,
             DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException {
         if (ps == null || zustand == null) {
@@ -295,8 +296,8 @@ public class ProzessSchrittService implements Serializable {
                 }
             }
             ps.getProzessSchrittZustandsAutomat().setCurrent(zustand);
-            prozessSchrittLogService.closeLog(ps.getProzessSchrittLog().get(ps.getProzessSchrittLog().size() - 1));
-            ps.getProzessSchrittLog().add(prozessSchrittLogService.newLog(zustand));
+            prozessSchrittLogService.closeLog(ps.getProzessSchrittLog().get(ps.getProzessSchrittLog().size() - 1), d);
+            ps.getProzessSchrittLog().add(prozessSchrittLogService.newLog(zustand, d));
             prozessSchrittZustandsAutomatDAO.update(ps.getProzessSchrittZustandsAutomat());
             prozessSchrittDAO.update(ps);
         }

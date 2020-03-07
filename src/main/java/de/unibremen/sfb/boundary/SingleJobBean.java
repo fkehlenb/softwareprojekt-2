@@ -15,7 +15,9 @@ import javax.inject.Named;
 import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbConfig;
 import java.io.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +54,9 @@ public class SingleJobBean implements Serializable {
     private AuftragService auftragService;
 
     String jsonString;
+
+    private String zeit;
+    private String datum;
 
     public void init() {
         verEigenschaften = qualitativeEigenschaftService.getEigenschaften();
@@ -150,7 +155,7 @@ public class SingleJobBean implements Serializable {
                 e.printStackTrace();
             }
         }
-        facesNotification("Succesfully added: ");
+        message("Succesfully added: ");
     }
 
     /**
@@ -201,7 +206,7 @@ public class SingleJobBean implements Serializable {
         assert writer != null;
         writer.write(result);
         log.info("Successfully exported json to " + fileName);
-        facesNotification("Successfully exported json to " + fileName);
+        message("Successfully exported json to " + fileName);
     }
 
     /**
@@ -220,7 +225,7 @@ public class SingleJobBean implements Serializable {
     public void setJobZustand() throws DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException {
         try {
             try {
-                psService.oneFurther(ps);
+                psService.oneFurther(ps, time());
             } catch (ExperimentierStationNotFoundException | ProzessSchrittLogNotFoundException | ProzessSchrittNotFoundException e) {
                 e.printStackTrace();
             }
@@ -235,28 +240,34 @@ public class SingleJobBean implements Serializable {
             e.printStackTrace();
         }
         if(letzterZustand.equals(ps.getProzessSchrittZustandsAutomat().getCurrent())){
-            facesNotification("prozessSchritt wurde beendet! ");
+            message("prozessSchritt wurde beendet! ");
         }
         else{
-            facesNotification("ProzessSchritt gewechselt auf: " + ps.getProzessSchrittZustandsAutomat().getCurrent());
+            message("ProzessSchritt gewechselt auf: " + ps.getProzessSchrittZustandsAutomat().getCurrent());
         }
     }
 
-    /**
-     * Adds a new SEVERITY_ERROR FacesMessage for the ui
-     *
-     * @param message Error Message
-     */
-    private void facesError(String message) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(javax.faces.application.FacesMessage.SEVERITY_ERROR, message, null));
+    private LocalDateTime time() {
+        LocalDate d = LocalDate.now();
+        LocalTime t = LocalTime.now();
+        if(datum!=null) {
+            int day = Integer.parseInt(datum.substring(0, 2));
+            int m = Integer.parseInt(datum.substring(3, 5));
+            int y = Integer.parseInt(datum.substring(6));
+            d = LocalDate.of(y, m, day);
+            datum=null;
+        }
+        if(zeit!=null) {
+            int h = Integer.parseInt(zeit.substring(0, 2));
+            int min = Integer.parseInt(zeit.substring(3, 5));
+            int sec = Integer.parseInt(zeit.substring(6));
+            t = LocalTime.of(h, min, sec);
+            zeit=null;
+        }
+        else {
+            errorMessage("Wenn Sie manuell eine Transitionszeit eingeben wollen, müssen Sie mindestens die Uhrzeit angeben");
+        }
+        return LocalDateTime.of(d, t);
     }
 
-    /**
-     * Adds a new SEVERITY_INFO FacesMessage for the ui
-     *
-     * @param message Info Message
-     */
-    private void facesNotification(String message) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(javax.faces.application.FacesMessage.SEVERITY_INFO, message, null));
-    }
 }

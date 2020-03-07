@@ -31,7 +31,7 @@ class ProzessSchrittLogServiceTest {
     @Test
     void testCloseLog() {
         try {
-            prozessSchrittLogService.closeLog(new ProzessSchrittLog(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 29, 20), "zustandsAutomat"));
+            prozessSchrittLogService.closeLog(new ProzessSchrittLog(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 29, 20), "zustandsAutomat"), LocalDateTime.now());
         } catch (ProzessSchrittLogNotFoundException e) {
             e.printStackTrace();
         }
@@ -41,7 +41,7 @@ class ProzessSchrittLogServiceTest {
     void testNewLog() {
         ProzessSchrittLog result = null;
         try {
-            result = prozessSchrittLogService.newLog("z");
+            result = prozessSchrittLogService.newLog("z", LocalDateTime.now());
             verify(pslDAO).persist(result);
         } catch (DuplicateProzessSchrittLogException e) {
             e.printStackTrace();

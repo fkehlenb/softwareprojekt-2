@@ -142,12 +142,12 @@ public class TechnologeView implements Serializable {
                 log.info("Reported station as broken! ID " + es.getEsID());
                 facesNotification("Reported experimenting station as broken!");
             } else {
-                facesError("Station already reported broken!");
+                errorMessage("Station already reported broken!");
             }
         } catch (Exception e) {
             e.printStackTrace();
             log.error("Couldn't set experimenting station status to broken! Error " + e.getMessage());
-            facesError("Couldn't report station as broken!");
+            errorMessage("Couldn't report station as broken!");
         }
     }
 
@@ -244,14 +244,6 @@ public class TechnologeView implements Serializable {
         return probeService.KommentarToString(p);
     }
 
-    /**
-     * Adds a new SEVERITY_ERROR FacesMessage for the ui
-     *
-     * @param message Error Message
-     */
-    private void facesError(String message) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
-    }
 
     /**
      * Adds a new SEVERITY_INFO FacesMessage for the ui

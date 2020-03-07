@@ -47,6 +47,10 @@
                 <p:row>
                     <p> Zustand: <h:outputText id="zustand" value="#{singleJobBean.ps.prozessSchrittZustandsAutomat.current}"/> </p>
                     <p:commandButton update="zustand" action="#{singleJobBean.setJobZustand()}" value="Weiterschalten"/>
+                    <p:outputLabel for="zeit" value="Uhrzeit:"/>
+                    <p:inputMask id="zeit" value="#{singleJobBean.zeit}" mask="99:99:99"/>
+                    <p:outputLabel for="datum" value="Datum:"/>
+                    <p:inputMask id="datum" value="#{singleJobBean.datum}" mask="99.99.9999"/>
                 </p:row>
 
                 <p:row>
