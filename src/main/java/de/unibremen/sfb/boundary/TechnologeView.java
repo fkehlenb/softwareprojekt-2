@@ -88,9 +88,9 @@ public class TechnologeView implements Serializable {
     }
 
     /**
-     * Hole alle Verfügbaren Schritte
+     * Hole alle current schritte der stationen, denen der technologe zugeordnet ist
      *
-     * @return alle ProzessSchritte die es gibt
+     * @return liste mit current schritten
      */
     //TODO ONLY THE ONES WITH AUFTRAG GESTARTET
     public List<ProzessSchritt> getSchritte() {
@@ -107,7 +107,7 @@ public class TechnologeView implements Serializable {
     }
 
     /**
-     * verfügbare
+     * verfügbare schritte in den experimentierstationen des technologen
      * @return liste
      */
     public List<ProzessSchritt> getJobs() {
