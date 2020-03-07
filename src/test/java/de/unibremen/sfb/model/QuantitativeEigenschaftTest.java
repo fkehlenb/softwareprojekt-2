@@ -26,7 +26,7 @@ class QuantitativeEigenschaftTest {
 
     @Test
     void testSetWert() {
-        quantitativeEigenschaft.setWert(null);
+        quantitativeEigenschaft.setWert(2);
     }
 
     @Test
@@ -47,7 +47,7 @@ class QuantitativeEigenschaftTest {
     @Test
     void testEquals() {
         boolean result = quantitativeEigenschaft.equals("o");
-        Assertions.assertEquals(true, result);
+        Assertions.assertEquals(false, result);
     }
 
 

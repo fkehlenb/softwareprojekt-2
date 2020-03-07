@@ -174,7 +174,7 @@ public class InitialDataFiller {
                     UUID.randomUUID().hashCode(), "ERSTELLT", z);
             log.info("Try to persist ProzessSchrittZustandsAutomat " + prozessSchrittZustandsAutomat.toString());
             em.persist(prozessSchrittZustandsAutomat);
-            erstelleAuftrag(psvListe);
+//            erstelleAuftrag(psvListe);
 
         } else {
             log.info("Data already exists");
@@ -197,7 +197,7 @@ public class InitialDataFiller {
             List<String> z = new ArrayList<>(pszaVorlage.getZustaende());
             var automat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), "AKZEPTIERT", z);
             em.persist(automat);
-            automat.setName("test");
+            automat.setName(f.lebowski().character());
 
             // PS Setup
             List<ProzessSchrittLog> logs = new ArrayList<>();

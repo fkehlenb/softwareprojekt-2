@@ -21,12 +21,19 @@ class AuftragTest {
     @Mock
     AuftragsLog log;
     @Mock
+    ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat;
+    @Mock
     Enum<ProzessKettenZustandsAutomat> prozessKettenZustandsAutomat;
     @Mock
     List<Traeger> traeger;
+    @Mock
+    List<Probe> probes;
+    @Mock
+    List<ProzessSchritt> prozessSchritts;
     @InjectMocks
     Auftrag auftrag;
-
+    @Mock
+    Standort standort;
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -35,20 +42,15 @@ class AuftragTest {
     @Test
     void testToString() {
         String result = auftrag.toString();
-        Assertions.assertEquals("0", result);
+        Assertions.assertEquals("Auftrag: 0", result);
     }
 
     @Test
     void testEquals() {
         boolean result = auftrag.equals("obj");
-        Assertions.assertEquals(true, result);
+        Assertions.assertEquals(false, result);
     }
 
-    @Test
-    void testHashCode() {
-        int result = auftrag.hashCode();
-        Assertions.assertEquals(0, result);
-    }
 
     @Test
     void testSetValidData() {
@@ -72,7 +74,7 @@ class AuftragTest {
 
     @Test
     void testSetProzessSchritte() {
-        auftrag.setProzessSchritte(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0)));
+        auftrag.setProzessSchritte(prozessSchritts);
     }
 
     @Test
@@ -82,12 +84,12 @@ class AuftragTest {
 
     @Test
     void testSetProzessKettenZustandsAutomat() {
-        auftrag.setProzessKettenZustandsAutomat(null);
+        auftrag.setProzessKettenZustandsAutomat(ProzessKettenZustandsAutomat.INSTANZIIERT);
     }
 
     @Test
     void testSetTraeger() {
-        auftrag.setTraeger(Arrays.<Traeger>asList(new Traeger(0, null, Arrays.<Probe>asList(null), null)));
+        auftrag.setTraeger(Arrays.<Traeger>asList(new Traeger(0, "Glass", probes,standort )));
     }
 
     @Test

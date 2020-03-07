@@ -55,14 +55,9 @@ class TraegerTest {
     @Test
     void testEquals() {
         boolean result = traeger.equals("o");
-        Assertions.assertEquals(true, result);
+        Assertions.assertEquals(false, result);
     }
 
-    @Test
-    void testHashCode() {
-        int result = traeger.hashCode();
-        Assertions.assertEquals(0, result);
-    }
 
     @Test
     void testToString() {

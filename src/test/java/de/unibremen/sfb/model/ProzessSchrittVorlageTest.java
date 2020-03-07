@@ -30,7 +30,7 @@ class ProzessSchrittVorlageTest {
     @Test
     void testToString() {
         String result = prozessSchrittVorlage.toString();
-        Assertions.assertEquals("null", result);
+        Assertions.assertEquals(null, result);
     }
 
     @Test

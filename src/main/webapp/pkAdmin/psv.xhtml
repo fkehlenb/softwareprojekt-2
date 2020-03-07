@@ -198,7 +198,7 @@
                                     <f:facet name="input">
                                         <p:inputText id="DauerEin" value="#{psvErstellenBean.selectedDuration}"
                                                      style="width:100%" required="true">
-                                            <f:validateRegex pattern="[0-9][0-9]:[0-5][0-9]"/>
+                                            <f:validateRegex pattern="[0-9]*:[0-5][0-9]"/>
                                         </p:inputText>
                                     </f:facet>
                                 </p:cellEditor>
@@ -277,8 +277,7 @@
                                                               var="ta" style="width: 172px" filter="true"
                                                               filterMatchMode="contains" showCheckbox="true"
                                                               label="Traegerarten"
-                                                              requiredMessage="Bitte Eingabe Traeger eingeben!"
-                                                              required="true">
+                                                              requiredMessage="Bitte Eingabe Traeger eingeben!">
                                             <f:selectItems
                                                     value="#{psvErstellenBean.availableTraegerArten}"
                                                     var="ta" itemLabel="#{ta}"
@@ -367,7 +366,41 @@
                                     </f:facet>
                                 </p:cellEditor>
                             </p:column>
-                            <p:column>
+                            
+                            <p:column headerText="Urfomend">
+                                <p:cellEditor>
+                                    <f:facet name="input">
+                                        <p:selectBooleanButton onLabel="Urformend" offLabel="Nicht Urformend" value="#{psvErstellenBean.urformend}"></p:selectBooleanButton>
+                                    </f:facet>
+                                    <f:facet name="output">
+                                        <p:selectBooleanButton onLabel="Urformend" offLabel="Nicht Urformend" value="#{psv.urformend}"></p:selectBooleanButton>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="Proben ID">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{psv.nameOfCreated}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText id="nameofCreated1" value="#{psvErstellenBean.nameOfCreated}">
+                                        </p:inputText>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Anzahl" width="5rem">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{psv.amountCreated}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText id="amountofCreated1" value="#{psvErstellenBean.amountCreated}">
+                                        </p:inputText>
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+                            <p:column headerText="Delete">
                                 <p:commandButton value="Delete" icon="pi pi-trash"
                                                  action="#{psvErstellenBean.removePSV(psv.psVID)}" ajax="true"
                                                  update="form:PSVList"/>

@@ -34,7 +34,7 @@ class ProzessSchrittTest {
     @Test
     void testToString() {
         String result = prozessSchritt.toString();
-        Assertions.assertEquals("null", result);
+        Assertions.assertEquals(null, result);
     }
 
     @Test
