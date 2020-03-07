@@ -70,7 +70,7 @@
                     </p:column>
                 </p:dataTable>
 
-                <h:form>
+                <h:form id="form">
                     <p:outputLabel for="PSPAuswahlTable" value="PSP: "/>
                     <p:selectCheckboxMenu id="PSPAuswahlTable"
                                           value="#{singleJobBean.ausEigenschaften}"
@@ -83,9 +83,9 @@
                                        itemValue="#{e}"/>
                     </p:selectCheckboxMenu>
                     <p:commandButton value="Reset" type="reset"/>
-                    <p:commandButton value="Zuweisen"
-                                     action="#{singleJobBean.zuweisen}" icon="pi pi-check"
-                                     update="@form"/>
+                    <p:commandButton style="width: 7rem" value="Zuweisen" ajax="true"
+                                     action="#{singleJobBean.zuweisen}"
+                                     icon="pi pi-ban" update="form"/>
 
                 </h:form>
 
@@ -96,6 +96,13 @@
                 <p:row>
                     <p> Proben: </p>
                 </p:row>
+
+                <p:commandButton style="width: 7rem" value="Ablehnen" ajax="true"
+                                 action="#{singleJobBean.toJson()}"
+                                 icon="pi pi-ban" update="form"/>
+                <p:inputText placeholder="#{msg['AblehnMessage.jsf']}" required="true"
+                             requiredMessage="#{msg['JSONUpload.jsf.jsf']}"
+                             value="#{singleJobBean.jsonString}"/>
 
                 <p:dataTable var="probe" value="#{singleJobBean.proben}">
 

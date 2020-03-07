@@ -51,6 +51,8 @@ public class SingleJobBean implements Serializable {
     @Inject
     private AuftragService auftragService;
 
+    String jsonString;
+
     public void init() {
         verEigenschaften = qualitativeEigenschaftService.getEigenschaften();
         if (this.ps.getProzessSchrittZustandsAutomat().getCurrent().equals("Erstellt")) {
@@ -77,6 +79,11 @@ public class SingleJobBean implements Serializable {
     public String getLetzterZustand(ProzessSchritt ps) {
         return ps.getProzessSchrittZustandsAutomat().getZustaende().get(ps
                 .getProzessSchrittZustandsAutomat().getZustaende().size()-1);
+    }
+
+    public void toJson() {
+        List<ProzessSchrittParameter> r = new ArrayList<>();
+        probeService.jsonObjects(jsonString, r);
     }
 
     /**
@@ -131,8 +138,9 @@ public class SingleJobBean implements Serializable {
      * weise den Proben des akutellen ProzessSchrittes Proben zu
      */
     public void zuweisen() {
+        var proben = getProben();
         for (Probe p :
-                getProben()) {
+                proben) {
             var list = p.getEigenschaften();
             list.addAll(ausEigenschaften);
             p.setEigenschaften(list);
