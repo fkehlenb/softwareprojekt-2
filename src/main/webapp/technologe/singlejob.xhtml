@@ -7,7 +7,7 @@
       xmlns:shiro="http://shiro.apache.org/tags">
 <ui:define name="metadata">
     <f:metadata>
-        <f:viewAction action="#{languageBean.setLanguage}" />
+        <f:viewAction action="#{languageBean.setLanguage}"/>
     </f:metadata>
 </ui:define>
 
@@ -18,117 +18,193 @@
 
 <body>
 <shiro:authenticated>
-<shiro:hasRole name="technologe">
-<ui:composition template="../template/common/layout.xhtml">
+    <shiro:hasRole name="technologe">
+        <ui:composition template="../template/common/layout.xhtml">
+            <ui:define name="content">
+                <h:body>
+                    <h:form id="bigForm">
+                        <p:sidebar header="Prozessschritt Parameter Uebersicht" widgetVar="dlg2"
+                                   modal="true" id="tablepspp" style="width: 50%"
+                                   height="100">
+                            <p:panelGrid columns="1">
+                                <p:row>
+                                    <p:dataTable var="para" value="#{singleJobBean.ps.prozessSchrittParameters}"
+                                                 scrollable="true" scrollHeight="400">
+                                        <p:column headerText="Id">
+                                            <h:outputText value="#{para.id}"/>
+                                        </p:column>
+                                        <p:column headerText="Name">
+                                            <h:outputText value="#{para.name}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:row>
+                            </p:panelGrid>
+                        </p:sidebar>
+                        <p:sidebar header="Proben Uebersicht" widgetVar="dlg1"
+                                   modal="true" id="tableprobe" style="width: 50%"
+                                   height="100">
+                            <p:panelGrid columns="1">
+                                <p:row>
+                                    <p:dataTable var="probe" value="#{singleJobBean.proben}"
+                                                 scrollable="true" scrollHeight="400">
 
-
-<ui:define name="content">
-<div class="ui-g-2"></div>
-<div class="ui-g-8">
-    <h:body>
-        <h:form style="background-color: white; margin-top: 100px; width: 650px">
-            <p:growl>
-                <p:autoUpdate/>
-            </p:growl>
-            <p:panelGrid columns="1">
-                <p:row>
-                    <h1 style="color: cornflowerblue">Auftrag #{singleJobBean.ps.id}- Überblick</h1>
-                </p:row>
-
-                <p:row>
-                    <p> Hier haben Sie einen detaillierten Überblick über den Auftrag #{singleJobBean.ps.id}</p>
-                </p:row>
-                <p:row>
-                    <p> Standort: #{singleJobBean.findStation()}</p>
-                </p:row>
-                <p:row>
-                    <p>Daten hochgeladen: #{singleJobBean.ps.uploaded}</p>
-                </p:row>
-                <p:row>
-                    <p> Zustand: <h:outputText id="zustand" value="#{singleJobBean.ps.prozessSchrittZustandsAutomat.current}"/> </p>
-                    <p:commandButton update="zustand" action="#{singleJobBean.setJobZustand()}" value="Weiterschalten"/>
-                </p:row>
-
-                <p:row>
-                    <p>Prozessschritt Art: #{singleJobBean.ps.attribute}</p>
-                </p:row>
-
-                <p:outputLabel for="kommentar" value="Kommentar:"/>
-                <p:inputMask id="kommentar" value="#{singleJobBean.kommentarForAll}" mask=""/>
-                <p:commandButton value="Save" action="#{singleJobBean.addComment()}"/>
-
-                <p:row>
-                    <p> Prozessschritt Parameter: </p>
-                </p:row>
-
-                <p:dataTable var="para" value="#{singleJobBean.parameter}">
-                    <p:column headerText="Id">
-                        <h:outputText value="#{para.id}"/>
-                    </p:column>
-                    <p:column headerText="Name">
-                        <h:outputText value="#{para.name}"/>
-                    </p:column>
-                </p:dataTable>
-
-                <h:form id="form">
-                    <p:outputLabel for="PSPAuswahlTable" value="PSP: "/>
-                    <p:selectCheckboxMenu id="PSPAuswahlTable"
-                                          value="#{singleJobBean.ausEigenschaften}"
-                                          converter="omnifaces.SelectItemsConverter" effect="fade"
-                                          var="psp" style="width: 172px" filter="true"
-                                          filterMatchMode="contains" showCheckbox="true"
-                                          label="ProzessSchrittParamiter" requiredMessage="Bitte Parameter Zuweisen!">
-                        <f:selectItems value="#{singleJobBean.verEigenschaften}"
-                                       var="e" itemLabel="#{e.name}"
-                                       itemValue="#{e}"/>
-                    </p:selectCheckboxMenu>
-                    <p:commandButton value="Reset" type="reset"/>
-                    <p:commandButton style="width: 7rem" value="Zuweisen" ajax="true"
-                                     action="#{singleJobBean.zuweisen}"
-                                     icon="pi pi-ban" update="form"/>
-
-                </h:form>
-
-                <p:row>
-                    <p:commandButton action="#{singleJobBean.download()}" value="Download Parameter"/>
-                </p:row>
-
-                <p:row>
-                    <p> Proben: </p>
-                </p:row>
-
-                <p:commandButton style="width: 7rem" value="Ablehnen" ajax="true"
-                                 action="#{singleJobBean.toJson()}"
-                                 icon="pi pi-ban" update="form"/>
-                <p:inputText placeholder="#{msg['AblehnMessage.jsf']}" required="true"
-                             requiredMessage="#{msg['JSONUpload.jsf.jsf']}"
-                             value="#{singleJobBean.jsonString}"/>
-
-                <p:dataTable var="probe" value="#{singleJobBean.proben}">
-
-                    <p:column headerText="Id">
-                        <h:outputText value="#{probe.probenID}"/>
-                    </p:column>
-                    <p:column headerText="Zustand">
-                        <h:outputText value="#{probe.zustand}"/>
-                    </p:column>
-                    <p:column headerText="Standort">
-                        <h:outputText value="#{probe.standort.ort}"/>
-                    </p:column>
-                    <p:column headerText="Auswählen">
-                        <div align="center">
-                            <h:commandButton value="Choose" action="#{singleSampleBean.singleprobe(probe)}" />
-                        </div>
-                    </p:column>
-
-                </p:dataTable>
-            </p:panelGrid>
-        </h:form>
-    </h:body>
-</div>
-</ui:define>
-</ui:composition>
-</shiro:hasRole>
+                                        <p:column headerText="Id">
+                                            <h:outputText value="#{probe.probenID}"/>
+                                        </p:column>
+                                        <p:column headerText="Zustand">
+                                            <h:outputText value="#{probe.zustand}"/>
+                                        </p:column>
+                                        <p:column headerText="Standort">
+                                            <h:outputText value="#{probe.standort.ort}"/>
+                                        </p:column>
+                                        <p:column headerText="Auswählen">
+                                            <div align="center">
+                                                <h:commandButton value="Choose"
+                                                                 action="#{singleSampleBean.singleprobe(probe)}"/>
+                                            </div>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:row>
+                            </p:panelGrid>
+                        </p:sidebar>
+                        <p:growl>
+                            <p:autoUpdate/>
+                        </p:growl>
+                        <p:panelGrid columns="1">
+                            <p:row>
+                                <h1 style="color: cornflowerblue">Auftrag #{singleJobBean.ps.id}- Überblick</h1>
+                            </p:row>
+                            <p:row>
+                                <p> Hier haben Sie einen detaillierten Überblick über den Auftrag #{singleJobBean.ps.id}</p>
+                            </p:row>
+                            <p:row>
+                                <p:panelGrid>
+                                    <p:row>
+                                        <p:column colspan="1">
+                                            <h:outputText value="Standort"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <h:outputText value="#{singleJobBean.findStation()}"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <h:outputText value="Hochgeladen?"/>
+                                        </p:column>
+                                        <p:column colspan="2">
+                                            <h:outputText value="#{singleJobBean.ps.uploaded}"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="1">
+                                            <h:outputText value="Zustand"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <h:outputText id="zustand"
+                                                          value="#{singleJobBean.ps.prozessSchrittZustandsAutomat.current}"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:commandButton update="bigForm"
+                                                             action="#{singleJobBean.setJobZustand()}"
+                                                             value="Weiterschalten" style="width: 100%"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <h:outputText value="Datum"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:inputText id="datum" value="#{singleJobBean.datum}"
+                                                         placeholder="DD.MM.YYYY"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:inputText id="zeit" value="#{singleJobBean.zeit}"
+                                                         placeholder="HH:MM:SS"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="1">
+                                            <h:outputText value="Prozesschritt Art"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <h:outputText value="#{singleJobBean.ps.attribute}"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <h:outputText value="Kommentar einfuegen"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:inputText id="kommentar" value="#{singleJobBean.kommentarForAll}"
+                                                         placeholder="Kommentar"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:commandButton value="Save" action="#{singleJobBean.addComment()}"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="1">
+                                            <h:outputText value="Prozesschritt Prameter"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:commandButton value="Anzeigen" icon="pi pi-external-link"
+                                                             update="bigForm:tablepspp"
+                                                             oncomplete="PF('dlg2').show();"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:selectCheckboxMenu id="PSPAuswahlTable"
+                                                                  value="#{singleJobBean.ausEigenschaften}"
+                                                                  converter="omnifaces.SelectItemsConverter"
+                                                                  effect="fade"
+                                                                  var="psp" style="width: 172px" filter="true"
+                                                                  filterMatchMode="contains" showCheckbox="true"
+                                                                  label="ProzessSchrittParamiter"
+                                                                  requiredMessage="Bitte Parameter Zuweisen!">
+                                                <f:selectItems value="#{singleJobBean.verEigenschaften}"
+                                                               var="e" itemLabel="#{e.name}"
+                                                               itemValue="#{e}"/>
+                                            </p:selectCheckboxMenu>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:commandButton value="Reset" type="reset"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:commandButton style="width: 7rem" value="Zuweisen" ajax="true"
+                                                             action="#{singleJobBean.zuweisen}"
+                                                             icon="pi pi-check" update="bigForm"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="1">
+                                            <h:form>
+                                                <p:commandButton action="#{singleJobBean.download()}"
+                                                                 value="Download Parameter"/>
+                                            </h:form>
+                                        </p:column>
+                                        <p:column colspan="2">
+                                            <p:inputText placeholder="#{msg['AblehnMessage.jsf']}"
+                                                         value="#{singleJobBean.jsonString}" style="width: 100%"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:commandButton
+                                                    style="width: 7rem; background-color: red; border-color: red"
+                                                    value="Ablehnen" ajax="true"
+                                                    action="#{singleJobBean.toJson()}"
+                                                    icon="pi pi-ban" update="bigForm"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="1">
+                                            <h:outputText value="Proben"/>
+                                        </p:column>
+                                        <p:column colspan="4">
+                                            <p:commandButton value="Anzeigen" icon="pi pi-external-link" ajax="true"
+                                                             update="bigForm:tableprobe"
+                                                             oncomplete="PF('dlg1').show();"/>
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                            </p:row>
+                        </p:panelGrid>
+                    </h:form>
+                </h:body>
+            </ui:define>
+        </ui:composition>
+    </shiro:hasRole>
 </shiro:authenticated>
 </body>
 </html>

@@ -2,16 +2,14 @@ package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.exception.*;
 import de.unibremen.sfb.model.*;
-import de.unibremen.sfb.persistence.AuftragDAO;
-import de.unibremen.sfb.persistence.ProbeDAO;
-import de.unibremen.sfb.persistence.ProzessSchrittDAO;
-import de.unibremen.sfb.persistence.ProzessSchrittZustandsAutomatDAO;
+import de.unibremen.sfb.persistence.*;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -104,23 +102,28 @@ public class ProzessSchrittService implements Serializable {
      * sets the state of the step one further
      *
      * @param ps the process step
-     * @throws  ExperimentierStationNotFoundException if no Station exists
-     * @throws ProzessSchrittNotFoundException if not Step could be found
-     * @throws ProzessSchrittLogNotFoundException if not PS Log could be found
-     * @throws DuplicateProzessSchrittLogException if a PS Log already exists
+     * @throws ExperimentierStationNotFoundException          if no Station exists
+     * @throws ProzessSchrittNotFoundException                if not Step could be found
+     * @throws ProzessSchrittLogNotFoundException             if not PS Log could be found
+     * @throws DuplicateProzessSchrittLogException            if a PS Log already exists
      * @throws ProzessSchrittZustandsAutomatNotFoundException if there is not PS Automata
      */
-    public void oneFurther(ProzessSchritt ps)
+    public void oneFurther(ProzessSchritt ps, LocalDateTime d)
             throws IllegalArgumentException, ExperimentierStationNotFoundException, ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException, DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException {
         if (ps == null) {
             throw new IllegalArgumentException();
         }
-        if (!lastZustand(ps, ps.getProzessSchrittZustandsAutomat().getCurrent())) {
-            int i = 0;
+        int i = 0;
+        try {
             while (!ps.getProzessSchrittZustandsAutomat().getZustaende().get(i).equals(ps.getProzessSchrittZustandsAutomat().getCurrent())) {
                 i++;
             }
-            setZustand(ps, ps.getProzessSchrittZustandsAutomat().getZustaende().get(i + 1));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        if (i+1<ps.getProzessSchrittZustandsAutomat().getZustaende().size()) {
+            setZustand(ps, ps.getProzessSchrittZustandsAutomat().getZustaende().get(i + 1), d);
         }
     }
 
@@ -174,8 +177,9 @@ public class ProzessSchrittService implements Serializable {
 
     /**
      * returns the current assignments of the stations
-     * @throws  UserNotFoundException if there is no user which is logged in
+     *
      * @return a set containing all availabe jobs
+     * @throws UserNotFoundException if there is no user which is logged in
      */
     public List<ProzessSchritt> getSchritte() throws UserNotFoundException {
 
@@ -191,12 +195,12 @@ public class ProzessSchrittService implements Serializable {
             assert curA.getProzessKettenZustandsAutomat() != null;
             Enum<ProzessKettenZustandsAutomat> pkA = curA.getProzessKettenZustandsAutomat();
             ProzessSchritt lastPS = getLastPS(ps);
-            boolean moeglich = (    !(pkA.equals(ProzessKettenZustandsAutomat.INSTANZIIERT)
-                    || pkA.equals(ProzessKettenZustandsAutomat.ABGELEHNT))); //nicht instanziiert oder abgelehnt
-            boolean current = isCurrentStep(ps); //ob der prozessschritt aus der experimentierstation.current aktuelle des auftrags ist
+            boolean moeglich = (!(pkA.equals(ProzessKettenZustandsAutomat.INSTANZIIERT)
+                    || pkA.equals(ProzessKettenZustandsAutomat.ABGELEHNT)));
+            boolean current = isCurrentStep(ps);
             boolean delivered = lastPS != null && isDelivered(lastPS, ps);
 
-            if ( moeglich && (current || delivered || ps.isUrformend())) {
+            if (moeglich && (current || delivered || ps.isUrformend())) {
                 result.add(ps);
             }
         } // FIXME Add field is current and eta
@@ -214,6 +218,7 @@ public class ProzessSchrittService implements Serializable {
 
     /**
      * verfügbare schritte
+     *
      * @return verfügbare Schritte
      */
     public List<ProzessSchritt> getJobs(User u) {
@@ -222,6 +227,7 @@ public class ProzessSchrittService implements Serializable {
 
     @Inject
     AuftragDAO auftragDAO;
+
     public ProzessSchritt getLastPS(ProzessSchritt ps) {
         // Find out to which pk ps belongs
         var as = auftragDAO.getAll();
@@ -249,7 +255,7 @@ public class ProzessSchrittService implements Serializable {
     public Boolean isDelivered(ProzessSchritt prozessSchritt, ProzessSchritt ps) {
         boolean delivered = false;
         if (prozessSchritt.getTransportAuftrag() != null) {
-           delivered = prozessSchritt.getTransportAuftrag().getAbgeliefert() != null;
+            delivered = prozessSchritt.getTransportAuftrag().getAbgeliefert() != null;
         }
         return delivered;
     }
@@ -272,7 +278,7 @@ public class ProzessSchrittService implements Serializable {
      * @throws DuplicateProzessSchrittLogException            the ProzessSchritt is not in the database
      * @throws ProzessSchrittZustandsAutomatNotFoundException the ProzessSchritt is not in the database
      */
-    public void setZustand(ProzessSchritt ps, String zustand)
+    public void setZustand(ProzessSchritt ps, String zustand, LocalDateTime d)
             throws ExperimentierStationNotFoundException, ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException,
             DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException {
         if (ps == null || zustand == null) {
@@ -289,14 +295,14 @@ public class ProzessSchrittService implements Serializable {
             }
             if (ps.isUrformend() && ps.getProzessSchrittZustandsAutomat().getCurrent().equals("Erstellend")) {
                 try {
-                    erstelleProbe(findStation(ps).getStandort(), "testName", ps.getAmountCreated()); // TODO get name von ps
+                    erstelleProbe(findStation(ps).getStandort(), ps.getCreatedName(), ps.getAmountCreated());
                 } catch (ProbeNotFoundException | DuplicateProbeException e) {
                     e.printStackTrace();
                 }
             }
             ps.getProzessSchrittZustandsAutomat().setCurrent(zustand);
-            prozessSchrittLogService.closeLog(ps.getProzessSchrittLog().get(ps.getProzessSchrittLog().size() - 1));
-            ps.getProzessSchrittLog().add(prozessSchrittLogService.newLog(zustand));
+            prozessSchrittLogService.closeLog(ps.getProzessSchrittLog().get(ps.getProzessSchrittLog().size() - 1), d);
+            ps.getProzessSchrittLog().add(prozessSchrittLogService.newLog(zustand, d));
             prozessSchrittZustandsAutomatDAO.update(ps.getProzessSchrittZustandsAutomat());
             prozessSchrittDAO.update(ps);
         }

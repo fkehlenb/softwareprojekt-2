@@ -88,10 +88,11 @@ public class TechnologeView implements Serializable {
     }
 
     /**
-     * Hole alle Verfügbaren Schritte
+     * Hole alle current schritte der stationen, denen der technologe zugeordnet ist
      *
-     * @return alle ProzessSchritte die es gibt
+     * @return liste mit current schritten
      */
+    //TODO ONLY THE ONES WITH AUFTRAG GESTARTET
     public List<ProzessSchritt> getSchritte() {
         List<ProzessSchritt> r = null;
         try {
@@ -106,7 +107,7 @@ public class TechnologeView implements Serializable {
     }
 
     /**
-     * verfügbare
+     * verfügbare schritte in den experimentierstationen des technologen
      * @return liste
      */
     public List<ProzessSchritt> getJobs() {
@@ -142,12 +143,12 @@ public class TechnologeView implements Serializable {
                 log.info("Reported station as broken! ID " + es.getEsID());
                 facesNotification("Reported experimenting station as broken!");
             } else {
-                facesError("Station already reported broken!");
+                errorMessage("Station already reported broken!");
             }
         } catch (Exception e) {
             e.printStackTrace();
             log.error("Couldn't set experimenting station status to broken! Error " + e.getMessage());
-            facesError("Couldn't report station as broken!");
+            errorMessage("Couldn't report station as broken!");
         }
     }
 
@@ -244,14 +245,6 @@ public class TechnologeView implements Serializable {
         return probeService.KommentarToString(p);
     }
 
-    /**
-     * Adds a new SEVERITY_ERROR FacesMessage for the ui
-     *
-     * @param message Error Message
-     */
-    private void facesError(String message) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
-    }
 
     /**
      * Adds a new SEVERITY_INFO FacesMessage for the ui

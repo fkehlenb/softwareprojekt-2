@@ -15,7 +15,9 @@ import javax.inject.Named;
 import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbConfig;
 import java.io.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +28,13 @@ import java.util.List;
 @Slf4j
 public class SingleJobBean implements Serializable {
 
+    /** Process step */
     private ProzessSchritt ps;
 
+    /** Available descriptors */
     private List<QualitativeEigenschaft> verEigenschaften;
+
+    /** Selected descriptors */
     private List<QualitativeEigenschaft> ausEigenschaften;
 
     /**
@@ -36,23 +42,33 @@ public class SingleJobBean implements Serializable {
      */
     private String kommentarForAll;
 
+    /** Sample Service */
     @Inject
     private ProbenService probeService;
 
+    /** Qualitative descriptor service */
     @Inject
     private QualitativeEigenschaftService qualitativeEigenschaftService;
 
+    /** Process step service */
     @Inject
     private  ProzessSchrittService prozessSchrittService;
 
+    /** Process step service TODO DUPLICATE FFS */
     @Inject
     private ProzessSchrittService psService;
 
+    /** Job service */
     @Inject
     private AuftragService auftragService;
 
-    String jsonString;
+    /** JSON */
+    private String jsonString;
 
+    private String zeit = "";
+    private String datum = "";
+
+    /** Init called on start */
     public void init() {
         verEigenschaften = qualitativeEigenschaftService.getEigenschaften();
         if (this.ps.getProzessSchrittZustandsAutomat().getCurrent().equals("Erstellt")) {
@@ -81,6 +97,7 @@ public class SingleJobBean implements Serializable {
                 .getProzessSchrittZustandsAutomat().getZustaende().size()-1);
     }
 
+    //TODO FIX ME FOR FUCKS SAKE
     public void toJson() {
         List<ProzessSchrittParameter> r = new ArrayList<>();
         probeService.jsonObjects(jsonString, r);
@@ -143,14 +160,15 @@ public class SingleJobBean implements Serializable {
                 proben) {
             var list = p.getEigenschaften();
             list.addAll(ausEigenschaften);
-            p.setEigenschaften(list);
+            p.setEigenschaften(List.copyOf(list));
             try {
                 probeService.update(p);
-            } catch (ProbeNotFoundException e) {
+                ps = prozessSchrittService.getObjById(ps.getId());
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        facesNotification("Succesfully added: ");
+        message("Succesfully added: ");
     }
 
     /**
@@ -201,7 +219,7 @@ public class SingleJobBean implements Serializable {
         assert writer != null;
         writer.write(result);
         log.info("Successfully exported json to " + fileName);
-        facesNotification("Successfully exported json to " + fileName);
+        message("Successfully exported json to " + fileName);
     }
 
     /**
@@ -220,7 +238,7 @@ public class SingleJobBean implements Serializable {
     public void setJobZustand() throws DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException {
         try {
             try {
-                psService.oneFurther(ps);
+                psService.oneFurther(ps, time());
             } catch (ExperimentierStationNotFoundException | ProzessSchrittLogNotFoundException | ProzessSchrittNotFoundException e) {
                 e.printStackTrace();
             }
@@ -235,28 +253,34 @@ public class SingleJobBean implements Serializable {
             e.printStackTrace();
         }
         if(letzterZustand.equals(ps.getProzessSchrittZustandsAutomat().getCurrent())){
-            facesNotification("prozessSchritt wurde beendet! ");
+            message("prozessSchritt wurde beendet! ");
         }
         else{
-            facesNotification("ProzessSchritt gewechselt auf: " + ps.getProzessSchrittZustandsAutomat().getCurrent());
+            message("ProzessSchritt gewechselt auf: " + ps.getProzessSchrittZustandsAutomat().getCurrent());
         }
     }
 
-    /**
-     * Adds a new SEVERITY_ERROR FacesMessage for the ui
-     *
-     * @param message Error Message
-     */
-    private void facesError(String message) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(javax.faces.application.FacesMessage.SEVERITY_ERROR, message, null));
+    private LocalDateTime time() {
+        LocalDate d = LocalDate.now();
+        LocalTime t = LocalTime.now();
+        if(!datum.equals("")) {
+            int day = Integer.parseInt(datum.substring(0, 2));
+            int m = Integer.parseInt(datum.substring(3, 5));
+            int y = Integer.parseInt(datum.substring(6));
+            d = LocalDate.of(y, m, day);
+            datum=null;
+        }
+        if(!zeit.equals("")) {
+            int h = Integer.parseInt(zeit.substring(0, 2));
+            int min = Integer.parseInt(zeit.substring(3, 5));
+            int sec = Integer.parseInt(zeit.substring(6));
+            t = LocalTime.of(h, min, sec);
+            zeit=null;
+        }
+        else {
+            errorMessage("Wenn Sie manuell eine Transitionszeit eingeben wollen, müssen Sie mindestens die Uhrzeit angeben");
+        }
+        return LocalDateTime.of(d, t);
     }
 
-    /**
-     * Adds a new SEVERITY_INFO FacesMessage for the ui
-     *
-     * @param message Info Message
-     */
-    private void facesNotification(String message) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(javax.faces.application.FacesMessage.SEVERITY_INFO, message, null));
-    }
 }

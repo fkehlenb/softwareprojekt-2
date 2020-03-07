@@ -299,6 +299,18 @@ Ebenfalls können Sie sich hier unter Logout abmelden. \\
 Hier finden Sie Anleitung für alle Aktionen, die ein Systemadministrator durchführen kann. 
 %%%%%%%%%%
 \subsection{Installation der Applikation}
+\subsection{Vorbedingungen}
+Vor dem Ausführen der Software muss überprüft werden, ob \$JAVA\_Home korrekt gesetzt wird.
+Um dies zu prüfen, kann \textit{mvn -v} ausgeführt werden
+Eine korrekte ausgabe ist:
+\begin{verbatim}
+Apache Maven 3.6.3 (NON-CANONICAL_2019-11-27T20:26:29Z_root)
+Maven home: /opt/maven
+Java version: 13.0.2, vendor: N/A, runtime: /usr/lib/jvm/java-13-openjdk
+Default locale: de_DE, platform encoding: UTF-8
+OS name: "linux", version: "5.5.6-arch1-1", arch: "amd64", family: "unix"
+\end{verbatim}
+
 %%%%%%%%%%
 \subsection{Benutzer}
 Die Aktionen bezüglich der Benutzer des Systems können Sie unter dem Unterpunkt Nutzer Verwalten im Menü aufrufen. \\

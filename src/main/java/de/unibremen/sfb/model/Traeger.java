@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 /** Data class for container objects */
 @Getter
@@ -38,5 +39,18 @@ public class Traeger {
     @Override
     public String toString(){
         return "Traeger " + id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Traeger traeger = (Traeger) o;
+        return getId() == traeger.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
 }

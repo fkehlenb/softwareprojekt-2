@@ -5,6 +5,7 @@ import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.AuftragDAO;
 import de.unibremen.sfb.persistence.TransportAuftragDAO;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -99,7 +100,7 @@ public class AuftragService implements Serializable {
      * @param ps the prozessSchrittList which's Auftrag is looked for
      * @return the Auftrag (or null, if none was found)
      */
-    public Auftrag getAuftrag(ProzessSchritt ps) {
+    public Auftrag getAuftrag(@NonNull ProzessSchritt ps) {
         var as = getAuftrage();
         for (Auftrag a :
                 as) {

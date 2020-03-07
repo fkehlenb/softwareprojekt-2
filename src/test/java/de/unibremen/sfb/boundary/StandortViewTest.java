@@ -36,11 +36,7 @@ class StandortViewTest {
         standortView.addStandort();
     }
 
-    @Test
-    void testUpdateOnRowEdit() throws StandortNotFoundException {
-        when(standortService.findById(anyInt())).thenReturn(new Standort(0, "ort"));
-        standortView.updateOnRowEdit(0);
-    }
+
 
 
 
