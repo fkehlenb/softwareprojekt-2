@@ -173,12 +173,11 @@ public class ProzessSchrittService implements Serializable {
     AuftragService auftragService;
 
     /**
-     * returns the assignments currently available for this user
+     * returns the current assignments of the stations
      * @throws  UserNotFoundException if there is no user which is logged in
      * @return a set containing all availabe jobs
      */
     public List<ProzessSchritt> getSchritte() throws UserNotFoundException {
-        //alle einträge in queues von experimentierstationen denene der user zugeordnet ist
 
         List<ProzessSchritt> r = experimentierStationService.getSchritteByUser(userService.getCurrentUser());
         r.removeAll(Collections.singleton(null));
@@ -193,15 +192,32 @@ public class ProzessSchrittService implements Serializable {
             Enum<ProzessKettenZustandsAutomat> pkA = curA.getProzessKettenZustandsAutomat();
             ProzessSchritt lastPS = getLastPS(ps);
             boolean moeglich = (    !(pkA.equals(ProzessKettenZustandsAutomat.INSTANZIIERT)
-                    || pkA.equals(ProzessKettenZustandsAutomat.ABGELEHNT)));
-            boolean current = isCurrentStep(ps);
+                    || pkA.equals(ProzessKettenZustandsAutomat.ABGELEHNT))); //nicht instanziiert oder abgelehnt
+            boolean current = isCurrentStep(ps); //ob der prozessschritt aus der experimentierstation.current aktuelle des auftrags ist
             boolean delivered = lastPS != null && isDelivered(lastPS, ps);
 
             if ( moeglich && (current || delivered || ps.isUrformend())) {
                 result.add(ps);
             }
         } // FIXME Add field is current and eta
+        result.sort(Comparator.comparing(o -> {
+            try {
+                return auftragDAO.getObjById(o.getId()).getPriority();
+            } catch (AuftragNotFoundException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }));
+        result.removeAll(Collections.singleton(null));
         return result;
+    }
+
+    /**
+     * verfügbare schritte
+     * @return verfügbare Schritte
+     */
+    public List<ProzessSchritt> getJobs(User u) {
+        return experimentierStationService.getJobsByUser(u);
     }
 
     @Inject

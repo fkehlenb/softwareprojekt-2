@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -231,7 +232,7 @@ public class ExperimentierStationService implements Serializable {
     }
 
     /**
-     * Get all PS which belong to user
+     * Get all current PS which belong to user
      *
      * @param u the current user
      * @return the prozessSchrittList
@@ -242,13 +243,27 @@ public class ExperimentierStationService implements Serializable {
         for (ExperimentierStation e :
                 gu) {
             ps.add(e.getCurrentPS());
-            // TODO Liam add Queue Ass well
         }
         return ps;
     }
 
     /**
-     * returns all stationen fullfilling a Bedingung //TODO richtig?
+     * next ps for user
+     * @param u user
+     * @return list
+     */
+    public List<ProzessSchritt> getJobsByUser(User u) {
+        List<ProzessSchritt> ps = new ArrayList<>();
+        List<ExperimentierStation> es = getESByUser(u);
+        for(ExperimentierStation e : es) {
+            ps.addAll(e.getNextPS());
+        }
+        ps.removeAll(Collections.singleton(null));
+        return ps;
+    }
+
+    /**
+     * returns all stationen fullfilling a Bedingung
      *
      * @param b the Bedingung
      * @return a list containing all fitting stations
