@@ -64,6 +64,8 @@ public class TechnologeView implements Serializable {
     @Inject
     private ProzessSchrittService psService;
 
+    private ProzessSchritt parameterschritt;
+
     /**
      * loads the initial data from the database
      */

@@ -21,7 +21,24 @@
     <ui:composition template="../template/common/layout.xhtml">
         <ui:define name="content">
                 <h:body>
-                    <h:form>
+                    <h:form id="bigForm">
+                        <p:sidebar header="Prozessschritt Parameter Uebersicht" widgetVar="dlg2"
+                                   modal="true" id="tablepspp" style="width: 50%"
+                                   height="100">
+                            <p:panelGrid columns="1">
+                                <p:row>
+                                    <p:dataTable var="para" value="#{technologeView.parameterschritt}"
+                                                 scrollable="true" scrollHeight="400">
+                                        <p:column headerText="Id">
+                                            <h:outputText value="#{para.id}"/>
+                                        </p:column>
+                                        <p:column headerText="Name">
+                                            <h:outputText value="#{para.name}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </p:row>
+                            </p:panelGrid>
+                        </p:sidebar>
                         <p:growl>
                             <p:autoUpdate/>
                         </p:growl>
@@ -48,6 +65,12 @@
                                 </p:column>
                                 <p:column headerText="Station">
                                     <h:outputText value="#{technologeView.findStandort(ps)}"/>
+                                </p:column>
+                                <p:column headerText="Parameter">
+                                    <p:commandButton value="Anzeigen" icon="pi pi-external-link"
+                                                     action="#{technologeView.setParameterschritt(ps)}"
+                                                     update="bigForm:tablepspp"
+                                                     oncomplete="PF('dlg2').show();"/>
                                 </p:column>
                             </p:dataTable>
                         </p:panelGrid>
