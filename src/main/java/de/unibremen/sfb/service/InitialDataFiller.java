@@ -243,12 +243,12 @@ public class InitialDataFiller {
                 e.printStackTrace();
             }
 
-            try {
+/*            try {
                 assert curES != null;
                 experimentierStationService.setES(ps, curES ); // FIXME Why does this not work?
             } catch (ExperimentierStationNotFoundException e) {
                 e.printStackTrace();
-            }
+            }*/
 
             log.info("Try to persist TEST ProzessSchritt " + ps.getId());
             if (i != 0) {
