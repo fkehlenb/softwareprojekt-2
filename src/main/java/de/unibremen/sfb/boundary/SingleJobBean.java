@@ -26,9 +26,13 @@ import java.util.List;
 @Slf4j
 public class SingleJobBean implements Serializable {
 
+    /** Process step */
     private ProzessSchritt ps;
 
+    /** Available descriptors */
     private List<QualitativeEigenschaft> verEigenschaften;
+
+    /** Selected descriptors */
     private List<QualitativeEigenschaft> ausEigenschaften;
 
     /**
@@ -36,23 +40,30 @@ public class SingleJobBean implements Serializable {
      */
     private String kommentarForAll;
 
+    /** Sample Service */
     @Inject
     private ProbenService probeService;
 
+    /** Qualitative descriptor service */
     @Inject
     private QualitativeEigenschaftService qualitativeEigenschaftService;
 
+    /** Process step service */
     @Inject
     private  ProzessSchrittService prozessSchrittService;
 
+    /** Process step service TODO DUPLICATE FFS */
     @Inject
     private ProzessSchrittService psService;
 
+    /** Job service */
     @Inject
     private AuftragService auftragService;
 
-    String jsonString;
+    /** JSON */
+    private String jsonString;
 
+    /** Init called on start */
     public void init() {
         verEigenschaften = qualitativeEigenschaftService.getEigenschaften();
         if (this.ps.getProzessSchrittZustandsAutomat().getCurrent().equals("Erstellt")) {
@@ -81,6 +92,7 @@ public class SingleJobBean implements Serializable {
                 .getProzessSchrittZustandsAutomat().getZustaende().size()-1);
     }
 
+    //TODO FIX ME FOR FUCKS SAKE
     public void toJson() {
         List<ProzessSchrittParameter> r = new ArrayList<>();
         probeService.jsonObjects(jsonString, r);
@@ -143,10 +155,11 @@ public class SingleJobBean implements Serializable {
                 proben) {
             var list = p.getEigenschaften();
             list.addAll(ausEigenschaften);
-            p.setEigenschaften(list);
+            p.setEigenschaften(List.copyOf(list));
             try {
                 probeService.update(p);
-            } catch (ProbeNotFoundException e) {
+                ps = prozessSchrittService.getObjById(ps.getId());
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
