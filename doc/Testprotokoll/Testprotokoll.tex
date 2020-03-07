@@ -182,7 +182,9 @@ Dieses Dokument dient zur Dokumentation der durchgeführten Tests für die Softw
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
-\section{Tests}
+\section{Manuelle Tests}
+
+%%%%%%%%%%%%%
 
 \subsection{Tests zur Generellen Funktion}
 
@@ -253,7 +255,13 @@ Zuletzt wurde getestet, was passiert, wenn kein Passwort eingegeben wurde. Es er
 
 Wie man in den Beispielen sehen kann, kann man sich mit unterschiedlichen Benutzern einloggen, welche unterschiedliche den Rollen entsprechende Features haben. Man muss das richtige Passwort für den Benutzernamen eingeben, um sich einloggen zu können. Die Tests verliefen erfolgreich. \\ 
 
-%%
+\subsubsection{Anwendungsfall: Seitenzugriff}
+
+\paragraph{Nutzer versucht sich Zugang zu nicht authorisierten Seiten zu verschaffen:}
+
+Ausgangssituation: Wir haben einen User \textit{tr}, welcher nur die Rolle Transporter zugewiesen hat. Dieser versucht nun über folgenden Link \textit{http://localhost:8080/admin/nutzerVerwaltung.xhtml} die Seite zum Verwalten der Nutzer zu erreichen. 
+
+%%%%%%%%%%%%%%
 
 \subsection{Tests zum Administrator}
 
@@ -858,7 +866,9 @@ Wenn ich 100 Proben der ID \textit{A01.0106} erstelle und versuche zweimal 50 un
 
 %%%%%%%%%%%%
 
-\subsection{Automatisierte Funktionstests}
+\section{Automatisierte Funktionstests}
+
+\subsection{Beispiel}
 
 \subsubsection{Anwendungsfall: Beispiel 1}
 
