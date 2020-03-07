@@ -29,23 +29,15 @@ class StandortViewTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Test
-    void testAddStandort() throws StandortNotFoundException {
-        when(standortService.findByLocation(anyString())).thenReturn(new Standort(0, "ort"));
 
-        standortView.addStandort();
-    }
-
-
-
-
+    @Mock
+    List<Standort> standorts;
 
     @Test
     void testGetAll() {
-        when(standortService.getStandorte()).thenReturn(Arrays.<Standort>asList(new Standort(0, "ort")));
-
+        when(standortService.getStandorte()).thenReturn(standorts);
         List<Standort> result = standortView.getAll();
-        Assertions.assertEquals(Arrays.<Standort>asList(new Standort(0, "ort")), result);
+        Assertions.assertEquals(standorts, result);
     }
 
     @Test

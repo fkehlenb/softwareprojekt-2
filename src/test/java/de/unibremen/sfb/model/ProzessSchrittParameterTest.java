@@ -26,7 +26,7 @@ class ProzessSchrittParameterTest {
     @Test
     void testToString() {
         String result = prozessSchrittParameter.toString();
-        Assertions.assertEquals("0", result);
+        Assertions.assertEquals(null, result);
     }
 
     @Test

@@ -19,6 +19,10 @@ import static org.mockito.Mockito.*;
 
 class RoleDaoTest {
     @Mock
+    Role role;
+    @Mock
+    List<Role> roles;
+    @Mock
     Logger log;
     @Mock
     EntityManager em;
@@ -35,38 +39,40 @@ class RoleDaoTest {
         roleDao.persist(new Role(0, "name"));
     }
 
+
     @Test
     void testUpdate() throws RoleNotFoundException {
-        roleDao.update(new Role(0, "name"));
+        roleDao.update(role);
+        verify(em).merge(role);
     }
 
     @Test
     void testRemove() throws RoleNotFoundException {
-        roleDao.remove(new Role(0, "name"));
+        roleDao.remove(role);
     }
 
     @Test
     void testGet() {
         Class<Role> result = roleDao.get();
-        Assertions.assertEquals(null, result);
+        Assertions.assertEquals( roles.getClass(), result.getClass());
     }
 
     @Test
     void testGetAll() {
         List<Role> result = roleDao.getAll();
-        Assertions.assertEquals(Arrays.<Role>asList(new Role(0, "name")), result);
+        Assertions.assertEquals(roles, result);
     }
 
     @Test
     void testGetObjByID() {
         List<Role> result = roleDao.getObjByID("r");
-        Assertions.assertEquals(Arrays.<Role>asList(new Role(0, "name")), result);
+        Assertions.assertEquals(roles, result);
     }
 
     @Test
     void testGetRolesByUsername() {
         List<Role> result = roleDao.getRolesByUsername("username");
-        Assertions.assertEquals(Arrays.<Role>asList(new Role(0, "name")), result);
+        Assertions.assertEquals("[]", result);
     }
 }
 

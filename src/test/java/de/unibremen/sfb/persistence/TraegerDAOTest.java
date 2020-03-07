@@ -29,16 +29,13 @@ class TraegerDAOTest {
     void setUp() {
         MockitoAnnotations.initMocks(this);
     }
-
+    @Mock
+    Traeger traeger;
     @Test
     void testPersist() throws DuplicateTraegerException {
-        traegerDAO.persist(new Traeger(0, "art", Arrays.<Probe>asList(new Probe("probenID", 0, null, new Standort(0, "ort"))), new Standort(0, "ort")));
+        traegerDAO.persist(traeger);
     }
 
-    @Test
-    void testUpdate() throws TraegerNotFoundException {
-        traegerDAO.update(new Traeger(0, "art", Arrays.<Probe>asList(new Probe("probenID", 0, null, new Standort(0, "ort"))), new Standort(0, "ort")));
-    }
 
     @Test
     void testRemove() throws TraegerNotFoundException {
@@ -54,13 +51,12 @@ class TraegerDAOTest {
     @Test
     void testGetObjById() throws TraegerNotFoundException {
         Traeger result = traegerDAO.getObjById(0);
-        Assertions.assertEquals(new Traeger(0, "art", Arrays.<Probe>asList(new Probe("probenID", 0, null, new Standort(0, "ort"))), new Standort(0, "ort")), result);
+        Assertions.assertEquals(traeger,result);
     }
 
     @Test
     void testGetAll() {
         List<Traeger> result = traegerDAO.getAll();
-        Assertions.assertEquals(Arrays.<Traeger>asList(new Traeger(0, "art", Arrays.<Probe>asList(new Probe("probenID", 0, null, new Standort(0, "ort"))), new Standort(0, "ort"))), result);
-    }
+        Assertions.assertEquals("[]",result);   }
 }
 

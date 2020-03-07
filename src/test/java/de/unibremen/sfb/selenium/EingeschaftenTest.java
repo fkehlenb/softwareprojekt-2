@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * <p>EingeschaftenTest class.</p>
  *
- * @author Liam
+ * @author Santiago and Liam
  * @version $Id: $Id
  * @since 1.0
  */

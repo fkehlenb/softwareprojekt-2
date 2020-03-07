@@ -311,6 +311,17 @@ Default locale: de_DE, platform encoding: UTF-8
 OS name: "linux", version: "5.5.6-arch1-1", arch: "amd64", family: "unix"
 \end{verbatim}
 
+Die Anwendung verwendet eine Integrationstest in Selenium and PhatomJs. Um diesen Testvorgang durchzuführen, muss der PhantomJS-Treiber installiert werden. Dieser Prozess muss ausgeführt werden, nach die Applikation Deployment Prozess. Der Normal Deployment Prozess der Applikation wegen diese Test wird nicht beeinträchtigt. In einigen Fällen können die gesuchten Elemente die Referenz in HTML ändern, infolgedessen nicht erfolgreich testen repräsentiert nicht unbedingt ein Problem an der Applikation.\\
+
+Installation Methode:\\
+durch brew
+\begin{verbatim}
+brew cast install phantomjs
+\end{verbatim}
+durch Dowloadwebseit:
+\begin{verbatim}
+https://phantomjs.org
+\end{verbatim}
 %%%%%%%%%%
 \subsection{Benutzer}
 Die Aktionen bezüglich der Benutzer des Systems können Sie unter dem Unterpunkt Nutzer Verwalten im Menü aufrufen. \\

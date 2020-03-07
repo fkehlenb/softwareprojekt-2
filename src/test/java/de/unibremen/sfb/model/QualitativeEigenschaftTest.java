@@ -38,7 +38,7 @@ class QualitativeEigenschaftTest {
     @Test
     void testToString() {
         String result = qualitativeEigenschaft.toString();
-        Assertions.assertEquals("QualitativeEigenschaft(isValidData=true, id=0, name=name)", result);
+        Assertions.assertEquals("QualitativeEigenschaft name", result);
     }
 }
 

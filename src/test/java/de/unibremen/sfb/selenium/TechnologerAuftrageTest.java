@@ -2,48 +2,53 @@ package de.unibremen.sfb.selenium;
 
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.Keys;
-import java.util.*;
-import java.net.MalformedURLException;
-import java.net.URL;
+
+import java.io.File;
+import java.util.concurrent.TimeUnit;
+
 /**
  * <p>TechnologerAuftrageTest class.</p>
  *
- * @author Liam
+ * @author Santiago and Liam
  * @version $Id: $Id
  * @since 1.0
  */
 public class TechnologerAuftrageTest {
   private WebDriver driver;
-  private Map<String, Object> vars;
-  JavascriptExecutor js;
+  private String spoofUserAgent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36";
   /**
-   * <p>setUp.</p>
+   * This Class Shows, that even when correctly configured. The command  new PhantomJSDriver(); is buggy
+   * Stack Overflow recommends updating the PhantomJS and Selenium to current Version
+   * @return the Driver
    */
-  @BeforeEach
-  public void setUp() {
-      System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-    ChromeOptions chromeOptions = new ChromeOptions();
-//    chromeOptions.addArguments("--headless");
-//driver = new ChromeDriver(chromeOptions);
-    js = (JavascriptExecutor) driver;
-    vars = new HashMap<String, Object>();
+  public WebDriver getDriver() {
+    if (this.driver == null) {
+      DesiredCapabilities caps = new DesiredCapabilities();
+      caps.setJavascriptEnabled(true);
+      caps.setCapability(
+              PhantomJSDriverService.PHANTOMJS_PAGE_SETTINGS_PREFIX
+                      + "userAgent", spoofUserAgent);
+
+      caps.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS,
+              new String[] { "--web-security=false",
+                      "--ssl-protocol=any", "--ignore-ssl-errors=true",
+                      "--webdriver-loglevel=INFO" });
+
+      PhantomJSDriverService service = new PhantomJSDriverService.Builder()
+              .usingPort(8081)
+              .usingPhantomJSExecutable(new File("/usr/local/bin/phantomjs"))
+              .build();
+      this.driver = new PhantomJSDriver(service, caps);
+    }
+    return this.driver;
   }
   /**
    * <p>tearDown.</p>
@@ -53,10 +58,15 @@ public class TechnologerAuftrageTest {
     driver.quit();
   }
   /**
-   * <p>technologerAuftrage.</p>
-   *
-   * @throws java.lang.InterruptedException if any.
+   * <p>setUp.</p>
    */
+  @BeforeEach
+  public void setUp() {
+    driver = getDriver();
+    // Download link is http://phantomjs.org/download.html
+    // Set implicit wait
+    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+  }
   @Test
   public void technologerAuftrage() throws InterruptedException {
     driver.get("http://localhost:8080/");

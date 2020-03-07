@@ -54,7 +54,7 @@ class QuantitativeEigenschaftTest {
     @Test
     void testToString() {
         String result = quantitativeEigenschaft.toString();
-        Assertions.assertEquals("QualitativeEigenschaft(isValidData=true, id=0, name=null)", result);
+        Assertions.assertEquals("QuantitativeEigenschaft{wert=wert, einheit='null'}", result);
     }
 }
 
