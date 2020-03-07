@@ -160,6 +160,9 @@ Version & Datum & Änderungen \\
 %0.1 & TT.MM.JJJJ & Dokumentvorlage als initiale Fassung kopiert \\
 0.1 & 03.03.2020 & Erste Schritte \\
 0.2 & 03.03.2020 & Administrator \\
+0.3 & 04.03.2020 & Prozesskettenadministrator \\
+0.? & 06.03.2020 & Restliche Rollen ohne Screenshots \\
+0.? & 07.03.2020 & Screenshots \\
 \end{tabular}
 
 
@@ -178,15 +181,30 @@ Version & Datum & Änderungen \\
 
 \newpage
 \section{Übersicht}
+Farbige Zustände ist eine Webanwendung für die Abläufe im Labor des SFB...\\
+In unserer Anwendung haben Benutzer entsprechend Ihrer Rollen eine Übersicht über die Arbeit, die für Sie im Labor anfallen, und können ... \\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
 \section{Erste Schritte für Anwender}
+
+Im Folgenden werden die grundlegenden Funktionen des Systems für alle Benutzer beschrieben. \\
 \subsection{Anmeldung}
+Von der Willkommensseite können Sie durch Klicken auf den Link zum Anmeldeformular zu kommen. In diesem Formular geben Sie den Namen und das Passwort ein; diese Informationen wurden bei Ihrer Registration festgelegt. Mit Klicken auf Anmelden werden diese Daten überprüft, und wenn sie korrekt sind, werden Sie angemeldet. Weitere Informationen über die Funktionen des Systems finden Sie in den Abschnitten zu den Rollen, denen Sie zugewiesen sind. \\
+\textbf{Hinweis:} Wenn Sie der Systemadministrator sind, und sich zum ersten Mal in diesem System anmelden, ist der Benutzername und das Passwort \textit{admin}. Es ist ratsam, dies möglichst schnell zu ändern. \\
+\subsubsection{Passwort vergessen}
+Wenn Sie Ihr Passwort vergessen haben, klicken Sie auf Passwort vergessen. Dadurch ... //TODO
 \subsection{Abmeldung}
+Um sich abzumelden, klicken Sie in der Navigationsleiste am oberen Rand der Seite auf Logout. Sie werden dadurch zurück zu der Willkommensseite geleitet. \\
 \subsection{Sprachauswahl}
+Sie können zwischen Deutsch und Englisch als Anzeigesprachen wählen. Die Option dafür befindet sich unterhalb des Navigationsmenüs an der linken Seite. \\
 \subsection{Navigationsleiste}
+Es gibt zwei Navigationsleisten: Eine am oberen Rand, und eine am linken. \\
+\subsubsection{Navigationsleiste links}
+In der Navigationsleiste am linken Rand sehen Sie alle Aktionen, die Ihnen zur Verfügung stehen, sortiert nach den Rollen, die Sie haben. Sie können durch Klicken auf die Titel der Seiten auf die unterschiedlichen Seiten gehen. \\
+\subsubsection{Navigationsleiste oben}
+In der Navigationsleiste am oberen Rand können Sie durch Klicken auf Home zum Homescreen zurück //TODO. Sie können ebenfalls sehen, welche Rollen Sie alle innehaben. //TODO. \\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -371,7 +389,7 @@ Hier finden Sie Anleitungen für alle Aktionen, die ein Prozesskettenadministrat
 %%%%%%%%%%
 \subsubsection{Prozessschritte}
 
-Im Menüunterpunkt Prozessschritt haben Sie eine Übersicht über alle Prozessschritte, die aktuell im System existieren, können diese bearbeiten und löschen, sowie neue hinzufügen. Prozessschritte werden seitenweise angezeigt, Sie können durch die Seiten mithilfe der Navigatoren ober- und unterhalb der Tabelle navigieren. Bitte beachten Sie, dass Sie nur Schritte bearbeiten und löschen können, die noch nicht gestartet wurden. \\
+Im Menü-Unterpunkt Prozessschritt haben Sie eine Übersicht über alle Prozessschritte, die aktuell im System existieren, können diese bearbeiten und löschen, sowie neue hinzufügen. Prozessschritte werden seitenweise angezeigt, Sie können durch die Seiten mithilfe der Navigatoren ober- und unterhalb der Tabelle navigieren. Bitte beachten Sie, dass Sie nur Schritte bearbeiten und löschen können, die noch nicht gestartet wurden. \\
 
 Prozessschritte sind die Prozessschritte, die zu Aufträgen, instanziierten Prozesskettenvorlagen, gehören. \\
 
@@ -385,8 +403,9 @@ Wenn Sie einen neuen Prozessschritt erstellen wollen, geben Sie bitte im Formula
 \end{center}
 \end{figure}
 
+In der Tabelle der existierenden Prozessschritte können Sie mit Klicken auf Anzeigen in den Spalten Eingabeträger, Ausgabeträger, Prozessschritt-Parameter sowie Prozessschritt-Log Details zu den jeweiligen Eigenschaften eines bestimmten Prozessschrittes einsehen. \\
 
-Wenn Sie einen existierenden Prozessschritt bearbeiten wollen, drücken Sie in der Zeile, in der der gewünschte Schritt in der Tabelle steht, auf das Stift-Symbol. Danach können Sie in die Zelle, die Sie bearbeiten wollen, klicken, und die Änderungen vornehmen. Bitte beachten Sie, dass Sie den Status, die Parameter und den Log nicht bearbeiten können. Wenn Sie fertig mit Ihren Änderungen sind, drücken Sie auf den Haken, der an der Stelle des Stifts erschienen ist. Wenn Sie ungespeicherte Änderungen zurücksetzen wollen, drücken Sie auf das Kreuz; dadurch werden die Daten für den Prozessschritt auf den aktuellen Stand in der Datenbank gesetzt. \\
+Wenn Sie einen existierenden Prozessschritt bearbeiten wollen, drücken Sie in der Zeile, in der der gewünschte Schritt in der Tabelle steht, auf das Stift-Symbol. Danach können Sie in die Zelle, die Sie bearbeiten wollen, klicken, und die Änderungen vornehmen. Bitte beachten Sie, dass Sie den Status und den Log nicht bearbeiten können. Wenn Sie fertig mit Ihren Änderungen sind, drücken Sie auf den Haken, der an der Stelle des Stifts erschienen ist. Wenn Sie ungespeicherte Änderungen zurücksetzen wollen, drücken Sie auf das Kreuz; dadurch werden die Daten für den Prozessschritt auf den aktuellen Stand in der Datenbank gesetzt. \\
 
 
 Wollen Sie einen Prozessschritt löschen, drücken Sie auf das Löschen Symbol in der Zeile des Schrittes, den Sie löschen wollen. \\
@@ -399,7 +418,7 @@ Im Menü-Unterpunkt Prozessschritt Vorlage haben Sie eine Übersicht über alle 
 
 Prozessschrittvorlagen können Sie im Menüunterpunkt Prozesskettenvorlagen benutzen, um die zu einer Kettenvorlage gehörigen Schritte zu definieren. \\
 
-Um eine neue Vorlage zu speichern, geben Sie bitte in das Formular alle Informationen ein. Dafür müssen Sie aus den bestehenden Parametern alle, die hier zutreffen, die richtige Zustandsautomat Vorlage, und die Experimentierstationen, an denen dieser Schritt ausgeführt werden kann, auswählen, sowie die Dauer, die dieser Schritt vorraussichtlich haben wird und den Namen der neuen Vorlage eingeben. Zusätzlich müssen Sie auswählen, ob der Schritt Urformend sein wird, das heißt, ob durch die Ausführung des Schrittes neue Proben entstehen. Wenn der Prozessschritt urformend sein soll, geben Sie bitte im Feld daneben die Anzahl an Proben an, die erstellt werden. Bitte beachten Sie, dass Sie für alle Felder Angaben machen müssen. Die Dauer muss von der Form xx:xx sein, und darf nicht 23:59 überschreiten. Um die neue Vorlage zu speichern, drücken Sie auf Erstellen. Danach wird die neue Vorlage in der Tabelle angezeigt. Wenn Sie Ihre Eingaben löschen wollen, drücken Sie auf Zurücksetzen, dadurch werden keine Veränderungen an den Daten in der Datenbank vorgenommen. \\
+Um eine neue Vorlage zu speichern, geben Sie bitte in das Formular alle Informationen ein. Dafür müssen Sie aus den bestehenden Parametern alle, die hier zutreffen, die richtige Zustandsautomat Vorlage, die möglichen Trägerarten für Ein- und Ausgabe, und die Experimentierstationen, an denen dieser Schritt ausgeführt werden kann, auswählen, sowie die Dauer, die dieser Schritt vorraussichtlich haben wird und den Namen der neuen Vorlage eingeben. Zusätzlich müssen Sie auswählen, ob der Schritt Urformend sein wird, das heißt, ob durch die Ausführung des Schrittes neue Proben entstehen. Wenn der Prozessschritt urformend sein soll, geben Sie bitte im Feld daneben die Anzahl an Proben an, die erstellt werden, sowie die Proben-ID für die Proben, die erstellt werden. Bitte beachten Sie, dass Sie für alle Felder Angaben machen müssen. Die Dauer muss von der Form xx:xx sein, und darf nicht 23:59 überschreiten. Um die neue Vorlage zu speichern, drücken Sie auf Erstellen. Danach wird die neue Vorlage in der Tabelle angezeigt. Wenn Sie Ihre Eingaben löschen wollen, drücken Sie auf Zurücksetzen, dadurch werden keine Veränderungen an den Daten in der Datenbank vorgenommen. \\
 
 \begin{figure}[h!]
 \begin{center}
@@ -417,6 +436,7 @@ Um eine neue Vorlage zu speichern, geben Sie bitte in das Formular alle Informat
 \end{center}
 \end{figure}
 
+In der Tabelle der existierenden Prozessschritt-Vorlagen können Sie die Eingabe und Ausgabe Träger sowie die Prozessschritt-Parameter, die zu einer bestimmten Vorlage gehören, mit Klicken auf Anzeigen in den entsprechenden Spalten der zugehörigen Zeile einsehen. \\
 
 Für die Bearbeitung von einer Vorlage drücken Sie in der entsprechenden Tabellenzeile auf das Stift-Symbol. Danach können Sie in die Zellen klicken, die Sie bearbeiten wollen, und die entsprechenden Änderungen machen. Um Ihre Änderungen zu speichern, drücken Sie auf den Haken, der an der Stelle des Stifts erschienen ist. Durch Drücken auf das Kreuz können Sie Ihre Änderungen zurücksetzen auf die Daten, die in der Datenbank gespeichert sind. \\
 
@@ -580,7 +600,8 @@ Quantitative Eigenschaften beschreiben Eigenschaften wie Farbe, oder Konsistenz.
 
 Qualitative Eigenschaften beschreiben Eigenschaften, die sich mit Nummern beschreiben lassen, wie Temperatur. //TODO\\
 
-Diese Eigenschaften können Sie benutzen, um im Menü-Unterpunkt //TODO\\
+Diese Eigenschaften können Sie benutzen, um im Menü-Unterpunkt Prozessschritt -Parameter\\
+Schritt parameter
 
 Um eine neue Qualitative Eigenschaft zu erstellen, geben Sie den Namen im Eingabefeld am Anfang der Seite ein, und drücken Sie danach auf Speichern. Die Eigenschaft wird darauf in der Tabelle erscheinen. \\
 
@@ -600,28 +621,125 @@ Zum Bearbeiten einer Quantitativen Eigenschaft drücken Sie auf das Stift-Symbol
 %%%%%%%%%%
 \subsubsection{JSON Export}
 
-Im Menü-Unterpunkt JSON Export können Sie verschiedene Daten als JSON Dateien exportieren. Sie können Aufträge, Prozessschritte, Prozessschritt-Parameter, User, Prozessketten-Vorlagen, Prozessschritt-Vorlagen, Experimentierstationen, und Prozessschritt-und Auftragslogs exportieren. \\
+Im Menü-Unterpunkt JSON Export können Sie verschiedene Daten als JSON Dateien exportieren. Sie können 
+\begin{itemize}
+\item Aufträge
+\item Prozessschritte
+\item Prozessschritt-Parameter
+\item User
+\item Prozessketten-Vorlagen
+\item Prozessschritt-Vorlagen
+\item Experimentierstationen
+\item sowie Prozessschritt-und Auftragslogs 
+\end{itemize}
+exportieren. \\
 
+Im unteren Formular können Sie die Logs für einzelne Prozessschritte oder Aufträge exportieren. Dafür wählen Sie einen Prozessschritt oder Auftrag aus, und drücken Sie nach Auswahl auf Export. Danach wird der Download der JSON Datei beginnen. \\
+
+Im oberen Formular können Sie für die anderen Datenmöglichkeiten alle in der Datenbank vorhandenen Dateien exportieren, indem Sie neben der gewünschten Option auf Export klicken. Der Download wird in Kürze beginnen. \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Logistiker}
+
+Im Folgenden finden Sie Anleitungen zu allen Aktionen, die ein Logistiker ausführen kann. \\
 
 %%%%%%%%%%
-\subsection{Logistiker}
-\subsubsection{Übersicht über Träger}
-\subsubsection{Übersicht über freigegeben Aufträge}
-\subsubsection{Übersicht über Probenmengen}
-\subsubsection{Übersicht über archivierte Proben}
-\subsubsection{Übersicht über Probenstandorte}
+\subsubsection{Träger}
+Im Menü-Unterpunkt Trägerübersicht haben Sie eine Übersicht über alle aktuell in der Datenbank gespeicherten Träger, können diese Löschen und Bearbeiten sowie neue erstellen. \\
+
+In der Tabelle unterhalb des Eingabeformulars finden Sie alle existierenden Träger. Durch Klicken auf Anzeigen können Sie alle zu einem Träger gehörenden Probe einsehen. \\
+
+Wollen Sie einen neuen Träger erstellen, wählen Sie im Eingabeformular am Anfang der Seite eine Trägerart aus (Glas, Eingebettet, Einzeln), sowie den aktuellen Standort des neuen Trägers aus. Wenn Sie beide Angaben gemacht haben, können Sie auf Erstellen drücken, um diesen zu speichern. Um Ihre Eingaben zu löschen, drücken Sie auf Zurücksetzen. Dadurch werden keine Änderungen an den in der Datenbank gespeicherten Daten gemacht. \\
+
+Um einen existierenden Träger zu löschen, drücken Sie in der zugehörigen Tabellenzeile auf Löschen. Dadurch werden der Träger unwiderrufbar aus der Datenbank gelöscht. \\
+
+Um einen existierenden Träger zu bearbeiten, drücken Sie auf das Stift-Symbol am Ende der zugehörigen Tabellenzeile. Dadurch können Sie die entsprechenden Daten in den Zellen direkt ändern. Um Ihre Änderungen zu speichern, klicken Sie auf den Haken, der an Stelle des Stiftes erschienen ist. Um Ihre Änderungen zu verwerfen und die Daten aus der Datenbank beizubehalten, drücken Sie auf das Kreuz. \\
+
+%%%%%%%%%%
+\subsubsection{Aufträge}
+Im Menü-Unterpunkt Auftragsübersicht haben Sie eine Übersicht über existierende Aufträge, können diese Starten oder Ablehnen. //TODO\\
+
+In der Tabelle haben Sie eine Übersicht über die Aufträge. Sie können die Aufträge nach Id, Priorität, und Zustand sortieren sowie durchsuchen. Sie können ebenfalls entscheiden, wie viele Aufträge pro Seite angezeigt werden, und mit den Pfeiltasten durch die Seiten navigieren. Ebenfalls können Sie mit dem Eingabefeld oberhalb der Tabelle die gesamte Tabelle nach Schlagwörtern durchsuchen. Mit Drücken auf Clear Tabel state //TODO können Sie die Tabellenansicht (Sortierung und Suche) auf die ursprünglichen Einstellungen zurücksetzen, sodass alle Ihre Aufträge angezeigt werden. \\
+
+Wollen Sie einen Auftrag starten, klicken Sie in der Tabelle in der entsprechenden Tabellenzeile auf Annehmen. \\
+
+Um einen Auftrag abzulehnen, klicken Sie in der Tabelle in der entsprechenden Tabellenzeile auf Ablehnen. Dazu müssen Sie im Textfeld zwischen den Knöpfen eine kurze Nachricht eingeben, warum Sie den Auftrag ablehnen. \\
+
+%%%%%%%%%%
+\subsubsection{Proben}
+Im Menü-Unterpunkt Probenübersicht haben Sie eine Übersicht über alle Proben, die sich im Lager befinden. \\
+
+Proben werden gruppenweise gespeichert. Proben mit gleichen Attributen haben die gleiche ID, und für jede Probengruppe wird die Anzahl an Proben dieser Gruppe gespeichert. \\
+
+%%%%%%%%%%
+\paragraph{Probenstandort}
+Im Menü-Unterpunkt Probenstandort können Sie für jede Probegruppe sehen, wo diese sich aktuell befindet. \\
+
+%%%%%%%%%%
+\paragraph{Proben einfügen}
+Im Menü-Unterpunkt Proben Einfügen können Sie dem System neue Probengruppen hinzufügen. \\
+
+Dafür müssen Sie im Formular eine neue Proben-ID eingeben, sowie die Anzahl an Proben in der neuen Gruppe. Bitte beachten Sie, dass Proben-IDs von der Form [A-Z][0-9][0-9].[0-9] sein, wobei nach dem Komma beliebig viele Ziffern folgen können. Nachdem Sie alle Angaben gemacht haben, können Sie die neue Gruppe mit Klick auf Speichern im System speichern. Wollen Sie die Angaben im Formular löschen, klicken Sie auf Zurücksetzen; darauf werden keine Änderungen an den in der Datenbank gespeicherten Daten gemacht. \\
+%%%%%%%%%%
+\paragraph{Probenverlust}
+Proben können Sie im Menü-Unterpunkt Probenverlust Melden als verloren melden. Dafür geben Sie im Formular die Proben-ID der Gruppe, zu der die Probe gehört, sowie die Anzahl an Proben aus dieser Gruppe, die verloren gegangen sind, an. Wenn Sie diese Angaben gemacht haben, können Sie diese Probe(n) mit Klicken auf Senden melden. \\
+
+%%%%%%%%%%
+\paragraph{Archivierte Proben}
+Im Menü-Unterpunkt Archivübersicht haben Sie eine Übersicht über die Proben, die archiviert worden sind. \\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Technologe}
-\subsubsection{Übersicht über Experimentierstationen}
-\subsubsection{Übersicht über aktuelle Arbeitsarufträge}
-\subsubsection{Übersicht über angekündigte Abeitsaufträge}
-\subsubsection{Aktualisieren des Zustands eines Arbeitrauftrags}
-\subsubsection{Probenupload}
-\subsubsection{Proben melden}
-\subsubsection{Experimentierstation melden}
-\subsubsection{Kommentare}
+
+Im Folgenden finden Sie Anleitungen für alle Aktionen, die ein Technologe durchführen kann. \\
+
+%%%%%%%%%%
+\subsubsection{Experimentierstationen}
+Im Menü-Unterpunkt Meine Experimentierstationen haben Sie eine Übersicht über alle Experimentierstationen, denen Sie zugeordnet sind, und können diese als kaputt melden. \\
+
+In der Tabelle können Sie mit den Pfeiltasten zwischen die Seiten navigieren. \\
+
+Um eine Station als kaputt zu melden, klicken Sie in der zugehörigen Tabellenzeile auf Melden klicken. \\
+
+Wollen Sie weitere Details zu einer Station sehen, klicken Sie auf Auswählen am Ende der zugehörigen Tabellenzeile. \\
+
+In der Übersicht über eine einzelne Station sehen Sie die ID, den Standort, den aktuellen Status, sowie welcher Prozessschritt dort aktuell in Ausführung ist. Die Proben, die sich aktuell an dieser Station befinden, werden in einer Tabelle am Ende der Seite angezeigt. Für eine detaillierte Ansicht einer Probe klicken Sie auf Auswählen am Ende der zugehörigen Tabellenzeile. Diese Station können Sie auch hier als kaputt melden, indem Sie am Anfang der Seite auf Melden klicken. \\
+
+%%%%%%%%%%
+\subsubsection{Aktuelle Arbeitsaufträge}
+Im Menü-Unterpunkt Meine Aufträge finden Sie eine Übersicht über die Aufträge, die Sie aktuell bearbeiten, in Ihrer Priorität abwärts sortiert. Um eine detaillierte Übersicht über einen Auftrag zu sehen, und Angaben zu diesem zu machen, klicken Sie am Ende der zugehörigen Tabellenzeile auf Auswählen. \\
+
+In dieser Übersicht können Sie den Zustand des Prozessschrittes weiterschalten, indem Sie auf weiterschalten klicken. Wollen Sie selber eine Transitionszeit eingeben, können Sie dies im nebenliegenden Feld machen; wenn Sie keine Angabe machen, wird die aktuelle Zeit übernommen. Wenn Sie den Schritt komplett ausgeführt haben, wird automatisch ein Transportauftrag für diese Proben erstellt. Sie können ebenfalls alle Proben sehen, die diesem Schritt zugeordnet sind, und durch Klicken auf Auswählen Details zu einer Probe sehen. \\
+
+%%%%%%%%%%
+\subsubsection{Angekündigte Arbeitsaufträge}
+Im Menü-Unterpunkt Angekündigte Arbeitsaufträge haben Sie eine Übersicht über alle Aufträge, die an Ihren Stationen auf Bearbeitung warten. Diese Aufträge werden automatisch zu Aufträgen, die Sie aktuell bearbeiten: Wenn Sie einen aktuellen Auftrag fertig bearbeitet haben, wird der nächste Auftrag, der an der Station wartet, als aktueller Auftrag festgelegt. \\
+
+%%%%%%%%%%
+\subsubsection{Proben}
+Im Menü-Unterpunkt Proben und Upload können Sie alle Proben sehen, die zu Prozessschritten gehören, die Sie bereits bearbeitet haben, aber noch keine Informationen hochgeladen haben. Sie können zu einer Probengruppe Details einsehen, indem Sie in der zugehörigen Tabellenzeile auf Auswählen klicken.\\
+
+In der Übersicht einer Probengruppe können Sie Informationen über diese Gruppe einsehen, Daten hochladen und Proben dieser Gruppe als verloren melden. //TODO \\
+
+Im Menü-Unterpunkt Probenverlust melden können Sie eine oder mehrere Proben als verloren melden. Dafür geben Sie die ID der Probengruppe, zu der diese Probe(n) gehören, sowie die Anzahl an Proben ein. Wenn Sie alle Angaben gemacht haben, können Sie die Probe(n) durch Klicken auf Senden als verloren melden. \\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Transporter}
-\subsubsection{Übersicht über anstehende Transportaufträge}
+
+Folgend finden Sie Anleitungen zu allen Aktionen, die ein Transporter durchführen kann. \\
+
+%%%%%%%%%%
+\subsubsection{Aufträge}
+Im Menü-Unterpunkt Transportaufträge haben Sie eine Übersicht über Transportaufträge, die verfügbar sind, Sie angenommen haben, oder die Sie bereits abgeschlossen haben. \\
+
+In der oberen Tabelle finden Sie die Aufträge, die Sie angenommen, aber noch nicht bearbeitet haben. Sie können sehen, welche Träger Sie woher holen und wohin bringen sollen, den Zustand des Auftrags, und angeben, wenn Sie einen Auftrag durchgeführt haben. Dafür klicken Sie in der entsprechenden Tabellenzeile auf Abgeliefert am Ende der Zeile. Aufträge können den Zustand Erstellt, Abgeholt oder Abgeliefert haben. \\
+
+In der zweiten Tabelle stehen alle Aufträge, die aktuell verfügbar sind, also noch nicht von anderen Transportern angenommen wurden. Sie können einen Auftrag annehmen, indem Sie am Ende der entsprechenden Zeile auf Annehmen klicken. Dieser Auftrag ist dadurch nicht mehr für andere Transporter sichtbar, und erscheint nur in Ihrer Tabelle. \\
+
+In der unteren Tabelle sehen Sie Ihre alten Aufträge, die Sie bereits durchgeführt haben. Sie haben eine Übersicht über die Erstellungs-, Abholungs-, und Ablieferungszeit, und den aktuellen Zustand. An diesen Aufträgen können Sie keine Änderungen mehr vornehmen. \\
+
+%%%%%%%%%%
 \subsubsection{Probenverlust melden}
+Im Menü-Unterpunkt Probenverlust melden können Sie Proben als verloren melden. Dafür geben Sie die Proben-ID der Probengruppe, zu der die Probe gehört, die Sie melden wollen, sowie die Anzahl an Proben aus dieser Gruppe, die Sie melden wollen, ein. Wenn Sie beide Angaben gemacht haben, drücken Sie auf Senden, um die Probe(n) zu melden. \\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

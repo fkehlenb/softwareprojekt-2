@@ -59,8 +59,8 @@
                                     <h:outputText value="#{singleStationBean.station.status}"/>
                                 </p:column>
                                 <p:column colspan="2">
-                                    <p:commandButton update="station" action="#{singleStationBean.reportBroken()}"
-                                                     value="Report as broken" icon="pi pi-ban" style="background-color: red; border-color: red" ajax="true"/>
+                                    <p:commandButton action="#{singleStationBean.reportBroken()}"
+                                                     value="Report as broken" icon="pi pi-ban" style="background-color: red; border-color: red" ajax="false"/>
                                 </p:column>
                             </p:row>
                             <p:row>

@@ -45,7 +45,7 @@ public class Auftrag implements Serializable {
      * The job's process steps TODO hier ID
      */
     @NonNull
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<ProzessSchritt> prozessSchritte;
 
     /**
@@ -62,7 +62,7 @@ public class Auftrag implements Serializable {
     private Enum<ProzessKettenZustandsAutomat> prozessKettenZustandsAutomat;
 
     /** The Carrier */
-    @OneToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Traeger> traeger;
     
     private String ErrorMessage;

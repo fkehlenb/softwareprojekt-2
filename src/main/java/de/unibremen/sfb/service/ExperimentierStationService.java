@@ -175,7 +175,9 @@ public class ExperimentierStationService implements Serializable {
                 .collect(Collectors.toList());
     }
 
-    // FIXME WTF when do i need this
+    /** Get experimenting station of the process step
+     * @param ps - the process step
+     * @return the location its being carried out at */
     public ExperimentierStation findStation(ProzessSchritt ps)
             throws IllegalArgumentException {
         if (ps == null) {

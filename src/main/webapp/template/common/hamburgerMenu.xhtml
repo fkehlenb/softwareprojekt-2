@@ -57,7 +57,7 @@
                         <shiro:hasRole name="logistik">
                             <p:submenu label="Logistik Tools">
                                 <p:menuitem value="#{msg['logTrägerÜ.jsf']}" url="/logistik/Traegeruebersicht.xhtml"/>
-                                <p:menuitem value="#{msg['logAuftragsÜ.jsf']}" url="/logistik/Auftragsuebersicht.xhtml"/>
+                                <p:menuitem value="#{msg['logAuftragsÜ.jsf']}" url="/logistik/auftragsuebersicht.xhtml"/>
                                 <p:menuitem value="#{msg['logProbenÜ.jsf']}" url="/logistik/Probenuebersicht.xhtml"/>
                                 <p:menuitem value="#{msg['logArchivÜ.jsf']}" url="/logistik/archiviertenProbenUebersicht.xhtml"/>
                                 <p:menuitem value="#{msg['logProbenSÜ.jsf']}" url="/logistik/probenStandortUebersicht.xhtml"/>
@@ -70,9 +70,7 @@
                                 <p:menuitem value="Meine Experimentierstationen" url="/technologe/stationen.xhtml"/>
                                 <p:menuitem value="Meine Aufträge" url="/technologe/index.xhtml"/>
                                 <p:menuitem value="Verfügbare Aufträge" url="/technologe/auftrag.xhtml"/>
-                                <p:menuitem value="Auftragszustand"/>
                                 <p:menuitem value="Proben und Upload" url="/technologe/proben.xhtml"/>
-                                <p:menuitem value="Kapputte Station Melden"/>
                                 <p:menuitem value="#{msg['probenVerlust.jsf']}" url="/technologe/probeMelden.xhtml"/>
                             </p:submenu>
                         </shiro:hasRole>

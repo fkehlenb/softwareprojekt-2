@@ -14,10 +14,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import javax.inject.Inject;
+import javax.json.bind.Jsonb;
+import javax.json.bind.JsonbBuilder;
+import javax.json.bind.JsonbConfig;
 import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static org.mockito.Mockito.*;
 
@@ -34,7 +36,7 @@ class ProbenServiceTest {
     Kommentar kom;
     @Mock
     QualitativeEigenschaftService qualitativeEigenschaftService;
-//    @Mock
+    //    @Mock
 //    BedingungService bedingungService;
     @Mock
     ExperimentierStationService experimentierStationService;
@@ -65,7 +67,6 @@ class ProbenServiceTest {
     void setUp() {
         MockitoAnnotations.initMocks(this);
     }
-
 
 
     //@Test To see
@@ -125,7 +126,7 @@ class ProbenServiceTest {
 
     @Test
     void testSetZustandForProbe() throws ProbeNotFoundException {
-           // probenService.setZustandForProbe(probe);
+        // probenService.setZustandForProbe(probe);
     }
 
     //@Test
@@ -148,7 +149,7 @@ class ProbenServiceTest {
         Assertions.assertEquals(0, result);
     }
 
-   //@Test
+    //@Test
 //    void testGetProbenListe() {
 //        when(probeDAO.getProben(anyInt(), anyInt())).thenReturn(Arrays.<Probe>asList(probe));
 //        List<Probe> result = probenService.getProbenListe(0, 0);
@@ -187,4 +188,38 @@ class ProbenServiceTest {
         List<Probe> result = probenService.getAll();
         Assertions.assertEquals(proben, result);
     }
+
+    @Inject
+    InitialDataFiller initialDataFiller;
+
+    /**
+     * erstellt proben für einen prozessschritt
+     *
+     * @return a list of samples
+     */
+    @Test
+    void jsonObjects() {
+        int limit = 5;
+//        String.join(newLine,
+//                       "[ haalo
+//                               "]");
+        Standort standort = new Standort(42, "Test  Land");
+        List<Probe> r = new ArrayList<>();
+        for (int i = 0; i < limit; i++) {
+            Probe p1 = new Probe("FDGHJ" + i, 9, ProbenZustand.VORHANDEN, standort);
+            p1.setKommentar(List.of(new Kommentar(LocalDateTime.now(), "hallo" + i)));
+        }
+        Random random = new Random();
+      Traeger t = new Traeger(UUID.randomUUID().hashCode(), "Test", r, standort);
+
+
+      String string = "";
+
+    JsonbConfig config = new JsonbConfig().withFormatting(true);
+    Jsonb jsonb = JsonbBuilder.create(config);
+    List<Traeger> p = List.of(initialDataFiller.erstelleProben(new Standort(UUID.randomUUID().hashCode(), "test")));
+    String json = jsonb.toJson(p).toString();
+//    return  probenService.jsonObjects(json, p);
+
+}
 }

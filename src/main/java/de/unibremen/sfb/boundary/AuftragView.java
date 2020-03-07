@@ -153,6 +153,7 @@ public class AuftragView implements Serializable {
         availablePriorities.add(AuftragsPrioritaet.VIEL);
         availablePriorities.add(AuftragsPrioritaet.HOCH);
         availablePriorities.add(AuftragsPrioritaet.SEHR_HOCH);
+        prios = AuftragsPrioritaet.values();
         selectedProzessSchritte = new ArrayList<>();
         dualListModel = new DualListModel<>(availableProzessSchritte,selectedProzessSchritte);
         auftrage = auftragService.getAll();
@@ -283,6 +284,7 @@ public class AuftragView implements Serializable {
         try {
             Auftrag a = auftragService.getObjById(id);
             if (a.getProzessSchritte() != null) {
+                assert a.getProzessSchritte().get(0) != null;
                 var ps = prozessSchrittService.getLastPS(a.getProzessSchritte().get(0));
                 Standort currentLocation = experimentierStationService.findStation(ps).getStandort();
                 assert currentLocation != null;
@@ -314,7 +316,7 @@ public class AuftragView implements Serializable {
         try {
             Auftrag a = auftragService.getObjById(id);
             if (a.getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.INSTANZIIERT)) {
-                a.setProzessKettenZustandsAutomat(ProzessKettenZustandsAutomat.GESTARTET);
+                a.setProzessKettenZustandsAutomat(ProzessKettenZustandsAutomat.FREIGEGEBEN);
                 auftragService.update(a);
                 log.info("Started job with id " + id);
                 facesNotification("Started job!");

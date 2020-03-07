@@ -33,7 +33,7 @@ public class ProzessSchrittParameter implements Serializable {
 
     @Override
     public String toString() {
-        return String.valueOf(id);
+        return " " + this.name;
     }
 
 }
