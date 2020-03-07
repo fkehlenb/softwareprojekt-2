@@ -241,6 +241,10 @@ public class SingleJobBean implements Serializable {
                 psService.oneFurther(ps, time());
             } catch (ExperimentierStationNotFoundException | ProzessSchrittLogNotFoundException | ProzessSchrittNotFoundException e) {
                 e.printStackTrace();
+            } catch (ProbeNotFoundException e) {
+                e.printStackTrace();
+            } catch (DuplicateQualitativeEigenschaftException e) {
+                e.printStackTrace();
             }
         } catch(IllegalArgumentException e) {
                 errorMessage("invalid input");

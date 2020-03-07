@@ -2,8 +2,10 @@ package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.exception.*;
 import de.unibremen.sfb.model.*;
+import de.unibremen.sfb.persistence.AuftragDAO;
 import de.unibremen.sfb.persistence.KommentarDAO;
 import de.unibremen.sfb.persistence.ProbeDAO;
+import de.unibremen.sfb.persistence.QualitativeEigenschaftDAO;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -13,8 +15,10 @@ import javax.json.bind.JsonbConfig;
 import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Getter
@@ -77,6 +81,11 @@ public class ProbenService implements Serializable {
                 .filter(e -> e.getStandort().equals(s))
                 .collect(Collectors.toList());
     }
+
+    @Inject
+    QualitativeEigenschaftDAO qualitativeEigenschaftDAO;
+
+
 
     /**
      * Suche nach Proben die dieser Bedingung entsprechen
@@ -252,17 +261,17 @@ public class ProbenService implements Serializable {
     /**
      * returns all samples to which the user has not yet uploaded data
      *
-     * @throws AuftragNotFoundException if no Auftrag exists.
      * @return a set containing all those samples
+     * @throws AuftragNotFoundException if no Auftrag exists.
      */
     public List<Probe> viewToBeUploaded() throws AuftragNotFoundException {
         List<Probe> res = new LinkedList<>();
         try {
             for (ProzessSchritt ps : prozessSchrittService.getSchritte()) {
                 if (!ps.isUploaded()) {
-                    var traeger =  auftragService.getAuftrag(ps).getTraeger();
+                    var traeger = auftragService.getAuftrag(ps).getTraeger();
                     for (Traeger t :
-                           traeger) {
+                            traeger) {
                         res.addAll(t.getProben());
                     }
                 }
@@ -275,9 +284,10 @@ public class ProbenService implements Serializable {
 
     /**
      * Use Reflection to give Objetct Lists of  JSON Strings
+     *
      * @param jsonToBeParsed the parsed Json
-     * @param tClass our Class
-     * @param <T> our Type Parameter
+     * @param tClass         our Class
+     * @param <T>            our Type Parameter
      * @return the List of classes
      */
     //TODO FIX ME FFS

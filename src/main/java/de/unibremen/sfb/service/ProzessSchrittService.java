@@ -109,7 +109,7 @@ public class ProzessSchrittService implements Serializable {
      * @throws ProzessSchrittZustandsAutomatNotFoundException if there is not PS Automata
      */
     public void oneFurther(ProzessSchritt ps, LocalDateTime d)
-            throws IllegalArgumentException, ExperimentierStationNotFoundException, ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException, DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException {
+            throws IllegalArgumentException, ExperimentierStationNotFoundException, ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException, DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException, ProbeNotFoundException, DuplicateQualitativeEigenschaftException {
         if (ps == null) {
             throw new IllegalArgumentException();
         }
@@ -200,7 +200,7 @@ public class ProzessSchrittService implements Serializable {
             boolean current = isCurrentStep(ps);
             boolean delivered = lastPS != null && isDelivered(lastPS, ps);
 
-            if (moeglich && (current || delivered || ps.isUrformend())) {
+            if (moeglich && (current || delivered || ps.isUrformend()) && ps.isAssigned()) {
                 result.add(ps);
             }
         } // FIXME Add field is current and eta
@@ -280,7 +280,7 @@ public class ProzessSchrittService implements Serializable {
      */
     public void setZustand(ProzessSchritt ps, String zustand, LocalDateTime d)
             throws ExperimentierStationNotFoundException, ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException,
-            DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException {
+            DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException, ProbeNotFoundException, DuplicateQualitativeEigenschaftException {
         if (ps == null || zustand == null) {
             throw new IllegalArgumentException();
         } else if (!ps.getProzessSchrittZustandsAutomat().getZustaende().contains(zustand)) {
