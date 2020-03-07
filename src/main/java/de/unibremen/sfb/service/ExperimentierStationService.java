@@ -240,9 +240,30 @@ public class ExperimentierStationService implements Serializable {
     public List<ProzessSchritt> getSchritteByUser(User u) {
         var ps = new ArrayList<ProzessSchritt>();
         var gu = getESByUser(u);
-        for (ExperimentierStation e :
-                gu) {
-            ps.add(e.getCurrentPS());
+        for (ExperimentierStation e : gu) {
+            if (e.getCurrentPS()!=null&&e.getCurrentPS().isValidData()) {
+                ps.add(e.getCurrentPS());
+            }
+            else{
+                if (!e.getNextPS().isEmpty()) {
+                    for (int i=0;i<e.getNextPS().size();i++) {
+                        if (e.getNextPS().get(i).isValidData()){
+                            e.setCurrentPS(e.getNextPS().get(i));
+                            try {
+                                updateES(e);
+                            }
+                            catch (Exception f){
+                                f.printStackTrace();
+                            }
+                            ps.add(e.getCurrentPS());
+                        }
+                    }
+
+                }
+                else{
+                    e.setCurrentPS(null);
+                }
+            }
         }
         return ps;
     }
@@ -256,7 +277,11 @@ public class ExperimentierStationService implements Serializable {
         List<ProzessSchritt> ps = new ArrayList<>();
         List<ExperimentierStation> es = getESByUser(u);
         for(ExperimentierStation e : es) {
-            ps.addAll(e.getNextPS());
+            for (ProzessSchritt p : e.getNextPS()){
+                if (p.isValidData()){
+                    ps.add(p);
+                }
+            }
         }
         ps.removeAll(Collections.singleton(null));
         return ps;
@@ -391,6 +416,15 @@ public class ExperimentierStationService implements Serializable {
             ta = new TransportAuftrag(LocalDateTime.now(), TransportAuftragZustand.ERSTELLT, es.getStandort(), nextStandort);
         } else {
             ta = new TransportAuftrag(LocalDateTime.now(), TransportAuftragZustand.ERSTELLT, es.getStandort(), standortService.findByLocation("Lager"));
+        }
+        try {
+            if (!es.getNextPS().isEmpty()){
+                es.setCurrentPS(es.getNextPS().get(0));
+            }
+            updateES(es);
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
         transportAuftragDAO.persist(ta);
         ps.setTransportAuftrag(ta);

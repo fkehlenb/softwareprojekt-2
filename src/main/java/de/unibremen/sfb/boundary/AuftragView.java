@@ -85,8 +85,13 @@ public class AuftragView implements Serializable {
      */
     private List<ProzessSchritt> selectedProzessSchritte;
 
-    /** Dual list for picker */
+    /**
+     * Dual list for picker
+     */
     private DualListModel<ProzessSchritt> dualListModel;
+
+    /** Dual list for picker in edit mode */
+    private DualListModel<ProzessSchritt> dualListModel2;
 
     /**
      * List of all available process chain templates
@@ -126,10 +131,19 @@ public class AuftragView implements Serializable {
      * a list of prioritys
      */
     private AuftragsPrioritaet[] prios;
+
     /**
      * a list of prozesskettenZustandsAutomaten
      */
     private ProzessKettenZustandsAutomat[] prozessKettenZustandsAutomatList;
+
+    /** LOCATION DAO TODO ANTI PATTERN */
+    @Inject
+    private StandortDAO standortDAO;
+
+    /** Transport job dao TODO ANTI PATTERN #2 FFS */
+    @Inject
+    private TransportAuftragDAO transportAuftragDAO;
 
 
     /**
@@ -155,7 +169,7 @@ public class AuftragView implements Serializable {
         availablePriorities.add(AuftragsPrioritaet.SEHR_HOCH);
         prios = AuftragsPrioritaet.values();
         selectedProzessSchritte = new ArrayList<>();
-        dualListModel = new DualListModel<>(availableProzessSchritte,selectedProzessSchritte);
+        dualListModel = new DualListModel<>(availableProzessSchritte, selectedProzessSchritte);
         auftrage = auftragService.getAll();
     }
 
@@ -239,8 +253,7 @@ public class AuftragView implements Serializable {
                 log.info("Updated job with id " + id);
                 facesNotification("Updated job!");
                 refresh();
-            }
-            else{
+            } else {
                 facesError("Can't edit an already started job!");
             }
         } catch (Exception e) {
@@ -272,35 +285,25 @@ public class AuftragView implements Serializable {
         }
     }
 
-
-    @Inject
-    StandortDAO standortDAO;
-
-    @Inject
-    TransportAuftragDAO transportAuftragDAO;
-    /** Stop a job
-     * @param id - the id of the job to stop */
-    public void stopJob(int id){
+    /**
+     * Stop a job
+     *
+     * @param id - the id of the job to stop
+     */
+    public void stopJob(int id) {
         try {
             Auftrag a = auftragService.getObjById(id);
-            if (a.getProzessSchritte() != null) {
-                assert a.getProzessSchritte().get(0) != null;
-                var ps = prozessSchrittService.getLastPS(a.getProzessSchritte().get(0));
-                Standort currentLocation = experimentierStationService.findStation(ps).getStandort();
-                assert currentLocation != null;
-                var ta = new TransportAuftrag(LocalDateTime.now(), TransportAuftragZustand.ERSTELLT, currentLocation, standortDAO.getByOrt("Lager") );
-                transportAuftragDAO.persist(ta);
+            transportAuftragDAO.persist(new TransportAuftrag(LocalDateTime.now(), TransportAuftragZustand.ERSTELLT,
+                    a.getTraeger().get(0).getStandort(), standortDAO.getByOrt("Lager")));
+            for (ProzessSchritt p : a.getProzessSchritte()){
+                p.setAssigned(false);
+                prozessSchrittService.editPS(p);
             }
-            for (ProzessSchritt p : a.getProzessSchritte()) {
-                prozessSchrittService.removePS(p);
-            }
-            //TODO proben ins lager
             auftragService.remove(a);
             log.info("Stopped job with id " + id);
             facesNotification("Stopped job!");
             refresh();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             log.error("Failed to stop job with id " + id);
             facesError("Failed to stop job!");
@@ -321,8 +324,7 @@ public class AuftragView implements Serializable {
                 log.info("Started job with id " + id);
                 facesNotification("Started job!");
                 refresh();
-            }
-            else{
+            } else {
                 facesError("Job has already been started!");
             }
         } catch (Exception e) {
@@ -335,8 +337,8 @@ public class AuftragView implements Serializable {
     public ExperimentierStation getES(int id) {
         ExperimentierStation r = null;
         try {
-            var ps =  prozessSchrittService.getObjById(id);
-           r = experimentierStationService.getESfromPS(ps);
+            var ps = prozessSchrittService.getObjById(id);
+            r = experimentierStationService.getESfromPS(ps);
         } catch (ProzessSchrittNotFoundException e) {
             e.printStackTrace();
         }
@@ -350,13 +352,13 @@ public class AuftragView implements Serializable {
             es = experimentierStationService.getById(esID);
         } catch (ExperimentierStationNotFoundException e) {
             e.printStackTrace();
-            log.error("Could not find ES: "+ esID);
+            log.error("Could not find ES: " + esID);
         }
         try {
             ps = prozessSchrittService.getObjById(psID);
         } catch (ProzessSchrittNotFoundException e) {
             e.printStackTrace();
-            log.error("Could not find ps: "+ psID);
+            log.error("Could not find ps: " + psID);
         }
         try {
             experimentierStationService.setES(ps, es);
@@ -366,8 +368,10 @@ public class AuftragView implements Serializable {
         }
     }
 
-    /** Row edit canceled */
-    public void onRowEditCanceled(){
+    /**
+     * Row edit canceled
+     */
+    public void onRowEditCanceled() {
         facesNotification("Canceled!");
     }
 

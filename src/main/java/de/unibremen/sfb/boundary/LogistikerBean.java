@@ -1,8 +1,10 @@
 package de.unibremen.sfb.boundary;
 
+import com.sun.jdi.connect.spi.TransportService;
 import de.unibremen.sfb.exception.*;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.ProbeDAO;
+import de.unibremen.sfb.persistence.TransportAuftragDAO;
 import de.unibremen.sfb.service.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +20,7 @@ import javax.inject.Named;
 import javax.transaction.Transactional;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -127,6 +130,12 @@ public class LogistikerBean implements Serializable {
     private List<Probe> selectedProbe;
 
     /**
+     * Transport service
+     */
+    @Inject
+    private TransportAuftragDAO transportService;
+
+    /**
      * Sample amount
      */
     @Min(0)
@@ -177,7 +186,7 @@ public class LogistikerBean implements Serializable {
             benutzteTraeger.addAll(a.getTraeger());
         }
         alleTraeger.removeAll(benutzteTraeger);
-        return  alleTraeger;
+        return alleTraeger;
     }
 
     public void onRowEditt(int id) throws AuftragNotFoundException {
@@ -349,6 +358,9 @@ public class LogistikerBean implements Serializable {
 
     }
 
+    @Inject
+    private ProzessSchrittService prozessSchrittService;
+
     /**
      * starts a job
      *
@@ -369,24 +381,33 @@ public class LogistikerBean implements Serializable {
                 } else {
                     a.setProzessKettenZustandsAutomat(GESTARTET);
                     auftragService.update(a);
-
                 }
 
             } else {
-                a.setProzessKettenZustandsAutomat(GESTARTET);
-                log.info("Auftrag wurde gestartet! ID: " + auftrag);
-                facesNotification("Auftrag wurde gestartet! ID: " + auftrag);
-                //Aktualisiert Auftragsliste
-                //auftragView.updateAuftragTabelle();
+                try {
+                    TransportAuftrag ta = new TransportAuftrag(LocalDateTime.now(), TransportAuftragZustand.ERSTELLT
+                            , a.getTraeger().get(0).getStandort(), experimentierStationService.getESfromPS(a.getProzessSchritte().get(0)).getStandort());
+                    ProzessSchritt first = a.getProzessSchritte().get(0);
+                    first.setTransportAuftrag(ta);
+                    transportService.persist(ta);
+                    prozessSchrittService.editPS(first);
+                    a.setProzessKettenZustandsAutomat(GESTARTET);
+                    log.info("Auftrag wurde gestartet! ID: " + auftrag);
+                    facesNotification("Auftrag wurde gestartet! ID: " + auftrag);
+                    //Aktualisiert Auftragsliste
+                    //auftragView.updateAuftragTabelle();
 
-                auftragService.update(a);
+                    auftragService.update(a);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    facesError("Couldn't start job!");
+                }
+
             }
-        }
-        catch (UrformendMitTraegerException u){
-            facesError("Auftrag ist Urformend und darf keine Träger enthalten!" );
+        } catch (UrformendMitTraegerException u) {
+            facesError("Auftrag ist Urformend und darf keine Träger enthalten!");
             log.error(u.getMessage());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             log.error("Failed to change auftrag state! ID: " + auftrag);
             facesError("Failed to change auftrag state! ID: " + auftrag);
