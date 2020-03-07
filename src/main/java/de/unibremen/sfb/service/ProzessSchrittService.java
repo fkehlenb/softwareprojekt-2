@@ -196,8 +196,8 @@ public class ProzessSchrittService implements Serializable {
             Enum<ProzessKettenZustandsAutomat> pkA = curA.getProzessKettenZustandsAutomat();
             ProzessSchritt lastPS = getLastPS(ps);
             boolean moeglich = (!(pkA.equals(ProzessKettenZustandsAutomat.INSTANZIIERT)
-                    || pkA.equals(ProzessKettenZustandsAutomat.ABGELEHNT))); //nicht instanziiert oder abgelehnt
-            boolean current = isCurrentStep(ps); //ob der prozessschritt aus der experimentierstation.current aktuelle des auftrags ist
+                    || pkA.equals(ProzessKettenZustandsAutomat.ABGELEHNT)));
+            boolean current = isCurrentStep(ps);
             boolean delivered = lastPS != null && isDelivered(lastPS, ps);
 
             if (moeglich && (current || delivered || ps.isUrformend())) {
