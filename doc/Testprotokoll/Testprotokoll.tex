@@ -682,14 +682,82 @@ Nun kann man im Hamburger Menü an der linken Seite auf \hyperlink{sc3.4.1.2}{Tr
 \textit{Abbildung 3.4.1.2: Auftragsübersicht des Transporters}
 } \\
 
-Hier sieht man oben seine angenommenen Aufträge und in der unteren Tabelle verfügbare Aufträge. 
+Hier sieht man oben seine angenommenen Aufträge und in der unteren Tabelle verfügbare Aufträge. Anfangs hat der Benutzer keine Aufträge angenommen, weswegen die obere Tabelle leer ist. 
 
+\paragraph{Verfügbare Aufträge annehmen:}
 
+Man kann nun rechts den Annehmen Knopf drücken, um einen bestimmten Transportauftrag anzunehmen. Dieser wird aus der Liste der verfügbaren Aufträge für alle Benutzer gelöscht und wird in der Tabelle der angenommenen Aufträge angezeigt. Ich wähle den Transportauftrag mit der ID \textit{9} aus und drücke auf annehmen. 
 
+\hypertarget{sc3.4.1.3}{
+\includegraphics[width=1\textwidth]{Screenshots/3413.png}
+\textit{Abbildung 3.4.1.3: Angenommener Auftrag}
+} \\
+
+Man sieht, dass der Auftrag mit der ID \textit{9} in der Tabelle für \hyperlink{sc3.4.1.3}{Angenommene Aufträge} ist. Der Zustand wurde auf Abgeholt gesetzt. Die restlichen Daten in der Tabelle ändern sich nicht. Wenn man nun in einen  \hyperlink{sc3.4.1.4}{anderen Transporter Benutzer} geht, sieht man, dass der Transportauftrag mit der ID \textit{9} nicht mehr auftaucht. Er ist dem User zugewiesen, der ihn annimmt. 
+
+\hypertarget{sc3.4.1.4}{
+\includegraphics[width=1\textwidth]{Screenshots/3414.png}
+\textit{Abbildung 3.4.1.4: Ansicht eines Anderen Benutzers}
+} \\
+
+Der Test verlief erfolgreich. 
+
+\paragraph{Angenommenen Auftrag abliefern:}
+
+Der Transportauftrag mit der ID \textit{9} ist angenommen und auf dem Zustand abgeholt. Ich bin als Nutzer \textit{tr} eingeloggt. Wenn man nun den Button zum Abliefern in der Tabelle der angenommenen Aufträge drückt, verschwindet der Auftrag aus der Übersicht der angenommenen Aufträge. 
+
+\hypertarget{sc3.4.1.5}{
+\includegraphics[width=1\textwidth]{Screenshots/3415.png}
+\textit{Abbildung 3.4.1.5: Übersicht über alle erledigten Aufträge}
+} \\
+
+In der \hyperlink{sc3.4.1.5}{Übersicht der erledigten Aufträge}, welche auch im Log gespeichert wird und dort vom Admin eingesehen werden kann, sieht man nun, dass Transportauftrag 9 den Zustand \textit{Abgeliefert} hat. Man kann außerdem sehen, wann welcher Zustandswechsel durchgeführt wurde und von wem der Transportauftrag durchgeführt wurde. Der Nutzer und die Zeiten sind ebenfalls richtig. 
+
+Der Test verlief also erfolgreich. 
+
+{
+\color{red} Es muss getestet werden, ob die richtigen Träger angezeigt werden.
+}
+ 
 
 %%
 
-\subsubsection{Anwendungsfall: tr 2}
+\subsubsection{Anwendungsfall: Probenverlust melden}
+
+Hierfür erstelle ich zunächst im Logister jeweils 100 Proben mit den IDs von \textit{A01.0101} bis \textit{A01.0105}. Diese Funktion wird in dem jeweiligen Abschnitt des Testprotokolls separat getestet. Hier sieht man den \hyperlink{sc3.4.2.1}{Ausgangszustand}. \\
+
+\hypertarget{sc3.4.2.1}{
+\includegraphics[width=1\textwidth]{Screenshots/3421.png}
+\textit{Abbildung 3.4.2.1: Ausgangszustand nach dem Erstellen der Proben}
+} \\
+
+Nun melde ich von Probe \textit{A01.0101} eine Probe als Verloren, von \textit{A01.0102} 50 Proben als verloren, von \textit{A01.0103} zweimal 50, sodass alle 100 verloren sind und die Probe auf Verloren gesetzt wird, von \textit{A01.0104} werden 100 Proben als verloren gesetzt, und bei Probe \textit{A01.0105} werden erst 100 Proben auf verloren gesetzt, dann 100 neue erstellt, und diese 100 wieder als Verloren gemeldet. Also sind bei \textit{A01.0105} 200 Proben verloren. 
+
+\hypertarget{sc3.4.2.2}{
+\includegraphics[width=1\textwidth]{Screenshots/3422.png}
+\textit{Abbildung 3.4.2.2: Probenverlust Melden Ansicht}
+} \\
+
+Im \hyperlink{sc3.4.2.3}{Endzustand} sieht man, dass alles so aufgetreten ist, wie gewollt. Der Test gilt als bestanden. Verlorene Proben werden rot markiert.
+
+\hypertarget{sc3.4.2.3}{
+\includegraphics[width=1\textwidth]{Screenshots/3423.png}
+\textit{Abbildung 3.4.2.3: Endzustand der Proben}
+} \\
+
+\paragraph{Mehr Proben als Verloren melden als existieren:}
+
+Wenn ich 100 Proben der ID \textit{A01.0106} erstelle und versuche zweimal 50 und anschließend eine Probe als Verloren zu melden, dann tritt ein Fehler auf und die Probe wird die Anzahl geht nicht ins negative. 
+
+\hypertarget{sc3.4.2.4}{
+\includegraphics[width=1\textwidth]{Screenshots/3424.png}
+\textit{Abbildung 3.4.2.4: Fehlermeldung, wenn man zu mehr Proben eingibt, als existieren}
+} \\
+
+\hypertarget{sc3.4.2.5}{
+\includegraphics[width=1\textwidth]{Screenshots/3425.png}
+\textit{Abbildung 3.4.2.5: Endzustand der Proben}
+} \\
 
 %%
 
