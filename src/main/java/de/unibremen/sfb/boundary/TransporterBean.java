@@ -138,10 +138,7 @@ public class TransporterBean implements Serializable {
         try {
             TransportAuftrag tr = auftragService.getTransportAuftragByID(transportID);
             auftragService.sedTransportZustand(tr, TransportAuftragZustand.ABGELIEFERT);
-            //TODO Wtf?
-            if (auftragService.getTransportAuftragByID(transportID).getZustandsAutomat() == TransportAuftragZustand.ABGELIEFERT) {
-                new ProzessSchrittLog(LocalDateTime.now(), "ERSTELLT");
-            }
+            
             try {
                 for (Traeger t : getTraeger()) {
                     for (Probe p : t.getProben()) {
