@@ -19,8 +19,8 @@ public class ProzessSchrittLogService implements Serializable {
      * @param l the log
      * @throws ProzessSchrittLogNotFoundException is there is none
      */
-    public void closeLog(ProzessSchrittLog l) throws ProzessSchrittLogNotFoundException {
-        l.setGeendet(LocalDateTime.now());
+    public void closeLog(ProzessSchrittLog l, LocalDateTime d) throws ProzessSchrittLogNotFoundException {
+        l.setGeendet(d);
         pslDAO.update(l);
     }
 
@@ -30,8 +30,8 @@ public class ProzessSchrittLogService implements Serializable {
      * @throws DuplicateProzessSchrittLogException if there is already one PSL
      * @return the new Log
      */
-    public ProzessSchrittLog newLog(String z) throws DuplicateProzessSchrittLogException {
-        ProzessSchrittLog l = new ProzessSchrittLog(LocalDateTime.now(), z);
+    public ProzessSchrittLog newLog(String z, LocalDateTime d) throws DuplicateProzessSchrittLogException {
+        ProzessSchrittLog l = new ProzessSchrittLog(d, z);
         pslDAO.persist(l);
         return l;
     }
