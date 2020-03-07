@@ -90,9 +90,6 @@ public class AuftragView implements Serializable {
      */
     private DualListModel<ProzessSchritt> dualListModel;
 
-    /** Dual list for picker in edit mode */
-    private DualListModel<ProzessSchritt> dualListModel2;
-
     /**
      * List of all available process chain templates
      */
