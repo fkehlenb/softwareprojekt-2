@@ -107,10 +107,15 @@
                                                              value="Weiterschalten" style="width: 100%"/>
                                         </p:column>
                                         <p:column colspan="1">
-                                            <h:outputText value="Dauer"/>
+                                            <h:outputText value="Datum"/>
                                         </p:column>
                                         <p:column colspan="1">
-                                            <p:inputText placeholder="HH:MM"/>
+                                            <p:inputText id="datum" value="#{singleJobBean.datum}"
+                                                         placeholder="DD.MM.YYYY"/>
+                                        </p:column>
+                                        <p:column colspan="1">
+                                            <p:inputText id="zeit" value="#{singleJobBean.zeit}"
+                                                         placeholder="HH:MM:SS"/>
                                         </p:column>
                                     </p:row>
                                     <p:row>
