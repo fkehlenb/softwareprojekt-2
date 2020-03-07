@@ -58,13 +58,6 @@ class TraegerTest {
         Assertions.assertEquals(false, result);
     }
 
-    @Test
-    void testCanEqual() {
-        boolean result = traeger.canEqual("other");
-        Assertions.assertEquals(false, result);
-    }
-
-
 
     @Test
     void testToString() {
