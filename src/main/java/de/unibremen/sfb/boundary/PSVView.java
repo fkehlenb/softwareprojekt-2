@@ -17,6 +17,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 
 @Named("psvErstellenBean")
@@ -139,23 +140,30 @@ public class PSVView implements Serializable {
      * Add a new process step template
      */
     public void createPSV() {
+        String pattern = "[A-Z][0-9][0-9].[0-9]+(.[0-9]+)+";
         try {
             List<ProzessSchrittParameter> newPsp = new ArrayList<>(selectedProzessSchrittParameterList);
             ProzessSchrittVorlage psv = new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), newPsp,
-                    selectedExperimentierStation, selectedDuration, selectedName, selectedProzessSchrittZustandsAutomatVorlage,urformend,amountCreated);
-            if (selectedInputTraegerArten == null){
+                    selectedExperimentierStation, selectedDuration, selectedName, selectedProzessSchrittZustandsAutomatVorlage, urformend, amountCreated);
+            if (selectedInputTraegerArten == null) {
                 selectedInputTraegerArten = new ArrayList<>();
             }
-            if (selectedOutputTraegerArten == null){
+            if (selectedOutputTraegerArten == null) {
                 selectedOutputTraegerArten = new ArrayList<>();
             }
+
+            if (psv.isUrformend()  && !Pattern.matches(pattern, nameOfCreated)) {
+                    throw new IllegalArgumentException();
+                }
             psv.setEingabeTraeger(selectedInputTraegerArten);
             psv.setAusgabeTraeger(selectedOutputTraegerArten);
             psv.setNameOfCreated(nameOfCreated);
             prozessSchrittVorlageService.persist(psv);
             log.info("Created new process step template with name " + selectedName);
             facesNotification("Created new process step template with name " + selectedName);
-            refresh();
+
+        } catch (IllegalArgumentException r) {
+            facesError("Proben ID entspricht nicht! " + pattern);
         } catch (Exception e) {
             e.printStackTrace();
             log.error("Failed to create new process step template! Error " + e.getMessage());

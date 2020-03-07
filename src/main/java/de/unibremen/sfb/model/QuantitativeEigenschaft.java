@@ -37,4 +37,12 @@ public class QuantitativeEigenschaft extends QualitativeEigenschaft {
         this.wert=wert;
         this.einheit=einheit;
     }
+
+    @Override
+    public String toString() {
+        return "QuantitativeEigenschaft{" +
+                "wert=" + wert +
+                ", einheit='" + einheit + '\'' +
+                '}';
+    }
 }

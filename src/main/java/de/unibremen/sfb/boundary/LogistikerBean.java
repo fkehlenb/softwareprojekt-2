@@ -1,9 +1,6 @@
 package de.unibremen.sfb.boundary;
 
-import de.unibremen.sfb.exception.AuftragNotFoundException;
-import de.unibremen.sfb.exception.DuplicateProbeException;
-import de.unibremen.sfb.exception.ProbeNotFoundException;
-import de.unibremen.sfb.exception.StandortNotFoundException;
+import de.unibremen.sfb.exception.*;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.ProbeDAO;
 import de.unibremen.sfb.service.*;
@@ -19,6 +16,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
+import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +45,7 @@ public class LogistikerBean implements Serializable {
 
     private List<Auftrag> filteredAuftrag;
 
-    private AuftragsPrioritaet  selectedPriority;
+    private AuftragsPrioritaet selectedPriority;
 
     /**
      * Sample service
@@ -91,6 +89,10 @@ public class LogistikerBean implements Serializable {
     private List<Traeger> traegers;
 
     /**
+     * Selected Containers
+     */
+    private List<Traeger> selectedTraeger;
+    /**
      * Container type
      */
     private String traegerArt;
@@ -115,7 +117,6 @@ public class LogistikerBean implements Serializable {
      */
     private List<Probe> archiviert;
 
-
     /**
      * Sample ID
      */
@@ -129,6 +130,7 @@ public class LogistikerBean implements Serializable {
     /**
      * Sample amount
      */
+    @Min(0)
     private int anzahl;
 
 
@@ -136,6 +138,7 @@ public class LogistikerBean implements Serializable {
     void init() {
         refresh();
     }
+
 
     /**
      * Reload data
@@ -145,7 +148,7 @@ public class LogistikerBean implements Serializable {
         auftrage = new ArrayList<>();
         for (Auftrag a :
                 jobs) {
-            if (!a.getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.GESTARTET)) {
+            if (!a.getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.GESTARTET) && !a.getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.INSTANZIIERT) && !a.getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.DURCHGEFUEHRT) && !a.getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.ABGEBROCHEN) && !a.getProzessKettenZustandsAutomat().equals(ABGELEHNT)) {
                 auftrage.add(a);
             }
         }
@@ -170,18 +173,23 @@ public class LogistikerBean implements Serializable {
         return traegerService.getAll();
     }
 
-    public void onRowEdit(int id) {
+    public void onRowEditt(int id) throws AuftragNotFoundException {
         FacesMessage msg = new FacesMessage("Auftrag Edited");
-//        try {
-//            auftragService.update(event.getObject());
-//        } catch (AuftragNotFoundException e) {
-//            e.printStackTrace();
-//        }
+        Auftrag a = auftragService.getObjById(id);
+        try {
+            a.setTraeger(selectedTraeger);
+            auftragService.update(a);
+        } catch (AuftragNotFoundException aa) {
+            aa.printStackTrace();
+            log.info("Auftrag konnte nicht gefunden werden");
+        }
+
+
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public void onRowCancel(RowEditEvent<Auftrag> event) {
-        FacesMessage msg = new FacesMessage("Edit Cancelled", ""+  event.getObject().getPkID());
+        FacesMessage msg = new FacesMessage("Edit Cancelled", "" + event.getObject().getPkID());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
@@ -242,8 +250,7 @@ public class LogistikerBean implements Serializable {
                         p.setCurrentTraeger(t);
                         probenService.update(p);
                         actual.add(p);
-                    }
-                    else{
+                    } else {
                         facesError("Probe und Traeger nicht am gleichen standort!");
                     }
                 }

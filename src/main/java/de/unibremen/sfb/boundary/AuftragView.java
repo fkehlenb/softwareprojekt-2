@@ -316,7 +316,7 @@ public class AuftragView implements Serializable {
         try {
             Auftrag a = auftragService.getObjById(id);
             if (a.getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.INSTANZIIERT)) {
-                a.setProzessKettenZustandsAutomat(ProzessKettenZustandsAutomat.GESTARTET);
+                a.setProzessKettenZustandsAutomat(ProzessKettenZustandsAutomat.FREIGEGEBEN);
                 auftragService.update(a);
                 log.info("Started job with id " + id);
                 facesNotification("Started job!");

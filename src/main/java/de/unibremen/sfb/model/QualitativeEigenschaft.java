@@ -37,4 +37,10 @@ public class QualitativeEigenschaft {
      */
     @NonNull
     private String name;
+
+    @Override
+    public String toString() {
+        return "QualitativeEigenschaft " +
+                name;
+    }
 }
