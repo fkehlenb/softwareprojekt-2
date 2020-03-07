@@ -2,10 +2,7 @@ package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.exception.*;
 import de.unibremen.sfb.model.*;
-import de.unibremen.sfb.persistence.AuftragDAO;
-import de.unibremen.sfb.persistence.ProbeDAO;
-import de.unibremen.sfb.persistence.ProzessSchrittDAO;
-import de.unibremen.sfb.persistence.ProzessSchrittZustandsAutomatDAO;
+import de.unibremen.sfb.persistence.*;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
@@ -116,11 +113,16 @@ public class ProzessSchrittService implements Serializable {
         if (ps == null) {
             throw new IllegalArgumentException();
         }
-        if (!lastZustand(ps, ps.getProzessSchrittZustandsAutomat().getCurrent())) {
-            int i = 0;
+        int i = 0;
+        try {
             while (!ps.getProzessSchrittZustandsAutomat().getZustaende().get(i).equals(ps.getProzessSchrittZustandsAutomat().getCurrent())) {
                 i++;
             }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        if (i+1<ps.getProzessSchrittZustandsAutomat().getZustaende().size()) {
             setZustand(ps, ps.getProzessSchrittZustandsAutomat().getZustaende().get(i + 1), d);
         }
     }

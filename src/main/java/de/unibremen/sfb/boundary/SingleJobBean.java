@@ -65,8 +65,8 @@ public class SingleJobBean implements Serializable {
     /** JSON */
     private String jsonString;
 
-    private String zeit;
-    private String datum;
+    private String zeit = "";
+    private String datum = "";
 
     /** Init called on start */
     public void init() {
@@ -263,14 +263,14 @@ public class SingleJobBean implements Serializable {
     private LocalDateTime time() {
         LocalDate d = LocalDate.now();
         LocalTime t = LocalTime.now();
-        if(datum!=null) {
+        if(!datum.equals("")) {
             int day = Integer.parseInt(datum.substring(0, 2));
             int m = Integer.parseInt(datum.substring(3, 5));
             int y = Integer.parseInt(datum.substring(6));
             d = LocalDate.of(y, m, day);
             datum=null;
         }
-        if(zeit!=null) {
+        if(!zeit.equals("")) {
             int h = Integer.parseInt(zeit.substring(0, 2));
             int min = Integer.parseInt(zeit.substring(3, 5));
             int sec = Integer.parseInt(zeit.substring(6));
