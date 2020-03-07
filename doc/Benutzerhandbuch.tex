@@ -190,21 +190,107 @@ In unserer Anwendung haben Benutzer entsprechend Ihrer Rollen eine Übersicht ü
 \section{Erste Schritte für Anwender}
 
 Im Folgenden werden die grundlegenden Funktionen des Systems für alle Benutzer beschrieben. \\
+
 \subsection{Anmeldung}
-Von der Willkommensseite können Sie durch Klicken auf den Link zum Anmeldeformular zu kommen. In diesem Formular geben Sie den Namen und das Passwort ein; diese Informationen wurden bei Ihrer Registration festgelegt. Mit Klicken auf Anmelden werden diese Daten überprüft, und wenn sie korrekt sind, werden Sie angemeldet. Weitere Informationen über die Funktionen des Systems finden Sie in den Abschnitten zu den Rollen, denen Sie zugewiesen sind. \\
+Von der Willkommensseite können Sie durch Klicken auf den Link zum Anmeldeformular zu kommen. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/allgemein/willkommen.png}
+  \caption{Die Willkommensseite der Anwendung}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
+In diesem Formular geben Sie den Namen und das Passwort ein; diese Informationen wurden bei Ihrer Registration festgelegt. Mit Klicken auf Anmelden werden diese Daten überprüft, und wenn sie korrekt sind, werden Sie angemeldet. Weitere Informationen über die Funktionen des Systems finden Sie in den Abschnitten zu den Rollen, denen Sie zugewiesen sind. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/allgemein/login.png}
+  \caption{Nutzertabelle}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
 \textbf{Hinweis:} Wenn Sie der Systemadministrator sind, und sich zum ersten Mal in diesem System anmelden, ist der Benutzername und das Passwort \textit{admin}. Es ist ratsam, dies möglichst schnell zu ändern. \\
+
+
 \subsubsection{Passwort vergessen}
-Wenn Sie Ihr Passwort vergessen haben, klicken Sie auf Passwort vergessen. Dadurch ... //TODO
+Wenn Sie Ihr Passwort vergessen haben, können Sie auf der Login-Seite auf Passwort vergessen klicken. Dadurch werden Sie auf eine Seite geleitet, wo Sie mithilfe Ihres Benutzernamens oder der Email Adresse, mit der Sie im System registriert sind, das Passwort zurücksetzen können. Dafür geben Sie einfach im entsprechenden Eingabefeld Ihre Daten ein, und klicken Sie auf Zurücksetzen. Dadurch wird ...? //TODO
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/allgemein/resetemail.png}
+  \caption{Passwortzurücksetzung mit Email}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/allgemein/resetname.png}
+  \caption{Passwortzurücksetzung mit Name}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
+
+
 \subsection{Abmeldung}
 Um sich abzumelden, klicken Sie in der Navigationsleiste am oberen Rand der Seite auf Logout. Sie werden dadurch zurück zu der Willkommensseite geleitet. \\
+
+
 \subsection{Sprachauswahl}
 Sie können zwischen Deutsch und Englisch als Anzeigesprachen wählen. Die Option dafür befindet sich unterhalb des Navigationsmenüs an der linken Seite. \\
+
+
 \subsection{Navigationsleiste}
 Es gibt zwei Navigationsleisten: Eine am oberen Rand, und eine am linken. \\
+
+
 \subsubsection{Navigationsleiste links}
 In der Navigationsleiste am linken Rand sehen Sie alle Aktionen, die Ihnen zur Verfügung stehen, sortiert nach den Rollen, die Sie haben. Sie können durch Klicken auf die Titel der Seiten auf die unterschiedlichen Seiten gehen. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/allgemein/navigationlinks.png}
+  \caption{Linke Navigationsleiste}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
+
 \subsubsection{Navigationsleiste oben}
-In der Navigationsleiste am oberen Rand können Sie durch Klicken auf Home zum Homescreen zurück //TODO. Sie können ebenfalls sehen, welche Rollen Sie alle innehaben. //TODO. \\
+In der Navigationsleiste am oberen Rand können Sie durch Klicken auf Home zum Homescreen zurück //TODO.  \\
+
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/allgemein/willkommeneingeloggt.png}
+  \caption{Nutzertabelle}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
+Sie können ebenfalls unter Anlegen->New alle Gegenstände sehen, die Sie mit Ihren Rollen erstellen können. //TODO \\
+Ebenfalls können Sie sich hier unter Logout abmelden. \\
+
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/allgemein/navigationoben.png}
+  \caption{Obere Navigationsleiste}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/allgemein/navigationcreate.png}
+  \caption{Erstellen neuer Daten mit der oberen Navigationsleiste}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -733,13 +819,49 @@ Im Menü-Unterpunkt Transportaufträge haben Sie eine Übersicht über Transport
 
 In der oberen Tabelle finden Sie die Aufträge, die Sie angenommen, aber noch nicht bearbeitet haben. Sie können sehen, welche Träger Sie woher holen und wohin bringen sollen, den Zustand des Auftrags, und angeben, wenn Sie einen Auftrag durchgeführt haben. Dafür klicken Sie in der entsprechenden Tabellenzeile auf Abgeliefert am Ende der Zeile. Aufträge können den Zustand Erstellt, Abgeholt oder Abgeliefert haben. \\
 
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/tr/angenommen.png}
+  \caption{Angenomme Transportaufträge}
+  \label{fig:boat2}
+\end{center}
+\end{figure}
+
+
 In der zweiten Tabelle stehen alle Aufträge, die aktuell verfügbar sind, also noch nicht von anderen Transportern angenommen wurden. Sie können einen Auftrag annehmen, indem Sie am Ende der entsprechenden Zeile auf Annehmen klicken. Dieser Auftrag ist dadurch nicht mehr für andere Transporter sichtbar, und erscheint nur in Ihrer Tabelle. \\
 
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/tr/verfuegbar.png}
+  \caption{Verfügbare Transportaufträge}
+  \label{fig:boat2}
+\end{center}
+\end{figure}
+
+
 In der unteren Tabelle sehen Sie Ihre alten Aufträge, die Sie bereits durchgeführt haben. Sie haben eine Übersicht über die Erstellungs-, Abholungs-, und Ablieferungszeit, und den aktuellen Zustand. An diesen Aufträgen können Sie keine Änderungen mehr vornehmen. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/tr/abgeschlossen.png}
+  \caption{Abgeschlossene Transportaufträge}
+  \label{fig:boat2}
+\end{center}
+\end{figure}
+
 
 %%%%%%%%%%
 \subsubsection{Probenverlust melden}
 Im Menü-Unterpunkt Probenverlust melden können Sie Proben als verloren melden. Dafür geben Sie die Proben-ID der Probengruppe, zu der die Probe gehört, die Sie melden wollen, sowie die Anzahl an Proben aus dieser Gruppe, die Sie melden wollen, ein. Wenn Sie beide Angaben gemacht haben, drücken Sie auf Senden, um die Probe(n) zu melden. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/tr/verloren.png}
+  \caption{Probenverlust melden}
+  \label{fig:boat2}
+\end{center}
+\end{figure}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
