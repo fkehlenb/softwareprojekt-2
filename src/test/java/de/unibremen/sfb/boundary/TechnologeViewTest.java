@@ -154,10 +154,6 @@ class TechnologeViewTest {
         technologeView.setAuftragList(Arrays.<Auftrag>asList(new Auftrag()));
     }
 
-    @Test
-    void testSetEsService() {
-        technologeView.setEsService(new ExperimentierStationService());
-    }
 
     @Test
     void testSetProbeService() {
@@ -169,9 +165,5 @@ class TechnologeViewTest {
         technologeView.setUserService(new UserService());
     }
 
-    @Test
-    void testSetPsService() {
-        technologeView.setPsService(new ProzessSchrittService());
-    }
 }
 
