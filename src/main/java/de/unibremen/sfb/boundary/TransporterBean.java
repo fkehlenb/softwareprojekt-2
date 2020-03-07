@@ -1,6 +1,8 @@
 package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.exception.ProzessSchrittNotFoundException;
+import de.unibremen.sfb.exception.TraegerNotFoundException;
+import de.unibremen.sfb.exception.TransportAuftragNotFoundException;
 import de.unibremen.sfb.exception.UserNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.service.*;
@@ -140,14 +142,19 @@ public class TransporterBean implements Serializable {
             if (auftragService.getTransportAuftragByID(transportID).getZustandsAutomat() == TransportAuftragZustand.ABGELIEFERT) {
                 new ProzessSchrittLog(LocalDateTime.now(), "ERSTELLT");
             }
-            for (Traeger t : getTraeger()){
-                for (Probe p : t.getProben()){
-                    p.setStandort(tr.getZiel());
-                    probenService.update(p);
+            try {
+                for (Traeger t : getTraeger()) {
+                    for (Probe p : t.getProben()) {
+                        p.setStandort(tr.getZiel());
+                        probenService.update(p);
+                    }
+                    t.setStandort(tr.getZiel());
+                    traegerService.update(t);
                 }
-                t.setStandort(tr.getZiel());
-                traegerService.update(t);
+            } catch (Exception f){
+
             }
+
             log.info("TransportAuftragZustand wurde gewechselt auf Abgeliefert " + transportID);
             facesNotification("Der Zustand von " + transportID + " wurde auf Abgeliefert gesetzt.");
             updateTabellen();
@@ -155,6 +162,7 @@ public class TransporterBean implements Serializable {
             e.printStackTrace();
             log.error("Failed to change state to Abgeliefert" + transportID);
             facesError("Failed to change state to Abgeliefert" + transportID);
+            updateTabellen();
         }
     }
 
