@@ -22,8 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static de.unibremen.sfb.model.ProzessKettenZustandsAutomat.ABGELEHNT;
-import static de.unibremen.sfb.model.ProzessKettenZustandsAutomat.GESTARTET;
+import static de.unibremen.sfb.model.ProzessKettenZustandsAutomat.*;
 
 /**
  * this class manages the interaction between the gui and the backend system for users who are logistic experts
@@ -170,7 +169,15 @@ public class LogistikerBean implements Serializable {
      * @return a set containing all containers
      */
     public List<Traeger> getTraegerList() {
-        return traegerService.getAll();
+        List<Traeger> alleTraeger = traegerService.getAll();
+        List<Traeger> benutzteTraeger = new ArrayList<>();
+        List<Auftrag> alleAuftraege = auftragService.getAll();
+        for (Auftrag a :
+                alleAuftraege) {
+            benutzteTraeger.addAll(a.getTraeger());
+        }
+        alleTraeger.removeAll(benutzteTraeger);
+        return  alleTraeger;
     }
 
     public void onRowEditt(int id) throws AuftragNotFoundException {
@@ -184,8 +191,8 @@ public class LogistikerBean implements Serializable {
             log.info("Auftrag konnte nicht gefunden werden");
         }
 
-
         FacesContext.getCurrentInstance().addMessage(null, msg);
+
     }
 
     public void onRowCancel(RowEditEvent<Auftrag> event) {
@@ -350,17 +357,41 @@ public class LogistikerBean implements Serializable {
     public void startAuftrag(int auftrag) {
         try {
             Auftrag a = auftragService.getObjById(auftrag);
-            a.setProzessKettenZustandsAutomat(GESTARTET);
-            log.info("Auftrag wurde gestartet! ID: " + auftrag);
-            facesNotification("Auftrag wurde gestartet! ID: " + auftrag);
-            //Aktualisiert Auftragsliste
-            //auftragView.updateAuftragTabelle();
-            auftragService.update(a);
-        } catch (Exception e) {
+            //assert !a.getProzessSchritte().isEmpty();
+            if (a.getProzessSchritte().get(0).isUrformend()) {
+                if (!a.getTraeger().isEmpty()) {
+                    a.setProzessKettenZustandsAutomat(FREIGEGEBEN);
+                    a.getTraeger().removeAll(selectedTraeger);
+
+                    auftragService.update(a);
+                    refresh();
+                    throw new UrformendMitTraegerException();
+                } else {
+                    a.setProzessKettenZustandsAutomat(GESTARTET);
+                    auftragService.update(a);
+
+                }
+
+            } else {
+                a.setProzessKettenZustandsAutomat(GESTARTET);
+                log.info("Auftrag wurde gestartet! ID: " + auftrag);
+                facesNotification("Auftrag wurde gestartet! ID: " + auftrag);
+                //Aktualisiert Auftragsliste
+                //auftragView.updateAuftragTabelle();
+
+                auftragService.update(a);
+            }
+        }
+        catch (UrformendMitTraegerException u){
+            facesError("Auftrag ist Urformend und darf keine Träger enthalten!" );
+            log.error(u.getMessage());
+        }
+        catch (Exception e) {
             e.printStackTrace();
             log.error("Failed to change auftrag state! ID: " + auftrag);
             facesError("Failed to change auftrag state! ID: " + auftrag);
         }
+
         refresh();
 
 
