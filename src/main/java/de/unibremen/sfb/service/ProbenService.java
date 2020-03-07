@@ -8,7 +8,10 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
+import javax.json.bind.JsonbBuilder;
+import javax.json.bind.JsonbConfig;
 import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
@@ -257,8 +260,9 @@ public class ProbenService implements Serializable {
         try {
             for (ProzessSchritt ps : prozessSchrittService.getSchritte()) {
                 if (!ps.isUploaded()) {
+                    var traeger =  auftragService.getAuftrag(ps).getTraeger();
                     for (Traeger t :
-                            auftragService.getAuftrag(ps).getTraeger()) {
+                           traeger) {
                         res.addAll(t.getProben());
                     }
                 }
@@ -269,6 +273,18 @@ public class ProbenService implements Serializable {
         return res;
     }
 
+    /**
+     * Use Reflection to give Objetct Lists of  JSON Strings
+     * @param jsonToBeParsed the parsed Json
+     * @param tClass our Class
+     * @param <T> our Type Parameter
+     * @return the List of classes
+     */
+    public <T> List<ProzessSchrittParameter> jsonObjects(String jsonToBeParsed, List<ProzessSchrittParameter> tClass) {
+        var config = new JsonbConfig().withFormatting(true);
+        var jsonb = JsonbBuilder.create(config);
+        return jsonb.fromJson(jsonToBeParsed, (Type) tClass);
+    }
 
     /**
      * counts the samples in the database

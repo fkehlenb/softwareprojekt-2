@@ -1,15 +1,13 @@
 package de.unibremen.sfb.boundary;
 
-import de.unibremen.sfb.exception.AuftragNotFoundException;
-import de.unibremen.sfb.exception.DuplicateProbeException;
-import de.unibremen.sfb.exception.ProbeNotFoundException;
-import de.unibremen.sfb.exception.StandortNotFoundException;
+import de.unibremen.sfb.exception.*;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.ProbeDAO;
 import de.unibremen.sfb.service.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.primefaces.event.RowEditEvent;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -18,6 +16,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
+import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +42,10 @@ public class LogistikerBean implements Serializable {
     //TODO remove this
     @Inject
     private ProbeDAO probeDAO;
+
+    private List<Auftrag> filteredAuftrag;
+
+    private AuftragsPrioritaet selectedPriority;
 
     /**
      * Sample service
@@ -86,6 +89,10 @@ public class LogistikerBean implements Serializable {
     private List<Traeger> traegers;
 
     /**
+     * Selected Containers
+     */
+    private List<Traeger> selectedTraeger;
+    /**
      * Container type
      */
     private String traegerArt;
@@ -110,7 +117,6 @@ public class LogistikerBean implements Serializable {
      */
     private List<Probe> archiviert;
 
-
     /**
      * Sample ID
      */
@@ -124,6 +130,7 @@ public class LogistikerBean implements Serializable {
     /**
      * Sample amount
      */
+    @Min(0)
     private int anzahl;
 
 
@@ -132,11 +139,19 @@ public class LogistikerBean implements Serializable {
         refresh();
     }
 
+
     /**
      * Reload data
      */
     private void refresh() {
-        auftrage = auftragService.getAll();
+        var jobs = auftragService.getAll();
+        auftrage = new ArrayList<>();
+        for (Auftrag a :
+                jobs) {
+            if (!a.getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.GESTARTET) && !a.getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.INSTANZIIERT) && !a.getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.DURCHGEFUEHRT) && !a.getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.ABGEBROCHEN) && !a.getProzessKettenZustandsAutomat().equals(ABGELEHNT)) {
+                auftrage.add(a);
+            }
+        }
         proben = probenService.getAll();
         traegers = getTraegerList();
         archiviert = getAllArchviert();
@@ -156,6 +171,26 @@ public class LogistikerBean implements Serializable {
      */
     public List<Traeger> getTraegerList() {
         return traegerService.getAll();
+    }
+
+    public void onRowEditt(int id) throws AuftragNotFoundException {
+        FacesMessage msg = new FacesMessage("Auftrag Edited");
+        Auftrag a = auftragService.getObjById(id);
+        try {
+            a.setTraeger(selectedTraeger);
+            auftragService.update(a);
+        } catch (AuftragNotFoundException aa) {
+            aa.printStackTrace();
+            log.info("Auftrag konnte nicht gefunden werden");
+        }
+
+
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onRowCancel(RowEditEvent<Auftrag> event) {
+        FacesMessage msg = new FacesMessage("Edit Cancelled", "" + event.getObject().getPkID());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     /**
@@ -215,8 +250,7 @@ public class LogistikerBean implements Serializable {
                         p.setCurrentTraeger(t);
                         probenService.update(p);
                         actual.add(p);
-                    }
-                    else{
+                    } else {
                         facesError("Probe und Traeger nicht am gleichen standort!");
                     }
                 }

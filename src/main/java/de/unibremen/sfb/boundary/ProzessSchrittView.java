@@ -275,7 +275,7 @@ public class ProzessSchrittView implements Serializable {
                         selectedProzessSchrittZustandsAutomatVorlage.getZustaende().get(0), zustaende);
                 prozessSchrittZustandsAutomat.setName(selectedProzessSchrittZustandsAutomatVorlage.getName());
                 prozessSchritt.setProzessSchrittZustandsAutomat(prozessSchrittZustandsAutomat);
-                setES(experimentierStation.getEsID(), id);
+
                 prozessSchritt.setAttribute(prozessSchrittAttribute);
                 prozessSchritt.setUrformend(urformend);
                 prozessSchritt.setAmountCreated(amountCreated);
@@ -290,6 +290,7 @@ public class ProzessSchrittView implements Serializable {
                 prozessSchritt.setAusgabe(selectedOutputTraegerArten);
                 prozessSchrittZustandsAutomatService.add(prozessSchrittZustandsAutomat);
                 prozessSchrittService.editPS(prozessSchritt);
+                setES(experimentierStation.getEsID(), id);
                 log.info("Updated process step with id " + id);
                 facesNotification("Successfully updated process step!");
                 refetchData();

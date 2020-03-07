@@ -102,7 +102,8 @@
                         <h:form id="form">
                             <p:dataTable id="table" var="ps" value="#{psView.prozessSchritte}" editable="true"
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                         paginator="true"
+                                         rowsPerPageTemplate="5,10,15"
+                                         rows="10" paginator="true"
                                          rowStyleClass="#{ps.prozessSchrittZustandsAutomat.current eq 'Kapputt' ? 'broken' : null}"
                                          style="margin-bottom:20px">r
                                 rows="15" style="margin-bottom:20px">
@@ -175,10 +176,10 @@
                                                              requiredMessage="Bitte experimentierstation waehlen!">
                                                 <f:selectItems value="#{psView.experimentierStationen}"
                                                                var="experimentierstation"
-                                                               itemLabel="#{experimentierstation.name}"
+                                                               itemLabel="#{experimentierstation}"
                                                                itemValue="#{experimentierstation}" required="true"/>
                                                 <p:column>
-                                                    <h:outputText value="#{experimentierstation.name}"/>
+                                                    <h:outputText value="#{experimentierstation}"/>
                                                 </p:column>
                                             </p:selectOneMenu>
                                         </f:facet>

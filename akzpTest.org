@@ -119,3 +119,6 @@ Selenium Test.xml nuzten
 
 
 null eingabe traege in psv
+** Logisitk
+grund fuer annahme logistik
+

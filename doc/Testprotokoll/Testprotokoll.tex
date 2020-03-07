@@ -493,15 +493,150 @@ In der folgenden Grafik sehen Sie, dass die Benutzer erfolgreich aktualisiert wu
 
 \subsection{Tests zum Prozesskettenadministrator}
 
-\subsubsection{Anwendungsfall: pk 1}
+\subsubsection{Anwendungsfall: Prozessschritte}
+Zum Testen der Prozessschritt-Funktion verwenden wir die Administrator Sicht auf der entsprechenden Website. Hier gibt der Administrator die Daten in einem Formular ein, in dem die Instanz des Prozessschritts erstellt werden muss.
 
+%%Formular
+\hypertarget{sc3.3.1.1}{
+\includegraphics[width=1\textwidth]{Screenshots/33pspFormular.png}
+\textit{Abbildung 3.3.1.1: Standort Formular}
+} \\
+
+Die folgenden Daten wurden für den Prozesstest zur Erstellung des Prozessschritts verwendet.\\
+
+%%Data
+\hypertarget{sc3.3.1.2}{
+\includegraphics[width=1\textwidth]{Screenshots/33DataFakePsp.png}
+\textit{Abbildung 3.3.1.2: Standort Formular}
+} \\
+Wenn die Knopf zum Erstellen gedrückt wird und der Erstellungsprozess erfolgreich war, sendet die Website eine Bestätigungsnachricht.\\
+
+%%CreationMeldung
+\hypertarget{sc3.3.1.3}{
+\includegraphics[width=1\textwidth]{Screenshots/33creationMeldung.png}
+\textit{Abbildung 3.3.1.3: Standort Formular}
+} \\
+Wenn der Prozessadministrator den Prozessschritt bearbeiten möchte, verwendet er die Funktion bearbeiten und füllt das Formular aus.
+Wenn der Bearbeitungsprozess erfolgreich ist, erhält der Benutzer eine Bestätigungsnachricht über die Website
+%%Edit
+\hypertarget{sc3.3.1.4}{
+\includegraphics[width=1\textwidth]{Screenshots/33editView.png}
+\textit{Abbildung 3.3.1.4: Standort Formular}
+} \\
+Im Bearbeitung View erhalten der Prozesskette Administrator eine Datenvisualisierung des Prozessschrittes durch die Nutzung der entsprechende Knöpfen. 
+%%LogsView
+\hypertarget{sc3.3.1.5}{
+\includegraphics[width=1\textwidth]{Screenshots/33log.png}
+\textit{Abbildung 3.3.1.5: Standort Formular}
+} \\
+\hypertarget{sc3.3.1.6}{
+\includegraphics[width=1\textwidth]{Screenshots/33log2.png}
+\textit{Abbildung 3.3.1.6: Standort Formular}
+} \\
+Die Funktion der Schaltfläche Entfernen wurde ebenfalls getestet. Sie entfernt den Schritt-Prozess aus der Tabelle und sendet eine Nachricht an den Benutzer, wenn der Vorgang erfolgreich ist.
+%%Remove
+\hypertarget{sc3.3.1.7}{
+\includegraphics[width=1\textwidth]{Screenshots/33removepsp.png}
+\textit{Abbildung 3.3.1.7: Standort Formular}
+} \\
+\subsubsection{Anwendungsfall: Prozess Schritt Vorlage}
+
+Die Funktionen der Erstellung, Bearbeitung, Visualisierung und Eliminierung von Prozess Schritt Vorlagen wurden getestet. Die Interaktion, die der Benutzer mit diesen Funktionen hat, erfolgt über das Formular auf der entsprechenden Seite.
+
+\hypertarget{sc3.3.2.1}{
+\includegraphics[width=1\textwidth]{Screenshots/332formularpzv.png}
+\textit{Abbildung 3.3.2.1: Standort Formular}
+} \\
+
+Die folgenden Daten wurden für die Entwicklung des Testprozesses verwendet.\\
+
+\hypertarget{sc3.3.2.1}{
+\includegraphics[width=1\textwidth]{Screenshots/332DataPzv.png}
+\textit{Abbildung 3.3.2.2 Standort Formular}
+} \\
+
+Sobald der Erstellungsprozess erfolgreich ist und die entsprechenden Daten eingegeben wurden, wird eine Bestätigungsnachricht von der Website zurückgegeben.
+
+\hypertarget{sc3.3.2.1}{
+\includegraphics[width=1\textwidth]{Screenshots/332MeldungCreation.png}
+\textit{Abbildung 3.3.2.2: Standort Formular}
+} \\
+Wenn die Funktion Bearbeiten gedrückt wird, haben Sie die Möglichkeit, die Informationen des Prozess Schritt Parameters zu ändern.\\
+
+\hypertarget{sc3.3.2.1}{
+\includegraphics[width=1\textwidth]{Screenshots/332EditViewPsv.png}
+\textit{Abbildung 3.3.2.1: Standort Formular}
+} \\
+
+In der Tabelle der Prozessschrittvorlagen finden Sie verschiedene Informationen zu den Prozessschrittvorlagen.\\
+
+\hypertarget{sc3.3.2.1}{
+\includegraphics[width=1\textwidth]{Screenshots/332log2psv.png}
+\textit{Abbildung 3.3.2.1: Standort Formular}
+} \\
+
+\hypertarget{sc3.3.2.1}{
+\includegraphics[width=1\textwidth]{Screenshots/332logpsv.png}
+\textit{Abbildung 3.3.2.1: Standort Formular}
+} \\
+
+Wenn der Vorgang erfolgreich ist, wird nach der Ausgabe eine Bestätigungsnachricht von der Website abgerufen.\\
+
+\hypertarget{sc3.3.2.1}{
+\includegraphics[width=1\textwidth]{Screenshots/332updatepsv.png}
+\textit{Abbildung 3.3.2.1: Standort Formular}
+} \\
+
+Die Funktion Entfernen wird getestet. Diese Funktion gibt eine Bestätigungsmeldung zurück, sobald der Entfernungsprozess erfolgreich war.
+
+\hypertarget{sc3.3.2.1}{
+\includegraphics[width=1\textwidth]{Screenshots/332removePsv.png}
+\textit{Abbildung 3.3.2.1: Standort Formular}
+} \\
+
+Wenn eine der Daten nicht den erforderlichen Daten entspricht, gibt die Webseite eine Warnmeldung zurück, da der Vorgang nicht ausgeführt werden kann.
+
+\hypertarget{sc3.3.2.1}{
+\includegraphics[width=1\textwidth]{Screenshots/332regexpsv.png}
+\textit{Abbildung 3.3.2.1: Standort Formular}
+} \\
 %%
+\subsubsection{Anwendungsfall: Prozessschritt Vorlage}
 
-\subsubsection{Anwendungsfall: pk 2}
+\hypertarget{sc3.3.3.1}{
+\includegraphics[width=1\textwidth]{Screenshots/333Formular.png}
+\textit{Abbildung 3.3.3.1:  Prozessschritt Vorlage Formular}
+} \\
 
-%%
+\hypertarget{sc3.3.3.1}{
+\includegraphics[width=1\textwidth]{Screenshots/333Erzeugung.png}
+\textit{Abbildung 3.3.3.1:  Prozessschritt Vorlage Meldung Data}
+} \\
 
-\subsubsection{Anwendungsfall: pk 3}
+\hypertarget{sc3.3.3.1}{
+\includegraphics[width=1\textwidth]{Screenshots/333Addmessage.png}
+\textit{Abbildung 3.3.3.1:  Prozessschritt Vorlage Meldung Benachrichtigung }
+} \\
+
+\hypertarget{sc3.3.3.1}{
+\includegraphics[width=1\textwidth]{Screenshots/333Log.png}
+\textit{Abbildung 3.3.3.1:  Prozessschritt Vorlage Log}
+} \\
+
+\hypertarget{sc3.3.3.1}{
+\includegraphics[width=1\textwidth]{Screenshots/333EditView.png}
+\textit{Abbildung 3.3.3.1:  Prozessschritt Vorlage Edition Sicht}
+} \\
+
+\hypertarget{sc3.3.3.1}{
+\includegraphics[width=1\textwidth]{Screenshots/333EditErfolg.png}
+\textit{Abbildung 3.3.2.1:  Prozessschritt Vorlage Bearbeitung Sicht}
+} \\
+
+\hypertarget{sc3.3.3.1}{
+\includegraphics[width=1\textwidth]{Screenshots/333removemesage.png}
+\textit{Abbildung 3.3.2.1: Prozessschritt Vorlage Entfernung Benachrichtigung}
+} \\
 
 %%
 
@@ -540,11 +675,89 @@ Sobald man sich als Transporter anbeldet, gelangt man auf die \hyperlink{sc3.4.1
 \textit{Abbildung 3.4.1.1: Startseite des Transporters}
 } \\
 
+Nun kann man im Hamburger Menü an der linken Seite auf \hyperlink{sc3.4.1.2}{Transportaufträge} gehen, um eine Übersicht über Transportaufträge zu bekommen.
 
+\hypertarget{sc3.4.1.2}{
+\includegraphics[width=1\textwidth]{Screenshots/3412.png}
+\textit{Abbildung 3.4.1.2: Auftragsübersicht des Transporters}
+} \\
+
+Hier sieht man oben seine angenommenen Aufträge und in der unteren Tabelle verfügbare Aufträge. Anfangs hat der Benutzer keine Aufträge angenommen, weswegen die obere Tabelle leer ist. 
+
+\paragraph{Verfügbare Aufträge annehmen:}
+
+Man kann nun rechts den Annehmen Knopf drücken, um einen bestimmten Transportauftrag anzunehmen. Dieser wird aus der Liste der verfügbaren Aufträge für alle Benutzer gelöscht und wird in der Tabelle der angenommenen Aufträge angezeigt. Ich wähle den Transportauftrag mit der ID \textit{9} aus und drücke auf annehmen. 
+
+\hypertarget{sc3.4.1.3}{
+\includegraphics[width=1\textwidth]{Screenshots/3413.png}
+\textit{Abbildung 3.4.1.3: Angenommener Auftrag}
+} \\
+
+Man sieht, dass der Auftrag mit der ID \textit{9} in der Tabelle für \hyperlink{sc3.4.1.3}{Angenommene Aufträge} ist. Der Zustand wurde auf Abgeholt gesetzt. Die restlichen Daten in der Tabelle ändern sich nicht. Wenn man nun in einen  \hyperlink{sc3.4.1.4}{anderen Transporter Benutzer} geht, sieht man, dass der Transportauftrag mit der ID \textit{9} nicht mehr auftaucht. Er ist dem User zugewiesen, der ihn annimmt. 
+
+\hypertarget{sc3.4.1.4}{
+\includegraphics[width=1\textwidth]{Screenshots/3414.png}
+\textit{Abbildung 3.4.1.4: Ansicht eines Anderen Benutzers}
+} \\
+
+Der Test verlief erfolgreich. 
+
+\paragraph{Angenommenen Auftrag abliefern:}
+
+Der Transportauftrag mit der ID \textit{9} ist angenommen und auf dem Zustand abgeholt. Ich bin als Nutzer \textit{tr} eingeloggt. Wenn man nun den Button zum Abliefern in der Tabelle der angenommenen Aufträge drückt, verschwindet der Auftrag aus der Übersicht der angenommenen Aufträge. 
+
+\hypertarget{sc3.4.1.5}{
+\includegraphics[width=1\textwidth]{Screenshots/3415.png}
+\textit{Abbildung 3.4.1.5: Übersicht über alle erledigten Aufträge}
+} \\
+
+In der \hyperlink{sc3.4.1.5}{Übersicht der erledigten Aufträge}, welche auch im Log gespeichert wird und dort vom Admin eingesehen werden kann, sieht man nun, dass Transportauftrag 9 den Zustand \textit{Abgeliefert} hat. Man kann außerdem sehen, wann welcher Zustandswechsel durchgeführt wurde und von wem der Transportauftrag durchgeführt wurde. Der Nutzer und die Zeiten sind ebenfalls richtig. 
+
+Der Test verlief also erfolgreich. 
+
+{
+\color{red} Es muss getestet werden, ob die richtigen Träger angezeigt werden.
+}
+ 
 
 %%
 
-\subsubsection{Anwendungsfall: tr 2}
+\subsubsection{Anwendungsfall: Probenverlust melden}
+
+Hierfür erstelle ich zunächst im Logister jeweils 100 Proben mit den IDs von \textit{A01.0101} bis \textit{A01.0105}. Diese Funktion wird in dem jeweiligen Abschnitt des Testprotokolls separat getestet. Hier sieht man den \hyperlink{sc3.4.2.1}{Ausgangszustand}. \\
+
+\hypertarget{sc3.4.2.1}{
+\includegraphics[width=1\textwidth]{Screenshots/3421.png}
+\textit{Abbildung 3.4.2.1: Ausgangszustand nach dem Erstellen der Proben}
+} \\
+
+Nun melde ich von Probe \textit{A01.0101} eine Probe als Verloren, von \textit{A01.0102} 50 Proben als verloren, von \textit{A01.0103} zweimal 50, sodass alle 100 verloren sind und die Probe auf Verloren gesetzt wird, von \textit{A01.0104} werden 100 Proben als verloren gesetzt, und bei Probe \textit{A01.0105} werden erst 100 Proben auf verloren gesetzt, dann 100 neue erstellt, und diese 100 wieder als Verloren gemeldet. Also sind bei \textit{A01.0105} 200 Proben verloren. 
+
+\hypertarget{sc3.4.2.2}{
+\includegraphics[width=1\textwidth]{Screenshots/3422.png}
+\textit{Abbildung 3.4.2.2: Probenverlust Melden Ansicht}
+} \\
+
+Im \hyperlink{sc3.4.2.3}{Endzustand} sieht man, dass alles so aufgetreten ist, wie gewollt. Der Test gilt als bestanden. Verlorene Proben werden rot markiert.
+
+\hypertarget{sc3.4.2.3}{
+\includegraphics[width=1\textwidth]{Screenshots/3423.png}
+\textit{Abbildung 3.4.2.3: Endzustand der Proben}
+} \\
+
+\paragraph{Mehr Proben als Verloren melden als existieren:}
+
+Wenn ich 100 Proben der ID \textit{A01.0106} erstelle und versuche zweimal 50 und anschließend eine Probe als Verloren zu melden, dann tritt ein Fehler auf und die Probe wird die Anzahl geht nicht ins negative. 
+
+\hypertarget{sc3.4.2.4}{
+\includegraphics[width=1\textwidth]{Screenshots/3424.png}
+\textit{Abbildung 3.4.2.4: Fehlermeldung, wenn man zu mehr Proben eingibt, als existieren}
+} \\
+
+\hypertarget{sc3.4.2.5}{
+\includegraphics[width=1\textwidth]{Screenshots/3425.png}
+\textit{Abbildung 3.4.2.5: Endzustand der Proben}
+} \\
 
 %%
 
