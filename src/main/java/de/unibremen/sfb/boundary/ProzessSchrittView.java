@@ -14,11 +14,13 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 
 @Named("psView")
@@ -91,6 +93,11 @@ public class ProzessSchrittView implements Serializable {
     private String prozessSchrittName;
 
     /**
+     * Name of the Created Probe
+     */
+    private String nameOfCreated;
+
+    /**
      * List of all process step state automaton templates
      */
     private List<ProzessSchrittZustandsAutomatVorlage> prozessSchrittZustandsAutomatVorlagen;
@@ -139,6 +146,7 @@ public class ProzessSchrittView implements Serializable {
     /**
      * If urformend, amount of created samples
      */
+    @Min(0)
     private int amountCreated = 0;
 
     /**
@@ -265,6 +273,7 @@ public class ProzessSchrittView implements Serializable {
      * @param id - the id of the process step to edit
      */
     public void onRowEdit(int id) {
+        String pattern = "[A-Z][0-9][0-9].[0-9]+(.[0-9]+)+";
         try {
             ProzessSchritt prozessSchritt = prozessSchrittService.getObjById(id);
             if (prozessSchritt.getProzessSchrittZustandsAutomat().getCurrent().equals("Erstellt")) {
@@ -288,6 +297,18 @@ public class ProzessSchrittView implements Serializable {
                 }
                 prozessSchritt.setEingabe(selectedInputTraegerArten);
                 prozessSchritt.setAusgabe(selectedOutputTraegerArten);
+                prozessSchritt.setUrformend(urformend);
+                if (urformend) {
+                    boolean regexIsMatching = Pattern.matches(pattern, nameOfCreated);
+                    if (!regexIsMatching) {
+                        new IllegalArgumentException();
+                    }
+                    prozessSchritt.setCreatedName(nameOfCreated);
+                    prozessSchritt.setAmountCreated(amountCreated);
+                } else {
+                    prozessSchritt.setCreatedName("");
+                    prozessSchritt.setAmountCreated(0);
+                }
                 prozessSchrittZustandsAutomatService.add(prozessSchrittZustandsAutomat);
                 prozessSchrittService.editPS(prozessSchritt);
                 setES(experimentierStation.getEsID(), id);
