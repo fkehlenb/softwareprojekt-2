@@ -13,6 +13,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
+import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -99,6 +100,7 @@ public class PSVView implements Serializable {
     private boolean urformend = false;
 
     /** If urformend, amount of created samples */
+    @Min(0)
     private int amountCreated = 0;
 
     /** Container type service */
@@ -177,6 +179,7 @@ public class PSVView implements Serializable {
      * @param id - the id of the process step template to edit
      */
     public void onRowEdit(int id) {
+        String pattern = "[A-Z][0-9][0-9].[0-9]+(.[0-9]+)+";
         try {
             ProzessSchrittVorlage prozessSchrittVorlage = prozessSchrittVorlageService.getByID(id);
             prozessSchrittVorlage.setName(selectedName);
@@ -187,19 +190,35 @@ public class PSVView implements Serializable {
             prozessSchrittVorlage.setProzessSchrittParameters(newPsp);
             prozessSchrittVorlage.setUrformend(urformend);
             prozessSchrittVorlage.setAmountCreated(amountCreated);
-            if (selectedInputTraegerArten == null){
+            if (selectedInputTraegerArten == null) {
                 selectedInputTraegerArten = new ArrayList<>();
             }
-            if (selectedOutputTraegerArten == null){
+            if (selectedOutputTraegerArten == null) {
                 selectedOutputTraegerArten = new ArrayList<>();
             }
             prozessSchrittVorlage.setEingabeTraeger(selectedInputTraegerArten);
             prozessSchrittVorlage.setAusgabeTraeger(selectedOutputTraegerArten);
+            prozessSchrittVorlage.setUrformend(urformend);
+            if (urformend) {
+                boolean regexIsMatching = Pattern.matches(pattern, nameOfCreated);
+                if (!regexIsMatching) {
+                    new IllegalArgumentException();
+                } else {
+
+                prozessSchrittVorlage.setNameOfCreated(nameOfCreated);
+                prozessSchrittVorlage.setAmountCreated(amountCreated);
+                }
+            } else {
+                prozessSchrittVorlage.setAmountCreated(0);
+                prozessSchrittVorlage.setNameOfCreated("");
+            }
             System.out.println(selectedInputTraegerArten.toString());
             prozessSchrittVorlageService.edit(prozessSchrittVorlage);
             log.info("Updated process step template with id " + id);
             facesNotification("Updated process step template successfully!");
             refresh();
+        } catch (IllegalArgumentException t) {
+            facesError("Proben ID entspricht nicht! " + pattern);
         } catch (Exception e) {
             e.printStackTrace();
             log.error("Failed to edit process step template with id " + id + " Error " + e.getMessage());

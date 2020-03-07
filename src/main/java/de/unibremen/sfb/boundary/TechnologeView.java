@@ -106,6 +106,14 @@ public class TechnologeView implements Serializable {
     }
 
     /**
+     * verfügbare
+     * @return liste
+     */
+    public List<ProzessSchritt> getJobs() {
+        return prozessSchrittService.getJobs(technologe);
+    }
+
+    /**
      * finds the station a process step is currently at
      * the step belongs to a station this user is at
      *

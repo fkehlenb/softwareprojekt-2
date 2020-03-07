@@ -65,7 +65,7 @@ class ExperimentierStationTest {
 
     @Test
     void testSetStatus() {
-        experimentierStation.setStatus(null);
+        experimentierStation.setStatus(ExperimentierStationZustand.KAPUTT);
     }
 
     @Test

@@ -94,12 +94,8 @@ class TechnologeViewTest {
     }
 
     @Test
-    void testViewToBeUploaded() {
-        try {
-            when(probeService.viewToBeUploaded()).thenReturn(Arrays.<Probe>asList(new Probe("probenID", 0, null, new Standort(0, "ort"))));
-        } catch (AuftragNotFoundException e) {
-            e.printStackTrace();
-        }
+    void testViewToBeUploaded() throws AuftragNotFoundException {
+        when(probeService.viewToBeUploaded()).thenReturn(Arrays.<Probe>asList(new Probe("probenID", 0, null, new Standort(0, "ort"))));
 
         List<Probe> result = technologeView.viewToBeUploaded();
         Assertions.assertEquals(Arrays.<Probe>asList(new Probe("probenID", 0, null, new Standort(0, "ort"))), result);
