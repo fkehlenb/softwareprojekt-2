@@ -417,6 +417,15 @@ public class ExperimentierStationService implements Serializable {
         } else {
             ta = new TransportAuftrag(LocalDateTime.now(), TransportAuftragZustand.ERSTELLT, es.getStandort(), standortService.findByLocation("Lager"));
         }
+        try {
+            if (!es.getNextPS().isEmpty()){
+                es.setCurrentPS(es.getNextPS().get(0));
+            }
+            updateES(es);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
         transportAuftragDAO.persist(ta);
         ps.setTransportAuftrag(ta);
     }

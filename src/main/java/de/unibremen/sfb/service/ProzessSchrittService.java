@@ -295,7 +295,7 @@ public class ProzessSchrittService implements Serializable {
             }
             if (ps.isUrformend() && ps.getProzessSchrittZustandsAutomat().getCurrent().equals("Erstellend")) {
                 try {
-                    erstelleProbe(findStation(ps).getStandort(), "testName", ps.getAmountCreated()); // TODO get name von ps
+                    erstelleProbe(findStation(ps).getStandort(), ps.getCreatedName(), ps.getAmountCreated());
                 } catch (ProbeNotFoundException | DuplicateProbeException e) {
                     e.printStackTrace();
                 }
