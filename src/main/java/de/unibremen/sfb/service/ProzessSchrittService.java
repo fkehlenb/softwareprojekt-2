@@ -111,8 +111,8 @@ public class ProzessSchrittService implements Serializable {
      * @throws ProzessSchrittLogNotFoundException             if not PS Log could be found
      * @throws DuplicateProzessSchrittLogException            if a PS Log already exists
      * @throws ProzessSchrittZustandsAutomatNotFoundException if there is not PS Automata
-     *      * @throws ProbeNotFoundException                if the Probe could not be found
-     *      * @throws DuplicateQualitativeEigenschaftException if the Probe already exists
+     * @throws ProbeNotFoundException                if the Probe could not be found
+     * @throws DuplicateQualitativeEigenschaftException if the Probe already exists
      */
     public void oneFurther(ProzessSchritt ps, LocalDateTime d)
             throws IllegalArgumentException, ExperimentierStationNotFoundException, ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException, DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException, ProbeNotFoundException, DuplicateQualitativeEigenschaftException {
@@ -322,15 +322,16 @@ public class ProzessSchrittService implements Serializable {
      * // TODO Liam
      * Add Field to Model for Calculating Average PS Time in PSV
      *
-     * @param ps      the ProzessSchritt
-     * @param zustand the new state
+     * @param ps                                              the ProzessSchritt
+     * @param zustand                                         the new state
+     * @param d                                               the LocalDateTime
      * @throws ExperimentierStationNotFoundException          the station of the step was not found in the database
      * @throws ProzessSchrittNotFoundException                the ProzessSchritt is not in the database
      * @throws ProzessSchrittLogNotFoundException             the ProzessSchritt is not in the database
      * @throws DuplicateProzessSchrittLogException            the ProzessSchritt is not in the database
      * @throws ProzessSchrittZustandsAutomatNotFoundException the ProzessSchritt is not in the database
-     *      * @throws ProbeNotFoundException                if the Probe could not be found
-     *      * @throws DuplicateQualitativeEigenschaftException if the Probe already exists
+     * @throws ProbeNotFoundException                         if the Probe could not be found
+     * @throws DuplicateQualitativeEigenschaftException       if the Probe already exists
      */
     public void setZustand(ProzessSchritt ps, String zustand, LocalDateTime d)
             throws ExperimentierStationNotFoundException, ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException,

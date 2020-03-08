@@ -1,19 +1,22 @@
 package de.unibremen.sfb.selenium;
 
-import org.junit.jupiter.api.Test;;
-import org.junit.jupiter.api.BeforeEach;;
-import org.junit.jupiter.api.AfterEach;;
-
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
-import java.util.*;
 import java.util.concurrent.TimeUnit;
+
+;
+;
+;
+;
 
 /**
  * <p>PspTest class.</p>

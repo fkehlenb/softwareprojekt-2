@@ -1,6 +1,5 @@
 package de.unibremen.sfb.converter;
 
-import de.unibremen.sfb.model.ExperimentierStation;
 import de.unibremen.sfb.service.ExperimentierStationService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

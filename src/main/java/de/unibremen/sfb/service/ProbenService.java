@@ -286,7 +286,7 @@ public class ProbenService implements Serializable {
      * Converts JSON to List of Eigenschaften
      * @param json the json input
      * @param ps to this step
-     *             * @throws ProbeNotFoundException                if the Probe could not be found
+     * @throws ProbeNotFoundException                if the Probe could not be found
      */
     public void addJSONEigenschaft(String json, ProzessSchritt ps) throws ProbeNotFoundException {
         var config = new JsonbConfig().withFormatting(true);

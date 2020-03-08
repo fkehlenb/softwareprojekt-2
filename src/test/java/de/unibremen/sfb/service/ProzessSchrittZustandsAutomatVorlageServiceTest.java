@@ -1,7 +1,6 @@
 package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.exception.DuplicateProzessSchrittZustandsAutomatVorlageException;
-import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
 import de.unibremen.sfb.exception.ProzessSchrittZustandsAutomatVorlageNotFoundException;
 import de.unibremen.sfb.model.ProzessSchrittZustandsAutomatVorlage;
 import de.unibremen.sfb.persistence.ProzessSchrittZustandsAutomatVorlageDAO;

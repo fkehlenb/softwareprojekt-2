@@ -5,7 +5,6 @@ import de.unibremen.sfb.exception.TraegerNotFoundException;
 import de.unibremen.sfb.model.Probe;
 import de.unibremen.sfb.model.Standort;
 import de.unibremen.sfb.model.Traeger;
-import de.unibremen.sfb.model.TraegerArt;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

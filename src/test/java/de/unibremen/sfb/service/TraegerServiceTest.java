@@ -1,6 +1,5 @@
 package de.unibremen.sfb.service;
 
-import de.unibremen.sfb.exception.DuplicateTraegerException;
 import de.unibremen.sfb.exception.TraegerNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.TraegerDAO;
@@ -11,9 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.UUID;
 
 import static org.mockito.Mockito.*;
 
