@@ -182,6 +182,13 @@ In diesem Dokument wird auf die bis Dezember erstellt Architekturbeschreibung Be
 Der Hauptteil des Handbuchs ist nach den im System möglichen Rollen eines Benutzers unterteilt. Im Inhaltsverzeichnis finden Sie die Oberpunkte Administrator (siehe Kapitel 4) sowie Restliche Benutzer des Systems (siehe Kapitel 5 des Systems), was Technologen, Logistiker, Prozessketten Administrator und Transporter sind. Dadurch können Sie sofort den Bereich finden, in dem Sie nach Anleitungen zu Ihren Anliegen suchen. Darüber hinaus gibt es einen Abschnitt für Erstbenutzer des Systems, der einen Überblick über die allgemeinen, rollenunspezifischen Funktionen gibt (siehe Kapitel 3). Falls Sie Erklärungen zu Fehlermeldungen suchen, können Sie diese am Ende von dem rollenspezifischen Unterabschnitt in Kapitel 3 und 4 finden, dessen Funktionen die Meldung ausgelöst haben. \\
 Sie können zur einfacheren Bedienung direkt im Inhaltsverzeichnis, sowie bei jeglichen anderen Erwähnungen von Kapiteln, auf die jeweiligen Abschnitte klicken. \\
 \subsection{Instruktionen für Problemberichte}
+Wollen Sie einen Problembericht an das Entwicklerteam schicken, seien Sie bitte so spezifisch wie möglich. 
+\begin{itemize}
+\item Auf welcher Seite der Anwendung ist Ihr Problem aufgetreten?
+\item Welche Aktion haben Sie ausgeführt, die zu Ihrem Problem geführt hat?
+\item Gibt es Fehlermeldungen? 
+\end{itemize}
+Wenn möglich, fügen Sie Screenshots bei. \\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -953,19 +960,29 @@ Couldn't grab current user! & Es ist ein internes Problem bei Ihrer Identifikati
 Invalid Input finding the location & Es ist ein Fehler dabei aufgetreten, den Standort eines Prozessschrittes zu finden. Dies kann daran liegen, dass einer der Prozessschritte in der Tabelle, die Sie anzeigen wollen, leer ist. Bitte kontaktieren Sie das Entwicklerteam.  \\ \hline
 Station already reported broken! & Die Station, die Sie als Kaputt melden wollen, ist bereits als kaputt gemeldet. Das bedeutet, Sie müssen keine weiteren Schritte mehr vornehmen. \\ \hline
 Couldn't report station as broken! & Die Station, die Sie als kaputt melden wollen, konnte nicht gemeldet werden. Das liegt daran, dass die Station nicht in der Datenbank gefunden werden konnte. Bitte kontaktieren Sie einen Administrator, der die Station in der Datenbank speichern kann. \\ \hline
-invalid input for reporting sample & Ein interner Fehler beim melden einer Probe ist aufgetreten. Bitte kontaktieren Sie das Entwicklerteam. \\ \hline
-sample .. could not be found when trying to report as missing & Die Probengruppe, aus der Sie Proben melden wollen, konnte nicht in der Datenbank gefunden werden. Bitte wenden Sie sich an den Logistiker //TODO. \\ \hline
-invalid input for adding comment: ps & Es gab einen internen Fehler beim Hinzufügen eines Kommentars zu den Proben des Prozessschrittes. Bitte kontaktieren Sie das Entwicklerteam.\\ \hline
-invalid input for adding comment & Es gab einen internen Fehler beim Hinzufügen eines Kommentars zu den Proben des Prozessschrittes. Bitte kontaktieren Sie das Entwicklerteam.\\ \hline
-the sample .. could not be found while trying to add coment .. & Eine der Proben des Prozessschrittes konnte nicht in der Datenbank gefunden werden. Bitte kontaktieren Sie den Logistiker //TODO. \\ \hline
-invalid input setting job state & \\ \hline
-process step could not be found setting job state & \\ \hline
-Wenn Sie manuell eine Transitionszeit eingeben wollen, müssen Sie mindestens die Uhrzeit angeben & \\ \hline
-invalid input for editing comment & \\ \hline
-invalid input deleting comment & \\ \hline
-invalid input adding comment & \\ \hline
-Experimenting station already marked as broken! & \\ \hline
-Couldn't set experimenting station as broken! & \\ \hline
+%SingleJob
+JSON is Empty & Das Eingabefeld des jsonStrings ist leer. Bitte füllen Sie dieses Feld aus. \\ \hline
+Could not add PSP to PS & Der Prozessschritt konnte nicht gefunden werden. Bitte stellen Sie sicher, dass dieser in der Datenbank ist. \\ \hline
+Could not add Eigenschaft to Probe & Eine oder mehrere der Proben des Prozessschrittes konnte nicht in der Datenbank gefunden werden.  \\ \hline
+internal error adding comment & Es gab einen internen Fehler. Bitte versuchen Sie, die Seite neu zu laden. \\ \hline
+invalid input adding comment & Um einen Kommentar hinzuzufügen, darf das Eingabefeld nicht leer sein. \\ \hline
+invalid input setting job state & Es gab einen internen Fehler. Bitte versuchen Sie, die Seite neu zu laden. \\ \hline
+Wenn Sie manuell eine Transitionszeit eingeben wollen, müssen Sie mindestens die Uhrzeit angeben & Eines der Eingabefelder ist leer: Es müssen entweder beide ausgefüllt sein, oder nur das Uhrzeit-Eingabefeld. \\ \hline
+%SingleSample
+an error occured editing the comment & Die Probe oder der Kommentar konnte nicht in der Datenbank gefunden werden. \\ \hline
+invalid input editing comment & Bitte stellen Sie sicher, dass das Eingabefeld nicht leer ist. \\ \hline
+an error occured deleting comment & Die Probe oder der Kommentar konnte nicht in der Datenbank gefunden werden. \\ \hline
+invalid input deleting comment & Es ist ein interner Fehler aufgetreten. Bitte versuchen Sie es erneut oder kontaktieren Sie das Entwicklerteam. \\ \hline
+an error occured adding comment & Es existiert bereits ein Kommentar mit der generierten ID, oder die Probe wurde nicht in der Datenbank gefunden. Bitte versuchen Sie es erneut. \\ \hline
+invalid input adding comment & Bitte stellen Sie sicher, dass das Eingabefeld nicht leer ist. \\ \hline
+%SingleStation
+Experimenting station already marked as broken! & Die Experimentierstation, die Sie als kaputt melden wollen, ist bereits als kaputt gemeldet. \\ \hline
+Couldn't set experimenting station as broken! & Die Station, die Sie melden wollen, konnte nicht in der Datenbank gefunden werden. \\ \hline
+%ProbenMeldenView
+The given number of samples is higher than the number of samples in the database. &  Für die Probengruppe, von denen Sie Proben melden wollen, sind weniger Proben in der Datenbank gespeichert als Sie melden wollen. \\ \hline
+sample .. could not be found when trying to report as missing. & Die Probe, die Sie als verloren melden wollen, konnte nicht in der Datenbank gefunden werden. \\ \hline
+Probe.. wurde nicht gefunden! & Die Probe mit der ID konnte nicht in der Datenbank gefunden werden. \\ \hline
+invalid input& Proben-ID und Anzahl dürfen nicht leer sein. \\ \hline
 \end{longtable}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Transporter}
@@ -1028,6 +1045,10 @@ Im Menü-Unterpunkt Probenverlust melden können Sie Proben als verloren melden.
 \endhead
 Failed to start transport job! & Der Transportauftrag, den Sie annehmen wollen, konnte nicht in der Datenbank gefunden werden. \\ \hline
 Failed to change state to Abgeliefert & Der Transportauftrag, dessen Status Sie ändern wollen, konnte nicht in der Datenbank gefunden werden.\\ \hline
+The given number of samples is higher than the number of samples in the database. &  Für die Probengruppe, von denen Sie Proben melden wollen, sind weniger Proben in der Datenbank gespeichert als Sie melden wollen. \\ \hline
+sample .. could not be found when trying to report as missing. & Die Probe, die Sie als verloren melden wollen, konnte nicht in der Datenbank gefunden werden. \\ \hline
+Probe.. wurde nicht gefunden! & Die Probe mit der ID konnte nicht in der Datenbank gefunden werden. \\ \hline
+invalid input& Proben-ID und Anzahl dürfen nicht leer sein. \\ \hline
 \end{longtable}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -1147,6 +1168,5 @@ Transportauftragzustand \textbf{(TA-Zustand)}  & Ein Transportauftrag befindet s
 Prozessschrittzustand \textbf{(PS-Zustand)}    & Ein Prozessschrittzustand hat entweder den Zustand angenommen, in Bearbeitung oder abgegeben.                                                                                                                                                         \\ \hline
 Upload in Datenbank                                             & Ein Technologe muss nach dem Ausführen eines Prozessschrittes die Prozessparameter in die Datenbank (DAVIS) hochladen.                                                                                                                                \\ \hline
 \end{longtable}
-\subsection{Index}
 
 \end{document}
