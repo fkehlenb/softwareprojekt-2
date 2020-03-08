@@ -900,21 +900,20 @@ Im Menü-Unterpunkt Archivübersicht haben Sie eine Übersicht über die Proben,
 \hline
 \multicolumn{1}{|c|}{\textbf{Hinweis}}                          & \multicolumn{1}{c|}{\textbf{Ursache}}                                                                                                                                                                                                               \\ \hline
 \endhead
-Failed to add new Traeger with Art: .. & \\ \hline
-Probe und Traeger nicht am gleichen standort!& \\ \hline
-Failed to edit traeger with ID:  & \\ \hline
-Failed to remove traeger with ID: & \\ \hline
-Der Standort Lager wurde nicht gefunden und wird nun erstellt, Proben können lediglich im Lager erstellt werden! & \\ \hline
+Failed to add new Traeger with Art: .. & Es existiert bereits ein Träger mit der generierten ID. Versuchen Sie es erneut. \\ \hline
+Probe und Traeger nicht am gleichen standort!& Die Proben, die Sie einem Träger zuordnen wollten, sind nicht am gleichen Ort wie der Träger.\\ \hline
+Failed to edit traeger with ID:  & Der Träger konnte nicht in der Datenbank gefunden werden. \\ \hline
+Failed to remove traeger with ID: & Der Träger konnte nicht in der Datenbank gefunden werden. \\ \hline
+Der Standort Lager wurde nicht gefunden und wird nun erstellt, Proben können lediglich im Lager erstellt werden! & Der Lagerstandort, wo alle neu erstellten Proben automatisch sind, wurde nicht in der Datenbank gefunden. Sie müssen keine weiteren Änderungen vornehmen, da dieser jetzt erstellt wurde.  \\ \hline
 Die Probe existiert bereits!:  & Es existiert bereits eine Probengruppe mit dieser ID.  \\ \hline
-Couldn't start job!& \\ \hline
+Couldn't start job!& Es sind interne Fehler beim Erstellen des Auftrags und der Komponenten aufgetreten. Bitte versuchen Sie es erneut oder kontaktieren Sie das Entwicklerteam. \\ \hline
 Auftrag ist Urformend und darf keine Träger enthalten! & Ein Auftrag, der urformend ist, darf keine Träger enthalten, da die Proben im Laufe dieses Schritts erstellt werden. Bitte entfernen Sie die zugeordneten Träger. \\ \hline
-Failed to change auftrag state! ID:  & \\ \hline
-Darf nicht leer sein & \\ \hline
-Failed to change auftrag state! ID:  & \\ \hline
-The given number of samples is higher than the number of samples in the database. &  \\ \hline
+Failed to change auftrag state! ID:  & Der Auftrag, dessen Zustands Sie ändern wollen, konnte nicht in der Datenbank gefunden werden. \\ \hline
+Darf nicht leer sein & Wenn Sie eine Auftrag ablehnen wollen, müssen Sie eine kurze Begründung in das Eingabefeld eingeben.  \\ \hline
+The given number of samples is higher than the number of samples in the database. &  Die Anzahl, die Sie von dieser Probengruppe als verloren melden wollen, ist höher, als die Anzahl an Proben, die für diese Probengruppe in der Datenbank gespeichert ist. \\ \hline
 sample .. could not be found when trying to report as missing. & Die Probe, die Sie als verloren melden wollen, konnte nicht in der Datenbank gefunden werden. \\ \hline
 Probe.. wurde nicht gefunden! & Die Probe mit der ID konnte nicht in der Datenbank gefunden werden. \\ \hline
-invalid input& \\ \hline
+invalid input&Proben-ID und Anzahl dürfen nicht leer sein.  \\ \hline
 \end{longtable}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Technologe}
