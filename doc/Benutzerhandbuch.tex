@@ -161,28 +161,36 @@ Version & Datum & Änderungen \\
 0.1 & 03.03.2020 & Erste Schritte \\
 0.2 & 03.03.2020 & Administrator \\
 0.3 & 04.03.2020 & Prozesskettenadministrator \\
-0.? & 06.03.2020 & Restliche Rollen ohne Screenshots \\
-0.? & 07.03.2020 & Screenshots \\
+0.4 & 06.03.2020 & Restliche Rollen ohne Screenshots \\
+0.5 & 07.03.2020 & Screenshots \\
+0.6 & 07.03.2020 & Index, Glossar, Einführung \\
 \end{tabular}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
 \section{Einführung}
-\subsection{Haftungsbeschränkung}
-\subsection{Addressierte Leser}
+\subsection{Adressierte Leser}
+Die Leser dieses Handbuchs sind alle Benutzer des Systems, was explizit die Beschäftigten des Sonderfachbereichs 1232 Farbige Zustände sind. Diese Beschäftigten können das System zur Organisation der Arbeit in ihrem Fachbereich benutzen. \\
 \subsection{Zweck}
+Dieses Handbuch soll alle Interaktionen, die mit dem im Rahmen des Softwareprojekt-Kurses von Rainer Koschke entstandenen Software möglich sind, erläutern. Neben den alltäglichen Aktionen mit dem System wird ebenfalls in diesem Dokument die Erstinstallation der Software für den Systemadministrator beschrieben. \\
 \subsection{Verwandte Dokumente}
+In diesem Dokument wird auf die bis Dezember erstellt Architekturbeschreibung Bezug genommen. \\
+\subsection{Konventionen}
 \subsection{Information über die Verwendung des Dokuments}
+Der Hauptteil des Handbuchs ist nach den im System möglichen Rollen eines Benutzers unterteilt. Im Inhaltsverzeichnis finden Sie die Oberpunkte Administrator (siehe Kapitel 4) sowie Restliche Benutzer des Systems (siehe Kapitel 5 des Systems), was Technologen, Logistiker, Prozessketten Administrator und Transporter sind. Dadurch können Sie sofort den Bereich finden, in dem Sie nach Anleitungen zu Ihren Anliegen suchen. Darüber hinaus gibt es einen Abschnitt für Erstbenutzer des Systems, der einen Überblick über die allgemeinen, rollenunspezifischen Funktionen gibt (siehe Kapitel 3). Falls Sie Erklärungen zu Fehlermeldungen suchen, können Sie diese am Ende von dem rollenspezifischen Unterabschnitt in Kapitel 3 und 4 finden, dessen Funktionen die Meldung ausgelöst haben. \\
+Sie können zur einfacheren Bedienung direkt im Inhaltsverzeichnis, sowie bei jeglichen anderen Erwähnungen von Kapiteln, auf die jeweiligen Abschnitte klicken. \\
 \subsection{Instruktionen für Problemberichte}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
 \section{Übersicht}
+\subsection{Zugrunde liegende Konzepte, Einbettung}
+\subsection{Funktionale Beschreibung}
 Farbige Zustände ist eine Webanwendung für die Abläufe im Labor des SFB...\\
 In unserer Anwendung haben Benutzer entsprechend Ihrer Rollen eine Übersicht über die Arbeit, die für Sie im Labor anfallen, und können ... \\
+\subsection{Gefahren und Warnungen}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -477,6 +485,13 @@ Um ein Backup der Daten zu erstellen, müssen Sie nur auf Backup Erstellen klick
 
 Wollen Sie Daten aus einer Datei einlesen, klicken Sie auf Choose. Daraufhin öffnet sich ein Fenster, in dem Sie aus Ihrem Dateisystem die Datei auswählen können. Wenn Sie eine Datei ausgewählt haben, drücken Sie auf Öffnen, woraufhin die Datei hochgeladen wird. Mit einem Klick auf Submit werden die Daten aus der Datei in die Datenbank integriert. Bitte beachten Sie, dass  Sie eine SQL Datei auswählen müssen. \\ 
 
+\subsection{Fehler und Ursachen}
+\begin{longtable}[c]{|p{5cm}|p{10cm}|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Hinweis}}                          & \multicolumn{1}{c|}{\textbf{Ursache}}                                                                                                                                                                                                               \\ \hline
+\endhead
+
+\end{longtable}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
@@ -735,6 +750,14 @@ exportieren. \\
 Im unteren Formular können Sie die Logs für einzelne Prozessschritte oder Aufträge exportieren. Dafür wählen Sie einen Prozessschritt oder Auftrag aus, und drücken Sie nach Auswahl auf Export. Danach wird der Download der JSON Datei beginnen. \\
 
 Im oberen Formular können Sie für die anderen Datenmöglichkeiten alle in der Datenbank vorhandenen Dateien exportieren, indem Sie neben der gewünschten Option auf Export klicken. Der Download wird in Kürze beginnen. \\
+
+\subsubsection{Fehler und Ursachen}
+\begin{longtable}[c]{|p{5cm}|p{10cm}|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Hinweis}}                          & \multicolumn{1}{c|}{\textbf{Ursache}}                                                                                                                                                                                                               \\ \hline
+\endhead
+
+\end{longtable}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Logistiker}
 
@@ -785,6 +808,28 @@ Proben können Sie im Menü-Unterpunkt Probenverlust Melden als verloren melden.
 \paragraph{Archivierte Proben}
 Im Menü-Unterpunkt Archivübersicht haben Sie eine Übersicht über die Proben, die archiviert worden sind. \\
 
+\subsubsection{Fehler und Ursachen}
+\begin{longtable}[c]{|p{5cm}|p{10cm}|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Hinweis}}                          & \multicolumn{1}{c|}{\textbf{Ursache}}                                                                                                                                                                                                               \\ \hline
+\endhead
+Failed to add new Traeger with Art: .. & \\ \hline
+Probe und Traeger nicht am gleichen standort!& \\ \hline
+Failed to edit traeger with ID:  & \\ \hline
+Failed to remove traeger with ID: & \\ \hline
+Der Standort Lager wurde nicht gefunden und wird nun erstellt, Proben können lediglich im Lager erstellt werden! & \\ \hline
+Die Probe existiert bereits!:  & \\ \hline
+Couldn't start job!& \\ \hline
+Auftrag ist Urformend und darf keine Träger enthalten! & \\ \hline
+Failed to change auftrag state! ID:  & \\ \hline
+Darf nicht leer sein & \\ \hline
+Failed to change auftrag state! ID:  & \\ \hline
+The given number of samples is higher than the number of samples in the database. & \\ \hline
+sample .. could not be found when trying to report as missing. & \\ \hline
+Probe.. wurde nicht gefunden! & \\ \hline
+invalid input& \\ \hline
+The given number of samples is higher than the number of samples in the database. & \\ \hline
+\end{longtable}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Technologe}
 
@@ -820,6 +865,29 @@ In der Übersicht einer Probengruppe können Sie Informationen über diese Grupp
 
 Im Menü-Unterpunkt Probenverlust melden können Sie eine oder mehrere Proben als verloren melden. Dafür geben Sie die ID der Probengruppe, zu der diese Probe(n) gehören, sowie die Anzahl an Proben ein. Wenn Sie alle Angaben gemacht haben, können Sie die Probe(n) durch Klicken auf Senden als verloren melden. \\
 
+\subsubsection{Fehler und Ursachen}
+\begin{longtable}[c]{|p{5cm}|p{10cm}|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Hinweis}}                          & \multicolumn{1}{c|}{\textbf{Ursache}}                                                                                                                                                                                                               \\ \hline
+\endhead
+Couldn't grab current user! & Es ist ein internes Problem bei Ihrer Identifikation aufgetreten. \\ \hline
+Invalid Input finding the location & Es ist ein Fehler dabei aufgetreten, den Standort eines Prozessschrittes zu finden. Dies kann daran liegen, dass einer der Prozessschritte in der Tabelle, die Sie anzeigen wollen, leer ist. Bitte kontaktieren Sie das Entwicklerteam.  \\ \hline
+Station already reported broken! & Die Station, die Sie als Kaputt melden wollen, ist bereits als kaputt gemeldet. Das bedeutet, Sie müssen keine weiteren Schritte mehr vornehmen. \\ \hline
+Couldn't report station as broken! & Die Station, die Sie als kaputt melden wollen, konnte nicht gemeldet werden. Das liegt daran, dass die Station nicht in der Datenbank gefunden werden konnte. Bitte kontaktieren Sie einen Administrator, der die Station in der Datenbank speichern kann. \\ \hline
+invalid input for reporting sample & Ein interner Fehler beim melden einer Probe ist aufgetreten. Bitte kontaktieren Sie das Entwicklerteam. \\ \hline
+sample .. could not be found when trying to report as missing & Die Probengruppe, aus der Sie Proben melden wollen, konnte nicht in der Datenbank gefunden werden. Bitte wenden Sie sich an den Logistiker //TODO. \\ \hline
+invalid input for adding comment: ps & Es gab einen internen Fehler beim Hinzufügen eines Kommentars zu den Proben des Prozessschrittes. Bitte kontaktieren Sie das Entwicklerteam.\\ \hline
+invalid input for adding comment & Es gab einen internen Fehler beim Hinzufügen eines Kommentars zu den Proben des Prozessschrittes. Bitte kontaktieren Sie das Entwicklerteam.\\ \hline
+the sample .. could not be found while trying to add coment .. & Eine der Proben des Prozessschrittes konnte nicht in der Datenbank gefunden werden. Bitte kontaktieren Sie den Logistiker //TODO. \\ \hline
+invalid input setting job state & \\ \hline
+process step could not be found setting job state & \\ \hline
+Wenn Sie manuell eine Transitionszeit eingeben wollen, müssen Sie mindestens die Uhrzeit angeben & \\ \hline
+invalid input for editing comment & \\ \hline
+invalid input deleting comment & \\ \hline
+invalid input adding comment & \\ \hline
+Experimenting station already marked as broken! & \\ \hline
+Couldn't set experimenting station as broken! & \\ \hline
+\end{longtable}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Transporter}
 
@@ -874,12 +942,132 @@ Im Menü-Unterpunkt Probenverlust melden können Sie Proben als verloren melden.
 \end{center}
 \end{figure}
 
+\subsubsection{Fehler und Ursachen}
+\begin{longtable}[c]{|p{5cm}|p{10cm}|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Hinweis}}                          & \multicolumn{1}{c|}{\textbf{Ursache}}                                                                                                                                                                                                               \\ \hline
+\endhead
+Failed to start transport job! & Der Transportauftrag, den Sie annehmen wollen, konnte nicht in der Datenbank gefunden werden. \\ \hline
+Failed to change state to Abgeliefert & Der Transportauftrag, dessen Status Sie ändern wollen, konnte nicht in der Datenbank gefunden werden.\\ \hline
+\end{longtable}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\section{Referenz}
+\subsection{Fehlermeldungen und Ursachen}
+\subsubsection{502}
+Wenn Sie die Fehlerseite .. sehen, ist ein Fehler im System aufgetreten. Bitte kontaktieren Sie das Entwicklerteam mit einer genauen Beschreibung der Vorgehensweise, der zum Auftreten dieses Fehlers geführt hat: Welche Seite haben Sie zuletzt besucht? Was haben Sie auf dieser Seite für eine Aktion ausgewählt? \\
+Sie können zur Homepage zurückgehen, allerdings wird ein erneutes Laden der Seite die Aktion leider nicht für Sie ermöglichen, da es sich um einen tieferliegenden Fehler in der Implementierung handelt. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/allgemein/500.png}
+  \caption{Fehler 502}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
+\subsubsection{404}
+Wenn Sie diese Fehlerseite sehen, versuchen Sie eine Seite aufzurufen, die nicht existiert. Bitte kontaktieren Sie das Entwicklungsteam mit einer genauen Beschreibung der Vorgehensweise, das zum Auftreten dieses Fehlers geführt hat. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/allgemein/404.png}
+  \caption{Fehler 404}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
+
+\subsection{Index der Operationen}
+\begin{longtable}[c]{|p{12cm}|p{3cm}|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Operation}}                          & \multicolumn{1}{c|}{\textbf{Seite}}                                                                                                                                                                                                               \\ \hline
+\endhead
+Auftrag instanziieren & \\ \hline
+Auftrag abbrechen & \\ \hline
+Auftrag bearbeiten & \\ \hline
+Auftrag starten  & \\ \hline
+Auftrag Proben zuordnen & \\ \hline
+Auftragsübersicht Logistiker & \\ \hline
+Auftragsübersicht Transporter & \\ \hline
+Auftragsübersicht Technologe & \\ \hline
+Arbeitsauslastung  & \\ \hline
+Benutzer bearbeiten & \\ \hline
+Benutzer erstellen & \\ \hline
+Benutzer löschen & \\ \hline
+Erstinstallation & \\ \hline
+Experimentierstation als kaputt melden & \\ \hline
+Experimentierstation erstellen & \\ \hline
+Experimentierstation löschen & \\ \hline
+Experimentierstation bearbeiten & \\ \hline
+Globale Einstellungen & \\ \hline
+Lagerübersicht & \\ \hline
+Probe als verloren melden & \\ \hline
+Probenparameter hochladen  & \\ \hline
+Proben erstellen  & \\ \hline //TODO
+Prozesskettenvorlage erstellen & \\ \hline
+Prozesskettenvorlagen bearbeiten & \\ \hline
+Prozesskettenvorlagen löschen & \\ \hline
+Prozessschritt Übersicht & \\ \hline
+Prozessschritte als JSON exportieren  & \\ \hline
+Aufträge als JSON exportieren & \\ \hline
+Prozessschritt-Vorlage erstellen & \\ \hline
+Prozessschritt-Vorlage löschen & \\ \hline
+Prozessschritt-Vorlage bearbeiten & \\ \hline
+Prozessschritt-Parameter erstellen & \\ \hline
+Prozessschritt-Parameter löschen & \\ \hline
+Prozessschritt-Parameter bearbeiten& \\ \hline
+Prozessschritt-Parameter als JSON exportieren & \\ \hline
+Prozessschritt-Zustandsautomat erstellen & \\ \hline
+Prozessschritt-Zustandsautomat löschen & \\ \hline
+Prozessschritt-Zustandsautomat bearbeiten & \\ \hline
+Qualitative Eigenschaft erstellen & \\ \hline
+Qualitative Eigenschaft löschen & \\ \hline
+Qualitative Eigenschaft bearbeiten & \\ \hline
+Quantitative Eigenschaft erstellen & \\ \hline
+Quantitative Eigenschaft löschen & \\ \hline
+Quantitative Eigenschaft bearbeiten & \\ \hline
+Standort erstellen & \\ \hline
+Systembackup & \\ \hline
+Träger erstellen & \\ \hline
+Träger löschen  & \\ \hline
+Träger bearbeiten & \\ \hline
+Transportauftrag annehmen  & \\ \hline
+
+\end{longtable}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
-\section{Probleme und Ursachen}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Anhang}
+\subsection{Glossar}
+\begin{longtable}[c]{|p{7cm}|p{8cm}|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Begriff}}                          & \multicolumn{1}{c|}{\textbf{Erklärung}}                                                                                                                                                                                                               \\ \hline
+\endhead
+Probe                                                           & Ein einzelner Werkstoff                                                                                                                                                                                                                              \\ \hline
+Probengruppe						& Eine Gruppe an Proben, die die gleichen Eigenschaften haben. \\ \hline
+Werkstoff                                                       & Mikrokugeln die sich durch Härte, hohe Belastbarkeit, Temperaturbeständigkeit und Abriebfestigkeit auszeichnen                                                                                                                                     \\ \hline
+Träger                                                          & Transportmittel für Proben. Arten: Einzelträger, eingebettete Träger und Glasträger. Proben werden immer in Trägern transportiert                                                                                                                     \\ \hline
+Experimentierstation \textbf{(ES)}             & Physischer Standort an dem Technologen Messungen durchführen.                                                                                                                                                                                     \\ \hline
+Technologe                                                      & Ein Angestellter im SFB, er forscht und bedient die Experimentierstationen, und wertet diese im Anschluss aus und schreibt die Probeneigenschaften in die Software.                                                                                                  \\ \hline
+Prozesskette \textbf{(PK)}                       & Besteht aus vielen Prozessschritten, die hintereinander ohne Verzweigung ablaufen. Sobald ein Auftrag erfolgt, wird eine Prozesskette gestartet.                                                                                                        \\ \hline
+Prozesskettenauftrag \textbf{(PK-Auftrag)}     & Enthält die Prozessparameter für jeden Schritt einer Prozesskette. Der Prozesskettenadministrator legt die Prozessparameter fest. Der Logistiker legt die Proben und Träger fest.                                                                     \\ \hline
+Prozessschritt \textbf{(PS)}                     & In einem Prozessschritt werden Werkstoffeigenschaften beeinflusst und / oder verändert. Er enthält Prozessparameter, welche beschreiben wie die Eigenschaften beeinflusst werden. Ein Prozessschritt kann Vorbedingungen haben und eine geschätzte Dauer. \\ \hline
+Material- / Werkstoffeigenschaften                              & Jeder Werkstoff besitzt Eigenschaften. (Umformbarkeit / Verformbarkeit / ...)                                                                                                                                                                        \\ \hline
+Prozessparameter \textbf{(PP)}                   & Sind qualitativ oder quantitativ. Qualitativ beschreibt, ob etwas so ist oder nicht. Quantitative Parameter enthalten einen Namen, ein Wert und eine Einheit.                                                                                          \\ \hline
+Logistiker                                                      & Verwaltet das Archiv und alle Proben und Träger. Für die Ausführung einer Prozesskette bestimmt er welche Proben benutzt werden, falls dies nicht möglich ist, meldet er es dem Prozesskettenadministrator.                                           \\ \hline
+Prozesskettenadministrator\textbf{ (PK-Admin)} & Verwaltet Prozessketten und deren Prozessschritte nach bestimmten Vorlagen. Verwaltet auch die Vorlagen. Ordnet Prozessschritten Experimentierstationen zu. Überprüft dann auf Korrektheit.                                                           \\ \hline
+Transporter                                                     & Transportiert Träger mit ihren Proben zwischen Experimentierstationen. Bei Probenverlust meldet er diese.                                                                                                                                             \\ \hline
+Transportauftrag \textbf{(T-Auftrag)}          & Enthält Start- und Zielexperimentierstationen, wird vom Transporter ausgeführt.                                                                                                                                                                      \\ \hline
+System Administrator \textbf{(Sys-Admin)}      & Verwaltet Nutzer und Experimentierstationen. Konfiguriert globale Einstellungen und ist für Backups zuständig.                                                                                                                                         \\ \hline
+Prozessketteninstanz Werte \textbf{(PIW)}      & Enthält für jeden Prozessschritt der Prozesskette alle Prozessparameter. Der Prozesskettenadmin benutzt die PIWs um Prozessketteninstanzen zu planen.                                                                                                 \\ \hline
+Standort                                                        & Träger und Proben können entweder an einer Experimentierstation, im Archiv oder als verloren gemeldet sein.                                                                                                                                           \\ \hline
+Transportauftragzustand \textbf{(TA-Zustand)}  & Ein Transportauftrag befindet sich im Zustand wartend oder er wurde schon geliefert.                                                                                                                                                                  \\ \hline
+Prozessschrittzustand \textbf{(PS-Zustand)}    & Ein Prozessschrittzustand hat entweder den Zustand angenommen, in Bearbeitung oder abgegeben.                                                                                                                                                         \\ \hline
+Upload in Datenbank                                             & Ein Technologe muss nach dem Ausführen eines Prozessschrittes die Prozessparameter in die Datenbank (DAVIS) hochladen.                                                                                                                                \\ \hline
+\end{longtable}
+\subsection{Index}
 
 \end{document}
