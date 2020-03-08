@@ -490,7 +490,19 @@ Wollen Sie Daten aus einer Datei einlesen, klicken Sie auf Choose. Daraufhin öf
 \hline
 \multicolumn{1}{|c|}{\textbf{Hinweis}}                          & \multicolumn{1}{c|}{\textbf{Ursache}}                                                                                                                                                                                                               \\ \hline
 \endhead
-
+Couldn't update user! ID..  & \\ \hline
+Couldn't delete user! ID .. & \\ \hline
+Couldn't update experimentierstatioN! ID .. & \\ \hline
+Error adding experimenting station, station already exists! Name: ..  & Es existiert bereits eine Station mit dem Namen, unter dem Sie die neue speichern wollen. \\ \hline
+Couldn't add experimenting station! Name .. & \\ \hline
+Couldn't delete experimenting station! ID .. & \\ \hline
+Couldn't update job! ID .. & \\ \hline
+Couldn't import data! & \\ \hline
+Couldn't backup database! & \\ \hline
+Standort with name .. already exists! & Es existiert bereits ein Standort mit dem Namen, unter dem Sie die neue speichern wollen. \\ \hline
+Couldn't add new location with name .. & \\ \hline
+Couldn't update location object with id .. & \\ \hline
+Failed to remove location with id .. & \\ \hline
 \end{longtable}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -756,7 +768,40 @@ Im oberen Formular können Sie für die anderen Datenmöglichkeiten alle in der 
 \hline
 \multicolumn{1}{|c|}{\textbf{Hinweis}}                          & \multicolumn{1}{c|}{\textbf{Ursache}}                                                                                                                                                                                                               \\ \hline
 \endhead
-
+Couldn't create new job! & \\ \hline
+Can't edit an already started job! & Der Auftrag, den Sie bearbeiten wollen, wurde bereits gestartet. Sie können den Auftrag abbrechen, wenn die Angaben falsch sind. \\ \hline
+Couldn't edit job! & \\ \hline
+Failed to remove job! & \\ \hline
+Failed to stop job!  & \\ \hline
+Job has already been started!  & \\ \hline
+Coulnd't start job! & \\ \hline
+Failed to export to json! & \\ \hline
+Couldn't create new process chain template! & \\ \hline
+Coulnd't delete process chain template! & \\ \hline
+Failed to update process chain template! & \\ \hline
+Couldn't create new process step! Error: .. & \\ \hline
+Cannot edit an already started process step! & Der Prozessschritt, den Sie bearbeiten wollen, wurde bereits gestartet. Sie können den zugehörigen Auftrag abbrechen.  \\ \hline
+Failed to edit process step! & \\ \hline
+Failed to remove process step! & \\ \hline
+Cannot display data! & \\ \hline
+Coulnd't create new process parameter! & \\ \hline
+Couldn't update process step parameter! & \\ \hline
+Couldn't remove process parameter! & \\ \hline
+Proben-ID entpricht nicht! ..  & Die Proben-ID entspricht nicht dem Muster [A-Z][0-9].[0-9][0-9]. Bitte überprüfen Sie, ob die Proben-ID, die Sie angegeben haben, mit einem Buchstaben anfängt, worauf eine Zahl, ein Punkt und zwei weitere Ziffern folgen, wie in diesem Beispiel: A0.22. \\ \hline
+Failed to create new process step template! & \\ \hline
+Failed to edit process step template! & \\ \hline
+Failed to remove process step template! & \\ \hline
+Der erste Zustand muss Erstellt sein! & Der erste Zustand in der Prozessschritt-Zustandsautomatvorlage muss der Zustand "Erstellt" sein. Bitte passen Sie Ihre Vorlage an.\\ \hline
+Bitte suchen Sie mindestens 1 Zustaend aus! & Die Prozessschritt-Zustandsautomatvorlage muss mindestens einen Zustand haben. Bitte fügen Sie mindestens einen Zustand hinzu. \\ \hline
+Couldn't create new process step automaton with name ..  & \\ \hline
+Couldn't remove process step automaton! & \\ \hline
+Couldn't edit process step automaton with name ..& \\ \hline
+Failed to create new qualitative descriptor with name.. & \\ \hline
+Failed to create new quantitative descriptor with name.. & \\ \hline
+Failed to edit qualitative descriptor! & \\ \hline
+Failed to edit quantitative descriptor! & \\ \hline
+Failed to remove qualitative descriptor! & \\ \hline
+Failed to remove quantitative descriptor! & \\ \hline
 \end{longtable}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Logistiker}
@@ -818,17 +863,16 @@ Probe und Traeger nicht am gleichen standort!& \\ \hline
 Failed to edit traeger with ID:  & \\ \hline
 Failed to remove traeger with ID: & \\ \hline
 Der Standort Lager wurde nicht gefunden und wird nun erstellt, Proben können lediglich im Lager erstellt werden! & \\ \hline
-Die Probe existiert bereits!:  & \\ \hline
+Die Probe existiert bereits!:  & Es existiert bereits eine Probengruppe mit dieser ID.  \\ \hline
 Couldn't start job!& \\ \hline
-Auftrag ist Urformend und darf keine Träger enthalten! & \\ \hline
+Auftrag ist Urformend und darf keine Träger enthalten! & Ein Auftrag, der urformend ist, darf keine Träger enthalten, da die Proben im Laufe dieses Schritts erstellt werden. Bitte entfernen Sie die zugeordneten Träger. \\ \hline
 Failed to change auftrag state! ID:  & \\ \hline
 Darf nicht leer sein & \\ \hline
 Failed to change auftrag state! ID:  & \\ \hline
-The given number of samples is higher than the number of samples in the database. & \\ \hline
-sample .. could not be found when trying to report as missing. & \\ \hline
-Probe.. wurde nicht gefunden! & \\ \hline
+The given number of samples is higher than the number of samples in the database. &  \\ \hline
+sample .. could not be found when trying to report as missing. & Die Probe, die Sie als verloren melden wollen, konnte nicht in der Datenbank gefunden werden. \\ \hline
+Probe.. wurde nicht gefunden! & Die Probe mit der ID konnte nicht in der Datenbank gefunden werden. \\ \hline
 invalid input& \\ \hline
-The given number of samples is higher than the number of samples in the database. & \\ \hline
 \end{longtable}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Technologe}
