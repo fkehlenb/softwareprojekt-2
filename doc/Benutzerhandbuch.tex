@@ -255,7 +255,6 @@ In diesem Formular geben Sie den Namen und das Passwort ein; diese Informationen
 
 
 \subsubsection{Passwort vergessen}
-Wenn Sie Ihr Passwort vergessen haben, können Sie auf der Login-Seite auf Passwort vergessen klicken. Dadurch werden Sie auf eine Seite geleitet, wo Sie mithilfe Ihres Benutzernamens oder der Email Adresse, mit der Sie im System registriert sind, das Passwort zurücksetzen können. Dafür geben Sie einfach im entsprechenden Eingabefeld Ihre Daten ein, und klicken Sie auf Zurücksetzen. Dadurch wird ...? //TODO
 
 \begin{figure}[h!]
 \begin{center}
@@ -300,7 +299,7 @@ In der Navigationsleiste am linken Rand sehen Sie alle Aktionen, die Ihnen zur V
 
 
 \subsubsection{Navigationsleiste oben}
-In der Navigationsleiste am oberen Rand können Sie durch Klicken auf Home zum Homescreen zurück //TODO.  \\
+In der Navigationsleiste am oberen Rand können Sie durch Klicken auf Home zum Homescreen zurückzukehren.  \\
 
 
 \begin{figure}[h!]
@@ -388,7 +387,13 @@ Um Benutzer zu bearbeiten, drücken Sie auf den Knopf Bearbeiten, woraufhin die 
 Bitte beachten Sie, in dem Feld Email nur Eingaben in der Form []@[].[] einzugeben, wobei die Endung länger als zwei Zeichen sein muss. Des weiteren dürfen für die Telefonnummer nur Zahlen eingegeben werden. Sollten Sie Fehler in den Eingaben machen, werden Ihnen die fehlerhaften Felder rot unterlegt. Die ID eines Benutzers können Sie nicht bearbeiten, da diese vom System verwaltet werden. \\
 Mit Drücken auf Reset werden die bisher gespeicherten Daten wieder hergestellt. Mit Drücken auf Speichern können Sie Ihre Änderungen speichern. \\
 
-//TODO Bild
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/admin/userErzeugenMeldung.png}
+  \caption{Nutzer erfolgreich erzeugt}
+  \label{fig:boat2}
+\end{center}
+\end{figure}
 
 Über der Tabelle befindet sich ein Formular, in dem Sie die Daten für einen neuen Benutzer eingeben können. Wenn sie alle Daten eingegeben haben, klicken Sie auf Speichern, um den Benutzer zu speichern. Die ID müssen Sie nicht selber eingeben, da sie vom System generiert wird. \\
 Hier gelten die gleichen Beschränkungen wie oben für die Bearbeitung von Benutzern genannt. \\
@@ -523,7 +528,7 @@ Bitte beachten Sie, dass für jeden Auftrag alle vier Zeiten angegeben sein müs
 \subsection{Backup der Systemdaten}
 Unter dem Unterpunkt Backup und Wiederherstellen können Sie die aktuelle Datenbank mit all ihrer Daten exportieren, oder neue Daten aus einer existierenden Datenbank importieren. \\
 
-Um ein Backup der Daten zu erstellen, müssen Sie nur auf Backup Erstellen klicken. Daraufhin wird ein Backup automatisch erstellt. //TODO \\
+Um ein Backup der Daten zu erstellen, müssen Sie nur auf Backup Erstellen klicken. Daraufhin wird ein Backup automatisch erstellt.  \\
 
 Wollen Sie Daten aus einer Datei einlesen, klicken Sie auf Choose. Daraufhin öffnet sich ein Fenster, in dem Sie aus Ihrem Dateisystem die Datei auswählen können. Wenn Sie eine Datei ausgewählt haben, drücken Sie auf Öffnen, woraufhin die Datei hochgeladen wird. Mit einem Klick auf Submit werden die Daten aus der Datei in die Datenbank integriert. Bitte beachten Sie, dass  Sie eine SQL Datei auswählen müssen. \\ 
 
@@ -560,7 +565,7 @@ Im Menü-Unterpunkt Prozessschritt haben Sie eine Übersicht über alle Prozesss
 
 Prozessschritte sind die Prozessschritte, die zu Aufträgen, instanziierten Prozesskettenvorlagen, gehören. \\
 
-Wenn Sie einen neuen Prozessschritt erstellen wollen, geben Sie bitte im Formular am Anfang der Seite alle Informationen für diesen ein. Dazu gehört, dass Sie eine existierende Vorlage auswählen, einen Namen eingeben, und Attribute //TODO. Bitte beachten Sie, dass Sie in allen Feldern Eingaben machen müssen. Um diesen Schritt zu speichern, drücken Sie auf Speichern. Nach der erfolgreichen Speicherung wird dieser in der Tabelle zu sehen sein. Um das Formular zurückzusetzen, drücken Sie auf Zurücksetzen; dadurch entstehen keine Änderungen am Datensatz im System. \\
+Wenn Sie einen neuen Prozessschritt erstellen wollen, geben Sie bitte im Formular am Anfang der Seite alle Informationen für diesen ein. Dazu gehört, dass Sie eine existierende Vorlage auswählen, einen Namen eingeben, und Attribute. Die Attribute sind die von den Prozessparametern gegebene Attribute die in die Probe geschrieben werden sollen. Bitte beachten Sie, dass Sie in allen Feldern Eingaben machen müssen. Um diesen Schritt zu speichern, drücken Sie auf Speichern. Nach der erfolgreichen Speicherung wird dieser in der Tabelle zu sehen sein. Um das Formular zurückzusetzen, drücken Sie auf Zurücksetzen; dadurch entstehen keine Änderungen am Datensatz im System. \\
 
 \begin{figure}[h!]
 \begin{center}
