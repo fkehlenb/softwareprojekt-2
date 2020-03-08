@@ -14,8 +14,6 @@ import org.mockito.MockitoAnnotations;
 import org.primefaces.model.DualListModel;
 import org.slf4j.Logger;
 
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
 
@@ -64,13 +62,13 @@ class AuftragViewTest {
     @InjectMocks
     AuftragView auftragView;
     @Mock
-    List <Auftrag> auftrags;
+    List<Auftrag> auftrags;
     @Mock
-    List <ProzessSchritt> prozessSchritts;
+    List<ProzessSchritt> prozessSchritts;
     @Mock
     ProzessSchritt prozessSchritt;
     @Mock
-    List <ProzessKettenVorlage> ProzessKettenVorlagen;
+    List<ProzessKettenVorlage> ProzessKettenVorlagen;
     @Mock
     Auftrag auftrag;
     @Mock
@@ -79,12 +77,14 @@ class AuftragViewTest {
     ExperimentierStation experimentierStation;
     @Mock
     List<ProzessKettenVorlage> prozessKettenVorlage;
+    @Mock
+    List<ProzessSchrittVorlage> prozessKettenVorlagen;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
     }
-    @Mock
-    List<ProzessSchrittVorlage> prozessKettenVorlagen;
+
     //@Test FaceContext Abhangig
     void testCreateJob() {
         when(auftragService.getAll()).thenReturn(auftrags);
@@ -197,12 +197,10 @@ class AuftragViewTest {
     }
 
 
-
     @Test
     void testSetDualListModel() {
         auftragView.setDualListModel(null);
     }
-
 
 
     @Test

@@ -24,6 +24,7 @@ class ProzessSchrittParameterDAOTest {
     ProzessSchrittParameterDAO prozessSchrittParameterDAO;
     @Mock
     ProzessSchrittParameter prozessSchrittParameter;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);

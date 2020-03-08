@@ -6,12 +6,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
-import static org.mockito.Mockito.when;
-
 class AuftragsConverterTest {
     AuftragsConverter auftragsConverter = new AuftragsConverter();
     @Mock
     Auftrag auftrag;
+
     @BeforeEach
 
     @Test

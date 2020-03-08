@@ -23,6 +23,7 @@ class ProzessSchrittVorlageDAOTest {
     ProzessSchrittVorlageDAO prozessSchrittVorlageDAO;
     @Mock
     ProzessKettenVorlage prozessKettenVorlage;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);

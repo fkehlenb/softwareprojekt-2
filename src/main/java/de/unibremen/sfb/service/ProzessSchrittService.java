@@ -105,11 +105,14 @@ public class ProzessSchrittService implements Serializable {
      * sets the state of the step one further
      *
      * @param ps the process step
+     * @param d the local date time
      * @throws ExperimentierStationNotFoundException          if no Station exists
      * @throws ProzessSchrittNotFoundException                if not Step could be found
      * @throws ProzessSchrittLogNotFoundException             if not PS Log could be found
      * @throws DuplicateProzessSchrittLogException            if a PS Log already exists
      * @throws ProzessSchrittZustandsAutomatNotFoundException if there is not PS Automata
+     * @throws ProbeNotFoundException                if the Probe could not be found
+     * @throws DuplicateQualitativeEigenschaftException if the Probe already exists
      */
     public void oneFurther(ProzessSchritt ps, LocalDateTime d)
             throws IllegalArgumentException, ExperimentierStationNotFoundException, ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException, DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException, ProbeNotFoundException, DuplicateQualitativeEigenschaftException {
@@ -227,7 +230,8 @@ public class ProzessSchrittService implements Serializable {
     /**
      * Convert json to Eigenschafte
      * @param json as input
-     * @return Eigenschaften as output
+     * @param ps current Step
+     * @throws ProzessSchrittNotFoundException if there is no PS
      */
     public void addPSPToPS(String json, ProzessSchritt ps) throws ProzessSchrittNotFoundException {
         var config = new JsonbConfig().withFormatting(true);
@@ -266,6 +270,7 @@ public class ProzessSchrittService implements Serializable {
     /**
      * verfügbare schritte
      *
+     * @param u for this user
      * @return verfügbare Schritte
      */
     public List<ProzessSchritt> getJobs(User u) {
@@ -317,13 +322,16 @@ public class ProzessSchrittService implements Serializable {
      * // TODO Liam
      * Add Field to Model for Calculating Average PS Time in PSV
      *
-     * @param ps      the ProzessSchritt
-     * @param zustand the new state
+     * @param ps                                              the ProzessSchritt
+     * @param zustand                                         the new state
+     * @param d                                               the LocalDateTime
      * @throws ExperimentierStationNotFoundException          the station of the step was not found in the database
      * @throws ProzessSchrittNotFoundException                the ProzessSchritt is not in the database
      * @throws ProzessSchrittLogNotFoundException             the ProzessSchritt is not in the database
      * @throws DuplicateProzessSchrittLogException            the ProzessSchritt is not in the database
      * @throws ProzessSchrittZustandsAutomatNotFoundException the ProzessSchritt is not in the database
+     * @throws ProbeNotFoundException                         if the Probe could not be found
+     * @throws DuplicateQualitativeEigenschaftException       if the Probe already exists
      */
     public void setZustand(ProzessSchritt ps, String zustand, LocalDateTime d)
             throws ExperimentierStationNotFoundException, ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException,

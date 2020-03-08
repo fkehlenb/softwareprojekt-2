@@ -1,6 +1,5 @@
 package de.unibremen.sfb.boundary;
 
-import de.unibremen.sfb.exception.StandortNotFoundException;
 import de.unibremen.sfb.model.Standort;
 import de.unibremen.sfb.service.StandortService;
 import org.junit.jupiter.api.Assertions;
@@ -11,7 +10,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -23,15 +21,13 @@ class StandortViewTest {
     Logger log;
     @InjectMocks
     StandortView standortView;
+    @Mock
+    List<Standort> standorts;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
     }
-
-
-    @Mock
-    List<Standort> standorts;
 
     @Test
     void testGetAll() {

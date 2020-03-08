@@ -1,6 +1,5 @@
 package de.unibremen.sfb.converter;
 
-import de.unibremen.sfb.exception.StandortNotFoundException;
 import de.unibremen.sfb.model.Standort;
 import de.unibremen.sfb.service.StandortService;
 import org.junit.jupiter.api.Assertions;

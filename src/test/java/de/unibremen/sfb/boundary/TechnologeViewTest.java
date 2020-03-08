@@ -51,6 +51,7 @@ class TechnologeViewTest {
     TechnologeView technologeView;
     @Mock
     Probe probe;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -99,7 +100,8 @@ class TechnologeViewTest {
     void testViewToBeUploaded() throws AuftragNotFoundException {
         when(probeService.viewToBeUploaded()).thenReturn(probes);
         List<Probe> result = technologeView.viewToBeUploaded();
-        Assertions.assertEquals(probes,result);}
+        Assertions.assertEquals(probes, result);
+    }
 
 
     @Test
@@ -153,7 +155,6 @@ class TechnologeViewTest {
     void testSetAuftragList() {
         technologeView.setAuftragList(Arrays.<Auftrag>asList(new Auftrag()));
     }
-
 
 
     @Test

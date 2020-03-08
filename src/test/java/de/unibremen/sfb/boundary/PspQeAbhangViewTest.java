@@ -1,7 +1,6 @@
 package de.unibremen.sfb.boundary;
 
 import de.unibremen.sfb.model.ProzessSchrittParameter;
-import de.unibremen.sfb.model.QualitativeEigenschaft;
 import de.unibremen.sfb.service.ProzessSchrittParameterService;
 import de.unibremen.sfb.service.QualitativeEigenschaftService;
 import de.unibremen.sfb.service.QuantitativeEigenschaftService;
@@ -13,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.*;

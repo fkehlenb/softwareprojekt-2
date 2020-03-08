@@ -54,6 +54,8 @@ public class SingleStationBean implements Serializable {
 
     /**
      * Set the currently selected station
+     * @param station to be viewed
+     * @return the URL of the selected station
      */
     public String singleStation(ExperimentierStation station) {
         this.station = station;

@@ -5,7 +5,6 @@ import de.unibremen.sfb.exception.TraegerNotFoundException;
 import de.unibremen.sfb.model.Probe;
 import de.unibremen.sfb.model.Standort;
 import de.unibremen.sfb.model.Traeger;
-import de.unibremen.sfb.model.TraegerArt;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,6 +25,7 @@ class TraegerDAOTest {
     TraegerDAO traegerDAO;
     @Mock
     Traeger traeger;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -52,12 +52,13 @@ class TraegerDAOTest {
     @Test
     void testGetObjById() throws TraegerNotFoundException {
         Traeger result = traegerDAO.getObjById(0);
-        Assertions.assertEquals(traeger,result);
+        Assertions.assertEquals(traeger, result);
     }
 
     @Test
     void testGetAll() {
         List<Traeger> result = traegerDAO.getAll();
-        Assertions.assertEquals("[]",result);   }
+        Assertions.assertEquals("[]", result);
+    }
 }
 

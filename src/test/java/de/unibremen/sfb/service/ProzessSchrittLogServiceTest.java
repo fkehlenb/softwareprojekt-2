@@ -4,7 +4,6 @@ import de.unibremen.sfb.exception.DuplicateProzessSchrittLogException;
 import de.unibremen.sfb.exception.ProzessSchrittLogNotFoundException;
 import de.unibremen.sfb.model.ProzessSchrittLog;
 import de.unibremen.sfb.persistence.ProzessSchrittLogDAO;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -47,7 +46,7 @@ class ProzessSchrittLogServiceTest {
             e.printStackTrace();
         }
 
-   }
+    }
 
     @Test
     void testAdd() {

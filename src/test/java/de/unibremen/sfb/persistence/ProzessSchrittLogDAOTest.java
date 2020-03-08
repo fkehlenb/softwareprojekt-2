@@ -23,6 +23,7 @@ class ProzessSchrittLogDAOTest {
     ProzessSchrittLogDAO prozessSchrittLogDAO;
     @Mock
     ProzessSchrittLog prozessSchrittLog;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);

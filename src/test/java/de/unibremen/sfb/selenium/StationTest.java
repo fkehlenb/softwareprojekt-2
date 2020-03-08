@@ -4,15 +4,16 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
-import java.util.*;
 import java.util.concurrent.TimeUnit;
+
+;
 
 /**
  * <p>StationTest class.</p>
@@ -24,9 +25,11 @@ import java.util.concurrent.TimeUnit;
 public class StationTest {
     private WebDriver driver;
     private String spoofUserAgent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36";
+
     /**
      * This Class Shows, that even when correctly configured. The command  new PhantomJSDriver(); is buggy
      * Stack Overflow recommends updating the PhantomJS and Selenium to current Version
+     *
      * @return the Driver
      */
     public WebDriver getDriver() {
@@ -38,9 +41,9 @@ public class StationTest {
                             + "userAgent", spoofUserAgent);
 
             caps.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS,
-                    new String[] { "--web-security=false",
+                    new String[]{"--web-security=false",
                             "--ssl-protocol=any", "--ignore-ssl-errors=true",
-                            "--webdriver-loglevel=INFO" });
+                            "--webdriver-loglevel=INFO"});
 
             PhantomJSDriverService service = new PhantomJSDriverService.Builder()
                     .usingPort(8081)
@@ -50,6 +53,7 @@ public class StationTest {
         }
         return this.driver;
     }
+
     /**
      * <p>tearDown.</p>
      */
@@ -57,6 +61,7 @@ public class StationTest {
     public void tearDown() {
         driver.quit();
     }
+
     /**
      * <p>setUp.</p>
      */
@@ -67,34 +72,35 @@ public class StationTest {
         // Set implicit wait
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
-  @Test
-  public void stationTest() throws InterruptedException {
-    driver.get("http://localhost:8080/");
-    driver.manage().window().setSize(new Dimension(1200, 833));
-    Thread.sleep(700);
-   driver.findElement(By.xpath("//p/a")).click();
-    Thread.sleep(700);
-    driver.findElement(By.id("username")).click();
-    Thread.sleep(700);
-    driver.findElement(By.id("username")).sendKeys("admin");
-    Thread.sleep(700);
-    driver.findElement(By.id("password")).sendKeys("12345678");
-    Thread.sleep(500);
-    driver.findElement(By.xpath("//button/span")).click();
-    Thread.sleep(700);
-    driver.findElement(By.xpath("//div[2]/div/h3")).click();
-    Thread.sleep(1000);
-    driver.findElement(By.xpath("//div[2]/div/div/ul/li/a")).click();
-    Thread.sleep(1000);
-    driver.findElement(By.xpath("//li/ul/li[3]/a/span")).click();
-    Thread.sleep(700);
-    driver.findElement(By.xpath("//td[2]/input")).click();
-    Thread.sleep(700);
-    driver.findElement(By.id("form:j_idt69")).sendKeys("testSelenium");
-    Thread.sleep(700);
-    driver.findElement(By.xpath("//td[2]/button/span")).click();
-    Thread.sleep(700);
-    driver.findElement(By.xpath("//button/span[2]")).click();
-    Thread.sleep(700);
-  }
+
+    @Test
+    public void stationTest() throws InterruptedException {
+        driver.get("http://localhost:8080/");
+        driver.manage().window().setSize(new Dimension(1200, 833));
+        Thread.sleep(700);
+        driver.findElement(By.xpath("//p/a")).click();
+        Thread.sleep(700);
+        driver.findElement(By.id("username")).click();
+        Thread.sleep(700);
+        driver.findElement(By.id("username")).sendKeys("admin");
+        Thread.sleep(700);
+        driver.findElement(By.id("password")).sendKeys("12345678");
+        Thread.sleep(500);
+        driver.findElement(By.xpath("//button/span")).click();
+        Thread.sleep(700);
+        driver.findElement(By.xpath("//div[2]/div/h3")).click();
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("//div[2]/div/div/ul/li/a")).click();
+        Thread.sleep(1000);
+        driver.findElement(By.xpath("//li/ul/li[3]/a/span")).click();
+        Thread.sleep(700);
+        driver.findElement(By.xpath("//td[2]/input")).click();
+        Thread.sleep(700);
+        driver.findElement(By.id("form:j_idt69")).sendKeys("testSelenium");
+        Thread.sleep(700);
+        driver.findElement(By.xpath("//td[2]/button/span")).click();
+        Thread.sleep(700);
+        driver.findElement(By.xpath("//button/span[2]")).click();
+        Thread.sleep(700);
+    }
 }

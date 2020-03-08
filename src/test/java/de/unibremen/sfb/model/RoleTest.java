@@ -39,7 +39,6 @@ class RoleTest {
     }
 
 
-
     @Test
     void testToString() {
         String result = role.toString();

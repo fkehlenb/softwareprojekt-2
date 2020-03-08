@@ -24,6 +24,7 @@ class TransportAuftragDAOTest {
     TransportAuftragDAO transportAuftragDAO;
     @Mock
     TransportAuftrag transportAuftrag;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);

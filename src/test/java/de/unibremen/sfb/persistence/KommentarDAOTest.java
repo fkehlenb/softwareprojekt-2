@@ -23,6 +23,7 @@ class KommentarDAOTest {
     KommentarDAO kommentarDAO;
     @Mock
     Kommentar kommentar;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
