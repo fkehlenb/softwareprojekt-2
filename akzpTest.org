@@ -122,3 +122,4 @@ null eingabe traege in psv
 ** Logisitk
 grund fuer annahme logistik
 
+Der Technologe sieht nicht was die Werte der PSP sind

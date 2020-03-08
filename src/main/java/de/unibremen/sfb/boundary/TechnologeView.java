@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * this class manages the interaction of the gui with the backend system (for users who are technologists)
@@ -48,10 +49,6 @@ public class TechnologeView implements Serializable {
     /** List of all his jobs */
     private List<Auftrag> auftragList;
 
-    /** Experimenting station service TODO DUPLICATE */
-    @Inject
-    private ExperimentierStationService esService;
-
     /** Sample Service */
     @Inject
     private ProbenService probeService;
@@ -60,9 +57,7 @@ public class TechnologeView implements Serializable {
     @Inject
     private UserService userService;
 
-    /** Process Step Service TODO DUPLICATE */
-    @Inject
-    private ProzessSchrittService psService;
+    private ProzessSchritt parameterschritt;
 
     /**
      * loads the initial data from the database
@@ -78,13 +73,73 @@ public class TechnologeView implements Serializable {
     }
 
 
+    public int getAuslastung(int esID) {
+        ExperimentierStation e = null;
+        try {
+           e = experimentierStationService.getById(esID);
+        } catch (ExperimentierStationNotFoundException enf) {
+            log.error(enf.getLocalizedMessage());
+        }
+        int auslastung = 0;
+        assert  e != null;
+        List<ProzessSchritt> nextSteps = e.getNextPS();
+        for (ProzessSchritt ps:
+             nextSteps) {
+           String[] parts =   ps.getDuration().split(":");
+            auslastung += Integer.parseInt(parts[0]);
+        }
+        return auslastung;
+    }
+
+    public int getDauer(int psID) {
+        ProzessSchritt psLast = null;
+        int dauer = 0;
+        try {
+            psLast = prozessSchrittService.getObjById(psID);
+        } catch (ProzessSchrittNotFoundException e) {
+            e.printStackTrace();
+        }
+        List<ProzessSchritt> steps = auftragService.prevSteps(psLast);
+        for (ProzessSchritt ps :
+                steps) {
+            String[] parts =   ps.getDuration().split(":");
+            dauer += Integer.parseInt(parts[0]);
+        }
+        return dauer;
+    }
+
+    public int getAnzahlAuftraege(int esID) {
+        ExperimentierStation es = null;
+        try {
+           es = experimentierStationService.getById(esID);
+        } catch (ExperimentierStationNotFoundException e) {
+            e.printStackTrace();
+        }
+        assert es != null;
+        return es.getNextPS().size();
+    }
+
+    public int getProbenAnzahl(int esID) {
+        ExperimentierStation es = null;
+        try {
+            es = experimentierStationService.getById(esID);
+        } catch (ExperimentierStationNotFoundException e) {
+            e.printStackTrace();
+        }
+        return probeService.getProbenByStandort(es.getStandort()).size();
+    }
+
+
+
     /**
      * returns the experimentation stations this user is assigned to
      *
      * @return a list containing all stations this user is assigned to
      */
     public List<ExperimentierStation> getStationen() {
-        return esService.getESByUser(technologe);
+        List<ExperimentierStation> res = experimentierStationService.getESByUser(technologe);
+        res = res.stream().filter(c -> !c.getStandort().getOrt().equals("Lager")).collect(Collectors.toList());
+        return res;
     }
 
     /**
@@ -121,7 +176,7 @@ public class TechnologeView implements Serializable {
      * @param ps the step
      * @return the station
      */
-    public ExperimentierStation findStandort(ProzessSchritt ps) { //TODO integrate into my xhtmls
+    public ExperimentierStation findStandort(ProzessSchritt ps) {
         try {
             return experimentierStationService.findStation(ps);
         } catch (IllegalArgumentException e) {
@@ -139,7 +194,7 @@ public class TechnologeView implements Serializable {
         try {
             if (!es.getStatus().equals(ExperimentierStationZustand.KAPUTT)) {
                 es.setStatus(ExperimentierStationZustand.KAPUTT);
-                esService.updateES(es);
+                experimentierStationService.updateES(es);
                 log.info("Reported station as broken! ID " + es.getEsID());
                 facesNotification("Reported experimenting station as broken!");
             } else {
@@ -159,7 +214,7 @@ public class TechnologeView implements Serializable {
      */
     public void createUrformend(String id) {
         //probeService.addNewSample(id);
-        //TODO wie soll ich das integrieren?
+        
     }
 
     /**

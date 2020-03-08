@@ -156,24 +156,24 @@ public class InitialDataFiller {
             log.info("Try to persist ProzessSchrittZustandsAutomatVorlage " + pszaVorlage.toString());
             em.persist(pszaVorlage);
 
-            // Erstelle die Liste aus den Parametern
-            List<ProzessSchrittVorlage> psvListe = getProzessSchrittVorlage(parameters);
-            for (ProzessSchrittVorlage pSV :
-                    psvListe) {
-                log.info("Trying to persist ProzessSchrittVorlage " + pSV.toString());
-                em.persist(pSV); //FINDME
-            }
-            pkv = new ProzessKettenVorlage(UUID.randomUUID().hashCode(), f.gameOfThrones().house(), psvListe);
-            log.info("Try to persist ProzessSchrittVorlage " + pkv.getPkvID());
-            em.persist(pkv);
-
-
-            // Setup PSZA
-            List z = new ArrayList(pszaVorlage.getZustaende());
-            ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(
-                    UUID.randomUUID().hashCode(), "ERSTELLT", z);
-            log.info("Try to persist ProzessSchrittZustandsAutomat " + prozessSchrittZustandsAutomat.toString());
-            em.persist(prozessSchrittZustandsAutomat);
+//            // Erstelle die Liste aus den Parametern
+//            List<ProzessSchrittVorlage> psvListe = getProzessSchrittVorlage(parameters);
+//            for (ProzessSchrittVorlage pSV :
+//                    psvListe) {
+//                log.info("Trying to persist ProzessSchrittVorlage " + pSV.toString());
+//                em.persist(pSV); //FINDME
+//            }
+//            pkv = new ProzessKettenVorlage(UUID.randomUUID().hashCode(), f.gameOfThrones().house(), psvListe);
+//            log.info("Try to persist ProzessSchrittVorlage " + pkv.getPkvID());
+//            em.persist(pkv);
+//
+//
+//            // Setup PSZA
+//            List z = new ArrayList(pszaVorlage.getZustaende());
+//            ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(
+//                    UUID.randomUUID().hashCode(), "ERSTELLT", z);
+//            log.info("Try to persist ProzessSchrittZustandsAutomat " + prozessSchrittZustandsAutomat.toString());
+//            em.persist(prozessSchrittZustandsAutomat);
 //            erstelleAuftrag(psvListe);
 
         } else {

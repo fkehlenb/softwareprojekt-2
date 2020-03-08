@@ -61,12 +61,12 @@
                                     </p:column>
                                     <p:column colspan="1">
                                         <p:inputText id="dauer" value="#{psvErstellenBean.selectedDuration}"
-                                                     required="true" requiredMessage="Bitte Dauer eomgeben!"
+                                                     required="true" requiredMessage="Bitte Dauer in Stunden eingeben!"
                                                      placeholder="00:00">
-                                            <f:validateRegex pattern="[0-9][0-9]:[0-5][0-9]"/>
+                                            <f:validateRegex pattern="[0-9]*:[0-5][0-9]"/>
                                         </p:inputText>
                                     </p:column>
-                                    <p:column colspan="1">
+                                        <p:column colspan="1">
                                         <p:outputLabel for="experimentierStation" value="ExperimentierStation"/>
                                     </p:column>
                                     <p:column colspan="1">

@@ -7,8 +7,11 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
+import javax.json.bind.JsonbBuilder;
+import javax.json.bind.JsonbConfig;
 import javax.transaction.Transactional;
 import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -109,7 +112,7 @@ public class ProzessSchrittService implements Serializable {
      * @throws ProzessSchrittZustandsAutomatNotFoundException if there is not PS Automata
      */
     public void oneFurther(ProzessSchritt ps, LocalDateTime d)
-            throws IllegalArgumentException, ExperimentierStationNotFoundException, ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException, DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException {
+            throws IllegalArgumentException, ExperimentierStationNotFoundException, ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException, DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException, ProbeNotFoundException, DuplicateQualitativeEigenschaftException {
         if (ps == null) {
             throw new IllegalArgumentException();
         }
@@ -182,7 +185,6 @@ public class ProzessSchrittService implements Serializable {
      * @throws UserNotFoundException if there is no user which is logged in
      */
     public List<ProzessSchritt> getSchritte() throws UserNotFoundException {
-
         List<ProzessSchritt> r = experimentierStationService.getSchritteByUser(userService.getCurrentUser());
         r.removeAll(Collections.singleton(null));
         List<ProzessSchritt> result = new ArrayList<>();
@@ -198,15 +200,15 @@ public class ProzessSchrittService implements Serializable {
             boolean moeglich = (!(pkA.equals(ProzessKettenZustandsAutomat.INSTANZIIERT)
                     || pkA.equals(ProzessKettenZustandsAutomat.ABGELEHNT)));
             boolean current = isCurrentStep(ps);
-            boolean delivered = lastPS != null && isDelivered(lastPS, ps);
+            boolean delivered = lastPS != null && isDelivered(ps);
 
-            if (moeglich && (current || delivered || ps.isUrformend())) {
+            if (moeglich && (current || delivered || ps.isUrformend()) && ps.isAssigned()) {
                 result.add(ps);
             }
         } // FIXME Add field is current and eta
         result.sort(Comparator.comparing(o -> {
             try {
-                return auftragDAO.getObjById(o.getId()).getPriority();
+                return auftragDAO.getObjById(auftragService.getAuftrag(o).getPkID()).getPriority();
             } catch (AuftragNotFoundException e) {
                 e.printStackTrace();
                 return null;
@@ -214,6 +216,51 @@ public class ProzessSchrittService implements Serializable {
         }));
         result.removeAll(Collections.singleton(null));
         return result;
+    }
+
+    @Inject
+    QualitativeEigenschaftDAO qualitativeEigenschaftDAO;
+
+    @Inject
+    ProzessSchrittParameterDAO prozessSchrittParameterDAO;
+
+    /**
+     * Convert json to Eigenschafte
+     * @param json as input
+     * @return Eigenschaften as output
+     */
+    public void addPSPToPS(String json, ProzessSchritt ps) throws ProzessSchrittNotFoundException {
+        var config = new JsonbConfig().withFormatting(true);
+        var jsonb = JsonbBuilder.create(config);
+        List<ProzessSchrittParameter> tClass = new ArrayList<>();
+        Type pspType = new ArrayList<ProzessSchrittParameter>() {}.getClass().getGenericSuperclass();
+        tClass =  jsonb.fromJson(json, pspType);
+        for (ProzessSchrittParameter psp:
+             tClass ) {
+            for (QualitativeEigenschaft e :
+                    psp.getQualitativeEigenschaften()) {
+                try {
+                    qualitativeEigenschaftDAO.persist(e);
+                } catch (DuplicateQualitativeEigenschaftException ex) {
+                    try {
+                        qualitativeEigenschaftDAO.update(e);
+                    } catch (QualitativeEigenschaftNotFoundException exc) {
+                        exc.printStackTrace();
+                    }
+                }
+            }
+            try {
+                prozessSchrittParameterDAO.persist(psp);
+            } catch (DuplicateProzessSchrittParameterException e) {
+                try {
+                    prozessSchrittParameterDAO.update(psp);
+                } catch (ProzessSchrittParameterNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+        ps.getProzessSchrittParameters().addAll(tClass);
+        editPS(ps);
     }
 
     /**
@@ -252,7 +299,7 @@ public class ProzessSchrittService implements Serializable {
         }
     }
 
-    public Boolean isDelivered(ProzessSchritt prozessSchritt, ProzessSchritt ps) {
+    public Boolean isDelivered(ProzessSchritt prozessSchritt) {
         boolean delivered = false;
         if (prozessSchritt.getTransportAuftrag() != null) {
             delivered = prozessSchritt.getTransportAuftrag().getAbgeliefert() != null;
@@ -280,7 +327,7 @@ public class ProzessSchrittService implements Serializable {
      */
     public void setZustand(ProzessSchritt ps, String zustand, LocalDateTime d)
             throws ExperimentierStationNotFoundException, ProzessSchrittNotFoundException, ProzessSchrittLogNotFoundException,
-            DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException {
+            DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException, ProbeNotFoundException, DuplicateQualitativeEigenschaftException {
         if (ps == null || zustand == null) {
             throw new IllegalArgumentException();
         } else if (!ps.getProzessSchrittZustandsAutomat().getZustaende().contains(zustand)) {

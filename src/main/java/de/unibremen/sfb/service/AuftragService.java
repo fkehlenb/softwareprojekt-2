@@ -112,6 +112,20 @@ public class AuftragService implements Serializable {
         return null;
     }
 
+    /**
+     * Get all Steps before the one specified
+     * @param prozessSchritt the next Step
+     * @return all steps before
+     */
+    public List<ProzessSchritt> prevSteps(ProzessSchritt prozessSchritt) {
+        Auftrag a = getAuftrag(prozessSchritt);
+        int untilStep = a.getProzessSchritte().indexOf(prozessSchritt);
+        List<ProzessSchritt> steps = new ArrayList<>();
+        for (int i = 0; i < untilStep; i++) {
+            steps.add(a.getProzessSchritte().get(i));
+        }
+        return steps;
+    }
 
     public List<Auftrag> getAuftrage() {
         return auftragDAO.getAll();

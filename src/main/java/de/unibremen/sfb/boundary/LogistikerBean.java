@@ -3,6 +3,7 @@ package de.unibremen.sfb.boundary;
 import com.sun.jdi.connect.spi.TransportService;
 import de.unibremen.sfb.exception.*;
 import de.unibremen.sfb.model.*;
+import de.unibremen.sfb.persistence.AuftragDAO;
 import de.unibremen.sfb.persistence.ProbeDAO;
 import de.unibremen.sfb.persistence.TransportAuftragDAO;
 import de.unibremen.sfb.service.*;
@@ -147,6 +148,31 @@ public class LogistikerBean implements Serializable {
         refresh();
     }
 
+    @Inject
+    AuftragDAO auftragDAO;
+
+    /**
+     * Gibt es einen Urformenden ProzessSchritt ?
+     * @param id für diesen Auftrag
+     * @return ist er Umformend?
+     */
+    public Boolean isUrformend(int id) {
+        Auftrag auftrag = null;
+        try {
+            auftrag = auftragDAO.getObjById(id);
+        } catch (AuftragNotFoundException e) {
+            e.printStackTrace();
+        }
+        List<ProzessSchritt> prozessSchrittList  = auftrag.getProzessSchritte();
+        for (ProzessSchritt ps :
+                prozessSchrittList) {
+            if (ps.isUrformend()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     /**
      * Reload data
@@ -156,7 +182,11 @@ public class LogistikerBean implements Serializable {
         auftrage = new ArrayList<>();
         for (Auftrag a :
                 jobs) {
-            if (!a.getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.GESTARTET) && !a.getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.INSTANZIIERT) && !a.getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.DURCHGEFUEHRT) && !a.getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.ABGEBROCHEN) && !a.getProzessKettenZustandsAutomat().equals(ABGELEHNT)) {
+            if (!a.getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.GESTARTET)
+                    && !a.getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.INSTANZIIERT) &&
+                    !a.getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.DURCHGEFUEHRT) &&
+                    !a.getProzessKettenZustandsAutomat().equals(ProzessKettenZustandsAutomat.ABGEBROCHEN) &&
+                    !a.getProzessKettenZustandsAutomat().equals(ABGELEHNT)) {
                 auftrage.add(a);
             }
         }
@@ -370,7 +400,7 @@ public class LogistikerBean implements Serializable {
         try {
             Auftrag a = auftragService.getObjById(auftrag);
             //assert !a.getProzessSchritte().isEmpty();
-            if (a.getProzessSchritte().get(0).isUrformend()) {
+            if (isUrformend(a.getPkID())) {
                 if (!a.getTraeger().isEmpty()) {
                     a.setProzessKettenZustandsAutomat(FREIGEGEBEN);
                     a.getTraeger().removeAll(selectedTraeger);
@@ -385,8 +415,11 @@ public class LogistikerBean implements Serializable {
 
             } else {
                 try {
+                    assert !a.getProzessSchritte().isEmpty();
+                    Standort s = experimentierStationService.getESfromPS(a.getProzessSchritte().get(0)).getStandort();
+                    assert s != null;
                     TransportAuftrag ta = new TransportAuftrag(LocalDateTime.now(), TransportAuftragZustand.ERSTELLT
-                            , a.getTraeger().get(0).getStandort(), experimentierStationService.getESfromPS(a.getProzessSchritte().get(0)).getStandort());
+                            , standortService.findByLocation("Lager") , s);
                     ProzessSchritt first = a.getProzessSchritte().get(0);
                     first.setTransportAuftrag(ta);
                     transportService.persist(ta);

@@ -12,9 +12,7 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -356,6 +354,54 @@ public class ExperimentierStationService implements Serializable {
     @Inject
     AuftragDAO auftragDAO;
 
+   @Inject
+   ProbeDAO probeDAO;
+
+   @Inject
+   QualitativeEigenschaftDAO qualitativeEigenschaftDAO;
+
+    public Auftrag getAuftragOfPS(ProzessSchritt ps) {
+        List<Auftrag> as = auftragDAO.getAll();
+        for (Auftrag a :
+                as) {
+            var r = a.getProzessSchritte().stream().filter(p -> p.getId() == ps.getId()).findFirst().orElse(null);
+            if (r != null) {
+                return a;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Fuegt alle Atribute einer PS auf alle Proben die dem Auftrag zugwiesen sind
+     * Die Atribute werden durch kommas getrennt
+     * Die Probe wird akutallisiert und dann persistiert
+     * @param ps der ProzessSchritt
+     * @throws DuplicateQualitativeEigenschaftException falls es diese Eigenschaft schon gibt
+     * @throws ProbeNotFoundException  falls es diese Probe nicht gibt
+     */
+    public void addEigToTraeger(ProzessSchritt ps) throws DuplicateQualitativeEigenschaftException, ProbeNotFoundException {
+        String str = ps.getAttribute();
+        List<String> attributList = Arrays.asList(str.split(","));
+        List<Traeger> traegers = getAuftragOfPS(ps).getTraeger();
+        for (Traeger t :
+                traegers) {
+            for (Probe p :
+                    t.getProben()) {
+                    List <QualitativeEigenschaft> akutelleEigenschaften = p.getEigenschaften();
+                for (String s :
+                        attributList) {
+                   QualitativeEigenschaft e = new QualitativeEigenschaft(UUID.randomUUID().hashCode(), s);
+                   qualitativeEigenschaftDAO.persist(e);
+                   akutelleEigenschaften.add(e);
+                }
+                p.setEigenschaften(akutelleEigenschaften);
+                probeDAO.update(p);
+            }
+        }
+    }
+
+
     /**
      * updates the currentPS to the next one in the stations waiting queue
      *
@@ -367,7 +413,7 @@ public class ExperimentierStationService implements Serializable {
      * @throws StandortNotFoundException             if archiv not found
      */
     public void updateCurrent(ProzessSchritt ps, ExperimentierStation es)
-            throws IllegalArgumentException, ExperimentierStationNotFoundException, DuplicateTransportAuftragException, StandortNotFoundException {
+            throws IllegalArgumentException, ExperimentierStationNotFoundException, DuplicateTransportAuftragException, StandortNotFoundException, ProbeNotFoundException, DuplicateQualitativeEigenschaftException {
         deleteCurrent(ps, es);
         // If there is a waiting step add it now
         if (es.getNextPS() != null && !es.getNextPS().isEmpty()) {
@@ -393,6 +439,9 @@ public class ExperimentierStationService implements Serializable {
         // Find out at wich step we are
         TransportAuftrag ta;
         int currentIndex = aC.getProzessSchritte().indexOf(ps);
+        if (ps.getAttribute().isEmpty()) {
+            addEigToTraeger(ps);
+        }
         if (currentIndex < aC.getProzessSchritte().size() - 1) {
             // This is the next Step
             var nextPS = aC.getProzessSchritte().get(currentIndex + 1);
