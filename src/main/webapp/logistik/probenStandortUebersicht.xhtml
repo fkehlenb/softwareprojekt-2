@@ -36,7 +36,7 @@
                     <p:row>
                         <p:dataTable id="table" var="probe" value="#{dtLogistikerBean.proben}"
                                      paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                                     paginator="true" rows="3" style="margin-bottom:20px">
+                                     paginator="true" rows="10" style="margin-bottom:20px">
                             <p:column headerText="#{msg['logProbenID.jsf']}">
                                 <h:outputText value="#{probe.probenID}"/>
                             </p:column>

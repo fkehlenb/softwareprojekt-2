@@ -156,7 +156,7 @@ class TechnologeViewTest {
 
     @Test
     void testSetEsService() {
-        technologeView.setEsService(new ExperimentierStationService());
+  //      technologeView.setEsService(new ExperimentierStationService());
     }
 
     @Test
@@ -171,7 +171,7 @@ class TechnologeViewTest {
 
     @Test
     void testSetPsService() {
-        technologeView.setPsService(new ProzessSchrittService());
+     //   technologeView.setPsService(new ProzessSchrittService());
     }
 }
 
