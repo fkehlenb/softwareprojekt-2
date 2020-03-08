@@ -249,7 +249,7 @@ public class ProzessSchrittView implements Serializable {
             psLog.add(prozessSchrittLog);
             ProzessSchritt prozessSchritt = new ProzessSchritt(UUID.randomUUID().hashCode(), prozessSchrittZustandsAutomat,
                     prozessSchrittVorlage.getDauer(), List.copyOf(prozessSchrittVorlage.getProzessSchrittParameters())
-                    , prozessSchrittAttribute, psLog, prozessSchrittName, urformend, amountCreated);
+                    , prozessSchrittAttribute, psLog, prozessSchrittName, prozessSchrittVorlage.isUrformend(), prozessSchrittVorlage.getAmountCreated());
             prozessSchritt.setEingabe(List.copyOf(prozessSchrittVorlage.getEingabeTraeger()));
             prozessSchritt.setAusgabe(List.copyOf(prozessSchrittVorlage.getAusgabeTraeger()));
             prozessSchritt.setCreatedName(prozessSchrittVorlage.getNameOfCreated());

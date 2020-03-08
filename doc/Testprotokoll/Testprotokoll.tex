@@ -65,7 +65,7 @@
   \setlength{\headheight}{70.55003pt}
   \fancyhead{}
   \fancyhead[LO,RE]{Software--Projekt 2\\ WiSe 2019/2020
-  \\Architekturbeschreibung}
+  \\Testprotokoll}
   \fancyhead[LE,RO]{Seite \thepage\\\slshape \leftmark\\\slshape \rightmark}
 
 %Unicode Minuszeichen deklarieren, um es nicht überall austauschen zu müssen
@@ -136,7 +136,7 @@
   \thispagestyle{fancy}
   \fancyhead{}
   \fancyhead[LO,RE]{Software--Projekt \\  2019/2020
-  \\Benutzerhandbuch}
+  \\Testprotokoll}
   \fancyhead[LE,RO]{Seite \thepage\\\slshape \leftmark\\~}
   \fancyfoot{}
   \renewcommand{\headrulewidth}{0.4pt}
@@ -170,18 +170,21 @@ Version & Datum & Änderungen \\
 \newpage
 \section{Einführung}
 
-Dieses Dokument dient zur Dokumentation der durchgeführten Tests für die Software Farbige Zustände. Die Gliederung des Dokuments wurde so vorgenommen, dass zunächst manuelle Tests und anschließend automatische Tests beschrieben werden. Die manuellen Tests wurden so unterteilt, dass zunächst generelle Funktionen der Software getestet werden und anschließend die Benutzerspezifischen Funktionen. Wir haben uns für diese Unterteilung entschieden, da wir fünf verschiedene Benutzerrollen (Administrator, Prozesskettenadministrator, Transporter, Logistiker und Technologe) haben und so nach und nach die Funktionen jeder einzelnen Rolle durchgehen können. Im Anschluss werden noch automatische Tests beschrieben {\color{orange} Hier Text zu Mock und Unittests einfügen}
+Dieses Dokument dient zur Dokumentation der durchgeführten Tests für die Software Farbige Zustände. Die Gliederung des Dokuments wurde so vorgenommen, dass zunächst manuelle Tests und anschließend automatische Tests beschrieben werden. Die manuellen Tests wurden so unterteilt, dass zunächst generelle Funktionen der Software getestet werden und anschließend die Benutzerspezifischen Funktionen. Wir haben uns für diese Unterteilung entschieden, da wir fünf verschiedene Benutzerrollen (Administrator, Prozesskettenadministrator, Transporter, Logistiker und Technologe) haben und so nach und nach die Funktionen jeder einzelnen Rolle durchgehen können. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newpage
+
 \section{Übersicht}
 
-Der folgende Text soll die Metriken der Tests in JUnit zeigen, welche Art von Abdeckung sie gemäß den Programmklassen, den Funktionen und den Zeilen haben, auf die über den Testprozess zugegriffen wird.\\
+Der folgende Text soll die Metriken des Tests in Junit zeigen, welche Art von Abdeckung sie gemäß den Programmklassen, den Funktionen und den Zeilen haben, auf die über den Testprozess zugegriffen wird.\\
 
-In den Tests wurden die Methoden der entsprechenden Klassen aufgerufen und es wurde überprüft, dass die Daten korrekt verarbeitet wurden, damit die Methode funktionieren kann. Auf die gleiche Weise möchte ich überprüfen, ob die Service-Schicht die Daten mit der VERIFY Methode aufruft. Die Methoden wurden auch mit manuellen Tests zur Integration in verschiedenen Schichten getestet.\\
+In den Tests wurden die Methoden der entsprechenden Klassen aufgerufen und es wurde gesucht, dass die Daten korrekt verarbeitet wurden, damit die Methode funktionieren konnte. Auf die gleiche Weise möchte ich überprüfen, ob die Service-Schicht die Daten mit der VERIFY Methode aufruft. Die Methoden wurden auch mit manuellen Tests zur Integration in verschiedene Schichten getestet.\\
 
-Um eine Annäherung an die Variablen und Funktionen jeder Klasse vorzunehmen, wurde das Intellij Plugin TESTME verwendet, das die Möglichkeit bietet, eine Ansicht der Methoden in jeder Klasse zu erstellen. Anschließend wurden die Tests manuell vollständig reformiert, um sie verwenden zu können das Projekt. Die Einschränkungen der JUnit Tests wurden durch manuelle Tests und automatisierte Tests in Selenium abgedeckt.\\
+Um eine Annäherung an die Variablen und Funktionen jeder Klasse vorzunehmen, wurde das Intellij Plugin TESTME verwendet, das die Möglichkeit bietet, eine Ansicht der Methoden in jeder Klasse zu erstellen. Anschließend wurden die Tests vollständig reformiert, um sie verwenden zu können das Projekt. Die Einschränkungen der JUnit Tests wurden durch manuelle Tests und automatisierte Tests i abgedeckt.\\
+
+Der folgende Text soll die Metriken des Tests in Junit zeigen, welche Art von Konvertierung sie gemäß den Programmklassen, den Funktionen und den Zeilen haben, auf die über den Testprozess zugegriffen wird.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -867,7 +870,7 @@ Der Test verlief also erfolgreich.
 
 %%
 
-\subsubsection{Anwendungsfall: Probenverlust melden}
+\hypertarget{3.4.2}{\subsubsection{Anwendungsfall: Probenverlust melden}}
 
 Hierfür erstelle ich zunächst im Logister jeweils 100 Proben mit den IDs von \textit{A01.0101} bis \textit{A01.0105}. Diese Funktion wird in dem jeweiligen Abschnitt des Testprotokolls separat getestet. Hier sieht man den \hyperlink{sc3.4.2.1}{Ausgangszustand}. \\
 
@@ -1052,19 +1055,81 @@ Der Test ist erfolgreich.
 
 %%
 
-\subsubsection{Anwendungsfall: log 5}
+\subsubsection{Anwendungsfall: Probenverlust melden}
 
-%%
+Hier verweise ich auf den Punkt \hyperlink{3.4.2}{3.4.2}, da sich die Funktionalität der Seiten in den unterschiedlichen Nutzern nicht unterscheidet. Es wurde genauso getestet und kann dort nachgelesen werden. 
 
-\subsubsection{Anwendungsfall: log 6}
+Auch dieser Test ist erfolgreich. 
 
-%%
-
-\subsubsection{Anwendungsfall: log 7}
-
-%%
+%%%%%%%%%%%%
 
 \subsection{Tests zum Technologen}
+
+\subsubsection{Anwendungsfall: Experimentierstationen Verwalten}
+
+\paragraph{Übersicht über alle dem User zugewiesenen Experimentierstationen:}
+
+Man geht links auf Meine Experimentierstationen und sieht dann alle einem zugewiesenen Experimentierstationen. 
+
+ \hypertarget{sc3.6.1.1}{
+\includegraphics[width=1\textwidth]{Screenshots/3611.png}
+\textit{Abbildung 3.6.1.1: Experimentierstationen von Benutzer l}
+} \\
+
+Einem User, der keine Experimentierstationen zugewiesen hat, wird eine leere Liste angezeigt. 
+
+ \hypertarget{sc3.6.1.2}{
+\includegraphics[width=1\textwidth]{Screenshots/3612.png}
+\textit{Abbildung 3.6.1.2: Experimentierstationen von Benutzer admin}
+} \\
+
+Der Test ist erfolgreich.
+
+%
+\paragraph{Defekte Station melden}
+
+In der \textit{Meine Experimentierstationen} Übersicht kann man auf den roten Report Knopf drücken, um eine Station als kaputt zu markieren. Der Zustand wird von Verfügbar auf Kaputt gestellt und die Station wird rot markiert. 
+
+ \hypertarget{sc3.6.1.3}{
+\includegraphics[width=1\textwidth]{Screenshots/3613.png}
+\textit{Abbildung 3.6.1.3: Experimentierstationen als kaputt melden in der Tabelle}
+} \\
+
+ \hypertarget{sc3.6.1.4}{
+\includegraphics[width=1\textwidth]{Screenshots/3614.png}
+\textit{Abbildung 3.6.1.4: Experimentierstationen als kaputt melden in der Detailansicht}
+} \\
+
+ \hypertarget{sc3.6.1.5}{
+\includegraphics[width=1\textwidth]{Screenshots/3615.png}
+\textit{Abbildung 3.6.1.5: Experimentierstation ist kaputt und rot markiert}
+} \\
+
+Der Test ist erfolgreich. 
+
+%
+\paragraph{Details einer Experimentierstation einsehen}
+
+Auf der Ansicht \textit{Meine Experimentierstationen} kann man den grünen Choose-Button drücken, um die Details einer Station einzusehen.
+
+ \hypertarget{sc3.6.1.6}{
+\includegraphics[width=1\textwidth]{Screenshots/3616.png}
+\textit{Abbildung 3.6.1.6: Details einer Station}
+} \\
+
+%%
+
+\subsubsection{Anwendungsfall: Beispiel 5}
+
+%%
+
+\subsubsection{Anwendungsfall: Beispiel 5}
+
+%%
+
+\subsubsection{Anwendungsfall: Beispiel 5}
+
+%%
 
 \subsubsection{Anwendungsfall: Beispiel 5}
 
@@ -1074,21 +1139,70 @@ Der Test ist erfolgreich.
 
 %%%%%%%%%%%%
 
+\newpage
 \section{Automatisierte Funktionstests}
 
 \subsection{Einführung}
 
-Projektklassen wurden unabhängig getestet. Das für die Tests verwendete Framework war Junit, Version 5. Das Mockito Framework für die automatischen Tests wurde ebenfalls verwendetet. Mock Objekte wurden für die zu testenden Klassen geschrieben und in der Zeit vor der Abgabe wurden so viele Tests wie möglich durchgeführt.
+Projektklassen wurden unabhängig getestet. Das für die Tests verwendete
+Framework war Junit, Version 5. Das Mockito Framework für die automatischen
+Tests wurde ebenfalls verwendetet. Objectos.Mock wurden für die zu testenden
+Klassen geschrieben und in der geschätzten Zeit vor der Lieferung wurden so
+viele Tests wie möglich durchgeführt.
 
-Für die meisten Klassen wurde ein unabhängiger Test durchgeführt, bei dem die Methoden separat getestet wurden. Zusätzlich zu einer breiten Testabdeckung wurden Selenium Tests und manuelle Tests durchgeführt, um die Abdeckung der automatischen Tests zu erweitern und die Mindestanforderungen der Software zu kontrollieren. 
+Für die meisten Klassen wurde ein unabhängiger Test durchgeführt, bei dem die
+Methoden separat getestet wurden. In der gewünschten Lieferzeit wurden so viele
+Tests wie möglich durchgeführt. Zusätzlich zu einer breiteren Testabdeckung
+wurden Selenium Tests und manuelle Tests durchgeführt, um die Abdeckung der
+automatischen Tests zu erweitern und die Mindestanforderungen der zu
+kontrollieren Software.
+
+
+\subsection{Vorgehen}
+
+Wir haben folgende Packete in unserer Software getestet:
+\begin{itemize}
+  \item boundary: hier Testen wir die Funktionalität unserer Views. Wir haben
+  hier versucht alle Methoden zu testen, welche nicht Faces.getCurrentInstance
+  nuztzen. Die zuvor erwähnte Methode ist statisch und kann daher nicht mit
+  Mockito gemocket werde. Die Abhängigkeiten wurden gemocket. Wir habe als
+  nächstes die Methoden aufrufe die eine Variable liefern mit when und verify
+  überprüft.
+  Wir haben in diesem Packet nur 25\% Mehtoden Test Abdeckung. Dies erklären wir
+  dadurch, dass in Views sehr oft Faces.getCurrentInstance genutzt wird.
+
+  \item converter: Wir haben keine Unit Tests oder Mocks für die Converter
+  geschrieben, da diese in unseren manuellen Tests getestet wurden. Wie? In dem
+  die Converter genutzt werden um die das Front End zu rendern
+
+  \item model: In dem model Packet werden alle Konstruktoren, Getter, Setter, Equals, HashCode
+  und Strings getestet.
+
+  \item persistence: Wir konnten leider nicht erfolgreich alle aus dem
+  persistence Packet mocken. Die DAO Methoden, die durch ein Query alle Objekte
+  einer Art zurück liefern konnten nicht erfolgreich gemockt werden. Am Tag
+  unserer Abgabe fallen hier leider noch viele Tests durch
+  Anonsten: %SantiTODO
+
+  \item selenium: Die Selenium überpruefen alle CRUD Operationen von den Rollen pkAdmin
+  und Admin. Die vom Frontend Ausgeführt werden. Hinweis: Um die Tests ausführen
+  zu können ist es nötig, dass phantomJS in /usr/bin/phantomjs installiert ist.
+
+  \item service: Hier wurde die Methode verify genutzt, um zu gucken ob die
+  Methoden korrekt aufgreufen worden sind. Also wurde geprüft, ob die korrekten
+  DAO aufgreufen wurden /usr/local/bin/phantomjs
+  Jede abhänigkeit wurde gemocket. Methoden die Rückgaben haben wurden mit
+  Assert.equals getestet.
+  \end{itemize}
+
+Für die meisten Klassen wurde ein unabhängiger Test durchgeführt, bei dem die Methoden separat getestet wurden. In der gewünschten  Lieferzeit wurden so viele Tests wie möglich durchgeführt. Zusätzlich zu einer breiteren Testabdeckung wurden Selenium Tests und manuelle Tests durchgeführt, um die Abdeckung der automatischen Tests zu erweitern und die Mindestanforderungen der zu kontrollieren Software.
 
  \hypertarget{sc3.4.1.1}{
 \includegraphics[width=1\textwidth]{Screenshots/coverage.png}
 \textit{Abbildung 3.4.1.1: Coverage Unit-Test}
 } \\
 
-Die folgenden Grafiken zeigen die Abdeckung jeder Klasse pro Paket. Die Klassen, die nicht automatisch getestet wurden, wurden für die endgültige Lieferung drastisch geändert, aus diesem Grund wurden die manuellen Tests durchgeführt, um diese Klassen abzudecken.
-
+Die folgenden Grafiken zeigen die Rechte jeder Klasse pro Paket. Die Klassen, die nicht getestet wurden, wurden für die endgültige Lieferung drastisch geändert, aus diesem Grund wurden die manuellen Tests implementiert, um diese Klassen abzudecken.
  \hypertarget{sc3.4.1.2}{
 \includegraphics[width=1\textwidth]{Screenshots/boundary.png}
 \textit{Abbildung 3.4.1.2: Coverage Boundary}
