@@ -177,7 +177,6 @@ Die Leser dieses Handbuchs sind alle Benutzer des Systems, was explizit die Besc
 Dieses Handbuch soll alle Interaktionen, die mit dem im Rahmen des Softwareprojekt-Kurses von Rainer Koschke entstandenen Software möglich sind, erläutern. Neben den alltäglichen Aktionen mit dem System wird ebenfalls in diesem Dokument die Erstinstallation der Software für den Systemadministrator beschrieben. \\
 \subsection{Verwandte Dokumente}
 In diesem Dokument wird auf die bis Dezember erstellt Architekturbeschreibung Bezug genommen. \\
-\subsection{Konventionen}
 \subsection{Information über die Verwendung des Dokuments}
 Der Hauptteil des Handbuchs ist nach den im System möglichen Rollen eines Benutzers unterteilt. Im Inhaltsverzeichnis finden Sie die Oberpunkte Administrator (siehe Kapitel 4) sowie Restliche Benutzer des Systems (siehe Kapitel 5 des Systems), was Technologen, Logistiker, Prozessketten Administrator und Transporter sind. Dadurch können Sie sofort den Bereich finden, in dem Sie nach Anleitungen zu Ihren Anliegen suchen. Darüber hinaus gibt es einen Abschnitt für Erstbenutzer des Systems, der einen Überblick über die allgemeinen, rollenunspezifischen Funktionen gibt (siehe Kapitel 3). Falls Sie Erklärungen zu Fehlermeldungen suchen, können Sie diese am Ende von dem rollenspezifischen Unterabschnitt in Kapitel 3 und 4 finden, dessen Funktionen die Meldung ausgelöst haben. \\
 Sie können zur einfacheren Bedienung direkt im Inhaltsverzeichnis, sowie bei jeglichen anderen Erwähnungen von Kapiteln, auf die jeweiligen Abschnitte klicken. \\
@@ -194,11 +193,11 @@ Wenn möglich, fügen Sie Screenshots bei. \\
 
 \newpage
 \section{Übersicht}
-\subsection{Zugrunde liegende Konzepte, Einbettung}
 \subsection{Funktionale Beschreibung}
-Farbige Zustände ist eine Webanwendung für die Abläufe im Labor des SFB...\\
-In unserer Anwendung haben Benutzer entsprechend Ihrer Rollen eine Übersicht über die Arbeit, die für Sie im Labor anfallen, und können ... \\
-\subsection{Gefahren und Warnungen}
+Farbige Zustände ist eine Webanwendung für die Abläufe im Labor des SFB 1232. \\
+In unserer Anwendung haben Benutzer entsprechend Ihrer Rollen eine Übersicht über die Arbeit, die für Sie im Labor anfallen. Die realen Vorgänge werden durch Aufträge, die aus Prozessschritten bestehen, modelliert. Diese können erstellt, instanziiert, und danach von Station zu Station weitergereicht werden. Die zugehörigen Proben werden ebenfalls mitsamt ihrer Eigenschaften im System gespeichert; zu diesen können nach der Durchführung der Schritte die Eigenschaften aktualisiert werden. \\
+Durch die automatische Organisation der Abläufe kann durch dieses System der Alltag im Labor etwas übersichtlicher ablaufen. Dies erfordert allerdings auch die konsequente Pflege der Daten im System von allen Benutzern. \\
+Durch die verlässliche Nutzung des Systems werden ebenfalls automatisch die Protokolle erstellt.  \\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -207,7 +206,7 @@ In unserer Anwendung haben Benutzer entsprechend Ihrer Rollen eine Übersicht ü
 
 \subsection{Installation}
 
-Um das System zum Laufen zu bringen, verfolgen Sie bitte Schritt für Schritt diese Installtionsanleitung.\\
+Um das System zum Laufen zu bringen, verfolgen Sie bitte Schritt für Schritt diese Installationsanleitung.\\
 
 \underline{\textbf{Voraussetzungen:}}
 
@@ -287,7 +286,7 @@ Es gibt zwei Navigationsleisten: Eine am oberen Rand, und eine am linken. \\
 
 
 \subsubsection{Navigationsleiste links}
-In der Navigationsleiste am linken Rand sehen Sie alle Aktionen, die Ihnen zur Verfügung stehen, sortiert nach den Rollen, die Sie haben. Sie können durch Klicken auf die Titel der Seiten auf die unterschiedlichen Seiten gehen. \\
+In der Navigationsleiste am linken Rand sehen Sie alle Aktionen, die Ihnen zur Verfügung stehen, sortiert nach den Rollen, die Sie haben. Sie können durch Klicken auf die Titel der Seiten auf die unterschiedlichen Seiten gehen. Ebenfalls können Sie zum Homescreen zurück, und sich abmelden. \\
 
 \begin{figure}[h!]
 \begin{center}
@@ -1469,60 +1468,58 @@ Wenn Sie diese Fehlerseite sehen, versuchen Sie eine Seite aufzurufen, die nicht
 \hline
 \multicolumn{1}{|c|}{\textbf{Operation}}                          & \multicolumn{1}{c|}{\textbf{Seite}}                                                                                                                                                                                                               \\ \hline
 \endhead
-Auftrag instanziieren & \\ \hline
-Auftrag abbrechen & \\ \hline
-Auftrag bearbeiten & \\ \hline
-Auftrag starten  & \\ \hline
-Auftrag Proben zuordnen & \\ \hline
-Auftragsübersicht Logistiker & \\ \hline
-Auftragsübersicht Transporter & \\ \hline
-Auftragsübersicht Technologe & \\ \hline
-Arbeitsauslastung  & \\ \hline
-Benutzer bearbeiten & \\ \hline
-Benutzer erstellen & \\ \hline
-Benutzer löschen & \\ \hline
-Erstinstallation & \\ \hline
-Experimentierstation als kaputt melden & \\ \hline
-Experimentierstation erstellen & \\ \hline
-Experimentierstation löschen & \\ \hline
-Experimentierstation bearbeiten & \\ \hline
-Globale Einstellungen & \\ \hline
-Lagerübersicht & \\ \hline
-Probe als verloren melden & \\ \hline
-Probenparameter hochladen  & \\ \hline
-Proben erstellen  & \\ \hline
-Prozesskettenvorlage erstellen & \\ \hline
-Prozesskettenvorlagen bearbeiten & \\ \hline
-Prozesskettenvorlagen löschen & \\ \hline
-Prozessschritt Übersicht & \\ \hline
-Prozessschritte als JSON exportieren  & \\ \hline
-Aufträge als JSON exportieren & \\ \hline
-Prozessschritt-Vorlage erstellen & \\ \hline
-Prozessschritt-Vorlage löschen & \\ \hline
-Prozessschritt-Vorlage bearbeiten & \\ \hline
-Prozessschritt-Parameter erstellen & \\ \hline
-Prozessschritt-Parameter löschen & \\ \hline
-Prozessschritt-Parameter bearbeiten& \\ \hline
-Prozessschritt-Parameter als JSON exportieren & \\ \hline
-Prozessschritt-Zustandsautomat erstellen & \\ \hline
-Prozessschritt-Zustandsautomat löschen & \\ \hline
-Prozessschritt-Zustandsautomat bearbeiten & \\ \hline
-Qualitative Eigenschaft erstellen & \\ \hline
-Qualitative Eigenschaft löschen & \\ \hline
-Qualitative Eigenschaft bearbeiten & \\ \hline
-Quantitative Eigenschaft erstellen & \\ \hline
-Quantitative Eigenschaft löschen & \\ \hline
-Quantitative Eigenschaft bearbeiten & \\ \hline
-Standort erstellen & \\ \hline
-Systembackup & \\ \hline
-Träger erstellen & \\ \hline
-Träger löschen  & \\ \hline
-Träger bearbeiten & \\ \hline
-Transportauftrag annehmen  & \\ \hline
-Wenn unerreichbare Seiten aufgerufen werden & \\ \hline
-Fehler im Suchfeld des Browsers & \\ \hline
-Bei  & \\ \hline
-
+Auftrag instanziieren & 36\\ \hline
+Auftrag abbrechen & 36\\ \hline
+Auftrag bearbeiten & 36\\ \hline
+Auftrag starten  & 45\\ \hline
+Auftrag Proben zuordnen & 45\\ \hline
+Auftragsübersicht Logistiker & 45 \\ \hline
+Auftragsübersicht Transporter & 57 \\ \hline
+Auftragsübersicht Technologe & 50 und 53\\ \hline
+Arbeitsauslastung  & 40\\ \hline
+Benutzer bearbeiten & 15\\ \hline
+Benutzer erstellen & 15\\ \hline
+Benutzer löschen & 15\\ \hline
+Erstinstallation & 15\\ \hline
+Experimentierstation als kaputt melden & 49\\ \hline
+Experimentierstation erstellen & 18\\ \hline
+Experimentierstation löschen &18 \\ \hline
+Experimentierstation bearbeiten & 18\\ \hline
+Globale Einstellungen & 21\\ \hline
+Lagerübersicht & 46\\ \hline
+Probe als verloren melden & 46, 53, 58\\ \hline
+Probenparameter hochladen  & 50\\ \hline
+Proben erstellen  & 46\\ \hline
+Prozesskettenvorlage erstellen & 34\\ \hline
+Prozesskettenvorlagen bearbeiten &34 \\ \hline
+Prozesskettenvorlagen löschen &34 \\ \hline
+Prozessschritt Übersicht &26 \\ \hline
+Prozessschritte als JSON exportieren  &40 \\ \hline
+Aufträge als JSON exportieren & 40\\ \hline
+Prozessschritt-Vorlage erstellen &28 \\ \hline
+Prozessschritt-Vorlage löschen &28 \\ \hline
+Prozessschritt-Vorlage bearbeiten &28 \\ \hline
+Prozessschritt-Parameter erstellen & 32\\ \hline
+Prozessschritt-Parameter löschen & 32\\ \hline
+Prozessschritt-Parameter bearbeiten& 32\\ \hline
+Prozessschritt-Parameter als JSON exportieren & 40\\ \hline
+Prozessschritt-Zustandsautomat erstellen & 30\\ \hline
+Prozessschritt-Zustandsautomat löschen &30 \\ \hline
+Prozessschritt-Zustandsautomat bearbeiten & 30\\ \hline
+Qualitative Eigenschaft erstellen & 38\\ \hline
+Qualitative Eigenschaft löschen & 38\\ \hline
+Qualitative Eigenschaft bearbeiten & 38\\ \hline
+Quantitative Eigenschaft erstellen &38 \\ \hline
+Quantitative Eigenschaft löschen &38\\ \hline
+Quantitative Eigenschaft bearbeiten & 38\\ \hline
+Standort erstellen & 20\\ \hline
+Systembackup & 21\\ \hline
+Träger erstellen & 44\\ \hline
+Träger löschen  &44 \\ \hline
+Träger bearbeiten & 55\\ \hline
+Transportauftrag annehmen  & 57\\ \hline
+Wenn unerreichbare Seiten aufgerufen werden & 61\\ \hline
+Fehler im Suchfeld des Browsers & 61\\ \hline
 \end{longtable}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
