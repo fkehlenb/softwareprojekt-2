@@ -61,10 +61,6 @@ class ProbeMeldenViewTest {
         probeMeldenView.reportLostProbe();
     }
 
-    @Test
-    void testErrorMessage() {
-        probeMeldenView.errorMessage("e");
-    }
 
     @Test
     void testSetProbeMeldenID() {

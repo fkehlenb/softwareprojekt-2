@@ -14,8 +14,10 @@ import org.slf4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -71,8 +73,11 @@ class RoleDaoTest {
 
     @Test
     void testGetAll() {
-        when(em.createQuery(anyString())).thenReturn(query);
-        when(query.getResultList()).thenReturn(roles);
+        //when(em.createQuery(anyString(),eq(Role.class))).thenReturn();
+        //when(query.getResultList()).thenReturn(roles);
+        //Mockito.doReturn(query).when(em).createQuery(anyString(),any());
+        //Mockito.doReturn(roles).when(em.createQuery(anyString(),eq(Role.class))).getResultList();
+        //when(em.createQuery(anyString(),eq(Role.class)).getResultList()).thenReturn(new ArrayList<Role>());
         List<Role> result = roleDao.getAll();
         Assertions.assertEquals(roles, result);
     }
@@ -85,7 +90,10 @@ class RoleDaoTest {
 
     @Test
     void testGetRolesByUsername() {
-        List<Role> result = roleDao.getRolesByUsername("username");
+        when(em.createNamedQuery(anyString())).thenReturn(query);
+        when(query.getResultList()).thenReturn(roles);
+        when(roleDao.getRolesByUsername(anyString())).thenReturn(roles);
+        List<Role> result = roleDao.getRolesByUsername("name");
         Assertions.assertEquals("[]", result);
     }
 }

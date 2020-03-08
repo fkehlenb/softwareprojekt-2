@@ -103,7 +103,7 @@ public class ProbeMeldenView implements Serializable {
             log.info("sample " +p.getProbenID()+ " could not be found when trying to report as missing");
         }
         catch(IllegalArgumentException e) {
-            errorMessage("invalid input");
+            facesError("invalid input");
             //Test
         }
     }
@@ -139,15 +139,6 @@ public class ProbeMeldenView implements Serializable {
      */
     public void reportLostProbe() {
         reportLostProbe(probeMeldenID, probenAnzahl);
-    }
-
-    /**
-     * creates and sends an error message
-     * @param e error messsage
-     */
-    public void errorMessage(String e) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e, null));
-        log.info("an error occurred" + e);
     }
 
     /**

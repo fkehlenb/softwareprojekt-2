@@ -1,5 +1,6 @@
 package de.unibremen.sfb.converter;
 
+import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
 import de.unibremen.sfb.model.ExperimentierStation;
 import de.unibremen.sfb.service.ExperimentierStationService;
 

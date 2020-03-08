@@ -77,12 +77,7 @@ class ExperimentierStationServiceTest {
     @Test
     void testFindByName() {
         when(esDao.getAll()).thenReturn(experimentierStations);
-        try {
-            ExperimentierStation result = experimentierStationService.findByName("anyString()");
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
+        ExperimentierStation result = experimentierStationService.findByName("anyString()");
         verify(esDao).getAll();
     }
 

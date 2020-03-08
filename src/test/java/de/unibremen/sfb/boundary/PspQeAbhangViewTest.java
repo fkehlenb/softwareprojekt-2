@@ -37,17 +37,11 @@ class PspQeAbhangViewTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Test
-    void testInit() {
-        when(prozessSchrittParameterService.findByQei(anyInt())).thenReturn(Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(null))));
-
-        pspQeAbhangView.init();
-    }
 
     @Test
     void testLinkQIE() {
         String result = pspQeAbhangView.linkQIE();
-        Assertions.assertEquals("replaceMeWithExpectedResult", result);
+        Assertions.assertEquals("qEin?faces-redirect=true", result);
     }
 
     @Test
@@ -72,7 +66,7 @@ class PspQeAbhangViewTest {
 
     @Test
     void testSetProzessSchrittParameters() {
-        pspQeAbhangView.setProzessSchrittParameters(Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(null))));
+        pspQeAbhangView.setProzessSchrittParameters(prozessSchrittParameters);
     }
 }
 

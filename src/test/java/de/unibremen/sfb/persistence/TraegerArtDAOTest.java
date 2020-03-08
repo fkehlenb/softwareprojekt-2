@@ -60,7 +60,7 @@ class TraegerArtDAOTest {
     @Test
     void testGetAll() {
         List<TraegerArt> result = traegerArtDAO.getAll();
-        Assertions.assertEquals(Arrays.<TraegerArt>asList(new TraegerArt("art")), result);
+        Assertions.assertEquals("[]", result);
     }
 
     @Test

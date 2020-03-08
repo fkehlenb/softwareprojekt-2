@@ -214,7 +214,7 @@ public class TechnologeView implements Serializable {
         try {
             return experimentierStationService.findStation(ps);
         } catch (IllegalArgumentException e) {
-            errorMessage("invalid input");
+            errorMessage("invalid input finding the location");
             return null;
         }
     }

@@ -154,7 +154,7 @@ public class SingleJobBean implements Serializable {
      */
     public void addComment() {
         if (ps == null) {
-            errorMessage("invalid input");
+            errorMessage("internal error adding comment");
         } else {
             List<Probe> proben = new ArrayList<>();
             for (Traeger t :
@@ -168,7 +168,7 @@ public class SingleJobBean implements Serializable {
                     e.printStackTrace();
                     log.info("the sample " + p.getProbenID() + " could not be found while trying to add comment " + kommentarForAll);
                 } catch (IllegalArgumentException e) {
-                    errorMessage("invalid input");
+                    errorMessage("invalid input adding comment");
                 }
             }
             message("added comment to all samples");
@@ -302,7 +302,7 @@ public class SingleJobBean implements Serializable {
                 e.printStackTrace();
             }
         } catch (IllegalArgumentException e) {
-            errorMessage("invalid input");
+            errorMessage("invalid input setting job state");
         }
         String letzterZustand = ps.getProzessSchrittZustandsAutomat().getZustaende().get(
                 ps.getProzessSchrittZustandsAutomat().getZustaende().size() - 1);
