@@ -1,0 +1,150 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: TraegerArt</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">de.unibremen.sfb.model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: TraegerArt (de.unibremen.sfb.model)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">TraegerArt</td>
+<td class="coverageStat">
+  <span class="percent">
+    71,4%
+  </span>
+  <span class="absValue">
+    (5/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    62,5%
+  </span>
+  <span class="absValue">
+    (5/ 8)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">TraegerArt$MockitoMock$1966927049</td>
+  </tr>
+  <tr>
+    <td class="name">TraegerArt$MockitoMock$1966927049$auxiliary$4RLUHX3d</td>
+  </tr>
+  <tr>
+    <td class="name">TraegerArt$MockitoMock$1966927049$auxiliary$9yNzdBTo</td>
+  </tr>
+  <tr>
+    <td class="name">TraegerArt$MockitoMock$1966927049$auxiliary$DpIEKuGL</td>
+  </tr>
+  <tr>
+    <td class="name">TraegerArt$MockitoMock$1966927049$auxiliary$nJDIXYB7</td>
+  </tr>
+  <tr>
+    <td class="name">TraegerArt$MockitoMock$1966927049$auxiliary$pVeM4pr1</td>
+  </tr>
+  <tr>
+    <td class="name">TraegerArt$MockitoMock$1966927049$auxiliary$sJHpbYKi</td>
+  </tr>
+  <tr>
+    <td class="name">TraegerArt$MockitoMock$1966927049$auxiliary$ycusI9O2</td>
+  </tr>
+  <tr>
+    <td class="name">TraegerArt$MockitoMock$1966927049$auxiliary$z7cPDQXm</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    71,4%
+  </span>
+  <span class="absValue">
+    (5/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    62,5%
+  </span>
+  <span class="absValue">
+    (5/ 8)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package de.unibremen.sfb.model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import lombok.*;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import javax.persistence.*;
+<i>6</i>&nbsp;import java.util.List;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;/** This class is the data class for container types */
+<i>9</i>&nbsp;@Getter
+<b class="fc"><i>10</i>&nbsp;@Setter</b>
+<i>11</i>&nbsp;@Entity
+<b class="nc"><i>12</i>&nbsp;@NoArgsConstructor(access = AccessLevel.PROTECTED)</b>
+<b class="fc"><i>13</i>&nbsp;@RequiredArgsConstructor</b>
+<i>14</i>&nbsp;public class TraegerArt {
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    /** On delete set to invalid */
+<b class="fc"><i>17</i>&nbsp;    @NonNull</b>
+<b class="nc"><i>18</i>&nbsp;    private boolean isValidData = true;</b>
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    /** Container Type */
+<i>21</i>&nbsp;    @Id
+<i>22</i>&nbsp;    @NonNull
+<b class="fc"><i>23</i>&nbsp;    private String art;</b>
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;    @ElementCollection
+<b class="nc"><i>26</i>&nbsp;    private List&lt;String&gt; arten;</b>
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    @Override
+<i>29</i>&nbsp;    public String toString() {
+<b class="fc"><i>30</i>&nbsp;        return</b>
+<i>31</i>&nbsp;                &quot;art=&#39;&quot; + art ;
+<i>32</i>&nbsp;    }
+<i>33</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-03-08 14:39</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,158 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ProzessSchrittZustandsAutomatService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">de.unibremen.sfb.service</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ProzessSchrittZustandsAutomatService (de.unibremen.sfb.service)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ProzessSchrittZustandsAutomatService</td>
+<td class="coverageStat">
+  <span class="percent">
+    25%
+  </span>
+  <span class="absValue">
+    (1/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    11,1%
+  </span>
+  <span class="absValue">
+    (1/ 9)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ProzessSchrittZustandsAutomatService$MockitoMock$682106035</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittZustandsAutomatService$MockitoMock$682106035$auxiliary$jR7ZYFL9</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittZustandsAutomatService$MockitoMock$682106035$auxiliary$lfnA631B</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittZustandsAutomatService$MockitoMock$682106035$auxiliary$nGpmZBZe</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittZustandsAutomatService$MockitoMock$682106035$auxiliary$OWp0iaYL</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittZustandsAutomatService$MockitoMock$682106035$auxiliary$VRegYpqr</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    25%
+  </span>
+  <span class="absValue">
+    (1/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    11,1%
+  </span>
+  <span class="absValue">
+    (1/ 9)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package de.unibremen.sfb.service;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import de.unibremen.sfb.exception.DuplicateProzessSchrittZustandsAutomatException;
+<i>4</i>&nbsp;import de.unibremen.sfb.exception.ProzessSchrittZustandsAutomatNotFoundException;
+<i>5</i>&nbsp;import de.unibremen.sfb.model.ProzessSchrittZustandsAutomat;
+<i>6</i>&nbsp;import de.unibremen.sfb.persistence.ProzessSchrittZustandsAutomatDAO;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import javax.ejb.Singleton;
+<i>9</i>&nbsp;import javax.inject.Inject;
+<i>10</i>&nbsp;import java.util.List;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;@Singleton
+<i>13</i>&nbsp;/*
+<i>14</i>&nbsp;  Service fuer ProzessSchrittZustandsAutomatn
+<i>15</i>&nbsp;  Anwendungsfall: Bearbeiten einer Vorlage oder hinzufuegen einer ProzessSchrittZustandsAutomat in einer ProzessKettenVorlage
+<i>16</i>&nbsp; */
+<b class="fc"><i>17</i>&nbsp;public class ProzessSchrittZustandsAutomatService {</b>
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;    @Inject
+<i>20</i>&nbsp;    ProzessSchrittZustandsAutomatDAO prozessSchrittZustandsAutomatDAO;
+<i>21</i>&nbsp;
+<i>22</i>&nbsp;    /**
+<i>23</i>&nbsp;     * Loesche die Liste dieser ProzessSchrittZustandsAutomaten
+<i>24</i>&nbsp;     * @param selpsza die List der zu loeschenden ProzessSchrittZustandsAutomaten
+<i>25</i>&nbsp;     * @throws ProzessSchrittZustandsAutomatNotFoundException falls es ihn nicht gibt
+<i>26</i>&nbsp;     */
+<i>27</i>&nbsp;    public void delete(List&lt;ProzessSchrittZustandsAutomat&gt; selpsza) throws ProzessSchrittZustandsAutomatNotFoundException {
+<i>28</i>&nbsp;        for (ProzessSchrittZustandsAutomat p :
+<b class="nc"><i>29</i>&nbsp;                selpsza) {</b>
+<b class="nc"><i>30</i>&nbsp;            prozessSchrittZustandsAutomatDAO.remove(p);</b>
+<b class="nc"><i>31</i>&nbsp;        }</b>
+<b class="nc"><i>32</i>&nbsp;    }</b>
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;   /* Bearbeite die Liste dieser ProzessSchrittZustandsAutomaten
+<i>35</i>&nbsp;     * @param selpsza die List der zu loeschenden ProzessSchrittZustandsAutomaten
+<i>36</i>&nbsp;     * @throws ProzessSchrittZustandsAutomatNotFoundException
+<i>37</i>&nbsp;     */
+<i>38</i>&nbsp;    public void edit(ProzessSchrittZustandsAutomat object) throws ProzessSchrittZustandsAutomatNotFoundException {
+<b class="nc"><i>39</i>&nbsp;        prozessSchrittZustandsAutomatDAO.update(object);</b>
+<b class="nc"><i>40</i>&nbsp;    }</b>
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    /* Hinzufuegen eines ProzessSchrittZustandsAutomaten
+<i>43</i>&nbsp;     * @param prozessSchrittZustandsAutomat der Automat
+<i>44</i>&nbsp;     * @throws ProzessSchrittZustandsAutomatNotFoundException
+<i>45</i>&nbsp;     */
+<i>46</i>&nbsp;    public void add(ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat) throws DuplicateProzessSchrittZustandsAutomatException {
+<b class="nc"><i>47</i>&nbsp;        prozessSchrittZustandsAutomatDAO.persist(prozessSchrittZustandsAutomat);</b>
+<b class="nc"><i>48</i>&nbsp;    }</b>
+<i>49</i>&nbsp;}
+<i>50</i>&nbsp;
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-03-08 14:39</div>
+</div>
+</body>
+</html>

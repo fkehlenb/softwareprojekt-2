@@ -1,0 +1,126 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ExperimentierStationConverter</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">de.unibremen.sfb.converter</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ExperimentierStationConverter (de.unibremen.sfb.converter)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ExperimentierStationConverter</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 8)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package de.unibremen.sfb.converter;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import de.unibremen.sfb.model.ExperimentierStation;
+<i>4</i>&nbsp;import de.unibremen.sfb.service.ExperimentierStationService;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;import javax.faces.component.UIComponent;
+<i>7</i>&nbsp;import javax.faces.context.FacesContext;
+<i>8</i>&nbsp;import javax.faces.convert.Converter;
+<i>9</i>&nbsp;import javax.faces.convert.FacesConverter;
+<i>10</i>&nbsp;import javax.inject.Inject;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;@FacesConverter(value = &quot;experimentierStationConverter&quot;, managed = true)
+<b class="nc"><i>14</i>&nbsp;public class ExperimentierStationConverter implements Converter&lt;ExperimentierStation&gt; {</b>
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    @Inject
+<i>17</i>&nbsp;    private ExperimentierStationService experimentierStationService;
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;    @Override
+<i>20</i>&nbsp;    public String toString() {
+<b class="nc"><i>21</i>&nbsp;        return &quot;ExperimentierStationConverter{&quot; +</b>
+<i>22</i>&nbsp;                &quot;experimentierStationConverter&quot; + experimentierStationService +
+<i>23</i>&nbsp;                &#39;}&#39;;
+<i>24</i>&nbsp;    }
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    @Override
+<i>27</i>&nbsp;    public String getAsString(FacesContext context, UIComponent component, ExperimentierStation experimentierStation) {
+<i>28</i>&nbsp;
+<b class="nc"><i>29</i>&nbsp;        if (experimentierStation == null) {</b>
+<b class="nc"><i>30</i>&nbsp;            return &quot;&quot;;</b>
+<i>31</i>&nbsp;        }
+<i>32</i>&nbsp;
+<b class="nc"><i>33</i>&nbsp;        return experimentierStation.getName();</b>
+<i>34</i>&nbsp;    }
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;    @Override
+<i>37</i>&nbsp;    public ExperimentierStation getAsObject(FacesContext context, UIComponent component, String value) {
+<b class="nc"><i>38</i>&nbsp;        if (value == null || value.isEmpty()) {</b>
+<b class="nc"><i>39</i>&nbsp;            return null;</b>
+<i>40</i>&nbsp;        }
+<b class="nc"><i>41</i>&nbsp;        return experimentierStationService.findByName(value);</b>
+<i>42</i>&nbsp;    }
+<i>43</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-03-08 14:39</div>
+</div>
+</body>
+</html>

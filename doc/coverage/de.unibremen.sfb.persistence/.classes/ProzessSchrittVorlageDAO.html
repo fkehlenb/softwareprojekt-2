@@ -1,0 +1,226 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ProzessSchrittVorlageDAO</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">de.unibremen.sfb.persistence</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ProzessSchrittVorlageDAO (de.unibremen.sfb.persistence)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ProzessSchrittVorlageDAO</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    86,7%
+  </span>
+  <span class="absValue">
+    (26/ 30)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ProzessSchrittVorlageDAO$MockitoMock$1212327560</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittVorlageDAO$MockitoMock$1212327560$auxiliary$2AmvrgIy</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittVorlageDAO$MockitoMock$1212327560$auxiliary$74R3r71C</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittVorlageDAO$MockitoMock$1212327560$auxiliary$8X0ugPJ1</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittVorlageDAO$MockitoMock$1212327560$auxiliary$fBo11eqz</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittVorlageDAO$MockitoMock$1212327560$auxiliary$jY0FujSx</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittVorlageDAO$MockitoMock$1212327560$auxiliary$UneJ6HSq</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittVorlageDAO$MockitoMock$1212327560$auxiliary$YGY4Z77m</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittVorlageDAO$MockitoMock$1212327560$auxiliary$zwvUYDc5</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    86,7%
+  </span>
+  <span class="absValue">
+    (26/ 30)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package de.unibremen.sfb.persistence;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import de.unibremen.sfb.exception.DuplicateProzessSchrittVorlageException;
+<i>4</i>&nbsp;import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
+<i>5</i>&nbsp;import de.unibremen.sfb.model.ProzessSchrittVorlage;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import java.util.ArrayList;
+<i>8</i>&nbsp;import java.util.List;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;/**
+<i>11</i>&nbsp; * This class manages the process chain step templates in the database
+<i>12</i>&nbsp; */
+<b class="fc"><i>13</i>&nbsp;public class ProzessSchrittVorlageDAO extends ObjectDAO&lt;ProzessSchrittVorlage&gt; {</b>
+<i>14</i>&nbsp;
+<i>15</i>&nbsp;    /**
+<i>16</i>&nbsp;     * Add a process chain step template to the database
+<i>17</i>&nbsp;     *
+<i>18</i>&nbsp;     * @param psv - the process chain step template to add to the database
+<i>19</i>&nbsp;     * @throws DuplicateProzessSchrittVorlageException if the process chain step template already exists in the database
+<i>20</i>&nbsp;     */
+<i>21</i>&nbsp;    public void persist(ProzessSchrittVorlage psv) throws DuplicateProzessSchrittVorlageException {
+<b class="fc"><i>22</i>&nbsp;        if (psv != null) {</b>
+<b class="fc"><i>23</i>&nbsp;            synchronized (ProzessSchrittVorlage.class) {</b>
+<b class="fc"><i>24</i>&nbsp;                if (em.contains(em.find(get(), psv.getPsVID()))) {</b>
+<b class="nc"><i>25</i>&nbsp;                    throw new DuplicateProzessSchrittVorlageException();</b>
+<i>26</i>&nbsp;                }
+<b class="fc"><i>27</i>&nbsp;                em.persist(psv);</b>
+<b class="fc"><i>28</i>&nbsp;            }</b>
+<i>29</i>&nbsp;        }
+<b class="fc"><i>30</i>&nbsp;    }</b>
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;    /**
+<i>33</i>&nbsp;     * Update a process chain step template in the database
+<i>34</i>&nbsp;     *
+<i>35</i>&nbsp;     * @param psv - the process chain step template to update in the database
+<i>36</i>&nbsp;     *
+<i>37</i>&nbsp;     * @throws ProzessSchrittVorlageNotFoundException if the object cannot be found in the database
+<i>38</i>&nbsp;     */
+<i>39</i>&nbsp;    public void update(ProzessSchrittVorlage psv) throws ProzessSchrittVorlageNotFoundException {
+<b class="fc"><i>40</i>&nbsp;        if (psv != null) {</b>
+<b class="fc"><i>41</i>&nbsp;            if (em.contains(em.find(get(), psv.getPsVID()))) {</b>
+<b class="fc"><i>42</i>&nbsp;                em.merge(psv);</b>
+<i>43</i>&nbsp;            }
+<i>44</i>&nbsp;            else{
+<b class="nc"><i>45</i>&nbsp;                throw new ProzessSchrittVorlageNotFoundException();</b>
+<i>46</i>&nbsp;            }
+<i>47</i>&nbsp;        }
+<b class="fc"><i>48</i>&nbsp;    }</b>
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;    /**
+<i>51</i>&nbsp;     * Remove a process chain step template from the database
+<i>52</i>&nbsp;     *
+<i>53</i>&nbsp;     * @param psv - the process chain step template to remove from the database
+<i>54</i>&nbsp;     * @throws ProzessSchrittVorlageNotFoundException if the process chain step template couldn&#39;t be found
+<i>55</i>&nbsp;     */
+<i>56</i>&nbsp;    public void remove(ProzessSchrittVorlage psv) throws ProzessSchrittVorlageNotFoundException {
+<b class="fc"><i>57</i>&nbsp;        if (psv != null) {</b>
+<b class="fc"><i>58</i>&nbsp;            if (!em.contains(em.find(get(), psv.getPsVID()))) {</b>
+<b class="nc"><i>59</i>&nbsp;                throw new ProzessSchrittVorlageNotFoundException();</b>
+<i>60</i>&nbsp;            }
+<b class="fc"><i>61</i>&nbsp;            psv.setValidData(false);</b>
+<b class="fc"><i>62</i>&nbsp;            update(psv);</b>
+<i>63</i>&nbsp;        }
+<b class="fc"><i>64</i>&nbsp;    }</b>
+<i>65</i>&nbsp;
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;    /**
+<i>68</i>&nbsp;     * Get a process chain step template from the database
+<i>69</i>&nbsp;     *
+<i>70</i>&nbsp;     * @return the requested process chain step
+<i>71</i>&nbsp;     */
+<i>72</i>&nbsp;    public Class&lt;ProzessSchrittVorlage&gt; get() {
+<b class="fc"><i>73</i>&nbsp;        return ProzessSchrittVorlage.class;</b>
+<i>74</i>&nbsp;    }
+<i>75</i>&nbsp;
+<i>76</i>&nbsp;    /**
+<i>77</i>&nbsp;     * Get a process chain step template from the database using its defined id
+<i>78</i>&nbsp;     *
+<i>79</i>&nbsp;     * @param id - the id of the requested process chain step template
+<i>80</i>&nbsp;     * @return the process chain step template matching the given id
+<i>81</i>&nbsp;     * @throws ProzessSchrittVorlageNotFoundException if the process chain step template couldn&#39;t be found
+<i>82</i>&nbsp;     */
+<i>83</i>&nbsp;    public ProzessSchrittVorlage getObjById(int id) throws ProzessSchrittVorlageNotFoundException {
+<i>84</i>&nbsp;        try {
+<b class="fc"><i>85</i>&nbsp;            ProzessSchrittVorlage psv = em.find(get(), id);</b>
+<b class="fc"><i>86</i>&nbsp;            if (psv == null || !psv.isValidData()) {</b>
+<b class="fc"><i>87</i>&nbsp;                throw new ProzessSchrittVorlageNotFoundException();</b>
+<i>88</i>&nbsp;            }
+<b class="nc"><i>89</i>&nbsp;            return psv;</b>
+<b class="fc"><i>90</i>&nbsp;        } catch (Exception e) {</b>
+<b class="fc"><i>91</i>&nbsp;            e.printStackTrace();</b>
+<b class="fc"><i>92</i>&nbsp;            throw new ProzessSchrittVorlageNotFoundException();</b>
+<i>93</i>&nbsp;        }
+<i>94</i>&nbsp;    }
+<i>95</i>&nbsp;
+<i>96</i>&nbsp;    /**
+<i>97</i>&nbsp;     * Return a List quantitative descriptor object from the database
+<i>98</i>&nbsp;     *
+<i>99</i>&nbsp;     * @return all PSV from the db
+<i>100</i>&nbsp;     * @throws IllegalArgumentException if the quantitative descriptor couldn&#39;t be found in the database
+<i>101</i>&nbsp;     */
+<i>102</i>&nbsp;    public List&lt;ProzessSchrittVorlage&gt; getAll() {
+<i>103</i>&nbsp;        try {
+<b class="fc"><i>104</i>&nbsp;            return em.createQuery(&quot;SELECT p FROM ProzessSchrittVorlage p WHERE p.isValidData=true&quot;, get()).getResultList();</b>
+<b class="fc"><i>105</i>&nbsp;        } catch (Exception e) {</b>
+<b class="fc"><i>106</i>&nbsp;            return new ArrayList&lt;&gt;();</b>
+<i>107</i>&nbsp;        }
+<i>108</i>&nbsp;    }
+<i>109</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-03-08 14:39</div>
+</div>
+</body>
+</html>

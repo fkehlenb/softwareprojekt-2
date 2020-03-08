@@ -1,0 +1,152 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Kommentar</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">de.unibremen.sfb.model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Kommentar (de.unibremen.sfb.model)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Kommentar</td>
+<td class="coverageStat">
+  <span class="percent">
+    57,1%
+  </span>
+  <span class="absValue">
+    (4/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (4/ 8)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Kommentar$MockitoMock$1268680522</td>
+  </tr>
+  <tr>
+    <td class="name">Kommentar$MockitoMock$1268680522$auxiliary$0hn8Mcpb</td>
+  </tr>
+  <tr>
+    <td class="name">Kommentar$MockitoMock$1268680522$auxiliary$eTQKSLX2</td>
+  </tr>
+  <tr>
+    <td class="name">Kommentar$MockitoMock$1268680522$auxiliary$FbtgLFad</td>
+  </tr>
+  <tr>
+    <td class="name">Kommentar$MockitoMock$1268680522$auxiliary$KABbD8FB</td>
+  </tr>
+  <tr>
+    <td class="name">Kommentar$MockitoMock$1268680522$auxiliary$KD0LHqyj</td>
+  </tr>
+  <tr>
+    <td class="name">Kommentar$MockitoMock$1268680522$auxiliary$PYn2ij4L</td>
+  </tr>
+  <tr>
+    <td class="name">Kommentar$MockitoMock$1268680522$auxiliary$Sf7v8y1o</td>
+  </tr>
+  <tr>
+    <td class="name">Kommentar$MockitoMock$1268680522$auxiliary$WjzYBU8A</td>
+  </tr>
+  <tr>
+    <td class="name">Kommentar$MockitoMock$1268680522$auxiliary$xddy0yja</td>
+  </tr>
+  <tr>
+    <td class="name">Kommentar$MockitoMock$1268680522$auxiliary$Y9Hz084C</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    57,1%
+  </span>
+  <span class="absValue">
+    (4/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (4/ 8)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package de.unibremen.sfb.model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import lombok.*;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import javax.persistence.Entity;
+<i>6</i>&nbsp;import javax.persistence.GeneratedValue;
+<i>7</i>&nbsp;import javax.persistence.Id;
+<i>8</i>&nbsp;import java.time.LocalDateTime;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;@Getter
+<b class="fc"><i>11</i>&nbsp;@Setter</b>
+<i>12</i>&nbsp;@Entity
+<b class="nc"><i>13</i>&nbsp;@NoArgsConstructor(access = AccessLevel.PROTECTED)</b>
+<b class="fc"><i>14</i>&nbsp;@RequiredArgsConstructor</b>
+<i>15</i>&nbsp;public class Kommentar {
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    /** On delete set to invalid */
+<b class="fc"><i>18</i>&nbsp;    @NonNull</b>
+<b class="nc"><i>19</i>&nbsp;    private boolean isValidData = true;</b>
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;    @Id @GeneratedValue
+<b class="fc"><i>22</i>&nbsp;    private int id;</b>
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    @NonNull
+<b class="nc"><i>25</i>&nbsp;    private LocalDateTime dateTime;</b>
+<i>26</i>&nbsp;
+<i>27</i>&nbsp;    @NonNull
+<b class="nc"><i>28</i>&nbsp;    private String text;</b>
+<i>29</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-03-08 14:39</div>
+</div>
+</body>
+</html>

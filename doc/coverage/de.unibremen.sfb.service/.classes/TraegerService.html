@@ -1,0 +1,186 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: TraegerService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">de.unibremen.sfb.service</a> ]
+</div>
+
+<h1>Coverage Summary for Class: TraegerService (de.unibremen.sfb.service)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">TraegerService</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (3/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    33,3%
+  </span>
+  <span class="absValue">
+    (3/ 9)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">TraegerService$MockitoMock$2031183997</td>
+  </tr>
+  <tr>
+    <td class="name">TraegerService$MockitoMock$2031183997$auxiliary$gdkyfZmw</td>
+  </tr>
+  <tr>
+    <td class="name">TraegerService$MockitoMock$2031183997$auxiliary$Qeazitt1</td>
+  </tr>
+  <tr>
+    <td class="name">TraegerService$MockitoMock$2031183997$auxiliary$r5umyvJY</td>
+  </tr>
+  <tr>
+    <td class="name">TraegerService$MockitoMock$2031183997$auxiliary$t0u4PZRc</td>
+  </tr>
+  <tr>
+    <td class="name">TraegerService$MockitoMock$2031183997$auxiliary$U6i70o69</td>
+  </tr>
+  <tr>
+    <td class="name">TraegerService$MockitoMock$2031183997$auxiliary$UvXderlR</td>
+  </tr>
+  <tr>
+    <td class="name">TraegerService$MockitoMock$2031183997$auxiliary$xNrcqfyJ</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (3/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    33,3%
+  </span>
+  <span class="absValue">
+    (3/ 9)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package de.unibremen.sfb.service;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import de.unibremen.sfb.exception.DuplicateTraegerException;
+<i>4</i>&nbsp;import de.unibremen.sfb.exception.TraegerNotFoundException;
+<i>5</i>&nbsp;import de.unibremen.sfb.model.Traeger;
+<i>6</i>&nbsp;import de.unibremen.sfb.persistence.TraegerDAO;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import javax.inject.Inject;
+<i>9</i>&nbsp;import java.io.Serializable;
+<i>10</i>&nbsp;import java.util.List;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;/**
+<i>13</i>&nbsp; * Container service
+<i>14</i>&nbsp; */
+<b class="fc"><i>15</i>&nbsp;public class TraegerService implements Serializable {</b>
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    /**
+<i>18</i>&nbsp;     * Container DAO
+<i>19</i>&nbsp;     */
+<i>20</i>&nbsp;    @Inject
+<i>21</i>&nbsp;    private TraegerDAO traegerDAO;
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    /**
+<i>24</i>&nbsp;     * Add a new container
+<i>25</i>&nbsp;     *
+<i>26</i>&nbsp;     * @param t - the container to add
+<i>27</i>&nbsp;     * @throws DuplicateTraegerException on failure
+<i>28</i>&nbsp;     */
+<i>29</i>&nbsp;    public void persist(Traeger t) throws DuplicateTraegerException {
+<b class="nc"><i>30</i>&nbsp;        traegerDAO.persist(t);</b>
+<b class="nc"><i>31</i>&nbsp;    }</b>
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    /**
+<i>34</i>&nbsp;     * Update a container
+<i>35</i>&nbsp;     *
+<i>36</i>&nbsp;     * @param t - the container to update
+<i>37</i>&nbsp;     * @throws TraegerNotFoundException on failure
+<i>38</i>&nbsp;     */
+<i>39</i>&nbsp;    public void update(Traeger t) throws TraegerNotFoundException {
+<b class="nc"><i>40</i>&nbsp;        traegerDAO.update(t);</b>
+<b class="nc"><i>41</i>&nbsp;    }</b>
+<i>42</i>&nbsp;
+<i>43</i>&nbsp;    /**
+<i>44</i>&nbsp;     * Remove a container
+<i>45</i>&nbsp;     *
+<i>46</i>&nbsp;     * @param t - the cntainer to remove
+<i>47</i>&nbsp;     * @throws TraegerNotFoundException on failure
+<i>48</i>&nbsp;     */
+<i>49</i>&nbsp;    public void remove(Traeger t) throws TraegerNotFoundException {
+<b class="nc"><i>50</i>&nbsp;        traegerDAO.remove(t);</b>
+<b class="nc"><i>51</i>&nbsp;    }</b>
+<i>52</i>&nbsp;
+<i>53</i>&nbsp;    /**
+<i>54</i>&nbsp;     * Get a container using its id
+<i>55</i>&nbsp;     *
+<i>56</i>&nbsp;     * @param id - the container id
+<i>57</i>&nbsp;     * @return the requested container
+<i>58</i>&nbsp;     * @throws TraegerNotFoundException on failure
+<i>59</i>&nbsp;     */
+<i>60</i>&nbsp;    public Traeger getTraegerById(int id) throws TraegerNotFoundException {
+<b class="fc"><i>61</i>&nbsp;        return traegerDAO.getObjById(id);</b>
+<i>62</i>&nbsp;    }
+<i>63</i>&nbsp;
+<i>64</i>&nbsp;    /**
+<i>65</i>&nbsp;     * Get a list of all containers in the database
+<i>66</i>&nbsp;     *
+<i>67</i>&nbsp;     * @return a list of all containers in the database
+<i>68</i>&nbsp;     */
+<i>69</i>&nbsp;    public List&lt;Traeger&gt; getAll() {
+<b class="fc"><i>70</i>&nbsp;        return traegerDAO.getAll();</b>
+<i>71</i>&nbsp;    }
+<i>72</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-03-08 14:39</div>
+</div>
+</body>
+</html>
