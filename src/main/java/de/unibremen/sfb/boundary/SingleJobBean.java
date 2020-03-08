@@ -257,7 +257,7 @@ public class SingleJobBean implements Serializable {
         var config = new JsonbConfig().withFormatting(true);
         var jsonb = JsonbBuilder.create(config);
         String result = jsonb.toJson(psp);
-        String fileName = "JSON_Parameter" + LocalDateTime.now().toString().replaceAll(":","_") + ".json";
+        String fileName = "JSON_Parameter" + LocalDateTime.now().toString().replaceAll(":", "_") + ".json";
         PrintWriter writer = null;
         try {
             writer = new PrintWriter(fileName);
@@ -267,7 +267,7 @@ public class SingleJobBean implements Serializable {
         writer.write(result);
         writer.close();
         try {
-            Faces.sendFile(new File(fileName),true);
+            Faces.sendFile(new File(fileName), true);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -286,35 +286,20 @@ public class SingleJobBean implements Serializable {
 
     /**
      * sets the state of a ProzessSchritt on further than it was
-     *
-     * @throws DuplicateProzessSchrittLogException            if PSL already exits
-     * @throws ProzessSchrittZustandsAutomatNotFoundException if automat does not exist
      */
-    public void setJobZustand() throws DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException {
+    public void setJobZustand() {
         try {
-            try {
-                psService.oneFurther(ps, time());
-            } catch (ExperimentierStationNotFoundException | ProzessSchrittLogNotFoundException | ProzessSchrittNotFoundException e) {
-                e.printStackTrace();
-            } catch (ProbeNotFoundException e) {
-                e.printStackTrace();
-            } catch (DuplicateQualitativeEigenschaftException e) {
-                e.printStackTrace();
-            }
-        } catch (IllegalArgumentException e) {
-            errorMessage("invalid input setting job state");
-        }
-        String letzterZustand = ps.getProzessSchrittZustandsAutomat().getZustaende().get(
-                ps.getProzessSchrittZustandsAutomat().getZustaende().size() - 1);
-        try {
+            psService.oneFurther(ps, time());
+            String letzterZustand = ps.getProzessSchrittZustandsAutomat().getZustaende().get(
+                    ps.getProzessSchrittZustandsAutomat().getZustaende().size() - 1);
             psService.editPS(ps);
-        } catch (ProzessSchrittNotFoundException e) {
-            e.printStackTrace();
-        }
-        if (letzterZustand.equals(ps.getProzessSchrittZustandsAutomat().getCurrent())) {
-            message("prozessSchritt wurde beendet! ");
-        } else {
-            message("ProzessSchritt gewechselt auf: " + ps.getProzessSchrittZustandsAutomat().getCurrent());
+            if (letzterZustand.equals(ps.getProzessSchrittZustandsAutomat().getCurrent())) {
+                message("prozessSchritt wurde beendet! ");
+            } else {
+                message("ProzessSchritt gewechselt auf: " + ps.getProzessSchrittZustandsAutomat().getCurrent());
+            }
+        } catch (Exception f) {
+            f.printStackTrace();
         }
     }
 

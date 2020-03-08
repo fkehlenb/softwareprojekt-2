@@ -239,7 +239,7 @@ public class ExperimentierStationService implements Serializable {
         var ps = new ArrayList<ProzessSchritt>();
         var gu = getESByUser(u);
         for (ExperimentierStation e : gu) {
-            if (e.getCurrentPS()!=null&&(!e.getCurrentPS().isAssigned()||!e.getCurrentPS().isAssigned())){
+            if (e.getCurrentPS()!=null&&(!e.getCurrentPS().isAssigned()||!e.getCurrentPS().isValidData())){
                 List<ProzessSchritt> newPSS = new ArrayList<>();
                 for (int i=0;i<e.getNextPS().size();i++){
                     if (e.getNextPS().get(i).isValidData()&&e.getNextPS().get(i).isAssigned()){
@@ -257,6 +257,18 @@ public class ExperimentierStationService implements Serializable {
                 }
                 try {
                     updateES(e);
+                }
+                catch (Exception f){
+                    f.printStackTrace();
+                }
+            }
+            else{
+                try {
+                    if (e.getCurrentPS()!=null&&!e.getCurrentPS().getProzessSchrittZustandsAutomat().getCurrent().equals(e.getCurrentPS()
+                            .getProzessSchrittZustandsAutomat().getZustaende().get(e.getCurrentPS().getProzessSchrittZustandsAutomat().getZustaende().size()-1))){
+                        e.setCurrentPS(null);
+                        updateES(e);
+                    }
                 }
                 catch (Exception f){
                     f.printStackTrace();
@@ -447,10 +459,10 @@ public class ExperimentierStationService implements Serializable {
         if (ps.getAttribute().isEmpty()) {
             addEigToTraeger(ps);
         }
-        if (currentIndex < aC.getProzessSchritte().size() - 1) {
+        if (currentIndex < aC.getProzessSchritte().size()-1) {
             // This is the next Step
             var nextPS = aC.getProzessSchritte().get(currentIndex + 1);
-            Standort nextStandort = null;
+            Standort nextStandort = standortService.findByLocation("Lager");
 
             // Find out where the next step will happen
             for (ExperimentierStation e : getAll()) {
@@ -459,6 +471,7 @@ public class ExperimentierStationService implements Serializable {
                 for (ProzessSchritt p : e.getNextPS()) {
                     psids.add(p.getId());
                 }
+                psids.add(e.getCurrentPS().getId());
                 // IF the List contains the id we are searching for
                 // OR
                 //   if the current PS exists and is the step we are looking for
@@ -473,7 +486,12 @@ public class ExperimentierStationService implements Serializable {
         }
         try {
             if (!es.getNextPS().isEmpty()){
-                es.setCurrentPS(es.getNextPS().get(0));
+                for (ProzessSchritt p : es.getNextPS()){
+                    if (p.isValidData()&&p.isAssigned()){
+                        es.setCurrentPS(p);
+                        break;
+                    }
+                }
             }
             updateES(es);
         }

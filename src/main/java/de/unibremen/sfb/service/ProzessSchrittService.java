@@ -191,24 +191,21 @@ public class ProzessSchrittService implements Serializable {
         List<ProzessSchritt> r = experimentierStationService.getSchritteByUser(userService.getCurrentUser());
         r.removeAll(Collections.singleton(null));
         List<ProzessSchritt> result = new ArrayList<>();
-        for (ProzessSchritt ps :
-                r) {
+        for (ProzessSchritt ps : r) {
             Auftrag curA = auftragService.getAuftrag(ps);
-            if (curA == null) {
-                return new ArrayList<>(); // Throw something?
-            }
-            assert curA.getProzessKettenZustandsAutomat() != null;
-            Enum<ProzessKettenZustandsAutomat> pkA = curA.getProzessKettenZustandsAutomat();
-            ProzessSchritt lastPS = getLastPS(ps);
-            boolean moeglich = (!(pkA.equals(ProzessKettenZustandsAutomat.INSTANZIIERT)
-                    || pkA.equals(ProzessKettenZustandsAutomat.ABGELEHNT)));
-            boolean current = isCurrentStep(ps);
-            boolean delivered = lastPS != null && isDelivered(ps);
+            if (ps.isAssigned()) {
+                Enum<ProzessKettenZustandsAutomat> pkA = curA.getProzessKettenZustandsAutomat();
+                ProzessSchritt lastPS = getLastPS(ps);
+                boolean moeglich = (!(pkA.equals(ProzessKettenZustandsAutomat.INSTANZIIERT)
+                        || pkA.equals(ProzessKettenZustandsAutomat.ABGELEHNT)));
+                boolean current = isCurrentStep(ps);
+                boolean delivered = lastPS != null && isDelivered(ps);
 
-            if (moeglich && (current || delivered || ps.isUrformend()) && ps.isAssigned()) {
-                result.add(ps);
+                if (moeglich && (current || delivered || ps.isUrformend()) && ps.isAssigned()) {
+                    result.add(ps);
+                }
             }
-        } // FIXME Add field is current and eta
+        }// FIXME Add field is current and eta
         result.sort(Comparator.comparing(o -> {
             try {
                 return auftragDAO.getObjById(auftragService.getAuftrag(o).getPkID()).getPriority();
