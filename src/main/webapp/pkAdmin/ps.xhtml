@@ -344,10 +344,10 @@
                                 <p:column headerText="Urfomend">
                                     <p:cellEditor>
                                         <f:facet name="input">
-                                            <p:selectBooleanButton onLabel="Urformend" offLabel="Nicht Urformend" value="#{psView.urformend}">/p:selectBooleanButton>
+                                            <p:selectBooleanButton onLabel="Urformend" offLabel="Nicht Urformend" value="#{psView.urformend}"></p:selectBooleanButton>
                                         </f:facet>
                                         <f:facet name="output">
-                                            <p:selectBooleanButton onLabel="Urformend" offLabel="Nicht Urformend" value="#{ps.urformend}"></p:selectBooleanButton>
+                                            <h:outputText value="#{ps.urformend}"/>
                                         </f:facet>
                                     </p:cellEditor>
                                 </p:column>
