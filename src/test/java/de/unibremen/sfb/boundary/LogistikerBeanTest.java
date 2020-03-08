@@ -59,6 +59,10 @@ class LogistikerBeanTest {
     User logistiker;
     @Mock
     Logger log;
+    @Mock
+    List<Probe> probes;
+    @Mock
+    List<Auftrag> auftrags;
     @InjectMocks
     LogistikerBean logistikerBean;
 
@@ -97,10 +101,7 @@ class LogistikerBeanTest {
         logistikerBean.onRowEditUpdateTraeger(0);
     }
 
-    @Test
-    void testOnRowEditCancelTraegerEdit() {
-        logistikerBean.onRowEditCancelTraegerEdit();
-    }
+
 
     @Test
     void testDeleteTraeger() throws TraegerNotFoundException {

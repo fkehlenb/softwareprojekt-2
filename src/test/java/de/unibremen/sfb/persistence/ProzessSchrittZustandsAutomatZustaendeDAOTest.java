@@ -18,19 +18,27 @@ class ProzessSchrittZustandsAutomatZustaendeDAOTest {
     EntityManager em;
     @InjectMocks
     ProzessSchrittZustandsAutomatZustaendeDAO prozessSchrittZustandsAutomatZustaendeDAO;
-
+    @Mock
+    ProzessSchrittZustandsAutomatZustaende prozessSchrittZustandsAutomatZustaende;
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
+
     }
 
     @Test
     void testPersist() {
+        when(prozessSchrittZustandsAutomatZustaende.getId()).thenReturn(1);
+        when(em.find(any(), any())).thenReturn(prozessSchrittZustandsAutomatZustaende);
+        when(em.contains(prozessSchrittZustandsAutomatZustaende)).thenReturn(true);
         prozessSchrittZustandsAutomatZustaendeDAO.persist(new ProzessSchrittZustandsAutomatZustaende(0, Arrays.<String>asList("String")));
     }
 
     @Test
     void testUpdate() {
+        when(prozessSchrittZustandsAutomatZustaende.getId()).thenReturn(1);
+        when(em.find(any(), any())).thenReturn(prozessSchrittZustandsAutomatZustaende);
+        when(em.contains(prozessSchrittZustandsAutomatZustaende)).thenReturn(true);
         prozessSchrittZustandsAutomatZustaendeDAO.update(new ProzessSchrittZustandsAutomatZustaende(0, Arrays.<String>asList("String")));
     }
 

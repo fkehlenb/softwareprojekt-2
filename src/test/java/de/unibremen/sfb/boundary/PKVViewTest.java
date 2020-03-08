@@ -36,8 +36,16 @@ class PKVViewTest {
     ProzessSchrittVorlageService prozessSchrittVorlageService;
     @Mock
     Logger log;
+    @Mock
+    List<ProzessKettenVorlage> listPKV;
+    @Mock
+    List<ProzessSchrittVorlage> psvList;
+    @Mock
+    ProzessKettenVorlage pkv;
     @InjectMocks
     PKVView pKVView;
+
+
 
     @BeforeEach
     void setUp() {
@@ -46,9 +54,8 @@ class PKVViewTest {
 
     @Test
     void testInit() {
-        when(prozessKettenVorlageService.getAll()).thenReturn(Arrays.<ProzessKettenVorlage>asList(new ProzessKettenVorlage(0, "name", Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, Arrays.<ProzessSchrittParameter>asList(null), null, "dauer", "name", null, true, 0)))));
-        when(prozessSchrittVorlageService.getProzessSchrittVorlagen()).thenReturn(Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, Arrays.<ProzessSchrittParameter>asList(null), null, "dauer", "name", null, true, 0)));
-
+        when(prozessKettenVorlageService.getAll()).thenReturn(listPKV);
+        when(prozessSchrittVorlageService.getProzessSchrittVorlagen()).thenReturn(psvList);
         pKVView.init();
     }
 
@@ -59,8 +66,7 @@ class PKVViewTest {
 
     @Test
     void testDeletePKV() throws ProzessKettenVorlageNotFoundException {
-        when(prozessKettenVorlageService.getObjById(anyInt())).thenReturn(new ProzessKettenVorlage(0, "name", Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, Arrays.<ProzessSchrittParameter>asList(null), null, "dauer", "name", null, true, 0))));
-
+        when(prozessKettenVorlageService.getObjById(anyInt())).thenReturn(pkv);
         pKVView.deletePKV(0);
     }
 

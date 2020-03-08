@@ -24,10 +24,13 @@ class ExperimentierStationDAOTest {
     EntityManager em;
     @InjectMocks
     ExperimentierStationDAO experimentierStationDAO;
-
+    @Mock
+    ExperimentierStation experimentierStation;
     @BeforeEach
-    void setUp() {
+    void setUp()
+    {
         MockitoAnnotations.initMocks(this);
+
     }
 
     @Test
@@ -37,18 +40,24 @@ class ExperimentierStationDAOTest {
 
     @Test
     void testUpdate() throws ExperimentierStationNotFoundException {
+        when(experimentierStation.getEsID()).thenReturn(0);
+        when(em.find(any(), any())).thenReturn(experimentierStation);
+        when(em.contains(experimentierStation)).thenReturn(true);
         experimentierStationDAO.update(new ExperimentierStation());
     }
 
     @Test
     void testRemove() throws ExperimentierStationNotFoundException {
+        when(experimentierStation.getEsID()).thenReturn(0);
+        when(em.find(any(), any())).thenReturn(experimentierStation);
+        when(em.contains(experimentierStation)).thenReturn(true);
         experimentierStationDAO.remove(new ExperimentierStation());
     }
 
     @Test
     void testGet() {
         Class<ExperimentierStation> result = experimentierStationDAO.get();
-        Assertions.assertEquals(null, result);
+        Assertions.assertEquals(ExperimentierStation.class, result);
     }
 
     @Test

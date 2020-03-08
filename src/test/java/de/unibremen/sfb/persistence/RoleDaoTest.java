@@ -8,10 +8,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,15 +22,26 @@ import static org.mockito.Mockito.*;
 
 class RoleDaoTest {
     @Mock
+    Role role;
+    @Mock
+    List<Role> roles;
+    @Mock
     Logger log;
     @Mock
     EntityManager em;
+    @Mock
+    Query query;
     @InjectMocks
     RoleDao roleDao;
 
     @BeforeEach
-    void setUp() {
+    void setUp()
+    {
+
         MockitoAnnotations.initMocks(this);
+        when(role.getId()).thenReturn(0);
+        when(em.find(any(), any())).thenReturn(role);
+        when(em.contains(role)).thenReturn(true);
     }
 
     @Test
@@ -35,38 +49,44 @@ class RoleDaoTest {
         roleDao.persist(new Role(0, "name"));
     }
 
+
     @Test
     void testUpdate() throws RoleNotFoundException {
-        roleDao.update(new Role(0, "name"));
+
+        roleDao.update(role);
+        verify(em).merge(role);
     }
 
     @Test
     void testRemove() throws RoleNotFoundException {
-        roleDao.remove(new Role(0, "name"));
+
+        roleDao.remove(role);
     }
 
     @Test
     void testGet() {
         Class<Role> result = roleDao.get();
-        Assertions.assertEquals(null, result);
+        Assertions.assertEquals( Role.class, result);
     }
 
     @Test
     void testGetAll() {
+        when(em.createQuery(anyString())).thenReturn(query);
+        when(query.getResultList()).thenReturn(roles);
         List<Role> result = roleDao.getAll();
-        Assertions.assertEquals(Arrays.<Role>asList(new Role(0, "name")), result);
+        Assertions.assertEquals(roles, result);
     }
 
     @Test
     void testGetObjByID() {
-        List<Role> result = roleDao.getObjByID("r");
-        Assertions.assertEquals(Arrays.<Role>asList(new Role(0, "name")), result);
+        List<Role> result = roleDao.getObjByID("2");
+        Assertions.assertEquals(roles, result);
     }
 
     @Test
     void testGetRolesByUsername() {
         List<Role> result = roleDao.getRolesByUsername("username");
-        Assertions.assertEquals(Arrays.<Role>asList(new Role(0, "name")), result);
+        Assertions.assertEquals("[]", result);
     }
 }
 
