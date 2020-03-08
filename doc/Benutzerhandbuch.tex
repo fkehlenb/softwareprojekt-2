@@ -198,6 +198,29 @@ In unserer Anwendung haben Benutzer entsprechend Ihrer Rollen eine Übersicht ü
 \newpage
 \section{Erste Schritte für Anwender}
 
+\subsection{Installation}
+
+Um das System zum Laufen zu bringen, verfolgen Sie bitte Schritt für Schritt diese Installtionsanleitung.\\
+
+\underline{\textbf{Voraussetzungen:}}
+
+\begin{itemize}
+	\item Eine lauffähige Java Installation (Mindestversion 11) mit korrekt konfigurierter JAVA\textunderscore HOME Variable.\\
+	\item Eine Maven Installation
+	\item Eine Wildfly Installation
+\end{itemize}
+
+Um das System auszuführen, als erstes, kopieren Sie bitte den Pfad innerhalb ihres Wildfly Hauptverzeichnissesgehen. Dann gehen Sie bitte in das Verzeichnis der Software, und öffnen Sie dort ein neues Terminal (unter Linux oder Mac) oder Powershell (in Windows) und führenSie die folgenden Kommandos aus:\\
+
+\em{./setup.sh PFAD\textunderscore VON\textunderscore IHREM\textunderscore WILDFLY\textunderscore HAUPTVERZEICHNIS}\\
+
+\em{mvn clean package}\\
+
+Und lassen Sie das Projekt mit Maven bauen.\\
+
+Nachdem das System fertig gebaut hat, gehen Sie bitte auf die Wildfly Admin Konsole in ihrem Web Browser unter der Adresse 127.0.0.1:9990, und loggen Sie sich mit ihrem Admin
+Benutzername und Passwort ein. Gehen Sie dann auf Deployments und drücken Sie auf den Hinzufügen Knopf. Navigieren Sie nun in das Verzeichnis target innerhalb dem Verzeichnis der Software und suchen Sie die Datei SFB-Farbig.war aus, und drücken Sie auf hinzufügen. Die Software wird nun zu ihren Deployments hinzugefügt und kann unter dem Link 127.0.0.1:8080 gefunden werden. \\
+
 Im Folgenden werden die grundlegenden Funktionen des Systems für alle Benutzer beschrieben. \\
 
 \subsection{Anmeldung}
