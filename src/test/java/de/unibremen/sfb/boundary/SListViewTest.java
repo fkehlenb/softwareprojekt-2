@@ -50,15 +50,8 @@ class SListViewTest {
         sListView.deleteStandorte();
     }
 
-    @Test
-    void testOnRowEdit() {
-        sListView.onRowEdit(null);
-    }
 
-    @Test
-    void testOnRowCancel() {
-        sListView.onRowCancel(null);
-    }
+
 
     @Test
     void testSetAlleStandorte() {

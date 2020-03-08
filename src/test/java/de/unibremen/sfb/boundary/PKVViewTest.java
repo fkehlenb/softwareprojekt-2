@@ -59,10 +59,7 @@ class PKVViewTest {
         pKVView.init();
     }
 
-    @Test
-    void testErstellePSK() {
-        pKVView.erstellePSK();
-    }
+
 
     @Test
     void testDeletePKV() throws ProzessKettenVorlageNotFoundException {
@@ -70,12 +67,6 @@ class PKVViewTest {
         pKVView.deletePKV(0);
     }
 
-    @Test
-    void testOnRowEdit() throws ProzessKettenVorlageNotFoundException {
-        when(prozessKettenVorlageService.getObjById(anyInt())).thenReturn(new ProzessKettenVorlage(0, "name", Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, Arrays.<ProzessSchrittParameter>asList(null), null, "dauer", "name", null, true, 0))));
-
-        pKVView.onRowEdit(0);
-    }
 
 
     @Test
@@ -83,20 +74,7 @@ class PKVViewTest {
         pKVView.setSelPKV(Arrays.<ProzessKettenVorlage>asList(new ProzessKettenVorlage(0, "name", Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, Arrays.<ProzessSchrittParameter>asList(null), null, "dauer", "name", null, true, 0)))));
     }
 
-    @Test
-    void testSetVerPKV() {
-        pKVView.setVerPKV(Arrays.<ProzessKettenVorlage>asList(new ProzessKettenVorlage(0, "name", Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, Arrays.<ProzessSchrittParameter>asList(null), null, "dauer", "name", null, true, 0)))));
-    }
 
-    @Test
-    void testSetSourcePSV() {
-        pKVView.setSourcePSV(Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, Arrays.<ProzessSchrittParameter>asList(null), null, "dauer", "name", null, true, 0)));
-    }
-
-    @Test
-    void testSetTargetPSV() {
-        pKVView.setTargetPSV(Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, Arrays.<ProzessSchrittParameter>asList(null), null, "dauer", "name", null, true, 0)));
-    }
 
     @Test
     void testSetPsvs() {

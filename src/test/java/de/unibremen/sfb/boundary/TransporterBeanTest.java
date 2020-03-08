@@ -43,6 +43,9 @@ class TransporterBeanTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
+        when(auftragService.getTransportSchritt()).thenReturn(prozessSchritts);
+        when(auftragService.getTransportSchritt()).thenReturn(prozessSchrittList2);
+        when(auftragService.getTransportSchritt3()).thenReturn(prozessSchritts13);
     }
     @Mock
     List<ProzessSchritt> prozessSchritts;
@@ -50,13 +53,7 @@ class TransporterBeanTest {
     List<ProzessSchritt> prozessSchritts1;
     @Mock
     List<ProzessSchritt> prozessSchritts13;
-    @Test
-    void testInit() throws UserNotFoundException {
-        when(auftragService.getTransportSchritt()).thenReturn(prozessSchritts);
-        when(auftragService.getTransportSchritt2()).thenReturn(prozessSchritts1);
-        when(auftragService.getTransportSchritt3()).thenReturn(prozessSchritts13);
-        transporterBean.init();
-    }
+
 
     @Test
     void testGetAuftragList() {
@@ -70,7 +67,6 @@ class TransporterBeanTest {
         when(auftragService.getTransportSchritt2()).thenReturn(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0)));
         when(auftragService.getTransportSchritt3()).thenReturn(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0)));
         when(auftragService.getTransportAuftragByID(anyInt())).thenReturn(new TransportAuftrag(LocalDateTime.of(2020, Month.MARCH, 5, 16, 40, 3), null, new Standort(0, "ort"), new Standort(0, "ort")));
-
         transporterBean.changeTransportZustandAbgeholt(0);
     }
 
@@ -84,14 +80,6 @@ class TransporterBeanTest {
         //transporterBean.changeTransportZustandAbgeliefert(0);
     }
 
-    @Test
-    void testUpdateTabellen() throws UserNotFoundException {
-        when(auftragService.getTransportSchritt()).thenReturn(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0)));
-        when(auftragService.getTransportSchritt2()).thenReturn(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0)));
-        when(auftragService.getTransportSchritt3()).thenReturn(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0)));
-
-        transporterBean.updateTabellen();
-    }
 
 
 
@@ -110,10 +98,7 @@ class TransporterBeanTest {
         transporterBean.setTransportAuftragSelected( transportAuftrags);
     }
 
-    @Test
-    void testSetAuftragService() {
-        transporterBean.setAuftragService(new AuftragService());
-    }
+
 
     @Test
     void testSetProzessKettenVorlageService() {

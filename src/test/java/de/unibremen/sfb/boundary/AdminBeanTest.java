@@ -108,7 +108,6 @@ class AdminBeanTest {
     @Test
     void testFindUsers() {
         when(userService.getAll()).thenReturn(Arrays.<User>asList(new User(0, "vorname", "nachname", "email", "telefonnummer", "username", "password", true, LocalDateTime.of(2020, Month.MARCH, 5, 16, 19, 14), "language")));
-
         List<User> result = adminBean.findUsers();
         Assertions.assertEquals(Arrays.<User>asList(new User(0, "vorname", "nachname", "email", "telefonnummer", "username", "password", true, LocalDateTime.of(2020, Month.MARCH, 5, 16, 19, 14), "language")), result);
     }
@@ -116,7 +115,6 @@ class AdminBeanTest {
     @Test
     void testAddTraegerArt() throws TraegerArtNotFoundException {
         when(traegerArtService.getByName(anyString())).thenReturn(new TraegerArt("art"));
-
         adminBean.addTraegerArt("newTa");
     }
 
@@ -124,14 +122,12 @@ class AdminBeanTest {
     void testEditTraegerArt() throws TraegerArtNotFoundException {
         when(traegerArtService.getByName(anyString())).thenReturn(new TraegerArt("art"));
         when(traegerArtService.getById(anyInt())).thenReturn(new TraegerArt("art"));
-
         adminBean.editTraegerArt(0, "newTa");
     }
 
     @Test
     void testDeleteTraegerArt() throws TraegerArtNotFoundException {
         when(traegerArtService.getById(anyInt())).thenReturn(new TraegerArt("art"));
-
         adminBean.deleteTraegerArt(0);
     }
 
@@ -141,7 +137,6 @@ class AdminBeanTest {
     void testAddStation() throws ExperimentierStationNotFoundException {
         when(experimentierStationService.getStationByName(anyString())).thenReturn(new ExperimentierStation());
         when(experimentierStationService.getAll()).thenReturn(Arrays.<ExperimentierStation>asList(new ExperimentierStation()));
-
         adminBean.addStation();
     }
 

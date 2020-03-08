@@ -95,6 +95,6 @@ class ProbeTest {
     @Test
     void testToString() {
         String result = probe.toString();
-        Assertions.assertEquals("Probe(isValidData=true, probenID=null, anzahl=0, lost=0, kommentar=kommentar, zustand=zustand, standort=standort, eigenschaften=eigenschaften, atribute=atribute, currentTraeger=currentTraeger)", result);
+        Assertions.assertEquals("Probe null", result);
     }
 }
