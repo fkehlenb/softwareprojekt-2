@@ -128,7 +128,7 @@ class SingleJobBeanTest {
 
     @Test
     void testDownload2() {
-        singleJobBean.download(Arrays.<ProzessSchrittParameter>asList(null));
+        singleJobBean.downloadP(Arrays.<ProzessSchrittParameter>asList(null));
     }
 
     @Test

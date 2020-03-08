@@ -9,6 +9,7 @@ import de.unibremen.sfb.service.QualitativeEigenschaftService;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.omnifaces.util.Faces;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -17,16 +18,14 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.json.bind.JsonbBuilder;
 import javax.json.bind.JsonbConfig;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.Serializable;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Named
+@Named("singleJobBean")
 @SessionScoped
 @Getter
 @Setter
@@ -231,7 +230,7 @@ public class SingleJobBean implements Serializable {
      * downloads the parameters as a json file
      */
     public void download() {
-        download(getParameter());
+        downloadP(getParameter());
     }
 
     /**
@@ -254,20 +253,24 @@ public class SingleJobBean implements Serializable {
      *
      * @param psp the parameter
      */
-    public void download(List<ProzessSchrittParameter> psp) {
+    public void downloadP(List<ProzessSchrittParameter> psp) {
         var config = new JsonbConfig().withFormatting(true);
         var jsonb = JsonbBuilder.create(config);
-
         String result = jsonb.toJson(psp);
-        String fileName = "JSON_" + LocalDateTime.now().toString().replaceAll(":", "_") + ".json";
+        String fileName = "JSON_Parameter" + LocalDateTime.now().toString().replaceAll(":","_") + ".json";
         PrintWriter writer = null;
         try {
             writer = new PrintWriter(fileName);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        assert writer != null;
         writer.write(result);
+        writer.close();
+        try {
+            Faces.sendFile(new File(fileName),true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         log.info("Successfully exported json to " + fileName);
         message("Successfully exported json to " + fileName);
     }

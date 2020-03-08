@@ -171,8 +171,10 @@
                                     <p:row>
                                         <p:column colspan="1">
                                             <h:form>
-                                                <p:commandButton action="#{singleJobBean.download()}"
-                                                                 value="Download Parameter"/>
+                                                <p:commandButton action="#{singleJobBean.download}"
+                                                                 value="Download Parameter"
+                                                                 ajax="false"
+                                                />
                                             </h:form>
                                         </p:column>
                                         <p:column colspan="2">
