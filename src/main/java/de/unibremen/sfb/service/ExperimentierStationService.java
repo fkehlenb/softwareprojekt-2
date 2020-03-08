@@ -92,15 +92,11 @@ public class ExperimentierStationService implements Serializable {
      *
      * @param name - the experimenting station's name
      * @return the Found Station
-     * @throws ExperimentierStationNotFoundException if it cannot be found
      */
-    public ExperimentierStation findByName(String name) throws ExperimentierStationNotFoundException {
-        try {
-            return esDao.getByName(name);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new ExperimentierStationNotFoundException();
-        }
+    public ExperimentierStation findByName(String name) {
+        // FIXME Use String as ID or convert to String
+        esSet = esDao.getAll();
+        return this.esSet.stream().filter(c -> c.getName().equals(name)).findFirst().orElse(null);
     }
 
     /**
@@ -173,23 +169,29 @@ public class ExperimentierStationService implements Serializable {
      * @return a list containing all stations for this user
      */
     public List<ExperimentierStation> getESByUser(User user) {
-        return esDao.getESByUser(user);
+        return esDao.getAll().stream()
+                .filter(c -> c.getBenutzer().contains(user))
+                .collect(Collectors.toList());
     }
 
-    /**
-     * Get experimenting station of the process step
-     *
+    /** Get experimenting station of the process step
      * @param ps - the process step
-     * @return the location its being carried out at
-     */
+     * @return the location its being carried out at */
     public ExperimentierStation findStation(ProzessSchritt ps)
             throws IllegalArgumentException {
-        try {
-            return esDao.getStandortByPS(ps);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (ps == null) {
             throw new IllegalArgumentException();
         }
+        for (ExperimentierStation e : getAll()) { //TODO jeder schritt nur an einer station?
+            List<Integer> psids = new ArrayList<>();
+            for (ProzessSchritt p : e.getNextPS()) {
+                psids.add(p.getId());
+            }
+            if (psids.contains(ps.getId()) || (e.getCurrentPS() != null && e.getCurrentPS().getId() == ps.getId())) {
+                return e;
+            }
+        }
+        return null;
     }
 
     /**
@@ -215,8 +217,16 @@ public class ExperimentierStationService implements Serializable {
      * @param ps der ProzessSchritt
      * @return die ExperimentierStation and  der PS durchgeührt wird
      */
-    public ExperimentierStation getESfromPS(ProzessSchritt ps) throws ProzessSchrittNotFoundException {
-        return esDao.getStandortByPS(ps);
+    public ExperimentierStation getESfromPS(ProzessSchritt ps) {
+        var allES = getAll();
+        ExperimentierStation r = allES.stream().filter(e -> e.getCurrentPS() != null && e.getCurrentPS().getId() == ps.getId()).findFirst().orElse(null);
+        if (r == null) {
+            r = allES.stream().filter(e -> e.getNextPS().contains(ps)).findFirst().orElse(null);
+        }
+        if (r == null) {
+            return allES.get(0); // FIXME
+        } else return r;
+
     }
 
     /**
@@ -254,21 +264,24 @@ public class ExperimentierStationService implements Serializable {
             }
             if (e.getCurrentPS() != null && e.getCurrentPS().isValidData() && e.getCurrentPS().isAssigned()) {
                 ps.add(e.getCurrentPS());
-            } else {
+            }
+            else{
                 if (!e.getNextPS().isEmpty()) {
-                    for (int i = 0; i < e.getNextPS().size(); i++) {
-                        if (e.getNextPS().get(i).isValidData()) {
+                    for (int i=0;i<e.getNextPS().size();i++) {
+                        if (e.getNextPS().get(i).isValidData()){
                             e.setCurrentPS(e.getNextPS().get(i));
                             try {
                                 updateES(e);
-                            } catch (Exception f) {
+                            }
+                            catch (Exception f){
                                 f.printStackTrace();
                             }
                             ps.add(e.getCurrentPS());
                         }
                     }
 
-                } else {
+                }
+                else{
                     e.setCurrentPS(null);
                 }
             }
@@ -278,16 +291,15 @@ public class ExperimentierStationService implements Serializable {
 
     /**
      * next ps for user
-     *
      * @param u user
      * @return list
      */
     public List<ProzessSchritt> getJobsByUser(User u) {
         List<ProzessSchritt> ps = new ArrayList<>();
         List<ExperimentierStation> es = getESByUser(u);
-        for (ExperimentierStation e : es) {
-            for (ProzessSchritt p : e.getNextPS()) {
-                if (p.isValidData()) {
+        for(ExperimentierStation e : es) {
+            for (ProzessSchritt p : e.getNextPS()){
+                if (p.isValidData()){
                     ps.add(p);
                 }
             }
@@ -365,11 +377,11 @@ public class ExperimentierStationService implements Serializable {
     @Inject
     AuftragDAO auftragDAO;
 
-    @Inject
-    ProbeDAO probeDAO;
+   @Inject
+   ProbeDAO probeDAO;
 
-    @Inject
-    QualitativeEigenschaftDAO qualitativeEigenschaftDAO;
+   @Inject
+   QualitativeEigenschaftDAO qualitativeEigenschaftDAO;
 
     public Auftrag getAuftragOfPS(ProzessSchritt ps) {
         List<Auftrag> as = auftragDAO.getAll();
@@ -387,10 +399,9 @@ public class ExperimentierStationService implements Serializable {
      * Fuegt alle Atribute einer PS auf alle Proben die dem Auftrag zugwiesen sind
      * Die Atribute werden durch kommas getrennt
      * Die Probe wird akutallisiert und dann persistiert
-     *
      * @param ps der ProzessSchritt
      * @throws DuplicateQualitativeEigenschaftException falls es diese Eigenschaft schon gibt
-     * @throws ProbeNotFoundException                   falls es diese Probe nicht gibt
+     * @throws ProbeNotFoundException  falls es diese Probe nicht gibt
      */
     public void addEigToTraeger(ProzessSchritt ps) throws DuplicateQualitativeEigenschaftException, ProbeNotFoundException {
         String str = ps.getAttribute();
@@ -400,12 +411,12 @@ public class ExperimentierStationService implements Serializable {
                 traegers) {
             for (Probe p :
                     t.getProben()) {
-                List<QualitativeEigenschaft> akutelleEigenschaften = p.getEigenschaften();
+                    List <QualitativeEigenschaft> akutelleEigenschaften = p.getEigenschaften();
                 for (String s :
                         attributList) {
-                    QualitativeEigenschaft e = new QualitativeEigenschaft(UUID.randomUUID().hashCode(), s);
-                    qualitativeEigenschaftDAO.persist(e);
-                    akutelleEigenschaften.add(e);
+                   QualitativeEigenschaft e = new QualitativeEigenschaft(UUID.randomUUID().hashCode(), s);
+                   qualitativeEigenschaftDAO.persist(e);
+                   akutelleEigenschaften.add(e);
                 }
                 p.setEigenschaften(akutelleEigenschaften);
                 probeDAO.update(p);
@@ -479,11 +490,12 @@ public class ExperimentierStationService implements Serializable {
             ta = new TransportAuftrag(LocalDateTime.now(), TransportAuftragZustand.ERSTELLT, es.getStandort(), standortService.findByLocation("Lager"));
         }
         try {
-            if (!es.getNextPS().isEmpty()) {
+            if (!es.getNextPS().isEmpty()){
                 es.setCurrentPS(es.getNextPS().get(0));
             }
             updateES(es);
-        } catch (Exception e) {
+        }
+        catch (Exception e){
             e.printStackTrace();
         }
         transportAuftragDAO.persist(ta);
