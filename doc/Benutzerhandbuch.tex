@@ -769,40 +769,40 @@ Im oberen Formular können Sie für die anderen Datenmöglichkeiten alle in der 
 \hline
 \multicolumn{1}{|c|}{\textbf{Hinweis}}                          & \multicolumn{1}{c|}{\textbf{Ursache}}                                                                                                                                                                                                               \\ \hline
 \endhead
-Couldn't create new job! & \\ \hline
+Couldn't create new job! &Es ist ein interner Fehler aufgetreten. //TODO \\ \hline
 Can't edit an already started job! & Der Auftrag, den Sie bearbeiten wollen, wurde bereits gestartet. Sie können den Auftrag abbrechen, wenn die Angaben falsch sind. \\ \hline
-Couldn't edit job! & \\ \hline
-Failed to remove job! & \\ \hline
-Failed to stop job!  & \\ \hline
-Job has already been started!  & \\ \hline
-Coulnd't start job! & \\ \hline
-Failed to export to json! & \\ \hline
-Couldn't create new process chain template! & \\ \hline
-Coulnd't delete process chain template! & \\ \hline
-Failed to update process chain template! & \\ \hline
-Couldn't create new process step! Error: .. & \\ \hline
+Couldn't edit job! & Der Auftrag wurde nicht in der Datenbank gefunden. \\ \hline
+Failed to remove job! & Der Auftrag oder einer/mehrere Prozessschritt(e), der dem Auftrag zugehörig ist, wurde nicht in der Datenbank gefunden. Da Sie den Auftrag und die Prozessschritte aus der Datenbank löschen wollten, müssen Sie keine weiteren Aktionen vornehmen. \\ \hline
+Failed to stop job!  & Der Auftrag oder ein zugehöriger Prozessschritt wurde nicht in der Datenbank gefunden.  \\ \hline
+Job has already been started!  & Der Auftrag wurde bereits gestartet. \\ \hline
+Coulnd't start job! & Der Auftrag wurde nicht in der Datenbank gefunden.\\ \hline
+Failed to export to json! & Ein Fehler ist beim Schreiben von Daten zu einer JSON Datei aufgetreten. Bitte kontaktieren Sie das Entwicklerteam.  \\ \hline
+Couldn't create new process chain template! & Es existiert bereits eine Prozessketten-Vorlage mit der ID, die generiert wurde, in der Datenbank. Bitte versuchen Sie es nochmal. Wenn Sie keinen Erfolg haben, kontaktieren Sie das Entwicklerteam. \\ \hline
+Coulnd't delete process chain template! & Die Vorlage wurde nicht in der Datenbank gefunden; Sie muss also auch nicht mehr gelöscht werden. \\ \hline
+Failed to update process chain template! & Die Vorlage wurde nicht in der Datenbank gefunden. Bitte fügen Sie sie neu hinzu. \\ \hline
+Couldn't create new process step! Error: .. &  Es existiert bereit ein Prozessschrit mit der ID, die generiert wurde. Bitte versuchen Sie es nochmal, oder kontaktieren Sie das Entwicklerteam. \\ \hline
 Cannot edit an already started process step! & Der Prozessschritt, den Sie bearbeiten wollen, wurde bereits gestartet. Sie können den zugehörigen Auftrag abbrechen.  \\ \hline
-Failed to edit process step! & \\ \hline
-Failed to remove process step! & \\ \hline
-Cannot display data! & \\ \hline
-Coulnd't create new process parameter! & \\ \hline
-Couldn't update process step parameter! & \\ \hline
-Couldn't remove process parameter! & \\ \hline
+Failed to edit process step! & Der Prozesschritt oder eine zugehörige Komponente konnte nicht in der Datenbank gefunden werden. Bitte stellen Sie sicher, dass sowohl der Prozessschritt als auch alle zugehörigen Attribute korrekt gespeichert sind, oder versuchen Sie den Prozessschritt neu hinzuzufügen. \\ \hline
+Failed to remove process step! & Der Prozessschritt wurde nicht in der Datenbank gefunden, muss also auch nicht mehr gelöscht werden. \\ \hline
+Cannot display data! & Der Prozessschritt, zu dem Sie Daten anzeigen wollen, konnte nicht in der Datenbank gefunden werden. \\ \hline
+Coulnd't create new process parameter! & Ein Parameter mit der ID, die generiert wurde, existiert bereits in der Datenbank. Bitte versuchen Sie es erneut, oder kontaktieren Sie das Entwicklerteam. \\ \hline
+Couldn't update process step parameter! & Der Parameter, den Sie bearbeiten wollen, konnte nicht in der Datenbank gefunden werden. Bitte versuchen Sie, ihn neu hinzuzufügen. \\ \hline
+Couldn't remove process parameter! & Der Parameter konnte nicht in der Datenbank gefunden werden, muss also nicht gelöscht werden. \\ \hline
 Proben-ID entpricht nicht! ..  & Die Proben-ID entspricht nicht dem Muster [A-Z][0-9].[0-9][0-9]. Bitte überprüfen Sie, ob die Proben-ID, die Sie angegeben haben, mit einem Buchstaben anfängt, worauf eine Zahl, ein Punkt und zwei weitere Ziffern folgen, wie in diesem Beispiel: A0.22. \\ \hline
-Failed to create new process step template! & \\ \hline
-Failed to edit process step template! & \\ \hline
-Failed to remove process step template! & \\ \hline
+Failed to create new process step template! & Es existiert bereit eine Vorlage mit der ID, die generiert wurde. Bitte versuchen Sie es erneut, oder kontaktieren Sie das Entwicklerteam.\\ \hline
+Failed to edit process step template! & Die Vorlage wurde nicht in der Datenbank gefunden. Bitte versuchen Sie, die Vorlage neu zu speichern. \\ \hline
+Failed to remove process step template! & Die Vorlage konnte nicht in der Datenbank gefunden werden, und muss dementsprechend nicht gelöscht werden. \\ \hline
 Der erste Zustand muss Erstellt sein! & Der erste Zustand in der Prozessschritt-Zustandsautomatvorlage muss der Zustand "Erstellt" sein. Bitte passen Sie Ihre Vorlage an.\\ \hline
 Bitte suchen Sie mindestens 1 Zustaend aus! & Die Prozessschritt-Zustandsautomatvorlage muss mindestens einen Zustand haben. Bitte fügen Sie mindestens einen Zustand hinzu. \\ \hline
-Couldn't create new process step automaton with name ..  & \\ \hline
-Couldn't remove process step automaton! & \\ \hline
-Couldn't edit process step automaton with name ..& \\ \hline
-Failed to create new qualitative descriptor with name.. & \\ \hline
-Failed to create new quantitative descriptor with name.. & \\ \hline
-Failed to edit qualitative descriptor! & \\ \hline
-Failed to edit quantitative descriptor! & \\ \hline
-Failed to remove qualitative descriptor! & \\ \hline
-Failed to remove quantitative descriptor! & \\ \hline
+Couldn't create new process step automaton with name ..  & Es existiert bereits ein Zustandsautomat mit der ID, die generiert wurde, in der Datenbank. Bitte versuchen Sie es erneut, oder kontaktieren Sie das Entwicklerteam.  \\ \hline
+Couldn't remove process step automaton! & Der Zustandsautomat konnte nicht in der Datenbank gefunden werden, muss also dementsprechend nicht gelöscht werden. \\ \hline
+Couldn't edit process step automaton with name ..& Der Zustandsautomat konnte nicht in der Datenbank gefunden werden. Bitte versuchen Sie, ihn neu zu speichern. \\ \hline
+Failed to create new qualitative descriptor with name.. & Es existiert bereits eine qualitative Eigenschaft mit der generierten ID in der Datenbank. Bitte versuchen Sie es erneut oder kontaktieren Sie das Entwicklerteam. \\ \hline
+Failed to create new quantitative descriptor with name.. & Es existiert bereits eine quantitative Eigenschaft mit der generierten ID in der Datenbank. Bitte versuchen Sie es erneut oder kontaktieren Sie das Entwicklerteam. \\ \hline
+Failed to edit qualitative descriptor! & Die qualitative Eigenschaft konnte nicht in der Datenbank gefunden werden. Bitte versuchen Sie, sie erneut zu speichern. \\ \hline
+Failed to edit quantitative descriptor! & Die quantitative Eigenschaft konnte nicht in der Datenbank gefunden werden. Bitte versuchen Sie, sie erneut zu speichern. \\ \hline
+Failed to remove qualitative descriptor! & Die qualitative Eigenschaft konnte nicht in der Datenbank gefunden werden, und muss dementsprechend auch nicht gelöscht werden. \\ \hline
+Failed to remove quantitative descriptor! & Die quantitative Eigenschaft konnte nicht in der Datenbank gefunden werden, und muss dementsprechend auch nicht gelöscht werden.  \\ \hline
 \end{longtable}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Logistiker}
