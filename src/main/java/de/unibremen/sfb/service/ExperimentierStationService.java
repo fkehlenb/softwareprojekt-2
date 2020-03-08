@@ -434,6 +434,8 @@ public class ExperimentierStationService implements Serializable {
      * @throws ExperimentierStationNotFoundException the es was not found in the database
      * @throws DuplicateTransportAuftragException    if TA already exists
      * @throws StandortNotFoundException             if archiv not found
+     * @throws ProbeNotFoundException                if the Probe could not be found
+     * @throws DuplicateQualitativeEigenschaftException if the Probe already exists
      */
     public void updateCurrent(ProzessSchritt ps, ExperimentierStation es)
             throws IllegalArgumentException, ExperimentierStationNotFoundException, DuplicateTransportAuftragException, StandortNotFoundException, ProbeNotFoundException, DuplicateQualitativeEigenschaftException {
