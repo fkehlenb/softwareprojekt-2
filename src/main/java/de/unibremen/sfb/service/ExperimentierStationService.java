@@ -262,18 +262,6 @@ public class ExperimentierStationService implements Serializable {
                     f.printStackTrace();
                 }
             }
-            else{
-                try {
-                    if (e.getCurrentPS()!=null&&!e.getCurrentPS().getProzessSchrittZustandsAutomat().getCurrent().equals(e.getCurrentPS()
-                            .getProzessSchrittZustandsAutomat().getZustaende().get(e.getCurrentPS().getProzessSchrittZustandsAutomat().getZustaende().size()-1))){
-                        e.setCurrentPS(null);
-                        updateES(e);
-                    }
-                }
-                catch (Exception f){
-                    f.printStackTrace();
-                }
-            }
         }
         for (ExperimentierStation e : gu){
             ps.add(e.getCurrentPS());
@@ -471,7 +459,9 @@ public class ExperimentierStationService implements Serializable {
                 for (ProzessSchritt p : e.getNextPS()) {
                     psids.add(p.getId());
                 }
-                psids.add(e.getCurrentPS().getId());
+                if (e.getCurrentPS()!=null) {
+                    psids.add(e.getCurrentPS().getId());
+                }
                 // IF the List contains the id we are searching for
                 // OR
                 //   if the current PS exists and is the step we are looking for
