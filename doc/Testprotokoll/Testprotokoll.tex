@@ -65,7 +65,7 @@
   \setlength{\headheight}{70.55003pt}
   \fancyhead{}
   \fancyhead[LO,RE]{Software--Projekt 2\\ WiSe 2019/2020
-  \\Architekturbeschreibung}
+  \\Testprotokoll}
   \fancyhead[LE,RO]{Seite \thepage\\\slshape \leftmark\\\slshape \rightmark}
 
 %Unicode Minuszeichen deklarieren, um es nicht überall austauschen zu müssen
@@ -136,7 +136,7 @@
   \thispagestyle{fancy}
   \fancyhead{}
   \fancyhead[LO,RE]{Software--Projekt \\  2019/2020
-  \\Benutzerhandbuch}
+  \\Testprotokoll}
   \fancyhead[LE,RO]{Seite \thepage\\\slshape \leftmark\\~}
   \fancyfoot{}
   \renewcommand{\headrulewidth}{0.4pt}
@@ -871,7 +871,7 @@ Der Test verlief also erfolgreich.
 
 %%
 
-\subsubsection{Anwendungsfall: Probenverlust melden}
+\hypertarget{3.4.2}{\subsubsection{Anwendungsfall: Probenverlust melden}}
 
 Hierfür erstelle ich zunächst im Logister jeweils 100 Proben mit den IDs von \textit{A01.0101} bis \textit{A01.0105}. Diese Funktion wird in dem jeweiligen Abschnitt des Testprotokolls separat getestet. Hier sieht man den \hyperlink{sc3.4.2.1}{Ausgangszustand}. \\
 
@@ -1056,19 +1056,81 @@ Der Test ist erfolgreich.
 
 %%
 
-\subsubsection{Anwendungsfall: log 5}
+\subsubsection{Anwendungsfall: Probenverlust melden}
 
-%%
+Hier verweise ich auf den Punkt \hyperlink{3.4.2}{3.4.2}, da sich die Funktionalität der Seiten in den unterschiedlichen Nutzern nicht unterscheidet. Es wurde genauso getestet und kann dort nachgelesen werden. 
 
-\subsubsection{Anwendungsfall: log 6}
+Auch dieser Test ist erfolgreich. 
 
-%%
-
-\subsubsection{Anwendungsfall: log 7}
-
-%%
+%%%%%%%%%%%%
 
 \subsection{Tests zum Technologen}
+
+\subsubsection{Anwendungsfall: Experimentierstationen Verwalten}
+
+\paragraph{Übersicht über alle dem User zugewiesenen Experimentierstationen:}
+
+Man geht links auf Meine Experimentierstationen und sieht dann alle einem zugewiesenen Experimentierstationen. 
+
+ \hypertarget{sc3.6.1.1}{
+\includegraphics[width=1\textwidth]{Screenshots/3611.png}
+\textit{Abbildung 3.6.1.1: Experimentierstationen von Benutzer l}
+} \\
+
+Einem User, der keine Experimentierstationen zugewiesen hat, wird eine leere Liste angezeigt. 
+
+ \hypertarget{sc3.6.1.2}{
+\includegraphics[width=1\textwidth]{Screenshots/3612.png}
+\textit{Abbildung 3.6.1.2: Experimentierstationen von Benutzer admin}
+} \\
+
+Der Test ist erfolgreich.
+
+%
+\paragraph{Defekte Station melden}
+
+In der \textit{Meine Experimentierstationen} Übersicht kann man auf den roten Report Knopf drücken, um eine Station als kaputt zu markieren. Der Zustand wird von Verfügbar auf Kaputt gestellt und die Station wird rot markiert. 
+
+ \hypertarget{sc3.6.1.3}{
+\includegraphics[width=1\textwidth]{Screenshots/3613.png}
+\textit{Abbildung 3.6.1.3: Experimentierstationen als kaputt melden in der Tabelle}
+} \\
+
+ \hypertarget{sc3.6.1.4}{
+\includegraphics[width=1\textwidth]{Screenshots/3614.png}
+\textit{Abbildung 3.6.1.4: Experimentierstationen als kaputt melden in der Detailansicht}
+} \\
+
+ \hypertarget{sc3.6.1.5}{
+\includegraphics[width=1\textwidth]{Screenshots/3615.png}
+\textit{Abbildung 3.6.1.5: Experimentierstation ist kaputt und rot markiert}
+} \\
+
+Der Test ist erfolgreich. 
+
+%
+\paragraph{Details einer Experimentierstation einsehen}
+
+Auf der Ansicht \textit{Meine Experimentierstationen} kann man den grünen Choose-Button drücken, um die Details einer Station einzusehen.
+
+ \hypertarget{sc3.6.1.6}{
+\includegraphics[width=1\textwidth]{Screenshots/3616.png}
+\textit{Abbildung 3.6.1.6: Details einer Station}
+} \\
+
+%%
+
+\subsubsection{Anwendungsfall: Beispiel 5}
+
+%%
+
+\subsubsection{Anwendungsfall: Beispiel 5}
+
+%%
+
+\subsubsection{Anwendungsfall: Beispiel 5}
+
+%%
 
 \subsubsection{Anwendungsfall: Beispiel 5}
 
