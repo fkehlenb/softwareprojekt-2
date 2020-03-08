@@ -1,0 +1,256 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ProzessSchrittParameterService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">de.unibremen.sfb.service</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ProzessSchrittParameterService (de.unibremen.sfb.service)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ProzessSchrittParameterService</td>
+<td class="coverageStat">
+  <span class="percent">
+    60%
+  </span>
+  <span class="absValue">
+    (9/ 15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    36,6%
+  </span>
+  <span class="absValue">
+    (15/ 41)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ProzessSchrittParameterService$MockitoMock$1544019791</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittParameterService$MockitoMock$1544019791$auxiliary$1jmsR2xM</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittParameterService$MockitoMock$1544019791$auxiliary$1RSnjq7S</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittParameterService$MockitoMock$1544019791$auxiliary$2BbQDCDZ</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittParameterService$MockitoMock$1544019791$auxiliary$4hBkhlzG</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittParameterService$MockitoMock$1544019791$auxiliary$AcH5ItV3</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittParameterService$MockitoMock$1544019791$auxiliary$DhgW1srT</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittParameterService$MockitoMock$1544019791$auxiliary$fED2dNr6</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittParameterService$MockitoMock$1544019791$auxiliary$gExm7Wjd</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittParameterService$MockitoMock$1544019791$auxiliary$ImbgRI0w</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittParameterService$MockitoMock$1544019791$auxiliary$kNKqECgs</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittParameterService$MockitoMock$1544019791$auxiliary$LmyDiRhm</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittParameterService$MockitoMock$1544019791$auxiliary$qGG6oW6o</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittParameterService$MockitoMock$1544019791$auxiliary$qTTkW1na</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittParameterService$MockitoMock$1544019791$auxiliary$TusBCtZI</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittParameterService$MockitoMock$1544019791$auxiliary$UAgizhen</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittParameterService$MockitoMock$1544019791$auxiliary$uM4DxB84</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittParameterService$MockitoMock$1544019791$auxiliary$Vd7NtKJ7</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittParameterService$MockitoMock$1544019791$auxiliary$XWD7emvX</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    60%
+  </span>
+  <span class="absValue">
+    (9/ 15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    36,6%
+  </span>
+  <span class="absValue">
+    (15/ 41)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package de.unibremen.sfb.service;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.fasterxml.jackson.databind.ObjectMapper;
+<i>4</i>&nbsp;import de.unibremen.sfb.exception.DuplicateProzessSchrittParameterException;
+<i>5</i>&nbsp;import de.unibremen.sfb.exception.ProzessSchrittParameterNotFoundException;
+<i>6</i>&nbsp;import de.unibremen.sfb.model.ProzessSchrittParameter;
+<i>7</i>&nbsp;import de.unibremen.sfb.model.QualitativeEigenschaft;
+<i>8</i>&nbsp;import de.unibremen.sfb.persistence.ProzessSchrittParameterDAO;
+<i>9</i>&nbsp;import lombok.Data;
+<i>10</i>&nbsp;import lombok.Getter;
+<i>11</i>&nbsp;import lombok.extern.slf4j.Slf4j;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;import javax.annotation.PostConstruct;
+<i>14</i>&nbsp;import javax.inject.Inject;
+<i>15</i>&nbsp;import java.io.File;
+<i>16</i>&nbsp;import java.io.IOException;
+<i>17</i>&nbsp;import java.io.Serializable;
+<i>18</i>&nbsp;import java.util.ArrayList;
+<i>19</i>&nbsp;import java.util.List;
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;
+<b class="fc"><i>22</i>&nbsp;@Data</b>
+<i>23</i>&nbsp;@Getter
+<b class="fc"><i>24</i>&nbsp;@Slf4j</b>
+<i>25</i>&nbsp;public class ProzessSchrittParameterService implements Serializable {
+<b class="nc"><i>26</i>&nbsp;    private List&lt;ProzessSchrittParameter&gt; parameterList;</b>
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;    @Inject
+<b class="nc"><i>29</i>&nbsp;    ProzessSchrittParameterDAO prozessSchrittParameterDAO;</b>
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;    @PostConstruct
+<i>32</i>&nbsp;    public void init() {
+<b class="fc"><i>33</i>&nbsp;        this.parameterList = prozessSchrittParameterDAO.getAll();</b>
+<b class="fc"><i>34</i>&nbsp;    }</b>
+<i>35</i>&nbsp;
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;    public List&lt;ProzessSchrittParameter&gt; getPSP() {
+<b class="nc"><i>38</i>&nbsp;        return parameterList;</b>
+<i>39</i>&nbsp;    }
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;    public List&lt;QualitativeEigenschaft&gt; getEigenschaften(ProzessSchrittParameter p) {
+<b class="fc"><i>42</i>&nbsp;        return p.getQualitativeEigenschaften();</b>
+<i>43</i>&nbsp;    }
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;    public void loscheParameter(ProzessSchrittParameter parameter) throws ProzessSchrittParameterNotFoundException {
+<b class="fc"><i>46</i>&nbsp;        this.parameterList.remove(parameter);</b>
+<b class="fc"><i>47</i>&nbsp;        prozessSchrittParameterDAO.remove(parameter);</b>
+<b class="fc"><i>48</i>&nbsp;    }</b>
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;    public ProzessSchrittParameter getPSPByID(int idPSP) throws ProzessSchrittParameterNotFoundException {
+<b class="fc"><i>51</i>&nbsp;        return prozessSchrittParameterDAO.getPSPByID(idPSP);</b>
+<i>52</i>&nbsp;    }
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;    public ProzessSchrittParameter findByName(String name) {
+<i>55</i>&nbsp;        // FIXME Use String as ID or convert to String
+<b class="fc"><i>56</i>&nbsp;        return this.parameterList.stream().filter(c -&gt; c.getName().equals(name)).findFirst().orElse(null);</b>
+<i>57</i>&nbsp;    }
+<i>58</i>&nbsp;
+<i>59</i>&nbsp;    public File toJSON(List&lt;ProzessSchrittParameter&gt; psp) throws IOException {
+<b class="nc"><i>60</i>&nbsp;        ObjectMapper mapper = new ObjectMapper();</b>
+<b class="nc"><i>61</i>&nbsp;        File file = new File(&quot;parameter.json&quot;);</b>
+<b class="nc"><i>62</i>&nbsp;        mapper.writeValue(file, psp);</b>
+<b class="nc"><i>63</i>&nbsp;        return file;</b>
+<i>64</i>&nbsp;    }
+<i>65</i>&nbsp;
+<i>66</i>&nbsp;    //////// Santiago Implementierung ////
+<i>67</i>&nbsp;//////////////////////////////////////////
+<i>68</i>&nbsp;    public void addProcessSP(ProzessSchrittParameter prozessSchrittParameter) throws DuplicateProzessSchrittParameterException {
+<b class="nc"><i>69</i>&nbsp;        this.parameterList.add(prozessSchrittParameter);</b>
+<b class="nc"><i>70</i>&nbsp;        prozessSchrittParameterDAO.persist(prozessSchrittParameter);</b>
+<b class="nc"><i>71</i>&nbsp;    }</b>
+<i>72</i>&nbsp;
+<i>73</i>&nbsp;    public List&lt;ProzessSchrittParameter&gt; getAll() {
+<i>74</i>&nbsp;        try {
+<b class="fc"><i>75</i>&nbsp;            log.info(&quot;Trying get all ProzessSchrittParameterDAO Class=ProzessSchrittParameterService&quot;);</b>
+<b class="fc"><i>76</i>&nbsp;            return prozessSchrittParameterDAO.getAll();</b>
+<b class="nc"><i>77</i>&nbsp;        } catch (Exception e) {</b>
+<b class="nc"><i>78</i>&nbsp;            log.info(&quot;error get all ProzessSchrittParameterDAO Class=ProzessSchrittParameterService&quot;);</b>
+<b class="nc"><i>79</i>&nbsp;            return null;</b>
+<i>80</i>&nbsp;        }
+<i>81</i>&nbsp;    }
+<i>82</i>&nbsp;
+<i>83</i>&nbsp;    public void update(ProzessSchrittParameter prozessSchrittParameter) {
+<i>84</i>&nbsp;        try {
+<b class="fc"><i>85</i>&nbsp;            prozessSchrittParameterDAO.update(prozessSchrittParameter);</b>
+<b class="nc"><i>86</i>&nbsp;        } catch (ProzessSchrittParameterNotFoundException e) {</b>
+<b class="nc"><i>87</i>&nbsp;            e.printStackTrace();</b>
+<b class="fc"><i>88</i>&nbsp;        }</b>
+<b class="fc"><i>89</i>&nbsp;    }</b>
+<i>90</i>&nbsp;
+<i>91</i>&nbsp;    public List&lt;ProzessSchrittParameter&gt; findByQei(int idqEin) {
+<b class="nc"><i>92</i>&nbsp;        List&lt;ProzessSchrittParameter&gt; pspList = prozessSchrittParameterDAO.getAll();</b>
+<b class="nc"><i>93</i>&nbsp;        List&lt;ProzessSchrittParameter&gt; prozessSchrittParameters = new ArrayList&lt;&gt;();</b>
+<i>94</i>&nbsp;
+<i>95</i>&nbsp;        //lista para guardar los PSP si tiene Abhangig
+<b class="nc"><i>96</i>&nbsp;        for (ProzessSchrittParameter psp : pspList) {</b>
+<b class="nc"><i>97</i>&nbsp;            List&lt;QualitativeEigenschaft&gt; qualitativeEigenschaftList = psp.getQualitativeEigenschaften();</b>
+<b class="nc"><i>98</i>&nbsp;            for (QualitativeEigenschaft ql : qualitativeEigenschaftList) {</b>
+<b class="nc"><i>99</i>&nbsp;                if (ql.getId() == idqEin) {</b>
+<b class="nc"><i>100</i>&nbsp;                    prozessSchrittParameters.add(psp);</b>
+<b class="nc"><i>101</i>&nbsp;                    System.out.println(&quot;Post&quot;);</b>
+<i>102</i>&nbsp;                }
+<b class="nc"><i>103</i>&nbsp;            }</b>
+<b class="nc"><i>104</i>&nbsp;        }</b>
+<b class="nc"><i>105</i>&nbsp;        return prozessSchrittParameters;</b>
+<i>106</i>&nbsp;    }
+<i>107</i>&nbsp;
+<i>108</i>&nbsp;
+<i>109</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-03-08 14:39</div>
+</div>
+</body>
+</html>

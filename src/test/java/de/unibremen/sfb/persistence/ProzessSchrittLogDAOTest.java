@@ -21,10 +21,12 @@ class ProzessSchrittLogDAOTest {
     EntityManager em;
     @InjectMocks
     ProzessSchrittLogDAO prozessSchrittLogDAO;
-
+    @Mock
+    ProzessSchrittLog prozessSchrittLog;
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
+
     }
 
     @Test
@@ -34,18 +36,27 @@ class ProzessSchrittLogDAOTest {
 
     @Test
     void testUpdate() throws ProzessSchrittLogNotFoundException {
+        when(prozessSchrittLog.getId()).thenReturn(1);
+        when(em.find(any(), any())).thenReturn(prozessSchrittLog);
+        when(em.contains(prozessSchrittLog)).thenReturn(true);
         prozessSchrittLogDAO.update(new ProzessSchrittLog(LocalDateTime.of(2020, Month.MARCH, 5, 16, 52, 39), "zustandsAutomat"));
     }
 
     @Test
     void testRemove() throws ProzessSchrittLogNotFoundException {
+        when(prozessSchrittLog.getId()).thenReturn(1);
+        when(em.find(any(), any())).thenReturn(prozessSchrittLog);
+        when(em.contains(prozessSchrittLog)).thenReturn(true);
         prozessSchrittLogDAO.remove(new ProzessSchrittLog(LocalDateTime.of(2020, Month.MARCH, 5, 16, 52, 39), "zustandsAutomat"));
     }
 
     @Test
     void testGet() {
+        when(prozessSchrittLog.getId()).thenReturn(1);
+        when(em.find(any(), any())).thenReturn(prozessSchrittLog);
+        when(em.contains(prozessSchrittLog)).thenReturn(true);
         Class<ProzessSchrittLog> result = prozessSchrittLogDAO.get();
-        Assertions.assertEquals(null, result);
+        Assertions.assertEquals(ProzessSchrittLog.class, result);
     }
 }
 

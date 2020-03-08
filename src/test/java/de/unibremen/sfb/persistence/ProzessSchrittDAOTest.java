@@ -23,10 +23,13 @@ class ProzessSchrittDAOTest {
     EntityManager em;
     @InjectMocks
     ProzessSchrittDAO prozessSchrittDAO;
-
+    @Mock
+    ProzessSchritt prozessSchritt;
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
+
+
     }
 
     @Test
@@ -36,18 +39,24 @@ class ProzessSchrittDAOTest {
 
     @Test
     void testUpdate() throws ProzessSchrittNotFoundException {
+        when(prozessSchritt.getId()).thenReturn(1);
+        when(em.find(any(), any())).thenReturn(prozessSchritt);
+        when(em.contains(prozessSchritt)).thenReturn(true);
         prozessSchrittDAO.update(new ProzessSchritt(0, new ProzessSchrittZustandsAutomat(0, "current", Arrays.<String>asList("String")), "duration", Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), "attribute", Arrays.<ProzessSchrittLog>asList(new ProzessSchrittLog(LocalDateTime.of(2020, Month.MARCH, 5, 16, 52, 35), "zustandsAutomat")), "name", true, 0));
     }
 
     @Test
     void testRemove() throws ProzessSchrittNotFoundException {
+        when(prozessSchritt.getId()).thenReturn(1);
+        when(em.find(any(), any())).thenReturn(prozessSchritt);
+        when(em.contains(prozessSchritt)).thenReturn(true);
         prozessSchrittDAO.remove(new ProzessSchritt(0, new ProzessSchrittZustandsAutomat(0, "current", Arrays.<String>asList("String")), "duration", Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), "attribute", Arrays.<ProzessSchrittLog>asList(new ProzessSchrittLog(LocalDateTime.of(2020, Month.MARCH, 5, 16, 52, 35), "zustandsAutomat")), "name", true, 0));
     }
 
     @Test
     void testGet() {
         Class<ProzessSchritt> result = prozessSchrittDAO.get();
-        Assertions.assertEquals(null, result);
+        Assertions.assertEquals(ProzessSchritt.class, result);
     }
 
     @Test

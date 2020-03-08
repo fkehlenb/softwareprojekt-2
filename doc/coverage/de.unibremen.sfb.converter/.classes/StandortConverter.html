@@ -1,0 +1,120 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: StandortConverter</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">de.unibremen.sfb.converter</a> ]
+</div>
+
+<h1>Coverage Summary for Class: StandortConverter (de.unibremen.sfb.converter)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">StandortConverter</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 6)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package de.unibremen.sfb.converter;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import de.unibremen.sfb.model.Standort;
+<i>4</i>&nbsp;import de.unibremen.sfb.service.StandortService;
+<i>5</i>&nbsp;
+<i>6</i>&nbsp;import javax.faces.component.UIComponent;
+<i>7</i>&nbsp;import javax.faces.context.FacesContext;
+<i>8</i>&nbsp;import javax.faces.convert.Converter;
+<i>9</i>&nbsp;import javax.faces.convert.FacesConverter;
+<i>10</i>&nbsp;import javax.inject.Inject;
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;@FacesConverter(value = &quot;standortConverter&quot;, managed = true)
+<b class="nc"><i>14</i>&nbsp;public class StandortConverter implements Converter&lt;Standort&gt; {</b>
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    /** Standort service */
+<i>17</i>&nbsp;    @Inject
+<i>18</i>&nbsp;    private StandortService standortService;
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    @Override
+<i>21</i>&nbsp;    public String getAsString(FacesContext context, UIComponent component, Standort id) {
+<i>22</i>&nbsp;        // This method is called when item value is to be converted to HTTP request parameter.
+<b class="nc"><i>23</i>&nbsp;        return id.toString();</b>
+<i>24</i>&nbsp;    }
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    @Override
+<i>27</i>&nbsp;    public Standort getAsObject(FacesContext context, UIComponent component, String id) {
+<i>28</i>&nbsp;        // This method is called when HTTP request parameter is to be converted to item value.
+<i>29</i>&nbsp;        try {
+<b class="nc"><i>30</i>&nbsp;            return standortService.findById(Integer.parseInt(id));</b>
+<i>31</i>&nbsp;        }
+<b class="nc"><i>32</i>&nbsp;        catch (Exception e) {</b>
+<b class="nc"><i>33</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>34</i>&nbsp;            return null;</b>
+<i>35</i>&nbsp;        }
+<i>36</i>&nbsp;    }
+<i>37</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-03-08 14:39</div>
+</div>
+</body>
+</html>

@@ -24,7 +24,8 @@ class ProzessKettenVorlageDAOTest {
     EntityManager em;
     @InjectMocks
     ProzessKettenVorlageDAO prozessKettenVorlageDAO;
-
+    @Mock
+    ProzessKettenVorlage prozessKettenVorlage;
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -32,6 +33,9 @@ class ProzessKettenVorlageDAOTest {
 
     @Test
     void testPersist() throws DuplicateProzessKettenVorlageException {
+        when(prozessKettenVorlage.getPkvID()).thenReturn(1);
+        when(em.find(any(), any())).thenReturn(prozessKettenVorlageDAO);
+        when(em.contains(prozessKettenVorlage)).thenReturn(true);
         prozessKettenVorlageDAO.persist(new ProzessKettenVorlage(0, "name", Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), new ExperimentierStation(), "dauer", "name", new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name"), true, 0))));
     }
 
@@ -54,7 +58,7 @@ class ProzessKettenVorlageDAOTest {
     @Test
     void testGet() {
         Class<ProzessKettenVorlage> result = prozessKettenVorlageDAO.get();
-        Assertions.assertEquals(null, result);
+        Assertions.assertEquals(ProzessKettenVorlage.class, result);
     }
 
     @Test

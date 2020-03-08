@@ -23,6 +23,8 @@ class bearbeitbareListPSVBeanTest {
     List<ProzessSchrittVorlage> bearbeitbareList;
     @Mock
     Logger log;
+    @Mock
+    List<ProzessSchrittVorlage> aPSV;
     @InjectMocks
     de.unibremen.sfb.boundary.bearbeitbareListPSVBean bearbeitbareListPSVBean;
 
@@ -33,24 +35,14 @@ class bearbeitbareListPSVBeanTest {
 
     @Test
     void testInit() {
-        when(bearbeitbareListPSVBeanService.akzeptiertePSV()).thenReturn(Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, Arrays.<ProzessSchrittParameter>asList(null), null, "dauer", "name", null, true, 0)));
+        when(bearbeitbareListPSVBeanService.akzeptiertePSV()).thenReturn(aPSV);
         bearbeitbareListPSVBeanService.init();
     }
 
 
-
     @Test
     void testEquals() {
-        boolean result = bearbeitbareListPSVBeanService.equals("o");
-        Assertions.assertEquals(false, result);
-    }
-
-
-
-    @Test
-    void testToString() {
-        String result = bearbeitbareListPSVBeanService.toString();
-        Assertions.assertEquals("bearbeitbareListPSVBeanService", result);
+        boolean result = bearbeitbareListPSVBeanService.equals(bearbeitbareListPSVBeanService);
+        Assertions.assertEquals(true, result);
     }
 }
-

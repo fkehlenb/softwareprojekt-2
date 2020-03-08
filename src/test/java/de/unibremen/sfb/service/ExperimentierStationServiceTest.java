@@ -112,29 +112,14 @@ class ExperimentierStationServiceTest {
         }
     }
 
-    @Test
-    void testGetById() {
-        try {
-            when(esDao.getObjById(anyInt())).thenReturn(new ExperimentierStation());
-        } catch (ExperimentierStationNotFoundException e) {
-            e.printStackTrace();
-        }
 
-        ExperimentierStation result = null;
-        try {
-            result = experimentierStationService.getById(0);
-        } catch (ExperimentierStationNotFoundException e) {
-            e.printStackTrace();
-        }
-        Assertions.assertEquals(new ExperimentierStation(), result);
-    }
 
     @Test
     void testGetAll() {
-        when(esDao.getAll()).thenReturn(Arrays.<ExperimentierStation>asList(new ExperimentierStation()));
+        when(esDao.getAll()).thenReturn(experimentierStations);
 
         List<ExperimentierStation> result = experimentierStationService.getAll();
-        Assertions.assertEquals(Arrays.<ExperimentierStation>asList(new ExperimentierStation()), result);
+        Assertions.assertEquals(experimentierStations, result);
     }
 
     @Test

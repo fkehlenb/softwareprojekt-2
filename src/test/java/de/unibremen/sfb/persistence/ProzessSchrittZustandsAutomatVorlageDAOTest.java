@@ -24,10 +24,12 @@ class ProzessSchrittZustandsAutomatVorlageDAOTest {
     EntityManager em;
     @InjectMocks
     ProzessSchrittZustandsAutomatVorlageDAO prozessSchrittZustandsAutomatVorlageDAO;
-
+    @Mock
+    ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage;
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
+
     }
 
     @Test
@@ -37,11 +39,17 @@ class ProzessSchrittZustandsAutomatVorlageDAOTest {
 
     @Test
     void testUpdate() throws ProzessSchrittZustandsAutomatVorlageNotFoundException {
+        when(prozessSchrittZustandsAutomatVorlage.getId()).thenReturn(1);
+        when(em.find(any(), any())).thenReturn(prozessSchrittZustandsAutomatVorlage);
+        when(em.contains(prozessSchrittZustandsAutomatVorlage)).thenReturn(true);
         prozessSchrittZustandsAutomatVorlageDAO.update(new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name"));
     }
 
     @Test
     void testRemove() throws ProzessSchrittZustandsAutomatVorlageNotFoundException {
+        when(prozessSchrittZustandsAutomatVorlage.getId()).thenReturn(1);
+        when(em.find(any(), any())).thenReturn(prozessSchrittZustandsAutomatVorlage);
+        when(em.contains(prozessSchrittZustandsAutomatVorlage)).thenReturn(true);
         prozessSchrittZustandsAutomatVorlageDAO.remove(new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name"));
     }
 
@@ -54,7 +62,7 @@ class ProzessSchrittZustandsAutomatVorlageDAOTest {
     @Test
     void testGet() {
         Class<ProzessSchrittZustandsAutomatVorlage> result = prozessSchrittZustandsAutomatVorlageDAO.get();
-        Assertions.assertEquals(null, result);
+        Assertions.assertEquals(ProzessSchrittZustandsAutomatVorlage.class, result);
     }
 
     @Test

@@ -44,23 +44,25 @@ class TransporterBeanTest {
     void setUp() {
         MockitoAnnotations.initMocks(this);
     }
-
+    @Mock
+    List<ProzessSchritt> prozessSchritts;
+    @Mock
+    List<ProzessSchritt> prozessSchritts1;
+    @Mock
+    List<ProzessSchritt> prozessSchritts13;
     @Test
     void testInit() throws UserNotFoundException {
-        when(auftragService.getTransportSchritt()).thenReturn(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0)));
-        when(auftragService.getTransportSchritt2()).thenReturn(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0)));
-        when(auftragService.getTransportSchritt3()).thenReturn(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0)));
-
+        when(auftragService.getTransportSchritt()).thenReturn(prozessSchritts);
+        when(auftragService.getTransportSchritt2()).thenReturn(prozessSchritts1);
+        when(auftragService.getTransportSchritt3()).thenReturn(prozessSchritts13);
         transporterBean.init();
     }
 
     @Test
     void testGetAuftragList() {
-        when(auftragService.getTransportSchritt()).thenReturn(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0)));
-
+        when(auftragService.getTransportSchritt()).thenReturn(prozessSchritts);
         List<ProzessSchritt> result = transporterBean.getAuftragList();
-        Assertions.assertEquals(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0)), result);
-    }
+        Assertions.assertEquals(prozessSchritts, result); }
 
     @Test
     void testChangeTransportZustandAbgeholt() throws UserNotFoundException, TransportAuftragNotFoundException {
@@ -91,24 +93,21 @@ class TransporterBeanTest {
         transporterBean.updateTabellen();
     }
 
-    @Test
-    void testSetProzessSchrittList() {
-        transporterBean.setProzessSchrittList(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0)));
-    }
+
 
     @Test
     void testSetProzessSchrittList2() {
-        transporterBean.setProzessSchrittList2(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0)));
+        transporterBean.setProzessSchrittList2(prozessSchrittList2);
     }
 
     @Test
     void testSetProzessSchrittList3() {
-        transporterBean.setProzessSchrittList3(Arrays.<ProzessSchritt>asList(new ProzessSchritt(0, null, "duration", Arrays.<ProzessSchrittParameter>asList(null), "attribute", Arrays.<ProzessSchrittLog>asList(null), "name", true, 0)));
-    }
-
+        transporterBean.setProzessSchrittList3(prozessSchrittList3);  }
+    @Mock
+    List<TransportAuftrag> transportAuftrags;
     @Test
     void testSetTransportAuftragSelected() {
-        transporterBean.setTransportAuftragSelected(Arrays.<TransportAuftrag>asList(null));
+        transporterBean.setTransportAuftragSelected( transportAuftrags);
     }
 
     @Test

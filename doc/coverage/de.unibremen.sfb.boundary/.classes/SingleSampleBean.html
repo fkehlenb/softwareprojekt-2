@@ -1,0 +1,214 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: SingleSampleBean</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">de.unibremen.sfb.boundary</a> ]
+</div>
+
+<h1>Coverage Summary for Class: SingleSampleBean (de.unibremen.sfb.boundary)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SingleSampleBean</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    57,1%
+  </span>
+  <span class="absValue">
+    (8/ 14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    35,4%
+  </span>
+  <span class="absValue">
+    (17/ 48)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package de.unibremen.sfb.boundary;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import de.unibremen.sfb.exception.DuplicateKommentarException;
+<i>4</i>&nbsp;import de.unibremen.sfb.exception.KommentarNotFoundException;
+<i>5</i>&nbsp;import de.unibremen.sfb.exception.ProbeNotFoundException;
+<i>6</i>&nbsp;import de.unibremen.sfb.model.*;
+<i>7</i>&nbsp;import de.unibremen.sfb.service.ProbenService;
+<i>8</i>&nbsp;import lombok.Getter;
+<i>9</i>&nbsp;import lombok.Setter;
+<i>10</i>&nbsp;import lombok.extern.slf4j.Slf4j;
+<i>11</i>&nbsp;import org.primefaces.event.CellEditEvent;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;import javax.enterprise.context.SessionScoped;
+<i>14</i>&nbsp;import javax.faces.application.FacesMessage;
+<i>15</i>&nbsp;import javax.faces.context.FacesContext;
+<i>16</i>&nbsp;import javax.inject.Inject;
+<i>17</i>&nbsp;import javax.inject.Named;
+<i>18</i>&nbsp;import java.io.Serializable;
+<i>19</i>&nbsp;import java.util.ArrayList;
+<i>20</i>&nbsp;import java.util.Collections;
+<i>21</i>&nbsp;import java.util.List;
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;@Named
+<i>24</i>&nbsp;@SessionScoped
+<i>25</i>&nbsp;@Getter
+<b class="fc"><i>26</i>&nbsp;@Setter</b>
+<b class="fc"><i>27</i>&nbsp;@Slf4j</b>
+<i>28</i>&nbsp;public class SingleSampleBean implements Serializable {
+<i>29</i>&nbsp;
+<b class="nc"><i>30</i>&nbsp;    private Probe p;</b>
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;    @Inject
+<b class="nc"><i>33</i>&nbsp;    private ProbenService probenService;</b>
+<i>34</i>&nbsp;
+<i>35</i>&nbsp;    @Inject
+<b class="nc"><i>36</i>&nbsp;    private TechnologeView technologeView;</b>
+<i>37</i>&nbsp;
+<b class="nc"><i>38</i>&nbsp;    private String singleKommentar;</b>
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;    public String singleprobe(Probe p) {
+<b class="nc"><i>42</i>&nbsp;        this.p = p;</b>
+<b class="nc"><i>43</i>&nbsp;        return &quot;singleprobe.xhtml&quot;;</b>
+<i>44</i>&nbsp;    }
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    /**
+<i>47</i>&nbsp;     * listener for edit of comment in singlesample view
+<i>48</i>&nbsp;     * @param e event
+<i>49</i>&nbsp;     */
+<i>50</i>&nbsp;    public void KommentarEdit(CellEditEvent&lt;String&gt; e) {
+<b class="fc"><i>51</i>&nbsp;        String ne = e.getNewValue();</b>
+<b class="nc"><i>52</i>&nbsp;        int row = e.getRowIndex();</b>
+<b class="nc"><i>53</i>&nbsp;        Kommentar k = p.getKommentar().get(row);</b>
+<i>54</i>&nbsp;
+<b class="nc"><i>55</i>&nbsp;        editProbenComment(p, k, ne);</b>
+<b class="nc"><i>56</i>&nbsp;    }</b>
+<i>57</i>&nbsp;
+<i>58</i>&nbsp;    /**
+<i>59</i>&nbsp;     * edits a comment belonging to a sample
+<i>60</i>&nbsp;     * @param p the sample
+<i>61</i>&nbsp;     * @param c the String
+<i>62</i>&nbsp;     * @param k the comment
+<i>63</i>&nbsp;     */
+<i>64</i>&nbsp;    public void editProbenComment(Probe p, Kommentar k, String c) {
+<i>65</i>&nbsp;        try {
+<b class="nc"><i>66</i>&nbsp;            probenService.editProbenComment(p, k, c);</b>
+<b class="nc"><i>67</i>&nbsp;            log.info(&quot;the comment &quot; + k.getId() + &quot; of probe &quot; + p.getProbenID() + &quot; was edited to &quot; + c);</b>
+<i>68</i>&nbsp;        }
+<b class="nc"><i>69</i>&nbsp;        catch(ProbeNotFoundException | KommentarNotFoundException e) {</b>
+<b class="nc"><i>70</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>71</i>&nbsp;            log.info(&quot;an error occurred trying to update comment &quot; + k.getId() + &quot; of sample &quot; + p.getProbenID() + &quot; : &quot; + e.getMessage());</b>
+<i>72</i>&nbsp;        }
+<b class="nc"><i>73</i>&nbsp;        catch(IllegalArgumentException e) {</b>
+<b class="nc"><i>74</i>&nbsp;            errorMessage(&quot;invalid input&quot;);</b>
+<b class="nc"><i>75</i>&nbsp;        }</b>
+<b class="nc"><i>76</i>&nbsp;    }</b>
+<i>77</i>&nbsp;
+<i>78</i>&nbsp;    /**
+<i>79</i>&nbsp;     * deletes a comment belonging to a sample
+<i>80</i>&nbsp;     * @param k the comment
+<i>81</i>&nbsp;     */
+<i>82</i>&nbsp;    public void deleteProbenComment(Kommentar k) {
+<i>83</i>&nbsp;        try {
+<b class="fc"><i>84</i>&nbsp;            probenService.deleteProbenComment(p, k);</b>
+<b class="fc"><i>85</i>&nbsp;            log.info(&quot;comment &quot; + k.getId() + &quot; of probe &quot; + p.getProbenID() + &quot; was deleted&quot;);</b>
+<i>86</i>&nbsp;        }
+<b class="nc"><i>87</i>&nbsp;        catch(ProbeNotFoundException | KommentarNotFoundException e) {</b>
+<b class="nc"><i>88</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>89</i>&nbsp;            log.info(&quot;an error occurred trying to delete comment &quot; + k.getId() + &quot; of sample &quot; + p.getProbenID() + &quot; : &quot; +e.getMessage());</b>
+<i>90</i>&nbsp;        }
+<b class="nc"><i>91</i>&nbsp;        catch(IllegalArgumentException e) {</b>
+<b class="nc"><i>92</i>&nbsp;            errorMessage(&quot;invalid input&quot;);</b>
+<b class="fc"><i>93</i>&nbsp;        }</b>
+<i>94</i>&nbsp;
+<b class="fc"><i>95</i>&nbsp;    }</b>
+<i>96</i>&nbsp;
+<i>97</i>&nbsp;    /**
+<i>98</i>&nbsp;     * adds the singleComment to this sample to a sample
+<i>99</i>&nbsp;     */
+<i>100</i>&nbsp;    public void addProbenComment() {
+<i>101</i>&nbsp;        try {
+<b class="fc"><i>102</i>&nbsp;            probenService.addProbenComment(p, singleKommentar);</b>
+<b class="fc"><i>103</i>&nbsp;            log.info(&quot;the comment &quot; + singleKommentar + &quot; was added to the sample &quot; + p.getProbenID());</b>
+<b class="nc"><i>104</i>&nbsp;        } catch (ProbeNotFoundException | DuplicateKommentarException e) {</b>
+<b class="nc"><i>105</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>106</i>&nbsp;            log.info(&quot;an error occurred trying to add comment &quot; + singleKommentar + &quot; to sample &quot; + p.getProbenID() + &quot; : &quot; +e.getMessage());</b>
+<i>107</i>&nbsp;        }
+<b class="nc"><i>108</i>&nbsp;        catch(IllegalArgumentException e) {</b>
+<b class="nc"><i>109</i>&nbsp;            errorMessage(&quot;invalid input&quot;);</b>
+<b class="fc"><i>110</i>&nbsp;        }</b>
+<b class="fc"><i>111</i>&nbsp;        singleKommentar=&quot;&quot;; //TODO feld leer wenn fertig gespeichert</b>
+<b class="fc"><i>112</i>&nbsp;    }</b>
+<i>113</i>&nbsp;
+<b class="fc"><i>114</i>&nbsp;    public SingleSampleBean() {}</b>
+<i>115</i>&nbsp;
+<i>116</i>&nbsp;    /**
+<i>117</i>&nbsp;     * creates and sends an error message
+<i>118</i>&nbsp;     * @param e error messsage
+<i>119</i>&nbsp;     */
+<i>120</i>&nbsp;    public void errorMessage(String e) {
+<b class="fc"><i>121</i>&nbsp;        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e, null));</b>
+<b class="nc"><i>122</i>&nbsp;        log.info(&quot;an error occurred&quot; + e);</b>
+<b class="nc"><i>123</i>&nbsp;    }</b>
+<i>124</i>&nbsp;
+<i>125</i>&nbsp;    public List&lt;QualitativeEigenschaft&gt; getEigenschaften() {
+<b class="fc"><i>126</i>&nbsp;        List&lt;QualitativeEigenschaft&gt; r = new ArrayList&lt;&gt;(p.getEigenschaften());</b>
+<b class="fc"><i>127</i>&nbsp;        r.removeAll(Collections.singleton(null));</b>
+<b class="fc"><i>128</i>&nbsp;        return r;</b>
+<i>129</i>&nbsp;    }
+<i>130</i>&nbsp;
+<i>131</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-03-08 14:39</div>
+</div>
+</body>
+</html>

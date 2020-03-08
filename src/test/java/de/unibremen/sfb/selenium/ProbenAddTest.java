@@ -1,42 +1,55 @@
 package de.unibremen.sfb.selenium;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.Test;;
-import org.junit.jupiter.api.BeforeEach;;
-import org.junit.jupiter.api.AfterEach;;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriverService;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.io.File;
+import java.util.concurrent.TimeUnit;
 import java.util.*;
 
 /**
  * <p>ProbenAddTest class.</p>
  *
- * @author Liam
+ * @author Santiago and Liam
  * @version $Id: $Id
  * @since 1.0
  */
 public class ProbenAddTest {
-  private WebDriver driver;
-  private Map<String, Object> vars;
-  JavascriptExecutor js;
-  /**
-   * <p>setUp.</p>
-   */
-  @BeforeEach
-  public void setUp() {
-      System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
-    ChromeOptions chromeOptions = new ChromeOptions();
-//    chromeOptions.addArguments("--headless");
-//driver = new ChromeDriver(chromeOptions);
-    js = (JavascriptExecutor) driver;
-    vars = new HashMap<String, Object>();
-  }
+    private WebDriver driver;
+    private String spoofUserAgent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36";
+    /**
+     * This Class Shows, that even when correctly configured. The command  new PhantomJSDriver(); is buggy
+     * Stack Overflow recommends updating the PhantomJS and Selenium to current Version
+     * @return the Driver
+     */
+    public WebDriver getDriver() {
+        if (this.driver == null) {
+            DesiredCapabilities caps = new DesiredCapabilities();
+            caps.setJavascriptEnabled(true);
+            caps.setCapability(
+                    PhantomJSDriverService.PHANTOMJS_PAGE_SETTINGS_PREFIX
+                            + "userAgent", spoofUserAgent);
+
+            caps.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS,
+                    new String[] { "--web-security=false",
+                            "--ssl-protocol=any", "--ignore-ssl-errors=true",
+                            "--webdriver-loglevel=INFO" });
+
+            PhantomJSDriverService service = new PhantomJSDriverService.Builder()
+                    .usingPort(8081)
+                    .usingPhantomJSExecutable(new File("/usr/local/bin/phantomjs"))
+                    .build();
+            this.driver = new PhantomJSDriver(service, caps);
+        }
+        return this.driver;
+    }
   /**
    * <p>tearDown.</p>
    */
@@ -44,6 +57,16 @@ public class ProbenAddTest {
   public void tearDown() {
     driver.quit();
   }
+    /**
+     * <p>setUp.</p>
+     */
+    @BeforeEach
+    public void setUp() {
+        driver = getDriver();
+        // Download link is http://phantomjs.org/download.html
+        // Set implicit wait
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    }
   /**
    * <p>probenAdd.</p>
    *

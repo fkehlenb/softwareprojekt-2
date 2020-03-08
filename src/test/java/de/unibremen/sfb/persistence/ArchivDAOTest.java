@@ -20,10 +20,13 @@ class ArchivDAOTest {
     EntityManager em;
     @InjectMocks
     ArchivDAO archivDAO;
+    @Mock
+    Archiv archiv;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
+
     }
 
     @Test
@@ -33,11 +36,17 @@ class ArchivDAOTest {
 
     @Test
     void testUpdate() throws ArchivNotFoundException {
+        when(archiv.getId()).thenReturn(0);
+        when(em.find(any(), any())).thenReturn(archiv);
+        when(em.contains(archiv)).thenReturn(true);
         archivDAO.update(new Archiv(new Auftrag()));
     }
 
     @Test
     void testRemove() throws ArchivNotFoundException {
+        when(archiv.getId()).thenReturn(0);
+        when(em.find(any(), any())).thenReturn(archiv);
+        when(em.contains(archiv)).thenReturn(true);
         archivDAO.remove(new Archiv(new Auftrag()));
     }
 

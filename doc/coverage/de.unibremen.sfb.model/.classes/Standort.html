@@ -1,0 +1,162 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: Standort</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">de.unibremen.sfb.model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: Standort (de.unibremen.sfb.model)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Standort</td>
+<td class="coverageStat">
+  <span class="percent">
+    57,1%
+  </span>
+  <span class="absValue">
+    (4/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    62,5%
+  </span>
+  <span class="absValue">
+    (5/ 8)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Standort$MockitoMock$1910057159</td>
+  </tr>
+  <tr>
+    <td class="name">Standort$MockitoMock$1910057159$auxiliary$cB7NEXkM</td>
+  </tr>
+  <tr>
+    <td class="name">Standort$MockitoMock$1910057159$auxiliary$DDOp382f</td>
+  </tr>
+  <tr>
+    <td class="name">Standort$MockitoMock$1910057159$auxiliary$FB5xxwXq</td>
+  </tr>
+  <tr>
+    <td class="name">Standort$MockitoMock$1910057159$auxiliary$P4yRoTH3</td>
+  </tr>
+  <tr>
+    <td class="name">Standort$MockitoMock$1910057159$auxiliary$ple1QwR1</td>
+  </tr>
+  <tr>
+    <td class="name">Standort$MockitoMock$1910057159$auxiliary$tv3Das25</td>
+  </tr>
+  <tr>
+    <td class="name">Standort$MockitoMock$1910057159$auxiliary$Uq2OLIJ5</td>
+  </tr>
+  <tr>
+    <td class="name">Standort$MockitoMock$1910057159$auxiliary$YBUa6foI</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    57,1%
+  </span>
+  <span class="absValue">
+    (4/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    62,5%
+  </span>
+  <span class="absValue">
+    (5/ 8)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package de.unibremen.sfb.model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import lombok.*;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import javax.persistence.Entity;
+<i>6</i>&nbsp;import javax.persistence.Id;
+<i>7</i>&nbsp;import javax.persistence.NamedQueries;
+<i>8</i>&nbsp;import javax.persistence.NamedQuery;
+<i>9</i>&nbsp;import java.io.Serializable;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;/**
+<i>12</i>&nbsp; * The location data class
+<i>13</i>&nbsp; */
+<i>14</i>&nbsp;@Getter
+<b class="fc"><i>15</i>&nbsp;@Setter</b>
+<i>16</i>&nbsp;@Entity
+<b class="fc"><i>17</i>&nbsp;@RequiredArgsConstructor</b>
+<b class="nc"><i>18</i>&nbsp;@NoArgsConstructor</b>
+<i>19</i>&nbsp;@NamedQueries({
+<i>20</i>&nbsp;        @NamedQuery(name = &quot;Standort.getByOrt&quot;, query = &quot;SELECT s FROM Standort s WHERE s.ort = :ort AND s.isValidData = true&quot;)
+<i>21</i>&nbsp;})
+<i>22</i>&nbsp;public class Standort implements Serializable {
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    /**
+<i>25</i>&nbsp;     * On delete set to invalid
+<i>26</i>&nbsp;     */
+<b class="fc"><i>27</i>&nbsp;    @NonNull</b>
+<b class="nc"><i>28</i>&nbsp;    private boolean isValidData = true;</b>
+<i>29</i>&nbsp;
+<i>30</i>&nbsp;    @Id
+<i>31</i>&nbsp;    @NonNull
+<b class="fc"><i>32</i>&nbsp;    private int id;</b>
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;    /**
+<i>35</i>&nbsp;     * The location
+<i>36</i>&nbsp;     */
+<i>37</i>&nbsp;    @NonNull
+<b class="nc"><i>38</i>&nbsp;    private String ort;</b>
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;    @Override
+<i>41</i>&nbsp;    public String toString() {
+<b class="fc"><i>42</i>&nbsp;        return Integer.toString(id);</b>
+<i>43</i>&nbsp;    }
+<i>44</i>&nbsp;
+<i>45</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-03-08 14:39</div>
+</div>
+</body>
+</html>

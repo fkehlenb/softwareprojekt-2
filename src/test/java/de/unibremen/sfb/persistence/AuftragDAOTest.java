@@ -21,10 +21,12 @@ class AuftragDAOTest {
     EntityManager em;
     @InjectMocks
     AuftragDAO auftragDAO;
-
+    @Mock
+    Auftrag auftrag;
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
+
     }
 
     @Test
@@ -34,18 +36,24 @@ class AuftragDAOTest {
 
     @Test
     void testUpdate() throws AuftragNotFoundException {
+        when(auftrag.getPkID()).thenReturn(0);
+        when(em.find(any(), any())).thenReturn(auftrag);
+        when(em.contains(auftrag)).thenReturn(true);
         auftragDAO.update(new Auftrag());
     }
 
     @Test
     void testRemove() throws AuftragNotFoundException {
+        when(auftrag.getPkID()).thenReturn(0);
+        when(em.find(any(), any())).thenReturn(auftrag);
+        when(em.contains(auftrag)).thenReturn(true);
         auftragDAO.remove(new Auftrag());
     }
 
     @Test
     void testGet() {
         Class<Auftrag> result = auftragDAO.get();
-        Assertions.assertEquals(null, result);
+        Assertions.assertEquals(Auftrag.class,result);
     }
 
     @Test

@@ -22,10 +22,12 @@ class TransportAuftragDAOTest {
     EntityManager em;
     @InjectMocks
     TransportAuftragDAO transportAuftragDAO;
-
+    @Mock
+    TransportAuftrag transportAuftrag;
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
+
     }
 
     @Test
@@ -46,7 +48,7 @@ class TransportAuftragDAOTest {
     @Test
     void testGet() {
         Class<TransportAuftrag> result = transportAuftragDAO.get();
-        Assertions.assertEquals(null, result);
+        Assertions.assertEquals(TransportAuftrag.class, result);
     }
 
     @Test

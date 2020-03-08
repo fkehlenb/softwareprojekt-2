@@ -1,0 +1,238 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ExperimentierStationDAO</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">de.unibremen.sfb.persistence</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ExperimentierStationDAO (de.unibremen.sfb.persistence)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ExperimentierStationDAO</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    88,6%
+  </span>
+  <span class="absValue">
+    (31/ 35)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ExperimentierStationDAO$MockitoMock$530364797</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStationDAO$MockitoMock$530364797$auxiliary$7o2GjQdV</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStationDAO$MockitoMock$530364797$auxiliary$fATiRavG</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStationDAO$MockitoMock$530364797$auxiliary$oUyDBYUj</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStationDAO$MockitoMock$530364797$auxiliary$TE5FB7f4</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStationDAO$MockitoMock$530364797$auxiliary$unniBZIf</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStationDAO$MockitoMock$530364797$auxiliary$vlTSUiQS</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStationDAO$MockitoMock$530364797$auxiliary$wfGwmA5u</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStationDAO$MockitoMock$530364797$auxiliary$x6THmbiN</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStationDAO$MockitoMock$530364797$auxiliary$Zjn5ZBs2</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    88,6%
+  </span>
+  <span class="absValue">
+    (31/ 35)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package de.unibremen.sfb.persistence;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import de.unibremen.sfb.exception.DuplicateExperimentierStationException;
+<i>4</i>&nbsp;import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
+<i>5</i>&nbsp;import de.unibremen.sfb.model.ExperimentierStation;
+<i>6</i>&nbsp;import lombok.extern.slf4j.Slf4j;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import java.util.List;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;/**
+<i>11</i>&nbsp; * This class handles the experimenting station objects in the database
+<i>12</i>&nbsp; */
+<b class="fc"><i>13</i>&nbsp;@Slf4j</b>
+<b class="fc"><i>14</i>&nbsp;public class ExperimentierStationDAO extends ObjectDAO&lt;ExperimentierStation&gt; {</b>
+<i>15</i>&nbsp;
+<i>16</i>&nbsp;    /**
+<i>17</i>&nbsp;     * Add an experimenting station object to the database
+<i>18</i>&nbsp;     *
+<i>19</i>&nbsp;     * @param es - the experimenting station to add to the database
+<i>20</i>&nbsp;     * @throws DuplicateExperimentierStationException if the experimenting station already exists in the database
+<i>21</i>&nbsp;     */
+<i>22</i>&nbsp;    public void persist(ExperimentierStation es) throws DuplicateExperimentierStationException {
+<b class="fc"><i>23</i>&nbsp;        if (es != null) {</b>
+<b class="fc"><i>24</i>&nbsp;            synchronized (ExperimentierStation.class) {</b>
+<b class="fc"><i>25</i>&nbsp;                if (em.contains(em.find(get(), es.getEsID()))) {</b>
+<b class="nc"><i>26</i>&nbsp;                    throw new DuplicateExperimentierStationException();</b>
+<i>27</i>&nbsp;                }
+<b class="fc"><i>28</i>&nbsp;            }</b>
+<b class="fc"><i>29</i>&nbsp;            em.persist(es);</b>
+<i>30</i>&nbsp;        }
+<b class="fc"><i>31</i>&nbsp;    }</b>
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    /**
+<i>34</i>&nbsp;     * Updates an existing experimenting station object in the database
+<i>35</i>&nbsp;     *
+<i>36</i>&nbsp;     * @param es - the experimenting station to update in the database
+<i>37</i>&nbsp;     * @throws ExperimentierStationNotFoundException if the experimenting station couldn&#39;t be found in the database
+<i>38</i>&nbsp;     */
+<i>39</i>&nbsp;    public void update(ExperimentierStation es) throws ExperimentierStationNotFoundException {
+<b class="fc"><i>40</i>&nbsp;        if (es != null) {</b>
+<b class="fc"><i>41</i>&nbsp;            if (!em.contains(em.find(get(), es.getEsID()))) {</b>
+<b class="nc"><i>42</i>&nbsp;                throw new ExperimentierStationNotFoundException();</b>
+<i>43</i>&nbsp;            }
+<i>44</i>&nbsp;//            es = getObjById(es.getEsID());
+<b class="fc"><i>45</i>&nbsp;            em.merge(es);</b>
+<b class="fc"><i>46</i>&nbsp;            log.info(&quot;Succes Updating ES: &quot; + es.getEsID());</b>
+<i>47</i>&nbsp;        }
+<b class="fc"><i>48</i>&nbsp;    }</b>
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;    /**
+<i>51</i>&nbsp;     * Removes an existing experimenting station object from the database
+<i>52</i>&nbsp;     *
+<i>53</i>&nbsp;     * @param es - the experimenting station to remove from the database
+<i>54</i>&nbsp;     */
+<i>55</i>&nbsp;    public void remove(ExperimentierStation es) throws ExperimentierStationNotFoundException {
+<b class="fc"><i>56</i>&nbsp;        if (es != null) {</b>
+<b class="fc"><i>57</i>&nbsp;            if (!em.contains(em.find(get(), es.getEsID()))) {</b>
+<b class="nc"><i>58</i>&nbsp;                throw new ExperimentierStationNotFoundException();</b>
+<i>59</i>&nbsp;            }
+<b class="fc"><i>60</i>&nbsp;            es.setValidData(false);</b>
+<b class="fc"><i>61</i>&nbsp;            update(es);</b>
+<i>62</i>&nbsp;        }
+<b class="fc"><i>63</i>&nbsp;    }</b>
+<i>64</i>&nbsp;
+<i>65</i>&nbsp;    /**
+<i>66</i>&nbsp;     * @return the class of experimenting stations
+<i>67</i>&nbsp;     */
+<i>68</i>&nbsp;    public Class&lt;ExperimentierStation&gt; get() {
+<b class="fc"><i>69</i>&nbsp;        return ExperimentierStation.class;</b>
+<i>70</i>&nbsp;    }
+<i>71</i>&nbsp;
+<i>72</i>&nbsp;    /**
+<i>73</i>&nbsp;     * Get an experimenting station object from the database using its unique id
+<i>74</i>&nbsp;     *
+<i>75</i>&nbsp;     * @param id - the unique id of the requested experimenting station
+<i>76</i>&nbsp;     * @return the experimenting station object which&#39;s id matches the entered one
+<i>77</i>&nbsp;     * @throws ExperimentierStationNotFoundException if the experimenting station couldn&#39;t be found in the database
+<i>78</i>&nbsp;     */
+<i>79</i>&nbsp;    public ExperimentierStation getObjById(int id) throws ExperimentierStationNotFoundException {
+<i>80</i>&nbsp;        try {
+<b class="fc"><i>81</i>&nbsp;            ExperimentierStation es = em.find(get(), id);</b>
+<b class="fc"><i>82</i>&nbsp;            if (es == null || !es.isValidData()) {</b>
+<b class="fc"><i>83</i>&nbsp;                throw new ExperimentierStationNotFoundException();</b>
+<i>84</i>&nbsp;            }
+<b class="nc"><i>85</i>&nbsp;            return es;</b>
+<b class="fc"><i>86</i>&nbsp;        } catch (Exception e) {</b>
+<b class="fc"><i>87</i>&nbsp;            e.printStackTrace();</b>
+<b class="fc"><i>88</i>&nbsp;            throw new ExperimentierStationNotFoundException();</b>
+<i>89</i>&nbsp;        }
+<i>90</i>&nbsp;    }
+<i>91</i>&nbsp;
+<i>92</i>&nbsp;    /**
+<i>93</i>&nbsp;     * Get a list of all experimenting stations in the database
+<i>94</i>&nbsp;     *
+<i>95</i>&nbsp;     * @return a list of all experimenting stations
+<i>96</i>&nbsp;     * @throws IllegalArgumentException if the list is empty
+<i>97</i>&nbsp;     */
+<i>98</i>&nbsp;    public List&lt;ExperimentierStation&gt; getAll() throws IllegalArgumentException {
+<b class="fc"><i>99</i>&nbsp;            return em.createNamedQuery(&quot;ExperimentierStation.getAll&quot;, get()).getResultList();</b>
+<i>100</i>&nbsp;    }
+<i>101</i>&nbsp;
+<i>102</i>&nbsp;    /**
+<i>103</i>&nbsp;     * Get an experimenting station using it&#39;s name
+<i>104</i>&nbsp;     *
+<i>105</i>&nbsp;     * @param name - the experimenting station&#39;s name
+<i>106</i>&nbsp;     * @return the experimenting station with a matching name
+<i>107</i>&nbsp;     * @throws ExperimentierStationNotFoundException if the experimenting station cannot be found in the database
+<i>108</i>&nbsp;     */
+<i>109</i>&nbsp;    public ExperimentierStation getByName(String name) throws ExperimentierStationNotFoundException {
+<i>110</i>&nbsp;        try {
+<b class="fc"><i>111</i>&nbsp;            return em.createQuery(&quot;SELECT es FROM ExperimentierStation es WHERE es.name = :name AND es.isValidData=true&quot;, get())</b>
+<b class="fc"><i>112</i>&nbsp;                    .setParameter(&quot;name&quot;, name).getSingleResult();</b>
+<b class="fc"><i>113</i>&nbsp;        } catch (Exception e) {</b>
+<b class="fc"><i>114</i>&nbsp;            e.printStackTrace();</b>
+<b class="fc"><i>115</i>&nbsp;            throw new ExperimentierStationNotFoundException();</b>
+<i>116</i>&nbsp;        }
+<i>117</i>&nbsp;    }
+<i>118</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-03-08 14:39</div>
+</div>
+</body>
+</html>

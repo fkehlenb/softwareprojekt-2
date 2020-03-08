@@ -1,0 +1,538 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: InitialDataFiller</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">de.unibremen.sfb.service</a> ]
+</div>
+
+<h1>Coverage Summary for Class: InitialDataFiller (de.unibremen.sfb.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">InitialDataFiller</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/ 203)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package de.unibremen.sfb.service;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import com.github.javafaker.Faker;
+<i>4</i>&nbsp;import de.unibremen.sfb.exception.DuplicateKommentarException;
+<i>5</i>&nbsp;import de.unibremen.sfb.exception.DuplicateProbeException;
+<i>6</i>&nbsp;import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
+<i>7</i>&nbsp;import de.unibremen.sfb.model.*;
+<i>8</i>&nbsp;import de.unibremen.sfb.persistence.KommentarDAO;
+<i>9</i>&nbsp;import de.unibremen.sfb.persistence.ProbeDAO;
+<i>10</i>&nbsp;import de.unibremen.sfb.persistence.TraegerDAO;
+<i>11</i>&nbsp;import de.unibremen.sfb.persistence.UserDAO;
+<i>12</i>&nbsp;import de.unibremen.sfb.service.ExperimentierStationService;
+<i>13</i>&nbsp;import de.unibremen.sfb.service.RoleService;
+<i>14</i>&nbsp;import de.unibremen.sfb.service.UserService;
+<i>15</i>&nbsp;import lombok.extern.slf4j.Slf4j;
+<i>16</i>&nbsp;import org.apache.shiro.authc.credential.PasswordMatcher;
+<i>17</i>&nbsp;
+<i>18</i>&nbsp;import javax.annotation.PostConstruct;
+<i>19</i>&nbsp;import javax.ejb.Singleton;
+<i>20</i>&nbsp;import javax.ejb.Startup;
+<i>21</i>&nbsp;import javax.inject.Inject;
+<i>22</i>&nbsp;import javax.persistence.EntityManager;
+<i>23</i>&nbsp;import javax.persistence.PersistenceContext;
+<i>24</i>&nbsp;import javax.transaction.Transactional;
+<i>25</i>&nbsp;import java.time.LocalDateTime;
+<i>26</i>&nbsp;import java.util.*;
+<i>27</i>&nbsp;
+<i>28</i>&nbsp;/**
+<i>29</i>&nbsp; * This Class is run when the Server is deployed. Its purpose is to pupulate all web Views
+<i>30</i>&nbsp; * At the same time this works as a integration Test.
+<i>31</i>&nbsp; * &lt;p&gt;
+<i>32</i>&nbsp; * If there are persistence Problems they will be noticed here
+<i>33</i>&nbsp; */
+<i>34</i>&nbsp;@Startup
+<i>35</i>&nbsp;@Singleton
+<i>36</i>&nbsp;@Transactional
+<b class="nc"><i>37</i>&nbsp;@Slf4j</b>
+<b class="nc"><i>38</i>&nbsp;public class InitialDataFiller {</b>
+<b class="nc"><i>39</i>&nbsp;    int limit = 20;</b>
+<i>40</i>&nbsp;    private List&lt;Standort&gt; standorte;
+<i>41</i>&nbsp;    private ProzessSchritt ps;
+<i>42</i>&nbsp;    private ProzessKettenVorlage pkv;
+<i>43</i>&nbsp;    private ProzessSchrittZustandsAutomatVorlage pszaVorlage;
+<i>44</i>&nbsp;
+<b class="nc"><i>45</i>&nbsp;    private List&lt;String&gt; psZustaende = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>46</i>&nbsp;    private List&lt;String&gt; pkZustaende = new ArrayList&lt;&gt;();</b>
+<i>47</i>&nbsp;
+<b class="nc"><i>48</i>&nbsp;    private List&lt;TraegerArt&gt; tas = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>49</i>&nbsp;    Faker f = new Faker(new Locale(&quot;de&quot;));</b>
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;    @Inject
+<i>52</i>&nbsp;    ExperimentierStationService experimentierStationService;
+<i>53</i>&nbsp;
+<i>54</i>&nbsp;    @Inject
+<i>55</i>&nbsp;    private UserDAO userDAO;
+<i>56</i>&nbsp;
+<i>57</i>&nbsp;    @Inject
+<i>58</i>&nbsp;    UserService userService;
+<i>59</i>&nbsp;
+<i>60</i>&nbsp;    @Inject
+<i>61</i>&nbsp;    RoleService roleService;
+<i>62</i>&nbsp;
+<i>63</i>&nbsp;    @Inject
+<i>64</i>&nbsp;    private ProbeDAO probeDAO;
+<i>65</i>&nbsp;
+<i>66</i>&nbsp;    @Inject
+<i>67</i>&nbsp;    private KommentarDAO kommentarDAO;
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;    @Inject
+<i>70</i>&nbsp;    private TraegerDAO traegerDAO;
+<i>71</i>&nbsp;
+<i>72</i>&nbsp;    @PersistenceContext(name = &quot;swp2&quot;)
+<i>73</i>&nbsp;    private EntityManager em;
+<i>74</i>&nbsp;
+<i>75</i>&nbsp;    private User testUser;
+<i>76</i>&nbsp;    private List&lt;ExperimentierStation&gt; experimentierStations;
+<i>77</i>&nbsp;    private ProzessSchrittZustandsAutomatVorlage sVorlage;
+<i>78</i>&nbsp;    private User tTechnologe;
+<i>79</i>&nbsp;
+<i>80</i>&nbsp;    @PostConstruct
+<i>81</i>&nbsp;    public void init() {
+<i>82</i>&nbsp;
+<b class="nc"><i>83</i>&nbsp;        if (userDAO.getAll().isEmpty()) {</b>
+<b class="nc"><i>84</i>&nbsp;            log.info(&quot;Storing inital Data&quot;);</b>
+<i>85</i>&nbsp;
+<i>86</i>&nbsp;            // User
+<i>87</i>&nbsp;            for (User user :
+<b class="nc"><i>88</i>&nbsp;                    createDefaultUsers()) {</b>
+<b class="nc"><i>89</i>&nbsp;                log.info(&quot;Trying to persist User &quot; + user.getNachname());</b>
+<b class="nc"><i>90</i>&nbsp;                em.persist(user);</b>
+<b class="nc"><i>91</i>&nbsp;            }</b>
+<i>92</i>&nbsp;
+<i>93</i>&nbsp;            // FIXME DAO
+<b class="nc"><i>94</i>&nbsp;            psZustaende.add(&quot;Erstellt&quot;);</b>
+<b class="nc"><i>95</i>&nbsp;            psZustaende.add(&quot;Angenommen&quot;);</b>
+<b class="nc"><i>96</i>&nbsp;            psZustaende.add(&quot;In Bearbeitung&quot;);</b>
+<b class="nc"><i>97</i>&nbsp;            psZustaende.add(&quot;Bearbeitet&quot;);</b>
+<b class="nc"><i>98</i>&nbsp;            psZustaende.add(&quot;Weitergeleitet&quot;);</b>
+<i>99</i>&nbsp;
+<b class="nc"><i>100</i>&nbsp;            pkZustaende.add(&quot;ERSTELLT&quot;);</b>
+<b class="nc"><i>101</i>&nbsp;            pkZustaende.add(&quot;INSTANZIERT&quot;);</b>
+<b class="nc"><i>102</i>&nbsp;            pkZustaende.add(&quot;BEENDET&quot;);</b>
+<b class="nc"><i>103</i>&nbsp;            pkZustaende.add(&quot;ARCHIVIERT&quot;);</b>
+<i>104</i>&nbsp;
+<i>105</i>&nbsp;            // Standort, requires Users
+<i>106</i>&nbsp;            for (Standort s :
+<b class="nc"><i>107</i>&nbsp;                    createDefaulStandort()) {</b>
+<b class="nc"><i>108</i>&nbsp;                log.info(&quot;Trying to  persist Standort &quot; + s.toString());</b>
+<b class="nc"><i>109</i>&nbsp;                em.persist(s);</b>
+<b class="nc"><i>110</i>&nbsp;            }</b>
+<i>111</i>&nbsp;
+<i>112</i>&nbsp;            //  Persistiere Traeger Arten
+<b class="nc"><i>113</i>&nbsp;            tas = erstelleTraeger();</b>
+<i>114</i>&nbsp;            for (TraegerArt t :
+<b class="nc"><i>115</i>&nbsp;                    tas) {</b>
+<b class="nc"><i>116</i>&nbsp;                log.info(&quot;Persisting Traegerart &quot; + t.getArt());</b>
+<b class="nc"><i>117</i>&nbsp;                em.persist(t);</b>
+<b class="nc"><i>118</i>&nbsp;            }</b>
+<i>119</i>&nbsp;
+<b class="nc"><i>120</i>&nbsp;            em.persist(erstelleStandartVorlage());</b>
+<i>121</i>&nbsp;
+<i>122</i>&nbsp;            //       Experimentierstaation, requires Standort;
+<i>123</i>&nbsp;            for (ExperimentierStation s :
+<b class="nc"><i>124</i>&nbsp;                    createDefaultStation()) {</b>
+<b class="nc"><i>125</i>&nbsp;                log.info(&quot;Trying to persist Station &quot; + s.getName());</b>
+<b class="nc"><i>126</i>&nbsp;                em.persist(s);</b>
+<b class="nc"><i>127</i>&nbsp;            }</b>
+<i>128</i>&nbsp;
+<i>129</i>&nbsp;            /*
+<i>130</i>&nbsp;              persis von QualitativeEigenschaft durch die Variebln qualitativeEigenschaftList
+<i>131</i>&nbsp;              */
+<b class="nc"><i>132</i>&nbsp;            List&lt;QualitativeEigenschaft&gt; qualitativeEigenschaftList = getQualitativeEigenschaften();</b>
+<b class="nc"><i>133</i>&nbsp;            for (QualitativeEigenschaft qE : qualitativeEigenschaftList</b>
+<i>134</i>&nbsp;            ) {
+<b class="nc"><i>135</i>&nbsp;                log.info(&quot;Trying to Persist Qualitaet Eingenschaft &quot; + qE.getName());</b>
+<b class="nc"><i>136</i>&nbsp;                em.persist(qE);</b>
+<b class="nc"><i>137</i>&nbsp;            }</b>
+<i>138</i>&nbsp;
+<b class="nc"><i>139</i>&nbsp;            em.persist(new QuantitativeEigenschaft(&quot;Lustige Eigenschaft&quot;, 420, &quot;seconds&quot;));</b>
+<i>140</i>&nbsp;
+<i>141</i>&nbsp;            //    PS Parameter
+<b class="nc"><i>142</i>&nbsp;            List&lt;ProzessSchrittParameter&gt; parameters = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>143</i>&nbsp;            for (int i = 0; i &lt; limit; i++) {</b>
+<b class="nc"><i>144</i>&nbsp;                parameters.add(new ProzessSchrittParameter(UUID.randomUUID().hashCode(), f.gameOfThrones().dragon(), qualitativeEigenschaftList));</b>
+<i>145</i>&nbsp;            }
+<i>146</i>&nbsp;
+<b class="nc"><i>147</i>&nbsp;            for (ProzessSchrittParameter psp : parameters</b>
+<i>148</i>&nbsp;            ) {
+<b class="nc"><i>149</i>&nbsp;                log.info(&quot;Trying to persist ProzessSchrittParameter &quot; + psp.getName());</b>
+<b class="nc"><i>150</i>&nbsp;                em.persist(psp);</b>
+<b class="nc"><i>151</i>&nbsp;            }</b>
+<i>152</i>&nbsp;
+<i>153</i>&nbsp;            // PSZAV Setup
+<b class="nc"><i>154</i>&nbsp;            pszaVorlage = new ProzessSchrittZustandsAutomatVorlage(996699,</b>
+<i>155</i>&nbsp;                    psZustaende, &quot;Standart&quot;);
+<b class="nc"><i>156</i>&nbsp;            log.info(&quot;Try to persist ProzessSchrittZustandsAutomatVorlage &quot; + pszaVorlage.toString());</b>
+<b class="nc"><i>157</i>&nbsp;            em.persist(pszaVorlage);</b>
+<i>158</i>&nbsp;
+<i>159</i>&nbsp;//            // Erstelle die Liste aus den Parametern
+<i>160</i>&nbsp;//            List&lt;ProzessSchrittVorlage&gt; psvListe = getProzessSchrittVorlage(parameters);
+<i>161</i>&nbsp;//            for (ProzessSchrittVorlage pSV :
+<i>162</i>&nbsp;//                    psvListe) {
+<i>163</i>&nbsp;//                log.info(&quot;Trying to persist ProzessSchrittVorlage &quot; + pSV.toString());
+<i>164</i>&nbsp;//                em.persist(pSV); //FINDME
+<i>165</i>&nbsp;//            }
+<i>166</i>&nbsp;//            pkv = new ProzessKettenVorlage(UUID.randomUUID().hashCode(), f.gameOfThrones().house(), psvListe);
+<i>167</i>&nbsp;//            log.info(&quot;Try to persist ProzessSchrittVorlage &quot; + pkv.getPkvID());
+<i>168</i>&nbsp;//            em.persist(pkv);
+<i>169</i>&nbsp;//
+<i>170</i>&nbsp;//
+<i>171</i>&nbsp;//            // Setup PSZA
+<i>172</i>&nbsp;//            List z = new ArrayList(pszaVorlage.getZustaende());
+<i>173</i>&nbsp;//            ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(
+<i>174</i>&nbsp;//                    UUID.randomUUID().hashCode(), &quot;ERSTELLT&quot;, z);
+<i>175</i>&nbsp;//            log.info(&quot;Try to persist ProzessSchrittZustandsAutomat &quot; + prozessSchrittZustandsAutomat.toString());
+<i>176</i>&nbsp;//            em.persist(prozessSchrittZustandsAutomat);
+<i>177</i>&nbsp;//            erstelleAuftrag(psvListe);
+<i>178</i>&nbsp;
+<b class="nc"><i>179</i>&nbsp;        } else {</b>
+<b class="nc"><i>180</i>&nbsp;            log.info(&quot;Data already exists&quot;);</b>
+<i>181</i>&nbsp;        }
+<b class="nc"><i>182</i>&nbsp;    }</b>
+<i>183</i>&nbsp;
+<i>184</i>&nbsp;    private void erstelleAuftrag(List&lt;ProzessSchrittVorlage&gt; psvListe) {
+<b class="nc"><i>185</i>&nbsp;        for (int i = 0; i &lt; 1; i++) {</b>
+<i>186</i>&nbsp;            //  Auftrag Setup
+<b class="nc"><i>187</i>&nbsp;            AuftragsLog aLog = new AuftragsLog(LocalDateTime.now());</b>
+<b class="nc"><i>188</i>&nbsp;            aLog.setErstellt(LocalDateTime.now());</b>
+<b class="nc"><i>189</i>&nbsp;            em.persist(aLog);</b>
+<b class="nc"><i>190</i>&nbsp;            log.info(&quot;Try to persist AuftragsLog &quot; + aLog.toString());</b>
+<b class="nc"><i>191</i>&nbsp;            Auftrag pk = new Auftrag(UUID.randomUUID().hashCode(), f.gameOfThrones().character(), AuftragsPrioritaet.HOCH, erstelePS(psvListe),</b>
+<i>192</i>&nbsp;                    aLog, ProzessKettenZustandsAutomat.GESTARTET);
+<i>193</i>&nbsp;
+<i>194</i>&nbsp;
+<i>195</i>&nbsp;
+<i>196</i>&nbsp;            // Erstelle neuen PSZA
+<b class="nc"><i>197</i>&nbsp;            List&lt;String&gt; z = new ArrayList&lt;&gt;(pszaVorlage.getZustaende());</b>
+<b class="nc"><i>198</i>&nbsp;            var automat = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), &quot;AKZEPTIERT&quot;, z);</b>
+<b class="nc"><i>199</i>&nbsp;            em.persist(automat);</b>
+<b class="nc"><i>200</i>&nbsp;            automat.setName(f.lebowski().character());</b>
+<i>201</i>&nbsp;
+<i>202</i>&nbsp;            // PS Setup
+<b class="nc"><i>203</i>&nbsp;            List&lt;ProzessSchrittLog&gt; logs = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>204</i>&nbsp;            logs.add(new ProzessSchrittLog(LocalDateTime.now(), &quot;INSTANZIERT&quot;));</b>
+<i>205</i>&nbsp;            for (ProzessSchrittLog pSL :
+<b class="nc"><i>206</i>&nbsp;                    logs) {</b>
+<b class="nc"><i>207</i>&nbsp;                log.info(&quot;Try to persist logs &quot; + pSL.getGestartet().toString());</b>
+<b class="nc"><i>208</i>&nbsp;                em.persist(pSL);</b>
+<b class="nc"><i>209</i>&nbsp;            }</b>
+<i>210</i>&nbsp;            // PS aufuellen
+<b class="nc"><i>211</i>&nbsp;            log.info(&quot;Try to persist TEST ProzessKette &quot; + pk.getPkID());</b>
+<b class="nc"><i>212</i>&nbsp;            em.persist(pk);</b>
+<i>213</i>&nbsp;        }
+<b class="nc"><i>214</i>&nbsp;    }</b>
+<i>215</i>&nbsp;
+<i>216</i>&nbsp;    private List&lt;ProzessSchritt&gt; erstelePS(List&lt;ProzessSchrittVorlage&gt; psvListe) {
+<b class="nc"><i>217</i>&nbsp;        var r = new ArrayList&lt;ProzessSchritt&gt;();</b>
+<b class="nc"><i>218</i>&nbsp;        ExperimentierStation[] esList = new ExperimentierStation[limit];</b>
+<b class="nc"><i>219</i>&nbsp;        for (int i = 0; i &lt; limit * 0.5; i++) {</b>
+<b class="nc"><i>220</i>&nbsp;            List&lt;String&gt; z = new ArrayList(pszaVorlage.getZustaende());</b>
+<b class="nc"><i>221</i>&nbsp;            var a = new ProzessSchrittZustandsAutomat(UUID.randomUUID().hashCode(), &quot;Erstellt&quot;, z);</b>
+<b class="nc"><i>222</i>&nbsp;            em.persist(a);</b>
+<b class="nc"><i>223</i>&nbsp;            var psv = psvListe.get(i);</b>
+<b class="nc"><i>224</i>&nbsp;            var psLogs = List.of(new ProzessSchrittLog(LocalDateTime.now(), &quot;Gestartet&quot;),</b>
+<b class="nc"><i>225</i>&nbsp;                    new ProzessSchrittLog(LocalDateTime.now(), &quot;Veraendert&quot;));</b>
+<i>226</i>&nbsp;            for (ProzessSchrittLog psl :
+<b class="nc"><i>227</i>&nbsp;                    psLogs) {</b>
+<b class="nc"><i>228</i>&nbsp;                em.persist(psl);</b>
+<b class="nc"><i>229</i>&nbsp;            }</b>
+<i>230</i>&nbsp;
+<b class="nc"><i>231</i>&nbsp;            List&lt;ProzessSchrittParameter&gt; y = new ArrayList&lt;&gt;(psv.getProzessSchrittParameters());</b>
+<b class="nc"><i>232</i>&nbsp;            var ps = new ProzessSchritt(UUID.randomUUID().hashCode(), a, psv.getDauer(), y,</b>
+<i>233</i>&nbsp;                    &quot;Test Atribut &quot; + 1, psLogs, &quot;PSV: &quot; + i,
+<b class="nc"><i>234</i>&nbsp;                    true, f.random().nextInt(0, 9999));</b>
+<b class="nc"><i>235</i>&nbsp;            ps.setEingabe(List.copyOf(tas.get(0).getArten()));</b>
+<b class="nc"><i>236</i>&nbsp;            ps.setAusgabe(List.copyOf(tas.get(0).getArten()));</b>
+<i>237</i>&nbsp;
+<b class="nc"><i>238</i>&nbsp;            esList[i] = psv.getExperimentierStation();</b>
+<b class="nc"><i>239</i>&nbsp;            ExperimentierStation curES = null;</b>
+<i>240</i>&nbsp;            try {
+<b class="nc"><i>241</i>&nbsp;               curES =  experimentierStationService.getById(psv.getExperimentierStation().getEsID());</b>
+<b class="nc"><i>242</i>&nbsp;            } catch (ExperimentierStationNotFoundException e) {</b>
+<b class="nc"><i>243</i>&nbsp;                e.printStackTrace();</b>
+<b class="nc"><i>244</i>&nbsp;            }</b>
+<i>245</i>&nbsp;
+<i>246</i>&nbsp;/*            try {
+<i>247</i>&nbsp;                assert curES != null;
+<i>248</i>&nbsp;                experimentierStationService.setES(ps, curES ); // FIXME Why does this not work?
+<i>249</i>&nbsp;            } catch (ExperimentierStationNotFoundException e) {
+<i>250</i>&nbsp;                e.printStackTrace();
+<i>251</i>&nbsp;            }*/
+<i>252</i>&nbsp;
+<b class="nc"><i>253</i>&nbsp;            log.info(&quot;Try to persist TEST ProzessSchritt &quot; + ps.getId());</b>
+<b class="nc"><i>254</i>&nbsp;            if (i != 0) {</b>
+<b class="nc"><i>255</i>&nbsp;                Standort ziel = esList[i].getStandort();</b>
+<b class="nc"><i>256</i>&nbsp;                var transportAuftrag = new TransportAuftrag(LocalDateTime.now(), TransportAuftragZustand.ERSTELLT,</b>
+<b class="nc"><i>257</i>&nbsp;                        esList[i-1].getStandort(), ziel);</b>
+<b class="nc"><i>258</i>&nbsp;                em.persist(transportAuftrag);</b>
+<b class="nc"><i>259</i>&nbsp;                log.info(&quot;Persisting Transport Auftag &quot; + transportAuftrag.getZustandsAutomat());</b>
+<b class="nc"><i>260</i>&nbsp;                 r.get(i-1).setTransportAuftrag(transportAuftrag);</b>
+<i>261</i>&nbsp;            }
+<b class="nc"><i>262</i>&nbsp;            em.persist(ps);</b>
+<b class="nc"><i>263</i>&nbsp;            r.add(ps);</b>
+<i>264</i>&nbsp;        }
+<b class="nc"><i>265</i>&nbsp;        return r;</b>
+<i>266</i>&nbsp;    }
+<i>267</i>&nbsp;
+<i>268</i>&nbsp;    /**
+<i>269</i>&nbsp;     * Erstelle Standorte
+<i>270</i>&nbsp;     *
+<i>271</i>&nbsp;     * @return erstelle Standorte
+<i>272</i>&nbsp;     */
+<i>273</i>&nbsp;    private List&lt;Standort&gt; createDefaulStandort() {
+<i>274</i>&nbsp;
+<b class="nc"><i>275</i>&nbsp;        standorte = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>276</i>&nbsp;        standorte.add(new Standort(UUID.randomUUID().hashCode(), &quot;Lager&quot;));</b>
+<b class="nc"><i>277</i>&nbsp;        for (int i = 0; i &lt; limit; i++) {</b>
+<b class="nc"><i>278</i>&nbsp;            Standort s = new Standort(UUID.randomUUID().hashCode(), &quot;Station &quot; + i);</b>
+<b class="nc"><i>279</i>&nbsp;            log.info(&quot;Persisiting Experimentierstation &quot; + i);</b>
+<b class="nc"><i>280</i>&nbsp;            standorte.add(s);</b>
+<i>281</i>&nbsp;        }
+<i>282</i>&nbsp;
+<i>283</i>&nbsp;
+<b class="nc"><i>284</i>&nbsp;        return standorte;</b>
+<i>285</i>&nbsp;    }
+<i>286</i>&nbsp;
+<i>287</i>&nbsp;    /**
+<i>288</i>&nbsp;     * Erstelle Experimentierstationen
+<i>289</i>&nbsp;     * Depends on createDefaultUser
+<i>290</i>&nbsp;     *
+<i>291</i>&nbsp;     * @return The List of Created Stations
+<i>292</i>&nbsp;     */
+<i>293</i>&nbsp;    private List&lt;ExperimentierStation&gt; createDefaultStation() {
+<b class="nc"><i>294</i>&nbsp;        experimentierStations = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>295</i>&nbsp;        Faker faker = new Faker();</b>
+<b class="nc"><i>296</i>&nbsp;        for (int i = 0; i &lt; limit; i++) {</b>
+<b class="nc"><i>297</i>&nbsp;            experimentierStations.add(new ExperimentierStation(UUID.randomUUID().hashCode(), standorte.get(i),</b>
+<b class="nc"><i>298</i>&nbsp;                    faker.lordOfTheRings().location(), ExperimentierStationZustand.VERFUEGBAR, new ArrayList&lt;&gt;() , new ArrayList&lt;&gt;(), List.of(tTechnologe)));</b>
+<i>299</i>&nbsp;        }
+<b class="nc"><i>300</i>&nbsp;        return experimentierStations;</b>
+<i>301</i>&nbsp;    }
+<i>302</i>&nbsp;
+<i>303</i>&nbsp;    /**
+<i>304</i>&nbsp;     * Erstelle Standart Nutzer
+<i>305</i>&nbsp;     * FIXME Password need to be in external Config
+<i>306</i>&nbsp;     *
+<i>307</i>&nbsp;     * @return A user for every RoleProzessSchrittZustandsAutomat.zustaende
+<i>308</i>&nbsp;     */
+<i>309</i>&nbsp;    private List&lt;User&gt; createDefaultUsers() {
+<i>310</i>&nbsp;        try {
+<b class="nc"><i>311</i>&nbsp;            PasswordMatcher matcher = new PasswordMatcher();</b>
+<i>312</i>&nbsp;
+<b class="nc"><i>313</i>&nbsp;            var uList = userService.getRoles();</b>
+<i>314</i>&nbsp;
+<i>315</i>&nbsp;            // User Setup
+<b class="nc"><i>316</i>&nbsp;            testUser = new User(UUID.randomUUID().hashCode(), &quot;Default&quot;, &quot;Technologe&quot;, &quot;l@g.c&quot;, f.phoneNumber().cellPhone(),</b>
+<b class="nc"><i>317</i>&nbsp;                    &quot;t&quot;, matcher.getPasswordService().encryptPassword(&quot;12345678&quot;), true, LocalDateTime.now(),</b>
+<i>318</i>&nbsp;                    &quot;en&quot;);
+<b class="nc"><i>319</i>&nbsp;            roleService.applyRoles(List.of(&quot;technologe&quot;), &quot;t&quot;);</b>
+<b class="nc"><i>320</i>&nbsp;            tTechnologe = testUser;</b>
+<b class="nc"><i>321</i>&nbsp;            List users = new ArrayList&lt;&gt;();</b>
+<i>322</i>&nbsp;
+<i>323</i>&nbsp;            // Add to user Lost
+<b class="nc"><i>324</i>&nbsp;            users.add(testUser);</b>
+<i>325</i>&nbsp;
+<b class="nc"><i>326</i>&nbsp;            testUser = new User(UUID.randomUUID().hashCode(), &quot;Default&quot;, &quot;PKAdmin&quot;, &quot;l@g.c&quot;, f.phoneNumber().cellPhone(),</b>
+<b class="nc"><i>327</i>&nbsp;                    &quot;pk&quot;, matcher.getPasswordService().encryptPassword(&quot;12345678&quot;), true, LocalDateTime.now(),</b>
+<i>328</i>&nbsp;                    &quot;de&quot;);
+<b class="nc"><i>329</i>&nbsp;            roleService.applyRoles(List.of(&quot;pkAdmin&quot;), &quot;pk&quot;);</b>
+<i>330</i>&nbsp;            // Add to user Lost
+<b class="nc"><i>331</i>&nbsp;            users.add(testUser);</b>
+<i>332</i>&nbsp;
+<b class="nc"><i>333</i>&nbsp;            testUser = new User(UUID.randomUUID().hashCode(), &quot;Default&quot;, &quot;Admin&quot;, &quot;l@g.c&quot;, f.phoneNumber().cellPhone(),</b>
+<b class="nc"><i>334</i>&nbsp;                    &quot;admin&quot;, matcher.getPasswordService().encryptPassword(&quot;12345678&quot;), true, LocalDateTime.now(),</b>
+<i>335</i>&nbsp;                    &quot;en&quot;);
+<b class="nc"><i>336</i>&nbsp;            roleService.applyRoles(List.of(&quot;admin&quot;, &quot;transport&quot;, &quot;pkAdmin&quot;, &quot;logistik&quot;, &quot;technologe&quot;), &quot;admin&quot;);</b>
+<i>337</i>&nbsp;            // Add to user Lost
+<i>338</i>&nbsp;
+<i>339</i>&nbsp;
+<b class="nc"><i>340</i>&nbsp;            users.add(testUser);</b>
+<i>341</i>&nbsp;
+<b class="nc"><i>342</i>&nbsp;            testUser = new User(UUID.randomUUID().hashCode(), &quot;Default&quot;, &quot;Transport&quot;, &quot;l@g.c&quot;, f.phoneNumber().cellPhone(),</b>
+<b class="nc"><i>343</i>&nbsp;                    &quot;tr&quot;, matcher.getPasswordService().encryptPassword(&quot;12345678&quot;), true, LocalDateTime.now(),</b>
+<i>344</i>&nbsp;                    &quot;de&quot;);
+<b class="nc"><i>345</i>&nbsp;            roleService.applyRoles(List.of(&quot;transport&quot;), &quot;tr&quot;);</b>
+<i>346</i>&nbsp;
+<i>347</i>&nbsp;            // Add to user Lost
+<b class="nc"><i>348</i>&nbsp;            users.add(testUser);</b>
+<i>349</i>&nbsp;
+<b class="nc"><i>350</i>&nbsp;            testUser = new User(UUID.randomUUID().hashCode(), &quot;Default&quot;, &quot;Logistik&quot;, &quot;l@g.c&quot;, f.phoneNumber().cellPhone(),</b>
+<b class="nc"><i>351</i>&nbsp;                    &quot;l&quot;, matcher.getPasswordService().encryptPassword(&quot;12345678&quot;), true, LocalDateTime.now(),</b>
+<i>352</i>&nbsp;                    &quot;de&quot;);
+<b class="nc"><i>353</i>&nbsp;            roleService.applyRoles(List.of(&quot;logistik&quot;), &quot;l&quot;);</b>
+<i>354</i>&nbsp;            // Add to user Lost
+<b class="nc"><i>355</i>&nbsp;            users.add(testUser);</b>
+<i>356</i>&nbsp;
+<i>357</i>&nbsp;            // Add to user Lost
+<b class="nc"><i>358</i>&nbsp;            users.add(testUser);</b>
+<b class="nc"><i>359</i>&nbsp;            return users;</b>
+<b class="nc"><i>360</i>&nbsp;        } catch (Exception e) {</b>
+<b class="nc"><i>361</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>362</i>&nbsp;            return null;</b>
+<i>363</i>&nbsp;        }
+<i>364</i>&nbsp;    }
+<i>365</i>&nbsp;
+<i>366</i>&nbsp;    public List&lt;ProzessSchrittVorlage&gt; getProzessSchrittVorlage(List&lt;ProzessSchrittParameter&gt; parameters) {
+<b class="nc"><i>367</i>&nbsp;        var result = new ArrayList&lt;ProzessSchrittVorlage&gt;();</b>
+<b class="nc"><i>368</i>&nbsp;        for (int i = 0; i &lt; limit -1; i++) {</b>
+<i>369</i>&nbsp;
+<i>370</i>&nbsp;            // ProzessSchrittVorlage Setup
+<b class="nc"><i>371</i>&nbsp;            ProzessSchrittZustandsAutomatVorlage v = new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(),</b>
+<i>372</i>&nbsp;                    psZustaende, &quot;Test pszvav&quot;);
+<b class="nc"><i>373</i>&nbsp;            em.persist(v);</b>
+<b class="nc"><i>374</i>&nbsp;            List z = new ArrayList();</b>
+<b class="nc"><i>375</i>&nbsp;            Collections.addAll(z, pszaVorlage.getZustaende());</b>
+<b class="nc"><i>376</i>&nbsp;            z.addAll(pszaVorlage.getZustaende());</b>
+<b class="nc"><i>377</i>&nbsp;            Faker faker = new Faker();</b>
+<b class="nc"><i>378</i>&nbsp;            var r = new ProzessSchrittVorlage(UUID.randomUUID().hashCode(), List.of(parameters.get(i)), experimentierStations.get(i+1), &quot;42:00&quot;, faker.gameOfThrones().dragon(),</b>
+<b class="nc"><i>379</i>&nbsp;                    v, true, f.random().nextInt(0, 999));</b>
+<b class="nc"><i>380</i>&nbsp;            r.setEingabeTraeger(List.copyOf(tas.get(0).getArten()));</b>
+<b class="nc"><i>381</i>&nbsp;            r.setAusgabeTraeger(List.copyOf(tas.get(0).getArten()));</b>
+<b class="nc"><i>382</i>&nbsp;            result.add(r);</b>
+<i>383</i>&nbsp;        }
+<b class="nc"><i>384</i>&nbsp;        return result;</b>
+<i>385</i>&nbsp;    }
+<i>386</i>&nbsp;
+<i>387</i>&nbsp;    public List&lt;QualitativeEigenschaft&gt; getQualitativeEigenschaften() {
+<i>388</i>&nbsp;        // Eigenschaften
+<b class="nc"><i>389</i>&nbsp;        Faker faker = new Faker();</b>
+<b class="nc"><i>390</i>&nbsp;        List&lt;QualitativeEigenschaft&gt; qualEigenschaften = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>391</i>&nbsp;        for (int i = 0; i &lt; limit; i++) {</b>
+<b class="nc"><i>392</i>&nbsp;            QualitativeEigenschaft q1 = new QualitativeEigenschaft(UUID.randomUUID().hashCode(), faker.funnyName().name());</b>
+<b class="nc"><i>393</i>&nbsp;            qualEigenschaften.add(q1);</b>
+<i>394</i>&nbsp;        }
+<i>395</i>&nbsp;
+<b class="nc"><i>396</i>&nbsp;        return qualEigenschaften;</b>
+<i>397</i>&nbsp;    }
+<i>398</i>&nbsp;
+<i>399</i>&nbsp;    @Transactional
+<i>400</i>&nbsp;    public List&lt;TraegerArt&gt; erstelleTraeger() {
+<b class="nc"><i>401</i>&nbsp;        List&lt;TraegerArt&gt; result = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>402</i>&nbsp;        TraegerArt t = new TraegerArt(&quot;KEY&quot;);</b>
+<b class="nc"><i>403</i>&nbsp;        t.setArten(List.of(&quot;Glass&quot;,&quot;Eingebetet&quot;,&quot;Einzelen&quot;));</b>
+<b class="nc"><i>404</i>&nbsp;        result.add(t);</b>
+<b class="nc"><i>405</i>&nbsp;        return result;</b>
+<i>406</i>&nbsp;    }
+<i>407</i>&nbsp;
+<i>408</i>&nbsp;    public ProzessSchrittZustandsAutomatVorlage erstelleStandartVorlage() {
+<b class="nc"><i>409</i>&nbsp;        Set&lt;ProzessSchrittZustandsAutomatVorlage&gt; ergebnis = new HashSet&lt;&gt;();</b>
+<b class="nc"><i>410</i>&nbsp;        List&lt;String&gt; zustaende = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>411</i>&nbsp;        zustaende.add(&quot;Angenommen&quot;);</b>
+<b class="nc"><i>412</i>&nbsp;        zustaende.add(&quot;In Brearbeitung&quot;);</b>
+<b class="nc"><i>413</i>&nbsp;        zustaende.add(&quot;Bearbeitet&quot;);</b>
+<b class="nc"><i>414</i>&nbsp;        zustaende.add(&quot;Weitergeleitet&quot;);</b>
+<i>415</i>&nbsp;
+<b class="nc"><i>416</i>&nbsp;        sVorlage = new ProzessSchrittZustandsAutomatVorlage(UUID.randomUUID().hashCode(), zustaende, &quot;Standart&quot;);</b>
+<b class="nc"><i>417</i>&nbsp;        return sVorlage;</b>
+<i>418</i>&nbsp;    }
+<i>419</i>&nbsp;
+<i>420</i>&nbsp;    /**
+<i>421</i>&nbsp;     * erstellt proben für einen prozessschritt
+<i>422</i>&nbsp;     * @param s, the Location to which the samples will be added
+<i>423</i>&nbsp;     * @return a list of samples
+<i>424</i>&nbsp;     */
+<i>425</i>&nbsp;    public Traeger erstelleProben(Standort s) {
+<b class="nc"><i>426</i>&nbsp;        List&lt;Probe&gt; r = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>427</i>&nbsp;        for (int i = 0; i &lt; limit; i++) {</b>
+<b class="nc"><i>428</i>&nbsp;            Probe p1 = new Probe(&quot;FDGHJ&quot; + i, 9, ProbenZustand.VORHANDEN, s);</b>
+<b class="nc"><i>429</i>&nbsp;            p1.setKommentar(erstelleKommentare());</b>
+<i>430</i>&nbsp;            try {
+<b class="nc"><i>431</i>&nbsp;                probeDAO.persist(p1);</b>
+<b class="nc"><i>432</i>&nbsp;            } catch (DuplicateProbeException e) {</b>
+<b class="nc"><i>433</i>&nbsp;                e.printStackTrace();</b>
+<b class="nc"><i>434</i>&nbsp;            }</b>
+<b class="nc"><i>435</i>&nbsp;            r.add(p1);</b>
+<i>436</i>&nbsp;        }
+<b class="nc"><i>437</i>&nbsp;        Random random = new Random();</b>
+<b class="nc"><i>438</i>&nbsp;        return new Traeger(UUID.randomUUID().hashCode(), tas.get(0).getArten().get(0), r, standorte.get(random.nextInt(standorte.size())));</b>
+<i>439</i>&nbsp;    }
+<i>440</i>&nbsp;
+<i>441</i>&nbsp;    public List&lt;Kommentar&gt; erstelleKommentare() {
+<b class="nc"><i>442</i>&nbsp;        List&lt;Kommentar&gt; r = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>443</i>&nbsp;        for (int i = 0; i &lt; limit / 10; i++) {</b>
+<b class="nc"><i>444</i>&nbsp;            Kommentar k = new Kommentar(LocalDateTime.now(), &quot;hallo&quot; + i);</b>
+<i>445</i>&nbsp;            try {
+<b class="nc"><i>446</i>&nbsp;                kommentarDAO.persist(k);</b>
+<b class="nc"><i>447</i>&nbsp;            } catch (DuplicateKommentarException e) {</b>
+<b class="nc"><i>448</i>&nbsp;                e.printStackTrace();</b>
+<b class="nc"><i>449</i>&nbsp;            }</b>
+<b class="nc"><i>450</i>&nbsp;            r.add(k);</b>
+<i>451</i>&nbsp;        }
+<b class="nc"><i>452</i>&nbsp;        return r;</b>
+<i>453</i>&nbsp;    }
+<i>454</i>&nbsp;
+<i>455</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-03-08 14:39</div>
+</div>
+</body>
+</html>

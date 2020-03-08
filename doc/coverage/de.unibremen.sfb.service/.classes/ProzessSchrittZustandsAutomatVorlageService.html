@@ -1,0 +1,207 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ProzessSchrittZustandsAutomatVorlageService</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">de.unibremen.sfb.service</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ProzessSchrittZustandsAutomatVorlageService (de.unibremen.sfb.service)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ProzessSchrittZustandsAutomatVorlageService</td>
+<td class="coverageStat">
+  <span class="percent">
+    87,5%
+  </span>
+  <span class="absValue">
+    (7/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    88,2%
+  </span>
+  <span class="absValue">
+    (15/ 17)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ProzessSchrittZustandsAutomatVorlageService$MockitoMock$88130387</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittZustandsAutomatVorlageService$MockitoMock$88130387$auxiliary$5bJNmWjo</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittZustandsAutomatVorlageService$MockitoMock$88130387$auxiliary$BmSB1u52</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittZustandsAutomatVorlageService$MockitoMock$88130387$auxiliary$DL2cDW7Z</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittZustandsAutomatVorlageService$MockitoMock$88130387$auxiliary$Iz5XMzzR</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittZustandsAutomatVorlageService$MockitoMock$88130387$auxiliary$KJCAJlvh</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittZustandsAutomatVorlageService$MockitoMock$88130387$auxiliary$nbbNIGlU</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittZustandsAutomatVorlageService$MockitoMock$88130387$auxiliary$O4O6lwU9</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittZustandsAutomatVorlageService$MockitoMock$88130387$auxiliary$qnxI9jnw</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessSchrittZustandsAutomatVorlageService$MockitoMock$88130387$auxiliary$YnoGbgAo</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    87,5%
+  </span>
+  <span class="absValue">
+    (7/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    88,2%
+  </span>
+  <span class="absValue">
+    (15/ 17)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package de.unibremen.sfb.service;
+<i>2</i>&nbsp;import de.unibremen.sfb.exception.DuplicateProzessSchrittZustandsAutomatVorlageException;
+<i>3</i>&nbsp;import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
+<i>4</i>&nbsp;import de.unibremen.sfb.exception.ProzessSchrittZustandsAutomatVorlageNotFoundException;
+<i>5</i>&nbsp;import de.unibremen.sfb.model.ProzessSchrittZustandsAutomatVorlage;
+<i>6</i>&nbsp;import de.unibremen.sfb.persistence.ProzessSchrittZustandsAutomatVorlageDAO;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import javax.annotation.PostConstruct;
+<i>9</i>&nbsp;import javax.inject.Inject;
+<i>10</i>&nbsp;import java.io.Serializable;
+<i>11</i>&nbsp;import java.util.List;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;
+<b class="fc"><i>14</i>&nbsp;public class ProzessSchrittZustandsAutomatVorlageService implements Serializable {</b>
+<i>15</i>&nbsp;    private List&lt;ProzessSchrittZustandsAutomatVorlage&gt; psvVorlagen;
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    @Inject
+<i>18</i>&nbsp;    ProzessSchrittZustandsAutomatVorlageDAO prozessSchrittZustandsAutomatVorlageDAO;
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    /**
+<i>21</i>&nbsp;     * Loesche alle diese ProzessSchrittZustandsAutomatVorlage
+<i>22</i>&nbsp;     * @param selpszav die zu loeschenden ProzessSchrittZustandsAutomatVorlage
+<i>23</i>&nbsp;     * @throws  ProzessSchrittZustandsAutomatVorlageNotFoundException  falls es die PS Zustands Automaten Vorlage nicht gibt
+<i>24</i>&nbsp;     */
+<i>25</i>&nbsp;    public void delete(List&lt;ProzessSchrittZustandsAutomatVorlage&gt; selpszav) throws ProzessSchrittZustandsAutomatVorlageNotFoundException {
+<i>26</i>&nbsp;        for (ProzessSchrittZustandsAutomatVorlage p :
+<b class="fc"><i>27</i>&nbsp;                selpszav) {</b>
+<b class="fc"><i>28</i>&nbsp;            prozessSchrittZustandsAutomatVorlageDAO.remove(p);</b>
+<b class="fc"><i>29</i>&nbsp;        }</b>
+<b class="fc"><i>30</i>&nbsp;    }</b>
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    /**
+<i>34</i>&nbsp;     * Edit alle diese ProzessSchrittZustandsAutomatVorlage
+<i>35</i>&nbsp;     * @param selpszav die zu bearbeitende ProzessSchrittZustandsAutomatVorlage
+<i>36</i>&nbsp;     * @throws ProzessSchrittZustandsAutomatVorlageNotFoundException falls es sie nicht gibt
+<i>37</i>&nbsp;     */
+<i>38</i>&nbsp;    public void edit(ProzessSchrittZustandsAutomatVorlage selpszav) throws ProzessSchrittZustandsAutomatVorlageNotFoundException {
+<b class="fc"><i>39</i>&nbsp;        prozessSchrittZustandsAutomatVorlageDAO.update(selpszav);</b>
+<b class="fc"><i>40</i>&nbsp;    }</b>
+<i>41</i>&nbsp;
+<i>42</i>&nbsp;    @PostConstruct
+<i>43</i>&nbsp;    /*
+<i>44</i>&nbsp;      Init vom Service, laedet alle Vorlagen
+<i>45</i>&nbsp;     */
+<i>46</i>&nbsp;    public void init() {
+<b class="fc"><i>47</i>&nbsp;        this.psvVorlagen = prozessSchrittZustandsAutomatVorlageDAO.getAll();</b>
+<b class="fc"><i>48</i>&nbsp;    }</b>
+<i>49</i>&nbsp;
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;    /**
+<i>52</i>&nbsp;     * Hole alle ProzessSchrittZustandsAutomatVorlagen
+<i>53</i>&nbsp;     * @return alle ProzessSchrittZustandsAutomatVorlagen
+<i>54</i>&nbsp;     */
+<i>55</i>&nbsp;    public List&lt;ProzessSchrittZustandsAutomatVorlage&gt; getProzessSchrittZustandsAutomatVorlagen() {
+<b class="fc"><i>56</i>&nbsp;        psvVorlagen = prozessSchrittZustandsAutomatVorlageDAO.getAll();</b>
+<b class="fc"><i>57</i>&nbsp;        return  psvVorlagen;</b>
+<i>58</i>&nbsp;    }
+<i>59</i>&nbsp;
+<i>60</i>&nbsp;    /**
+<i>61</i>&nbsp;     * Add a new process step template
+<i>62</i>&nbsp;     * @param prozessSchrittZustandsAutomatVorlage the one to be added
+<i>63</i>&nbsp;     * @throws DuplicateProzessSchrittZustandsAutomatVorlageException if already in the System
+<i>64</i>&nbsp;     */
+<i>65</i>&nbsp;    public void addVorlage(ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage) throws DuplicateProzessSchrittZustandsAutomatVorlageException {
+<b class="fc"><i>66</i>&nbsp;        this.psvVorlagen.add(prozessSchrittZustandsAutomatVorlage);</b>
+<b class="fc"><i>67</i>&nbsp;        prozessSchrittZustandsAutomatVorlageDAO.persist(prozessSchrittZustandsAutomatVorlage);</b>
+<b class="fc"><i>68</i>&nbsp;    }</b>
+<i>69</i>&nbsp;
+<i>70</i>&nbsp;    /** Remove a process step state automaton template
+<i>71</i>&nbsp;     * @param pszav - the process step state automaton template to remove
+<i>72</i>&nbsp;     * @throws ProzessSchrittZustandsAutomatVorlageNotFoundException on failure */
+<i>73</i>&nbsp;    public void remove(ProzessSchrittZustandsAutomatVorlage pszav) throws ProzessSchrittZustandsAutomatVorlageNotFoundException{
+<b class="nc"><i>74</i>&nbsp;        prozessSchrittZustandsAutomatVorlageDAO.remove(pszav);</b>
+<b class="nc"><i>75</i>&nbsp;    }</b>
+<i>76</i>&nbsp;
+<i>77</i>&nbsp;    /**
+<i>78</i>&nbsp;     * Get the ProzessSchrittZustandsAutomatVorlage by its ID
+<i>79</i>&nbsp;     * @param id of ProzessSchrittZustandsAutomatVorlage
+<i>80</i>&nbsp;     * @throws ProzessSchrittZustandsAutomatVorlageNotFoundException which corresponds to the ID
+<i>81</i>&nbsp;     * @return the PS Template with the id
+<i>82</i>&nbsp;
+<i>83</i>&nbsp;     */
+<i>84</i>&nbsp;    public ProzessSchrittZustandsAutomatVorlage getByID(int id) throws ProzessSchrittZustandsAutomatVorlageNotFoundException {
+<b class="fc"><i>85</i>&nbsp;        return prozessSchrittZustandsAutomatVorlageDAO.getById(id);</b>
+<i>86</i>&nbsp;    }
+<i>87</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-03-08 14:39</div>
+</div>
+</body>
+</html>

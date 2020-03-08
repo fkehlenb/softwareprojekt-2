@@ -62,7 +62,7 @@ class TraegerTest {
     @Test
     void testToString() {
         String result = traeger.toString();
-        Assertions.assertEquals("Traeger(isValidData=true, id=0, art=art, proben=proben, standort=standort)", result);
+        Assertions.assertEquals("Traeger 0", result);
     }
 }
 

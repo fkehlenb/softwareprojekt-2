@@ -1,0 +1,243 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: StandortDAO</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">de.unibremen.sfb.persistence</a> ]
+</div>
+
+<h1>Coverage Summary for Class: StandortDAO (de.unibremen.sfb.persistence)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">StandortDAO</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    79,5%
+  </span>
+  <span class="absValue">
+    (31/ 39)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">StandortDAO$MockitoMock$1905715407</td>
+  </tr>
+  <tr>
+    <td class="name">StandortDAO$MockitoMock$1905715407$auxiliary$447jWcVN</td>
+  </tr>
+  <tr>
+    <td class="name">StandortDAO$MockitoMock$1905715407$auxiliary$8vHJ6HSE</td>
+  </tr>
+  <tr>
+    <td class="name">StandortDAO$MockitoMock$1905715407$auxiliary$bsLkX5MT</td>
+  </tr>
+  <tr>
+    <td class="name">StandortDAO$MockitoMock$1905715407$auxiliary$chm1jyMe</td>
+  </tr>
+  <tr>
+    <td class="name">StandortDAO$MockitoMock$1905715407$auxiliary$DuIfYqQ2</td>
+  </tr>
+  <tr>
+    <td class="name">StandortDAO$MockitoMock$1905715407$auxiliary$FvzqoqFu</td>
+  </tr>
+  <tr>
+    <td class="name">StandortDAO$MockitoMock$1905715407$auxiliary$leZDs8Z2</td>
+  </tr>
+  <tr>
+    <td class="name">StandortDAO$MockitoMock$1905715407$auxiliary$oj1L9Exj</td>
+  </tr>
+  <tr>
+    <td class="name">StandortDAO$MockitoMock$1905715407$auxiliary$SgGnXQPG</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    79,5%
+  </span>
+  <span class="absValue">
+    (31/ 39)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package de.unibremen.sfb.persistence;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import de.unibremen.sfb.exception.DuplicateStandortException;
+<i>4</i>&nbsp;import de.unibremen.sfb.exception.StandortNotFoundException;
+<i>5</i>&nbsp;import de.unibremen.sfb.model.Standort;
+<i>6</i>&nbsp;import lombok.extern.slf4j.Slf4j;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import java.util.ArrayList;
+<i>9</i>&nbsp;import java.util.List;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;/**
+<i>12</i>&nbsp; * This class handles the location objects in the database
+<i>13</i>&nbsp; */
+<b class="fc"><i>14</i>&nbsp;@Slf4j</b>
+<b class="fc"><i>15</i>&nbsp;public class StandortDAO extends ObjectDAO&lt;Standort&gt; {</b>
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    /**
+<i>18</i>&nbsp;     * Add a location object to the database
+<i>19</i>&nbsp;     *
+<i>20</i>&nbsp;     * @param s - the location object to add to the database
+<i>21</i>&nbsp;     * @throws DuplicateStandortException if the location already exists in the database
+<i>22</i>&nbsp;     */
+<i>23</i>&nbsp;    public void persist(Standort s) throws DuplicateStandortException {
+<b class="fc"><i>24</i>&nbsp;        if (s != null) {</b>
+<b class="fc"><i>25</i>&nbsp;            synchronized (Standort.class) {</b>
+<b class="fc"><i>26</i>&nbsp;                if (em.contains(em.find(get(), s.getId()))) {</b>
+<b class="nc"><i>27</i>&nbsp;                    throw new DuplicateStandortException();</b>
+<i>28</i>&nbsp;                }
+<b class="fc"><i>29</i>&nbsp;                em.persist(s);</b>
+<b class="fc"><i>30</i>&nbsp;            }</b>
+<i>31</i>&nbsp;        }
+<b class="fc"><i>32</i>&nbsp;    }</b>
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;    /**
+<i>35</i>&nbsp;     * Update a location object in the database
+<i>36</i>&nbsp;     *
+<i>37</i>&nbsp;     * @param s - the location to update in the database
+<i>38</i>&nbsp;     * @throws StandortNotFoundException if the location couldn&#39;t be found in the database
+<i>39</i>&nbsp;     */
+<i>40</i>&nbsp;    public void update(Standort s) throws StandortNotFoundException {
+<b class="fc"><i>41</i>&nbsp;        if (s != null) {</b>
+<b class="fc"><i>42</i>&nbsp;            if (!em.contains(em.find(get(), s.getId()))) {</b>
+<b class="nc"><i>43</i>&nbsp;                throw new StandortNotFoundException();</b>
+<i>44</i>&nbsp;            }
+<b class="fc"><i>45</i>&nbsp;            em.merge(s);</b>
+<i>46</i>&nbsp;        }
+<b class="fc"><i>47</i>&nbsp;    }</b>
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;    /**
+<i>50</i>&nbsp;     * Remove a location object from the database
+<i>51</i>&nbsp;     *
+<i>52</i>&nbsp;     * @param s - the location object to remove from the database
+<i>53</i>&nbsp;     * @throws StandortNotFoundException if the location object couldn&#39;t be found in the database
+<i>54</i>&nbsp;     */
+<i>55</i>&nbsp;    public void remove(Standort s) throws StandortNotFoundException {
+<b class="fc"><i>56</i>&nbsp;        if (s != null) {</b>
+<b class="fc"><i>57</i>&nbsp;            if (!em.contains(em.find(get(), s.getId()))) {</b>
+<b class="nc"><i>58</i>&nbsp;                em.merge(s);</b>
+<i>59</i>&nbsp;            }
+<b class="fc"><i>60</i>&nbsp;            s.setValidData(false);</b>
+<b class="fc"><i>61</i>&nbsp;            update(s);</b>
+<i>62</i>&nbsp;        }
+<b class="fc"><i>63</i>&nbsp;    }</b>
+<i>64</i>&nbsp;
+<i>65</i>&nbsp;    /**
+<i>66</i>&nbsp;     * @return the class of location
+<i>67</i>&nbsp;     */
+<i>68</i>&nbsp;    public Class&lt;Standort&gt; get() {
+<b class="fc"><i>69</i>&nbsp;        return Standort.class;</b>
+<i>70</i>&nbsp;    }
+<i>71</i>&nbsp;
+<i>72</i>&nbsp;    /**
+<i>73</i>&nbsp;     * Get a location object from the database using its unique id
+<i>74</i>&nbsp;     *
+<i>75</i>&nbsp;     * @param id - Die ID des Standortes
+<i>76</i>&nbsp;     * @return the location object with an id matching the entered one
+<i>77</i>&nbsp;     * @throws StandortNotFoundException if the location object couldn&#39;t be found in the database
+<i>78</i>&nbsp;     */
+<i>79</i>&nbsp;    public Standort getObjById(int id) throws StandortNotFoundException {
+<i>80</i>&nbsp;        try {
+<b class="fc"><i>81</i>&nbsp;            Standort s = em.find(get(), id);</b>
+<b class="fc"><i>82</i>&nbsp;            if (s == null || !s.isValidData()) {</b>
+<b class="fc"><i>83</i>&nbsp;                throw new StandortNotFoundException();</b>
+<i>84</i>&nbsp;            }
+<b class="nc"><i>85</i>&nbsp;            return s;</b>
+<b class="fc"><i>86</i>&nbsp;        } catch (Exception e) {</b>
+<b class="fc"><i>87</i>&nbsp;            e.printStackTrace();</b>
+<b class="fc"><i>88</i>&nbsp;            throw new StandortNotFoundException();</b>
+<i>89</i>&nbsp;        }
+<i>90</i>&nbsp;    }
+<i>91</i>&nbsp;
+<i>92</i>&nbsp;    /**
+<i>93</i>&nbsp;     * Get a location object using the location string
+<i>94</i>&nbsp;     *
+<i>95</i>&nbsp;     * @param l - the location String
+<i>96</i>&nbsp;     * @return the location object with a matching string
+<i>97</i>&nbsp;     * @throws StandortNotFoundException if a location with that string cannot be found
+<i>98</i>&nbsp;     */
+<i>99</i>&nbsp;    public Standort getByOrt(String l) throws StandortNotFoundException {
+<i>100</i>&nbsp;        try {
+<b class="fc"><i>101</i>&nbsp;            return em.createNamedQuery(&quot;Standort.getByOrt&quot;, get()).setParameter(&quot;ort&quot;, l).getSingleResult();</b>
+<b class="fc"><i>102</i>&nbsp;        } catch (Exception e) {</b>
+<b class="fc"><i>103</i>&nbsp;            e.printStackTrace();</b>
+<b class="fc"><i>104</i>&nbsp;            throw new StandortNotFoundException();</b>
+<i>105</i>&nbsp;        }
+<i>106</i>&nbsp;    }
+<i>107</i>&nbsp;
+<i>108</i>&nbsp;    /**
+<i>109</i>&nbsp;     * @return all locations
+<i>110</i>&nbsp;     */
+<i>111</i>&nbsp;    public List&lt;Standort&gt; getAll() {
+<i>112</i>&nbsp;        try {
+<b class="fc"><i>113</i>&nbsp;            List&lt;Standort&gt; es = em.createQuery(&quot;SELECT es FROM Standort es WHERE es.isValidData=true&quot;, get()).getResultList();</b>
+<b class="nc"><i>114</i>&nbsp;            if (es.isEmpty()) {</b>
+<b class="nc"><i>115</i>&nbsp;                log.info(&quot;No Standorte Found&quot;);</b>
+<b class="nc"><i>116</i>&nbsp;                return new ArrayList&lt;&gt;();</b>
+<i>117</i>&nbsp;            }
+<b class="nc"><i>118</i>&nbsp;            return es;</b>
+<b class="fc"><i>119</i>&nbsp;        } catch (Exception e) {</b>
+<b class="fc"><i>120</i>&nbsp;            throw new IllegalArgumentException();</b>
+<i>121</i>&nbsp;        }
+<i>122</i>&nbsp;    }
+<i>123</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-03-08 14:39</div>
+</div>
+</body>
+</html>
