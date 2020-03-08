@@ -164,6 +164,7 @@ Version & Datum & Änderungen \\
 0.4 & 06.03.2020 & Restliche Rollen ohne Screenshots \\
 0.5 & 07.03.2020 & Screenshots \\
 0.6 & 07.03.2020 & Index, Glossar, Einführung \\
+0.7 & 08.03.2020 & Fehlermeldungen \\
 \end{tabular}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -490,19 +491,19 @@ Wollen Sie Daten aus einer Datei einlesen, klicken Sie auf Choose. Daraufhin öf
 \hline
 \multicolumn{1}{|c|}{\textbf{Hinweis}}                          & \multicolumn{1}{c|}{\textbf{Ursache}}                                                                                                                                                                                                               \\ \hline
 \endhead
-Couldn't update user! ID..  & \\ \hline
-Couldn't delete user! ID .. & \\ \hline
-Couldn't update experimentierstatioN! ID .. & \\ \hline
+Couldn't update user! ID..  & Der Benutzer wurde nicht in der Datenbank gefunden. Bitte fügen Sie einen neuen Benutzer hinzu.\\ \hline
+Couldn't delete user! ID .. & Der Benutzer wurde nicht in der Datenbank gefunden. \\ \hline
+Couldn't update experimentierstatioN! ID .. & Die Station wurde nicht in der Datenbank gefunden. Bitte fügen Sie die Station neu hinzu. \\ \hline
 Error adding experimenting station, station already exists! Name: ..  & Es existiert bereits eine Station mit dem Namen, unter dem Sie die neue speichern wollen. \\ \hline
-Couldn't add experimenting station! Name .. & \\ \hline
-Couldn't delete experimenting station! ID .. & \\ \hline
-Couldn't update job! ID .. & \\ \hline
-Couldn't import data! & \\ \hline
-Couldn't backup database! & \\ \hline
+Couldn't add experimenting station! Name .. & Ein interner Systemfehler ist aufgetreten. Bitte versuchen Sie, die Station unter einem anderen Namen zu speichern. Wenn dies nicht funktioniert, kontaktieren Sie das Entwicklerteam. \\ \hline
+Couldn't delete experimenting station! ID .. & Die Station wurde nicht in der Datenbank gefunden. \\ \hline
+Couldn't update job! ID .. & Die Station wurde nicht in der Datenbank gefunden. Bitte fügen Sie die Station neu hinzu. \\ \hline
+Couldn't import data! & Es ist ein Fehler beim Einlesen der Datei, die Sie ausgewählt haben. Bitte stellen Sie sicher, dass die Datei das korrekte Format hat. \\ \hline
+Couldn't backup database! & Es ist ein interner Fehler aufgetreten. Bitte kontaktieren Sie das Entwicklerteam. \\ \hline
 Standort with name .. already exists! & Es existiert bereits ein Standort mit dem Namen, unter dem Sie die neue speichern wollen. \\ \hline
-Couldn't add new location with name .. & \\ \hline
-Couldn't update location object with id .. & \\ \hline
-Failed to remove location with id .. & \\ \hline
+Couldn't add new location with name .. & Es ist ein interner Systemfehler aufgetreten. Bitte versuchen Sie, den Standort unter einem Namen zu speichern. Wenn das nicht funktioniert, kontaktieren Sie das Entwicklerteam. \\ \hline
+Couldn't update location object with id .. & Der Standort wurde nicht in der Datenbank gefunden. Bitte fügen Sie den Standort neu hinzu. \\ \hline
+Failed to remove location with id .. & Der Standort wurde nicht in der Datenbank gefunden. Wenn Sie den Standort aus der Datenbank entfernen wollten, müssen Sie also nichts weiter tun. \\ \hline
 \end{longtable}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
