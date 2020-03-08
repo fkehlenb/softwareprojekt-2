@@ -104,10 +104,16 @@ public class AuftragService implements Serializable {
         var as = getAuftrage();
         for (Auftrag a :
                 as) {
-            var r = a.getProzessSchritte().stream().filter(p -> p.getId() == ps.getId()).findFirst().orElse(null);
-            if (r != null) {
-                return a;
+            for (ProzessSchritt ps1 :
+                    a.getProzessSchritte()) {
+                if (ps1.getId() == ps.getId()) {
+                    return  a;
+                }
             }
+//            var r = a.getProzessSchritte().stream().filter(p -> p.getId() == ps.getId()).findFirst().orElse(null);
+//            if (a.getProzessSchritte().contains(ps)) {
+//                return a;
+//            }
         }
         return null;
     }
