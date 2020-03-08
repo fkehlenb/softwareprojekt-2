@@ -932,24 +932,114 @@ Hierfür muss vorher ein Träger und Proben erstellt worden sein. Man geht auf d
 } \\
 
 Anschließend drückt man den Haken zum speichern. 
-Jetzt bekommt man eine Meldung, dass der Träger erstellt wurde und er taucht in der \hyperlink{sc3.5.2.2}{Tabelle} auf. 
+Jetzt bekommt man eine Meldung, dass der Träger erstellt wurde und er taucht in der \hyperlink{sc3.5.1.4}{Tabelle} auf. 
 
  \hypertarget{sc3.5.1.4}{
 \includegraphics[width=1\textwidth]{Screenshots/3514.png}
-\textit{Abbildung 3.5.1.3: Träger wurde bearbeitet}
+\textit{Abbildung 3.5.1.4: Träger wurde bearbeitet}
 } \\
 
+\paragraph{Existierenden Träger löschen:}
+
+Um einen existierenden Träger zu löschen, drückt man in der Tabelle einfach auf den \hyperlink{sc3.5.1.5}{Löschen Button}. 
+
+ \hypertarget{sc3.5.1.5}{
+\includegraphics[width=1\textwidth]{Screenshots/3515.png}
+\textit{Abbildung 3.5.1.5: Träger Löschen Button}
+} \\
+
+Nachdem der Button gedrückt ist, verschwindet der Träger und wurde gelöscht. Auch nach einem Neu laden der Seite bleibt er in der \hyperlink{sc3.5.1.6}{Tabelle} verschwunden.
+
+ \hypertarget{sc3.5.1.6}{
+\includegraphics[width=1\textwidth]{Screenshots/3516.png}
+\textit{Abbildung 3.5.1.6: Träger wurde bearbeitet}
+} \\
+
+Der Test ist bestanden. 
+
 %%
 
-\subsubsection{Anwendungsfall: log 2}
+\subsubsection{Anwendungsfall: Aufträge des Logistikers}
+
+Vorbedingungen sind, dass ein Prozessschritt und ein Auftrag mit dem Prozessschritts im Prozesskettenadmin erstellt wurden. Anschließend wird der Auftrag vom Prozesskettenadmin freigegeben. Nun wird er in der \hyperlink{sc3.5.2.1}{Auftragsansicht des Logistikers} angezeigt. 
+
+ \hypertarget{sc3.5.2.1}{
+\includegraphics[width=1\textwidth]{Screenshots/3521.png}
+\textit{Abbildung 3.5.2.1: Auftragsansicht des Logistikers}
+} \\
+
+Nun muss der Logistiker den Auftrag bearbeiten und ihm einen \hyperlink{sc3.5.2.2}{Träger zuweisen}. \\
+
+ \hypertarget{sc3.5.2.2}{
+\includegraphics[width=1\textwidth]{Screenshots/3522.png}
+\textit{Abbildung 3.5.2.2: Träger einem Auftrag zuweisen}
+} \\
+
+Wenn man auf den Haken zum speichern drückt, wird der Träger dem Auftrag hinzugefügt. \\
+
+ \hypertarget{sc3.5.2.3}{
+\includegraphics[width=1\textwidth]{Screenshots/3523.png}
+\textit{Abbildung 3.5.2.3: Träger einem Auftrag zugewiesen}
+} \\
+
+Anschließend muss der Logistiker den Auftrag annehmen. Der Auftrag wird auf Gestartet gesetzt und verschwindet dann aus der Sicht des Logistikers. \\ 
+
+ \hypertarget{sc3.5.2.4}{
+\includegraphics[width=1\textwidth]{Screenshots/3524.png}
+\textit{Abbildung 3.5.2.4: Auftrag gestartet}
+} \\
+
+Der Transporter bekommt nun einen Transportauftrag vom Lager zum ersten Prozessschritt. \\
+
+ \hypertarget{sc3.5.2.5}{
+\includegraphics[width=1\textwidth]{Screenshots/3525.png}
+\textit{Abbildung 3.5.2.5: Transportansicht mit dem Auftrag von dem Logistiker}
+} \\
+
+Der Test ist bestanden.
 
 %%
 
-\subsubsection{Anwendungsfall: log 3}
+\subsubsection{Anwendungsfall: Proben erstellen}
+
+Wie man sieht, existiert bereits eine \hyperlink{sc3.5.3.1}{Probe} mit der ID A01.0101. 
+
+ \hypertarget{sc3.5.3.1}{
+\includegraphics[width=1\textwidth]{Screenshots/3531.png}
+\textit{Abbildung 3.5.3.1: Probenübersicht Vorher}
+} \\
+
+Nun gehe ich auf die Proben Einfügen Seite und erstelle 5 Proben.   \\
+
+ \hypertarget{sc3.5.3.2}{
+\includegraphics[width=1\textwidth]{Screenshots/3532.png}
+\textit{Abbildung 3.5.3.2: Proben erstellen}
+} \\
+
+Ich erstelle Jeweils 100 Proben mit den IDs A02.0101 bis A02.0104.  Anschließend erstelle ich mit der ID A02.0101 noch einmal 100 Proben, sodass am ende von A02.0101 200 Proben existieren.\\
+
+ \hypertarget{sc3.5.3.3}{
+\includegraphics[width=1\textwidth]{Screenshots/3533.png}
+\textit{Abbildung 3.5.3.3: Probenübersicht Nachher}
+} \\
+
+Der Test ist bestanden.
 
 %%
 
-\subsubsection{Anwendungsfall: log 4}
+\subsubsection{Anwendungsfall: Probenstandort}
+
+Um den Probenstandort zu verändern, muss eine Probe in einem Träger enthalten sein und einen Transportauftrag durchlaufen. 
+
+ \hypertarget{sc3.5.4.1}{
+\includegraphics[width=1\textwidth]{Screenshots/3541.png}
+\textit{Abbildung 3.5.4.1: Probenstandortübersicht Vorher. Alle Proben befinden sich im Lager}
+} \\
+
+{
+\color{red} Funktioniert NICHT
+}
+
 
 %%
 

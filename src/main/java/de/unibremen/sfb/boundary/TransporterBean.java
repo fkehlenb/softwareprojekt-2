@@ -134,12 +134,12 @@ public class TransporterBean implements Serializable {
      *
      * @param transportID - the id of the job which's status to set
      */
-    public void changeTransportZustandAbgeliefert(int transportID) {
+    public void changeTransportZustandAbgeliefert(int transportID, int psID) {
         try {
             TransportAuftrag tr = auftragService.getTransportAuftragByID(transportID);
             auftragService.sedTransportZustand(tr, TransportAuftragZustand.ABGELIEFERT);
             try {
-                for (Traeger t : getTraeger()) {
+                for (Traeger t : getTraegerByPS(psID)) {
                     for (Probe p : t.getProben()) {
                         p.setStandort(tr.getZiel());
                         probenService.update(p);
