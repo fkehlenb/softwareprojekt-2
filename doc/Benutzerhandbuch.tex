@@ -164,6 +164,7 @@ Version & Datum & Änderungen \\
 0.4 & 06.03.2020 & Restliche Rollen ohne Screenshots \\
 0.5 & 07.03.2020 & Screenshots \\
 0.6 & 07.03.2020 & Index, Glossar, Einführung \\
+0.7 & 08.03.2020 & Fehlermeldungen \\
 \end{tabular}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -501,7 +502,19 @@ Wollen Sie Daten aus einer Datei einlesen, klicken Sie auf Choose. Daraufhin öf
 \hline
 \multicolumn{1}{|c|}{\textbf{Hinweis}}                          & \multicolumn{1}{c|}{\textbf{Ursache}}                                                                                                                                                                                                               \\ \hline
 \endhead
-
+Couldn't update user! ID..  & Der Benutzer wurde nicht in der Datenbank gefunden. Bitte fügen Sie einen neuen Benutzer hinzu.\\ \hline
+Couldn't delete user! ID .. & Der Benutzer wurde nicht in der Datenbank gefunden. \\ \hline
+Couldn't update experimentierstatioN! ID .. & Die Station wurde nicht in der Datenbank gefunden. Bitte fügen Sie die Station neu hinzu. \\ \hline
+Error adding experimenting station, station already exists! Name: ..  & Es existiert bereits eine Station mit dem Namen, unter dem Sie die neue speichern wollen. \\ \hline
+Couldn't add experimenting station! Name .. & Ein interner Systemfehler ist aufgetreten. Bitte versuchen Sie, die Station unter einem anderen Namen zu speichern. Wenn dies nicht funktioniert, kontaktieren Sie das Entwicklerteam. \\ \hline
+Couldn't delete experimenting station! ID .. & Die Station wurde nicht in der Datenbank gefunden. \\ \hline
+Couldn't update job! ID .. & Die Station wurde nicht in der Datenbank gefunden. Bitte fügen Sie die Station neu hinzu. \\ \hline
+Couldn't import data! & Es ist ein Fehler beim Einlesen der Datei, die Sie ausgewählt haben. Bitte stellen Sie sicher, dass die Datei das korrekte Format hat. \\ \hline
+Couldn't backup database! & Es ist ein interner Fehler aufgetreten. Bitte kontaktieren Sie das Entwicklerteam. \\ \hline
+Standort with name .. already exists! & Es existiert bereits ein Standort mit dem Namen, unter dem Sie die neue speichern wollen. \\ \hline
+Couldn't add new location with name .. & Es ist ein interner Systemfehler aufgetreten. Bitte versuchen Sie, den Standort unter einem Namen zu speichern. Wenn das nicht funktioniert, kontaktieren Sie das Entwicklerteam. \\ \hline
+Couldn't update location object with id .. & Der Standort wurde nicht in der Datenbank gefunden. Bitte fügen Sie den Standort neu hinzu. \\ \hline
+Failed to remove location with id .. & Der Standort wurde nicht in der Datenbank gefunden. Wenn Sie den Standort aus der Datenbank entfernen wollten, müssen Sie also nichts weiter tun. \\ \hline
 \end{longtable}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -767,7 +780,40 @@ Im oberen Formular können Sie für die anderen Datenmöglichkeiten alle in der 
 \hline
 \multicolumn{1}{|c|}{\textbf{Hinweis}}                          & \multicolumn{1}{c|}{\textbf{Ursache}}                                                                                                                                                                                                               \\ \hline
 \endhead
-
+Couldn't create new job! &Es ist ein interner Fehler aufgetreten. //TODO \\ \hline
+Can't edit an already started job! & Der Auftrag, den Sie bearbeiten wollen, wurde bereits gestartet. Sie können den Auftrag abbrechen, wenn die Angaben falsch sind. \\ \hline
+Couldn't edit job! & Der Auftrag wurde nicht in der Datenbank gefunden. \\ \hline
+Failed to remove job! & Der Auftrag oder einer/mehrere Prozessschritt(e), der dem Auftrag zugehörig ist, wurde nicht in der Datenbank gefunden. Da Sie den Auftrag und die Prozessschritte aus der Datenbank löschen wollten, müssen Sie keine weiteren Aktionen vornehmen. \\ \hline
+Failed to stop job!  & Der Auftrag oder ein zugehöriger Prozessschritt wurde nicht in der Datenbank gefunden.  \\ \hline
+Job has already been started!  & Der Auftrag wurde bereits gestartet. \\ \hline
+Coulnd't start job! & Der Auftrag wurde nicht in der Datenbank gefunden.\\ \hline
+Failed to export to json! & Ein Fehler ist beim Schreiben von Daten zu einer JSON Datei aufgetreten. Bitte kontaktieren Sie das Entwicklerteam.  \\ \hline
+Couldn't create new process chain template! & Es existiert bereits eine Prozessketten-Vorlage mit der ID, die generiert wurde, in der Datenbank. Bitte versuchen Sie es nochmal. Wenn Sie keinen Erfolg haben, kontaktieren Sie das Entwicklerteam. \\ \hline
+Coulnd't delete process chain template! & Die Vorlage wurde nicht in der Datenbank gefunden; Sie muss also auch nicht mehr gelöscht werden. \\ \hline
+Failed to update process chain template! & Die Vorlage wurde nicht in der Datenbank gefunden. Bitte fügen Sie sie neu hinzu. \\ \hline
+Couldn't create new process step! Error: .. &  Es existiert bereit ein Prozessschrit mit der ID, die generiert wurde. Bitte versuchen Sie es nochmal, oder kontaktieren Sie das Entwicklerteam. \\ \hline
+Cannot edit an already started process step! & Der Prozessschritt, den Sie bearbeiten wollen, wurde bereits gestartet. Sie können den zugehörigen Auftrag abbrechen.  \\ \hline
+Failed to edit process step! & Der Prozesschritt oder eine zugehörige Komponente konnte nicht in der Datenbank gefunden werden. Bitte stellen Sie sicher, dass sowohl der Prozessschritt als auch alle zugehörigen Attribute korrekt gespeichert sind, oder versuchen Sie den Prozessschritt neu hinzuzufügen. \\ \hline
+Failed to remove process step! & Der Prozessschritt wurde nicht in der Datenbank gefunden, muss also auch nicht mehr gelöscht werden. \\ \hline
+Cannot display data! & Der Prozessschritt, zu dem Sie Daten anzeigen wollen, konnte nicht in der Datenbank gefunden werden. \\ \hline
+Coulnd't create new process parameter! & Ein Parameter mit der ID, die generiert wurde, existiert bereits in der Datenbank. Bitte versuchen Sie es erneut, oder kontaktieren Sie das Entwicklerteam. \\ \hline
+Couldn't update process step parameter! & Der Parameter, den Sie bearbeiten wollen, konnte nicht in der Datenbank gefunden werden. Bitte versuchen Sie, ihn neu hinzuzufügen. \\ \hline
+Couldn't remove process parameter! & Der Parameter konnte nicht in der Datenbank gefunden werden, muss also nicht gelöscht werden. \\ \hline
+Proben-ID entpricht nicht! ..  & Die Proben-ID entspricht nicht dem Muster [A-Z][0-9].[0-9][0-9]. Bitte überprüfen Sie, ob die Proben-ID, die Sie angegeben haben, mit einem Buchstaben anfängt, worauf eine Zahl, ein Punkt und zwei weitere Ziffern folgen, wie in diesem Beispiel: A0.22. \\ \hline
+Failed to create new process step template! & Es existiert bereit eine Vorlage mit der ID, die generiert wurde. Bitte versuchen Sie es erneut, oder kontaktieren Sie das Entwicklerteam.\\ \hline
+Failed to edit process step template! & Die Vorlage wurde nicht in der Datenbank gefunden. Bitte versuchen Sie, die Vorlage neu zu speichern. \\ \hline
+Failed to remove process step template! & Die Vorlage konnte nicht in der Datenbank gefunden werden, und muss dementsprechend nicht gelöscht werden. \\ \hline
+Der erste Zustand muss Erstellt sein! & Der erste Zustand in der Prozessschritt-Zustandsautomatvorlage muss der Zustand "Erstellt" sein. Bitte passen Sie Ihre Vorlage an.\\ \hline
+Bitte suchen Sie mindestens 1 Zustaend aus! & Die Prozessschritt-Zustandsautomatvorlage muss mindestens einen Zustand haben. Bitte fügen Sie mindestens einen Zustand hinzu. \\ \hline
+Couldn't create new process step automaton with name ..  & Es existiert bereits ein Zustandsautomat mit der ID, die generiert wurde, in der Datenbank. Bitte versuchen Sie es erneut, oder kontaktieren Sie das Entwicklerteam.  \\ \hline
+Couldn't remove process step automaton! & Der Zustandsautomat konnte nicht in der Datenbank gefunden werden, muss also dementsprechend nicht gelöscht werden. \\ \hline
+Couldn't edit process step automaton with name ..& Der Zustandsautomat konnte nicht in der Datenbank gefunden werden. Bitte versuchen Sie, ihn neu zu speichern. \\ \hline
+Failed to create new qualitative descriptor with name.. & Es existiert bereits eine qualitative Eigenschaft mit der generierten ID in der Datenbank. Bitte versuchen Sie es erneut oder kontaktieren Sie das Entwicklerteam. \\ \hline
+Failed to create new quantitative descriptor with name.. & Es existiert bereits eine quantitative Eigenschaft mit der generierten ID in der Datenbank. Bitte versuchen Sie es erneut oder kontaktieren Sie das Entwicklerteam. \\ \hline
+Failed to edit qualitative descriptor! & Die qualitative Eigenschaft konnte nicht in der Datenbank gefunden werden. Bitte versuchen Sie, sie erneut zu speichern. \\ \hline
+Failed to edit quantitative descriptor! & Die quantitative Eigenschaft konnte nicht in der Datenbank gefunden werden. Bitte versuchen Sie, sie erneut zu speichern. \\ \hline
+Failed to remove qualitative descriptor! & Die qualitative Eigenschaft konnte nicht in der Datenbank gefunden werden, und muss dementsprechend auch nicht gelöscht werden. \\ \hline
+Failed to remove quantitative descriptor! & Die quantitative Eigenschaft konnte nicht in der Datenbank gefunden werden, und muss dementsprechend auch nicht gelöscht werden.  \\ \hline
 \end{longtable}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Logistiker}
@@ -829,17 +875,16 @@ Probe und Traeger nicht am gleichen standort!& \\ \hline
 Failed to edit traeger with ID:  & \\ \hline
 Failed to remove traeger with ID: & \\ \hline
 Der Standort Lager wurde nicht gefunden und wird nun erstellt, Proben können lediglich im Lager erstellt werden! & \\ \hline
-Die Probe existiert bereits!:  & \\ \hline
+Die Probe existiert bereits!:  & Es existiert bereits eine Probengruppe mit dieser ID.  \\ \hline
 Couldn't start job!& \\ \hline
-Auftrag ist Urformend und darf keine Träger enthalten! & \\ \hline
+Auftrag ist Urformend und darf keine Träger enthalten! & Ein Auftrag, der urformend ist, darf keine Träger enthalten, da die Proben im Laufe dieses Schritts erstellt werden. Bitte entfernen Sie die zugeordneten Träger. \\ \hline
 Failed to change auftrag state! ID:  & \\ \hline
 Darf nicht leer sein & \\ \hline
 Failed to change auftrag state! ID:  & \\ \hline
-The given number of samples is higher than the number of samples in the database. & \\ \hline
-sample .. could not be found when trying to report as missing. & \\ \hline
-Probe.. wurde nicht gefunden! & \\ \hline
+The given number of samples is higher than the number of samples in the database. &  \\ \hline
+sample .. could not be found when trying to report as missing. & Die Probe, die Sie als verloren melden wollen, konnte nicht in der Datenbank gefunden werden. \\ \hline
+Probe.. wurde nicht gefunden! & Die Probe mit der ID konnte nicht in der Datenbank gefunden werden. \\ \hline
 invalid input& \\ \hline
-The given number of samples is higher than the number of samples in the database. & \\ \hline
 \end{longtable}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Technologe}
