@@ -177,7 +177,6 @@ Die Leser dieses Handbuchs sind alle Benutzer des Systems, was explizit die Besc
 Dieses Handbuch soll alle Interaktionen, die mit dem im Rahmen des Softwareprojekt-Kurses von Rainer Koschke entstandenen Software möglich sind, erläutern. Neben den alltäglichen Aktionen mit dem System wird ebenfalls in diesem Dokument die Erstinstallation der Software für den Systemadministrator beschrieben. \\
 \subsection{Verwandte Dokumente}
 In diesem Dokument wird auf die bis Dezember erstellt Architekturbeschreibung Bezug genommen. \\
-\subsection{Konventionen}
 \subsection{Information über die Verwendung des Dokuments}
 Der Hauptteil des Handbuchs ist nach den im System möglichen Rollen eines Benutzers unterteilt. Im Inhaltsverzeichnis finden Sie die Oberpunkte Administrator (siehe Kapitel 4) sowie Restliche Benutzer des Systems (siehe Kapitel 5 des Systems), was Technologen, Logistiker, Prozessketten Administrator und Transporter sind. Dadurch können Sie sofort den Bereich finden, in dem Sie nach Anleitungen zu Ihren Anliegen suchen. Darüber hinaus gibt es einen Abschnitt für Erstbenutzer des Systems, der einen Überblick über die allgemeinen, rollenunspezifischen Funktionen gibt (siehe Kapitel 3). Falls Sie Erklärungen zu Fehlermeldungen suchen, können Sie diese am Ende von dem rollenspezifischen Unterabschnitt in Kapitel 3 und 4 finden, dessen Funktionen die Meldung ausgelöst haben. \\
 Sie können zur einfacheren Bedienung direkt im Inhaltsverzeichnis, sowie bei jeglichen anderen Erwähnungen von Kapiteln, auf die jeweiligen Abschnitte klicken. \\
@@ -194,13 +193,12 @@ Wenn möglich, fügen Sie Screenshots bei. \\
 
 \newpage
 \section{Übersicht}
-\subsection{Zugrunde liegende Konzepte, Einbettung}
 \subsection{Funktionale Beschreibung}
-Farbige Zustände ist eine Webanwendung die Abläufe im Labor des SFB 1232, unsere Software ist eine digitale Software, welche die Erstellung, Verwaltung und Durchführung von Prozessketten
-ermöglicht, mit wessen Hilfe neue Werkstoffeigenschaften gefunden werden sollen für den
-industriellen Gebrauch. 
-In unserer Anwendung haben Benutzer entsprechend Ihrer Rollen eine Übersicht über die Arbeit, die für Sie im Labor anfallen, und können Ihre Arbeit über die Software abwickeln. \\
-\subsection{Gefahren und Warnungen}
+Farbige Zustände ist eine Webanwendung für die Abläufe im Labor des SFB 1232. \\
+In unserer Anwendung haben Benutzer entsprechend Ihrer Rollen eine Übersicht über die Arbeit, die für Sie im Labor anfallen. Die realen Vorgänge werden durch Aufträge, die aus Prozessschritten bestehen, modelliert. Diese können erstellt, instanziiert, und danach von Station zu Station weitergereicht werden. Die zugehörigen Proben werden ebenfalls mitsamt ihrer Eigenschaften im System gespeichert; zu diesen können nach der Durchführung der Schritte die Eigenschaften aktualisiert werden. \\
+Durch die automatische Organisation der Abläufe kann durch dieses System der Alltag im Labor etwas übersichtlicher ablaufen. Dies erfordert allerdings auch die konsequente Pflege der Daten im System von allen Benutzern. \\
+Durch die verlässliche Nutzung des Systems werden ebenfalls automatisch die Protokolle erstellt.  \\
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \clearpage
@@ -208,7 +206,7 @@ In unserer Anwendung haben Benutzer entsprechend Ihrer Rollen eine Übersicht ü
 
 \subsection{Installation}
 
-Um das System zum Laufen zu bringen, verfolgen Sie bitte Schritt für Schritt diese Installtionsanleitung.\\
+Um das System zum Laufen zu bringen, verfolgen Sie bitte Schritt für Schritt diese Installationsanleitung.\\
 
 \underline{\textbf{Voraussetzungen:}}
 
@@ -288,7 +286,7 @@ Es gibt zwei Navigationsleisten: Eine am oberen Rand, und eine am linken. \\
 
 
 \subsubsection{Navigationsleiste links}
-In der Navigationsleiste am linken Rand sehen Sie alle Aktionen, die Ihnen zur Verfügung stehen, sortiert nach den Rollen, die Sie haben. Sie können durch Klicken auf die Titel der Seiten auf die unterschiedlichen Seiten gehen. \\
+In der Navigationsleiste am linken Rand sehen Sie alle Aktionen, die Ihnen zur Verfügung stehen, sortiert nach den Rollen, die Sie haben. Sie können durch Klicken auf die Titel der Seiten auf die unterschiedlichen Seiten gehen. Ebenfalls können Sie zum Homescreen zurück, und sich abmelden. \\
 
 \begin{figure}[h!]
 \begin{center}
@@ -311,7 +309,7 @@ In der Navigationsleiste am oberen Rand können Sie durch Klicken auf Home zum H
 \end{center}
 \end{figure}
 
-Sie können ebenfalls unter Anlegen->New alle Gegenstände sehen, die Sie mit Ihren Rollen erstellen können. //TODO \\
+Sie können ebenfalls unter Anlegen->New alle Gegenstände sehen, die Sie mit Ihren Rollen erstellen können. \\
 Ebenfalls können Sie sich hier unter Logout abmelden. \\
 
 
@@ -325,7 +323,7 @@ Ebenfalls können Sie sich hier unter Logout abmelden. \\
 
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=\textwidth]{screenshots/allgemein/navigationcreate.png}
+ \includegraphics[scale=0.8]{screenshots/allgemein/navigationcreate.png}
   \caption{Erstellen neuer Daten mit der oberen Navigationsleiste}
   \label{fig:boat1}
 \end{center}
@@ -379,7 +377,7 @@ Hier haben Sie eine Tabelle, die alle Benutzer anzeigt, die aktuell im System vo
  In dieser Tabelle können Sie durch drücken auf den Knopf Löschen den Benutzer der Zeile aus dem System entfernen.  \\
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=\textwidth]{screenshots/admin/nutzerloeschen.png}
+ \includegraphics[width=0.5\textwidth]{screenshots/admin/nutzerloeschen.png}
   \caption{Nutzer erfolgreich gelöscht}
   \label{fig:boat2}
 \end{center}
@@ -444,7 +442,7 @@ Für Benutzer, Parameter und Standort wählen Sie bitte die passenden Informatio
 
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=\textwidth]{screenshots/admin/stationpsp.png}
+ \includegraphics[width=0.5\textwidth]{screenshots/admin/stationpsp.png}
   \caption{Prozessschrittparameter für Stationen}
   \label{fig:boat2}
 \end{center}
@@ -452,7 +450,7 @@ Für Benutzer, Parameter und Standort wählen Sie bitte die passenden Informatio
 
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=\textwidth]{screenshots/admin/stationstandortliste.png}
+ \includegraphics[width=0.5\textwidth]{screenshots/admin/stationstandortliste.png}
   \caption{Station Standort List}
   \label{fig:boat2}
 \end{center}
@@ -460,7 +458,7 @@ Für Benutzer, Parameter und Standort wählen Sie bitte die passenden Informatio
 
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=\textwidth]{screenshots/admin/stationuser.png}
+ \includegraphics[width=0.5\textwidth]{screenshots/admin/stationuser.png}
   \caption{Station Benutzer}
   \label{fig:boat2}
 \end{center}
@@ -489,7 +487,7 @@ Auf dieser Seite sehen Sie eine Tabelle, in der alle existierenden Standorte ang
 
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=\textwidth]{screenshots/admin/standortformular.png}
+ \includegraphics[width=0.5\textwidth]{screenshots/admin/standortformular.png}
   \caption{Standort Formular}
   \label{fig:boat2}
 \end{center}
@@ -499,7 +497,7 @@ Um einen neuen Standort zu speichern, geben Sie einfach den Namen des Standorts 
 
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=\textwidth]{screenshots/admin/standortformular.png}
+ \includegraphics[width=0.5\textwidth]{screenshots/admin/standortformular.png}
   \caption{Standortformular}
   \label{fig:boat2}
 \end{center}
@@ -563,28 +561,60 @@ Hier finden Sie Anleitungen für alle Aktionen, die ein Prozesskettenadministrat
 %%%%%%%%%%
 \subsubsection{Prozessschritte}
 
-Im Menü-Unterpunkt Prozessschritt haben Sie eine Übersicht über alle Prozessschritte, die aktuell im System existieren, können diese bearbeiten und löschen, sowie neue hinzufügen. Prozessschritte werden seitenweise angezeigt, Sie können durch die Seiten mithilfe der Navigatoren ober- und unterhalb der Tabelle navigieren. Bitte beachten Sie, dass Sie nur Schritte bearbeiten und löschen können, die noch nicht gestartet wurden. \\
+Im Menü-Unterpunkt Prozessschritt haben Sie eine Übersicht über alle Prozessschritte, die aktuell im System existieren, können diese bearbeiten und löschen, sowie neue hinzufügen. Bitte beachten Sie, dass Sie nur Schritte bearbeiten und löschen können, die noch nicht gestartet wurden. \\
 
-Prozessschritte sind die Prozessschritte, die zu Aufträgen, instanziierten Prozesskettenvorlagen, gehören. \\
+Prozessschritte können Sie im Menü-Unterpunkt Auftraege benutzen, um neue Aufträge zu erstellen. \\
 
-Wenn Sie einen neuen Prozessschritt erstellen wollen, geben Sie bitte im Formular am Anfang der Seite alle Informationen für diesen ein. Dazu gehört, dass Sie eine existierende Vorlage auswählen, einen Namen eingeben, und Attribute. Die Attribute sind die von den Prozessparametern gegebene Attribute die in die Probe geschrieben werden sollen. Bitte beachten Sie, dass Sie in allen Feldern Eingaben machen müssen. Um diesen Schritt zu speichern, drücken Sie auf Speichern. Nach der erfolgreichen Speicherung wird dieser in der Tabelle zu sehen sein. Um das Formular zurückzusetzen, drücken Sie auf Zurücksetzen; dadurch entstehen keine Änderungen am Datensatz im System. \\
+Wenn Sie einen neuen Prozessschritt erstellen wollen, geben Sie bitte im Formular am Anfang der Seite alle Informationen für diesen ein. Dazu gehört, dass Sie eine existierende Vorlage auswählen, einen Namen, und Attribute eingeben. Bitte beachten Sie, dass Sie in allen Feldern Eingaben machen müssen. Um diesen Schritt zu speichern, drücken Sie auf Speichern. Nach der erfolgreichen Speicherung wird dieser in der Tabelle zu sehen sein. Um das Formular zurückzusetzen, drücken Sie auf Zurücksetzen; dadurch entstehen keine Änderungen am Datensatz im System. \\
+
 
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=\textwidth]{screenshots/pk/01prozessschrittformular.png}
-  \caption{Das Formular für neue Prozessschritte}
-  \label{fig:boat2}
+ \includegraphics[width=\textwidth]{screenshots/pk/prozessschrittform.png}
+  \caption{Prozessschritt erstellen}
+  \label{fig:boat1}
 \end{center}
 \end{figure}
 
-In der Tabelle der existierenden Prozessschritte können Sie mit Klicken auf Anzeigen in den Spalten Eingabeträger, Ausgabeträger, Prozessschritt-Parameter sowie Prozessschritt-Log Details zu den jeweiligen Eigenschaften eines bestimmten Prozessschrittes einsehen. \\
+
+In der Tabelle der existierenden Prozessschritte können Sie mit Klicken auf Anzeigen in den Spalten Eingabeträger, Ausgabeträger, Prozessschritt-Parameter sowie Prozessschritt-Log Details zu den jeweiligen Eigenschaften eines bestimmten Prozessschrittes einsehen. Dadurch wird eine Seitenansicht geöffnet. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/pk/prozessschrittubersicht.png}
+  \caption{Prozessschritt Übersicht}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/pk/prozessschritteingabe.png}
+  \caption{Trägerarten eines Prozessschrittes}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/pk/prozessschrittlog.png}
+  \caption{Log eines Prozessschrittes}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
 
 Wenn Sie einen existierenden Prozessschritt bearbeiten wollen, drücken Sie in der Zeile, in der der gewünschte Schritt in der Tabelle steht, auf das Stift-Symbol. Danach können Sie in die Zelle, die Sie bearbeiten wollen, klicken, und die Änderungen vornehmen. Bitte beachten Sie, dass Sie den Status und den Log nicht bearbeiten können. Wenn Sie fertig mit Ihren Änderungen sind, drücken Sie auf den Haken, der an der Stelle des Stifts erschienen ist. Wenn Sie ungespeicherte Änderungen zurücksetzen wollen, drücken Sie auf das Kreuz; dadurch werden die Daten für den Prozessschritt auf den aktuellen Stand in der Datenbank gesetzt. \\
 
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/pk/prozessschrittedit.png}
+  \caption{Prozessschritt bearbeiten}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
 
 Wollen Sie einen Prozessschritt löschen, drücken Sie auf das Löschen Symbol in der Zeile des Schrittes, den Sie löschen wollen. \\
 
-//TODO Logs, Parameter anzeigen
 %%%%%%%%%%
 \subsubsection{Prozessschritt Vorlage}
 
@@ -597,7 +627,18 @@ Um eine neue Vorlage zu speichern, geben Sie bitte in das Formular alle Informat
 \begin{figure}[h!]
 \begin{center}
  \includegraphics[width=\textwidth]{screenshots/pk/prozessschrittvorlageformular.png}
-  \caption{Das Formular für eine neue Prozessschrittvorlage}
+  \caption{Prozessschrittvorlage Formular}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
+
+In der Tabelle der existierenden Prozessschritt-Vorlagen können Sie die Eingabe und Ausgabe Träger sowie die Prozessschritt-Parameter, die zu einer bestimmten Vorlage gehören, mit Klicken auf Anzeigen in den entsprechenden Spalten der zugehörigen Zeile einsehen. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/pk/prozessschrittvorlagetabelle.png}
+  \caption{Die Tabelle für die Prozessschritt Vorlagen}
   \label{fig:boat2}
 \end{center}
 \end{figure}
@@ -610,18 +651,15 @@ Um eine neue Vorlage zu speichern, geben Sie bitte in das Formular alle Informat
 \end{center}
 \end{figure}
 
-In der Tabelle der existierenden Prozessschritt-Vorlagen können Sie die Eingabe und Ausgabe Träger sowie die Prozessschritt-Parameter, die zu einer bestimmten Vorlage gehören, mit Klicken auf Anzeigen in den entsprechenden Spalten der zugehörigen Zeile einsehen. \\
-
 Für die Bearbeitung von einer Vorlage drücken Sie in der entsprechenden Tabellenzeile auf das Stift-Symbol. Danach können Sie in die Zellen klicken, die Sie bearbeiten wollen, und die entsprechenden Änderungen machen. Um Ihre Änderungen zu speichern, drücken Sie auf den Haken, der an der Stelle des Stifts erschienen ist. Durch Drücken auf das Kreuz können Sie Ihre Änderungen zurücksetzen auf die Daten, die in der Datenbank gespeichert sind. \\
 
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=\textwidth]{screenshots/pk/prozessschrittvorlagetabelle.png}
-  \caption{Die Tabelle für die Prozessschritt Vorlagen}
+ \includegraphics[width=\textwidth]{screenshots/pk/prozessschrittvorlageedit.png}
+  \caption{Bearbeiten Prozessschritt Vorlagen}
   \label{fig:boat2}
 \end{center}
 \end{figure}
-
 
 Wollen Sie eine Vorlage löschen, drücken Sie in der entsprechenden Tabellenzeile auf Löschen. \\
 
@@ -634,11 +672,11 @@ Im Menü-Unterpunkt Prozessschrittzustandsautomatvorlagen Verwaltung haben Sie e
 Prozessschritt Zustandsautomaten können Sie im Menüunterpunkt Prozessschritt Vorlage benutzen, um einen Zustandsautomaten für eine Prozessschrittvorlage festzulegen. \\
 
 In der Tabelle der aktuell in der Datenbank gespeicherten Vorlagen können Sie mit den Navigatoren ober- und unterhalb der Tabelle zwischen den Seiten navigieren, alle Felder durch das Suchfeld \"Search all fields\" nach Schlagwörtern durchsuchen, ebenso sowie die Spalten Name und Zustandsreihenfolge durch die Suchfelder in den jeweiligen Spalten. \\
-Durch die Felder in der ganz linken Spalte der Tabelle können Sie Vorlagen auswählen, um //TODO \\
+Durch die Felder in der ganz linken Spalte der Tabelle können Sie Vorlagen auswählen, um ProzessKetteVorlage\\
 
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=\textwidth]{screenshots/pk/zustandsautomattabelle.png}
+ \includegraphics[width=\textwidth]{screenshots/pk/prozessschrittzustandsautomatvorlageubersicht.png}
   \caption{Tabelle für die Zustandsautomat Vorlagen}
   \label{fig:boat2}
 \end{center}
@@ -649,7 +687,15 @@ Nachdem Sie die Zustände auf der rechten Seite richtig stehen haben und einen N
 
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=\textwidth]{screenshots/pk/zustandsautomatformular.png}
+ \includegraphics[width=\textwidth]{screenshots/pk/prozessschrittzustandeinfugen.png}
+  \caption{Prozessschrittzustand einfügen}
+  \label{fig:boat2}
+\end{center}
+\end{figure}
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/pk/prozessschrittzustandsautomaterstellen.png}
   \caption{Formular für neue Zustandsautomat Vorlagen}
   \label{fig:boat2}
 \end{center}
@@ -663,7 +709,7 @@ Um eine Vorlage zu bearbeiten, drücken Sie in der Tabellenzeile der gewünschte
 
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=\textwidth]{screenshots/pk/zustandsautomatbearbeiten.png}
+ \includegraphics[width=\textwidth]{screenshots/pk/prozessschrittzustandsautomatvorlageedit.png}
   \caption{Bearbeiten einer Zustandsautomat Vorlage}
   \label{fig:boat2}
 \end{center}
@@ -681,7 +727,7 @@ In der Tabelle haben Sie eine Übersicht über alle existierenden Prozessparamet
 
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=\textwidth]{screenshots/pk/parametertabelle.png}
+ \includegraphics[width=\textwidth]{screenshots/pk/prozessschrittparametertabelle.png}
   \caption{Tabelle der Prozessparameter}
   \label{fig:boat2}
 \end{center}
@@ -692,7 +738,7 @@ Wollen Sie einen neuen Parameter erstellen, geben Sie im Formular alle notwendig
 
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=\textwidth]{screenshots/pk/parameterformular.png}
+ \includegraphics[width=\textwidth]{screenshots/pk/prozessschrittparameterform.png}
   \caption{Formular für Erstellung eines Parameters}
   \label{fig:boat2}
 \end{center}
@@ -701,16 +747,8 @@ Wollen Sie einen neuen Parameter erstellen, geben Sie im Formular alle notwendig
 
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=\textwidth]{screenshots/pk/parameterquanti.png}
-  \caption{Liste der quantitativen Eigenschaften für die Erstellung eines Parameters}
-  \label{fig:boat2}
-\end{center}
-\end{figure}
-
-\begin{figure}[h!]
-\begin{center}
- \includegraphics[width=\textwidth]{screenshots/pk/parameterliste.png}
-  \caption{Liste der qualitativen Eigenschaften für die Erstellung eines Parameters}
+ \includegraphics[width=\textwidth]{screenshots/pk/prozessschrittparametereigen.png}
+  \caption{Liste der Eigenschaften eines Parameters}
   \label{fig:boat2}
 \end{center}
 \end{figure}
@@ -721,7 +759,7 @@ Zum Bearbeiten eines Parameters, drücken Sie auf das Stift-Symbol in der zugeh�
 
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=\textwidth]{screenshots/pk/parameterbearbeiten.png}
+ \includegraphics[width=\textwidth]{screenshots/pk/prozessschrittparameteredit.png}
   \caption{Bearbeiten eines Parameters}
   \label{fig:boat2}
 \end{center}
@@ -737,29 +775,96 @@ Die Prozesskettenvorlagen können Sie im Menü-Unterpunkt Auftraege zu Aufträge
 
 Benutzen Sie das Formular am Anfang der Seite, um eine neue Vorlage anzulegen. Hier wählen Sie aus den existierenden Prozessschritt-Vorlagen diejenigen aus, aus denen diese Vorlage bestehen soll, aus. Die existierenden stehen in dem linken Feld, und können durch Mausklick ausgewählt und mit den Pfeiltasten in der Mitte in das rechte Feld verschoben werden. Im rechten Feld sollten Sie am Ende alle Prozessschritt-Vorlagen, die verwendet werden sollen, in der Reihenfolge, in der Sie bearbeitet werden sollen, stehen. Im Eingabefeld darunter können Sie einen Namen für die neue Vorlage auswählen. Wenn Sie alle Angaben gemacht haben, können Sie die neue Vorlage mit Klick auf Erstellen speichern. Mit Zurücksetzen können Sie alle Angaben im Formular zurücksetzen, wodurch keine Änderungen an den in der Datenbank gespeicherten Daten gemacht werden. \\
 
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/pk/prozesskettenvorlageform.png}
+  \caption{Prozesskettenvorlage erstellen}
+  \label{fig:boat2}
+\end{center}
+\end{figure}
+
+Sie können ebenfalls Prozesskettenvorlagen aus JSON exportieren. Dafür geben Sie bitte den JSON-String am Anfang der Seite ein, und drücken Sie auf PKV Hochladen. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=0.5\textwidth]{screenshots/pk/prozesskettenvorlagejson.png}
+  \caption{Prozesskettenvorlage aus JSON}
+  \label{fig:boat2}
+\end{center}
+\end{figure}
+
 In der Tabelle können Sie mit den Pfeiltasten ober-und unterhalb der Tabelle zwischen den Seiten navigieren. Die einzelnen Prozessschritt-Vorlagen, die zu den Prozessketten Vorlagen in der Tabelle gehören, können Sie mit Klick auf Anzeigen in der entsprechenden Tabellenzeile einsehen. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/pk/prozesskettenvorlagetabelle.png}
+  \caption{Prozesskettenvorlage Tabelle}
+  \label{fig:boat2}
+\end{center}
+\end{figure}
 
 Um eine Prozesskettenvorlage zu löschen, können Sie in der entsprechenden Tabellenzeile, in der die gewünschte Vorlage zu sehen ist, auf Löschen klicken. Dadurch werden die Daten dieser Vorlage aus der Datenbank entfernt; die Daten der assoziierten Prozessschritt-Vorlagen bleiben jedoch unabhängig bestehen. \\
 
 Wollen Sie eine existierende Prozesskettenvorlage bearbeiten, können Sie in der entsprechenden Tabellenzeile auf das Stift-Symbol drücken, und danach die entsprechenden Änderungen machen. Die zugehörigen Prozessschritt-Vorlagen können Sie zwischen den beiden Feldern mit den Pfeiltasten bewegen. Die Prozessschritt-Vorlagen, die am Ende in der Prozesskettenvorlage enthalten sein sollen, müssen auf der rechten Seite in der richtigen Reihenfolge (vom ersten zum letzten) stehen. Zu Beginn der Bearbeitung stehen im linken Feld alle in der Datenbank enthaltenen Prozessschritt-Vorlagen. Um Ihre Änderungen zu speichern, drücken Sie auf den Haken, der an der Stelle des Stift-Symbols erschienen ist; um sie zu verwerfen, drücken Sie auf das Kreuz. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/pk/prozesskettenvorlageedit.png}
+  \caption{Prozesskettenvorlage bearbeiten}
+  \label{fig:boat2}
+\end{center}
+\end{figure}
 
 %%%%%%%%%%
 \subsubsection{Aufträge}
 
 Im Menü-Unterpunkt Auftragsverwaltung haben Sie eine Übersicht über alle Aufträge, also instanziierte Prozesskettenvorlagen, die aktuell in der Datenbank existieren, können diese löschen und bearbeiten, sowie neue erstellen. \\
 
-Neue Aufträge können Sie entweder aus Prozesskettenvorlagen instanziieren, oder aus Prozessschritt-Vorlagen zusammensetzen. \\
+Neue Aufträge können Sie entweder aus Prozesskettenvorlagen instanziieren, oder aus Prozessschritten und Prozessschrittvorlagen zusammensetzen. \\
 
 Für die Instanziierung aus Prozesskettenvorlagen wählen Sie im Formular am Anfang der Seite die entsprechende Vorlage aus, und geben Sie eine Priorität und einen Namen an. \\
 
-Das zweite Formular auf der Seite können Sie für die Erstellung aus Prozessschrittvorlagen verwenden. Dort wählen Sie aus allen existierenden Vorlagen, die auf der linken Seite stehen, die aus, die Sie verwenden wollen, und bewegen Sie mit den Pfeiltasten in der Mitte in das linke Feld. Dort sollten die Schritte in der richtigen Reihenfolge von Start zu Ende stehen. Unterhalb dieser Felder können Sie einen Namen für den Auftrag eingeben, und eine Priorität auswählen. \\
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/pk/auftragformular.png}
+  \caption{Auftrag aus Vorlage}
+  \label{fig:boat2}
+\end{center}
+\end{figure}
+
+Das zweite Formular auf der Seite können Sie für die Erstellung aus Prozessschritten und -Vorlagen verwenden. Dort wählen Sie aus allen existierenden Schritten und Vorlagen, die auf der linken Seite stehen, die aus, die Sie verwenden wollen, und bewegen Sie mit den Pfeiltasten in der Mitte in das linke Feld. Dort sollten die Schritte in der richtigen Reihenfolge von Start zu Ende stehen. Unterhalb dieser Felder können Sie einen Namen für den Auftrag eingeben, und eine Priorität auswählen. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/pk/auftragformular2.png}
+  \caption{Auftrag aus Prozessschritten}
+  \label{fig:boat2}
+\end{center}
+\end{figure}
 
 In beiden Formularen können Sie, nachdem Sie alle Angaben gemacht haben, mit Klicken auf Erstellen den Auftrag erstellen. Durch Klicken auf Zurücksetzen können Sie die Angaben im Formular löschen, wodurch keine Änderungen an den Daten in der Datenbank entstehen. \\
 
 In der Tabelle am Ende der Tabelle können Sie die existierenden Aufträge ansehen. Für eine Übersicht über die Prozessschritte eines bestimmten Auftrag können Sie in der zugehörigen Tabellenzeile auf Anzeigen in der Prozessschritt-Spalte klicken. \\
 
-Wollen Sie einen Auftrag löschen, klicken Sie in der zugehörigen Tabellenzeile auf Löschen. \\ 
-//TODO dies geht nur, solange der Auftrag nicht freigegeben wurde. 
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/pk/auftragliste.png}
+  \caption{Aufträge}
+  \label{fig:boat2}
+\end{center}
+\end{figure}
+
+Wollen Sie einen Auftrag löschen, klicken Sie in der zugehörigen Tabellenzeile auf Löschen. \\
+Wollen Sie einen Auftrag bearbeiten, klicken Sie in der zugehörigen Tabellenzeile auf das Stift-Symbol. Nun können Sie alle Änderungen in den entsprechenden Zellen vornehmen. Um diese zu speichern, klicken Sie auf den Haken, der anstelle des Stiftes erschienen ist. Um die Änderungen zu verwerfen, klicken Sie auf das Kreuz. \\
+Beides geht nur, solange der Auftrag nicht freigegeben wurde.  \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/pk/auftragedit.png}
+  \caption{Auftrag bearbeiten}
+  \label{fig:boat2}
+\end{center}
+\end{figure}
 
 Um einen Auftrag freizugeben, wodurch dieser an die Logistiker weitergegeben wird, klicken Sie in der zugehörigen Tabellenzeile auf Freigeben. \\
 
@@ -772,24 +877,70 @@ Im Menü-Unterpunkt Qualitative/Quantitative Eigenschaften haben Sie eine Übers
 
 Quantitative Eigenschaften beschreiben Eigenschaften wie Farbe, oder Konsistenz. \\
 
-Qualitative Eigenschaften beschreiben Eigenschaften, die sich mit Nummern beschreiben lassen, wie Temperatur. //TODO\\
+Qualitative Eigenschaften beschreiben Eigenschaften, die sich mit Nummern beschreiben lassen, wie Temperatur.\\
 
-Diese Eigenschaften können Sie benutzen, um im Menü-Unterpunkt Prozessschritt -Parameter\\
-Schritt parameter
+Diese Eigenschaften können Sie benutzen, um im Menü-Unterpunkt Prozessschritt -Parameter selbige zu erstellen. \\
 
 Um eine neue Qualitative Eigenschaft zu erstellen, geben Sie den Namen im Eingabefeld am Anfang der Seite ein, und drücken Sie danach auf Speichern. Die Eigenschaft wird darauf in der Tabelle erscheinen. \\
 
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/pk/qualierstellen.png}
+  \caption{Qualitative Eigenschaft erstellen}
+  \label{fig:boat2}
+\end{center}
+\end{figure}
+
 In der direkt darunter stehenden Tabelle stehen die Qualitativen Eigenschaften können Sie diese löschen, indem Sie auf Löschen drücken. \\
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/pk/qualitabelle7.png}
+  \caption{Qualitative Eigenschaften Übersicht}
+  \label{fig:boat2}
+\end{center}
+\end{figure}
 
 Zum Bearbeiten drücken Sie auf Stift-Symbol. Danach können Sie in der Namensspalte den Namen der entsprechenden Zeile bearbeiten, und durch Drücken auf den an der Stelle des Stiftes erschienenen Haken die Änderungen speichern. Wollen Sie Ihre Änderungen zurücksetzen, drücken Sie auf das Kreuz. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/pk/qualiedit.png}
+  \caption{Qualitative Eigenschaften Bearbeiten}
+  \label{fig:boat2}
+\end{center}
+\end{figure}
 
 In der unteren Hälfte der Seite sind die Optionen für die Quantitativen Eigenschaften. \\
 
 Um eine neue Quantitative Eigenschaft zu erstellen, geben Sie im Formular den Namen, den Wert (eine Zahl), und die Einheit, in der die Zahl angegeben ist, ein. Haben Sie alle Felder ausgefüllt, können Sie die Eigenschaft mit Speichern speichern. Mit Zurücksetzen können Sie Eingaben in den Feldern zurücksetzen, ohne Änderungen an den Daten in der Datenbank vorzunehmen. \\
 
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/pk/quantierstellen.png}
+  \caption{Quantitative Eigenschaft erstellen}
+  \label{fig:boat2}
+\end{center}
+\end{figure}
+
 Wollen Sie eine Quantitative Eigenschaft löschen, klicken Sie in der Tabelle am Ende der Seite in der zugehörigen Tabellenzeile auf Löschen drücken. \\
 
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/pk/quantitabelle.png}
+  \caption{Quantitative Eigenschaften Übersicht}
+  \label{fig:boat2}
+\end{center}
+\end{figure}
+
 Zum Bearbeiten einer Quantitativen Eigenschaft drücken Sie auf das Stift-Symbol am Ende der entsprechenden Tabellenzeile. Daraufhin können Sie in den Spalten der Zeile, die Sie bearbeiten wollen, die Änderungen vornehmen. Diese können Sie durch klicken auf den Haken, der anstelle des Stiftes erschienen ist, speichern, oder durch klicken auf das Kreuz zurücksetzen, wodurch die Daten für diese Eigenschaft weiterhin die sind, die in der Datenbank gespeichert sind. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/pk/quantiedit.png}
+  \caption{Quantitative Eigenschaft bearbeiten}
+  \label{fig:boat2}
+\end{center}
+\end{figure}
 %%%%%%%%%%
 \subsubsection{Arbeitsauslastung}
 %%%%%%%%%%
@@ -812,12 +963,20 @@ Im unteren Formular können Sie die Logs für einzelne Prozessschritte oder Auft
 
 Im oberen Formular können Sie für die anderen Datenmöglichkeiten alle in der Datenbank vorhandenen Dateien exportieren, indem Sie neben der gewünschten Option auf Export klicken. Der Download wird in Kürze beginnen. \\
 
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/pk/json.png}
+  \caption{JSON Exporte}
+  \label{fig:boat2}
+\end{center}
+\end{figure}
+
 \subsubsection{Fehler und Ursachen}
 \begin{longtable}[c]{|p{5cm}|p{10cm}|}
 \hline
 \multicolumn{1}{|c|}{\textbf{Hinweis}}                          & \multicolumn{1}{c|}{\textbf{Ursache}}                                                                                                                                                                                                               \\ \hline
 \endhead
-Couldn't create new job! &Es ist ein interner Fehler aufgetreten. //TODO \\ \hline
+Couldn't create new job! &Es ist ein interner Fehler aufgetreten. \\ \hline
 Can't edit an already started job! & Der Auftrag, den Sie bearbeiten wollen, wurde bereits gestartet. Sie können den Auftrag abbrechen, wenn die Angaben falsch sind. \\ \hline
 Couldn't edit job! & Der Auftrag wurde nicht in der Datenbank gefunden. \\ \hline
 Failed to remove job! & Der Auftrag oder einer/mehrere Prozessschritt(e), der dem Auftrag zugehörig ist, wurde nicht in der Datenbank gefunden. Da Sie den Auftrag und die Prozessschritte aus der Datenbank löschen wollten, müssen Sie keine weiteren Aktionen vornehmen. \\ \hline
@@ -962,7 +1121,7 @@ Dafür müssen Sie im Formular eine neue Proben-ID eingeben, sowie die Anzahl an
 
 \begin{figure}[h!]
 \begin{center}
- \includegraphics[width=\textwidth]{screenshots/l/probeadd.png}
+ \includegraphics[width=0.7\textwidth]{screenshots/l/probeadd.png}
   \caption{Proben hinzufügen}
   \label{fig:boat1}
 \end{center}
@@ -1310,57 +1469,58 @@ Wenn Sie diese Fehlerseite sehen, versuchen Sie eine Seite aufzurufen, die nicht
 \hline
 \multicolumn{1}{|c|}{\textbf{Operation}}                          & \multicolumn{1}{c|}{\textbf{Seite}}                                                                                                                                                                                                               \\ \hline
 \endhead
-Auftrag instanziieren & \\ \hline
-Auftrag abbrechen & \\ \hline
-Auftrag bearbeiten & \\ \hline
-Auftrag starten  & \\ \hline
-Auftrag Proben zuordnen & \\ \hline
-Auftragsübersicht Logistiker & \\ \hline
-Auftragsübersicht Transporter & \\ \hline
-Auftragsübersicht Technologe & \\ \hline
-Arbeitsauslastung  & \\ \hline
-Benutzer bearbeiten & \\ \hline
-Benutzer erstellen & \\ \hline
-Benutzer löschen & \\ \hline
-Erstinstallation & \\ \hline
-Experimentierstation als kaputt melden & \\ \hline
-Experimentierstation erstellen & \\ \hline
-Experimentierstation löschen & \\ \hline
-Experimentierstation bearbeiten & \\ \hline
-Globale Einstellungen & \\ \hline
-Lagerübersicht & \\ \hline
-Probe als verloren melden & \\ \hline
-Probenparameter hochladen  & \\ \hline
-Proben erstellen  & \\ \hline //TODO
-Prozesskettenvorlage erstellen & \\ \hline
-Prozesskettenvorlagen bearbeiten & \\ \hline
-Prozesskettenvorlagen löschen & \\ \hline
-Prozessschritt Übersicht & \\ \hline
-Prozessschritte als JSON exportieren  & \\ \hline
-Aufträge als JSON exportieren & \\ \hline
-Prozessschritt-Vorlage erstellen & \\ \hline
-Prozessschritt-Vorlage löschen & \\ \hline
-Prozessschritt-Vorlage bearbeiten & \\ \hline
-Prozessschritt-Parameter erstellen & \\ \hline
-Prozessschritt-Parameter löschen & \\ \hline
-Prozessschritt-Parameter bearbeiten& \\ \hline
-Prozessschritt-Parameter als JSON exportieren & \\ \hline
-Prozessschritt-Zustandsautomat erstellen & \\ \hline
-Prozessschritt-Zustandsautomat löschen & \\ \hline
-Prozessschritt-Zustandsautomat bearbeiten & \\ \hline
-Qualitative Eigenschaft erstellen & \\ \hline
-Qualitative Eigenschaft löschen & \\ \hline
-Qualitative Eigenschaft bearbeiten & \\ \hline
-Quantitative Eigenschaft erstellen & \\ \hline
-Quantitative Eigenschaft löschen & \\ \hline
-Quantitative Eigenschaft bearbeiten & \\ \hline
-Standort erstellen & \\ \hline
-Systembackup & \\ \hline
-Träger erstellen & \\ \hline
-Träger löschen  & \\ \hline
-Träger bearbeiten & \\ \hline
-Transportauftrag annehmen  & \\ \hline
-
+Auftrag instanziieren & 36\\ \hline
+Auftrag abbrechen & 36\\ \hline
+Auftrag bearbeiten & 36\\ \hline
+Auftrag starten  & 45\\ \hline
+Auftrag Proben zuordnen & 45\\ \hline
+Auftragsübersicht Logistiker & 45 \\ \hline
+Auftragsübersicht Transporter & 57 \\ \hline
+Auftragsübersicht Technologe & 50 und 53\\ \hline
+Arbeitsauslastung  & 40\\ \hline
+Benutzer bearbeiten & 15\\ \hline
+Benutzer erstellen & 15\\ \hline
+Benutzer löschen & 15\\ \hline
+Erstinstallation & 15\\ \hline
+Experimentierstation als kaputt melden & 49\\ \hline
+Experimentierstation erstellen & 18\\ \hline
+Experimentierstation löschen &18 \\ \hline
+Experimentierstation bearbeiten & 18\\ \hline
+Globale Einstellungen & 21\\ \hline
+Lagerübersicht & 46\\ \hline
+Probe als verloren melden & 46, 53, 58\\ \hline
+Probenparameter hochladen  & 50\\ \hline
+Proben erstellen  & 46\\ \hline
+Prozesskettenvorlage erstellen & 34\\ \hline
+Prozesskettenvorlagen bearbeiten &34 \\ \hline
+Prozesskettenvorlagen löschen &34 \\ \hline
+Prozessschritt Übersicht &26 \\ \hline
+Prozessschritte als JSON exportieren  &40 \\ \hline
+Aufträge als JSON exportieren & 40\\ \hline
+Prozessschritt-Vorlage erstellen &28 \\ \hline
+Prozessschritt-Vorlage löschen &28 \\ \hline
+Prozessschritt-Vorlage bearbeiten &28 \\ \hline
+Prozessschritt-Parameter erstellen & 32\\ \hline
+Prozessschritt-Parameter löschen & 32\\ \hline
+Prozessschritt-Parameter bearbeiten& 32\\ \hline
+Prozessschritt-Parameter als JSON exportieren & 40\\ \hline
+Prozessschritt-Zustandsautomat erstellen & 30\\ \hline
+Prozessschritt-Zustandsautomat löschen &30 \\ \hline
+Prozessschritt-Zustandsautomat bearbeiten & 30\\ \hline
+Qualitative Eigenschaft erstellen & 38\\ \hline
+Qualitative Eigenschaft löschen & 38\\ \hline
+Qualitative Eigenschaft bearbeiten & 38\\ \hline
+Quantitative Eigenschaft erstellen &38 \\ \hline
+Quantitative Eigenschaft löschen &38\\ \hline
+Quantitative Eigenschaft bearbeiten & 38\\ \hline
+Standort erstellen & 20\\ \hline
+Systembackup & 21\\ \hline
+Träger erstellen & 44\\ \hline
+Träger löschen  &44 \\ \hline
+Träger bearbeiten & 55\\ \hline
+Transportauftrag annehmen  & 57\\ \hline
+Wenn unerreichbare Seiten aufgerufen werden & 61\\ \hline
+Fehler im Suchfeld des Browsers & 61\\ \hline
 \end{longtable}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
