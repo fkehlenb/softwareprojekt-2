@@ -290,8 +290,10 @@ public class AuftragView implements Serializable {
     public void stopJob(int id) {
         try {
             Auftrag a = auftragService.getObjById(id);
-            transportAuftragDAO.persist(new TransportAuftrag(LocalDateTime.now(), TransportAuftragZustand.ERSTELLT,
-                    a.getTraeger().get(0).getStandort(), standortDAO.getByOrt("Lager")));
+            if (!a.getTraeger().isEmpty()) {
+                transportAuftragDAO.persist(new TransportAuftrag(LocalDateTime.now(), TransportAuftragZustand.ERSTELLT,
+                        a.getTraeger().get(0).getStandort(), standortDAO.getByOrt("Lager")));
+            }
             for (ProzessSchritt p : a.getProzessSchritte()){
                 p.setAssigned(false);
                 prozessSchrittService.editPS(p);

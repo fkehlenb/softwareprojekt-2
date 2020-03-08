@@ -121,7 +121,7 @@
                                 </p:column>
                                 <p:column headerText="Urformend">
                                     <h:outputText ajax="true" update="form:form"
-                                                  value="#{ps.prozessSchritte.get(0).urformend}"/>
+                                                  value="#{dtLogistikerBean.isUrformend(ps.pkID)}"/>
                                 </p:column>
                                 <p:column>
 

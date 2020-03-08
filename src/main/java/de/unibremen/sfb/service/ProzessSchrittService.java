@@ -7,8 +7,11 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
+import javax.json.bind.JsonbBuilder;
+import javax.json.bind.JsonbConfig;
 import javax.transaction.Transactional;
 import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -182,7 +185,6 @@ public class ProzessSchrittService implements Serializable {
      * @throws UserNotFoundException if there is no user which is logged in
      */
     public List<ProzessSchritt> getSchritte() throws UserNotFoundException {
-
         List<ProzessSchritt> r = experimentierStationService.getSchritteByUser(userService.getCurrentUser());
         r.removeAll(Collections.singleton(null));
         List<ProzessSchritt> result = new ArrayList<>();
@@ -214,6 +216,51 @@ public class ProzessSchrittService implements Serializable {
         }));
         result.removeAll(Collections.singleton(null));
         return result;
+    }
+
+    @Inject
+    QualitativeEigenschaftDAO qualitativeEigenschaftDAO;
+
+    @Inject
+    ProzessSchrittParameterDAO prozessSchrittParameterDAO;
+
+    /**
+     * Convert json to Eigenschafte
+     * @param json as input
+     * @return Eigenschaften as output
+     */
+    public void addPSPToPS(String json, ProzessSchritt ps) throws ProzessSchrittNotFoundException {
+        var config = new JsonbConfig().withFormatting(true);
+        var jsonb = JsonbBuilder.create(config);
+        List<ProzessSchrittParameter> tClass = new ArrayList<>();
+        Type pspType = new ArrayList<ProzessSchrittParameter>() {}.getClass().getGenericSuperclass();
+        tClass =  jsonb.fromJson(json, pspType);
+        for (ProzessSchrittParameter psp:
+             tClass ) {
+            for (QualitativeEigenschaft e :
+                    psp.getQualitativeEigenschaften()) {
+                try {
+                    qualitativeEigenschaftDAO.persist(e);
+                } catch (DuplicateQualitativeEigenschaftException ex) {
+                    try {
+                        qualitativeEigenschaftDAO.update(e);
+                    } catch (QualitativeEigenschaftNotFoundException exc) {
+                        exc.printStackTrace();
+                    }
+                }
+            }
+            try {
+                prozessSchrittParameterDAO.persist(psp);
+            } catch (DuplicateProzessSchrittParameterException e) {
+                try {
+                    prozessSchrittParameterDAO.update(psp);
+                } catch (ProzessSchrittParameterNotFoundException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+        ps.getProzessSchrittParameters().addAll(tClass);
+        editPS(ps);
     }
 
     /**

@@ -15,10 +15,7 @@ import javax.json.bind.JsonbConfig;
 import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Getter
@@ -283,19 +280,42 @@ public class ProbenService implements Serializable {
     }
 
     /**
-     * Use Reflection to give Objetct Lists of  JSON Strings
-     *
-     * @param jsonToBeParsed the parsed Json
-     * @param tClass         our Class
-     * @param <T>            our Type Parameter
-     * @return the List of classes
+     * Converts JSON to List of Eigenschaften
+     * @param json the json input
+     * @param ps to this step
+     * @return the PSP which are returned
      */
-    //TODO FIX ME FFS
-    public <T> List<ProzessSchrittParameter> jsonObjects(String jsonToBeParsed, List<ProzessSchrittParameter> tClass) {
+    public void addJSONEigenschaft(String json, ProzessSchritt ps) throws ProbeNotFoundException {
         var config = new JsonbConfig().withFormatting(true);
         var jsonb = JsonbBuilder.create(config);
-        return jsonb.fromJson(jsonToBeParsed, (Type) tClass);
+        List<QualitativeEigenschaft> tClass = new ArrayList<>();
+        Type eType = new ArrayList<QualitativeEigenschaft>() {}.getClass().getGenericSuperclass();
+        tClass =  jsonb.fromJson(json, eType);
+        List<Traeger> traegers = auftragService.getAuftrag(ps).getTraeger();
+        for (QualitativeEigenschaft e :
+                tClass) {
+            try {
+                qualitativeEigenschaftDAO.persist(e);
+            } catch (DuplicateQualitativeEigenschaftException ex) {
+                try {
+                    qualitativeEigenschaftDAO.update(e);
+                } catch (QualitativeEigenschaftNotFoundException exc) {
+                    exc.printStackTrace();
+                }
+            }
+        }
+        for (Traeger t :
+                traegers) {
+            for (Probe p :
+                    t.getProben()) {
+                p.getEigenschaften().addAll(tClass);
+                update(p);
+            }
+        }
+
     }
+
+
 
     /**
      * counts the samples in the database

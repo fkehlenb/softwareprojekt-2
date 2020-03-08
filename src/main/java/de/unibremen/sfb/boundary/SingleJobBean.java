@@ -42,6 +42,8 @@ public class SingleJobBean implements Serializable {
      */
     private String kommentarForAll;
 
+    private boolean setPSP = true;
+
     /** Sample Service */
     @Inject
     private ProbenService probeService;
@@ -97,10 +99,26 @@ public class SingleJobBean implements Serializable {
                 .getProzessSchrittZustandsAutomat().getZustaende().size()-1);
     }
 
-    //TODO FIX ME FOR FUCKS SAKE
     public void toJson() {
-        List<ProzessSchrittParameter> r = new ArrayList<>();
-        probeService.jsonObjects(jsonString, r);
+        String messgae = "Parameter to PS: " + ps.getId();
+        if (setPSP) {
+            try {
+                psService.addPSPToPS(jsonString, ps);
+                messgae = "Parameter to PS: " + ps.getId();
+            } catch (ProzessSchrittNotFoundException e) {
+                log.error(e.getLocalizedMessage());
+                errorMessage("Could not add PSP to PS");
+            }
+        } else {
+            try {
+                probeService.addJSONEigenschaft(jsonString, ps);
+                messgae = "Eigenschaften o PS: " + ps.getId();
+            } catch (ProbeNotFoundException e) {
+                errorMessage("Could not add Eigenschaft to Probe");
+                log.error(e.getLocalizedMessage());
+            }
+        }
+        message("Succesfully added " + messgae );
     }
 
     /**
@@ -143,8 +161,9 @@ public class SingleJobBean implements Serializable {
             e.printStackTrace();
         }
         List<Probe> proben = new ArrayList<>();
+        List<Traeger> trager = auftragService.getAuftrag(ps).getTraeger();
         for (Traeger t :
-                auftragService.getAuftrag(ps).getTraeger()) {
+                trager) {
             proben.addAll(t.getProben());
         }
         return proben;

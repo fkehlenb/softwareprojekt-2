@@ -118,37 +118,37 @@ public class InitialDataFiller {
             }
 
             em.persist(erstelleStandartVorlage());
-
-            //       Experimentierstaation, requires Standort;
-            for (ExperimentierStation s :
-                    createDefaultStation()) {
-                log.info("Trying to persist Station " + s.getName());
-                em.persist(s);
-            }
-
-            /*
-              persis von QualitativeEigenschaft durch die Variebln qualitativeEigenschaftList
-              */
-            List<QualitativeEigenschaft> qualitativeEigenschaftList = getQualitativeEigenschaften();
-            for (QualitativeEigenschaft qE : qualitativeEigenschaftList
-            ) {
-                log.info("Trying to Persist Qualitaet Eingenschaft " + qE.getName());
-                em.persist(qE);
-            }
-
-            em.persist(new QuantitativeEigenschaft("Lustige Eigenschaft", 420, "seconds"));
-
-            //    PS Parameter
-            List<ProzessSchrittParameter> parameters = new ArrayList<>();
-            for (int i = 0; i < limit; i++) {
-                parameters.add(new ProzessSchrittParameter(UUID.randomUUID().hashCode(), f.gameOfThrones().dragon(), qualitativeEigenschaftList));
-            }
-
-            for (ProzessSchrittParameter psp : parameters
-            ) {
-                log.info("Trying to persist ProzessSchrittParameter " + psp.getName());
-                em.persist(psp);
-            }
+//
+//            //       Experimentierstaation, requires Standort;
+//            for (ExperimentierStation s :
+//                    createDefaultStation()) {
+//                log.info("Trying to persist Station " + s.getName());
+//                em.persist(s);
+//            }
+//
+//            /*
+//              persis von QualitativeEigenschaft durch die Variebln qualitativeEigenschaftList
+//              */
+//            List<QualitativeEigenschaft> qualitativeEigenschaftList = getQualitativeEigenschaften();
+//            for (QualitativeEigenschaft qE : qualitativeEigenschaftList
+//            ) {
+//                log.info("Trying to Persist Qualitaet Eingenschaft " + qE.getName());
+//                em.persist(qE);
+//            }
+//
+//            em.persist(new QuantitativeEigenschaft("Lustige Eigenschaft", 420, "seconds"));
+//
+//            //    PS Parameter
+//            List<ProzessSchrittParameter> parameters = new ArrayList<>();
+//            for (int i = 0; i < limit; i++) {
+//                parameters.add(new ProzessSchrittParameter(UUID.randomUUID().hashCode(), f.gameOfThrones().dragon(), qualitativeEigenschaftList));
+//            }
+//
+//            for (ProzessSchrittParameter psp : parameters
+//            ) {
+//                log.info("Trying to persist ProzessSchrittParameter " + psp.getName());
+//                em.persist(psp);
+//            }
 
             // PSZAV Setup
             pszaVorlage = new ProzessSchrittZustandsAutomatVorlage(996699,
@@ -156,24 +156,24 @@ public class InitialDataFiller {
             log.info("Try to persist ProzessSchrittZustandsAutomatVorlage " + pszaVorlage.toString());
             em.persist(pszaVorlage);
 
-            // Erstelle die Liste aus den Parametern
-            List<ProzessSchrittVorlage> psvListe = getProzessSchrittVorlage(parameters);
-            for (ProzessSchrittVorlage pSV :
-                    psvListe) {
-                log.info("Trying to persist ProzessSchrittVorlage " + pSV.toString());
-                em.persist(pSV); //FINDME
-            }
-            pkv = new ProzessKettenVorlage(UUID.randomUUID().hashCode(), f.gameOfThrones().house(), psvListe);
-            log.info("Try to persist ProzessSchrittVorlage " + pkv.getPkvID());
-            em.persist(pkv);
-
-
-            // Setup PSZA
-            List z = new ArrayList(pszaVorlage.getZustaende());
-            ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(
-                    UUID.randomUUID().hashCode(), "ERSTELLT", z);
-            log.info("Try to persist ProzessSchrittZustandsAutomat " + prozessSchrittZustandsAutomat.toString());
-            em.persist(prozessSchrittZustandsAutomat);
+//            // Erstelle die Liste aus den Parametern
+//            List<ProzessSchrittVorlage> psvListe = getProzessSchrittVorlage(parameters);
+//            for (ProzessSchrittVorlage pSV :
+//                    psvListe) {
+//                log.info("Trying to persist ProzessSchrittVorlage " + pSV.toString());
+//                em.persist(pSV); //FINDME
+//            }
+//            pkv = new ProzessKettenVorlage(UUID.randomUUID().hashCode(), f.gameOfThrones().house(), psvListe);
+//            log.info("Try to persist ProzessSchrittVorlage " + pkv.getPkvID());
+//            em.persist(pkv);
+//
+//
+//            // Setup PSZA
+//            List z = new ArrayList(pszaVorlage.getZustaende());
+//            ProzessSchrittZustandsAutomat prozessSchrittZustandsAutomat = new ProzessSchrittZustandsAutomat(
+//                    UUID.randomUUID().hashCode(), "ERSTELLT", z);
+//            log.info("Try to persist ProzessSchrittZustandsAutomat " + prozessSchrittZustandsAutomat.toString());
+//            em.persist(prozessSchrittZustandsAutomat);
 //            erstelleAuftrag(psvListe);
 
         } else {
