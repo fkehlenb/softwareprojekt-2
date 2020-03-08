@@ -50,7 +50,7 @@
                                         <p:selectOneMenu id="prozessschrittvorlage"
                                                          value="#{psView.selectedProzessSchrittVorlage}"
                                                          converter="omnifaces.SelectItemsConverter" effect="fade"
-                                                         var="prozessschrittvorlage" style="width: 172px" filter="true"
+                                                         var="prozessschrittvorlage" style="width: 40rem" filter="true"
                                                          filterMatchMode="contains" required="true"
                                                          requiredMessage="Bitte prozessschritt vorlage eingeben!">
                                             <f:selectItems value="#{psView.prozessSchrittVorlagen}"
@@ -62,6 +62,9 @@
                                             </p:column>
                                         </p:selectOneMenu>
                                     </p:column>
+
+                                </p:row>
+                                <p:row>
                                     <p:column colspan="1">
                                         <h:outputText value="Prozessschritt Name"/>
                                     </p:column>
@@ -105,8 +108,7 @@
                                          rowsPerPageTemplate="5,10,15"
                                          rows="10" paginator="true"
                                          rowStyleClass="#{ps.prozessSchrittZustandsAutomat.current eq 'Kapputt' ? 'broken' : null}"
-                                         style="margin-bottom:20px">r
-                                rows="15" style="margin-bottom:20px">
+                                         style="margin-bottom:20px ; width: 100rem">
                                 <p:ajax event="rowEdit" listener="#{psView.onRowEdit(ps.id)}"
                                         update="form:table"/>
                                 <p:ajax event="rowEditCancel" listener="#{psView.onRowEditCancelled}"

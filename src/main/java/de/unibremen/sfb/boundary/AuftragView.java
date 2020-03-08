@@ -217,7 +217,7 @@ public class AuftragView implements Serializable {
                 p.setAssigned(true);
                 prozessSchrittService.editPS(p);
             }
-            auftragService.add(new Auftrag(UUID.randomUUID().hashCode(), selectedName, selectedPriority, selectedProzessSchritte, auftragsLog, ProzessKettenZustandsAutomat.INSTANZIIERT));
+            auftragService.add(new Auftrag(UUID.randomUUID().hashCode(), selectedName, selectedPriority, List.copyOf(dualListModel.getTarget()), auftragsLog, ProzessKettenZustandsAutomat.INSTANZIIERT));
             log.info("Created new job with name " + selectedName);
             facesNotification("Created new job with name " + selectedName);
             refresh();
