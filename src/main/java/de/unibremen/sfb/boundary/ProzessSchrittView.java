@@ -288,8 +288,7 @@ public class ProzessSchrittView implements Serializable {
                 prozessSchritt.setAttribute(prozessSchrittAttribute);
                 prozessSchritt.setUrformend(urformend);
                 prozessSchritt.setAmountCreated(amountCreated);
-                prozessSchritt.getProzessSchrittParameters().removeAll(selectedProzessSchrittParameter);
-                prozessSchritt.setProzessSchrittParameters(selectedProzessSchrittParameter);
+                prozessSchritt.setProzessSchrittParameters(List.copyOf(selectedProzessSchrittParameter));
                 if (selectedInputTraegerArten == null){
                     selectedInputTraegerArten = new ArrayList<>();
                 }
