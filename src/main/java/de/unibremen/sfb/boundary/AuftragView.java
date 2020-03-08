@@ -295,6 +295,24 @@ public class AuftragView implements Serializable {
                         a.getTraeger().get(0).getStandort(), standortDAO.getByOrt("Lager")));
             }
             for (ProzessSchritt p : a.getProzessSchritte()){
+                for (ExperimentierStation e :experimentierStationService.getAll()){
+                    if (e.getCurrentPS().getId()==p.getId()){
+                        if (!e.getNextPS().isEmpty()){
+                            e.setCurrentPS(e.getNextPS().get(0));
+                        }
+                        else{
+                            e.setCurrentPS(null);
+                        }
+                    }
+                    else{
+                        if (e.getNextPS().contains(p)){
+                            List<ProzessSchritt> nextPS = e.getNextPS();
+                            nextPS.remove(p);
+                            e.setNextPS(nextPS);
+                        }
+                    }
+                    experimentierStationService.updateES(e);
+                }
                 p.setAssigned(false);
                 prozessSchrittService.editPS(p);
             }
