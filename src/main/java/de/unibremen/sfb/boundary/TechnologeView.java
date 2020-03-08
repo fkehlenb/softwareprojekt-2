@@ -16,6 +16,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * this class manages the interaction of the gui with the backend system (for users who are technologists)
@@ -78,7 +79,9 @@ public class TechnologeView implements Serializable {
      * @return a list containing all stations this user is assigned to
      */
     public List<ExperimentierStation> getStationen() {
-        return experimentierStationService.getESByUser(technologe);
+        List<ExperimentierStation> res = experimentierStationService.getESByUser(technologe);
+        res = res.stream().filter(c -> !c.getStandort().getOrt().equals("Lager")).collect(Collectors.toList());
+        return res;
     }
 
     /**
