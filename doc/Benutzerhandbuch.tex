@@ -202,7 +202,7 @@ In unserer Anwendung haben Benutzer entsprechend Ihrer Rollen eine Übersicht ü
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newpage
+\clearpage
 \section{Erste Schritte für Anwender}
 
 \subsection{Installation}
@@ -332,7 +332,7 @@ Ebenfalls können Sie sich hier unter Logout abmelden. \\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newpage
+\clearpage
 \section{Farbige Zustände für Administratoren}
 Hier finden Sie Anleitung für alle Aktionen, die ein Systemadministrator durchführen kann. 
 %%%%%%%%%%
@@ -553,7 +553,7 @@ Failed to remove location with id .. & Der Standort wurde nicht in der Datenbank
 \end{longtable}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newpage
+\clearpage
 \section{Farbige Zustände für andere Mitarbeiter}
 \subsection{Prozesskettenadministrator}
 
@@ -859,46 +859,136 @@ Im Folgenden finden Sie Anleitungen zu allen Aktionen, die ein Logistiker ausfü
 \subsubsection{Träger}
 Im Menü-Unterpunkt Trägerübersicht haben Sie eine Übersicht über alle aktuell in der Datenbank gespeicherten Träger, können diese Löschen und Bearbeiten sowie neue erstellen. \\
 
-In der Tabelle unterhalb des Eingabeformulars finden Sie alle existierenden Träger. Durch Klicken auf Anzeigen können Sie alle zu einem Träger gehörenden Probe einsehen. \\
+In der Tabelle unterhalb des Eingabeformulars finden Sie alle existierenden Träger. Um einen existierenden Träger zu löschen, drücken Sie in der zugehörigen Tabellenzeile auf Löschen. Dadurch werden der Träger unwiderrufbar aus der Datenbank gelöscht. \\
 
-Wollen Sie einen neuen Träger erstellen, wählen Sie im Eingabeformular am Anfang der Seite eine Trägerart aus (Glas, Eingebettet, Einzeln), sowie den aktuellen Standort des neuen Trägers aus. Wenn Sie beide Angaben gemacht haben, können Sie auf Erstellen drücken, um diesen zu speichern. Um Ihre Eingaben zu löschen, drücken Sie auf Zurücksetzen. Dadurch werden keine Änderungen an den in der Datenbank gespeicherten Daten gemacht. \\
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/l/trager.png}
+  \caption{Trägerübersicht}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
 
-Um einen existierenden Träger zu löschen, drücken Sie in der zugehörigen Tabellenzeile auf Löschen. Dadurch werden der Träger unwiderrufbar aus der Datenbank gelöscht. \\
+Durch Klicken auf Anzeigen können Sie alle zu einem Träger gehörenden Probe einsehen. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/l/tragerproben.png}
+  \caption{Trägerübersicht Proben}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
 
 Um einen existierenden Träger zu bearbeiten, drücken Sie auf das Stift-Symbol am Ende der zugehörigen Tabellenzeile. Dadurch können Sie die entsprechenden Daten in den Zellen direkt ändern. Um Ihre Änderungen zu speichern, klicken Sie auf den Haken, der an Stelle des Stiftes erschienen ist. Um Ihre Änderungen zu verwerfen und die Daten aus der Datenbank beizubehalten, drücken Sie auf das Kreuz. \\
 
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/l/trageredit.png}
+  \caption{Träger bearbeiten}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
+Wollen Sie einen neuen Träger erstellen, wählen Sie im Eingabeformular am Anfang der Seite eine Trägerart aus (Glas, Eingebettet, Einzeln), sowie den aktuellen Standort des neuen Trägers aus. Wenn Sie beide Angaben gemacht haben, können Sie auf Erstellen drücken, um diesen zu speichern. Um Ihre Eingaben zu löschen, drücken Sie auf Zurücksetzen. Dadurch werden keine Änderungen an den in der Datenbank gespeicherten Daten gemacht. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/l/tragerform.png}
+  \caption{Trägerformular}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
 %%%%%%%%%%
 \subsubsection{Aufträge}
-Im Menü-Unterpunkt Auftragsübersicht haben Sie eine Übersicht über existierende Aufträge, können diese Starten oder Ablehnen. //TODO\\
+Im Menü-Unterpunkt Auftragsübersicht haben Sie eine Übersicht über existierende Aufträge, können diese Starten oder Ablehnen.\\
 
-In der Tabelle haben Sie eine Übersicht über die Aufträge. Sie können die Aufträge nach Id, Priorität, und Zustand sortieren sowie durchsuchen. Sie können ebenfalls entscheiden, wie viele Aufträge pro Seite angezeigt werden, und mit den Pfeiltasten durch die Seiten navigieren. Ebenfalls können Sie mit dem Eingabefeld oberhalb der Tabelle die gesamte Tabelle nach Schlagwörtern durchsuchen. Mit Drücken auf Clear Tabel state //TODO können Sie die Tabellenansicht (Sortierung und Suche) auf die ursprünglichen Einstellungen zurücksetzen, sodass alle Ihre Aufträge angezeigt werden. \\
+In der Tabelle haben Sie eine Übersicht über die Aufträge. Sie können die Aufträge nach Id oder Priorität sortieren sowie durchsuchen. Sie können ebenfalls entscheiden, wie viele Aufträge pro Seite angezeigt werden, und mit den Pfeiltasten durch die Seiten navigieren. Ebenfalls können Sie mit dem Eingabefeld oberhalb der Tabelle die gesamte Tabelle nach Schlagwörtern durchsuchen. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/l/auftrage.png}
+  \caption{Auftragsübersicht}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
 
 Wollen Sie einen Auftrag starten, klicken Sie in der Tabelle in der entsprechenden Tabellenzeile auf Annehmen. \\
 
-Um einen Auftrag abzulehnen, klicken Sie in der Tabelle in der entsprechenden Tabellenzeile auf Ablehnen. Dazu müssen Sie im Textfeld zwischen den Knöpfen eine kurze Nachricht eingeben, warum Sie den Auftrag ablehnen. \\
+Um einen Auftrag abzulehnen, klicken Sie in der Tabelle in der entsprechenden Tabellenzeile auf Ablehnen. Dazu müssen Sie im Textfeld neben dem Knopf eine kurze Nachricht eingeben, warum Sie den Auftrag ablehnen. \\
+
+Um einen Auftrag zu bearbeiten, klicken Sie in der Tabelle in der entsprechenden Tabellenzeile auf das Stift-Symbol. Danach können Sie in der Zeile Ihre Änderungen. Um diese zu speichern, klicken Sie auf den Haken, der am Ende der Zeile erschienen ist. Um Ihre Änderungen zurückzusetzen, klicken Sie auf das Kreuz. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/l/auftragedit.png}
+  \caption{Auftrag bearbeiten}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
 
 %%%%%%%%%%
 \subsubsection{Proben}
-Im Menü-Unterpunkt Probenübersicht haben Sie eine Übersicht über alle Proben, die sich im Lager befinden. \\
-
+Im Menü-Unterpunkt Probenübersicht haben Sie eine Übersicht über alle Proben. \\
 Proben werden gruppenweise gespeichert. Proben mit gleichen Attributen haben die gleiche ID, und für jede Probengruppe wird die Anzahl an Proben dieser Gruppe gespeichert. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/l/probenubersicht.png}
+  \caption{Probenübersicht}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
 
 %%%%%%%%%%
 \paragraph{Probenstandort}
-Im Menü-Unterpunkt Probenstandort können Sie für jede Probegruppe sehen, wo diese sich aktuell befindet. \\
+Im Menü-Unterpunkt Probenstandort können Sie für jede Probengruppe sehen, wo diese sich aktuell befindet. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/l/probestandort.png}
+  \caption{Probenstandorte}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
 
 %%%%%%%%%%
 \paragraph{Proben einfügen}
 Im Menü-Unterpunkt Proben Einfügen können Sie dem System neue Probengruppen hinzufügen. \\
 
-Dafür müssen Sie im Formular eine neue Proben-ID eingeben, sowie die Anzahl an Proben in der neuen Gruppe. Bitte beachten Sie, dass Proben-IDs von der Form [A-Z][0-9][0-9].[0-9] sein, wobei nach dem Komma beliebig viele Ziffern folgen können. Nachdem Sie alle Angaben gemacht haben, können Sie die neue Gruppe mit Klick auf Speichern im System speichern. Wollen Sie die Angaben im Formular löschen, klicken Sie auf Zurücksetzen; darauf werden keine Änderungen an den in der Datenbank gespeicherten Daten gemacht. \\
+Dafür müssen Sie im Formular eine neue Proben-ID eingeben, sowie die Anzahl an Proben in der neuen Gruppe. Bitte beachten Sie, dass Proben-IDs von der Form [A-Z][0-9][0-9].[0-9][0-9][0-9] (Bsp: B82.098) sein. Nachdem Sie alle Angaben gemacht haben, können Sie die neue Gruppe mit Klick auf Speichern im System speichern. Wollen Sie die Angaben im Formular löschen, klicken Sie auf Zurücksetzen; darauf werden keine Änderungen an den in der Datenbank gespeicherten Daten gemacht. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/l/probeadd.png}
+  \caption{Proben hinzufügen}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
 %%%%%%%%%%
 \paragraph{Probenverlust}
 Proben können Sie im Menü-Unterpunkt Probenverlust Melden als verloren melden. Dafür geben Sie im Formular die Proben-ID der Gruppe, zu der die Probe gehört, sowie die Anzahl an Proben aus dieser Gruppe, die verloren gegangen sind, an. Wenn Sie diese Angaben gemacht haben, können Sie diese Probe(n) mit Klicken auf Senden melden. \\
 
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/l/probemelden.png}
+  \caption{Proben melden}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
 %%%%%%%%%%
 \paragraph{Archivierte Proben}
 Im Menü-Unterpunkt Archivübersicht haben Sie eine Übersicht über die Proben, die archiviert worden sind. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/l/probenarchiv.png}
+  \caption{Archivierte Proben}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
 
 \subsubsection{Fehler und Ursachen}
 \begin{longtable}[c]{|p{5cm}|p{10cm}|}
@@ -1054,6 +1144,7 @@ In der Übersicht einer Probengruppe können Sie Informationen über diese Grupp
 \end{figure}
 
 Sie können ebenfalls die Kommentare in einer Tabelle am Ende  der Seite einsehen. Um einen Kommentar zu löschen, klicken Sie in der zugehörigen Tabellenzeile auf Löschen. Um einen neuen Kommentar hinzuzufügen, geben Sie den Text im Eingabefeld unterhalb der Tabelle ein, und klicken Sie auf Speichern.  \\
+
 \begin{figure}[h!]
 \begin{center}
  \includegraphics[width=\textwidth]{screenshots/t/probekommentare.png}
@@ -1185,7 +1276,7 @@ invalid input& Proben-ID und Anzahl dürfen nicht leer sein. \\ \hline
 \end{longtable}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newpage
+\clearpage
 \section{Referenz}
 \subsection{Fehlermeldungen und Ursachen}
 \subsubsection{502}
@@ -1272,7 +1363,7 @@ Transportauftrag annehmen  & \\ \hline
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newpage
+\clearpage
 \section{Anhang}
 \subsection{Glossar}
 \begin{longtable}[c]{|p{7cm}|p{8cm}|}
