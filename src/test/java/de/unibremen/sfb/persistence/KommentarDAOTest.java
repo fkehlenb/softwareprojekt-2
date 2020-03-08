@@ -21,7 +21,8 @@ class KommentarDAOTest {
     EntityManager em;
     @InjectMocks
     KommentarDAO kommentarDAO;
-
+    @Mock
+    Kommentar kommentar;
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -34,17 +35,23 @@ class KommentarDAOTest {
 
     @Test
     void testUpdate() throws KommentarNotFoundException {
+        when(kommentar.getId()).thenReturn(0);
+        when(em.find(any(), any())).thenReturn(kommentar);
+        when(em.contains(kommentar)).thenReturn(true);
         kommentarDAO.update(new Kommentar(LocalDateTime.of(2020, Month.MARCH, 5, 16, 52, 20), "text"));
     }
 
     @Test
     void testGet() {
         Class<Kommentar> result = kommentarDAO.get();
-        Assertions.assertEquals(null, result);
+        Assertions.assertEquals(Kommentar.class, result);
     }
 
     @Test
     void testRemove() throws KommentarNotFoundException {
+        when(kommentar.getId()).thenReturn(0);
+        when(em.find(any(), any())).thenReturn(kommentar);
+        when(em.contains(kommentar)).thenReturn(true);
         kommentarDAO.remove(new Kommentar(LocalDateTime.of(2020, Month.MARCH, 5, 16, 52, 20), "text"));
     }
 }

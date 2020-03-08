@@ -1,0 +1,164 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: TransportAuftragDAO</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">de.unibremen.sfb.persistence</a> ]
+</div>
+
+<h1>Coverage Summary for Class: TransportAuftragDAO (de.unibremen.sfb.persistence)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">TransportAuftragDAO</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (3/ 6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    20,8%
+  </span>
+  <span class="absValue">
+    (5/ 24)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package de.unibremen.sfb.persistence;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import de.unibremen.sfb.exception.DuplicateTransportAuftragException;
+<i>4</i>&nbsp;import de.unibremen.sfb.exception.TransportAuftragNotFoundException;
+<i>5</i>&nbsp;import de.unibremen.sfb.model.TransportAuftrag;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;/**
+<i>8</i>&nbsp; * this class handles the transport assignments in the database
+<i>9</i>&nbsp; */
+<b class="fc"><i>10</i>&nbsp;public class TransportAuftragDAO extends ObjectDAO&lt;TransportAuftrag&gt; {</b>
+<i>11</i>&nbsp;
+<i>12</i>&nbsp;    /**
+<i>13</i>&nbsp;     * add a assignment to the database
+<i>14</i>&nbsp;     *
+<i>15</i>&nbsp;     * @param a the new assignment
+<i>16</i>&nbsp;     * @throws DuplicateTransportAuftragException if the assignment already exists in the database
+<i>17</i>&nbsp;     */
+<i>18</i>&nbsp;    public void persist(TransportAuftrag a) throws DuplicateTransportAuftragException {
+<b class="nc"><i>19</i>&nbsp;        if (a != null) {</b>
+<b class="nc"><i>20</i>&nbsp;            synchronized (TransportAuftrag.class) {</b>
+<b class="nc"><i>21</i>&nbsp;                if (em.contains(em.find(get(), a.getId()))) {</b>
+<b class="nc"><i>22</i>&nbsp;                    throw new DuplicateTransportAuftragException();</b>
+<i>23</i>&nbsp;                }
+<b class="nc"><i>24</i>&nbsp;                em.persist(a);</b>
+<b class="nc"><i>25</i>&nbsp;            }</b>
+<i>26</i>&nbsp;        }
+<b class="nc"><i>27</i>&nbsp;    }</b>
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    /**
+<i>30</i>&nbsp;     * edit an assignment in the database
+<i>31</i>&nbsp;     *
+<i>32</i>&nbsp;     * @param a the assignment that is updated
+<i>33</i>&nbsp;     * @throws TransportAuftragNotFoundException if the assignment cannot be found
+<i>34</i>&nbsp;     */
+<i>35</i>&nbsp;    public void update(TransportAuftrag a) throws TransportAuftragNotFoundException {
+<b class="nc"><i>36</i>&nbsp;        if (a != null) {</b>
+<b class="nc"><i>37</i>&nbsp;            if (!em.contains(em.find(get(), a.getId()))) {</b>
+<b class="nc"><i>38</i>&nbsp;                throw new TransportAuftragNotFoundException();</b>
+<i>39</i>&nbsp;            }
+<b class="nc"><i>40</i>&nbsp;            em.merge(a);</b>
+<i>41</i>&nbsp;        }
+<b class="nc"><i>42</i>&nbsp;    }</b>
+<i>43</i>&nbsp;
+<i>44</i>&nbsp;    /**
+<i>45</i>&nbsp;     * remove an assignment from the database
+<i>46</i>&nbsp;     *
+<i>47</i>&nbsp;     * @param a the assignment that will be removed
+<i>48</i>&nbsp;     * @throws TransportAuftragNotFoundException if the assignment cannot be found
+<i>49</i>&nbsp;     */
+<i>50</i>&nbsp;    public void remove(TransportAuftrag a) throws TransportAuftragNotFoundException {
+<b class="nc"><i>51</i>&nbsp;        if (a != null) {</b>
+<b class="nc"><i>52</i>&nbsp;            if (!em.contains(em.find(get(), a.getId()))) {</b>
+<b class="nc"><i>53</i>&nbsp;                throw new TransportAuftragNotFoundException();</b>
+<i>54</i>&nbsp;            }
+<b class="nc"><i>55</i>&nbsp;            a.setValidData(false);</b>
+<b class="nc"><i>56</i>&nbsp;            update(a);</b>
+<i>57</i>&nbsp;        }
+<b class="nc"><i>58</i>&nbsp;    }</b>
+<i>59</i>&nbsp;
+<i>60</i>&nbsp;    /**
+<i>61</i>&nbsp;     * @return the class of assignment
+<i>62</i>&nbsp;     */
+<i>63</i>&nbsp;    public Class&lt;TransportAuftrag&gt; get() {
+<b class="fc"><i>64</i>&nbsp;        return TransportAuftrag.class;</b>
+<i>65</i>&nbsp;    }
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;    /**
+<i>68</i>&nbsp;     * Get a user object using the user&#39;s id
+<i>69</i>&nbsp;     *
+<i>70</i>&nbsp;     * @param id - the user id whose user object to fetch from the database
+<i>71</i>&nbsp;     * @return the user object matching the user id
+<i>72</i>&nbsp;     * @throws TransportAuftragNotFoundException if the user couldn&#39;t be found
+<i>73</i>&nbsp;     */
+<i>74</i>&nbsp;    public TransportAuftrag getTransportAuftragById(int id) throws TransportAuftragNotFoundException {
+<b class="fc"><i>75</i>&nbsp;        TransportAuftrag u = em.find(get(), id);</b>
+<b class="fc"><i>76</i>&nbsp;        if (u == null || !u.isValidData()) {</b>
+<b class="fc"><i>77</i>&nbsp;            throw new TransportAuftragNotFoundException();</b>
+<i>78</i>&nbsp;        }
+<b class="nc"><i>79</i>&nbsp;        return u;</b>
+<i>80</i>&nbsp;    }
+<i>81</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-03-08 14:39</div>
+</div>
+</body>
+</html>

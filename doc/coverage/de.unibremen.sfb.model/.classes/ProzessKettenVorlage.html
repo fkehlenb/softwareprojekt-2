@@ -1,0 +1,165 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ProzessKettenVorlage</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">de.unibremen.sfb.model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ProzessKettenVorlage (de.unibremen.sfb.model)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ProzessKettenVorlage</td>
+<td class="coverageStat">
+  <span class="percent">
+    62,5%
+  </span>
+  <span class="absValue">
+    (5/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    66,7%
+  </span>
+  <span class="absValue">
+    (6/ 9)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ProzessKettenVorlage$MockitoMock$1172734971</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessKettenVorlage$MockitoMock$1172734971$auxiliary$5D2oy0QK</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessKettenVorlage$MockitoMock$1172734971$auxiliary$6mJTISzc</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessKettenVorlage$MockitoMock$1172734971$auxiliary$Ds2mC1M5</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessKettenVorlage$MockitoMock$1172734971$auxiliary$hp82lBAH</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessKettenVorlage$MockitoMock$1172734971$auxiliary$luQNr0jT</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessKettenVorlage$MockitoMock$1172734971$auxiliary$tMytFBvF</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessKettenVorlage$MockitoMock$1172734971$auxiliary$vhSbBUYU</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessKettenVorlage$MockitoMock$1172734971$auxiliary$vSaDOxLs</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessKettenVorlage$MockitoMock$1172734971$auxiliary$VZMAQ3it</td>
+  </tr>
+  <tr>
+    <td class="name">ProzessKettenVorlage$MockitoMock$1172734971$auxiliary$YXaUiH2H</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    62,5%
+  </span>
+  <span class="absValue">
+    (5/ 8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    66,7%
+  </span>
+  <span class="absValue">
+    (6/ 9)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package de.unibremen.sfb.model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import lombok.*;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import javax.persistence.*;
+<i>6</i>&nbsp;import java.io.Serializable;
+<i>7</i>&nbsp;import java.util.List;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;/** Data class for the process chain templates */
+<i>10</i>&nbsp;@Getter
+<b class="fc"><i>11</i>&nbsp;@Setter</b>
+<i>12</i>&nbsp;@Entity
+<b class="fc"><i>13</i>&nbsp;@NoArgsConstructor(access = AccessLevel.PROTECTED)</b>
+<i>14</i>&nbsp;@NamedQueries({
+<i>15</i>&nbsp;        @NamedQuery(name = &quot;PKV.getAll&quot;, query = &quot;SELECT p FROM ProzessKettenVorlage p WHERE p.isValidData = true&quot;)
+<i>16</i>&nbsp;})
+<b class="fc"><i>17</i>&nbsp;@RequiredArgsConstructor</b>
+<i>18</i>&nbsp;public class ProzessKettenVorlage implements Serializable {
+<i>19</i>&nbsp;
+<i>20</i>&nbsp;    /** On delete set to invalid */
+<b class="fc"><i>21</i>&nbsp;    @NonNull</b>
+<b class="nc"><i>22</i>&nbsp;    private boolean isValidData = true;</b>
+<i>23</i>&nbsp;
+<i>24</i>&nbsp;    /** The process chain template id */
+<i>25</i>&nbsp;    @Id
+<i>26</i>&nbsp;    @NonNull
+<b class="fc"><i>27</i>&nbsp;    private int pkvID;</b>
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    /** Process chain template name */
+<i>30</i>&nbsp;    @NonNull
+<b class="nc"><i>31</i>&nbsp;    private String name;</b>
+<i>32</i>&nbsp;
+<i>33</i>&nbsp;    /** The process chain template&#39;s process steps (as templates hence not yet instantiated) */
+<i>34</i>&nbsp;    @NonNull
+<i>35</i>&nbsp;    @ManyToMany(fetch = FetchType.LAZY)
+<b class="nc"><i>36</i>&nbsp;    private List&lt;ProzessSchrittVorlage&gt; prozessSchrittVorlagen;</b>
+<i>37</i>&nbsp;
+<i>38</i>&nbsp;    @Override
+<i>39</i>&nbsp;    public String toString(){
+<b class="fc"><i>40</i>&nbsp;        return name;</b>
+<i>41</i>&nbsp;    }
+<i>42</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-03-08 14:39</div>
+</div>
+</body>
+</html>

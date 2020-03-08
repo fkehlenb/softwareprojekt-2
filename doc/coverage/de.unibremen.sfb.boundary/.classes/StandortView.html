@@ -1,0 +1,206 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: StandortView</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">de.unibremen.sfb.boundary</a> ]
+</div>
+
+<h1>Coverage Summary for Class: StandortView (de.unibremen.sfb.boundary)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">StandortView</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    27,3%
+  </span>
+  <span class="absValue">
+    (3/ 11)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    6,2%
+  </span>
+  <span class="absValue">
+    (3/ 48)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package de.unibremen.sfb.boundary;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import de.unibremen.sfb.model.Standort;
+<i>4</i>&nbsp;import de.unibremen.sfb.service.StandortService;
+<i>5</i>&nbsp;import lombok.Getter;
+<i>6</i>&nbsp;import lombok.Setter;
+<i>7</i>&nbsp;import lombok.extern.slf4j.Slf4j;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;import javax.enterprise.context.RequestScoped;
+<i>10</i>&nbsp;import javax.faces.application.FacesMessage;
+<i>11</i>&nbsp;import javax.faces.context.FacesContext;
+<i>12</i>&nbsp;import javax.inject.Inject;
+<i>13</i>&nbsp;import javax.inject.Named;
+<i>14</i>&nbsp;import javax.transaction.Transactional;
+<i>15</i>&nbsp;import java.io.Serializable;
+<i>16</i>&nbsp;import java.util.List;
+<i>17</i>&nbsp;import java.util.UUID;
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;@Named
+<i>20</i>&nbsp;@Transactional
+<i>21</i>&nbsp;@RequestScoped
+<b class="fc"><i>22</i>&nbsp;@Slf4j</b>
+<b class="fc"><i>23</i>&nbsp;public class StandortView implements Serializable {</b>
+<i>24</i>&nbsp;
+<i>25</i>&nbsp;    /**
+<i>26</i>&nbsp;     * Location service
+<i>27</i>&nbsp;     */
+<i>28</i>&nbsp;    @Inject
+<i>29</i>&nbsp;    private StandortService standortService;
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;    /**
+<i>32</i>&nbsp;     * The location&#39;s name (location)
+<i>33</i>&nbsp;     */
+<b class="nc"><i>34</i>&nbsp;    @Getter</b>
+<b class="fc"><i>35</i>&nbsp;    @Setter</b>
+<i>36</i>&nbsp;    private String standortName;
+<i>37</i>&nbsp;    /**
+<i>38</i>&nbsp;     * Add a new location
+<i>39</i>&nbsp;     */
+<i>40</i>&nbsp;    public void addStandort() {
+<i>41</i>&nbsp;        try {
+<b class="nc"><i>42</i>&nbsp;            standortService.findByLocation(standortName);</b>
+<b class="nc"><i>43</i>&nbsp;            log.error(&quot;Standort with name &quot; + standortName + &quot; already exists!&quot;);</b>
+<b class="nc"><i>44</i>&nbsp;            facesError(&quot;Standort with name &quot; + standortName + &quot; already exists!&quot;);</b>
+<i>45</i>&nbsp;        }
+<b class="nc"><i>46</i>&nbsp;        catch (Exception e){</b>
+<i>47</i>&nbsp;            try {
+<b class="nc"><i>48</i>&nbsp;                Standort s = new Standort(UUID.randomUUID().hashCode(), standortName);</b>
+<b class="nc"><i>49</i>&nbsp;                standortService.add(s);</b>
+<b class="nc"><i>50</i>&nbsp;                log.info(&quot;Added new location with name &quot; + standortName);</b>
+<b class="nc"><i>51</i>&nbsp;                facesNotification(&quot;Added new location with name &quot; + standortName);</b>
+<i>52</i>&nbsp;            }
+<b class="nc"><i>53</i>&nbsp;            catch (Exception f){</b>
+<b class="nc"><i>54</i>&nbsp;                f.printStackTrace();</b>
+<b class="nc"><i>55</i>&nbsp;                log.error(&quot;Couldn&#39;t add new location with name &quot; + standortName);</b>
+<b class="nc"><i>56</i>&nbsp;                facesError(&quot;Couldn&#39;t add new location with name &quot; + standortName);</b>
+<b class="nc"><i>57</i>&nbsp;            }</b>
+<b class="nc"><i>58</i>&nbsp;        }</b>
+<b class="nc"><i>59</i>&nbsp;    }</b>
+<i>60</i>&nbsp;
+<i>61</i>&nbsp;    /** Update an existing location on row edit
+<i>62</i>&nbsp;     * @param id - the id of the location object to update */
+<i>63</i>&nbsp;    public void updateOnRowEdit(int id){
+<i>64</i>&nbsp;        try {
+<b class="nc"><i>65</i>&nbsp;            Standort s = standortService.findById(id);</b>
+<b class="nc"><i>66</i>&nbsp;            s.setOrt(standortName);</b>
+<b class="nc"><i>67</i>&nbsp;            standortService.update(s);</b>
+<b class="nc"><i>68</i>&nbsp;            log.info(&quot;Successfully updated location with id &quot; + id);</b>
+<b class="nc"><i>69</i>&nbsp;            facesNotification(&quot;Successfully updated location with id &quot; + id);</b>
+<i>70</i>&nbsp;        }
+<b class="nc"><i>71</i>&nbsp;        catch (Exception e){</b>
+<b class="nc"><i>72</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>73</i>&nbsp;            log.error(&quot;Couldn&#39;t update location object with id &quot; + id);</b>
+<b class="nc"><i>74</i>&nbsp;            facesError(&quot;Couldn&#39;t update location object with id &quot; + id);</b>
+<b class="nc"><i>75</i>&nbsp;        }</b>
+<b class="nc"><i>76</i>&nbsp;    }</b>
+<i>77</i>&nbsp;
+<i>78</i>&nbsp;    /** On row edit cancel */
+<i>79</i>&nbsp;    public void onRowEditCancel(){
+<b class="nc"><i>80</i>&nbsp;        standortName = &quot;&quot;;</b>
+<b class="nc"><i>81</i>&nbsp;        facesNotification(&quot;Canceled!&quot;);</b>
+<b class="nc"><i>82</i>&nbsp;    }</b>
+<i>83</i>&nbsp;
+<i>84</i>&nbsp;    /** Remove an existing location
+<i>85</i>&nbsp;     * @param id - the id of the location to remove */
+<i>86</i>&nbsp;    public void remove(int id){
+<i>87</i>&nbsp;        try {
+<b class="nc"><i>88</i>&nbsp;            Standort s = standortService.findById(id);</b>
+<b class="nc"><i>89</i>&nbsp;            standortService.remove(s);</b>
+<b class="nc"><i>90</i>&nbsp;            log.info(&quot;Successfully removed location with id &quot; + id);</b>
+<b class="nc"><i>91</i>&nbsp;            facesNotification(&quot;Successfully removed location with id &quot; + id);</b>
+<i>92</i>&nbsp;        }
+<b class="nc"><i>93</i>&nbsp;        catch (Exception e){</b>
+<b class="nc"><i>94</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>95</i>&nbsp;            log.error(&quot;Failed to remove location with id &quot; + id);</b>
+<b class="nc"><i>96</i>&nbsp;            facesError(&quot;Failed to remove location with id &quot; + id);</b>
+<b class="nc"><i>97</i>&nbsp;        }</b>
+<b class="nc"><i>98</i>&nbsp;    }</b>
+<i>99</i>&nbsp;
+<i>100</i>&nbsp;    /** Get all locations from the database
+<i>101</i>&nbsp;     * @return a list of all locations */
+<i>102</i>&nbsp;    public List&lt;Standort&gt; getAll(){
+<b class="nc"><i>103</i>&nbsp;        return standortService.getStandorte();</b>
+<i>104</i>&nbsp;    }
+<i>105</i>&nbsp;
+<i>106</i>&nbsp;    /**
+<i>107</i>&nbsp;     * Adds a new SEVERITY_ERROR FacesMessage for the ui
+<i>108</i>&nbsp;     *
+<i>109</i>&nbsp;     * @param message Error Message
+<i>110</i>&nbsp;     */
+<i>111</i>&nbsp;    private void facesError(String message) {
+<b class="nc"><i>112</i>&nbsp;        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));</b>
+<b class="nc"><i>113</i>&nbsp;    }</b>
+<i>114</i>&nbsp;
+<i>115</i>&nbsp;    /**
+<i>116</i>&nbsp;     * Adds a new SEVERITY_INFO FacesMessage for the ui
+<i>117</i>&nbsp;     *
+<i>118</i>&nbsp;     * @param message Info Message
+<i>119</i>&nbsp;     */
+<i>120</i>&nbsp;    private void facesNotification(String message) {
+<b class="nc"><i>121</i>&nbsp;        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));</b>
+<b class="nc"><i>122</i>&nbsp;    }</b>
+<i>123</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-03-08 14:39</div>
+</div>
+</body>
+</html>

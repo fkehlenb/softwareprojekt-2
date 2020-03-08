@@ -63,8 +63,12 @@ public class PKVView implements Serializable {
     }
 
    public void fromJson() {
-        prozessKettenVorlageService.createPKVFromJSON(json);
-        facesNotification("Succesfully imported JSON");
+       if (json.isEmpty()) {
+           facesError("JSON is empty");
+       } else {
+           prozessKettenVorlageService.createPKVFromJSON(json);
+           facesNotification("Succesfully imported JSON");
+       }
     }
 
     /** Refresh lists */

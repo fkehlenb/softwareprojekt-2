@@ -1,0 +1,238 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: RoleDao</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">de.unibremen.sfb.persistence</a> ]
+</div>
+
+<h1>Coverage Summary for Class: RoleDao (de.unibremen.sfb.persistence)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">RoleDao</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75,7%
+  </span>
+  <span class="absValue">
+    (28/ 37)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">RoleDao$MockitoMock$68518011</td>
+  </tr>
+  <tr>
+    <td class="name">RoleDao$MockitoMock$68518011$auxiliary$4UdsF3Ms</td>
+  </tr>
+  <tr>
+    <td class="name">RoleDao$MockitoMock$68518011$auxiliary$56gudunt</td>
+  </tr>
+  <tr>
+    <td class="name">RoleDao$MockitoMock$68518011$auxiliary$d7ZP2cMY</td>
+  </tr>
+  <tr>
+    <td class="name">RoleDao$MockitoMock$68518011$auxiliary$dmK95z1M</td>
+  </tr>
+  <tr>
+    <td class="name">RoleDao$MockitoMock$68518011$auxiliary$HbphMUb0</td>
+  </tr>
+  <tr>
+    <td class="name">RoleDao$MockitoMock$68518011$auxiliary$IkjdumVo</td>
+  </tr>
+  <tr>
+    <td class="name">RoleDao$MockitoMock$68518011$auxiliary$MrkJ4CTK</td>
+  </tr>
+  <tr>
+    <td class="name">RoleDao$MockitoMock$68518011$auxiliary$xcsy1bAQ</td>
+  </tr>
+  <tr>
+    <td class="name">RoleDao$MockitoMock$68518011$auxiliary$YN4dQ8p2</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (9/ 9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    75,7%
+  </span>
+  <span class="absValue">
+    (28/ 37)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package de.unibremen.sfb.persistence;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import de.unibremen.sfb.exception.DuplicateRoleException;
+<i>4</i>&nbsp;import de.unibremen.sfb.model.Role;
+<i>5</i>&nbsp;import lombok.extern.slf4j.Slf4j;
+<i>6</i>&nbsp;
+<i>7</i>&nbsp;import de.unibremen.sfb.exception.RoleNotFoundException;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;import javax.persistence.EntityNotFoundException;
+<i>10</i>&nbsp;import java.util.ArrayList;
+<i>11</i>&nbsp;import java.util.List;
+<i>12</i>&nbsp;
+<i>13</i>&nbsp;/**
+<i>14</i>&nbsp; * This class handles the conditions in the database
+<i>15</i>&nbsp; */
+<b class="fc"><i>16</i>&nbsp;@Slf4j</b>
+<b class="fc"><i>17</i>&nbsp;public class RoleDao extends ObjectDAO&lt;Role&gt; {</b>
+<i>18</i>&nbsp;
+<i>19</i>&nbsp;    /**
+<i>20</i>&nbsp;     * Add a condition to the database
+<i>21</i>&nbsp;     *
+<i>22</i>&nbsp;     * @param b - the condition to add to the database
+<i>23</i>&nbsp;     * @throws DuplicateRoleException if the condition already exists in the database
+<i>24</i>&nbsp;     */
+<i>25</i>&nbsp;    public void persist(Role b) throws DuplicateRoleException {
+<b class="fc"><i>26</i>&nbsp;        if (b != null) {</b>
+<b class="fc"><i>27</i>&nbsp;            synchronized (Role.class) {</b>
+<b class="fc"><i>28</i>&nbsp;                if (em.contains(em.find(get(), b.getId()))) {</b>
+<i>29</i>&nbsp;                    try {
+<b class="fc"><i>30</i>&nbsp;                        throw new DuplicateRoleException();</b>
+<b class="fc"><i>31</i>&nbsp;                    } catch (DuplicateRoleException e) {</b>
+<b class="fc"><i>32</i>&nbsp;                        e.printStackTrace();</b>
+<i>33</i>&nbsp;                    }
+<i>34</i>&nbsp;                }
+<b class="fc"><i>35</i>&nbsp;                em.persist(b);</b>
+<b class="fc"><i>36</i>&nbsp;            }</b>
+<i>37</i>&nbsp;        }
+<b class="fc"><i>38</i>&nbsp;    }</b>
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;    /**
+<i>41</i>&nbsp;     * Update a condition in the database
+<i>42</i>&nbsp;     *
+<i>43</i>&nbsp;     * @param b - the condition to update in the database
+<i>44</i>&nbsp;     * @throws RoleNotFoundException if the condition couldn&#39;t be found
+<i>45</i>&nbsp;     */
+<i>46</i>&nbsp;    public void update(Role b) throws RoleNotFoundException {
+<b class="fc"><i>47</i>&nbsp;        if (b != null) {</b>
+<b class="fc"><i>48</i>&nbsp;            if (!em.contains(em.find(get(), b.getId()))) {</b>
+<b class="nc"><i>49</i>&nbsp;                throw new RoleNotFoundException();</b>
+<i>50</i>&nbsp;            }
+<b class="fc"><i>51</i>&nbsp;            em.merge(b);</b>
+<i>52</i>&nbsp;        }
+<b class="fc"><i>53</i>&nbsp;    }</b>
+<i>54</i>&nbsp;
+<i>55</i>&nbsp;    /**
+<i>56</i>&nbsp;     * Remove a condition from the database
+<i>57</i>&nbsp;     *
+<i>58</i>&nbsp;     * @param b - the condition to remove from the database
+<i>59</i>&nbsp;     * @throws RoleNotFoundException if the condition couldn&#39;t be found
+<i>60</i>&nbsp;     */
+<i>61</i>&nbsp;    public void remove(Role b) throws RoleNotFoundException {
+<b class="fc"><i>62</i>&nbsp;        if (b != null) {</b>
+<b class="fc"><i>63</i>&nbsp;            if (!em.contains(em.find(get(), b.getId()))) {</b>
+<b class="nc"><i>64</i>&nbsp;                throw new RoleNotFoundException();</b>
+<i>65</i>&nbsp;            }
+<i>66</i>&nbsp;
+<b class="fc"><i>67</i>&nbsp;            b.setValidData(false);</b>
+<b class="fc"><i>68</i>&nbsp;            update(b);</b>
+<i>69</i>&nbsp;        }
+<b class="fc"><i>70</i>&nbsp;    }</b>
+<i>71</i>&nbsp;
+<i>72</i>&nbsp;    /**
+<i>73</i>&nbsp;     * @return the class of condition
+<i>74</i>&nbsp;     */
+<i>75</i>&nbsp;    public Class&lt;Role&gt; get() {
+<b class="fc"><i>76</i>&nbsp;        return Role.class;</b>
+<i>77</i>&nbsp;    }
+<i>78</i>&nbsp;
+<i>79</i>&nbsp;
+<i>80</i>&nbsp;    public List&lt;Role&gt; getAll() {
+<i>81</i>&nbsp;        try {
+<b class="fc"><i>82</i>&nbsp;            List&lt;Role&gt; es = em.createQuery(&quot;SELECT b FROM Role b WHERE b.isValidData=true&quot;, get()).getResultList();</b>
+<b class="nc"><i>83</i>&nbsp;            if (es.isEmpty()) {</b>
+<b class="nc"><i>84</i>&nbsp;                log.info(&quot;No Rolen Found&quot;);</b>
+<b class="nc"><i>85</i>&nbsp;                return new ArrayList&lt;&gt;();</b>
+<i>86</i>&nbsp;            }
+<b class="nc"><i>87</i>&nbsp;            return es;</b>
+<b class="nc"><i>88</i>&nbsp;        } catch (EntityNotFoundException e) {</b>
+<b class="nc"><i>89</i>&nbsp;            throw new IllegalArgumentException();</b>
+<i>90</i>&nbsp;        }
+<i>91</i>&nbsp;    }
+<i>92</i>&nbsp;
+<i>93</i>&nbsp;    /**
+<i>94</i>&nbsp;     * Get a role using its type
+<i>95</i>&nbsp;     *
+<i>96</i>&nbsp;     * @param r - the user
+<i>97</i>&nbsp;     * @return the role object matching the string
+<i>98</i>&nbsp;     */
+<i>99</i>&nbsp;    public List&lt;Role&gt; getObjByID(String r) {
+<b class="fc"><i>100</i>&nbsp;        return em.createNamedQuery(&quot;Role.getByName&quot;, get()).setParameter(&quot;name&quot;, r).getResultList();</b>
+<i>101</i>&nbsp;    }
+<i>102</i>&nbsp;
+<i>103</i>&nbsp;    /**
+<i>104</i>&nbsp;     * Get all the roles assigned to a specific user
+<i>105</i>&nbsp;     *
+<i>106</i>&nbsp;     * @param username - the username of the user whose roles to fetch
+<i>107</i>&nbsp;     * @return a list of the users roles or an empty arraylist
+<i>108</i>&nbsp;     */
+<i>109</i>&nbsp;    public List&lt;Role&gt; getRolesByUsername(String username) {
+<b class="fc"><i>110</i>&nbsp;        List&lt;Role&gt; userRoles = new ArrayList&lt;&gt;();</b>
+<i>111</i>&nbsp;        try {
+<b class="fc"><i>112</i>&nbsp;            userRoles = em.createNamedQuery(&quot;Role.getByUser&quot;, get()).setParameter(&quot;username&quot;, username).getResultList();</b>
+<b class="fc"><i>113</i>&nbsp;        } catch (Exception e) {</b>
+<b class="fc"><i>114</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>115</i>&nbsp;        }</b>
+<b class="fc"><i>116</i>&nbsp;        return userRoles;</b>
+<i>117</i>&nbsp;    }
+<i>118</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-03-08 14:39</div>
+</div>
+</body>
+</html>

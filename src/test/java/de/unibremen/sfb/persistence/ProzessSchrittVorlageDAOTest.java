@@ -21,10 +21,12 @@ class ProzessSchrittVorlageDAOTest {
     EntityManager em;
     @InjectMocks
     ProzessSchrittVorlageDAO prozessSchrittVorlageDAO;
-
+    @Mock
+    ProzessKettenVorlage prozessKettenVorlage;
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
+
     }
 
     @Test
@@ -34,18 +36,24 @@ class ProzessSchrittVorlageDAOTest {
 
     @Test
     void testUpdate() throws ProzessSchrittVorlageNotFoundException {
+        when(prozessKettenVorlage.getPkvID()).thenReturn(1);
+        when(em.find(any(), any())).thenReturn(prozessKettenVorlage);
+        when(em.contains(prozessKettenVorlage)).thenReturn(true);
         prozessSchrittVorlageDAO.update(new ProzessSchrittVorlage(0, Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), new ExperimentierStation(), "dauer", "name", new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name"), true, 0));
     }
 
     @Test
     void testRemove() throws ProzessSchrittVorlageNotFoundException {
+        when(prozessKettenVorlage.getPkvID()).thenReturn(1);
+        when(em.find(any(), any())).thenReturn(prozessKettenVorlage);
+        when(em.contains(prozessKettenVorlage)).thenReturn(true);
         prozessSchrittVorlageDAO.remove(new ProzessSchrittVorlage(0, Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), new ExperimentierStation(), "dauer", "name", new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name"), true, 0));
     }
 
     @Test
     void testGet() {
         Class<ProzessSchrittVorlage> result = prozessSchrittVorlageDAO.get();
-        Assertions.assertEquals(null, result);
+        Assertions.assertEquals(ProzessSchrittVorlage.class, result);
     }
 
     @Test

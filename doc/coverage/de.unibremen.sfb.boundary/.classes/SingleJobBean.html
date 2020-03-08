@@ -1,0 +1,392 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: SingleJobBean</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">de.unibremen.sfb.boundary</a> ]
+</div>
+
+<h1>Coverage Summary for Class: SingleJobBean (de.unibremen.sfb.boundary)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SingleJobBean</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/ 1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    32,1%
+  </span>
+  <span class="absValue">
+    (9/ 28)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    18,8%
+  </span>
+  <span class="absValue">
+    (29/ 154)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package de.unibremen.sfb.boundary;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import de.unibremen.sfb.exception.*;
+<i>4</i>&nbsp;import de.unibremen.sfb.model.*;
+<i>5</i>&nbsp;import de.unibremen.sfb.service.*;
+<i>6</i>&nbsp;import lombok.Getter;
+<i>7</i>&nbsp;import lombok.Setter;
+<i>8</i>&nbsp;import lombok.extern.slf4j.Slf4j;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;import javax.enterprise.context.SessionScoped;
+<i>11</i>&nbsp;import javax.faces.application.FacesMessage;
+<i>12</i>&nbsp;import javax.faces.context.FacesContext;
+<i>13</i>&nbsp;import javax.inject.Inject;
+<i>14</i>&nbsp;import javax.inject.Named;
+<i>15</i>&nbsp;import javax.json.bind.JsonbBuilder;
+<i>16</i>&nbsp;import javax.json.bind.JsonbConfig;
+<i>17</i>&nbsp;import java.io.*;
+<i>18</i>&nbsp;import java.time.LocalDate;
+<i>19</i>&nbsp;import java.time.LocalDateTime;
+<i>20</i>&nbsp;import java.time.LocalTime;
+<i>21</i>&nbsp;import java.util.ArrayList;
+<i>22</i>&nbsp;import java.util.List;
+<i>23</i>&nbsp;
+<b class="fc"><i>24</i>&nbsp;@Named</b>
+<i>25</i>&nbsp;@SessionScoped
+<i>26</i>&nbsp;@Getter
+<b class="fc"><i>27</i>&nbsp;@Setter</b>
+<b class="fc"><i>28</i>&nbsp;@Slf4j</b>
+<b class="fc"><i>29</i>&nbsp;public class SingleJobBean implements Serializable {</b>
+<i>30</i>&nbsp;
+<i>31</i>&nbsp;    /** Process step */
+<b class="nc"><i>32</i>&nbsp;    private ProzessSchritt ps;</b>
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;    /** Available descriptors */
+<b class="nc"><i>35</i>&nbsp;    private List&lt;QualitativeEigenschaft&gt; verEigenschaften;</b>
+<i>36</i>&nbsp;
+<i>37</i>&nbsp;    /** Selected descriptors */
+<b class="nc"><i>38</i>&nbsp;    private List&lt;QualitativeEigenschaft&gt; ausEigenschaften;</b>
+<i>39</i>&nbsp;
+<i>40</i>&nbsp;    /**
+<i>41</i>&nbsp;     * saves a comment the user can type in to be added to all samples of a prozessschritt
+<i>42</i>&nbsp;     */
+<b class="nc"><i>43</i>&nbsp;    private String kommentarForAll;</b>
+<i>44</i>&nbsp;
+<b class="fc"><i>45</i>&nbsp;    private boolean setPSP = true;</b>
+<i>46</i>&nbsp;
+<i>47</i>&nbsp;    /** Sample Service */
+<i>48</i>&nbsp;    @Inject
+<b class="nc"><i>49</i>&nbsp;    private ProbenService probeService;</b>
+<i>50</i>&nbsp;
+<i>51</i>&nbsp;    /** Qualitative descriptor service */
+<i>52</i>&nbsp;    @Inject
+<b class="nc"><i>53</i>&nbsp;    private QualitativeEigenschaftService qualitativeEigenschaftService;</b>
+<i>54</i>&nbsp;
+<i>55</i>&nbsp;    /** Process step service */
+<i>56</i>&nbsp;    @Inject
+<b class="nc"><i>57</i>&nbsp;    private  ProzessSchrittService prozessSchrittService;</b>
+<i>58</i>&nbsp;
+<i>59</i>&nbsp;    /** Process step service TODO DUPLICATE FFS */
+<i>60</i>&nbsp;    @Inject
+<b class="nc"><i>61</i>&nbsp;    private ProzessSchrittService psService;</b>
+<i>62</i>&nbsp;
+<i>63</i>&nbsp;    /** Job service */
+<i>64</i>&nbsp;    @Inject
+<b class="nc"><i>65</i>&nbsp;    private AuftragService auftragService;</b>
+<i>66</i>&nbsp;
+<i>67</i>&nbsp;    /** JSON */
+<b class="nc"><i>68</i>&nbsp;    private String jsonString;</b>
+<i>69</i>&nbsp;
+<b class="fc"><i>70</i>&nbsp;    private String zeit = &quot;&quot;;</b>
+<b class="fc"><i>71</i>&nbsp;    private String datum = &quot;&quot;;</b>
+<i>72</i>&nbsp;
+<i>73</i>&nbsp;    /** Init called on start */
+<i>74</i>&nbsp;    public void init() {
+<b class="fc"><i>75</i>&nbsp;        verEigenschaften = qualitativeEigenschaftService.getEigenschaften();</b>
+<b class="fc"><i>76</i>&nbsp;        if (this.ps.getProzessSchrittZustandsAutomat().getCurrent().equals(&quot;Erstellt&quot;)) {</b>
+<b class="nc"><i>77</i>&nbsp;            this.ps.getProzessSchrittZustandsAutomat().setCurrent(this.ps.getProzessSchrittZustandsAutomat().getZustaende().get(0));</b>
+<b class="nc"><i>78</i>&nbsp;            log.info(&quot;set current Zustand to &quot; + this.ps.getProzessSchrittZustandsAutomat().getCurrent() + &quot;for this.ps: &quot; + this.ps.getId());</b>
+<i>79</i>&nbsp;        }
+<i>80</i>&nbsp;        try {
+<b class="nc"><i>81</i>&nbsp;            psService.editPS(ps);</b>
+<b class="nc"><i>82</i>&nbsp;        } catch (ProzessSchrittNotFoundException e) {</b>
+<b class="nc"><i>83</i>&nbsp;            log.error(e.getLocalizedMessage());</b>
+<b class="nc"><i>84</i>&nbsp;        }</b>
+<b class="nc"><i>85</i>&nbsp;    }</b>
+<i>86</i>&nbsp;
+<i>87</i>&nbsp;    public String singlejob(int id) {
+<i>88</i>&nbsp;        try {
+<b class="nc"><i>89</i>&nbsp;            this.ps = prozessSchrittService.getObjById(id);</b>
+<b class="nc"><i>90</i>&nbsp;            init();</b>
+<b class="nc"><i>91</i>&nbsp;        } catch (ProzessSchrittNotFoundException e) {</b>
+<b class="nc"><i>92</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>93</i>&nbsp;        }</b>
+<b class="nc"><i>94</i>&nbsp;        return &quot;singlejob.xhtml&quot;;</b>
+<i>95</i>&nbsp;    }
+<i>96</i>&nbsp;
+<i>97</i>&nbsp;    public String getLetzterZustand(ProzessSchritt ps) {
+<b class="nc"><i>98</i>&nbsp;        return ps.getProzessSchrittZustandsAutomat().getZustaende().get(ps</b>
+<b class="nc"><i>99</i>&nbsp;                .getProzessSchrittZustandsAutomat().getZustaende().size()-1);</b>
+<i>100</i>&nbsp;    }
+<i>101</i>&nbsp;
+<i>102</i>&nbsp;    public void toJson() {
+<b class="nc"><i>103</i>&nbsp;        String messgae = &quot;Parameter to PS: &quot; + ps.getId();</b>
+<b class="nc"><i>104</i>&nbsp;        if (setPSP) {</b>
+<i>105</i>&nbsp;            try {
+<b class="nc"><i>106</i>&nbsp;                psService.addPSPToPS(jsonString, ps);</b>
+<b class="nc"><i>107</i>&nbsp;                messgae = &quot;Parameter to PS: &quot; + ps.getId();</b>
+<b class="nc"><i>108</i>&nbsp;            } catch (ProzessSchrittNotFoundException e) {</b>
+<b class="nc"><i>109</i>&nbsp;                log.error(e.getLocalizedMessage());</b>
+<b class="nc"><i>110</i>&nbsp;                errorMessage(&quot;Could not add PSP to PS&quot;);</b>
+<b class="nc"><i>111</i>&nbsp;            }</b>
+<i>112</i>&nbsp;        } else {
+<i>113</i>&nbsp;            try {
+<b class="nc"><i>114</i>&nbsp;                probeService.addJSONEigenschaft(jsonString, ps);</b>
+<b class="nc"><i>115</i>&nbsp;                messgae = &quot;Eigenschaften o PS: &quot; + ps.getId();</b>
+<b class="nc"><i>116</i>&nbsp;            } catch (ProbeNotFoundException e) {</b>
+<b class="nc"><i>117</i>&nbsp;                errorMessage(&quot;Could not add Eigenschaft to Probe&quot;);</b>
+<b class="nc"><i>118</i>&nbsp;                log.error(e.getLocalizedMessage());</b>
+<b class="nc"><i>119</i>&nbsp;            }</b>
+<i>120</i>&nbsp;        }
+<b class="nc"><i>121</i>&nbsp;        message(&quot;Succesfully added &quot; + messgae );</b>
+<b class="nc"><i>122</i>&nbsp;    }</b>
+<i>123</i>&nbsp;
+<i>124</i>&nbsp;    /**
+<i>125</i>&nbsp;     * adds a comment to a process step
+<i>126</i>&nbsp;     */
+<i>127</i>&nbsp;    public void addComment() {
+<b class="fc"><i>128</i>&nbsp;        if(ps == null) {</b>
+<b class="nc"><i>129</i>&nbsp;            errorMessage(&quot;invalid input&quot;);</b>
+<i>130</i>&nbsp;        }
+<i>131</i>&nbsp;        else {
+<b class="fc"><i>132</i>&nbsp;            List&lt;Probe&gt; proben = new ArrayList&lt;&gt;();</b>
+<i>133</i>&nbsp;            for (Traeger t :
+<b class="fc"><i>134</i>&nbsp;                    auftragService.getAuftrag(ps).getTraeger()) {</b>
+<b class="nc"><i>135</i>&nbsp;                proben.addAll(t.getProben());</b>
+<b class="nc"><i>136</i>&nbsp;            }</b>
+<b class="nc"><i>137</i>&nbsp;            for (Probe p : proben) {</b>
+<i>138</i>&nbsp;                try {
+<b class="nc"><i>139</i>&nbsp;                    probeService.addProbenComment(p, kommentarForAll);</b>
+<b class="nc"><i>140</i>&nbsp;                } catch (ProbeNotFoundException | DuplicateKommentarException e) {</b>
+<b class="nc"><i>141</i>&nbsp;                    e.printStackTrace();</b>
+<b class="nc"><i>142</i>&nbsp;                    log.info(&quot;the sample &quot; + p.getProbenID() + &quot; could not be found while trying to add comment &quot; + kommentarForAll);</b>
+<i>143</i>&nbsp;                }
+<b class="nc"><i>144</i>&nbsp;                catch(IllegalArgumentException e) {</b>
+<b class="nc"><i>145</i>&nbsp;                    errorMessage(&quot;invalid input&quot;);</b>
+<b class="nc"><i>146</i>&nbsp;                }</b>
+<b class="nc"><i>147</i>&nbsp;            }</b>
+<b class="nc"><i>148</i>&nbsp;            message(&quot;added comment to all samples&quot;);</b>
+<i>149</i>&nbsp;        }
+<b class="nc"><i>150</i>&nbsp;        kommentarForAll = &quot;&quot;;</b>
+<b class="nc"><i>151</i>&nbsp;    }</b>
+<i>152</i>&nbsp;
+<i>153</i>&nbsp;    /**
+<i>154</i>&nbsp;     * returns the samples of this prozessschritt
+<i>155</i>&nbsp;     * @return a list containing the samples
+<i>156</i>&nbsp;     */
+<i>157</i>&nbsp;    public List&lt;Probe&gt; getProben() {
+<i>158</i>&nbsp;        try {
+<b class="nc"><i>159</i>&nbsp;            prozessSchrittService.getObjById(ps.getId());</b>
+<b class="nc"><i>160</i>&nbsp;        } catch (ProzessSchrittNotFoundException e) {</b>
+<b class="nc"><i>161</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>162</i>&nbsp;        }</b>
+<b class="nc"><i>163</i>&nbsp;        List&lt;Probe&gt; proben = new ArrayList&lt;&gt;();</b>
+<b class="nc"><i>164</i>&nbsp;        List&lt;Traeger&gt; trager = auftragService.getAuftrag(ps).getTraeger();</b>
+<i>165</i>&nbsp;        for (Traeger t :
+<b class="nc"><i>166</i>&nbsp;                trager) {</b>
+<b class="nc"><i>167</i>&nbsp;            proben.addAll(t.getProben());</b>
+<b class="nc"><i>168</i>&nbsp;        }</b>
+<b class="nc"><i>169</i>&nbsp;        return proben;</b>
+<i>170</i>&nbsp;    }
+<i>171</i>&nbsp;
+<i>172</i>&nbsp;
+<i>173</i>&nbsp;    /**
+<i>174</i>&nbsp;     * weise den Proben des akutellen ProzessSchrittes Proben zu
+<i>175</i>&nbsp;     */
+<i>176</i>&nbsp;    public void zuweisen() {
+<b class="nc"><i>177</i>&nbsp;        var proben = getProben();</b>
+<i>178</i>&nbsp;        for (Probe p :
+<b class="nc"><i>179</i>&nbsp;                proben) {</b>
+<b class="nc"><i>180</i>&nbsp;            var list = p.getEigenschaften();</b>
+<b class="nc"><i>181</i>&nbsp;            list.addAll(ausEigenschaften);</b>
+<b class="nc"><i>182</i>&nbsp;            p.setEigenschaften(List.copyOf(list));</b>
+<i>183</i>&nbsp;            try {
+<b class="nc"><i>184</i>&nbsp;                probeService.update(p);</b>
+<b class="nc"><i>185</i>&nbsp;                ps = prozessSchrittService.getObjById(ps.getId());</b>
+<b class="nc"><i>186</i>&nbsp;            } catch (Exception e) {</b>
+<b class="nc"><i>187</i>&nbsp;                e.printStackTrace();</b>
+<b class="nc"><i>188</i>&nbsp;            }</b>
+<b class="nc"><i>189</i>&nbsp;        }</b>
+<b class="nc"><i>190</i>&nbsp;        message(&quot;Succesfully added: &quot;);</b>
+<b class="nc"><i>191</i>&nbsp;    }</b>
+<i>192</i>&nbsp;
+<i>193</i>&nbsp;    /**
+<i>194</i>&nbsp;     * returns the ProzessSchrittParameter of the ProzessSchritt this bean manages
+<i>195</i>&nbsp;     * @return a list containing the prozessSchrittParameter
+<i>196</i>&nbsp;     */
+<i>197</i>&nbsp;    public List&lt;ProzessSchrittParameter&gt; getParameter() {
+<b class="nc"><i>198</i>&nbsp;      return ps.getProzessSchrittParameters(); // FIXME Nullpointer because technologe/index.xhtml does not load prozessSchrittList</b>
+<i>199</i>&nbsp;    }
+<i>200</i>&nbsp;
+<i>201</i>&nbsp;    /**
+<i>202</i>&nbsp;     * downloads the parameters as a json file
+<i>203</i>&nbsp;     */
+<i>204</i>&nbsp;    public void download() {
+<b class="nc"><i>205</i>&nbsp;        download(getParameter());</b>
+<b class="nc"><i>206</i>&nbsp;    }</b>
+<i>207</i>&nbsp;
+<i>208</i>&nbsp;    /**
+<i>209</i>&nbsp;     * creates and sends an error message
+<i>210</i>&nbsp;     * @param e error messsage
+<i>211</i>&nbsp;     */
+<i>212</i>&nbsp;    public void errorMessage(String e) {
+<b class="fc"><i>213</i>&nbsp;        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e, null));</b>
+<b class="nc"><i>214</i>&nbsp;        log.info(&quot;an error occurred&quot; + e);</b>
+<b class="nc"><i>215</i>&nbsp;    }</b>
+<i>216</i>&nbsp;
+<i>217</i>&nbsp;    public void message(String e) {
+<b class="fc"><i>218</i>&nbsp;        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, e, null));</b>
+<b class="nc"><i>219</i>&nbsp;        log.info(&quot;displayed message to user: &quot; +e);</b>
+<b class="nc"><i>220</i>&nbsp;    }</b>
+<i>221</i>&nbsp;
+<i>222</i>&nbsp;    /**
+<i>223</i>&nbsp;     * downloads a process step parameter
+<i>224</i>&nbsp;     * @param psp the parameter
+<i>225</i>&nbsp;     */
+<i>226</i>&nbsp;    public void download(List&lt;ProzessSchrittParameter&gt; psp) {
+<b class="nc"><i>227</i>&nbsp;        var config = new JsonbConfig().withFormatting(true);</b>
+<b class="nc"><i>228</i>&nbsp;        var jsonb = JsonbBuilder.create(config);</b>
+<i>229</i>&nbsp;
+<b class="nc"><i>230</i>&nbsp;        String result = jsonb.toJson(psp);</b>
+<b class="nc"><i>231</i>&nbsp;        String fileName = &quot;JSON_&quot; + LocalDateTime.now().toString().replaceAll(&quot;:&quot;,&quot;_&quot;) + &quot;.json&quot;;</b>
+<b class="nc"><i>232</i>&nbsp;        PrintWriter writer = null;</b>
+<i>233</i>&nbsp;        try {
+<b class="nc"><i>234</i>&nbsp;            writer = new PrintWriter(fileName);</b>
+<b class="nc"><i>235</i>&nbsp;        } catch (FileNotFoundException e) {</b>
+<b class="nc"><i>236</i>&nbsp;            e.printStackTrace();</b>
+<b class="nc"><i>237</i>&nbsp;        }</b>
+<b class="nc"><i>238</i>&nbsp;        assert writer != null;</b>
+<b class="nc"><i>239</i>&nbsp;        writer.write(result);</b>
+<b class="nc"><i>240</i>&nbsp;        log.info(&quot;Successfully exported json to &quot; + fileName);</b>
+<b class="nc"><i>241</i>&nbsp;        message(&quot;Successfully exported json to &quot; + fileName);</b>
+<b class="nc"><i>242</i>&nbsp;    }</b>
+<i>243</i>&nbsp;
+<i>244</i>&nbsp;    /**
+<i>245</i>&nbsp;     * finds the station this process step is currently at
+<i>246</i>&nbsp;     * @return the station
+<i>247</i>&nbsp;     */
+<i>248</i>&nbsp;    public ExperimentierStation findStation() {
+<b class="nc"><i>249</i>&nbsp;        return psService.findStation(ps); // FIXME Nullpointer</b>
+<i>250</i>&nbsp;    }
+<i>251</i>&nbsp;
+<i>252</i>&nbsp;    /**
+<i>253</i>&nbsp;     * sets the state of a ProzessSchritt on further than it was
+<i>254</i>&nbsp;     * @throws DuplicateProzessSchrittLogException if PSL already exits
+<i>255</i>&nbsp;     * @throws ProzessSchrittZustandsAutomatNotFoundException if automat does not exist
+<i>256</i>&nbsp;     */
+<i>257</i>&nbsp;    public void setJobZustand() throws DuplicateProzessSchrittLogException, ProzessSchrittZustandsAutomatNotFoundException {
+<i>258</i>&nbsp;        try {
+<i>259</i>&nbsp;            try {
+<b class="fc"><i>260</i>&nbsp;                psService.oneFurther(ps, time());</b>
+<b class="nc"><i>261</i>&nbsp;            } catch (ExperimentierStationNotFoundException | ProzessSchrittLogNotFoundException | ProzessSchrittNotFoundException e) {</b>
+<b class="nc"><i>262</i>&nbsp;                e.printStackTrace();</b>
+<b class="nc"><i>263</i>&nbsp;            } catch (ProbeNotFoundException e) {</b>
+<b class="nc"><i>264</i>&nbsp;                e.printStackTrace();</b>
+<b class="nc"><i>265</i>&nbsp;            } catch (DuplicateQualitativeEigenschaftException e) {</b>
+<b class="nc"><i>266</i>&nbsp;                e.printStackTrace();</b>
+<b class="fc"><i>267</i>&nbsp;            }</b>
+<b class="nc"><i>268</i>&nbsp;        } catch(IllegalArgumentException e) {</b>
+<b class="nc"><i>269</i>&nbsp;                errorMessage(&quot;invalid input&quot;);</b>
+<b class="fc"><i>270</i>&nbsp;        }</b>
+<b class="fc"><i>271</i>&nbsp;        String letzterZustand = ps.getProzessSchrittZustandsAutomat().getZustaende().get(</b>
+<b class="fc"><i>272</i>&nbsp;                ps.getProzessSchrittZustandsAutomat().getZustaende().size() -1);</b>
+<i>273</i>&nbsp;        try {
+<b class="fc"><i>274</i>&nbsp;            psService.editPS(ps);</b>
+<b class="nc"><i>275</i>&nbsp;        } catch (ProzessSchrittNotFoundException e) {</b>
+<b class="nc"><i>276</i>&nbsp;            e.printStackTrace();</b>
+<b class="fc"><i>277</i>&nbsp;        }</b>
+<b class="fc"><i>278</i>&nbsp;        if(letzterZustand.equals(ps.getProzessSchrittZustandsAutomat().getCurrent())){</b>
+<b class="nc"><i>279</i>&nbsp;            message(&quot;prozessSchritt wurde beendet! &quot;);</b>
+<i>280</i>&nbsp;        }
+<i>281</i>&nbsp;        else{
+<b class="fc"><i>282</i>&nbsp;            message(&quot;ProzessSchritt gewechselt auf: &quot; + ps.getProzessSchrittZustandsAutomat().getCurrent());</b>
+<i>283</i>&nbsp;        }
+<b class="nc"><i>284</i>&nbsp;    }</b>
+<i>285</i>&nbsp;
+<i>286</i>&nbsp;    private LocalDateTime time() {
+<b class="fc"><i>287</i>&nbsp;        LocalDate d = LocalDate.now();</b>
+<b class="fc"><i>288</i>&nbsp;        LocalTime t = LocalTime.now();</b>
+<b class="fc"><i>289</i>&nbsp;        if(!datum.equals(&quot;&quot;)) {</b>
+<b class="nc"><i>290</i>&nbsp;            int day = Integer.parseInt(datum.substring(0, 2));</b>
+<b class="nc"><i>291</i>&nbsp;            int m = Integer.parseInt(datum.substring(3, 5));</b>
+<b class="nc"><i>292</i>&nbsp;            int y = Integer.parseInt(datum.substring(6));</b>
+<b class="nc"><i>293</i>&nbsp;            d = LocalDate.of(y, m, day);</b>
+<b class="nc"><i>294</i>&nbsp;            datum=null;</b>
+<i>295</i>&nbsp;        }
+<b class="fc"><i>296</i>&nbsp;        if(!zeit.equals(&quot;&quot;)) {</b>
+<b class="nc"><i>297</i>&nbsp;            int h = Integer.parseInt(zeit.substring(0, 2));</b>
+<b class="nc"><i>298</i>&nbsp;            int min = Integer.parseInt(zeit.substring(3, 5));</b>
+<b class="nc"><i>299</i>&nbsp;            int sec = Integer.parseInt(zeit.substring(6));</b>
+<b class="nc"><i>300</i>&nbsp;            t = LocalTime.of(h, min, sec);</b>
+<b class="nc"><i>301</i>&nbsp;            zeit=null;</b>
+<b class="nc"><i>302</i>&nbsp;        }</b>
+<b class="fc"><i>303</i>&nbsp;        else if(!datum.equals(&quot;&quot;)) {</b>
+<b class="nc"><i>304</i>&nbsp;            errorMessage(&quot;Wenn Sie manuell eine Transitionszeit eingeben wollen, müssen Sie mindestens die Uhrzeit angeben&quot;);</b>
+<i>305</i>&nbsp;        }
+<b class="fc"><i>306</i>&nbsp;        return LocalDateTime.of(d, t);</b>
+<i>307</i>&nbsp;    }
+<i>308</i>&nbsp;
+<i>309</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-03-08 14:39</div>
+</div>
+</body>
+</html>

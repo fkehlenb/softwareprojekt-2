@@ -22,6 +22,8 @@ import static org.mockito.Mockito.*;
 
 class TechnologeViewTest {
     @Mock
+    List<ExperimentierStation> experimentierStations;
+    @Mock
     AuftragService auftragService;
     @Mock
     ExperimentierStationService experimentierStationService;
@@ -41,9 +43,14 @@ class TechnologeViewTest {
     ProzessSchrittService psService;
     @Mock
     Logger log;
+    @Mock
+    List<Probe> probes;
+    @Mock
+    ExperimentierStation experimentierStation;
     @InjectMocks
     TechnologeView technologeView;
-
+    @Mock
+    Probe probe;
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -58,11 +65,11 @@ class TechnologeViewTest {
 
     @Test
     void testGetStationen() {
-        when(experimentierStationService.getESByUser(any())).thenReturn(Arrays.<ExperimentierStation>asList(new ExperimentierStation()));
-        when(esService.getESByUser(any())).thenReturn(Arrays.<ExperimentierStation>asList(new ExperimentierStation()));
+        when(experimentierStationService.getESByUser(any())).thenReturn(experimentierStations);
+        when(esService.getESByUser(any())).thenReturn(experimentierStations);
 
         List<ExperimentierStation> result = technologeView.getStationen();
-        Assertions.assertEquals(Arrays.<ExperimentierStation>asList(new ExperimentierStation()), result);
+        Assertions.assertEquals(experimentierStations, result);
     }
 
     @Test
@@ -76,16 +83,11 @@ class TechnologeViewTest {
 
     @Test
     void testFindStandort() {
-        when(experimentierStationService.findStation(any())).thenReturn(new ExperimentierStation());
-        when(esService.findStation(any())).thenReturn(new ExperimentierStation());
+        when(experimentierStationService.findStation(any())).thenReturn(experimentierStation);
+        when(esService.findStation(any())).thenReturn(experimentierStation);
 
         ExperimentierStation result = technologeView.findStandort(new ProzessSchritt(0, new ProzessSchrittZustandsAutomat(0, "current", Arrays.<String>asList("String")), "duration", Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), "attribute", Arrays.<ProzessSchrittLog>asList(new ProzessSchrittLog(LocalDateTime.of(2020, Month.MARCH, 5, 16, 39, 42), "zustandsAutomat")), "name", true, 0));
-        Assertions.assertEquals(new ExperimentierStation(), result);
-    }
-
-    @Test
-    void testReportBroken() {
-        technologeView.reportBroken(new ExperimentierStation());
+        Assertions.assertEquals(experimentierStation, result);
     }
 
     @Test
@@ -95,20 +97,19 @@ class TechnologeViewTest {
 
     @Test
     void testViewToBeUploaded() throws AuftragNotFoundException {
-        when(probeService.viewToBeUploaded()).thenReturn(Arrays.<Probe>asList(new Probe("probenID", 0, null, new Standort(0, "ort"))));
-
+        when(probeService.viewToBeUploaded()).thenReturn(probes);
         List<Probe> result = technologeView.viewToBeUploaded();
-        Assertions.assertEquals(Arrays.<Probe>asList(new Probe("probenID", 0, null, new Standort(0, "ort"))), result);
-    }
+        Assertions.assertEquals(probes,result);}
+
 
     @Test
     void testUpload() {
-        technologeView.upload(new Probe("probenID", 0, null, new Standort(0, "ort")));
+        technologeView.upload(probe);
     }
 
     @Test
     void testReportLostProbe() {
-        technologeView.reportLostProbe(new Probe("probenID", 0, null, new Standort(0, "ort")));
+        technologeView.reportLostProbe(probe);
     }
 
     @Test
@@ -124,9 +125,8 @@ class TechnologeViewTest {
     @Test
     void testKommentarToString() {
         when(probeService.KommentarToString(any())).thenReturn("KommentarToStringResponse");
-
-        String result = technologeView.KommentarToString(new Probe("probenID", 0, null, new Standort(0, "ort")));
-        Assertions.assertEquals("replaceMeWithExpectedResult", result);
+        String result = technologeView.KommentarToString(probe);
+        Assertions.assertEquals("KommentarToStringResponse", result);
     }
 
     @Test

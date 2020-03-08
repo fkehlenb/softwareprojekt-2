@@ -21,10 +21,12 @@ class QualitativeEigenschaftDAOTest {
     EntityManager em;
     @InjectMocks
     QualitativeEigenschaftDAO qualitativeEigenschaftDAO;
-
+    @Mock
+    QualitativeEigenschaft qualitativeEigenschaft;
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
+
     }
 
     @Test
@@ -34,18 +36,24 @@ class QualitativeEigenschaftDAOTest {
 
     @Test
     void testUpdate() throws QualitativeEigenschaftNotFoundException {
+        when(qualitativeEigenschaft.getId()).thenReturn(1);
+        when(em.find(any(), any())).thenReturn(qualitativeEigenschaft);
+        when(em.contains(qualitativeEigenschaft)).thenReturn(true);
         qualitativeEigenschaftDAO.update(new QualitativeEigenschaft(0, "name"));
     }
 
     @Test
     void testRemove() throws QualitativeEigenschaftNotFoundException {
+        when(qualitativeEigenschaft.getId()).thenReturn(1);
+        when(em.find(any(), any())).thenReturn(qualitativeEigenschaft);
+        when(em.contains(qualitativeEigenschaft)).thenReturn(true);
         qualitativeEigenschaftDAO.remove(new QualitativeEigenschaft(0, "name"));
     }
 
     @Test
     void testGet() {
         Class<QualitativeEigenschaft> result = qualitativeEigenschaftDAO.get();
-        Assertions.assertEquals(null, result);
+        Assertions.assertEquals(QualitativeEigenschaft.class, result);
     }
 
     @Test

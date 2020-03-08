@@ -1,0 +1,231 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: ExperimentierStation</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">de.unibremen.sfb.model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: ExperimentierStation (de.unibremen.sfb.model)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ExperimentierStation</td>
+<td class="coverageStat">
+  <span class="percent">
+    38,5%
+  </span>
+  <span class="absValue">
+    (5/ 13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    35,7%
+  </span>
+  <span class="absValue">
+    (5/ 14)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ExperimentierStation$MockitoMock$1075572199</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStation$MockitoMock$1075572199$auxiliary$0PAQTpNw</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStation$MockitoMock$1075572199$auxiliary$35PjsKGe</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStation$MockitoMock$1075572199$auxiliary$5AvCVhwt</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStation$MockitoMock$1075572199$auxiliary$fnRnz3Vg</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStation$MockitoMock$1075572199$auxiliary$gbXtFuBU</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStation$MockitoMock$1075572199$auxiliary$gGqrbwZJ</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStation$MockitoMock$1075572199$auxiliary$I82ueo5q</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStation$MockitoMock$1075572199$auxiliary$juZYvHJn</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStation$MockitoMock$1075572199$auxiliary$NdW1fADb</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStation$MockitoMock$1075572199$auxiliary$PW5Qk0ZH</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStation$MockitoMock$1075572199$auxiliary$rLV4eSeI</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStation$MockitoMock$1075572199$auxiliary$rSeCNlqD</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStation$MockitoMock$1075572199$auxiliary$SzrpqLdn</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStation$MockitoMock$1075572199$auxiliary$ttMuqMyP</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStation$MockitoMock$1075572199$auxiliary$vcCCzSBK</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStation$MockitoMock$1075572199$auxiliary$w6sFSW01</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStation$MockitoMock$1075572199$auxiliary$XYlF9jut</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStation$MockitoMock$1075572199$auxiliary$y2tJoh0l</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStation$MockitoMock$1075572199$auxiliary$YjuuJAC1</td>
+  </tr>
+  <tr>
+    <td class="name">ExperimentierStation$MockitoMock$1075572199$auxiliary$ypfsF4YH</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    38,5%
+  </span>
+  <span class="absValue">
+    (5/ 13)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    35,7%
+  </span>
+  <span class="absValue">
+    (5/ 14)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package de.unibremen.sfb.model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import lombok.*;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import javax.persistence.*;
+<i>6</i>&nbsp;import java.io.Serializable;
+<i>7</i>&nbsp;import java.util.List;
+<i>8</i>&nbsp;
+<i>9</i>&nbsp;/**
+<i>10</i>&nbsp; * Experimenting stations data class
+<i>11</i>&nbsp; */
+<i>12</i>&nbsp;@Getter
+<b class="fc"><i>13</i>&nbsp;@Setter</b>
+<i>14</i>&nbsp;@Entity
+<i>15</i>&nbsp;@NamedQueries({
+<i>16</i>&nbsp;        @NamedQuery(name = &quot;ExperimentierStation.findAllInLocation&quot;,
+<i>17</i>&nbsp;                query = &quot;SELECT es FROM ExperimentierStation es WHERE es.standort = :standort AND es.isValidData = true&quot;),
+<i>18</i>&nbsp;        @NamedQuery(name = &quot;ExperimentierStation.getByStatus&quot;,
+<i>19</i>&nbsp;                query = &quot;SELECT es FROM ExperimentierStation es WHERE es.status = :status AND es.isValidData = true&quot;),
+<i>20</i>&nbsp;        @NamedQuery(name = &quot;ExperimentierStation.getAll&quot;, query = &quot;SELECT es FROM ExperimentierStation es WHERE es.isValidData = true&quot;)
+<i>21</i>&nbsp;})
+<b class="nc"><i>22</i>&nbsp;@RequiredArgsConstructor</b>
+<b class="fc"><i>23</i>&nbsp;@NoArgsConstructor</b>
+<i>24</i>&nbsp;public class ExperimentierStation implements Serializable {
+<i>25</i>&nbsp;
+<i>26</i>&nbsp;    /**
+<i>27</i>&nbsp;     * On delete set to invalid
+<i>28</i>&nbsp;     */
+<b class="fc"><i>29</i>&nbsp;    @NonNull</b>
+<b class="nc"><i>30</i>&nbsp;    private boolean isValidData = true;</b>
+<i>31</i>&nbsp;
+<i>32</i>&nbsp;    /**
+<i>33</i>&nbsp;     * The station&#39;s id
+<i>34</i>&nbsp;     */
+<i>35</i>&nbsp;    @NonNull
+<i>36</i>&nbsp;    @Id
+<b class="fc"><i>37</i>&nbsp;    private int esID;</b>
+<i>38</i>&nbsp;
+<i>39</i>&nbsp;    /**
+<i>40</i>&nbsp;     * The station&#39;s location
+<i>41</i>&nbsp;     */
+<i>42</i>&nbsp;    @NonNull
+<i>43</i>&nbsp;    @ManyToOne
+<b class="nc"><i>44</i>&nbsp;    private Standort standort;</b>
+<i>45</i>&nbsp;
+<i>46</i>&nbsp;    @NonNull
+<b class="nc"><i>47</i>&nbsp;    private String name;</b>
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;    /**
+<i>50</i>&nbsp;     * The station&#39;s status
+<i>51</i>&nbsp;     */
+<i>52</i>&nbsp;    @NonNull
+<b class="nc"><i>53</i>&nbsp;    private Enum&lt;ExperimentierStationZustand&gt; status;</b>
+<i>54</i>&nbsp;
+<i>55</i>&nbsp;    /** The queue currently being processed at the experimenting station */
+<i>56</i>&nbsp;    @OneToMany(fetch = FetchType.LAZY)
+<i>57</i>&nbsp;    @NonNull
+<b class="nc"><i>58</i>&nbsp;   private List&lt;ProzessSchritt&gt; nextPS;</b>
+<i>59</i>&nbsp;
+<i>60</i>&nbsp;    /** Parameters required to use this station */
+<i>61</i>&nbsp;    @ManyToMany(fetch = FetchType.LAZY)
+<i>62</i>&nbsp;    @NonNull
+<b class="nc"><i>63</i>&nbsp;    private List&lt;ProzessSchrittParameter&gt; requirements;</b>
+<i>64</i>&nbsp;
+<i>65</i>&nbsp;    @NonNull
+<i>66</i>&nbsp;    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+<b class="nc"><i>67</i>&nbsp;    private List&lt;User&gt; benutzer;</b>
+<i>68</i>&nbsp;
+<i>69</i>&nbsp;    @OneToOne
+<b class="nc"><i>70</i>&nbsp;    private ProzessSchritt currentPS;</b>
+<i>71</i>&nbsp;
+<i>72</i>&nbsp;    @Override
+<i>73</i>&nbsp;    public String toString() {
+<b class="fc"><i>74</i>&nbsp;        return standort.getOrt();</b>
+<i>75</i>&nbsp;    }
+<i>76</i>&nbsp;
+<i>77</i>&nbsp;
+<i>78</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-03-08 14:39</div>
+</div>
+</body>
+</html>

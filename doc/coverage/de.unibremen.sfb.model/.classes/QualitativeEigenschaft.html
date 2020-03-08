@@ -1,0 +1,166 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: QualitativeEigenschaft</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">de.unibremen.sfb.model</a> ]
+</div>
+
+<h1>Coverage Summary for Class: QualitativeEigenschaft (de.unibremen.sfb.model)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">QualitativeEigenschaft</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/ 8)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">QualitativeEigenschaft$MockitoMock$729956500</td>
+  </tr>
+  <tr>
+    <td class="name">QualitativeEigenschaft$MockitoMock$729956500$auxiliary$5XyBAEBt</td>
+  </tr>
+  <tr>
+    <td class="name">QualitativeEigenschaft$MockitoMock$729956500$auxiliary$fuoVdTg6</td>
+  </tr>
+  <tr>
+    <td class="name">QualitativeEigenschaft$MockitoMock$729956500$auxiliary$KfEyo9gp</td>
+  </tr>
+  <tr>
+    <td class="name">QualitativeEigenschaft$MockitoMock$729956500$auxiliary$KTVxScI5</td>
+  </tr>
+  <tr>
+    <td class="name">QualitativeEigenschaft$MockitoMock$729956500$auxiliary$Ovq0Ho0R</td>
+  </tr>
+  <tr>
+    <td class="name">QualitativeEigenschaft$MockitoMock$729956500$auxiliary$scH4DuBx</td>
+  </tr>
+  <tr>
+    <td class="name">QualitativeEigenschaft$MockitoMock$729956500$auxiliary$sPc7bOox</td>
+  </tr>
+  <tr>
+    <td class="name">QualitativeEigenschaft$MockitoMock$729956500$auxiliary$teMggoti</td>
+  </tr>
+  <tr>
+    <td class="name">QualitativeEigenschaft$MockitoMock$729956500$auxiliary$XBFIKr9C</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (7/ 7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/ 8)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package de.unibremen.sfb.model;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import lombok.*;
+<i>4</i>&nbsp;
+<i>5</i>&nbsp;import javax.persistence.Entity;
+<i>6</i>&nbsp;import javax.persistence.Id;
+<i>7</i>&nbsp;import javax.persistence.NamedQueries;
+<i>8</i>&nbsp;import javax.persistence.NamedQuery;
+<i>9</i>&nbsp;
+<i>10</i>&nbsp;/**
+<i>11</i>&nbsp; * Data class for the qualitative descriptors
+<i>12</i>&nbsp; */
+<b class="fc"><i>13</i>&nbsp;@Data</b>
+<i>14</i>&nbsp;@Entity
+<b class="fc"><i>15</i>&nbsp;@NoArgsConstructor(access = AccessLevel.PUBLIC)</b>
+<b class="fc"><i>16</i>&nbsp;@RequiredArgsConstructor(access = AccessLevel.PUBLIC)</b>
+<i>17</i>&nbsp;@NamedQueries({
+<i>18</i>&nbsp;        @NamedQuery(name = &quot;QualitativeEigenschaft.getAll&quot;, query = &quot;SELECT q FROM QualitativeEigenschaft q WHERE q.isValidData = true&quot;)
+<i>19</i>&nbsp;})
+<i>20</i>&nbsp;
+<i>21</i>&nbsp;public class QualitativeEigenschaft {
+<i>22</i>&nbsp;
+<i>23</i>&nbsp;    /**
+<i>24</i>&nbsp;     * On delete set to invalid
+<i>25</i>&nbsp;     */
+<b class="fc"><i>26</i>&nbsp;    @NonNull</b>
+<b class="fc"><i>27</i>&nbsp;    private boolean isValidData = true;</b>
+<i>28</i>&nbsp;
+<i>29</i>&nbsp;    /**
+<i>30</i>&nbsp;     * ID descriptor
+<i>31</i>&nbsp;     */
+<i>32</i>&nbsp;    @NonNull
+<i>33</i>&nbsp;    @Id
+<b class="fc"><i>34</i>&nbsp;    private int id;</b>
+<i>35</i>&nbsp;    /**
+<i>36</i>&nbsp;     * Qualitative descriptor name
+<i>37</i>&nbsp;     */
+<i>38</i>&nbsp;    @NonNull
+<b class="fc"><i>39</i>&nbsp;    private String name;</b>
+<i>40</i>&nbsp;
+<i>41</i>&nbsp;    @Override
+<i>42</i>&nbsp;    public String toString() {
+<b class="fc"><i>43</i>&nbsp;        return &quot;QualitativeEigenschaft &quot; +</b>
+<i>44</i>&nbsp;                name;
+<i>45</i>&nbsp;    }
+<i>46</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-03-08 14:39</div>
+</div>
+</body>
+</html>

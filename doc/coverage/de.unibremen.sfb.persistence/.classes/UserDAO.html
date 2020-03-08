@@ -1,0 +1,252 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="htmlId">
+<head>
+  <title>Coverage Report :: UserDAO</title>
+  <style type="text/css">
+    @import "../../.css/coverage.css";
+  </style>
+</head>
+
+<body>
+<div class="header"></div>
+
+<div class="content">
+<div class="breadCrumbs">
+    [ <a href="../../index.html">all classes</a> ]
+    [ <a href="../index.html">de.unibremen.sfb.persistence</a> ]
+</div>
+
+<h1>Coverage Summary for Class: UserDAO (de.unibremen.sfb.persistence)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">UserDAO</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/ 10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    88,2%
+  </span>
+  <span class="absValue">
+    (30/ 34)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">UserDAO$MockitoMock$1396111093</td>
+  </tr>
+  <tr>
+    <td class="name">UserDAO$MockitoMock$1396111093$auxiliary$0HOHlMMz</td>
+  </tr>
+  <tr>
+    <td class="name">UserDAO$MockitoMock$1396111093$auxiliary$44P867ZG</td>
+  </tr>
+  <tr>
+    <td class="name">UserDAO$MockitoMock$1396111093$auxiliary$7WT7s0Zc</td>
+  </tr>
+  <tr>
+    <td class="name">UserDAO$MockitoMock$1396111093$auxiliary$Al5S1nw4</td>
+  </tr>
+  <tr>
+    <td class="name">UserDAO$MockitoMock$1396111093$auxiliary$hDbXrjTe</td>
+  </tr>
+  <tr>
+    <td class="name">UserDAO$MockitoMock$1396111093$auxiliary$IfHpWJx5</td>
+  </tr>
+  <tr>
+    <td class="name">UserDAO$MockitoMock$1396111093$auxiliary$s0DLLTmG</td>
+  </tr>
+  <tr>
+    <td class="name">UserDAO$MockitoMock$1396111093$auxiliary$V9cgvZD3</td>
+  </tr>
+  <tr>
+    <td class="name">UserDAO$MockitoMock$1396111093$auxiliary$X9uBFLio</td>
+  </tr>
+  <tr>
+    <td class="name">UserDAO$MockitoMock$1396111093$auxiliary$zPaF8YOU</td>
+  </tr>
+<tr>
+  <td class="name"><strong>total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/ 10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    88,2%
+  </span>
+  <span class="absValue">
+    (30/ 34)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<div class="sourceCode"><i>1</i>&nbsp;package de.unibremen.sfb.persistence;
+<i>2</i>&nbsp;
+<i>3</i>&nbsp;import de.unibremen.sfb.exception.DuplicateUserException;
+<i>4</i>&nbsp;import de.unibremen.sfb.exception.UserNotFoundException;
+<i>5</i>&nbsp;import de.unibremen.sfb.model.User;
+<i>6</i>&nbsp;import lombok.extern.slf4j.Slf4j;
+<i>7</i>&nbsp;
+<i>8</i>&nbsp;import java.util.ArrayList;
+<i>9</i>&nbsp;import java.util.List;
+<i>10</i>&nbsp;
+<i>11</i>&nbsp;/**
+<i>12</i>&nbsp; * This class handles the users in the database
+<i>13</i>&nbsp; */
+<b class="fc"><i>14</i>&nbsp;@Slf4j</b>
+<b class="fc"><i>15</i>&nbsp;public class UserDAO extends ObjectDAO&lt;User&gt; {</b>
+<i>16</i>&nbsp;
+<i>17</i>&nbsp;    /**
+<i>18</i>&nbsp;     * Add a user object to the database
+<i>19</i>&nbsp;     *
+<i>20</i>&nbsp;     * @param u - the user object to add
+<i>21</i>&nbsp;     * @throws DuplicateUserException if the User already exists in the database
+<i>22</i>&nbsp;     */
+<i>23</i>&nbsp;    public void persist(User u) throws DuplicateUserException {
+<b class="fc"><i>24</i>&nbsp;        if (u != null) {</b>
+<b class="fc"><i>25</i>&nbsp;            synchronized (User.class) {</b>
+<b class="fc"><i>26</i>&nbsp;                if (em.contains(em.find(get(), u.getId()))) {</b>
+<b class="nc"><i>27</i>&nbsp;                    throw new DuplicateUserException();</b>
+<i>28</i>&nbsp;                }
+<b class="fc"><i>29</i>&nbsp;                em.persist(u);</b>
+<b class="fc"><i>30</i>&nbsp;            }</b>
+<i>31</i>&nbsp;        }
+<b class="fc"><i>32</i>&nbsp;    }</b>
+<i>33</i>&nbsp;
+<i>34</i>&nbsp;    /**
+<i>35</i>&nbsp;     * Update an existing user object in the database
+<i>36</i>&nbsp;     *
+<i>37</i>&nbsp;     * @param u - the user object to update in the database
+<i>38</i>&nbsp;     * @throws UserNotFoundException if the user couldn&#39;t be found in the database
+<i>39</i>&nbsp;     */
+<i>40</i>&nbsp;    public void update(User u) throws UserNotFoundException {
+<b class="fc"><i>41</i>&nbsp;        if (u != null) {</b>
+<b class="fc"><i>42</i>&nbsp;            if (!em.contains(em.find(get(), u.getId()))) {</b>
+<b class="nc"><i>43</i>&nbsp;                throw new UserNotFoundException();</b>
+<i>44</i>&nbsp;            }
+<b class="fc"><i>45</i>&nbsp;            em.merge(u);</b>
+<i>46</i>&nbsp;        }
+<b class="fc"><i>47</i>&nbsp;    }</b>
+<i>48</i>&nbsp;
+<i>49</i>&nbsp;    /**
+<i>50</i>&nbsp;     * Remove a user object from the database
+<i>51</i>&nbsp;     *
+<i>52</i>&nbsp;     * @param u - the user object to remove from the database
+<i>53</i>&nbsp;     * @throws UserNotFoundException if the user object couldn&#39;t be found
+<i>54</i>&nbsp;     */
+<i>55</i>&nbsp;    public void remove(User u) throws UserNotFoundException {
+<b class="fc"><i>56</i>&nbsp;        if (u != null) {</b>
+<b class="fc"><i>57</i>&nbsp;            if (!em.contains(em.find(get(), u.getId()))) {</b>
+<b class="nc"><i>58</i>&nbsp;                throw new UserNotFoundException();</b>
+<i>59</i>&nbsp;            }
+<b class="fc"><i>60</i>&nbsp;            u.setValidData(false);</b>
+<b class="fc"><i>61</i>&nbsp;            update(u);</b>
+<i>62</i>&nbsp;        }
+<b class="fc"><i>63</i>&nbsp;    }</b>
+<i>64</i>&nbsp;
+<i>65</i>&nbsp;    /**
+<i>66</i>&nbsp;     * @return the class of User
+<i>67</i>&nbsp;     */
+<i>68</i>&nbsp;    public Class&lt;User&gt; get() {
+<b class="fc"><i>69</i>&nbsp;        return User.class;</b>
+<i>70</i>&nbsp;    }
+<i>71</i>&nbsp;
+<i>72</i>&nbsp;    /**
+<i>73</i>&nbsp;     * Get a user object using the user&#39;s id
+<i>74</i>&nbsp;     *
+<i>75</i>&nbsp;     * @param id - the user id whose user object to fetch from the database
+<i>76</i>&nbsp;     * @return the user object matching the user id
+<i>77</i>&nbsp;     * @throws UserNotFoundException if the user couldn&#39;t be found
+<i>78</i>&nbsp;     */
+<i>79</i>&nbsp;    public User getUserById(int id) throws UserNotFoundException {
+<b class="fc"><i>80</i>&nbsp;        User u = em.find(get(), id);</b>
+<b class="fc"><i>81</i>&nbsp;        if (u == null || !u.isValidData()) {</b>
+<b class="fc"><i>82</i>&nbsp;            throw new UserNotFoundException();</b>
+<i>83</i>&nbsp;        }
+<b class="nc"><i>84</i>&nbsp;        return u;</b>
+<i>85</i>&nbsp;    }
+<i>86</i>&nbsp;
+<i>87</i>&nbsp;    /**
+<i>88</i>&nbsp;     * Get a user object using the user&#39;s name
+<i>89</i>&nbsp;     *
+<i>90</i>&nbsp;     * @param n - the name of the user whose user object to fetch from the database
+<i>91</i>&nbsp;     * @return the user object whose name matches the given name
+<i>92</i>&nbsp;     * @throws UserNotFoundException if the user couldn&#39;t be found
+<i>93</i>&nbsp;     */
+<i>94</i>&nbsp;    public User getUserByName(String n) throws UserNotFoundException {
+<i>95</i>&nbsp;        try {
+<b class="fc"><i>96</i>&nbsp;            return em.createNamedQuery(&quot;User.findByUsername&quot;, get()).setParameter(&quot;username&quot;, n).getSingleResult();</b>
+<b class="fc"><i>97</i>&nbsp;        } catch (Exception e) {</b>
+<b class="fc"><i>98</i>&nbsp;            throw new UserNotFoundException();</b>
+<i>99</i>&nbsp;        }
+<i>100</i>&nbsp;    }
+<i>101</i>&nbsp;
+<i>102</i>&nbsp;    /**
+<i>103</i>&nbsp;     * Get a user object using the user&#39;s email address
+<i>104</i>&nbsp;     *
+<i>105</i>&nbsp;     * @param m - the email of the user whose user object to fetch from the database
+<i>106</i>&nbsp;     * @return the user object whose email matches the given email
+<i>107</i>&nbsp;     * @throws UserNotFoundException if the user couldn&#39;t be found
+<i>108</i>&nbsp;     */
+<i>109</i>&nbsp;    public User getUserByMail(String m) throws UserNotFoundException {
+<i>110</i>&nbsp;        try {
+<b class="fc"><i>111</i>&nbsp;            return em.createNamedQuery(&quot;User.findByEmail&quot;, get()).setParameter(&quot;email&quot;, m).getSingleResult();</b>
+<b class="fc"><i>112</i>&nbsp;        } catch (Exception e) {</b>
+<b class="fc"><i>113</i>&nbsp;            throw new UserNotFoundException();</b>
+<i>114</i>&nbsp;        }
+<i>115</i>&nbsp;    }
+<i>116</i>&nbsp;
+<i>117</i>&nbsp;    /**
+<i>118</i>&nbsp;     * Get a list of all users in the database
+<i>119</i>&nbsp;     *
+<i>120</i>&nbsp;     * @return all users in the database
+<i>121</i>&nbsp;     */
+<i>122</i>&nbsp;    public List&lt;User&gt; getAll() {
+<i>123</i>&nbsp;        try {
+<b class="fc"><i>124</i>&nbsp;            return em.createNamedQuery(&quot;User.getAll&quot;, get()).getResultList();</b>
+<b class="fc"><i>125</i>&nbsp;        } catch (Exception e) {</b>
+<b class="fc"><i>126</i>&nbsp;            return new ArrayList&lt;&gt;();</b>
+<i>127</i>&nbsp;        }
+<i>128</i>&nbsp;    }
+<i>129</i>&nbsp;}
+</div>
+</div>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2020-03-08 14:39</div>
+</div>
+</body>
+</html>
