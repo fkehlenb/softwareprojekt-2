@@ -38,6 +38,11 @@ public class ExperimentierStationConverter implements Converter<ExperimentierSta
         if (value == null || value.isEmpty()) {
             return null;
         }
-        return experimentierStationService.findByName(value);
+        try {
+            return experimentierStationService.findByName(value);
+        }
+        catch (Exception e){
+            return null;
+        }
     }
 }

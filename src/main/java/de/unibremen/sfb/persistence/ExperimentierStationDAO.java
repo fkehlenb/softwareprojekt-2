@@ -2,9 +2,15 @@ package de.unibremen.sfb.persistence;
 
 import de.unibremen.sfb.exception.DuplicateExperimentierStationException;
 import de.unibremen.sfb.exception.ExperimentierStationNotFoundException;
+import de.unibremen.sfb.exception.ProzessSchrittNotFoundException;
 import de.unibremen.sfb.model.ExperimentierStation;
+import de.unibremen.sfb.model.ProzessSchritt;
+import de.unibremen.sfb.model.Standort;
+import de.unibremen.sfb.model.User;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -113,6 +119,56 @@ public class ExperimentierStationDAO extends ObjectDAO<ExperimentierStation> {
         } catch (Exception e) {
             e.printStackTrace();
             throw new ExperimentierStationNotFoundException();
+        }
+    }
+
+    /** Get all experimenting station by a user
+     * @param u - the user
+     * @return a list of all experimenting stations or an empty arraylist */
+    public List<ExperimentierStation> getESByUser(User u){
+        List<ExperimentierStation> es = new ArrayList<>();
+        try {
+            List<ExperimentierStation> all = getAll();
+            for (ExperimentierStation f : all){
+                for (User user : f.getBenutzer()){
+                    if (user.getId()==u.getId()){
+                        es.add(f);
+                        break;
+                    }
+                }
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return es;
+    }
+
+    /** Get the experimenting station a process step is being carried out at
+     * @param ps - the process step
+     * @return the location the process step is being carried out at
+     * @throws ProzessSchrittNotFoundException if it cannot be found */
+    public ExperimentierStation getStandortByPS(ProzessSchritt ps) throws ProzessSchrittNotFoundException{
+        try {
+            List<ExperimentierStation> allES = getAll();
+            for (ExperimentierStation f : allES){
+                if (f.getCurrentPS().getId()==ps.getId()){
+                    return f;
+                }
+                else{
+                    List<ProzessSchritt> pss = f.getNextPS();
+                    for (ProzessSchritt a : pss){
+                        if (a.getId()==ps.getId()){
+                            return f;
+                        }
+                    }
+                }
+            }
+            throw new Exception();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            throw new ProzessSchrittNotFoundException();
         }
     }
 }
