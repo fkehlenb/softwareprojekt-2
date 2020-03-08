@@ -200,7 +200,7 @@ public class ProzessSchrittService implements Serializable {
             boolean moeglich = (!(pkA.equals(ProzessKettenZustandsAutomat.INSTANZIIERT)
                     || pkA.equals(ProzessKettenZustandsAutomat.ABGELEHNT)));
             boolean current = isCurrentStep(ps);
-            boolean delivered = lastPS != null && isDelivered(lastPS, ps);
+            boolean delivered = lastPS != null && isDelivered(ps);
 
             if (moeglich && (current || delivered || ps.isUrformend()) && ps.isAssigned()) {
                 result.add(ps);
@@ -299,7 +299,7 @@ public class ProzessSchrittService implements Serializable {
         }
     }
 
-    public Boolean isDelivered(ProzessSchritt prozessSchritt, ProzessSchritt ps) {
+    public Boolean isDelivered(ProzessSchritt prozessSchritt) {
         boolean delivered = false;
         if (prozessSchritt.getTransportAuftrag() != null) {
             delivered = prozessSchritt.getTransportAuftrag().getAbgeliefert() != null;
