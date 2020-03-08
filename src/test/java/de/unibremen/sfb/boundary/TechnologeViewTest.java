@@ -67,9 +67,9 @@ class TechnologeViewTest {
     void testGetStationen() {
         when(experimentierStationService.getESByUser(any())).thenReturn(experimentierStations);
         when(esService.getESByUser(any())).thenReturn(experimentierStations);
-
+        when(experimentierStations.get(anyInt())).thenReturn(experimentierStation);
         List<ExperimentierStation> result = technologeView.getStationen();
-        Assertions.assertEquals(experimentierStations, result);
+        Assertions.assertEquals(experimentierStations.size(), result.size());
     }
 
     @Test

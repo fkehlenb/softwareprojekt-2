@@ -21,6 +21,10 @@ import static org.mockito.Mockito.*;
 
 class PSPViewTest {
     @Mock
+    List<QualitativeEigenschaft> qualitativeEigenschafts;
+    @Mock
+    List<QuantitativeEigenschaft> quantitativeEigenschafts;
+    @Mock
     ProzessSchrittParameterService prozessSchrittParameterService;
     @Mock
     QualitativeEigenschaftService qualitativeEigenschaftService;
@@ -48,10 +52,9 @@ class PSPViewTest {
 
     @Test
     void testCreatePSP() {
-        when(prozessSchrittParameterService.getAll()).thenReturn(Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(null))));
-        when(qualitativeEigenschaftService.getAllQualitativeEigenschaften()).thenReturn(Arrays.<QualitativeEigenschaft>asList(null));
-        when(quantitativeEigenschaftService.getAllQuantitativeEigenschaften()).thenReturn(Arrays.<QuantitativeEigenschaft>asList(new QuantitativeEigenschaft(0, "name")));
-
+        when(prozessSchrittParameterService.getAll()).thenReturn(prozessSchrittParameters);
+        when(qualitativeEigenschaftService.getAllQualitativeEigenschaften()).thenReturn(qualitativeEigenschafts);
+        when(quantitativeEigenschaftService.getAllQuantitativeEigenschaften()).thenReturn(quantitativeEigenschafts);
         pSPView.createPSP();
     }
 
@@ -90,20 +93,21 @@ class PSPViewTest {
     void testSetQuantitativeEigenschaftService() {
         pSPView.setQuantitativeEigenschaftService(new QuantitativeEigenschaftService());
     }
-
+    @Mock
+    List<ProzessSchrittParameter> prozessSchrittParameters;
     @Test
     void testSetAvailableProzessSchrittParameter() {
-        pSPView.setAvailableProzessSchrittParameter(Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(null))));
+        pSPView.setAvailableProzessSchrittParameter(prozessSchrittParameters);
     }
 
     @Test
     void testSetAvailableQualitativeEigenschaften() {
-        pSPView.setAvailableQualitativeEigenschaften(Arrays.<QualitativeEigenschaft>asList(null));
+        pSPView.setAvailableQualitativeEigenschaften(qualitativeEigenschafts);
     }
 
     @Test
     void testSetSelectedQualitativeEigenschaften() {
-        pSPView.setSelectedQualitativeEigenschaften(Arrays.<QualitativeEigenschaft>asList(null));
+        pSPView.setSelectedQualitativeEigenschaften(qualitativeEigenschafts);
     }
 
     @Test

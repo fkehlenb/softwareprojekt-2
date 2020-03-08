@@ -43,7 +43,7 @@ class SingleStationBeanTest {
     @Test
     void testSingleStation() {
         String result = singleStationBean.singleStation(new ExperimentierStation());
-        Assertions.assertEquals("replaceMeWithExpectedResult", result);
+        Assertions.assertEquals("singlestation.xhtml", result);
     }
 
     @Test
