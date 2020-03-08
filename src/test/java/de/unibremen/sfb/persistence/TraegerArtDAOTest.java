@@ -24,6 +24,7 @@ class TraegerArtDAOTest {
     TraegerArtDAO traegerArtDAO;
     @Mock
     TraegerArt traegerArt;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);

@@ -12,6 +12,7 @@ class AuftragsConverterTest {
     AuftragsConverter auftragsConverter = new AuftragsConverter();
     @Mock
     Auftrag auftrag;
+
     @BeforeEach
 
     @Test

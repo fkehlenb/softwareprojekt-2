@@ -47,7 +47,7 @@ class ProzessSchrittLogServiceTest {
             e.printStackTrace();
         }
 
-   }
+    }
 
     @Test
     void testAdd() {

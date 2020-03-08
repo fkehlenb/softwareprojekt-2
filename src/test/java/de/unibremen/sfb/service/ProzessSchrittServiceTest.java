@@ -75,7 +75,6 @@ class ProzessSchrittServiceTest {
 //    }
 
 
-
     @Test
     void testGetAll() {
         when(prozessSchrittDAO.getAll()).thenReturn(prozessSchritts);

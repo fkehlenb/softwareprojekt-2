@@ -1,4 +1,3 @@
-
 package de.unibremen.sfb.selenium;
 
 import org.junit.jupiter.api.AfterEach;
@@ -23,34 +22,36 @@ import java.util.concurrent.TimeUnit;
  * @since 1.0
  */
 public class EingeschaftenTest {
-private WebDriver driver;
-	private String spoofUserAgent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36";
+    private WebDriver driver;
+    private String spoofUserAgent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36";
+
     /**
      * This Class Shows, that even when correctly configured. The command  new PhantomJSDriver(); is buggy
      * Stack Overflow recommends updating the PhantomJS and Selenium to current Version
+     *
      * @return the Driver
      */
-	public WebDriver getDriver() {
-		if (this.driver == null) {
-			DesiredCapabilities caps = new DesiredCapabilities();
-			caps.setJavascriptEnabled(true);
-			caps.setCapability(
-					PhantomJSDriverService.PHANTOMJS_PAGE_SETTINGS_PREFIX
-							+ "userAgent", spoofUserAgent);
+    public WebDriver getDriver() {
+        if (this.driver == null) {
+            DesiredCapabilities caps = new DesiredCapabilities();
+            caps.setJavascriptEnabled(true);
+            caps.setCapability(
+                    PhantomJSDriverService.PHANTOMJS_PAGE_SETTINGS_PREFIX
+                            + "userAgent", spoofUserAgent);
 
-			caps.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS,
-					new String[] { "--web-security=false",
-							"--ssl-protocol=any", "--ignore-ssl-errors=true",
-							"--webdriver-loglevel=INFO" });
+            caps.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS,
+                    new String[]{"--web-security=false",
+                            "--ssl-protocol=any", "--ignore-ssl-errors=true",
+                            "--webdriver-loglevel=INFO"});
 
-			PhantomJSDriverService service = new PhantomJSDriverService.Builder()
-			        .usingPort(8081)
-			        .usingPhantomJSExecutable(new File("/usr/local/bin/phantomjs"))
-			        .build();
-			this.driver = new PhantomJSDriver(service, caps);
-		}
-		return this.driver;
-	}
+            PhantomJSDriverService service = new PhantomJSDriverService.Builder()
+                    .usingPort(8081)
+                    .usingPhantomJSExecutable(new File("/usr/local/bin/phantomjs"))
+                    .build();
+            this.driver = new PhantomJSDriver(service, caps);
+        }
+        return this.driver;
+    }
 
     /**
      * <p>setUp.</p>
@@ -67,7 +68,6 @@ private WebDriver driver;
     public void tearDown() {
         driver.close();
     }
-
 
 
     /**

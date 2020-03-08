@@ -29,6 +29,7 @@ class ProbeDAOTest {
     ProbeDAO probeDAO;
     @Mock
     Probe probe;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);

@@ -53,7 +53,7 @@ class ArchivDAOTest {
     @Test
     void testGet() {
         Class<Archiv> result = archivDAO.get();
-        Assertions.assertEquals(  de.unibremen.sfb.model.Archiv.class, result);
+        Assertions.assertEquals(de.unibremen.sfb.model.Archiv.class, result);
     }
 
     @Test

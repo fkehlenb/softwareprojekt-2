@@ -26,6 +26,7 @@ class TraegerDAOTest {
     TraegerDAO traegerDAO;
     @Mock
     Traeger traeger;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -52,12 +53,13 @@ class TraegerDAOTest {
     @Test
     void testGetObjById() throws TraegerNotFoundException {
         Traeger result = traegerDAO.getObjById(0);
-        Assertions.assertEquals(traeger,result);
+        Assertions.assertEquals(traeger, result);
     }
 
     @Test
     void testGetAll() {
         List<Traeger> result = traegerDAO.getAll();
-        Assertions.assertEquals("[]",result);   }
+        Assertions.assertEquals("[]", result);
+    }
 }
 

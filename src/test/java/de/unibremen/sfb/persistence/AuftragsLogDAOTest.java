@@ -24,6 +24,7 @@ class AuftragsLogDAOTest {
     AuftragsLogDAO auftragsLogDAO;
     @Mock
     AuftragsLog auftragsLog;
+
     @BeforeEach
     void setUp() {
 

@@ -62,17 +62,12 @@ class ProbenServiceTest {
 
     @InjectMocks
     ProbenService probenService;
+    @Inject
+    InitialDataFiller initialDataFiller;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-    }
-
-
-    //@Test To see
-    void testGetProbenByStandort() {
-        List<Probe> result = probenService.getProbenByStandort(standort);
-        Assertions.assertEquals(proben, result);
     }
 
     //@Test To See
@@ -88,6 +83,12 @@ class ProbenServiceTest {
 //        List<Probe> result = probenService.getProbenByUser(user);
 //        Assertions.assertEquals(probes, result);
 //    }
+
+    //@Test To see
+    void testGetProbenByStandort() {
+        List<Probe> result = probenService.getProbenByStandort(standort);
+        Assertions.assertEquals(proben, result);
+    }
 
     @Test
     void testAddProbenComment() throws ProbeNotFoundException, DuplicateKommentarException {
@@ -124,11 +125,6 @@ class ProbenServiceTest {
         Assertions.assertEquals("", result);
     }
 
-    @Test
-    void testSetZustandForProbe() throws ProbeNotFoundException {
-        // probenService.setZustandForProbe(probe);
-    }
-
     //@Test
 //    void testAddNewSample() throws DuplicateProbeException {
 //
@@ -142,11 +138,8 @@ class ProbenServiceTest {
 //    }
 
     @Test
-    void testGetProbenTotalCount() {
-        when(probeDAO.getProbenCount()).thenReturn(0);
-
-        int result = probenService.getProbenTotalCount();
-        Assertions.assertEquals(0, result);
+    void testSetZustandForProbe() throws ProbeNotFoundException {
+        // probenService.setZustandForProbe(probe);
     }
 
     //@Test
@@ -155,6 +148,14 @@ class ProbenServiceTest {
 //        List<Probe> result = probenService.getProbenListe(0, 0);
 //        Assertions.assertEquals(Arrays.<Probe>asList(probe), result);
 //    }
+
+    @Test
+    void testGetProbenTotalCount() {
+        when(probeDAO.getProbenCount()).thenReturn(0);
+
+        int result = probenService.getProbenTotalCount();
+        Assertions.assertEquals(0, result);
+    }
 
     @Test
     void testGetAllArchived() {
@@ -189,9 +190,6 @@ class ProbenServiceTest {
         Assertions.assertEquals(proben, result);
     }
 
-    @Inject
-    InitialDataFiller initialDataFiller;
-
     /**
      * erstellt proben für einen prozessschritt
      *
@@ -210,16 +208,16 @@ class ProbenServiceTest {
             p1.setKommentar(List.of(new Kommentar(LocalDateTime.now(), "hallo" + i)));
         }
         Random random = new Random();
-      Traeger t = new Traeger(UUID.randomUUID().hashCode(), "Test", r, standort);
+        Traeger t = new Traeger(UUID.randomUUID().hashCode(), "Test", r, standort);
 
 
-      String string = "";
+        String string = "";
 
-    JsonbConfig config = new JsonbConfig().withFormatting(true);
-    Jsonb jsonb = JsonbBuilder.create(config);
-    List<Traeger> p = List.of(initialDataFiller.erstelleProben(new Standort(UUID.randomUUID().hashCode(), "test")));
-    String json = jsonb.toJson(p).toString();
+        JsonbConfig config = new JsonbConfig().withFormatting(true);
+        Jsonb jsonb = JsonbBuilder.create(config);
+        List<Traeger> p = List.of(initialDataFiller.erstelleProben(new Standort(UUID.randomUUID().hashCode(), "test")));
+        String json = jsonb.toJson(p).toString();
 //    return  probenService.jsonObjects(json, p);
 
-}
+    }
 }

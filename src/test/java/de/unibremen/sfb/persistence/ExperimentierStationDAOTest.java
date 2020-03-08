@@ -26,9 +26,9 @@ class ExperimentierStationDAOTest {
     ExperimentierStationDAO experimentierStationDAO;
     @Mock
     ExperimentierStation experimentierStation;
+
     @BeforeEach
-    void setUp()
-    {
+    void setUp() {
         MockitoAnnotations.initMocks(this);
 
     }

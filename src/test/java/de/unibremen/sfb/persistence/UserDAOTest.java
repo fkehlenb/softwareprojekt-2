@@ -28,6 +28,7 @@ class UserDAOTest {
     UserDAO userDAO;
     @Mock
     User user;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);

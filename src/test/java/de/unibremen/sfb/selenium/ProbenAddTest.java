@@ -24,9 +24,11 @@ import java.util.*;
 public class ProbenAddTest {
     private WebDriver driver;
     private String spoofUserAgent = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36";
+
     /**
      * This Class Shows, that even when correctly configured. The command  new PhantomJSDriver(); is buggy
      * Stack Overflow recommends updating the PhantomJS and Selenium to current Version
+     *
      * @return the Driver
      */
     public WebDriver getDriver() {
@@ -38,9 +40,9 @@ public class ProbenAddTest {
                             + "userAgent", spoofUserAgent);
 
             caps.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS,
-                    new String[] { "--web-security=false",
+                    new String[]{"--web-security=false",
                             "--ssl-protocol=any", "--ignore-ssl-errors=true",
-                            "--webdriver-loglevel=INFO" });
+                            "--webdriver-loglevel=INFO"});
 
             PhantomJSDriverService service = new PhantomJSDriverService.Builder()
                     .usingPort(8081)
@@ -50,13 +52,15 @@ public class ProbenAddTest {
         }
         return this.driver;
     }
-  /**
-   * <p>tearDown.</p>
-   */
-  @AfterEach
-  public void tearDown() {
-    driver.quit();
-  }
+
+    /**
+     * <p>tearDown.</p>
+     */
+    @AfterEach
+    public void tearDown() {
+        driver.quit();
+    }
+
     /**
      * <p>setUp.</p>
      */
@@ -67,70 +71,71 @@ public class ProbenAddTest {
         // Set implicit wait
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
-  /**
-   * <p>probenAdd.</p>
-   *
-   * @throws java.lang.InterruptedException if any.
-   */
-  @Test
-  public void probenAdd() throws InterruptedException {
-    //Anmeldung
-    driver.get("http://localhost:8080/");
-    driver.manage().window().setSize(new Dimension(1440, 900));
-   driver.findElement(By.xpath("//p/a")).click();
-    driver.findElement(By.id("username")).click();
-    Thread.sleep(700);
-    driver.findElement(By.id("username")).sendKeys("admin");
-    Thread.sleep(700);
-    driver.findElement(By.id("password")).sendKeys("12345678");
-    Thread.sleep(700);
-    driver.findElement(By.xpath("//button/span")).click();
-    Thread.sleep(700);
-    driver.findElement(By.xpath("//div[2]/div/h3")).click();
-    Thread.sleep(700);
-    driver.findElement(By.xpath("//li[4]/a/span[2]")).click();
-    Thread.sleep(700);
-    driver.findElement(By.xpath("//li[4]/ul/li[6]/a/span")).click();
-    Thread.sleep(700);
-    driver.findElement(By.xpath("//td[2]/input")).click();
-    Thread.sleep(700);
-    driver.findElement(By.id("form:j_idt67")).sendKeys("A22.222");
-    Thread.sleep(700);
-    driver.findElement(By.id("form:j_idt72")).sendKeys("100");
-    Thread.sleep(700);
-    driver.findElement(By.xpath("//button/span[2]")).click();
-    Thread.sleep(700);
-    driver.findElement(By.xpath("//div[2]/div/h3")).click();
-    Thread.sleep(700);
-    driver.findElement(By.xpath("//li[4]/a/span[2]")).click();
-    Thread.sleep(700);
-    driver.findElement(By.xpath("//li[4]/ul/li[7]/a/span")).click();
-    Thread.sleep(700);
-    driver.findElement(By.xpath("//td/input")).click();
-    Thread.sleep(700);
-    driver.findElement(By.id("form:pid")).sendKeys("A22.222");
-    Thread.sleep(700);
-    driver.findElement(By.xpath("//td[2]/input")).click();
-    Thread.sleep(700);
-    driver.findElement(By.id("form:pAnzahl")).sendKeys("50");
-    Thread.sleep(700);
-    driver.findElement(By.xpath("//button/span")).click();
-    Thread.sleep(700);
-    driver.findElement(By.xpath("//li[4]/ul/li[3]/a/span")).click();
-    Thread.sleep(700);
-    driver.findElement(By.xpath("//li[4]/ul/li[7]/a/span")).click();
-    Thread.sleep(700);
-    driver.findElement(By.xpath("//td/input")).click();
-    Thread.sleep(700);
-    driver.findElement(By.id("form:pid")).sendKeys("A22.222");
-    Thread.sleep(700);
-    driver.findElement(By.xpath("//td[2]/input")).click();
-    Thread.sleep(700);
-    driver.findElement(By.id("form:pAnzahl")).sendKeys("50");
-    Thread.sleep(700);
-    driver.findElement(By.xpath("//button/span")).click();
-    Thread.sleep(700);
-    driver.findElement(By.xpath("//li[4]/ul/li[3]/a/span")).click();
-    Thread.sleep(700);
-  }
+
+    /**
+     * <p>probenAdd.</p>
+     *
+     * @throws java.lang.InterruptedException if any.
+     */
+    @Test
+    public void probenAdd() throws InterruptedException {
+        //Anmeldung
+        driver.get("http://localhost:8080/");
+        driver.manage().window().setSize(new Dimension(1440, 900));
+        driver.findElement(By.xpath("//p/a")).click();
+        driver.findElement(By.id("username")).click();
+        Thread.sleep(700);
+        driver.findElement(By.id("username")).sendKeys("admin");
+        Thread.sleep(700);
+        driver.findElement(By.id("password")).sendKeys("12345678");
+        Thread.sleep(700);
+        driver.findElement(By.xpath("//button/span")).click();
+        Thread.sleep(700);
+        driver.findElement(By.xpath("//div[2]/div/h3")).click();
+        Thread.sleep(700);
+        driver.findElement(By.xpath("//li[4]/a/span[2]")).click();
+        Thread.sleep(700);
+        driver.findElement(By.xpath("//li[4]/ul/li[6]/a/span")).click();
+        Thread.sleep(700);
+        driver.findElement(By.xpath("//td[2]/input")).click();
+        Thread.sleep(700);
+        driver.findElement(By.id("form:j_idt67")).sendKeys("A22.222");
+        Thread.sleep(700);
+        driver.findElement(By.id("form:j_idt72")).sendKeys("100");
+        Thread.sleep(700);
+        driver.findElement(By.xpath("//button/span[2]")).click();
+        Thread.sleep(700);
+        driver.findElement(By.xpath("//div[2]/div/h3")).click();
+        Thread.sleep(700);
+        driver.findElement(By.xpath("//li[4]/a/span[2]")).click();
+        Thread.sleep(700);
+        driver.findElement(By.xpath("//li[4]/ul/li[7]/a/span")).click();
+        Thread.sleep(700);
+        driver.findElement(By.xpath("//td/input")).click();
+        Thread.sleep(700);
+        driver.findElement(By.id("form:pid")).sendKeys("A22.222");
+        Thread.sleep(700);
+        driver.findElement(By.xpath("//td[2]/input")).click();
+        Thread.sleep(700);
+        driver.findElement(By.id("form:pAnzahl")).sendKeys("50");
+        Thread.sleep(700);
+        driver.findElement(By.xpath("//button/span")).click();
+        Thread.sleep(700);
+        driver.findElement(By.xpath("//li[4]/ul/li[3]/a/span")).click();
+        Thread.sleep(700);
+        driver.findElement(By.xpath("//li[4]/ul/li[7]/a/span")).click();
+        Thread.sleep(700);
+        driver.findElement(By.xpath("//td/input")).click();
+        Thread.sleep(700);
+        driver.findElement(By.id("form:pid")).sendKeys("A22.222");
+        Thread.sleep(700);
+        driver.findElement(By.xpath("//td[2]/input")).click();
+        Thread.sleep(700);
+        driver.findElement(By.id("form:pAnzahl")).sendKeys("50");
+        Thread.sleep(700);
+        driver.findElement(By.xpath("//button/span")).click();
+        Thread.sleep(700);
+        driver.findElement(By.xpath("//li[4]/ul/li[3]/a/span")).click();
+        Thread.sleep(700);
+    }
 }

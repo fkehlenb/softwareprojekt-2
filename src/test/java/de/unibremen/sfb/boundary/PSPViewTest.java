@@ -44,6 +44,8 @@ class PSPViewTest {
     Logger log;
     @InjectMocks
     PSPView pSPView;
+    @Mock
+    List<ProzessSchrittParameter> prozessSchrittParameters;
 
     @BeforeEach
     void setUp() {
@@ -78,7 +80,6 @@ class PSPViewTest {
         pSPView.removePSP(0);
     }
 
-
     @Test
     void testSetProzessSchrittParameterService() {
         pSPView.setProzessSchrittParameterService(new ProzessSchrittParameterService());
@@ -93,8 +94,7 @@ class PSPViewTest {
     void testSetQuantitativeEigenschaftService() {
         pSPView.setQuantitativeEigenschaftService(new QuantitativeEigenschaftService());
     }
-    @Mock
-    List<ProzessSchrittParameter> prozessSchrittParameters;
+
     @Test
     void testSetAvailableProzessSchrittParameter() {
         pSPView.setAvailableProzessSchrittParameter(prozessSchrittParameters);

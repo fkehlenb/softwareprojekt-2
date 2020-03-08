@@ -39,6 +39,14 @@ class TransporterBeanTest {
     Logger log;
     @InjectMocks
     TransporterBean transporterBean;
+    @Mock
+    List<ProzessSchritt> prozessSchritts;
+    @Mock
+    List<ProzessSchritt> prozessSchritts1;
+    @Mock
+    List<ProzessSchritt> prozessSchritts13;
+    @Mock
+    List<TransportAuftrag> transportAuftrags;
 
     @BeforeEach
     void setUp() {
@@ -47,19 +55,13 @@ class TransporterBeanTest {
         when(auftragService.getTransportSchritt()).thenReturn(prozessSchrittList2);
         when(auftragService.getTransportSchritt3()).thenReturn(prozessSchritts13);
     }
-    @Mock
-    List<ProzessSchritt> prozessSchritts;
-    @Mock
-    List<ProzessSchritt> prozessSchritts1;
-    @Mock
-    List<ProzessSchritt> prozessSchritts13;
-
 
     @Test
     void testGetAuftragList() {
         when(auftragService.getTransportSchritt()).thenReturn(prozessSchritts);
         List<ProzessSchritt> result = transporterBean.getAuftragList();
-        Assertions.assertEquals(prozessSchritts, result); }
+        Assertions.assertEquals(prozessSchritts, result);
+    }
 
     @Test
     void testChangeTransportZustandAbgeholt() throws UserNotFoundException, TransportAuftragNotFoundException {
@@ -80,9 +82,6 @@ class TransporterBeanTest {
         //transporterBean.changeTransportZustandAbgeliefert(0);
     }
 
-
-
-
     @Test
     void testSetProzessSchrittList2() {
         transporterBean.setProzessSchrittList2(prozessSchrittList2);
@@ -90,14 +89,13 @@ class TransporterBeanTest {
 
     @Test
     void testSetProzessSchrittList3() {
-        transporterBean.setProzessSchrittList3(prozessSchrittList3);  }
-    @Mock
-    List<TransportAuftrag> transportAuftrags;
-    @Test
-    void testSetTransportAuftragSelected() {
-        transporterBean.setTransportAuftragSelected( transportAuftrags);
+        transporterBean.setProzessSchrittList3(prozessSchrittList3);
     }
 
+    @Test
+    void testSetTransportAuftragSelected() {
+        transporterBean.setTransportAuftragSelected(transportAuftrags);
+    }
 
 
     @Test

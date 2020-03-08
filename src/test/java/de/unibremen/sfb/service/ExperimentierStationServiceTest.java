@@ -108,7 +108,6 @@ class ExperimentierStationServiceTest {
     }
 
 
-
     @Test
     void testGetAll() {
         when(esDao.getAll()).thenReturn(experimentierStations);
@@ -130,7 +129,7 @@ class ExperimentierStationServiceTest {
     void testGetESByUser() {
 
         List<ExperimentierStation> result = experimentierStationService.getESByUser(user);
-        verify(experimentierStationDAO,atLeastOnce()).getAll();
+        verify(experimentierStationDAO, atLeastOnce()).getAll();
     }
 
     //@Test Landa Ausdruck
@@ -152,7 +151,7 @@ class ExperimentierStationServiceTest {
     //@Test
     void testDeleteCurrent() throws ExperimentierStationNotFoundException {
 
-        experimentierStationService.deleteCurrent(prozessSchritt,experimentierStation);
-       verify(esDao).remove(experimentierStation);
+        experimentierStationService.deleteCurrent(prozessSchritt, experimentierStation);
+        verify(esDao).remove(experimentierStation);
     }
 }

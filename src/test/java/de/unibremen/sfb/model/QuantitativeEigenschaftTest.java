@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.mockito.Mockito.*;
+
 class QuantitativeEigenschaftTest {
     @Mock
     Number wert;

@@ -26,6 +26,7 @@ class StandortDAOTest {
     StandortDAO standortDAO;
     @Mock
     Standort standort;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);

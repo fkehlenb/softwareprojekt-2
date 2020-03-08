@@ -51,8 +51,6 @@ class SListViewTest {
     }
 
 
-
-
     @Test
     void testSetAlleStandorte() {
         sListView.setAlleStandorte(Arrays.<Standort>asList(new Standort(0, "ort")));

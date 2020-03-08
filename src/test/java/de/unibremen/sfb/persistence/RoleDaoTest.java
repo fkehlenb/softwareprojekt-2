@@ -37,8 +37,7 @@ class RoleDaoTest {
     RoleDao roleDao;
 
     @BeforeEach
-    void setUp()
-    {
+    void setUp() {
 
         MockitoAnnotations.initMocks(this);
         when(role.getId()).thenReturn(0);
@@ -68,7 +67,7 @@ class RoleDaoTest {
     @Test
     void testGet() {
         Class<Role> result = roleDao.get();
-        Assertions.assertEquals( Role.class, result);
+        Assertions.assertEquals(Role.class, result);
     }
 
     @Test

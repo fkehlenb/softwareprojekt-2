@@ -24,6 +24,7 @@ class QuantitativeEigenschaftDAOTest {
     QuantitativeEigenschaftDAO quantitativeEigenschaftDAO;
     @Mock
     QualitativeEigenschaft qualitativeEigenschaft;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);

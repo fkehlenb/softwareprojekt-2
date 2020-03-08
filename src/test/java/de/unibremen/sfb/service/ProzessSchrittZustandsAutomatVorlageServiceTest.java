@@ -28,6 +28,7 @@ class ProzessSchrittZustandsAutomatVorlageServiceTest {
     ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage;
     @Mock
     List<ProzessSchrittZustandsAutomatVorlage> prozessSchrittZustandsAutomatVorlages;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -77,9 +78,9 @@ class ProzessSchrittZustandsAutomatVorlageServiceTest {
     @Test
     void testGetByID() throws ProzessSchrittZustandsAutomatVorlageNotFoundException {
 
-            when(prozessSchrittZustandsAutomatVorlageDAO.getById(anyInt())).thenReturn(prozessSchrittZustandsAutomatVorlage);
+        when(prozessSchrittZustandsAutomatVorlageDAO.getById(anyInt())).thenReturn(prozessSchrittZustandsAutomatVorlage);
 
-        ProzessSchrittZustandsAutomatVorlage result =  prozessSchrittZustandsAutomatVorlageService.getByID(0);
+        ProzessSchrittZustandsAutomatVorlage result = prozessSchrittZustandsAutomatVorlageService.getByID(0);
 
         Assertions.assertEquals(prozessSchrittZustandsAutomatVorlage, result);
     }

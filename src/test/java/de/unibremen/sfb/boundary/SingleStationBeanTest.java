@@ -12,10 +12,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 
-import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -59,6 +56,7 @@ class SingleStationBeanTest {
         when(station.getCurrentPS()).thenReturn(prozessSchritt);
         when(auftragService.getAuftrag(any())).thenReturn(auftrag);
         List<Probe> result = singleStationBean.getProben();
-        Assertions.assertEquals(new ArrayList<Probe>().getClass(),result.getClass());  }
+        Assertions.assertEquals(new ArrayList<Probe>().getClass(), result.getClass());
+    }
 }
 
