@@ -129,30 +129,10 @@ public class InitialDataFiller {
             /*
               persis von QualitativeEigenschaft durch die Variebln qualitativeEigenschaftList
               */
-            List<QualitativeEigenschaft> qualitativeEigenschaftList = getQualitativeEigenschaften();
-            for (QualitativeEigenschaft qE : qualitativeEigenschaftList
-            ) {
-                log.info("Trying to Persist Qualitaet Eingenschaft " + qE.getName());
-                em.persist(qE);
-            }
-
-            em.persist(new QuantitativeEigenschaft("Lustige Eigenschaft", 420, "seconds"));
-
-            //    PS Parameter
-            List<ProzessSchrittParameter> parameters = new ArrayList<>();
-            for (int i = 0; i < limit; i++) {
-                parameters.add(new ProzessSchrittParameter(UUID.randomUUID().hashCode(), f.gameOfThrones().dragon(), qualitativeEigenschaftList));
-            }
-
-            for (ProzessSchrittParameter psp : parameters
-            ) {
-                log.info("Trying to persist ProzessSchrittParameter " + psp.getName());
-                em.persist(psp);
-            }
 
             // PSZAV Setup
             pszaVorlage = new ProzessSchrittZustandsAutomatVorlage(996699,
-                    psZustaende, "Standart");
+                    psZustaende, "Standard");
             log.info("Try to persist ProzessSchrittZustandsAutomatVorlage " + pszaVorlage.toString());
             em.persist(pszaVorlage);
 
@@ -331,8 +311,8 @@ public class InitialDataFiller {
             users.add(testUser);
 
             testUser = new User(UUID.randomUUID().hashCode(), "Default", "Admin", "l@g.c", f.phoneNumber().cellPhone(),
-                    "admin", matcher.getPasswordService().encryptPassword("12345678"), true, LocalDateTime.now(),
-                    "en");
+                    "admin", matcher.getPasswordService().encryptPassword("admin"), true, LocalDateTime.now(),
+                    "de");
             roleService.applyRoles(List.of("admin", "transport", "pkAdmin", "logistik", "technologe"), "admin");
             // Add to user Lost
 

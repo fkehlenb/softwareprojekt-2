@@ -900,21 +900,20 @@ Im Menü-Unterpunkt Archivübersicht haben Sie eine Übersicht über die Proben,
 \hline
 \multicolumn{1}{|c|}{\textbf{Hinweis}}                          & \multicolumn{1}{c|}{\textbf{Ursache}}                                                                                                                                                                                                               \\ \hline
 \endhead
-Failed to add new Traeger with Art: .. & \\ \hline
-Probe und Traeger nicht am gleichen standort!& \\ \hline
-Failed to edit traeger with ID:  & \\ \hline
-Failed to remove traeger with ID: & \\ \hline
-Der Standort Lager wurde nicht gefunden und wird nun erstellt, Proben können lediglich im Lager erstellt werden! & \\ \hline
+Failed to add new Traeger with Art: .. & Es existiert bereits ein Träger mit der generierten ID. Versuchen Sie es erneut. \\ \hline
+Probe und Traeger nicht am gleichen standort!& Die Proben, die Sie einem Träger zuordnen wollten, sind nicht am gleichen Ort wie der Träger.\\ \hline
+Failed to edit traeger with ID:  & Der Träger konnte nicht in der Datenbank gefunden werden. \\ \hline
+Failed to remove traeger with ID: & Der Träger konnte nicht in der Datenbank gefunden werden. \\ \hline
+Der Standort Lager wurde nicht gefunden und wird nun erstellt, Proben können lediglich im Lager erstellt werden! & Der Lagerstandort, wo alle neu erstellten Proben automatisch sind, wurde nicht in der Datenbank gefunden. Sie müssen keine weiteren Änderungen vornehmen, da dieser jetzt erstellt wurde.  \\ \hline
 Die Probe existiert bereits!:  & Es existiert bereits eine Probengruppe mit dieser ID.  \\ \hline
-Couldn't start job!& \\ \hline
+Couldn't start job!& Es sind interne Fehler beim Erstellen des Auftrags und der Komponenten aufgetreten. Bitte versuchen Sie es erneut oder kontaktieren Sie das Entwicklerteam. \\ \hline
 Auftrag ist Urformend und darf keine Träger enthalten! & Ein Auftrag, der urformend ist, darf keine Träger enthalten, da die Proben im Laufe dieses Schritts erstellt werden. Bitte entfernen Sie die zugeordneten Träger. \\ \hline
-Failed to change auftrag state! ID:  & \\ \hline
-Darf nicht leer sein & \\ \hline
-Failed to change auftrag state! ID:  & \\ \hline
-The given number of samples is higher than the number of samples in the database. &  \\ \hline
+Failed to change auftrag state! ID:  & Der Auftrag, dessen Zustands Sie ändern wollen, konnte nicht in der Datenbank gefunden werden. \\ \hline
+Darf nicht leer sein & Wenn Sie eine Auftrag ablehnen wollen, müssen Sie eine kurze Begründung in das Eingabefeld eingeben.  \\ \hline
+The given number of samples is higher than the number of samples in the database. &  Die Anzahl, die Sie von dieser Probengruppe als verloren melden wollen, ist höher, als die Anzahl an Proben, die für diese Probengruppe in der Datenbank gespeichert ist. \\ \hline
 sample .. could not be found when trying to report as missing. & Die Probe, die Sie als verloren melden wollen, konnte nicht in der Datenbank gefunden werden. \\ \hline
 Probe.. wurde nicht gefunden! & Die Probe mit der ID konnte nicht in der Datenbank gefunden werden. \\ \hline
-invalid input& \\ \hline
+invalid input&Proben-ID und Anzahl dürfen nicht leer sein.  \\ \hline
 \end{longtable}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Technologe}
@@ -925,6 +924,17 @@ Im Folgenden finden Sie Anleitungen für alle Aktionen, die ein Technologe durch
 \subsubsection{Experimentierstationen}
 Im Menü-Unterpunkt Meine Experimentierstationen haben Sie eine Übersicht über alle Experimentierstationen, denen Sie zugeordnet sind, und können diese als kaputt melden. \\
 
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/t/stationen.png}
+  \caption{Stationenübersicht}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
+
+
 In der Tabelle können Sie mit den Pfeiltasten zwischen die Seiten navigieren. \\
 
 Um eine Station als kaputt zu melden, klicken Sie in der zugehörigen Tabellenzeile auf Melden klicken. \\
@@ -932,16 +942,59 @@ Um eine Station als kaputt zu melden, klicken Sie in der zugehörigen Tabellenze
 Wollen Sie weitere Details zu einer Station sehen, klicken Sie auf Auswählen am Ende der zugehörigen Tabellenzeile. \\
 
 In der Übersicht über eine einzelne Station sehen Sie die ID, den Standort, den aktuellen Status, sowie welcher Prozessschritt dort aktuell in Ausführung ist. Die Proben, die sich aktuell an dieser Station befinden, werden in einer Tabelle am Ende der Seite angezeigt. Für eine detaillierte Ansicht einer Probe klicken Sie auf Auswählen am Ende der zugehörigen Tabellenzeile. Diese Station können Sie auch hier als kaputt melden, indem Sie am Anfang der Seite auf Melden klicken. \\
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/t/stationformular.png}
+  \caption{Einzelne Station}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
 
 %%%%%%%%%%
 \subsubsection{Aktuelle Arbeitsaufträge}
 Im Menü-Unterpunkt Meine Aufträge finden Sie eine Übersicht über die Aufträge, die Sie aktuell bearbeiten, in Ihrer Priorität abwärts sortiert. Um eine detaillierte Übersicht über einen Auftrag zu sehen, und Angaben zu diesem zu machen, klicken Sie am Ende der zugehörigen Tabellenzeile auf Auswählen. \\
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/t/meineauftrage.png}
+  \caption{Meine Aufträge}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/t/auftragparameter.png}
+  \caption{Prozessschrittparameter eines Auftrags}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
+
 
 In dieser Übersicht können Sie den Zustand des Prozessschrittes weiterschalten, indem Sie auf weiterschalten klicken. Wollen Sie selber eine Transitionszeit eingeben, können Sie dies im nebenliegenden Feld machen; wenn Sie keine Angabe machen, wird die aktuelle Zeit übernommen. Wenn Sie den Schritt komplett ausgeführt haben, wird automatisch ein Transportauftrag für diese Proben erstellt. Sie können ebenfalls alle Proben sehen, die diesem Schritt zugeordnet sind, und durch Klicken auf Auswählen Details zu einer Probe sehen. \\
 
 %%%%%%%%%%
 \subsubsection{Angekündigte Arbeitsaufträge}
 Im Menü-Unterpunkt Angekündigte Arbeitsaufträge haben Sie eine Übersicht über alle Aufträge, die an Ihren Stationen auf Bearbeitung warten. Diese Aufträge werden automatisch zu Aufträgen, die Sie aktuell bearbeiten: Wenn Sie einen aktuellen Auftrag fertig bearbeitet haben, wird der nächste Auftrag, der an der Station wartet, als aktueller Auftrag festgelegt. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/t/verfugbareauftrage.png}
+  \caption{Verfügbare Aufträge}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/t/verfugbareauftrageparameter.png}
+  \caption{Verfügbare Aufträge Parameter}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
+
 
 %%%%%%%%%%
 \subsubsection{Proben}
@@ -950,6 +1003,15 @@ Im Menü-Unterpunkt Proben und Upload können Sie alle Proben sehen, die zu Proz
 In der Übersicht einer Probengruppe können Sie Informationen über diese Gruppe einsehen, Daten hochladen und Proben dieser Gruppe als verloren melden. //TODO \\
 
 Im Menü-Unterpunkt Probenverlust melden können Sie eine oder mehrere Proben als verloren melden. Dafür geben Sie die ID der Probengruppe, zu der diese Probe(n) gehören, sowie die Anzahl an Proben ein. Wenn Sie alle Angaben gemacht haben, können Sie die Probe(n) durch Klicken auf Senden als verloren melden. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/t/probemelden.png}
+  \caption{Probenverlust melden}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
 
 \subsubsection{Fehler und Ursachen}
 \begin{longtable}[c]{|p{5cm}|p{10cm}|}

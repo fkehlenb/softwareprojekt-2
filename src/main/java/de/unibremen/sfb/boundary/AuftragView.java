@@ -157,7 +157,7 @@ public class AuftragView implements Serializable {
     private void refresh() {
         availableJobs = auftragService.getAll();
         availableProzessKettenVorlagen = prozessKettenVorlageService.getAll();
-        availableProzessSchritte = prozessSchrittService.getAllAvailable();
+        availableProzessSchritte = prozessSchrittService.getAll();
         availablePriorities = new ArrayList<>();
         availablePriorities.add(AuftragsPrioritaet.KEINE);
         availablePriorities.add(AuftragsPrioritaet.ETWAS);
