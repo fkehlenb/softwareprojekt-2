@@ -262,29 +262,9 @@ public class ExperimentierStationService implements Serializable {
                     f.printStackTrace();
                 }
             }
-            if (e.getCurrentPS() != null && e.getCurrentPS().isValidData() && e.getCurrentPS().isAssigned()) {
-                ps.add(e.getCurrentPS());
-            }
-            else{
-                if (!e.getNextPS().isEmpty()) {
-                    for (int i=0;i<e.getNextPS().size();i++) {
-                        if (e.getNextPS().get(i).isValidData()){
-                            e.setCurrentPS(e.getNextPS().get(i));
-                            try {
-                                updateES(e);
-                            }
-                            catch (Exception f){
-                                f.printStackTrace();
-                            }
-                            ps.add(e.getCurrentPS());
-                        }
-                    }
-
-                }
-                else{
-                    e.setCurrentPS(null);
-                }
-            }
+        }
+        for (ExperimentierStation e : gu){
+            ps.add(e.getCurrentPS());
         }
         return ps;
     }

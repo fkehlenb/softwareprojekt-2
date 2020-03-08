@@ -202,7 +202,7 @@ In unserer Anwendung haben Benutzer entsprechend Ihrer Rollen eine Übersicht ü
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newpage
+\clearpage
 \section{Erste Schritte für Anwender}
 
 \subsection{Installation}
@@ -332,7 +332,7 @@ Ebenfalls können Sie sich hier unter Logout abmelden. \\
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newpage
+\clearpage
 \section{Farbige Zustände für Administratoren}
 Hier finden Sie Anleitung für alle Aktionen, die ein Systemadministrator durchführen kann. 
 %%%%%%%%%%
@@ -553,7 +553,7 @@ Failed to remove location with id .. & Der Standort wurde nicht in der Datenbank
 \end{longtable}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newpage
+\clearpage
 \section{Farbige Zustände für andere Mitarbeiter}
 \subsection{Prozesskettenadministrator}
 
@@ -866,46 +866,136 @@ Im Folgenden finden Sie Anleitungen zu allen Aktionen, die ein Logistiker ausfü
 \subsubsection{Träger}
 Im Menü-Unterpunkt Trägerübersicht haben Sie eine Übersicht über alle aktuell in der Datenbank gespeicherten Träger, können diese Löschen und Bearbeiten sowie neue erstellen. \\
 
-In der Tabelle unterhalb des Eingabeformulars finden Sie alle existierenden Träger. Durch Klicken auf Anzeigen können Sie alle zu einem Träger gehörenden Probe einsehen. \\
+In der Tabelle unterhalb des Eingabeformulars finden Sie alle existierenden Träger. Um einen existierenden Träger zu löschen, drücken Sie in der zugehörigen Tabellenzeile auf Löschen. Dadurch werden der Träger unwiderrufbar aus der Datenbank gelöscht. \\
 
-Wollen Sie einen neuen Träger erstellen, wählen Sie im Eingabeformular am Anfang der Seite eine Trägerart aus (Glas, Eingebettet, Einzeln), sowie den aktuellen Standort des neuen Trägers aus. Wenn Sie beide Angaben gemacht haben, können Sie auf Erstellen drücken, um diesen zu speichern. Um Ihre Eingaben zu löschen, drücken Sie auf Zurücksetzen. Dadurch werden keine Änderungen an den in der Datenbank gespeicherten Daten gemacht. \\
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/l/trager.png}
+  \caption{Trägerübersicht}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
 
-Um einen existierenden Träger zu löschen, drücken Sie in der zugehörigen Tabellenzeile auf Löschen. Dadurch werden der Träger unwiderrufbar aus der Datenbank gelöscht. \\
+Durch Klicken auf Anzeigen können Sie alle zu einem Träger gehörenden Probe einsehen. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/l/tragerproben.png}
+  \caption{Trägerübersicht Proben}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
 
 Um einen existierenden Träger zu bearbeiten, drücken Sie auf das Stift-Symbol am Ende der zugehörigen Tabellenzeile. Dadurch können Sie die entsprechenden Daten in den Zellen direkt ändern. Um Ihre Änderungen zu speichern, klicken Sie auf den Haken, der an Stelle des Stiftes erschienen ist. Um Ihre Änderungen zu verwerfen und die Daten aus der Datenbank beizubehalten, drücken Sie auf das Kreuz. \\
 
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/l/trageredit.png}
+  \caption{Träger bearbeiten}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
+Wollen Sie einen neuen Träger erstellen, wählen Sie im Eingabeformular am Anfang der Seite eine Trägerart aus (Glas, Eingebettet, Einzeln), sowie den aktuellen Standort des neuen Trägers aus. Wenn Sie beide Angaben gemacht haben, können Sie auf Erstellen drücken, um diesen zu speichern. Um Ihre Eingaben zu löschen, drücken Sie auf Zurücksetzen. Dadurch werden keine Änderungen an den in der Datenbank gespeicherten Daten gemacht. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/l/tragerform.png}
+  \caption{Trägerformular}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
 %%%%%%%%%%
 \subsubsection{Aufträge}
-Im Menü-Unterpunkt Auftragsübersicht haben Sie eine Übersicht über existierende Aufträge, können diese Starten oder Ablehnen. //TODO\\
+Im Menü-Unterpunkt Auftragsübersicht haben Sie eine Übersicht über existierende Aufträge, können diese Starten oder Ablehnen.\\
 
-In der Tabelle haben Sie eine Übersicht über die Aufträge. Sie können die Aufträge nach Id, Priorität, und Zustand sortieren sowie durchsuchen. Sie können ebenfalls entscheiden, wie viele Aufträge pro Seite angezeigt werden, und mit den Pfeiltasten durch die Seiten navigieren. Ebenfalls können Sie mit dem Eingabefeld oberhalb der Tabelle die gesamte Tabelle nach Schlagwörtern durchsuchen. Mit Drücken auf Clear Tabel state //TODO können Sie die Tabellenansicht (Sortierung und Suche) auf die ursprünglichen Einstellungen zurücksetzen, sodass alle Ihre Aufträge angezeigt werden. \\
+In der Tabelle haben Sie eine Übersicht über die Aufträge. Sie können die Aufträge nach Id oder Priorität sortieren sowie durchsuchen. Sie können ebenfalls entscheiden, wie viele Aufträge pro Seite angezeigt werden, und mit den Pfeiltasten durch die Seiten navigieren. Ebenfalls können Sie mit dem Eingabefeld oberhalb der Tabelle die gesamte Tabelle nach Schlagwörtern durchsuchen. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/l/auftrage.png}
+  \caption{Auftragsübersicht}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
 
 Wollen Sie einen Auftrag starten, klicken Sie in der Tabelle in der entsprechenden Tabellenzeile auf Annehmen. \\
 
-Um einen Auftrag abzulehnen, klicken Sie in der Tabelle in der entsprechenden Tabellenzeile auf Ablehnen. Dazu müssen Sie im Textfeld zwischen den Knöpfen eine kurze Nachricht eingeben, warum Sie den Auftrag ablehnen. \\
+Um einen Auftrag abzulehnen, klicken Sie in der Tabelle in der entsprechenden Tabellenzeile auf Ablehnen. Dazu müssen Sie im Textfeld neben dem Knopf eine kurze Nachricht eingeben, warum Sie den Auftrag ablehnen. \\
+
+Um einen Auftrag zu bearbeiten, klicken Sie in der Tabelle in der entsprechenden Tabellenzeile auf das Stift-Symbol. Danach können Sie in der Zeile Ihre Änderungen. Um diese zu speichern, klicken Sie auf den Haken, der am Ende der Zeile erschienen ist. Um Ihre Änderungen zurückzusetzen, klicken Sie auf das Kreuz. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/l/auftragedit.png}
+  \caption{Auftrag bearbeiten}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
 
 %%%%%%%%%%
 \subsubsection{Proben}
-Im Menü-Unterpunkt Probenübersicht haben Sie eine Übersicht über alle Proben, die sich im Lager befinden. \\
-
+Im Menü-Unterpunkt Probenübersicht haben Sie eine Übersicht über alle Proben. \\
 Proben werden gruppenweise gespeichert. Proben mit gleichen Attributen haben die gleiche ID, und für jede Probengruppe wird die Anzahl an Proben dieser Gruppe gespeichert. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/l/probenubersicht.png}
+  \caption{Probenübersicht}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
 
 %%%%%%%%%%
 \paragraph{Probenstandort}
-Im Menü-Unterpunkt Probenstandort können Sie für jede Probegruppe sehen, wo diese sich aktuell befindet. \\
+Im Menü-Unterpunkt Probenstandort können Sie für jede Probengruppe sehen, wo diese sich aktuell befindet. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/l/probestandort.png}
+  \caption{Probenstandorte}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
 
 %%%%%%%%%%
 \paragraph{Proben einfügen}
 Im Menü-Unterpunkt Proben Einfügen können Sie dem System neue Probengruppen hinzufügen. \\
 
-Dafür müssen Sie im Formular eine neue Proben-ID eingeben, sowie die Anzahl an Proben in der neuen Gruppe. Bitte beachten Sie, dass Proben-IDs von der Form [A-Z][0-9][0-9].[0-9] sein, wobei nach dem Komma beliebig viele Ziffern folgen können. Nachdem Sie alle Angaben gemacht haben, können Sie die neue Gruppe mit Klick auf Speichern im System speichern. Wollen Sie die Angaben im Formular löschen, klicken Sie auf Zurücksetzen; darauf werden keine Änderungen an den in der Datenbank gespeicherten Daten gemacht. \\
+Dafür müssen Sie im Formular eine neue Proben-ID eingeben, sowie die Anzahl an Proben in der neuen Gruppe. Bitte beachten Sie, dass Proben-IDs von der Form [A-Z][0-9][0-9].[0-9][0-9][0-9] (Bsp: B82.098) sein. Nachdem Sie alle Angaben gemacht haben, können Sie die neue Gruppe mit Klick auf Speichern im System speichern. Wollen Sie die Angaben im Formular löschen, klicken Sie auf Zurücksetzen; darauf werden keine Änderungen an den in der Datenbank gespeicherten Daten gemacht. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/l/probeadd.png}
+  \caption{Proben hinzufügen}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
 %%%%%%%%%%
 \paragraph{Probenverlust}
 Proben können Sie im Menü-Unterpunkt Probenverlust Melden als verloren melden. Dafür geben Sie im Formular die Proben-ID der Gruppe, zu der die Probe gehört, sowie die Anzahl an Proben aus dieser Gruppe, die verloren gegangen sind, an. Wenn Sie diese Angaben gemacht haben, können Sie diese Probe(n) mit Klicken auf Senden melden. \\
 
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/l/probemelden.png}
+  \caption{Proben melden}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
 %%%%%%%%%%
 \paragraph{Archivierte Proben}
 Im Menü-Unterpunkt Archivübersicht haben Sie eine Übersicht über die Proben, die archiviert worden sind. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/l/probenarchiv.png}
+  \caption{Archivierte Proben}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
 
 \subsubsection{Fehler und Ursachen}
 \begin{longtable}[c]{|p{5cm}|p{10cm}|}
@@ -936,7 +1026,6 @@ Im Folgenden finden Sie Anleitungen für alle Aktionen, die ein Technologe durch
 \subsubsection{Experimentierstationen}
 Im Menü-Unterpunkt Meine Experimentierstationen haben Sie eine Übersicht über alle Experimentierstationen, denen Sie zugeordnet sind, und können diese als kaputt melden. \\
 
-
 \begin{figure}[h!]
 \begin{center}
  \includegraphics[width=\textwidth]{screenshots/t/stationen.png}
@@ -945,15 +1034,12 @@ Im Menü-Unterpunkt Meine Experimentierstationen haben Sie eine Übersicht über
 \end{center}
 \end{figure}
 
-
-
 In der Tabelle können Sie mit den Pfeiltasten zwischen die Seiten navigieren. \\
-
 Um eine Station als kaputt zu melden, klicken Sie in der zugehörigen Tabellenzeile auf Melden klicken. \\
-
 Wollen Sie weitere Details zu einer Station sehen, klicken Sie auf Auswählen am Ende der zugehörigen Tabellenzeile. \\
 
-In der Übersicht über eine einzelne Station sehen Sie die ID, den Standort, den aktuellen Status, sowie welcher Prozessschritt dort aktuell in Ausführung ist. Die Proben, die sich aktuell an dieser Station befinden, werden in einer Tabelle am Ende der Seite angezeigt. Für eine detaillierte Ansicht einer Probe klicken Sie auf Auswählen am Ende der zugehörigen Tabellenzeile. Diese Station können Sie auch hier als kaputt melden, indem Sie am Anfang der Seite auf Melden klicken. \\
+In der Übersicht über eine einzelne Station sehen Sie die ID, den Standort, den aktuellen Status, sowie welcher Prozessschritt dort aktuell in Ausführung ist. Diese Station können Sie auch hier als kaputt melden, indem Sie am Anfang der Seite auf Melden klicken.\\
+
 \begin{figure}[h!]
 \begin{center}
  \includegraphics[width=\textwidth]{screenshots/t/stationformular.png}
@@ -962,10 +1048,21 @@ In der Übersicht über eine einzelne Station sehen Sie die ID, den Standort, de
 \end{center}
 \end{figure}
 
+Die Proben, die sich aktuell an dieser Station befinden, werden in einer Tabelle am Ende der Seite angezeigt. Für eine detaillierte Ansicht einer Probe klicken Sie auf Auswählen am Ende der zugehörigen Tabellenzeile. Informationen über die Benutzung dieser Seite finden Sie unter dem Unterpunkt Proben. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/t/stationproben.png}
+  \caption{Proben an einer Station}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
 
 %%%%%%%%%%
 \subsubsection{Aktuelle Arbeitsaufträge}
-Im Menü-Unterpunkt Meine Aufträge finden Sie eine Übersicht über die Aufträge, die Sie aktuell bearbeiten, in Ihrer Priorität abwärts sortiert. Um eine detaillierte Übersicht über einen Auftrag zu sehen, und Angaben zu diesem zu machen, klicken Sie am Ende der zugehörigen Tabellenzeile auf Auswählen. \\
+Im Menü-Unterpunkt Meine Aufträge finden Sie eine Übersicht über die Aufträge, die Sie aktuell bearbeiten, in Ihrer Priorität abwärts sortiert. \\
+
 \begin{figure}[h!]
 \begin{center}
  \includegraphics[width=\textwidth]{screenshots/t/meineauftrage.png}
@@ -973,6 +1070,20 @@ Im Menü-Unterpunkt Meine Aufträge finden Sie eine Übersicht über die Aufträ
   \label{fig:boat1}
 \end{center}
 \end{figure}
+
+Um eine detaillierte Übersicht über einen Auftrag zu sehen, und Angaben zu diesem zu machen, klicken Sie am Ende der zugehörigen Tabellenzeile auf Auswählen. In dieser Übersicht können Sie den Zustand des Prozessschrittes weiterschalten, indem Sie auf Weiterschalten klicken. Wollen Sie selber eine Transitionszeit eingeben, können Sie dies im nebenliegenden Feld machen; wenn Sie keine Angabe machen, wird die aktuelle Zeit übernommen. Sie können ebenfalls nur die Uhrzeit angeben, wobei der aktuelle Tag übernommen wird. \\
+Wenn Sie den Schritt komplett ausgeführt haben, wird automatisch ein Transportauftrag für diese Proben erstellt, und ein neuer Schritt wird aus der Liste der wartenden Schritte zur Bearbeitung nachrücken.\\ 
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/t/singleauftrag.png}
+  \caption{Einzelner Auftrag}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
+Sie können für eine Übersicht über die Parameter auf Anzeigen neben Prozessschritt Parameter klicken. Daraufhin öffnet sich eine Seitenansicht. \\
+Um einem Prozessschritt neue Parameter zuzuordnen, können Sie in der Prozessschritt Parameter Zeile aus der Liste die Parameter, die Sie hinzufügen wollen, auswählen. Um diese Änderungen zu speichern, klicken Sie auf Zuweisen. Wenn Sie die Änderungen verwerfen wollen, klicken Sie auf Reset. \\
 
 \begin{figure}[h!]
 \begin{center}
@@ -982,13 +1093,20 @@ Im Menü-Unterpunkt Meine Aufträge finden Sie eine Übersicht über die Aufträ
 \end{center}
 \end{figure}
 
+Sie können ebenfalls alle Proben sehen, die diesem Schritt zugeordnet sind, indem Sie auf Anzeigen in der letzten Zeile neben Proben klicken. In der öffnenden Seitenansicht können Sie mit Klicken auf Auswählen eine detaillierte Ansicht für diese Probe öffnen. Eine Anleitung für diese Ansicht finden Sie in dem Unterpunkt Proben. \\
 
-
-In dieser Übersicht können Sie den Zustand des Prozessschrittes weiterschalten, indem Sie auf weiterschalten klicken. Wollen Sie selber eine Transitionszeit eingeben, können Sie dies im nebenliegenden Feld machen; wenn Sie keine Angabe machen, wird die aktuelle Zeit übernommen. Wenn Sie den Schritt komplett ausgeführt haben, wird automatisch ein Transportauftrag für diese Proben erstellt. Sie können ebenfalls alle Proben sehen, die diesem Schritt zugeordnet sind, und durch Klicken auf Auswählen Details zu einer Probe sehen. \\
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/t/auftragproben.png}
+  \caption{Proben eines Auftrags}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
 
 %%%%%%%%%%
 \subsubsection{Angekündigte Arbeitsaufträge}
-Im Menü-Unterpunkt Angekündigte Arbeitsaufträge haben Sie eine Übersicht über alle Aufträge, die an Ihren Stationen auf Bearbeitung warten. Diese Aufträge werden automatisch zu Aufträgen, die Sie aktuell bearbeiten: Wenn Sie einen aktuellen Auftrag fertig bearbeitet haben, wird der nächste Auftrag, der an der Station wartet, als aktueller Auftrag festgelegt. \\
+Im Menü-Unterpunkt Verfügbare Arbeitsaufträge haben Sie eine Übersicht über alle Aufträge, die an Ihren Stationen in Zukunft ausgeführt werden sollen. Zu diesen Aufträgen können Sie die Zeit, die voraussichtlich noch verstreichen wird, bis dieser Prozessschritt an der Station ankommt, sehen. \\
+ Diese Aufträge werden automatisch zu Aufträgen, die Sie aktuell bearbeiten: Wenn Sie einen aktuellen Auftrag fertig bearbeitet haben, wird der nächste Auftrag, der an der Station wartet, als aktueller Auftrag festgelegt. \\
 
 \begin{figure}[h!]
 \begin{center}
@@ -998,6 +1116,8 @@ Im Menü-Unterpunkt Angekündigte Arbeitsaufträge haben Sie eine Übersicht üb
 \end{center}
 \end{figure}
 
+Wollen Sie die Parameter eines zukünftigen Prozessschrittes einsehen, können Sie in der entsprechenden Tabellenzeile auf Anzeigen klicken, worauf sich eine Seitenansicht öffnet. \\
+
 \begin{figure}[h!]
 \begin{center}
  \includegraphics[width=\textwidth]{screenshots/t/verfugbareauftrageparameter.png}
@@ -1006,13 +1126,50 @@ Im Menü-Unterpunkt Angekündigte Arbeitsaufträge haben Sie eine Übersicht üb
 \end{center}
 \end{figure}
 
-
-
 %%%%%%%%%%
 \subsubsection{Proben}
 Im Menü-Unterpunkt Proben und Upload können Sie alle Proben sehen, die zu Prozessschritten gehören, die Sie bereits bearbeitet haben, aber noch keine Informationen hochgeladen haben. Sie können zu einer Probengruppe Details einsehen, indem Sie in der zugehörigen Tabellenzeile auf Auswählen klicken.\\
 
-In der Übersicht einer Probengruppe können Sie Informationen über diese Gruppe einsehen, Daten hochladen und Proben dieser Gruppe als verloren melden. //TODO \\
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/t/probenupload.png}
+  \caption{Proben und Upload}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
+
+In der Übersicht einer Probengruppe können Sie Informationen über diese Gruppe einsehen: Die Anzahl, der aktuelle Zustand, der aktuelle Standort, der Träger, in dem sich diese Proben befinden, sowie die Eigenschaften. \\
+
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/t/probeubersicht.png}
+  \caption{Übersicht einer Probe}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
+Sie können ebenfalls die Kommentare in einer Tabelle am Ende  der Seite einsehen. Um einen Kommentar zu löschen, klicken Sie in der zugehörigen Tabellenzeile auf Löschen. Um einen neuen Kommentar hinzuzufügen, geben Sie den Text im Eingabefeld unterhalb der Tabelle ein, und klicken Sie auf Speichern.  \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/t/probekommentare.png}
+  \caption{Probenkommentare}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
+Um einen Kommentartext zu bearbeiten, können Sie einfach in die entsprechende Zelle klicken und Ihre Änderungen vornehmen. Um diese zu speichern, drücken Sie Enter. \\
+
+\begin{figure}[h!]
+\begin{center}
+ \includegraphics[width=\textwidth]{screenshots/t/probenkommentarbearbeiten.png}
+  \caption{Bearbeiten eines Kommentars}
+  \label{fig:boat1}
+\end{center}
+\end{figure}
+
 
 Im Menü-Unterpunkt Probenverlust melden können Sie eine oder mehrere Proben als verloren melden. Dafür geben Sie die ID der Probengruppe, zu der diese Probe(n) gehören, sowie die Anzahl an Proben ein. Wenn Sie alle Angaben gemacht haben, können Sie die Probe(n) durch Klicken auf Senden als verloren melden. \\
 
@@ -1126,7 +1283,7 @@ invalid input& Proben-ID und Anzahl dürfen nicht leer sein. \\ \hline
 \end{longtable}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newpage
+\clearpage
 \section{Referenz}
 \subsection{Fehlermeldungen und Ursachen}
 \subsubsection{502}
@@ -1213,7 +1370,7 @@ Transportauftrag annehmen  & \\ \hline
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newpage
+\clearpage
 \section{Anhang}
 \subsection{Glossar}
 \begin{longtable}[c]{|p{7cm}|p{8cm}|}

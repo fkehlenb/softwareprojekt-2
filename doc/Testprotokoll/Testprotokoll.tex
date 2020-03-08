@@ -750,6 +750,17 @@ In ähnlicher Weise wird nach dem Entfernen einer Instanz eine Bestätigungsnach
 
 \subsubsection{Anwendungsfall: Auftrag}
 
+\paragraph{Auftrag aus Prozesskettenvorlage erstellen:}
+
+Vorraussetzung ist, dass eine Prozesskettenvorlage erstellt ist. In Unserem Fall ist die Prozesskettenvorlage Dunn erstellt worden, welche wir benutzen. Zusätzlich benötigt ein Auftrag noch die Priorität und einen ausgedachten Namen, hier \textit{Test12345}. 
+
+\hypertarget{sc3.3.4.1}{
+\includegraphics[width=1\textwidth]{Screenshots/3341.png}
+\textit{Abbildung 3.3.4.1: Prozessschritt Vorlage Entfernung Benachrichtigung}
+} 
+
+Der Auftrag wurde erstellt, also ist der Test erfolgreich. 
+
 %%
 
 \subsubsection{Anwendungsfall: Qualitativ und Quantitativ}
@@ -757,44 +768,44 @@ Die Erstellung- und Eliminierungsfunktion von Qualitative Eigenschaften wurde ge
 %%Formular
 \hypertarget{sc3.3.3.7}{
 \includegraphics[width=1\textwidth]{Screenshots/335Formular.png}
-\textit{Abbildung 3.3.2.7: Prozessschritt Vorlage Entfernung Benachrichtigung}
+\textit{Abbildung: Prozessschritt Vorlage Entfernung Benachrichtigung}
 }
 
 %%EditView
 \hypertarget{sc3.3.3.7}{
 \includegraphics[width=1\textwidth]{Screenshots/336AddMeldung.png}
-\textit{Abbildung 3.3.2.7: Prozessschritt Vorlage Entfernung Benachrichtigung}
+\textit{Abbildung: Prozessschritt Vorlage Entfernung Benachrichtigung}
 } \\
 wenn eine Instanz auf der entsprechenden Webseite bearbeitet wird. Wenn der Vorgang erfolgreich war, erhält der Benutzer eine Bestätigungsnachricht.\\
 %%EditMeldung
 \hypertarget{sc3.3.3.7}{
 \includegraphics[width=1\textwidth]{Screenshots/336EditQuali.png}
-\textit{Abbildung 3.3.2.7: Prozessschritt Vorlage Entfernung Benachrichtigung}
+\textit{Abbildung: Prozessschritt Vorlage Entfernung Benachrichtigung}
 } \\
 Sobald das Formular mit den entsprechenden Daten ausgefüllt und die Anforderung zur Erstellung der Instanz gesendet wurde, wird bei erfolgreichem Vorgang eine Bestätigungsnachricht von der Website empfangen.\\
 In ähnlicher Weise wird für die Erstellung quantitativer Eigenschaften eine Bestätigungsnachricht empfangen, wenn der Instanzerstellungsprozess erfolgreich ist.\\
 %%AddQuant
 \hypertarget{sc3.3.3.7}{
 \includegraphics[width=1\textwidth]{Screenshots/336AddQuantitativMeldung.png}
-\textit{Abbildung 3.3.2.7: Prozessschritt Vorlage Entfernung Benachrichtigung}
+\textit{Abbildung: Prozessschritt Vorlage Entfernung Benachrichtigung}
 } .\\
 In der Ausgabe von Quantitative Einstellungen wurde es ebenfalls erfolgreich getestet.\\
 %%EditView
 \hypertarget{sc3.3.3.7}{
 \includegraphics[width=1\textwidth]{Screenshots/336EditMeldungQuantDes.png}
-\textit{Abbildung 3.3.2.7: Prozessschritt Vorlage Entfernung Benachrichtigung}
+\textit{Abbildung: Prozessschritt Vorlage Entfernung Benachrichtigung}
 }  \\
 In beiden Tabellen wird eine Bestätigungsmeldung angezeigt, sobald eine Instanz entfernt wurde und der Entfernungsprozess erfolgreich war.\\
 
 %% remove
 \hypertarget{sc3.3.3.7}{
 \includegraphics[width=1\textwidth]{Screenshots/336RemoveMeldungqt.png}
-\textit{Abbildung 3.3.2.7: Prozessschritt Vorlage Entfernung Benachrichtigung}
+\textit{Abbildung: Prozessschritt Vorlage Entfernung Benachrichtigung}
 }  
  %% remove
 \hypertarget{sc3.3.3.7}{
 \includegraphics[width=1\textwidth]{Screenshots/336RemoveMledungql.png}
-\textit{Abbildung 3.3.2.7: Prozessschritt Vorlage Entfernung Benachrichtigung}
+\textit{Abbildung: Prozessschritt Vorlage Entfernung Benachrichtigung}
 }  
 \subsubsection{Anwendungsfall: pk 6}
 
@@ -1119,23 +1130,11 @@ Auf der Ansicht \textit{Meine Experimentierstationen} kann man den grünen Choos
 
 %%
 
-\subsubsection{Anwendungsfall: Beispiel 5}
+\subsubsection{Anwendungsfall: Probenverlust melden}
 
-%%
+Hier verweise ich auf den Punkt \hyperlink{3.4.2}{3.4.2}, da sich die Funktionalität der Seiten in den unterschiedlichen Nutzern nicht unterscheidet. Es wurde genauso getestet und kann dort nachgelesen werden. 
 
-\subsubsection{Anwendungsfall: Beispiel 5}
-
-%%
-
-\subsubsection{Anwendungsfall: Beispiel 5}
-
-%%
-
-\subsubsection{Anwendungsfall: Beispiel 5}
-
-%%
-
-\subsubsection{Anwendungsfall: Beispiel 5}
+Auch dieser Test ist erfolgreich. 
 
 %%%%%%%%%%%%
 
@@ -1182,7 +1181,7 @@ Wir haben folgende Packete in unserer Software getestet:
   persistence Packet mocken. Die DAO Methoden, die durch ein Query alle Objekte
   einer Art zurück liefern konnten nicht erfolgreich gemockt werden. Am Tag
   unserer Abgabe fallen hier leider noch viele Tests durch
-  Anonsten: %SantiTODO
+  Anonsten: Die Persistence wurde durch die manuellen Tests der Software größtenteils abgedeckt.
 
   \item selenium: Die Selenium überpruefen alle CRUD Operationen von den Rollen pkAdmin
   und Admin. Die vom Frontend Ausgeführt werden. Hinweis: Um die Tests ausführen
@@ -1197,41 +1196,25 @@ Wir haben folgende Packete in unserer Software getestet:
 
 Für die meisten Klassen wurde ein unabhängiger Test durchgeführt, bei dem die Methoden separat getestet wurden. In der gewünschten  Lieferzeit wurden so viele Tests wie möglich durchgeführt. Zusätzlich zu einer breiteren Testabdeckung wurden Selenium Tests und manuelle Tests durchgeführt, um die Abdeckung der automatischen Tests zu erweitern und die Mindestanforderungen der zu kontrollieren Software.
 
- \hypertarget{sc3.4.1.1}{
+ \hypertarget{3.4.1.1}{
 \includegraphics[width=1\textwidth]{Screenshots/coverage.png}
-\textit{Abbildung 3.4.1.1: Coverage Unit-Test}
+\textit{ Coverage Unit-Test}
 } \\
 
 Die folgenden Grafiken zeigen die Rechte jeder Klasse pro Paket. Die Klassen, die nicht getestet wurden, wurden für die endgültige Lieferung drastisch geändert, aus diesem Grund wurden die manuellen Tests implementiert, um diese Klassen abzudecken.
- \hypertarget{sc3.4.1.2}{
+ \hypertarget{3.4.1.2}{
 \includegraphics[width=1\textwidth]{Screenshots/boundary.png}
-\textit{Abbildung 3.4.1.2: Coverage Boundary}
+\textit{ Coverage Boundary}
 } \\
- \hypertarget{sc3.4.1.3}{
+ \hypertarget{3.4.1.3}{
 \includegraphics[width=1\textwidth]{Screenshots/model.png}
-\textit{Abbildung 3.4.1.3: Coverage Model}
+\textit{ Coverage Model}
 } \\
- \hypertarget{sc3.4.1.4}{
+ \hypertarget{3.4.1.4}{
 \includegraphics[width=1\textwidth]{Screenshots/persistence.png}
-\textit{Abbildung 3.4.1.4: Coverage Persistence}
+\textit{ Coverage Persistence}
 } \\
-\subsubsection{Anwendungsfall: Beispiel 1}
 
-%%
-
-\subsubsection{Anwendungsfall: Beispiel 2}
-
-%%
-
-\subsubsection{Anwendungsfall: Beispiel 3}
-
-%%
-
-\subsubsection{Anwendungsfall: Beispiel 4}
-
-%%
-
-\subsubsection{Anwendungsfall: Beispiel 5}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
