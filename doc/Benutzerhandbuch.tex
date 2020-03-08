@@ -196,10 +196,11 @@ Wenn möglich, fügen Sie Screenshots bei. \\
 \section{Übersicht}
 \subsection{Zugrunde liegende Konzepte, Einbettung}
 \subsection{Funktionale Beschreibung}
-Farbige Zustände ist eine Webanwendung für die Abläufe im Labor des SFB...\\
-In unserer Anwendung haben Benutzer entsprechend Ihrer Rollen eine Übersicht über die Arbeit, die für Sie im Labor anfallen, und können ... \\
+Farbige Zustände ist eine Webanwendung die Abläufe im Labor des SFB 1232, unsere Software ist eine digitale Software, welche die Erstellung, Verwaltung und Durchführung von Prozessketten
+ermöglicht, mit wessen Hilfe neue Werkstoffeigenschaften gefunden werden sollen für den
+industriellen Gebrauch. 
+In unserer Anwendung haben Benutzer entsprechend Ihrer Rollen eine Übersicht über die Arbeit, die für Sie im Labor anfallen, und können Ihre Arbeit über die Software abwickeln. \\
 \subsection{Gefahren und Warnungen}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \clearpage
@@ -214,7 +215,7 @@ Um das System zum Laufen zu bringen, verfolgen Sie bitte Schritt für Schritt di
 \begin{itemize}
 	\item Eine lauffähige Java Installation (Mindestversion 11) mit korrekt konfigurierter JAVA\textunderscore HOME Variable.\\
 	\item Eine Maven Installation
-	\item Eine Wildfly Installation
+	\item Eine Wildfly 17+ Installation
 \end{itemize}
 
 Um das System auszuführen, als erstes, kopieren Sie bitte den Pfad innerhalb ihres Wildfly Hauptverzeichnissesgehen. Dann gehen Sie bitte in das Verzeichnis der Software, und öffnen Sie dort ein neues Terminal (unter Linux oder Mac) oder Powershell (in Windows) und führenSie die folgenden Kommandos aus:\\
@@ -356,10 +357,11 @@ durch brew
 \begin{verbatim}
 brew cast install phantomjs
 \end{verbatim}
-durch Dowloadwebseit:
+oder durch Download:
 \begin{verbatim}
 https://phantomjs.org
 \end{verbatim}
+und befolgen der Installationsanleitung. Wichtig ist, dass PhantomJS auf dem Pfad \textit{/usr/bin/phantomjs} gesetzt ist.
 %%%%%%%%%%
 \subsection{Benutzer}
 Die Aktionen bezüglich der Benutzer des Systems können Sie unter dem Unterpunkt Nutzer Verwalten im Menü aufrufen. \\
