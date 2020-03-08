@@ -229,7 +229,30 @@ public class ExperimentierStationService implements Serializable {
         var ps = new ArrayList<ProzessSchritt>();
         var gu = getESByUser(u);
         for (ExperimentierStation e : gu) {
-            if (e.getCurrentPS() != null && e.getCurrentPS().isValidData()) {
+            if (e.getCurrentPS()!=null&&(!e.getCurrentPS().isAssigned()||!e.getCurrentPS().isAssigned())){
+                List<ProzessSchritt> newPSS = new ArrayList<>();
+                for (int i=0;i<e.getNextPS().size();i++){
+                    if (e.getNextPS().get(i).isValidData()&&e.getNextPS().get(i).isAssigned()){
+                        newPSS.add(e.getNextPS().get(i));
+                    }
+                }
+                if (!newPSS.isEmpty()){
+                    e.setCurrentPS(newPSS.get(0));
+                    newPSS.remove(newPSS.get(0));
+                    e.setNextPS(newPSS);
+                }
+                else{
+                    e.setCurrentPS(null);
+                    e.setNextPS(newPSS);
+                }
+                try {
+                    updateES(e);
+                }
+                catch (Exception f){
+                    f.printStackTrace();
+                }
+            }
+            if (e.getCurrentPS() != null && e.getCurrentPS().isValidData() && e.getCurrentPS().isAssigned()) {
                 ps.add(e.getCurrentPS());
             } else {
                 if (!e.getNextPS().isEmpty()) {

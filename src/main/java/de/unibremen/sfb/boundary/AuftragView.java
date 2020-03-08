@@ -295,17 +295,32 @@ public class AuftragView implements Serializable {
                         a.getTraeger().get(0).getStandort(), standortDAO.getByOrt("Lager")));
             }
             for (ProzessSchritt p : a.getProzessSchritte()){
+                p.setAssigned(false);
+                prozessSchrittService.editPS(p);
                 for (ExperimentierStation e :experimentierStationService.getAll()){
-                    if (e.getCurrentPS().getId()==p.getId()){
+                    if (e.getCurrentPS()!=null&&e.getCurrentPS().getId()==p.getId()){
                         if (!e.getNextPS().isEmpty()){
-                            e.setCurrentPS(e.getNextPS().get(0));
+                            List<ProzessSchritt> newPSS = new ArrayList<>();
+                            for (int i=0;i<e.getNextPS().size();i++){
+                                if (e.getNextPS().get(i).isAssigned()&&e.getNextPS().get(i).isValidData()){
+                                    newPSS.add(e.getNextPS().get(i));
+                                }
+                            }
+                            if (!newPSS.isEmpty()){
+                                e.setCurrentPS(newPSS.get(0));
+                                newPSS.remove(newPSS.get(0));
+                                e.setNextPS(newPSS);
+                            }
+                            else{
+                                e.setNextPS(newPSS);
+                            }
                         }
                         else{
                             e.setCurrentPS(null);
                         }
                     }
                     else{
-                        if (e.getNextPS().contains(p)){
+                        if (!e.getNextPS().isEmpty()&&e.getNextPS().contains(p)){
                             List<ProzessSchritt> nextPS = e.getNextPS();
                             nextPS.remove(p);
                             e.setNextPS(nextPS);
@@ -313,8 +328,6 @@ public class AuftragView implements Serializable {
                     }
                     experimentierStationService.updateES(e);
                 }
-                p.setAssigned(false);
-                prozessSchrittService.editPS(p);
             }
             auftragService.remove(a);
             log.info("Stopped job with id " + id);

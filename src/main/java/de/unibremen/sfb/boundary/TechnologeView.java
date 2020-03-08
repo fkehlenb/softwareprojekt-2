@@ -28,15 +28,21 @@ import java.util.stream.Collectors;
 @Slf4j
 public class TechnologeView implements Serializable {
 
-    /** Job Service */
+    /**
+     * Job Service
+     */
     @Inject
     private AuftragService auftragService;
 
-    /** Experimenting station service */
+    /**
+     * Experimenting station service
+     */
     @Inject
     private ExperimentierStationService experimentierStationService;
 
-    /** Process Step Service */
+    /**
+     * Process Step Service
+     */
     @Inject
     private ProzessSchrittService prozessSchrittService;
 
@@ -46,14 +52,20 @@ public class TechnologeView implements Serializable {
      */
     private User technologe;
 
-    /** List of all his jobs */
+    /**
+     * List of all his jobs
+     */
     private List<Auftrag> auftragList;
 
-    /** Sample Service */
+    /**
+     * Sample Service
+     */
     @Inject
     private ProbenService probeService;
 
-    /** User Service */
+    /**
+     * User Service
+     */
     @Inject
     private UserService userService;
 
@@ -74,61 +86,78 @@ public class TechnologeView implements Serializable {
 
 
     public int getAuslastung(int esID) {
-        ExperimentierStation e = null;
         try {
-           e = experimentierStationService.getById(esID);
-        } catch (ExperimentierStationNotFoundException enf) {
-            log.error(enf.getLocalizedMessage());
+            ExperimentierStation e = null;
+            try {
+                e = experimentierStationService.getById(esID);
+            } catch (ExperimentierStationNotFoundException enf) {
+                log.error(enf.getLocalizedMessage());
+            }
+            int auslastung = 0;
+            assert e != null;
+            List<ProzessSchritt> nextSteps = e.getNextPS();
+            for (ProzessSchritt ps :
+                    nextSteps) {
+                String[] parts = ps.getDuration().split(":");
+                auslastung += Integer.parseInt(parts[0]);
+            }
+            return auslastung;
+        } catch (Exception e) {
+            return 0;
         }
-        int auslastung = 0;
-        assert  e != null;
-        List<ProzessSchritt> nextSteps = e.getNextPS();
-        for (ProzessSchritt ps:
-             nextSteps) {
-           String[] parts =   ps.getDuration().split(":");
-            auslastung += Integer.parseInt(parts[0]);
-        }
-        return auslastung;
     }
 
     public int getDauer(int psID) {
-        ProzessSchritt psLast = null;
-        int dauer = 0;
         try {
-            psLast = prozessSchrittService.getObjById(psID);
-        } catch (ProzessSchrittNotFoundException e) {
-            e.printStackTrace();
+            ProzessSchritt psLast = null;
+            int dauer = 0;
+            try {
+                psLast = prozessSchrittService.getObjById(psID);
+            } catch (ProzessSchrittNotFoundException e) {
+                e.printStackTrace();
+            }
+            List<ProzessSchritt> steps = auftragService.prevSteps(psLast);
+            for (ProzessSchritt ps :
+                    steps) {
+                String[] parts = ps.getDuration().split(":");
+                dauer += Integer.parseInt(parts[0]);
+            }
+            return dauer;
+        } catch (Exception e) {
+            return 0;
         }
-        List<ProzessSchritt> steps = auftragService.prevSteps(psLast);
-        for (ProzessSchritt ps :
-                steps) {
-            String[] parts =   ps.getDuration().split(":");
-            dauer += Integer.parseInt(parts[0]);
-        }
-        return dauer;
     }
 
     public int getAnzahlAuftraege(int esID) {
-        ExperimentierStation es = null;
         try {
-           es = experimentierStationService.getById(esID);
-        } catch (ExperimentierStationNotFoundException e) {
+            ExperimentierStation es = null;
+            try {
+                es = experimentierStationService.getById(esID);
+            } catch (ExperimentierStationNotFoundException e) {
+                e.printStackTrace();
+            }
+            assert es != null;
+            return es.getNextPS().size();
+        } catch (Exception e) {
             e.printStackTrace();
+            return 0;
         }
-        assert es != null;
-        return es.getNextPS().size();
     }
 
     public int getProbenAnzahl(int esID) {
-        ExperimentierStation es = null;
         try {
-            es = experimentierStationService.getById(esID);
-        } catch (ExperimentierStationNotFoundException e) {
+            ExperimentierStation es = null;
+            try {
+                es = experimentierStationService.getById(esID);
+            } catch (ExperimentierStationNotFoundException e) {
+                e.printStackTrace();
+            }
+            return probeService.getProbenByStandort(es.getStandort()).size();
+        } catch (Exception e) {
             e.printStackTrace();
+            return 0;
         }
-        return probeService.getProbenByStandort(es.getStandort()).size();
     }
-
 
 
     /**
@@ -137,9 +166,14 @@ public class TechnologeView implements Serializable {
      * @return a list containing all stations this user is assigned to
      */
     public List<ExperimentierStation> getStationen() {
-        List<ExperimentierStation> res = experimentierStationService.getESByUser(technologe);
-        res = res.stream().filter(c -> !c.getStandort().getOrt().equals("Lager")).collect(Collectors.toList());
-        return res;
+        try {
+            List<ExperimentierStation> res = experimentierStationService.getESByUser(technologe);
+            res = res.stream().filter(c -> !c.getStandort().getOrt().equals("Lager")).collect(Collectors.toList());
+            return res;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 
     /**
@@ -149,7 +183,7 @@ public class TechnologeView implements Serializable {
      */
     //TODO ONLY THE ONES WITH AUFTRAG GESTARTET
     public List<ProzessSchritt> getSchritte() {
-        List<ProzessSchritt> r = null;
+        List<ProzessSchritt> r = new ArrayList<>();
         try {
             r = prozessSchrittService.getSchritte();
         } catch (UserNotFoundException e) {
@@ -157,12 +191,12 @@ public class TechnologeView implements Serializable {
             log.error("Could find any Steps");
             return new ArrayList<>();
         }
-        assert r != null;
         return r;
     }
 
     /**
      * verfügbare schritte in den experimentierstationen des technologen
+     *
      * @return liste
      */
     public List<ProzessSchritt> getJobs() {
@@ -214,7 +248,7 @@ public class TechnologeView implements Serializable {
      */
     public void createUrformend(String id) {
         //probeService.addNewSample(id);
-        
+
     }
 
     /**
@@ -224,15 +258,20 @@ public class TechnologeView implements Serializable {
      * // FIXME Keine PS
      */
     public List<Probe> viewToBeUploaded() {
-        List<Probe> r = null;
         try {
-            r = probeService.viewToBeUploaded();
-        } catch (AuftragNotFoundException e) {
+            List<Probe> r = null;
+            try {
+                r = probeService.viewToBeUploaded();
+            } catch (AuftragNotFoundException e) {
+                e.printStackTrace();
+                return new ArrayList<Probe>();
+            }
+            log.info("Probe die Hochgeladen werden muessen wurden geladen");
+            return r;
+        } catch (Exception e) {
             e.printStackTrace();
-            return new ArrayList<Probe>();
+            return new ArrayList<>();
         }
-        log.info("Probe die Hochgeladen werden muessen wurden geladen");
-        return r;
     }
 
     /**
@@ -268,15 +307,19 @@ public class TechnologeView implements Serializable {
      * @return the priority of the Auftrag the process step belongs to
      */
     public AuftragsPrioritaet getPriority(int id) {
-        ProzessSchritt ps = null;
         try {
-            ps = prozessSchrittService.getObjById(id);
-        } catch (ProzessSchrittNotFoundException e) {
-            e.printStackTrace();
+            ProzessSchritt ps = null;
+            try {
+                ps = prozessSchrittService.getObjById(id);
+            } catch (ProzessSchrittNotFoundException e) {
+                e.printStackTrace();
+            }
+            Auftrag r = null;
+            r = auftragService.getAuftrag(ps);
+            return r.getPriority();
+        } catch (Exception e) {
+            return null;
         }
-        Auftrag r = null;
-        r = auftragService.getAuftrag(ps);
-        return r.getPriority();
     }
 
 
