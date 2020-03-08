@@ -23,6 +23,7 @@ class AuftragDAOTest {
     AuftragDAO auftragDAO;
     @Mock
     Auftrag auftrag;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -53,7 +54,7 @@ class AuftragDAOTest {
     @Test
     void testGet() {
         Class<Auftrag> result = auftragDAO.get();
-        Assertions.assertEquals(Auftrag.class,result);
+        Assertions.assertEquals(Auftrag.class, result);
     }
 
     @Test

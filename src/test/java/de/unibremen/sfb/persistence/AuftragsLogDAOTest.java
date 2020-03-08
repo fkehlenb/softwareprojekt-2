@@ -2,7 +2,6 @@ package de.unibremen.sfb.persistence;
 
 import de.unibremen.sfb.exception.AuftragsLogNotFoundException;
 import de.unibremen.sfb.exception.DuplicateAuftragsLogException;
-import de.unibremen.sfb.model.Auftrag;
 import de.unibremen.sfb.model.AuftragsLog;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,6 +23,7 @@ class AuftragsLogDAOTest {
     AuftragsLogDAO auftragsLogDAO;
     @Mock
     AuftragsLog auftragsLog;
+
     @BeforeEach
     void setUp() {
 

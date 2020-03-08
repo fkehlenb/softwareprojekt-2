@@ -17,7 +17,9 @@ public class ProzessSchrittLogService implements Serializable {
     /**
      * adds to a ProzessSchrittLog
      * @param l the log
+     * @param d  the local date Time
      * @throws ProzessSchrittLogNotFoundException is there is none
+     *
      */
     public void closeLog(ProzessSchrittLog l, LocalDateTime d) throws ProzessSchrittLogNotFoundException {
         l.setGeendet(d);
@@ -28,6 +30,7 @@ public class ProzessSchrittLogService implements Serializable {
      * creates a new log
      * @param z the new state
      * @throws DuplicateProzessSchrittLogException if there is already one PSL
+     * @param d the local Date time
      * @return the new Log
      */
     public ProzessSchrittLog newLog(String z, LocalDateTime d) throws DuplicateProzessSchrittLogException {

@@ -48,7 +48,6 @@ class LanguageBeanTest {
     }
 
 
-
     @Test
     void testSetUserService() {
         languageBean.setUserService(new UserService());

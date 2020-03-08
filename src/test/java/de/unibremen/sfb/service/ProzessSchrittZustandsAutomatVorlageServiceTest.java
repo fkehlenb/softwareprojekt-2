@@ -1,7 +1,6 @@
 package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.exception.DuplicateProzessSchrittZustandsAutomatVorlageException;
-import de.unibremen.sfb.exception.ProzessSchrittVorlageNotFoundException;
 import de.unibremen.sfb.exception.ProzessSchrittZustandsAutomatVorlageNotFoundException;
 import de.unibremen.sfb.model.ProzessSchrittZustandsAutomatVorlage;
 import de.unibremen.sfb.persistence.ProzessSchrittZustandsAutomatVorlageDAO;
@@ -28,6 +27,7 @@ class ProzessSchrittZustandsAutomatVorlageServiceTest {
     ProzessSchrittZustandsAutomatVorlage prozessSchrittZustandsAutomatVorlage;
     @Mock
     List<ProzessSchrittZustandsAutomatVorlage> prozessSchrittZustandsAutomatVorlages;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -77,9 +77,9 @@ class ProzessSchrittZustandsAutomatVorlageServiceTest {
     @Test
     void testGetByID() throws ProzessSchrittZustandsAutomatVorlageNotFoundException {
 
-            when(prozessSchrittZustandsAutomatVorlageDAO.getById(anyInt())).thenReturn(prozessSchrittZustandsAutomatVorlage);
+        when(prozessSchrittZustandsAutomatVorlageDAO.getById(anyInt())).thenReturn(prozessSchrittZustandsAutomatVorlage);
 
-        ProzessSchrittZustandsAutomatVorlage result =  prozessSchrittZustandsAutomatVorlageService.getByID(0);
+        ProzessSchrittZustandsAutomatVorlage result = prozessSchrittZustandsAutomatVorlageService.getByID(0);
 
         Assertions.assertEquals(prozessSchrittZustandsAutomatVorlage, result);
     }

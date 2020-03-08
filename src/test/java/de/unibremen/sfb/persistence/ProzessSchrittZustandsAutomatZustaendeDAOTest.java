@@ -20,6 +20,7 @@ class ProzessSchrittZustandsAutomatZustaendeDAOTest {
     ProzessSchrittZustandsAutomatZustaendeDAO prozessSchrittZustandsAutomatZustaendeDAO;
     @Mock
     ProzessSchrittZustandsAutomatZustaende prozessSchrittZustandsAutomatZustaende;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);

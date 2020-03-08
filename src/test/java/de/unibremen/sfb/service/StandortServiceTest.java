@@ -74,7 +74,7 @@ class StandortServiceTest {
 
         when(standortDAO.getObjById(anyInt())).thenReturn(standort);
 
-        Standort result =standortService.findById(0);
+        Standort result = standortService.findById(0);
 
         Assertions.assertEquals(standort, result);
     }

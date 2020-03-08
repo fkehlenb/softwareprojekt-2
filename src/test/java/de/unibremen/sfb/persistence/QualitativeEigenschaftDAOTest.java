@@ -23,6 +23,7 @@ class QualitativeEigenschaftDAOTest {
     QualitativeEigenschaftDAO qualitativeEigenschaftDAO;
     @Mock
     QualitativeEigenschaft qualitativeEigenschaft;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);

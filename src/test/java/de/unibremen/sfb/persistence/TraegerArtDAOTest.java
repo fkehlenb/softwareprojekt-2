@@ -2,7 +2,6 @@ package de.unibremen.sfb.persistence;
 
 import de.unibremen.sfb.exception.DuplicateTraegerArtException;
 import de.unibremen.sfb.exception.TraegerArtNotFoundException;
-import de.unibremen.sfb.model.Traeger;
 import de.unibremen.sfb.model.TraegerArt;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +11,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import javax.persistence.EntityManager;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -24,6 +22,7 @@ class TraegerArtDAOTest {
     TraegerArtDAO traegerArtDAO;
     @Mock
     TraegerArt traegerArt;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);

@@ -48,7 +48,7 @@ class ProzessSchrittVorlageServiceTest {
     void testGetProzessSchrittVorlagen() {
         when(psvDAO.getAll()).thenReturn(prozessSchrittVorlages);
         List<ProzessSchrittVorlage> result = prozessSchrittVorlageService.getProzessSchrittVorlagen();
-        Assertions.assertEquals(prozessSchrittVorlages,result);
+        Assertions.assertEquals(prozessSchrittVorlages, result);
     }
 
     @Test
@@ -83,9 +83,6 @@ class ProzessSchrittVorlageServiceTest {
 
         Assertions.assertEquals(prozessKettenVorlage, result);
     }
-
-
-
 
 
     @Test

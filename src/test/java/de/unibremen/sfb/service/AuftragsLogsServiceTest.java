@@ -2,7 +2,6 @@ package de.unibremen.sfb.service;
 
 import de.unibremen.sfb.exception.AuftragsLogNotFoundException;
 import de.unibremen.sfb.exception.DuplicateAuftragsLogException;
-import de.unibremen.sfb.exception.ProzessKettenVorlageNotFoundException;
 import de.unibremen.sfb.model.*;
 import de.unibremen.sfb.persistence.AuftragsLogDAO;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +13,6 @@ import org.slf4j.Logger;
 
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.*;

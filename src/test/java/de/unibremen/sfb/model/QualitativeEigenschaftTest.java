@@ -34,7 +34,6 @@ class QualitativeEigenschaftTest {
     }
 
 
-
     @Test
     void testToString() {
         String result = qualitativeEigenschaft.toString();

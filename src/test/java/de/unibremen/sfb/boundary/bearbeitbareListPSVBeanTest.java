@@ -1,6 +1,5 @@
 package de.unibremen.sfb.boundary;
 
-import de.unibremen.sfb.model.ProzessSchrittParameter;
 import de.unibremen.sfb.model.ProzessSchrittVorlage;
 import de.unibremen.sfb.service.ProzessSchrittVorlageService;
 import org.junit.jupiter.api.Assertions;
@@ -11,7 +10,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.*;

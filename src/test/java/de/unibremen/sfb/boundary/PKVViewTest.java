@@ -46,7 +46,6 @@ class PKVViewTest {
     PKVView pKVView;
 
 
-
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -60,7 +59,6 @@ class PKVViewTest {
     }
 
 
-
     @Test
     void testDeletePKV() throws ProzessKettenVorlageNotFoundException {
         when(prozessKettenVorlageService.getObjById(anyInt())).thenReturn(pkv);
@@ -68,12 +66,10 @@ class PKVViewTest {
     }
 
 
-
     @Test
     void testSetSelPKV() {
         pKVView.setSelPKV(Arrays.<ProzessKettenVorlage>asList(new ProzessKettenVorlage(0, "name", Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, Arrays.<ProzessSchrittParameter>asList(null), null, "dauer", "name", null, true, 0)))));
     }
-
 
 
     @Test

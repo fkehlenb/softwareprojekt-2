@@ -66,7 +66,6 @@ class AuftragServiceTest {
 //    }
 
 
-
 //    @Test
 //    void testSetLog() {
 //        auftragService.setLog(new AuftragsLog(LocalDateTime.of(2020, Month.FEBRUARY, 29, 1, 28, 9)));
@@ -181,11 +180,7 @@ class AuftragServiceTest {
 //    }
 
 
-
-
-
-
-   // @Test
+    // @Test
 //    void testErstelleAuftrag() {
 //        when(auftrag.getPkID()).thenReturn(0);
 //        Auftrag result = auftragService.erstelleAuftrag(new ProzessKettenVorlage(0, Arrays.<ProzessSchrittVorlage>asList(new ProzessSchrittVorlage(0, "dauer", "name", "psArt", Arrays.<ExperimentierStation>asList(new ExperimentierStation()), Arrays.<Bedingung>asList(new Bedingung(0, "name", Arrays.<ProzessSchrittParameter>asList(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name")))), 0)), new ProzessSchrittZustandsAutomatVorlage(0, Arrays.<String>asList("String"), "name")))), AuftragsPrioritaet.KEINE);
@@ -201,7 +196,6 @@ class AuftragServiceTest {
     void testSetAuftragDAO() {
         auftragService.setAuftragDAO(new AuftragDAO());
     }
-
 
 
 //    @Test

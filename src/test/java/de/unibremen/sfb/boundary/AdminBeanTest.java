@@ -9,19 +9,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.primefaces.model.file.UploadedFile;
 import org.slf4j.Logger;
 
 import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.mockito.Mockito.*;
 
@@ -130,7 +126,6 @@ class AdminBeanTest {
         when(traegerArtService.getById(anyInt())).thenReturn(new TraegerArt("art"));
         adminBean.deleteTraegerArt(0);
     }
-
 
 
     //@Test
