@@ -151,6 +151,7 @@ hs_err_pid*
 *.cb2
 .*.lb
 
+**.pdf
 ## Intermediate documents:
 *.dvi
 *.xdv
