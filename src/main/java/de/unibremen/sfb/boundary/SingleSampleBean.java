@@ -67,11 +67,10 @@ public class SingleSampleBean implements Serializable {
             log.info("the comment " + k.getId() + " of probe " + p.getProbenID() + " was edited to " + c);
         }
         catch(ProbeNotFoundException | KommentarNotFoundException e) {
-            e.printStackTrace();
-            log.info("an error occurred trying to update comment " + k.getId() + " of sample " + p.getProbenID() + " : " + e.getMessage());
+            errorMessage("an error occured editing the comment");
         }
         catch(IllegalArgumentException e) {
-            errorMessage("invalid input");
+            errorMessage("invalid input editing comment");
         }
     }
 
@@ -85,11 +84,10 @@ public class SingleSampleBean implements Serializable {
             log.info("comment " + k.getId() + " of probe " + p.getProbenID() + " was deleted");
         }
         catch(ProbeNotFoundException | KommentarNotFoundException e) {
-            e.printStackTrace();
-            log.info("an error occurred trying to delete comment " + k.getId() + " of sample " + p.getProbenID() + " : " +e.getMessage());
+            errorMessage("an error occured deleting comment");
         }
         catch(IllegalArgumentException e) {
-            errorMessage("invalid input");
+            errorMessage("invalid input deleting comment");
         }
 
     }
@@ -102,11 +100,10 @@ public class SingleSampleBean implements Serializable {
             probenService.addProbenComment(p, singleKommentar);
             log.info("the comment " + singleKommentar + " was added to the sample " + p.getProbenID());
         } catch (ProbeNotFoundException | DuplicateKommentarException e) {
-            e.printStackTrace();
-            log.info("an error occurred trying to add comment " + singleKommentar + " to sample " + p.getProbenID() + " : " +e.getMessage());
+            errorMessage("an error occured adding the comment");
         }
         catch(IllegalArgumentException e) {
-            errorMessage("invalid input");
+            errorMessage("invalid input adding comment");
         }
         singleKommentar=""; //TODO feld leer wenn fertig gespeichert
     }
