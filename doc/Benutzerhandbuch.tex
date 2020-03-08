@@ -161,20 +161,25 @@ Version & Datum & Änderungen \\
 0.1 & 03.03.2020 & Erste Schritte \\
 0.2 & 03.03.2020 & Administrator \\
 0.3 & 04.03.2020 & Prozesskettenadministrator \\
-0.? & 06.03.2020 & Restliche Rollen ohne Screenshots \\
-0.? & 07.03.2020 & Screenshots \\
+0.4 & 06.03.2020 & Restliche Rollen ohne Screenshots \\
+0.5 & 07.03.2020 & Screenshots \\
+0.6 & 07.03.2020 & Index, Glossar, Einführung \\
 \end{tabular}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
 \section{Einführung}
 \subsection{Adressierte Leser}
+Die Leser dieses Handbuchs sind alle Benutzer des Systems, was explizit die Beschäftigten des Sonderfachbereichs 1232 Farbige Zustände sind. Diese Beschäftigten können das System zur Organisation der Arbeit in ihrem Fachbereich benutzen. \\
 \subsection{Zweck}
+Dieses Handbuch soll alle Interaktionen, die mit dem im Rahmen des Softwareprojekt-Kurses von Rainer Koschke entstandenen Software möglich sind, erläutern. Neben den alltäglichen Aktionen mit dem System wird ebenfalls in diesem Dokument die Erstinstallation der Software für den Systemadministrator beschrieben. \\
 \subsection{Verwandte Dokumente}
+In diesem Dokument wird auf die bis Dezember erstellt Architekturbeschreibung Bezug genommen. \\
 \subsection{Konventionen}
 \subsection{Information über die Verwendung des Dokuments}
+Der Hauptteil des Handbuchs ist nach den im System möglichen Rollen eines Benutzers unterteilt. Im Inhaltsverzeichnis finden Sie die Oberpunkte Administrator (siehe Kapitel 4) sowie Restliche Benutzer des Systems (siehe Kapitel 5 des Systems), was Technologen, Logistiker, Prozessketten Administrator und Transporter sind. Dadurch können Sie sofort den Bereich finden, in dem Sie nach Anleitungen zu Ihren Anliegen suchen. Darüber hinaus gibt es einen Abschnitt für Erstbenutzer des Systems, der einen Überblick über die allgemeinen, rollenunspezifischen Funktionen gibt (siehe Kapitel 3). Falls Sie Erklärungen zu Fehlermeldungen suchen, können Sie diese am Ende von dem rollenspezifischen Unterabschnitt in Kapitel 3 und 4 finden, dessen Funktionen die Meldung ausgelöst haben. \\
+Sie können zur einfacheren Bedienung direkt im Inhaltsverzeichnis, sowie bei jeglichen anderen Erwähnungen von Kapiteln, auf die jeweiligen Abschnitte klicken. \\
 \subsection{Instruktionen für Problemberichte}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -480,6 +485,13 @@ Um ein Backup der Daten zu erstellen, müssen Sie nur auf Backup Erstellen klick
 
 Wollen Sie Daten aus einer Datei einlesen, klicken Sie auf Choose. Daraufhin öffnet sich ein Fenster, in dem Sie aus Ihrem Dateisystem die Datei auswählen können. Wenn Sie eine Datei ausgewählt haben, drücken Sie auf Öffnen, woraufhin die Datei hochgeladen wird. Mit einem Klick auf Submit werden die Daten aus der Datei in die Datenbank integriert. Bitte beachten Sie, dass  Sie eine SQL Datei auswählen müssen. \\ 
 
+\subsection{Fehler und Ursachen}
+\begin{longtable}[c]{|p{5cm}|p{10cm}|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Hinweis}}                          & \multicolumn{1}{c|}{\textbf{Ursache}}                                                                                                                                                                                                               \\ \hline
+\endhead
+
+\end{longtable}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
@@ -738,6 +750,14 @@ exportieren. \\
 Im unteren Formular können Sie die Logs für einzelne Prozessschritte oder Aufträge exportieren. Dafür wählen Sie einen Prozessschritt oder Auftrag aus, und drücken Sie nach Auswahl auf Export. Danach wird der Download der JSON Datei beginnen. \\
 
 Im oberen Formular können Sie für die anderen Datenmöglichkeiten alle in der Datenbank vorhandenen Dateien exportieren, indem Sie neben der gewünschten Option auf Export klicken. Der Download wird in Kürze beginnen. \\
+
+\subsubsection{Fehler und Ursachen}
+\begin{longtable}[c]{|p{5cm}|p{10cm}|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Hinweis}}                          & \multicolumn{1}{c|}{\textbf{Ursache}}                                                                                                                                                                                                               \\ \hline
+\endhead
+
+\end{longtable}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Logistiker}
 
@@ -788,6 +808,28 @@ Proben können Sie im Menü-Unterpunkt Probenverlust Melden als verloren melden.
 \paragraph{Archivierte Proben}
 Im Menü-Unterpunkt Archivübersicht haben Sie eine Übersicht über die Proben, die archiviert worden sind. \\
 
+\subsubsection{Fehler und Ursachen}
+\begin{longtable}[c]{|p{5cm}|p{10cm}|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Hinweis}}                          & \multicolumn{1}{c|}{\textbf{Ursache}}                                                                                                                                                                                                               \\ \hline
+\endhead
+Failed to add new Traeger with Art: .. & \\ \hline
+Probe und Traeger nicht am gleichen standort!& \\ \hline
+Failed to edit traeger with ID:  & \\ \hline
+Failed to remove traeger with ID: & \\ \hline
+Der Standort Lager wurde nicht gefunden und wird nun erstellt, Proben können lediglich im Lager erstellt werden! & \\ \hline
+Die Probe existiert bereits!:  & \\ \hline
+Couldn't start job!& \\ \hline
+Auftrag ist Urformend und darf keine Träger enthalten! & \\ \hline
+Failed to change auftrag state! ID:  & \\ \hline
+Darf nicht leer sein & \\ \hline
+Failed to change auftrag state! ID:  & \\ \hline
+The given number of samples is higher than the number of samples in the database. & \\ \hline
+sample .. could not be found when trying to report as missing. & \\ \hline
+Probe.. wurde nicht gefunden! & \\ \hline
+invalid input& \\ \hline
+The given number of samples is higher than the number of samples in the database. & \\ \hline
+\end{longtable}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Technologe}
 
@@ -823,6 +865,29 @@ In der Übersicht einer Probengruppe können Sie Informationen über diese Grupp
 
 Im Menü-Unterpunkt Probenverlust melden können Sie eine oder mehrere Proben als verloren melden. Dafür geben Sie die ID der Probengruppe, zu der diese Probe(n) gehören, sowie die Anzahl an Proben ein. Wenn Sie alle Angaben gemacht haben, können Sie die Probe(n) durch Klicken auf Senden als verloren melden. \\
 
+\subsubsection{Fehler und Ursachen}
+\begin{longtable}[c]{|p{5cm}|p{10cm}|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Hinweis}}                          & \multicolumn{1}{c|}{\textbf{Ursache}}                                                                                                                                                                                                               \\ \hline
+\endhead
+Couldn't grab current user! & Es ist ein internes Problem bei Ihrer Identifikation aufgetreten. \\ \hline
+Invalid Input finding the location & Es ist ein Fehler dabei aufgetreten, den Standort eines Prozessschrittes zu finden. Dies kann daran liegen, dass einer der Prozessschritte in der Tabelle, die Sie anzeigen wollen, leer ist. Bitte kontaktieren Sie das Entwicklerteam.  \\ \hline
+Station already reported broken! & Die Station, die Sie als Kaputt melden wollen, ist bereits als kaputt gemeldet. Das bedeutet, Sie müssen keine weiteren Schritte mehr vornehmen. \\ \hline
+Couldn't report station as broken! & Die Station, die Sie als kaputt melden wollen, konnte nicht gemeldet werden. Das liegt daran, dass die Station nicht in der Datenbank gefunden werden konnte. Bitte kontaktieren Sie einen Administrator, der die Station in der Datenbank speichern kann. \\ \hline
+invalid input for reporting sample & Ein interner Fehler beim melden einer Probe ist aufgetreten. Bitte kontaktieren Sie das Entwicklerteam. \\ \hline
+sample .. could not be found when trying to report as missing & Die Probengruppe, aus der Sie Proben melden wollen, konnte nicht in der Datenbank gefunden werden. Bitte wenden Sie sich an den Logistiker //TODO. \\ \hline
+invalid input for adding comment: ps & Es gab einen internen Fehler beim Hinzufügen eines Kommentars zu den Proben des Prozessschrittes. Bitte kontaktieren Sie das Entwicklerteam.\\ \hline
+invalid input for adding comment & Es gab einen internen Fehler beim Hinzufügen eines Kommentars zu den Proben des Prozessschrittes. Bitte kontaktieren Sie das Entwicklerteam.\\ \hline
+the sample .. could not be found while trying to add coment .. & Eine der Proben des Prozessschrittes konnte nicht in der Datenbank gefunden werden. Bitte kontaktieren Sie den Logistiker //TODO. \\ \hline
+invalid input setting job state & \\ \hline
+process step could not be found setting job state & \\ \hline
+Wenn Sie manuell eine Transitionszeit eingeben wollen, müssen Sie mindestens die Uhrzeit angeben & \\ \hline
+invalid input for editing comment & \\ \hline
+invalid input deleting comment & \\ \hline
+invalid input adding comment & \\ \hline
+Experimenting station already marked as broken! & \\ \hline
+Couldn't set experimenting station as broken! & \\ \hline
+\end{longtable}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Transporter}
 
@@ -877,7 +942,14 @@ Im Menü-Unterpunkt Probenverlust melden können Sie Proben als verloren melden.
 \end{center}
 \end{figure}
 
-
+\subsubsection{Fehler und Ursachen}
+\begin{longtable}[c]{|p{5cm}|p{10cm}|}
+\hline
+\multicolumn{1}{|c|}{\textbf{Hinweis}}                          & \multicolumn{1}{c|}{\textbf{Ursache}}                                                                                                                                                                                                               \\ \hline
+\endhead
+Failed to start transport job! & Der Transportauftrag, den Sie annehmen wollen, konnte nicht in der Datenbank gefunden werden. \\ \hline
+Failed to change state to Abgeliefert & Der Transportauftrag, dessen Status Sie ändern wollen, konnte nicht in der Datenbank gefunden werden.\\ \hline
+\end{longtable}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newpage
