@@ -73,6 +73,64 @@ public class TechnologeView implements Serializable {
     }
 
 
+    public int getAuslastung(int esID) {
+        ExperimentierStation e = null;
+        try {
+           e = experimentierStationService.getById(esID);
+        } catch (ExperimentierStationNotFoundException enf) {
+            log.error(enf.getLocalizedMessage());
+        }
+        int auslastung = 0;
+        assert  e != null;
+        List<ProzessSchritt> nextSteps = e.getNextPS();
+        for (ProzessSchritt ps:
+             nextSteps) {
+           String[] parts =   ps.getDuration().split(":");
+            auslastung += Integer.parseInt(parts[0]);
+        }
+        return auslastung;
+    }
+
+    public int getDauer(int psID) {
+        ProzessSchritt psLast = null;
+        int dauer = 0;
+        try {
+            psLast = prozessSchrittService.getObjById(psID);
+        } catch (ProzessSchrittNotFoundException e) {
+            e.printStackTrace();
+        }
+        List<ProzessSchritt> steps = auftragService.prevSteps(psLast);
+        for (ProzessSchritt ps :
+                steps) {
+            String[] parts =   ps.getDuration().split(":");
+            dauer += Integer.parseInt(parts[0]);
+        }
+        return dauer;
+    }
+
+    public int getAnzahlAuftraege(int esID) {
+        ExperimentierStation es = null;
+        try {
+           es = experimentierStationService.getById(esID);
+        } catch (ExperimentierStationNotFoundException e) {
+            e.printStackTrace();
+        }
+        assert es != null;
+        return es.getNextPS().size();
+    }
+
+    public int getProbenAnzahl(int esID) {
+        ExperimentierStation es = null;
+        try {
+            es = experimentierStationService.getById(esID);
+        } catch (ExperimentierStationNotFoundException e) {
+            e.printStackTrace();
+        }
+        return probeService.getProbenByStandort(es.getStandort()).size();
+    }
+
+
+
     /**
      * returns the experimentation stations this user is assigned to
      *

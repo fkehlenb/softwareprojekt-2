@@ -118,37 +118,37 @@ public class InitialDataFiller {
             }
 
             em.persist(erstelleStandartVorlage());
-//
-//            //       Experimentierstaation, requires Standort;
-//            for (ExperimentierStation s :
-//                    createDefaultStation()) {
-//                log.info("Trying to persist Station " + s.getName());
-//                em.persist(s);
-//            }
-//
-//            /*
-//              persis von QualitativeEigenschaft durch die Variebln qualitativeEigenschaftList
-//              */
-//            List<QualitativeEigenschaft> qualitativeEigenschaftList = getQualitativeEigenschaften();
-//            for (QualitativeEigenschaft qE : qualitativeEigenschaftList
-//            ) {
-//                log.info("Trying to Persist Qualitaet Eingenschaft " + qE.getName());
-//                em.persist(qE);
-//            }
-//
-//            em.persist(new QuantitativeEigenschaft("Lustige Eigenschaft", 420, "seconds"));
-//
-//            //    PS Parameter
-//            List<ProzessSchrittParameter> parameters = new ArrayList<>();
-//            for (int i = 0; i < limit; i++) {
-//                parameters.add(new ProzessSchrittParameter(UUID.randomUUID().hashCode(), f.gameOfThrones().dragon(), qualitativeEigenschaftList));
-//            }
-//
-//            for (ProzessSchrittParameter psp : parameters
-//            ) {
-//                log.info("Trying to persist ProzessSchrittParameter " + psp.getName());
-//                em.persist(psp);
-//            }
+
+            //       Experimentierstaation, requires Standort;
+            for (ExperimentierStation s :
+                    createDefaultStation()) {
+                log.info("Trying to persist Station " + s.getName());
+                em.persist(s);
+            }
+
+            /*
+              persis von QualitativeEigenschaft durch die Variebln qualitativeEigenschaftList
+              */
+            List<QualitativeEigenschaft> qualitativeEigenschaftList = getQualitativeEigenschaften();
+            for (QualitativeEigenschaft qE : qualitativeEigenschaftList
+            ) {
+                log.info("Trying to Persist Qualitaet Eingenschaft " + qE.getName());
+                em.persist(qE);
+            }
+
+            em.persist(new QuantitativeEigenschaft("Lustige Eigenschaft", 420, "seconds"));
+
+            //    PS Parameter
+            List<ProzessSchrittParameter> parameters = new ArrayList<>();
+            for (int i = 0; i < limit; i++) {
+                parameters.add(new ProzessSchrittParameter(UUID.randomUUID().hashCode(), f.gameOfThrones().dragon(), qualitativeEigenschaftList));
+            }
+
+            for (ProzessSchrittParameter psp : parameters
+            ) {
+                log.info("Trying to persist ProzessSchrittParameter " + psp.getName());
+                em.persist(psp);
+            }
 
             // PSZAV Setup
             pszaVorlage = new ProzessSchrittZustandsAutomatVorlage(996699,

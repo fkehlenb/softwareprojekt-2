@@ -27,6 +27,19 @@
                         koennen Sie dann verwenden um neue Prozessketten automatisiert zu erstellen, in dem Sie auf
                         die Auftragsverwaltungswebsite gehen. Um neue Prozessketten aus bestehenden Prozessschritten zu machen,
                         gehen Sie bitte auf die Auftragsverwaltungswebsite.</p>
+                    <h:form id="uploadForm">
+                        <p:column colspan="2">
+                            <p:inputText placeholder="#{msg['JSONUpload.jsf']}"
+                                         value="#{pkvView.json}" style="width: 100%"/>
+                        </p:column>
+                        <p:column>
+                            <p:commandButton
+                                    style="width: 7rem; background-color: red; border-color: red"
+                                    value="Upload PKV" ajax="true"
+                                    action="#{pkvView.fromJson}"
+                                    icon="pi pi-ban" update="uploadForm"/>
+                        </p:column>
+                    </h:form>
                 </p:row>
                 <p:row>
                     <p:panel id="pkv" header="Prozessketten Vorlage Erstellen"

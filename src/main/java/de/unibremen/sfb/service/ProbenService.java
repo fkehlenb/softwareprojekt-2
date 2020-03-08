@@ -74,7 +74,10 @@ public class ProbenService implements Serializable {
      * @return alle Proben die diese Eigenschaft besitzen
      */
     public List<Probe> getProbenByStandort(Standort s) {
-        return proben.stream()
+        List<Probe> akutelleProben = new ArrayList<>();
+        akutelleProben = getAll();
+        assert  !akutelleProben.isEmpty();
+        return akutelleProben.stream()
                 .filter(e -> e.getStandort().equals(s))
                 .collect(Collectors.toList());
     }

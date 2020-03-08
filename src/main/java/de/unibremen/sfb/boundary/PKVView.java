@@ -40,6 +40,9 @@ public class PKVView implements Serializable {
     /** Dual list containing source and target */
     private DualListModel<ProzessSchrittVorlage> psvs;
 
+
+    private String json;
+
     /** Process chain template service */
    @Inject
    private ProzessKettenVorlageService prozessKettenVorlageService;
@@ -57,6 +60,11 @@ public class PKVView implements Serializable {
     @PostConstruct
     public void init() {
         refresh();
+    }
+
+   public void fromJson() {
+        prozessKettenVorlageService.createPKVFromJSON(json);
+        facesNotification("Succesfully imported JSON");
     }
 
     /** Refresh lists */

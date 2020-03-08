@@ -58,7 +58,7 @@
                                          paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
                                          paginator="true" rows="50" style="margin-bottom:20px">
                                 <p:column headerText="Id">
-                                    <h:outputText value="#{ps.id}"/>
+                                    <h:outputText value="#{ps.name}: #{ps.id}"/>
                                 </p:column>
                                 <p:column headerText="Priorität">
                                     <h:outputText value="#{technologeView.getPriority(ps.id)}"/>
@@ -71,6 +71,9 @@
                                                      action="#{technologeView.setParameterschritt(ps)}"
                                                      update="bigForm:tablepspp"
                                                      oncomplete="PF('dlg2').show();"/>
+                                </p:column>
+                                <p:column headerText="Geschätzte Ankunft">
+                                    <h:outputText value="#{technologeView.getDauer(ps.id)} Stunden"/>
                                 </p:column>
                             </p:dataTable>
                         </p:panelGrid>
