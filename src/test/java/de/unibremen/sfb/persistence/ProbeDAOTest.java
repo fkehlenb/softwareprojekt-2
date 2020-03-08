@@ -27,10 +27,14 @@ class ProbeDAOTest {
     EntityManager em;
     @InjectMocks
     ProbeDAO probeDAO;
-
+    @Mock
+    Probe probe;
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
+        when(probe.getProbenID()).thenReturn("A22.222");
+        when(em.find(any(), any())).thenReturn(probe);
+        when(em.contains(probe)).thenReturn(true);
     }
 
     @Test
@@ -51,7 +55,7 @@ class ProbeDAOTest {
     @Test
     void testGet() {
         Class<Probe> result = probeDAO.get();
-        Assertions.assertEquals(null, result);
+        Assertions.assertEquals(Probe.class, result);
     }
 
     @Test

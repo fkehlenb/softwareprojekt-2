@@ -2,6 +2,7 @@ package de.unibremen.sfb.persistence;
 
 import de.unibremen.sfb.exception.DuplicateQuantitativeEigenschaftException;
 import de.unibremen.sfb.exception.QuantitativeEingenschaftNotFoundException;
+import de.unibremen.sfb.model.QualitativeEigenschaft;
 import de.unibremen.sfb.model.QuantitativeEigenschaft;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,10 +22,12 @@ class QuantitativeEigenschaftDAOTest {
     EntityManager em;
     @InjectMocks
     QuantitativeEigenschaftDAO quantitativeEigenschaftDAO;
-
+    @Mock
+    QualitativeEigenschaft qualitativeEigenschaft;
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
+
     }
 
     @Test
@@ -34,11 +37,17 @@ class QuantitativeEigenschaftDAOTest {
 
     @Test
     void testUpdate() throws QuantitativeEingenschaftNotFoundException {
+        when(qualitativeEigenschaft.getId()).thenReturn(1);
+        when(em.find(any(), any())).thenReturn(qualitativeEigenschaft);
+        when(em.contains(qualitativeEigenschaft)).thenReturn(true);
         quantitativeEigenschaftDAO.update(new QuantitativeEigenschaft(0, "name"));
     }
 
     @Test
     void testRemove() throws QuantitativeEingenschaftNotFoundException {
+        when(qualitativeEigenschaft.getId()).thenReturn(1);
+        when(em.find(any(), any())).thenReturn(qualitativeEigenschaft);
+        when(em.contains(qualitativeEigenschaft)).thenReturn(true);
         quantitativeEigenschaftDAO.remove(new QuantitativeEigenschaft(0, "name"));
     }
 
@@ -57,7 +66,7 @@ class QuantitativeEigenschaftDAOTest {
     @Test
     void testGet() {
         Class<QuantitativeEigenschaft> result = quantitativeEigenschaftDAO.get();
-        Assertions.assertEquals(null, result);
+        Assertions.assertEquals(QuantitativeEigenschaft.class, result);
     }
 }
 

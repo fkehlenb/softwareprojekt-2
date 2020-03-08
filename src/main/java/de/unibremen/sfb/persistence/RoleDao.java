@@ -63,6 +63,7 @@ public class RoleDao extends ObjectDAO<Role> {
             if (!em.contains(em.find(get(), b.getId()))) {
                 throw new RoleNotFoundException();
             }
+
             b.setValidData(false);
             update(b);
         }

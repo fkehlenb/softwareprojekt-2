@@ -22,10 +22,12 @@ class ProzessSchrittParameterDAOTest {
     EntityManager em;
     @InjectMocks
     ProzessSchrittParameterDAO prozessSchrittParameterDAO;
-
+    @Mock
+    ProzessSchrittParameter prozessSchrittParameter;
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
+
     }
 
     @Test
@@ -35,18 +37,24 @@ class ProzessSchrittParameterDAOTest {
 
     @Test
     void testUpdate() throws ProzessSchrittParameterNotFoundException {
+        when(prozessSchrittParameter.getId()).thenReturn(1);
+        when(em.find(any(), any())).thenReturn(prozessSchrittParameter);
+        when(em.contains(prozessSchrittParameter)).thenReturn(true);
         prozessSchrittParameterDAO.update(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name"))));
     }
 
     @Test
     void testRemove() throws ProzessSchrittParameterNotFoundException {
+        when(prozessSchrittParameter.getId()).thenReturn(1);
+        when(em.find(any(), any())).thenReturn(prozessSchrittParameter);
+        when(em.contains(prozessSchrittParameter)).thenReturn(true);
         prozessSchrittParameterDAO.remove(new ProzessSchrittParameter(0, "name", Arrays.<QualitativeEigenschaft>asList(new QualitativeEigenschaft(0, "name"))));
     }
 
     @Test
     void testGet() {
         Class<ProzessSchrittParameter> result = prozessSchrittParameterDAO.get();
-        Assertions.assertEquals(null, result);
+        Assertions.assertEquals(ProzessSchrittParameter.class, result);
     }
 
     @Test

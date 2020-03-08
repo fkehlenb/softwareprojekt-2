@@ -26,10 +26,12 @@ class UserDAOTest {
     EntityManager em;
     @InjectMocks
     UserDAO userDAO;
-
+    @Mock
+    User user;
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
+
     }
 
     @Test
@@ -39,18 +41,24 @@ class UserDAOTest {
 
     @Test
     void testUpdate() throws UserNotFoundException {
+        when(user.getId()).thenReturn(1);
+        when(em.find(any(), any())).thenReturn(user);
+        when(em.contains(user)).thenReturn(true);
         userDAO.update(new User(0, "vorname", "nachname", "email", "telefonnummer", "username", "password", true, LocalDateTime.of(2020, Month.MARCH, 5, 16, 53, 45), "language"));
     }
 
     @Test
     void testRemove() throws UserNotFoundException {
+        when(user.getId()).thenReturn(1);
+        when(em.find(any(), any())).thenReturn(user);
+        when(em.contains(user)).thenReturn(true);
         userDAO.remove(new User(0, "vorname", "nachname", "email", "telefonnummer", "username", "password", true, LocalDateTime.of(2020, Month.MARCH, 5, 16, 53, 45), "language"));
     }
 
     @Test
     void testGet() {
         Class<User> result = userDAO.get();
-        Assertions.assertEquals(null, result);
+        Assertions.assertEquals(User.class, result);
     }
 
     @Test

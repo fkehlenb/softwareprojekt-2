@@ -24,13 +24,14 @@ class TraegerDAOTest {
     EntityManager em;
     @InjectMocks
     TraegerDAO traegerDAO;
-
+    @Mock
+    Traeger traeger;
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
+
     }
-    @Mock
-    Traeger traeger;
+
     @Test
     void testPersist() throws DuplicateTraegerException {
         traegerDAO.persist(traeger);
@@ -45,7 +46,7 @@ class TraegerDAOTest {
     @Test
     void testGet() {
         Class<Traeger> result = traegerDAO.get();
-        Assertions.assertEquals(null, result);
+        Assertions.assertEquals(Traeger.class, result);
     }
 
     @Test

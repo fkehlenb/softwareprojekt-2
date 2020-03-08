@@ -24,10 +24,12 @@ class StandortDAOTest {
     EntityManager em;
     @InjectMocks
     StandortDAO standortDAO;
-
+    @Mock
+    Standort standort;
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
+
     }
 
     @Test
@@ -37,18 +39,24 @@ class StandortDAOTest {
 
     @Test
     void testUpdate() throws StandortNotFoundException {
+        when(standort.getId()).thenReturn(1);
+        when(em.find(any(), any())).thenReturn(standort);
+        when(em.contains(standort)).thenReturn(true);
         standortDAO.update(new Standort(0, "ort"));
     }
 
     @Test
     void testRemove() throws StandortNotFoundException {
+        when(standort.getId()).thenReturn(1);
+        when(em.find(any(), any())).thenReturn(standort);
+        when(em.contains(standort)).thenReturn(true);
         standortDAO.remove(new Standort(0, "ort"));
     }
 
     @Test
     void testGet() {
         Class<Standort> result = standortDAO.get();
-        Assertions.assertEquals(null, result);
+        Assertions.assertEquals(Standort.class, result);
     }
 
     @Test
