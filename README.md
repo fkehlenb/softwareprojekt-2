@@ -79,19 +79,19 @@
     <li>Zuordnung von Experimentierstation</li>
     <li>Setzen von Attributen wie "einfärbend", Präparationsart</li>
 </ul>
-</li>
+</li>Lian
     <li>Löschen bestehender Prozessschritte</li>
     <li>Bearbeiten von "nicht gestarteten" Prozessschritten</li>
     <li>Hervorhebung der Prozessschritte, die im Zustand auf kaputt gesetzt sind</li>
     </strike>
 </ul>
-</li>
+</li>Liam
     <strike><li>Übersicht über dynamische Abläufe (<strong>O«Dynamische Zustandsautomaten»</strong>)<ul>
     <li>Anlegen von Zustandsautomaten</li>
     <li>Löschen von Zustandsautomaten</li>
     <li>Bearbeiten von unbenutzten Zustandsautomaten</li></strike>
 </ul>
-</li>
+</li>Liam
     <li><strike>Übersicht über alle Prozessketten<ul>
     <li>Anlegen von neuen Prozessketten aus bestehenden Prozessschritten</li>
     <li>Löschen von bestehenden Prozessketten</li>
@@ -217,7 +217,7 @@ Ansonsten gibt es entsprechend weniger Punkte.</p>
 <p><strong>O«Dynamische Zustandsautomaten» (15P)</strong> Anstelle der vorkonfigurierten
 Zustandsautomaten für die Prozessschritte möchte der Kunde die Möglichkeit haben
 diese selber zu konfigurieren. Die Zustandsautomaten sind einfacher linearer
-Natur und bieten keine Verzweigungen.</p>
+Natur und bieten keine Verzweigungen.</p> Liam
 <p><strong>O«Lagerverwalter» (10P)</strong> Übersicht über die im Lager vorhandenen Proben,
 gruppiert nach einstellbaren Proben-ID-Mustern oder Probenattributen, und
 Hervorhebung von Gruppen, die unter einen konfigurierbaren Schwellenwert fallen.</p>
@@ -225,9 +225,9 @@ Hervorhebung von Gruppen, die unter einen konfigurierbaren Schwellenwert fallen.
 von Trägern zuständig. Dafür benötigt er einen eigenen Zustandsautomaten und eine
 entsprechende Ansicht, wo er sehen kann, wo er welche Träger abholen muss.</p>
 <p><strong>O«Parameter.Import» (5P)</strong> Beim Anlegen von Aufträgen sollen die Prozessketten-
-und Prozessschrittparameter mit Hilfe einer JSON-Datei importiert werden können.</p>
+und Prozessschrittparameter mit Hilfe einer JSON-Datei importiert werden können. Liam</p>
 <p><strong>O«Parameter.Export» (5P)</strong> Ein Technologe soll die Parameter seines Prozessschrittes
-nach JSON exportieren und runterladen können.</p>
+nach JSON exportieren und runterladen können.Liam </p>
 <p><strong>O«Sprache» (5P)</strong> Die Sprache der GUI kann von jedem Nutzer individuell eingestellt
 werden. Erforderliche Sprachen hierfür sind englisch und deutsch.</p>
 <p><strong>O«UI.Ankündigung» (10P)</strong> Der Technologe bekommt eine Übersicht der Aufträge
@@ -251,7 +251,7 @@ Proben von abgeschlossenen Arbeitsaufträge anzeigt. Implementieren Sie zudem ei
 auf HTTP-basierende REST-Schnittstelle, die es erlaubt, den Daten-Upload der
 einzelnen Experimente für Proben zu vermerken, so dass diese dann aus der Übersicht
 der Technologen entfernt werden.</p>
-<p><strong>O«UI.Auslastung» (15P)</strong> Der Prozesskettenplaner wünscht eine Übersicht über
+<p><strong>O«UI.Auslastung» (15P)</strong> Liam Der Prozesskettenplaner wünscht eine Übersicht über
 die Auslastung der verschiedenen Experimentierstationen. Von Interesse sind die
 Anzahl der Aufträge/Proben und die darauf basierende geschätzte Gesamtdauer.</p>
 <h4 id="technische-anforderungen">Technische Anforderungen</h4>
