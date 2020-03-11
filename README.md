@@ -30,17 +30,17 @@
 <h5 id="administrator">Administrator</h5>
 <strike>
 <ul>
-    <li>Übersicht über alle existierenden Nutzer
+    <li>(Kevin Santiago Rey Rodriguez)Übersicht über alle existierenden Nutzer
         <ul>
-            <li>Anlegen neuer Nutzer<ul>
+            <li>(Kevin Santiago Rey Rodriguez)Anlegen neuer Nutzer<ul>
             <li>Neue Nutzer werden per Mail über ihren Account informiert.</li>
         </ul>
     </li>
     <li>
-        <strike>Löschen bestehender Nutzer</strike>
+        <strike>(Kevin Santiago Rey Rodriguez)Löschen bestehender Nutzer</strike>
     </li>
     <li>
-        <strike>Bearbeiten bestehender Nutzer</strike>
+        <strike>(Kevin Santiago Rey Rodriguez)Bearbeiten bestehender Nutzer</strike>
     </li>
 </ul>
 </strike>
@@ -75,7 +75,7 @@
     <li>Auswahl von vordefinierten Abläufen (Zustandsautomat)</li>
     <li>Auswahl von dyn. Abläufen (<strong>O«Dynamische Zustandsautomaten»</strong>)</li>
     <li>Eingabe von voraussichtlicher Prozessschrittdauer</li>
-    <li>Definition von Prozessschrittparametern (Name, Einheit)</li>
+    <li>(Kevin Santiago Rey Rodriguez)Definition von Prozessschrittparametern (Name, Einheit)</li>
     <li>Zuordnung von Experimentierstation</li>
     <li>Setzen von Attributen wie "einfärbend", Präparationsart</li>
 </ul>
