@@ -1,0 +1,18 @@
+#+TITLE: Presentation SFB-Farbig
+#+AUTHOR: DataColorado
+
+* Willkommen zur Präsentation
+* Präsentation der Software
+* Reflektion
+* Team Kommunikation
+*** Wahl der Kommunikationsplattform
+
+* Lessons Learned
+*** Löschen ist essentiell
+*** Frame Works vor Implementierung
+Nicht eigene Implementierung sondern das Framework sollte das vorgehen im Front End bestimmten
+*** Primefaces for the WIN
+
+
+* Aufwände über die einzelnen Projektphasen
+* Statistiken
